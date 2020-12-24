@@ -7,45 +7,45 @@ end
 
 Init_attr() 
 SetChaAttrMax( ATTR_LV		,	10000			)	-- Уровень персонажа
-SetChaAttrMax( ATTR_HP		,	4200000000		)	-- Макс. ХП
-SetChaAttrMax( ATTR_SP		,	4200000000		)	-- Макс. МН
+SetChaAttrMax( ATTR_HP		,	2000000000		)	-- Макс. ХП
+SetChaAttrMax( ATTR_SP		,	2000000000		)	-- Макс. МН
 SetChaAttrMax( ATTR_JOB		,	100				)	-- Макс. профессии
-SetChaAttrMax( ATTR_CEXP	,	4200000000		)	-- 
-SetChaAttrMax( ATTR_NLEXP	,	4200000000		)	
+SetChaAttrMax( ATTR_CEXP	,	2000000000		)	-- 
+SetChaAttrMax( ATTR_NLEXP	,	2000000000		)	
 SetChaAttrMax( ATTR_AP		,	50000			)	
-SetChaAttrMax( ATTR_TP		,	4200000000		)	
-SetChaAttrMax( ATTR_GD		,	4200000000		)	-- Макс. золота
-SetChaAttrMax( ATTR_CLEXP	,	4200000000		)	
-SetChaAttrMax( ATTR_MXHP	,	4200000000		)	
-SetChaAttrMax( ATTR_MXSP	,	4200000000		)	
-SetChaAttrMax( ATTR_BSTR	,	4200000000		)	-- Max STR Possible
-SetChaAttrMax( ATTR_BDEX	,	4200000000		)	-- Max ACC Possible
-SetChaAttrMax( ATTR_BAGI	,	4200000000		)	-- Max AGI Possible
-SetChaAttrMax( ATTR_BCON	,	4200000000		)	-- Max CON Possible
-SetChaAttrMax( ATTR_BSTA	,	4200000000		)	-- Max SPR Possible
+SetChaAttrMax( ATTR_TP		,	2000000000		)	
+SetChaAttrMax( ATTR_GD		,	2000000000		)	-- Макс. золота
+SetChaAttrMax( ATTR_CLEXP	,	2000000000		)	
+SetChaAttrMax( ATTR_MXHP	,	2000000000		)	
+SetChaAttrMax( ATTR_MXSP	,	2000000000		)	
+SetChaAttrMax( ATTR_BSTR	,	2000000000		)	-- Max STR Possible
+SetChaAttrMax( ATTR_BDEX	,	2000000000		)	-- Max ACC Possible
+SetChaAttrMax( ATTR_BAGI	,	2000000000		)	-- Max AGI Possible
+SetChaAttrMax( ATTR_BCON	,	2000000000		)	-- Max CON Possible
+SetChaAttrMax( ATTR_BSTA	,	2000000000		)	-- Max SPR Possible
 SetChaAttrMax( ATTR_BLUK	,	150				)	-- Max LUK Possible
-SetChaAttrMax( ATTR_BMXHP	,	4200000000		)	--        
-SetChaAttrMax( ATTR_BMXSP	,	4200000000		)	--        
-SetChaAttrMax( ATTR_BMNATK	,	4200000000		)	--    
-SetChaAttrMax( ATTR_BMXATK	,	4200000000		)	--    
-SetChaAttrMax( ATTR_BDEF	,	4200000000		)	--        
-SetChaAttrMax( ATTR_BHIT	,	4200000000		)	--        
-SetChaAttrMax( ATTR_BFLEE	,	4200000000		)	--        
-SetChaAttrMax( ATTR_BMF		,	4200000000		)	--        
-SetChaAttrMax( ATTR_BCRT	,	4200000000		)	--        
-SetChaAttrMax( ATTR_BHREC	,	4200000000		)	--   
-SetChaAttrMax( ATTR_BSREC	,	4200000000		)	--    
-SetChaAttrMax( ATTR_BASPD	,	4200000000		)	--      
-SetChaAttrMax( ATTR_BADIS	,	4200000000		)	--      
-SetChaAttrMax( ATTR_BMSPD	,	4200000000		)	--      
-SetChaAttrMax( ATTR_BCOL	,	4200000000		)	--  
-SetChaAttrMax( ATTR_MSPD	,	4200000000		)	-- 
-SetChaAttrMax( ATTR_LHAND_ITEMV	,	4200000000	)	-- 
-SetChaAttrMax( ATTR_BOAT_SHIP	,	4200000000		)	-- 
-SetChaAttrMax( ATTR_BOAT_HEADER	,	4200000000		)	-- 
-SetChaAttrMax( ATTR_BOAT_BODY	,	4200000000		)	-- 
-SetChaAttrMax( ATTR_BOAT_ENGINE	,	4200000000		)	-- 
-SetChaAttrMax( ATTR_BOAT_CANNON	,	4200000000		)	-- 
-SetChaAttrMax( ATTR_BOAT_PART	,	4200000000		)	-- 
-SetChaAttrMax( ATTR_BOAT_BERTH	,	4200000000		)	-- 
-SetChaAttrMax( ATTR_BOAT_DBID	,	4200000000	)	-- 
+SetChaAttrMax( ATTR_BMXHP	,	2000000000		)	--        
+SetChaAttrMax( ATTR_BMXSP	,	2000000000		)	--        
+SetChaAttrMax( ATTR_BMNATK	,	2000000000		)	--    
+SetChaAttrMax( ATTR_BMXATK	,	2000000000		)	--    
+SetChaAttrMax( ATTR_BDEF	,	2000000000		)	--        
+SetChaAttrMax( ATTR_BHIT	,	2000000000		)	--        
+SetChaAttrMax( ATTR_BFLEE	,	2000000000		)	--        
+SetChaAttrMax( ATTR_BMF		,	2000000000		)	--        
+SetChaAttrMax( ATTR_BCRT	,	2000000000		)	--        
+SetChaAttrMax( ATTR_BHREC	,	2000000000		)	--   
+SetChaAttrMax( ATTR_BSREC	,	2000000000		)	--    
+SetChaAttrMax( ATTR_BASPD	,	2000000000		)	--      
+SetChaAttrMax( ATTR_BADIS	,	2000000000		)	--      
+SetChaAttrMax( ATTR_BMSPD	,	2000000000		)	--      
+SetChaAttrMax( ATTR_BCOL	,	2000000000		)	--  
+SetChaAttrMax( ATTR_MSPD	,	2000000000		)	-- 
+SetChaAttrMax( ATTR_LHAND_ITEMV	,	2000000000	)	-- 
+SetChaAttrMax( ATTR_BOAT_SHIP	,	2000000000		)	-- 
+SetChaAttrMax( ATTR_BOAT_HEADER	,	2000000000		)	-- 
+SetChaAttrMax( ATTR_BOAT_BODY	,	2000000000		)	-- 
+SetChaAttrMax( ATTR_BOAT_ENGINE	,	2000000000		)	-- 
+SetChaAttrMax( ATTR_BOAT_CANNON	,	2000000000		)	-- 
+SetChaAttrMax( ATTR_BOAT_PART	,	2000000000		)	-- 
+SetChaAttrMax( ATTR_BOAT_BERTH	,	2000000000		)	-- 
+SetChaAttrMax( ATTR_BOAT_DBID	,	2000000000	)	-- 
