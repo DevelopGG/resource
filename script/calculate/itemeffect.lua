@@ -26839,7 +26839,7 @@ function ItemUse_newbie(role, Item)
 		--Рюкзак 28 ячеек
 		GiveItem ( role , 0 , 3088 , 1 , 4 )
 		--Добавляем 150к золота
-		AddMoney ( role , 0 , 50000 )
+		AddMoney ( role , 0 , 60000 )
 	end
 end
 -------------------------
