@@ -5119,6 +5119,31 @@ function cha_timer( role, freq, time )
 	Cloak.ApplyEffect(role)
 	VIPSystem.ApplyEffect(role)
 	UseAutoFruit(role) 
+	----------------
+	-- Test Medal --
+	----------------
+	local get_medal_slot = GetChaItem ( role , 2 , 5 )
+	local get_medal_id = GetItemID ( get_medal_slot )
+	local State_LV_Medal = 0
+	if get_medal_id == 8154 then
+		--§¦§ã§Ý§Ú §Þ§Ö§Õ§Ñ§Ý§î §ß§à§Ó§Ú§é§Ü§Ñ, §ä§à §å§â§à§Ó§Ö§ß§î 1
+		State_LV_Medal = 1
+		--§£§â§Ö§Þ§ñ §é§Ñ§ã, §Ó§ã§Ö §â§Ñ§Ó§ß§à §à§Ò§ß§à§Ó§Ý§ñ§ä§ã§ñ §Ò§å§Õ§Ö§ä
+		local statetime = 3600
+		--§¥§à§Ò§Ñ§Ó§Ý§ñ§Ö§Þ §ï§æ§æ§Ö§Ü§ä
+			AddState( role , role , MEDAL_STATE , State_LV_Medal , statetime )
+	else
+		--§ª§ß§Ñ§é§Ö §é§Ö§Ü§Ñ§Ö§Þ §ã§ä§Ñ§ä
+		local state_guardian = GetChaStateLv ( role , MEDAL_STATE )
+		--§¦§ã§Ý§Ú §à§ß §ß§Ö §â§Ñ§Ó§Ö§ß 0, §ä§à...
+		if state_guardian ~= 0 then
+		--§µ§Ò§Ú§â§Ñ§Ö§Þ §ï§æ§æ§Ö§Ü§ä
+			RemoveState ( role , MEDAL_STATE )
+		end
+	end
+	---------------
+	-- End Medal --
+	---------------
 	--tempBagEquip.Check(role, now_tick)
 	----------------------------------
 	-- §°§ã§Ñ§Õ§Ñ §®§à§ã§Ü§Ó§í §á§à §Ó§à§ã§Ü§â§Ö§ã§Ö§ß§î§ñ§Þ --

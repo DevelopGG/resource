@@ -190,6 +190,7 @@
 195	Bean Paste Dumpling	-1	0	State_DSZ_Add	State_DSZ_Rem	1	0	1	1	1	1	1	1	1	1	1	1	1	1	0	0	0	-1	0	0	0	0	-1	0	0	0	0	0	0	0
 196	Double Study experience	-1	0	0	0	1	0	1	1	1	1	1	1	1	1	1	1	1	1	0	0	0	-1	0	0	0	0	-1	0	0	0	0	0	0	0
 197	Удвоенное золото	-1	0	0	0	1	0	1	1	1	1	1	1	1	1	1	1	1	1	0	0	0	-1	0	0	0	0	-1	0	0	0	0	0	0	0
+198	Медаль	-1	0	State_Medal_Add	State_Medal_Rem	3	0	1	1	1	1	1	1	1	1	1	1	1	1	0	0	0	-1	0	0	0	574	2	0	0	0	0	0	0	0
 200	Кольцр Быка 85BB	-1	0	State_BBRING1_Add	State_BBRING1_Rem	3	0	1	1	1	1	1	1	1	1	1	1	1	1	0	0	0	-1	0	0	0	574	2	0	0	0	0	0	0	0
 201	Двойное Кольцо 85BB	-1	0	State_BBRING2_Add	State_BBRING2_Rem	3	0	1	1	1	1	1	1	1	1	1	1	1	1	0	0	0	-1	0	0	0	576	2	0	0	0	0	0	0	0
 202	Кольцо Охотника 85BB	-1	0	State_BBRING3_Add	State_BBRING3_Rem	3	0	1	1	1	1	1	1	1	1	1	1	1	1	0	0	0	-1	0	0	0	575	2	0	0	0	0	0	0	0

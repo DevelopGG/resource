@@ -18361,3 +18361,25 @@ function Skill_BlackYqc_End ( ATKER, DEFER, sklv )
 	dmg_fin = ( dmg_fin + dmg_ElfSkill )
 	Hp_Endure_Dmg( DEFER, dmg_fin*2 ) 
 end
+
+------------
+-- Медали --
+------------
+function State_Medal_Add(role, statelv )
+	if statelv == 1 then
+		local mxhp = (GetChaAttr( role , ATTR_MXHP))*0.02
+		SetCharaStatev(mxhp, role, ATTR_STATEV_MXHP, "STATE_MEDAL")
+	end
+	ALLExAttrSet(role)  
+end
+
+
+function State_Medal_Rem(role, statelv )
+	if statelv == 1 then
+		RemCharaStatev(0, role, ATTR_STATEV_MXHP, "STATE_MEDAL")
+	end
+	ALLExAttrSet(role)  
+end
+-------------------
+-- Конец медалей --
+-------------------
