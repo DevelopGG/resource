@@ -5126,10 +5126,9 @@ function cha_timer( role, freq, time )
 	local get_medal_id = GetItemID ( get_medal_slot )
 	local State_LV_Medal = 0
 	if get_medal_id == 8154 then
-		--§¦§ã§Ý§Ú §Þ§Ö§Õ§Ñ§Ý§î §ß§à§Ó§Ú§é§Ü§Ñ, §ä§à §å§â§à§Ó§Ö§ß§î 1
-		State_LV_Medal = 1
 		--§£§â§Ö§Þ§ñ §é§Ñ§ã, §Ó§ã§Ö §â§Ñ§Ó§ß§à §à§Ò§ß§à§Ó§Ý§ñ§ä§ã§ñ §Ò§å§Õ§Ö§ä
 		local statetime = 3600
+		local State_LV_Medal = 1
 		--§¥§à§Ò§Ñ§Ó§Ý§ñ§Ö§Þ §ï§æ§æ§Ö§Ü§ä
 			AddState( role , role , MEDAL_STATE , State_LV_Medal , statetime )
 	else

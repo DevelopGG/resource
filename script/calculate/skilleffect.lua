@@ -18365,21 +18365,20 @@ end
 ------------
 -- Медали --
 ------------
-function State_Medal_Add(role, statelv )
-	if statelv == 1 then
-		local mxhp = (GetChaAttr( role , ATTR_MXHP))*0.02
-		SetCharaStatev(mxhp, role, ATTR_STATEV_MXHP, "STATE_MEDAL")
+function State_Medal_Add ( role , statelv )
+	local get_medal_slot = GetChaItem ( role , 2 , 5 )
+	local get_medal_id = GetItemID ( get_medal_slot )
+	if get_medal_id == 8154 then
+		local MaxHP = GetChaAttr(role, ATTR_MXHP)
+		local NewMaxHP = MaxHP * 0.02
+		SetCharaStatev(NewMaxHP, role, ATTR_STATEV_MXHP, "STATE_MEDAL")			
+		ALLExAttrSet(role)	
+	else 
+		
 	end
-	ALLExAttrSet(role)  
-end
+end 
 
-
-function State_Medal_Rem(role, statelv )
-	if statelv == 1 then
-		RemCharaStatev(0, role, ATTR_STATEV_MXHP, "STATE_MEDAL")
-	end
-	ALLExAttrSet(role)  
+function State_Medal_Rem ( role , statelv )
+	RemCharaStatev(0, role, ATTR_STATEV_MXHP, "STATE_MEDAL")
+	ALLExAttrSet(role)
 end
--------------------
--- Конец медалей --
--------------------
