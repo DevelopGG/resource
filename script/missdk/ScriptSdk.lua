@@ -1,11 +1,9 @@
---------------------------------------------------------------------------
---									--
---									--
---				ScriptSdk.lua 				--
---									--
---定义简化策划书写任务和npc对话脚本的函数接口				--
---------------------------------------------------------------------------
-print( "Loading ScriptSdk.lua" )
+-----------------------------------------------------------
+--ScriptSdk.lua Created by knight 2005.1.14.
+--
+--定义简化策划书写任务和npc对话脚本的函数接口
+print( "loading scriptsdk.lua" )
+------------------------------------------------------------
 
 --脚本系统全局变量
 
@@ -16,6 +14,7 @@ FuncList  = {}
 Trade     = {}				--npc交易信息全局变量定义
 Goods	 = {}				--npc货物交易信息全局变量定义
 Mission    = {}				--所有任务信息保存全局变量定义
+MissionSid    = {}				--MISSION misid 对应的 MISSION id
 MisLogList = {}			--所有任务日志信息保存全局变量定义
 TriggerList = {}			--所有全局触发器信息保存全局变量定义
 NpcMissionList  = {}		--npc携带任务信息全局变量定义
@@ -255,6 +254,7 @@ function AddBoatLevel( level, money, exp )
 	BoatLevelList[level] = {}
 	BoatLevelList[level].money = money
 	BoatLevelList[level].exp = exp	
+	LG( "boatlevel_init", "AddBoatLevel: count, level, money, exp", BoatLevelList.count, level, money, exp )
 end
 
 --初始化地图列表信息
@@ -278,18 +278,29 @@ function AddMap( idname, str )
 	MapList.count = MapList.count + 1
 	MapList.idname[MapList.count] = idname
 	MapList.mapname[MapList.count] = str
-	PRINT( "Set map ["..MapList.mapname[MapList.count].."], IDNAME = "..MapList.idname[MapList.count].."ID = "..MapList.count )
+	MISSDK_SCRIPTSDK_LUA_000001 = GetResString("MISSDK_SCRIPTSDK_LUA_000001")
+	MISSDK_SCRIPTSDK_LUA_000002 = GetResString("MISSDK_SCRIPTSDK_LUA_000002")
+	LG( "mission", MISSDK_SCRIPTSDK_LUA_000002..MapList.mapname[MapList.count]..MISSDK_SCRIPTSDK_LUA_000001..MapList.idname[MapList.count].."ID = "..MapList.count )
+	MISSDK_SCRIPTSDK_LUA_000001 = GetResString("MISSDK_SCRIPTSDK_LUA_000001")
+	MISSDK_SCRIPTSDK_LUA_000002 = GetResString("MISSDK_SCRIPTSDK_LUA_000002")
+	PRINT( MISSDK_SCRIPTSDK_LUA_000002..MapList.mapname[MapList.count]..MISSDK_SCRIPTSDK_LUA_000001..MapList.idname[MapList.count].."ID = "..MapList.count )
 	
 	local ret = SetMap( MapList.idname[MapList.count], MapList.count )
 	if ret == LUA_FALSE then
-		PRINT( "Set map notice failed ["..MapList.mapname[MapList.count].."], IDNAME = "..MapList.idname[MapList.count].."ID = "..MapList.count )
+		MISSDK_SCRIPTSDK_LUA_000001 = GetResString("MISSDK_SCRIPTSDK_LUA_000001")
+		MISSDK_SCRIPTSDK_LUA_000003 = GetResString("MISSDK_SCRIPTSDK_LUA_000003")
+		LG( "mission", MISSDK_SCRIPTSDK_LUA_000003..MapList.mapname[MapList.count]..MISSDK_SCRIPTSDK_LUA_000001..MapList.idname[MapList.count].."ID = "..MapList.count )
+		MISSDK_SCRIPTSDK_LUA_000001 = GetResString("MISSDK_SCRIPTSDK_LUA_000001")
+		MISSDK_SCRIPTSDK_LUA_000003 = GetResString("MISSDK_SCRIPTSDK_LUA_000003")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000003..MapList.mapname[MapList.count]..MISSDK_SCRIPTSDK_LUA_000001..MapList.idname[MapList.count].."ID = "..MapList.count )
 	end
 end
 
 --获得指定ID的地图名称
 function GetMap( mapid )
 	if mapid > MapList.count or MapList.mapname[mapid] == nil then
-		return "Unknown map name"
+		MISSDK_SCRIPTSDK_LUA_000004 = GetResString("MISSDK_SCRIPTSDK_LUA_000004")
+		return MISSDK_SCRIPTSDK_LUA_000004
 	end
 	
 	return MapList.mapname[mapid]
@@ -419,8 +430,11 @@ function ResetNpcInfo( npc, name )
 	InitTrade()
 	InitNpcMission()
 	NpcPointer = npc
-	local str = "Initialization NPC ["..name.."] script notice successful!"
+	MISSDK_SCRIPTSDK_LUA_000005 = GetResString("MISSDK_SCRIPTSDK_LUA_000005")
+	MISSDK_SCRIPTSDK_LUA_000006 = GetResString("MISSDK_SCRIPTSDK_LUA_000006")
+	local str = MISSDK_SCRIPTSDK_LUA_000006..name..MISSDK_SCRIPTSDK_LUA_000005
 	PRINT( str )
+	LG( "npcinit", str )
 end
 
 --获取npc对话信息和交易信息ID
@@ -432,13 +446,21 @@ function GetNpcInfo( npc, name )
 	NpcInfoList[NpcInfoList.count].eXchange = ExchangeX
 	NpcInfoList[NpcInfoList.count].missionlist = NpcMissionList
 	SetNpcScriptID( npc, NpcInfoList.count )
+	
+	NpcInfoList[NpcInfoList.count].Npc = npc;
+	NpcInfoList[NpcInfoList.count].Name = name;
 	if NpcMissionList.count > 0 then
+		MISSDK_SCRIPTSDK_LUA_000007 = GetResString("MISSDK_SCRIPTSDK_LUA_000007")
+		LG( "mission", MISSDK_SCRIPTSDK_LUA_000007 )
 		SetNpcHasMission( npc, 1 )
 	end
 	NpcPointer = LUA_NULL
 	
-	local str = "Obtain NPC ["..name.."] script data notice, ID = "..NpcInfoList.count
+	MISSDK_SCRIPTSDK_LUA_000008 = GetResString("MISSDK_SCRIPTSDK_LUA_000008")
+	MISSDK_SCRIPTSDK_LUA_000009 = GetResString("MISSDK_SCRIPTSDK_LUA_000009")
+	local str = MISSDK_SCRIPTSDK_LUA_000009..name..MISSDK_SCRIPTSDK_LUA_000008..NpcInfoList.count
 	PRINT( str )
+	LG( "npcinit", str )
 end
 
 --动态修改npc脚本信息
@@ -451,29 +473,37 @@ function ModifyNpcInfo( npc, name, id )
 	NpcInfoList[id].eXchange = ExchangeX
 	NpcInfoList[id].missionlist = NpcMissionList
 	
-	PRINT( "set npcscript  notice ID = ", id )
+	MISSDK_SCRIPTSDK_LUA_000010 = GetResString("MISSDK_SCRIPTSDK_LUA_000010")
+	PRINT( MISSDK_SCRIPTSDK_LUA_000010, id )
 	--SetNpcScriptID( npc, id )
 	if NpcMissionList.count > 0 then
-		PRINT( "mission", "Set NPC bring quest label!" )
+		MISSDK_SCRIPTSDK_LUA_000007 = GetResString("MISSDK_SCRIPTSDK_LUA_000007")
+		PRINT( "mission", MISSDK_SCRIPTSDK_LUA_000007 )
 		SetNpcHasMission( npc, 1 )
 	else
-		PRINT( "mission", "set NPC does not carry quest label !" )
+		MISSDK_SCRIPTSDK_LUA_000011 = GetResString("MISSDK_SCRIPTSDK_LUA_000011")
+		PRINT( "mission", MISSDK_SCRIPTSDK_LUA_000011 )
 		SetNpcHasMission( npc, 0 )
 	end
 	
 	NpcPointer = LUA_NULL
 	
-	local str = "修改NPC《"..name.."] script data notice, ID = "..id
+	MISSDK_SCRIPTSDK_LUA_000008 = GetResString("MISSDK_SCRIPTSDK_LUA_000008")
+	MISSDK_SCRIPTSDK_LUA_000012 = GetResString("MISSDK_SCRIPTSDK_LUA_000012")
+	local str = MISSDK_SCRIPTSDK_LUA_000012..name..MISSDK_SCRIPTSDK_LUA_000008..id
 	PRINT( str )
+	LG( "npcinit", str )
 end
 
 -- npc消息处理函数
 function NpcProc( character, npc, rpk, id )
 	PRINT( "NpcProc:character, npc, rpk, id",  character, npc, rpk, id )
 	if NpcInfoList[id] == nil then
-		PRINT( "unable to obtain NPC script notice!ID = ",  id )
+		MISSDK_SCRIPTSDK_LUA_000013 = GetResString("MISSDK_SCRIPTSDK_LUA_000013")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000013,  id )
 		local npcname = GetCharName( npc )
-		local str = npcname..": Hi! You are looking for me? I am quite busy right now._......."
+		MISSDK_SCRIPTSDK_LUA_000014 = GetResString("MISSDK_SCRIPTSDK_LUA_000014")
+		local str = npcname..MISSDK_SCRIPTSDK_LUA_000014
 		SendPage( character, npc, 0, str, nil, 0 )
 		return
 	end
@@ -484,7 +514,10 @@ end
 function NpcState( character, npcid, id )
    PRINT( "NpcState:character, npcid, NpcMissionList", character, npcid, id )
 	if NpcInfoList[id] == nil or NpcInfoList[id].missionlist == nil then
-		PRINT( "unable to obtain NPC script notice!ID = ",  id )
+		MISSDK_SCRIPTSDK_LUA_000013 = GetResString("MISSDK_SCRIPTSDK_LUA_000013")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000013,  id )
+		MISSDK_SCRIPTSDK_LUA_000013 = GetResString("MISSDK_SCRIPTSDK_LUA_000013")
+		LG( "npc_error", MISSDK_SCRIPTSDK_LUA_000013,  id )
 		return LUA_FALSE
 	end
 
@@ -496,10 +529,13 @@ function NpcInfoReload( name,  func )
 	PRINT( "NpcInfoReload: name, findnpc ", name, FindNpc )
 	local ret, npc, id = FindNpc( name )
 	if ret == LUA_FALSE or npc == nil or id == nil then
-		print( "unfound ["..name.."] NPC!" )
+		MISSDK_SCRIPTSDK_LUA_000015 = GetResString("MISSDK_SCRIPTSDK_LUA_000015")
+		MISSDK_SCRIPTSDK_LUA_000016 = GetResString("MISSDK_SCRIPTSDK_LUA_000016")
+		print( MISSDK_SCRIPTSDK_LUA_000016..name..MISSDK_SCRIPTSDK_LUA_000015 )
 		return
 	end
-	PRINT( "got npc notice, pointer =, id = ", npc, id )
+	MISSDK_SCRIPTSDK_LUA_000017 = GetResString("MISSDK_SCRIPTSDK_LUA_000017")
+	PRINT( MISSDK_SCRIPTSDK_LUA_000017, npc, id )
 	
 	print( GetCharName( npc ) )
 
@@ -511,13 +547,47 @@ function NpcInfoReload( name,  func )
 	
 	ModifyNpcInfo( npc, name, id )
 	PRINT( "ModifyNpcInfo, name = , id = ", name, id )
-	print( "Edit NPC ["..name.."] script notice successful!" )
+	MISSDK_SCRIPTSDK_LUA_000005 = GetResString("MISSDK_SCRIPTSDK_LUA_000005")
+	MISSDK_SCRIPTSDK_LUA_000018 = GetResString("MISSDK_SCRIPTSDK_LUA_000018")
+	print( MISSDK_SCRIPTSDK_LUA_000018..name..MISSDK_SCRIPTSDK_LUA_000005 )
 end
 
 --对话描述信息注册
-function Talk( pageid, talk )
+
+function Talk( pageid, talk ,func,func1, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10)
 	Page[pageid].count = Page[pageid].count + 1
 	Page[pageid][Page[pageid].count].talk = talk
+	if func~= nil then
+		Page[pageid][Page[pageid].count].talkfunc = func
+		if func1~= nil then 
+			Page[pageid][Page[pageid].count].func1 = func1
+			local p ={}
+				p[1]= p1
+				p[2]= p2
+				p[3]= p3
+				p[4]= p4
+				p[5]= p5
+				p[6]= p6
+				p[7]= p7
+				p[8]= p8
+				p[9]= p9
+				p[10]= p10
+			if p[1]~= nil then
+				Page[pageid][Page[pageid].count].p ={}
+				Page[pageid][Page[pageid].count].p.count = 0
+				local i = 0 
+				for i = 1 ,10, 1 do 
+					if p[i]~= nil then 
+						Page[pageid][Page[pageid].count].p[i] = p[i]
+						Page[pageid][Page[pageid].count].p.count = Page[pageid][Page[pageid].count].p.count+1
+					else
+						break
+					end
+				end
+			end
+		end
+	end
+	LG( "npcinit", "Talk:pageid, count, talk", pageid, Page[pageid].count, Page[pageid][Page[pageid].count].talk )
 end
 
 --对话选项信息注册
@@ -529,11 +599,13 @@ function Text( pageid, text, func, p1, p2, p3, p4 )
 	Page[pageid][Page[pageid].count].p2 = p2
 	Page[pageid][Page[pageid].count].p3 = p3
 	Page[pageid][Page[pageid].count].p4 = p4
+	LG( "npcinit", "Text:pageid, count, text, func, p1, p2, p3, p4 ", pageid, Page[pageid].count, text, func, p1, p2, p3, p4 )
 end
 
 --设置对话页包含任务信息
 function MisListPage( pageid )
 	Page[pageid].ismission = 1
+	LG( "npcinit", "MisListPage:"..pageid )
 end
 
 --交易信息注册
@@ -541,16 +613,19 @@ function Weapon( id )
 	--武器
 	Trade[1].count = Trade[1].count + 1;
 	Trade[1].item[Trade[1].count] = id
+	LG( "npcinit", "Weapon:count, id", Trade[1].count, id )
 end
 function Defence( id )
 	--防具
 	Trade[2].count = Trade[2].count + 1;
 	Trade[2].item[Trade[2].count] = id
+	LG( "npcinit", "Defence:count, id", Trade[2].count, id )
 end
 function Other( id )
 	--杂项
 	Trade[3].count = Trade[3].count + 1;
 	Trade[3].item[Trade[3].count] = id
+	LG( "npcinit", "Other:count, id", Trade[3].count, id )
 end
 function OtherX( trade, id )
 	trade[3].count = trade[3].count + 1;
@@ -560,11 +635,14 @@ function Synthesis( id )
 	--合成
 	Trade[4].count = Trade[4].count + 1;
 	Trade[4].item[Trade[4].count] = id
+	LG( "npcinit", "Synthesis:count, id", Trade[4].count, id )
 end
 
 --交易货物买卖收购信息
 function SaleGoodsData( level, id, num, price, pricerange )
 	if level == nil or id == nil or num == nil or price == nil or pricerange == nil then
+		MISSDK_SCRIPTSDK_LUA_000019 = GetResString("MISSDK_SCRIPTSDK_LUA_000019")
+		LG( "npcinit_error", MISSDK_SCRIPTSDK_LUA_000019, level, id, num, price, pricerange )
 		return
 	end
 	
@@ -582,6 +660,7 @@ function SaleGoodsData( level, id, num, price, pricerange )
 	Trade[1].price[Trade[1].count].price = price
 	Trade[1].price[Trade[1].count].range = pricerange
 	Trade[1].price[Trade[1].count].curprice = price + Rand( pricerange )
+	LG( "npcinit_trade", "SaleGoodsData, count, level, id, num, price, range, curprice", Trade[1].count, level, id, num, price, pricerange, Trade[1].price[Trade[1].count].curprice )
 end
 
 --初始化黑市兑换信息
@@ -607,6 +686,8 @@ end
 --黑市商人兑换
 function ExchangeData( srcID, srcNum, tarID, tarNum, timeNum )
 	if srcID == nil or srcNum == nil or tarID == nil or tarNum == nil or timeNum == nil then
+		MISSDK_SCRIPTSDK_LUA_000020 = GetResString("MISSDK_SCRIPTSDK_LUA_000020")
+		LG( "npcinit_error", MISSDK_SCRIPTSDK_LUA_000020, srcID, srcNum, tarID, tarNum, timeNum )
 		return
 	end
 	
@@ -622,6 +703,8 @@ end
 
 function ExchangeDataX( srcID, srcNum, tarID, tarNum )
 	if srcID == nil or srcNum == nil or tarID == nil or tarNum == nil then
+		MISSDK_SCRIPTSDK_LUA_000021 = GetResString("MISSDK_SCRIPTSDK_LUA_000021")
+		LG( "npcinit_error", MISSDK_SCRIPTSDK_LUA_000021, srcID, srcNum, tarID, tarNum )
 		return
 	end
 	
@@ -669,6 +752,8 @@ end
 
 function BuyGoodsData( level, id, num, price, pricerange )
 	if level == nil or id == nil or num == nil or price == nil or pricerange == nil then
+		MISSDK_SCRIPTSDK_LUA_000022 = GetResString("MISSDK_SCRIPTSDK_LUA_000022")
+		LG( "npcinit_error", MISSDK_SCRIPTSDK_LUA_000022, level, id, num, price, pricerange )
 		return
 	end
 	
@@ -686,42 +771,59 @@ function BuyGoodsData( level, id, num, price, pricerange )
 	Trade[2].price[Trade[2].count].price = price
 	Trade[2].price[Trade[2].count].range = pricerange
 	Trade[2].price[Trade[2].count].curprice = price + Rand( pricerange )
+	LG( "npcinit_trade", "BuyGoodsData, count, level, id, num, price, range, curprice", Trade[2].count, level, id, num, price, pricerange, Trade[2].price[Trade[2].count].curprice )
 end
 
 --货物交易出售物品价格数量更新
 function UpdateGoodsData( tradenpc )
 	PRINT( "UpdateGoodsData" )
 	if tradenpc == nil then
-		PRINT( "UpdateGoodsData:Function parameter error!" )
+		MISSDK_SCRIPTSDK_LUA_000023 = GetResString("MISSDK_SCRIPTSDK_LUA_000023")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000023 )
+		MISSDK_SCRIPTSDK_LUA_000023 = GetResString("MISSDK_SCRIPTSDK_LUA_000023")
+		LG( MISSDK_SCRIPTSDK_LUA_000023 )
 		return LUA_ERROR
 	end
 
 	local name = GetCharName( tradenpc )
 	local ret, id = GetScriptID( tradenpc )
 	if ret ~= LUA_TRUE then
-		PRINT( "UpdateGoodsData:GetScriptID, obtain npc"..name.."script notice ID failed!" )
+		MISSDK_SCRIPTSDK_LUA_000024 = GetResString("MISSDK_SCRIPTSDK_LUA_000024")
+		MISSDK_SCRIPTSDK_LUA_000025 = GetResString("MISSDK_SCRIPTSDK_LUA_000025")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000025..name..MISSDK_SCRIPTSDK_LUA_000024 )
+		MISSDK_SCRIPTSDK_LUA_000024 = GetResString("MISSDK_SCRIPTSDK_LUA_000024")
+		MISSDK_SCRIPTSDK_LUA_000025 = GetResString("MISSDK_SCRIPTSDK_LUA_000025")
+		LG( "npctrade_error", MISSDK_SCRIPTSDK_LUA_000025..name..MISSDK_SCRIPTSDK_LUA_000024 )
 		return LUA_FALSE
 	end
 
 	if NpcInfoList == nil or NpcInfoList[id] == nil then		
-		PRINT( "UpdateGoodsData:GetScriptID, npc"..name.."script notice does not exist! NpcInfoList, ID", NpcInfoList, id )
+		MISSDK_SCRIPTSDK_LUA_000026 = GetResString("MISSDK_SCRIPTSDK_LUA_000026")
+		MISSDK_SCRIPTSDK_LUA_000027 = GetResString("MISSDK_SCRIPTSDK_LUA_000027")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000027..name..MISSDK_SCRIPTSDK_LUA_000026, NpcInfoList, id )
+		MISSDK_SCRIPTSDK_LUA_000028 = GetResString("MISSDK_SCRIPTSDK_LUA_000028")
+		LG( "npctrade_error", "UpdateGoodsData:npc"..name..MISSDK_SCRIPTSDK_LUA_000028, NpcInfoList, id )
 		return LUA_FALSE
 	end
 	
-	PRINT( name..": update trade data notice" )	
+	MISSDK_SCRIPTSDK_LUA_000029 = GetResString("MISSDK_SCRIPTSDK_LUA_000029")
+	PRINT( name..MISSDK_SCRIPTSDK_LUA_000029 )	
 	local trade = NpcInfoList[id].trade
 	for n = 1, trade[1].count, 1 do
 		trade[1].item[n].count = trade[1].item[n].num
 		trade[1].price[n].curprice = trade[1].price[n].price + Rand( trade[1].price[n].range )
-		PRINT( "Sell item: ID = , Count = , CurPrice = ", trade[1].item[n].id, trade[1].item[n].count, trade[1].price[n].curprice )
+		MISSDK_SCRIPTSDK_LUA_000030 = GetResString("MISSDK_SCRIPTSDK_LUA_000030")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000030, trade[1].item[n].id, trade[1].item[n].count, trade[1].price[n].curprice )
 	end
 	
 	for n = 1, trade[2].count, 1 do
 		trade[2].item[n].count = trade[2].item[n].num
 		trade[2].price[n].curprice = trade[2].price[n].price + Rand( trade[2].price[n].range )
-		PRINT( "Purchase item: ID = , Count = , CurPrice = ", trade[2].item[n].id, trade[2].item[n].count, trade[2].price[n].curprice )
+		MISSDK_SCRIPTSDK_LUA_000031 = GetResString("MISSDK_SCRIPTSDK_LUA_000031")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000031, trade[2].item[n].id, trade[2].item[n].count, trade[2].price[n].curprice )
 	end
 	
+	SendAllGoodsData( tradenpc, trade )
 	return LUA_TRUE	
 end
 
@@ -729,23 +831,36 @@ end
 function UpdateGoodsKinds( tradenpc )
 	PRINT( "UpdateGoodsData" )
 	if tradenpc == nil then
-		PRINT( "UpdateGoodsData:Function parameter error!" )
+		MISSDK_SCRIPTSDK_LUA_000023 = GetResString("MISSDK_SCRIPTSDK_LUA_000023")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000023 )
+		MISSDK_SCRIPTSDK_LUA_000023 = GetResString("MISSDK_SCRIPTSDK_LUA_000023")
+		LG( MISSDK_SCRIPTSDK_LUA_000023 )
 		return LUA_ERROR
 	end
 
 	local name = GetCharName( tradenpc )
 	local ret, id = GetScriptID( tradenpc )
 	if ret ~= LUA_TRUE then
-		PRINT( "UpdateGoodsData:GetScriptID, obtain npc"..name.."script notice ID failed!" )
+		MISSDK_SCRIPTSDK_LUA_000024 = GetResString("MISSDK_SCRIPTSDK_LUA_000024")
+		MISSDK_SCRIPTSDK_LUA_000025 = GetResString("MISSDK_SCRIPTSDK_LUA_000025")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000025..name..MISSDK_SCRIPTSDK_LUA_000024 )
+		MISSDK_SCRIPTSDK_LUA_000024 = GetResString("MISSDK_SCRIPTSDK_LUA_000024")
+		MISSDK_SCRIPTSDK_LUA_000025 = GetResString("MISSDK_SCRIPTSDK_LUA_000025")
+		LG( "npctrade_error", MISSDK_SCRIPTSDK_LUA_000025..name..MISSDK_SCRIPTSDK_LUA_000024 )
 		return LUA_FALSE
 	end
 
 	if NpcInfoList == nil or NpcInfoList[id] == nil then		
-		PRINT( "UpdateGoodsData:GetScriptID, npc"..name.."script notice does not exist! NpcInfoList, ID", NpcInfoList, id )
+		MISSDK_SCRIPTSDK_LUA_000026 = GetResString("MISSDK_SCRIPTSDK_LUA_000026")
+		MISSDK_SCRIPTSDK_LUA_000027 = GetResString("MISSDK_SCRIPTSDK_LUA_000027")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000027..name..MISSDK_SCRIPTSDK_LUA_000026, NpcInfoList, id )
+		MISSDK_SCRIPTSDK_LUA_000028 = GetResString("MISSDK_SCRIPTSDK_LUA_000028")
+		LG( "npctrade_error", "UpdateGoodsData:npc"..name..MISSDK_SCRIPTSDK_LUA_000028, NpcInfoList, id )
 		return LUA_FALSE
 	end
 	
-	PRINT( name..": update trade data notice" )	
+	MISSDK_SCRIPTSDK_LUA_000029 = GetResString("MISSDK_SCRIPTSDK_LUA_000029")
+	PRINT( name..MISSDK_SCRIPTSDK_LUA_000029 )	
 	
 	local trade = NpcInfoList[id].trade
 	InitTradeX( trade )
@@ -768,6 +883,7 @@ end
 
 --初始化全局多函数列表
 function InitFuncList()
+	LG( "npcinit", "InitFuncList" )
 	FuncList = {}
 	FuncList.count = 0
 end
@@ -781,6 +897,7 @@ function AddFuncList( func, p1, p2, p3, p4 )
 	FuncList[FuncList.count].p2 = p2
 	FuncList[FuncList.count].p3 = p3
 	FuncList[FuncList.count].p4 = p4
+	LG( "npcinit", "AddFuncList, func, p1, p2, p3, p4", func, p1, p2, p3, p4 )
 end
 
 --获取函数列表信息
@@ -794,6 +911,7 @@ end
 
 --初始化全局触发器
 function InitTrigger()
+	LG( "trigger", "InitTrigger" )
 	Trigger = {}	
 	for n = 1, 16, 1 do
 		Trigger[n] = {}
@@ -815,6 +933,8 @@ end
 --设置触发器的事件类型和启动方式
 function SetTrigger( id, startup, event )	
 	if Trigger[id] == nil then
+		MISSDK_SCRIPTSDK_LUA_000032 = GetResString("MISSDK_SCRIPTSDK_LUA_000032")
+		return LG( "trigger", MISSDK_SCRIPTSDK_LUA_000032..id )		
 	end
 	Trigger[id].startup = startup
 	Trigger[id].event   = event 
@@ -822,11 +942,13 @@ end
 
 --触发器类型设定
 function SetTriggerType( id, tp )
+	LG( "trigger", "SetTriggerType: id, tp ", id, tp )
 	Trigger[id].tp = tp
 end
 
 --触发器条件函数注册
 function TriggerCondition( id, func, p1, p2, p3, p4 )
+	LG( "trigger", "TriggerCondition: id, func, p1, p2, p3, p4 ", id, func, p1, p2, p3, p4 )
 	Trigger[id].conditions.count = Trigger[id].conditions.count + 1
 	Trigger[id].conditions[Trigger[id].conditions.count] = {}
 	Trigger[id].conditions[Trigger[id].conditions.count].func = func
@@ -839,12 +961,18 @@ end
 --随机任务修改全局触发器动作函数参数值
 function SetTriggerActionValue( id, index, p1, p2, p3, p4 )
 	if id == nil or index == nil or TriggerList[id] == nil then
-		PRINT( "SetTriggerActionValue:Function parameter error!triggerid = , index =", id, index )
+		MISSDK_SCRIPTSDK_LUA_000033 = GetResString("MISSDK_SCRIPTSDK_LUA_000033")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000033, id, index )
+		MISSDK_SCRIPTSDK_LUA_000034 = GetResString("MISSDK_SCRIPTSDK_LUA_000034")
+		LG( "randmission_error", MISSDK_SCRIPTSDK_LUA_000034, id, index )
 		return LUA_FALSE
 	end
 	
 	if TriggerList[id].actions == nil or TriggerList[id].actions[index] == nil then
-		PRINT( "SetTriggerActionValue: Trigger no action notice error!triggerid = , index = ", id, index )
+		MISSDK_SCRIPTSDK_LUA_000035 = GetResString("MISSDK_SCRIPTSDK_LUA_000035")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000035, id, index )
+		MISSDK_SCRIPTSDK_LUA_000035 = GetResString("MISSDK_SCRIPTSDK_LUA_000035")
+		LG( "randmission_error", MISSDK_SCRIPTSDK_LUA_000035, id, index )
 		return LUA_FALSE
 	end
 	TriggerList[id].actions[index].p1 = p1
@@ -855,6 +983,7 @@ end
 
 --触发器动作函数注册
 function TriggerAction( id, func, p1, p2, p3, p4, p5, p6, p7, p8 )
+	LG( "trigger", "TriggerAction: id, func, p1, p2, p3, p4 ", id, func, p1, p2, p3, p4 )
 	Trigger[id].actions.count = Trigger[id].actions.count + 1
 	Trigger[id].actions[Trigger[id].actions.count] = {}
 	Trigger[id].actions[Trigger[id].actions.count].func = func
@@ -885,6 +1014,7 @@ function TriggerAction( id, func, p1, p2, p3, p4, p5, p6, p7, p8 )
 end
 
 function TriggerFailure( id, func, p1, p2, p3, p4, p5, p6, p7, p8 )
+	LG( "trigger", "TriggerFailure: id, func, p1, p2, p3, p4 ", id, func, p1, p2, p3, p4 )
 	Trigger[id].failures.count = Trigger[id].failures.count + 1
 	Trigger[id].failures[Trigger[id].failures.count] = {}
 	Trigger[id].failures[Trigger[id].failures.count].func = func
@@ -926,12 +1056,17 @@ end
 --注册当前触发器到全局触发器信息中
 function RegTrigger( id, triggerid )
 	if id == nil or triggerid == nil then
-		PRINT( "RegTrigger: register triggered cannot be as null!" )
+		MISSDK_SCRIPTSDK_LUA_000036 = GetResString("MISSDK_SCRIPTSDK_LUA_000036")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000036 )
 	end
 	if Trigger[triggerid] == nil then
+		MISSDK_SCRIPTSDK_LUA_000037 = GetResString("MISSDK_SCRIPTSDK_LUA_000037")
+		LG( "trigger_error", MISSDK_SCRIPTSDK_LUA_000037..triggerid )
 		return
 	end
 	if TriggerList[id] ~= nil then
+		MISSDK_SCRIPTSDK_LUA_000038 = GetResString("MISSDK_SCRIPTSDK_LUA_000038")
+		LG( "trigger_error", MISSDK_SCRIPTSDK_LUA_000038..id )
 	end
 	TriggerList[id] = Trigger[triggerid]
 end
@@ -942,6 +1077,7 @@ end
 
 --对话开始触发器注册
 function Start( trigger, count )
+	LG( "trigger", "Start:trigger, count", trigger, count )
 	Page.start = MultiTrigger
 	Page.p1 = trigger
 	Page.p2 = count
@@ -957,11 +1093,13 @@ end
 function SetNpcTrigger( trigger )
 	PRINT( "SetNpcTrigger, trigger = , npc = ", trigger, NpcPointer )
 	if trigger == nil or trigger.actions == nil then
+		LG( "trigger_error", "SetNpcTrigger: trigger = nil or trigger.actions = nil" )
 		PRINT( "SetNpcTrigger: trigger = nil or trigger.actions = nil" )
 		return
 	end
 	local ret = ActionsProc( NpcPointer, trigger.actions, NpcPointer, nil, 0, nil )
 	if ret ~= LUA_TRUE then
+		LG( "trigger_error", "SetNpcTrigger: ActionsProc called error!" )
 		PRINT( "SetNpcTrigger: ActionsProc called error!" )
 	end
 end
@@ -971,13 +1109,19 @@ function SetNpcActive()
 	PRINT( "SetNpcActive" )
 	local ret = SetActive( NpcPointer )
 	if ret ~= LUA_TRUE then
-		PRINT( "SetNpcActive: Set current NPC activate status failed!NPC = "..GetCharName( NpcPointer ) )
+		MISSDK_SCRIPTSDK_LUA_000039 = GetResString("MISSDK_SCRIPTSDK_LUA_000039")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000039..GetCharName( NpcPointer ) )
+		MISSDK_SCRIPTSDK_LUA_000039 = GetResString("MISSDK_SCRIPTSDK_LUA_000039")
+		LG( "npcinit_error", MISSDK_SCRIPTSDK_LUA_000039..GetCharName( NpcPointer ) )
 	end
 end
 
 --任务基本信息注册
 function DefineMission( id, name, misid, show, mistp )
+	LG( "missionIDLOG", "ID: "..id, " Name:"..name, " MisID:"..misid )
 	--设置任务基本信息
+	
+	MissionSid[misid]=id
 	Mission[id] = {}
 	Mission[id].id = misid		--任务识别ID
 	Mission[id].sid = id 		--脚本任务索引ID
@@ -1034,6 +1178,7 @@ end
 --任务触发器信息注册函数
 function MisBeginTalk( str )
 	Mission.curmission.begin.talk = str
+	LG( "mission", "MisBeginTalk:talk = "..str )
 end
 
 --任务完成需求信息
@@ -1045,6 +1190,7 @@ function MisNeed( needtype, p1, p2, p3, p4 )
 	Mission.curmission.need[Mission.curmission.need.count].p2 = p2
 	Mission.curmission.need[Mission.curmission.need.count].p3 = p3
 	Mission.curmission.need[Mission.curmission.need.count].p4 = p4
+	LG( "mission", "MisNeed:count, type, p1, p2, p3, p4", Mission.curmission.need.count, needtype, p1, p2, p3, p4 )
 end
 
 --任务完成奖励信息
@@ -1056,10 +1202,12 @@ function MisPrize( prizetype, p1, p2, p3, p4 )
 	Mission.curmission.prize[Mission.curmission.prize.count].p2 = p2
 	Mission.curmission.prize[Mission.curmission.prize.count].p3 = p3
 	Mission.curmission.prize[Mission.curmission.prize.count].p4 = p4
+	LG( "mission", "MisPrize:count, type, p1, p2, p3, p4", Mission.curmission.prize.count, prizetype, p1, p2, p3, p4 )
 end
 
 --任务完成奖励类型
 function MisPrizeType( seltype )
+   LG( "mission", "MisPrizeType: prize select type = "..seltype )
    Mission.curmission.prize.seltp = seltype
 end
 
@@ -1080,6 +1228,7 @@ function MisBeginCondition( func, p1, p2, p3, p4 )
 	Mission.curmission.begin.conditions[Mission.curmission.begin.conditions.count].p2 = p2
 	Mission.curmission.begin.conditions[Mission.curmission.begin.conditions.count].p3 = p3	
 	Mission.curmission.begin.conditions[Mission.curmission.begin.conditions.count].p4 = p4
+	LG( "mission", "MisBeginCondition:count, func, p1, p2, p3, p4", Mission.curmission.begin.conditions.count, func, p1, p2, p3, p4 )
 end
 
 --任务开始动作信息注册
@@ -1112,6 +1261,7 @@ function MisBeginAction( func, p1, p2, p3, p4, p5, p6, p7, p8 )
 		Mission.curmission.begin.actions[Mission.curmission.begin.actions.count].p8 = 0
 	end
 	
+	LG( "mission", "MisBeginAction:count, func, p1, p2, p3, p4, p5, p6, p7, p8", Mission.curmission.begin.actions.count, func, p1, p2, p3, p4, p5, p6, p7, p8 )
 end
 
 --任务开始角色背包容量需求
@@ -1122,11 +1272,13 @@ end
 --任务交付完成对话信息注册
 function MisResultTalk( str )
 	Mission.curmission.result.talk = str
+	LG( "mission", "MisCompleteTalk:talk = "..str )
 end
 
 --任务交付帮助对话信息注册
 function MisHelpTalk( str )
 	Mission.curmission.result.help = str
+	LG( "mission", "MisHelpTalk:help = "..str )
 end
 
 --任务完成条件信息注册
@@ -1138,6 +1290,7 @@ function MisResultCondition( func, p1, p2, p3, p4 )
 	Mission.curmission.result.conditions[Mission.curmission.result.conditions.count].p2 = p2
 	Mission.curmission.result.conditions[Mission.curmission.result.conditions.count].p3 = p3
 	Mission.curmission.result.conditions[Mission.curmission.result.conditions.count].p4 = p4
+	LG( "mission", "MisResultCondition:count, func, p1, p2, p3, p4", Mission.curmission.result.conditions.count, func, p1, p2, p3, p4 )
 end
 
 --任务完成动作信息注册
@@ -1169,6 +1322,7 @@ function MisResultAction( func, p1, p2, p3, p4, p5, p6, p7, p8 )
 	else
 		Mission.curmission.result.actions[Mission.curmission.result.actions.count].p8 = 0
 	end	
+	LG( "mission", "MisResultAction:count, func, p1, p2, p3, p4, p5, p6, p7, p8", Mission.curmission.result.actions.count, func, p1, p2, p3, p4, p5, p6, p7, p8 )
 end
 
 --任务完成时背包容量需求
@@ -1185,6 +1339,7 @@ function MisCancelCondition( func, p1, p2, p3, p4 )
 	Mission.curmission.cancel.conditions[Mission.curmission.cancel.conditions.count].p2 = p2
 	Mission.curmission.cancel.conditions[Mission.curmission.cancel.conditions.count].p3 = p3
 	Mission.curmission.cancel.conditions[Mission.curmission.cancel.conditions.count].p4 = p4
+	LG( "mission", "MisCancelCondition:count, func, p1, p2, p3, p4", Mission.curmission.cancel.conditions.count, func, p1, p2, p3, p4 )
 end
 
 --任务取消动作信息注册
@@ -1216,6 +1371,7 @@ function MisCancelAction( func, p1, p2, p3, p4, p5, p6, p7, p8 )
 	else
 		Mission.curmission.cancel.actions[Mission.curmission.cancel.actions.count].p8 = 0
 	end	
+	LG( "mission", "MisCancelAction:count, func, p1, p2, p3, p4, p5, p6, p7, p8", Mission.curmission.cancel.actions.count, func, p1, p2, p3, p4, p5, p6, p7, p8 )
 end
 
 --将任务注册到npc身上
@@ -1223,6 +1379,16 @@ function AddNpcMission( id )
 	NpcMissionList.count = NpcMissionList.count + 1
 	NpcMissionList[NpcMissionList.count ] = {}
 	NpcMissionList[NpcMissionList.count ] = Mission[id]
+	MISSDK_SCRIPTSDK_LUA_000040 = GetResString("MISSDK_SCRIPTSDK_LUA_000040")
+	MISSDK_SCRIPTSDK_LUA_000041 = GetResString("MISSDK_SCRIPTSDK_LUA_000041")
+	MISSDK_SCRIPTSDK_LUA_000042 = GetResString("MISSDK_SCRIPTSDK_LUA_000042")
+	MISSDK_SCRIPTSDK_LUA_000043 = GetResString("MISSDK_SCRIPTSDK_LUA_000043")
+	PRINT( MISSDK_SCRIPTSDK_LUA_000043..NpcMissionList.count..MISSDK_SCRIPTSDK_LUA_000042..id..MISSDK_SCRIPTSDK_LUA_000041..Mission[id].name..MISSDK_SCRIPTSDK_LUA_000040 )
+	MISSDK_SCRIPTSDK_LUA_000040 = GetResString("MISSDK_SCRIPTSDK_LUA_000040")
+	MISSDK_SCRIPTSDK_LUA_000041 = GetResString("MISSDK_SCRIPTSDK_LUA_000041")
+	MISSDK_SCRIPTSDK_LUA_000042 = GetResString("MISSDK_SCRIPTSDK_LUA_000042")
+	MISSDK_SCRIPTSDK_LUA_000043 = GetResString("MISSDK_SCRIPTSDK_LUA_000043")
+	LG( "missioninit", MISSDK_SCRIPTSDK_LUA_000043..NpcMissionList.count..MISSDK_SCRIPTSDK_LUA_000042..id..MISSDK_SCRIPTSDK_LUA_000041..Mission[id].name..MISSDK_SCRIPTSDK_LUA_000040 )
 end
 
 --初始化随机任务参数表结构
@@ -1255,6 +1421,7 @@ end
 
 --随机任务信息脚本生成函数接口
 function DefineRandMission( id, name, misid, bounty, npcname, npcarea, leveltp )
+	LG( "randmission_init", "ID: "..id, " Name:"..name, " MisID:"..misid, "Bounty:"..bounty )
 	--设置任务基本信息
 	Mission[id] = {}
 	Mission[id].id = misid		--任务识别ID
@@ -1277,8 +1444,10 @@ function DefineRandMission( id, name, misid, bounty, npcname, npcarea, leveltp )
 		Mission[id].npcname = npcname
 		Mission[id].npcarea  = npcarea
 	else
-		Mission[id].npcname = "Unknown NPC"
-		Mission[id].npcarea  = "Unknown map region"
+		MISSDK_SCRIPTSDK_LUA_000044 = GetResString("MISSDK_SCRIPTSDK_LUA_000044")
+		Mission[id].npcname = MISSDK_SCRIPTSDK_LUA_000044
+		MISSDK_SCRIPTSDK_LUA_000045 = GetResString("MISSDK_SCRIPTSDK_LUA_000045")
+		Mission[id].npcarea  = MISSDK_SCRIPTSDK_LUA_000045
 	end	
 	
 	--设置当前任务
@@ -1310,38 +1479,53 @@ end
 
 --初始化随机任务前后缀信息列表
 function InitTalkList()
-	talklist.btalkstart = "Accept quest desription started"
-	talklist.btalkend = "Accept quest ends description"
-	talklist.rtalkstart = "cycle quest description started"
-	talklist.rtalkend = "cycle quest description ended"
-	talklist.helpstart = "Quest help description started"
-	talklist.helpend = "Quest help description ended"
+	MISSDK_SCRIPTSDK_LUA_000046 = GetResString("MISSDK_SCRIPTSDK_LUA_000046")
+	talklist.btalkstart = MISSDK_SCRIPTSDK_LUA_000046
+	MISSDK_SCRIPTSDK_LUA_000047 = GetResString("MISSDK_SCRIPTSDK_LUA_000047")
+	talklist.btalkend = MISSDK_SCRIPTSDK_LUA_000047
+	MISSDK_SCRIPTSDK_LUA_000048 = GetResString("MISSDK_SCRIPTSDK_LUA_000048")
+	talklist.rtalkstart = MISSDK_SCRIPTSDK_LUA_000048
+	MISSDK_SCRIPTSDK_LUA_000049 = GetResString("MISSDK_SCRIPTSDK_LUA_000049")
+	talklist.rtalkend = MISSDK_SCRIPTSDK_LUA_000049
+	MISSDK_SCRIPTSDK_LUA_000050 = GetResString("MISSDK_SCRIPTSDK_LUA_000050")
+	talklist.helpstart = MISSDK_SCRIPTSDK_LUA_000050
+	MISSDK_SCRIPTSDK_LUA_000051 = GetResString("MISSDK_SCRIPTSDK_LUA_000051")
+	talklist.helpend = MISSDK_SCRIPTSDK_LUA_000051
 end
 
 --添加随机任务描述信息前缀后缀
 function AddRandMissionBeginTalk( talkstart, talkend )
 	if talkstart == nil or talkend  == nil then
+		LG( "randmission_inittalk_error", "AddRandMissionBeginTalk: misid = , ", Mission.curmission.sid )
 		return
 	end
 	
+	LG( "randmission_init", "AddRandMissionBeginTalk: talkstart = ", talkstart )
+	LG( "randmission_init", "AddRandMissionBeginTalk: talkend = ", talkend )
 	talklist.btalkstart = talkstart
 	talklist.btalkend = talkend
 end
 
 function AddRandMissionResultTalk( talkstart, talkend )
 	if talkstart == nil or talkend  == nil then
+		LG( "randmission_inittalk_error", "AddRandMissionBeginTalk: misid = , ", Mission.curmission.sid )
 		return
 	end
 
+	LG( "randmission_init", "AddRandMissionResultTalk: talkstart = ", talkstart )
+	LG( "randmission_init", "AddRandMissionResultTalk: talkend = ", talkend )	
 	talklist.rtalkstart = talkstart
 	talklist.rtalkend = talkend
 end
 
 function AddRandMissionHelpTalk( talkstart, talkend )
 	if talkstart == nil or talkend  == nil then
+		LG( "randmission_inittalk_error", "AddRandMissionBeginTalk: misid = , ", Mission.curmission.sid )
 		return
 	end
 	
+	LG( "randmission_init", "AddRandMissionHelpTalk: talkstart = ", talkstart )
+	LG( "randmission_init", "AddRandMissionHelpTalk: talkend = ", talkend )	
 	talklist.helpstart = talkstart
 	talklist.helpend = talkend
 end
@@ -1358,11 +1542,13 @@ function AddRandMissionType( tp, tprand, talklist, exptp, randnum, p1, p2, p3, p
 		return
 	end
    
+	LG( "randmission_init", "AddRandMissionType:Add rand mission id["..Mission.curmission.sid.."], tp = "..tp )
 	
 	--检测类型信息
 	for n = 1, Mission.curmission.missionlist.count, 1 do
 		if Mission.curmission.missionlist[n].tp == tp then
-			PRINT( "AddRandMissionType: adding of random quest type duplicate, tp = "..tp )
+			MISSDK_SCRIPTSDK_LUA_000052 = GetResString("MISSDK_SCRIPTSDK_LUA_000052")
+			PRINT( MISSDK_SCRIPTSDK_LUA_000052..tp )
 			return
 		end
 	end
@@ -1577,7 +1763,8 @@ function AddRandMissionType( tp, tprand, talklist, exptp, randnum, p1, p2, p3, p
 		TriggerAction( 1, ClearMission, Mission.curmission.id )
 		TriggerAction( 1, FailureRandMissionCount, Mission.curmission.id )
 		
-		TriggerAction( 2, SystemNotice, "Insufficient gold. Unable to abandon quest!" )
+		MISSDK_SCRIPTSDK_LUA_000053 = GetResString("MISSDK_SCRIPTSDK_LUA_000053")
+		TriggerAction( 2, SystemNotice, MISSDK_SCRIPTSDK_LUA_000053 )
 
 		cancel.actions.count = cancel.actions.count + 1
 		cancel.actions[cancel.actions.count] = {}
@@ -1836,7 +2023,8 @@ function AddRandMissionType( tp, tprand, talklist, exptp, randnum, p1, p2, p3, p
 		TriggerAction( 1, ClearMission, Mission.curmission.id )
 		TriggerAction( 1, FailureRandMissionCount, Mission.curmission.id )
 		
-		TriggerAction( 2, SystemNotice, "Insufficient gold. Unable to abandon quest!" )
+		MISSDK_SCRIPTSDK_LUA_000053 = GetResString("MISSDK_SCRIPTSDK_LUA_000053")
+		TriggerAction( 2, SystemNotice, MISSDK_SCRIPTSDK_LUA_000053 )
 
 		cancel.actions.count = cancel.actions.count + 1
 		cancel.actions[cancel.actions.count] = {}
@@ -2048,7 +2236,8 @@ function AddRandMissionType( tp, tprand, talklist, exptp, randnum, p1, p2, p3, p
 		TriggerAction( 1, ClearMission, Mission.curmission.id )
 		TriggerAction( 1, FailureRandMissionCount, Mission.curmission.id )
 		
-		TriggerAction( 2, SystemNotice, "Insufficient gold. Unable to abandon quest!" )
+		MISSDK_SCRIPTSDK_LUA_000053 = GetResString("MISSDK_SCRIPTSDK_LUA_000053")
+		TriggerAction( 2, SystemNotice, MISSDK_SCRIPTSDK_LUA_000053 )
 
 		cancel.actions.count = cancel.actions.count + 1
 		cancel.actions[cancel.actions.count] = {}
@@ -2284,7 +2473,8 @@ function AddRandMissionType( tp, tprand, talklist, exptp, randnum, p1, p2, p3, p
 		TriggerAction( 1, ClearMission, Mission.curmission.id )
 		TriggerAction( 1, FailureRandMissionCount, Mission.curmission.id )
 		
-		TriggerAction( 2, SystemNotice, "Insufficient gold. Unable to abandon quest!" )
+		MISSDK_SCRIPTSDK_LUA_000053 = GetResString("MISSDK_SCRIPTSDK_LUA_000053")
+		TriggerAction( 2, SystemNotice, MISSDK_SCRIPTSDK_LUA_000053 )
 
 		cancel.actions.count = cancel.actions.count + 1
 		cancel.actions[cancel.actions.count] = {}
@@ -2312,34 +2502,40 @@ function AddRandMissionType( tp, tprand, talklist, exptp, randnum, p1, p2, p3, p
 		--SetTriggerType( 1, MIS_TRIGGER_RAND )
 		TriggerAction( 1, ClearConvoyNpc, Mission.curmission.id, 0 )
 		TriggerAction( 1, SetFlag, Mission.curmission.id, 0 )
-		TriggerAction( 1, HelpInfo, MIS_HELP_DESP, "Thank you for sending me here! Good bye!" )
+		MISSDK_SCRIPTSDK_LUA_000054 = GetResString("MISSDK_SCRIPTSDK_LUA_000054")
+		TriggerAction( 1, HelpInfo, MIS_HELP_DESP, MISSDK_SCRIPTSDK_LUA_000054 )
 		TriggerAction( 1, RefreshCompleteFlag, Mission.curmission.sid )
 		RegTrigger( p2, 1 )
 		
 		--SetTriggerType( 2, MIS_TRIGGER_RAND )
 		TriggerAction( 2, ClearConvoyNpc, Mission.curmission.id, 1 )
 		TriggerAction( 2, SetFlag, Mission.curmission.id, 1 )
-		TriggerAction( 2, HelpInfo, MIS_HELP_DESP, "Thank you for sending me here! Good bye!" )
+		MISSDK_SCRIPTSDK_LUA_000054 = GetResString("MISSDK_SCRIPTSDK_LUA_000054")
+		TriggerAction( 2, HelpInfo, MIS_HELP_DESP, MISSDK_SCRIPTSDK_LUA_000054 )
 		TriggerAction( 1, RefreshCompleteFlag, Mission.curmission.sid )
 		RegTrigger( p3, 2 )
 		
 		--SetTriggerType( 3, MIS_TRIGGER_RAND )
 		TriggerAction( 3, ClearConvoyNpc, Mission.curmission.id, 2 )
 		TriggerAction( 3, SetFlag, Mission.curmission.id, 2 )
-		TriggerAction( 3, HelpInfo, MIS_HELP_DESP, "Thank you for sending me here! Good bye!" )
+		MISSDK_SCRIPTSDK_LUA_000054 = GetResString("MISSDK_SCRIPTSDK_LUA_000054")
+		TriggerAction( 3, HelpInfo, MIS_HELP_DESP, MISSDK_SCRIPTSDK_LUA_000054 )
 		TriggerAction( 1, RefreshCompleteFlag, Mission.curmission.sid )
 		RegTrigger( p4, 3 )
 		
 		--SetTriggerType( 4, MIS_TRIGGER_RAND )
 		TriggerAction( 4, ClearConvoyNpc, Mission.curmission.id, 3 )
 		TriggerAction( 4, SetFlag, Mission.curmission.id, 3 )
-		TriggerAction( 4, HelpInfo, MIS_HELP_DESP, "Thank you for sending me here! Good bye!" )
+		MISSDK_SCRIPTSDK_LUA_000054 = GetResString("MISSDK_SCRIPTSDK_LUA_000054")
+		TriggerAction( 4, HelpInfo, MIS_HELP_DESP, MISSDK_SCRIPTSDK_LUA_000054 )
 		TriggerAction( 1, RefreshCompleteFlag, Mission.curmission.sid )
 		RegTrigger( p5, 4 )
 
 		--SetTriggerType( 1, MIS_TRIGGER_RAND )
-		local help = "accepted quest ["
-		help = help..Mission.curmission.name.."] has exceeded time allocated, quest failed! Please delete quest from quest log."
+		MISSDK_SCRIPTSDK_LUA_000055 = GetResString("MISSDK_SCRIPTSDK_LUA_000055")
+		local help = MISSDK_SCRIPTSDK_LUA_000055
+		MISSDK_SCRIPTSDK_LUA_000056 = GetResString("MISSDK_SCRIPTSDK_LUA_000056")
+		help = help..Mission.curmission.name..MISSDK_SCRIPTSDK_LUA_000056
 		TriggerAction( 5, ClearAllConvoyNpc, Mission.curmission.id )
 		TriggerAction( 5, HelpInfo, MIS_HELP_DESP, help )
 		TriggerAction( 5, FailureRandMissionCount, Mission.curmission.id )
@@ -2367,6 +2563,7 @@ end
 --添加随机任务生成信息
 function AddRandMissionInfo( id, level, tp, p1, p2, p3, p4, p5, p6, p7, p8 )	
 	if Mission[id] == nil then
+		LG( "randmission_init", "AddRandMissionInfo:Mission[id] = nil, id = "..id )
 		PRINT( "AddRandMissionInfo:Mission[id] = nil, id = "..id )
 		return LUA_FALSE
 	end
@@ -2383,7 +2580,10 @@ function AddRandMissionInfo( id, level, tp, p1, p2, p3, p4, p5, p6, p7, p8 )
 		end
 	end
 	if flag == 0 then
-		PRINT( "AddRandMissionInfo: Add data fail due to target data type switch is not opened. id, level, tp, p1, p2, p3, p4, p5, p6", id, level, tp, p1, p2, p3, p4, p5, p6 )
+		MISSDK_SCRIPTSDK_LUA_000057 = GetResString("MISSDK_SCRIPTSDK_LUA_000057")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000057, id, level, tp, p1, p2, p3, p4, p5, p6 )
+		MISSDK_SCRIPTSDK_LUA_000058 = GetResString("MISSDK_SCRIPTSDK_LUA_000058")
+		LG( "randmission_error", MISSDK_SCRIPTSDK_LUA_000058, tp )
 	end
 	
 	if Mission[id].RandInfo[level] == nil then
@@ -2412,6 +2612,7 @@ function AddRandMissionInfo( id, level, tp, p1, p2, p3, p4, p5, p6, p7, p8 )
 		Mission[id].RandInfo[level].tpinfo.count = 0
 	end
 
+	LG( "randmission_init", "mission = , mission.RandInfo = , mission.RandInfo[level] = ", Mission[id], Mission[id].RandInfo, Mission[id].RandInfo[level] )
 	
 	if tp == MIS_RAND_KILL then					--猎杀怪物
 		Mission[id].RandInfo[level].KillInfo.count = Mission[id].RandInfo[level].KillInfo.count + 1
@@ -2469,7 +2670,10 @@ function AddRandMissionInfo( id, level, tp, p1, p2, p3, p4, p5, p6, p7, p8 )
 		Mission[id].RandInfo[level].ExploreInfo[Mission[id].RandInfo[level].ExploreInfo.count].p7 = p7
 		Mission[id].RandInfo[level].ExploreInfo[Mission[id].RandInfo[level].ExploreInfo.count].p8 = p8
 	else
-		PRINT( "AddRandMissionInfo: adds data type error, tp = "..tp )
+		MISSDK_SCRIPTSDK_LUA_000059 = GetResString("MISSDK_SCRIPTSDK_LUA_000059")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000059..tp )
+		MISSDK_SCRIPTSDK_LUA_000059 = GetResString("MISSDK_SCRIPTSDK_LUA_000059")
+		LG( "randmission_init",  MISSDK_SCRIPTSDK_LUA_000059..tp )
 		return LUA_FALSE
 	end
 
@@ -2494,78 +2698,115 @@ function AddRandMissionInfo( id, level, tp, p1, p2, p3, p4, p5, p6, p7, p8 )
 		Mission[id].RandInfo[level].tpinfo[Mission[id].RandInfo[level].tpinfo.count].tp = tp
 		Mission[id].RandInfo[level].tpinfo[Mission[id].RandInfo[level].tpinfo.count].tprand = tprand
 	end
+	LG( "randmission_init", "mission = , mission.RandInfo = , mission.RandInfo[level] = ", Mission[id], Mission[id].RandInfo, Mission[id].RandInfo[level] )
+	LG( "randmission_init",  "AddRandMissionInfo:id = , level = , tp = , tprand = , p1 =, p2 =, p3 =, p4 =, p5 =, p6 =, p7 =, p8 =", id, level, tp, tprand, p1, p2, p3, p4, p5, p6, p7, p8 )
 	return LUA_TRUE
 end
 
 --添加摧毁物件类型得随机库信息
 function AddRandKillInfo( level, monsterid, randvalue, randscope, exp, money )
 	if Mission.curmission == nil or Mission.curmission.sid == nil then
-		PRINT( "AddRandKillInfo: register random quest notice, please define a random quest!level, monsterid,  randvalue, randscope, exp, money", level, monsterid, randvalue, randscope, exp, money )
+		MISSDK_SCRIPTSDK_LUA_000060 = GetResString("MISSDK_SCRIPTSDK_LUA_000060")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000060, level, monsterid, randvalue, randscope, exp, money )
+		MISSDK_SCRIPTSDK_LUA_000060 = GetResString("MISSDK_SCRIPTSDK_LUA_000060")
+		LG( "randmission_error", MISSDK_SCRIPTSDK_LUA_000060, level, monsterid, randvalue, randscope, exp, money )
 		return
 	end
 	
 	local ret = AddRandMissionInfo( Mission.curmission.sid, level, MIS_RAND_KILL, monsterid, randvalue, randscope, exp, money )
 	if ret ~= LUA_TRUE then
-			PRINT( "AddRandKillInfo:AddRandMissionInfo: register random quest notice error! level, monsterid,  randvalue, randscope, exp, money", level, monsterid, randvalue, randscope, exp, money )
+			MISSDK_SCRIPTSDK_LUA_000061 = GetResString("MISSDK_SCRIPTSDK_LUA_000061")
+			PRINT( MISSDK_SCRIPTSDK_LUA_000061, level, monsterid, randvalue, randscope, exp, money )
+			MISSDK_SCRIPTSDK_LUA_000061 = GetResString("MISSDK_SCRIPTSDK_LUA_000061")
+			LG( "randmission_error", MISSDK_SCRIPTSDK_LUA_000061, level, monsterid, randvalue, randscope, exp, money )
 			return
 	end	
+	LG( "randmission_init", "AddRandKillInfo:level, monsterid, randvalue, randscope, exp, money", level, monsterid, randvalue, randscope, exp, money )
 end
 
 --添加获取物品类型随机库信息
 function AddRandGetItem( level, itemid, randvalue, randscope, exp, money )
 	if Mission.curmission == nil or Mission.curmission.sid == nil then
-		PRINT( "AddRandGetItem: register random quest notice, please define a random quest!level, itemid,  randvalue, randscope, exp, money", level, itemid, randvalue, randscope, exp, money )
+		MISSDK_SCRIPTSDK_LUA_000062 = GetResString("MISSDK_SCRIPTSDK_LUA_000062")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000062, level, itemid, randvalue, randscope, exp, money )
+		MISSDK_SCRIPTSDK_LUA_000062 = GetResString("MISSDK_SCRIPTSDK_LUA_000062")
+		LG( "randmission_error", MISSDK_SCRIPTSDK_LUA_000062, level, itemid, randvalue, randscope, exp, money )
 		return
 	end
 	
 	local ret = AddRandMissionInfo( Mission.curmission.sid, level, MIS_RAND_GET, itemid, randvalue, randscope, exp, money )
 	if ret ~= LUA_TRUE then
-			PRINT( "AddRandGetItem:AddRandMissionInfo: register random quest notice error! level, monsterid,  randvalue, randscope, exp, money", level, itemid, randvalue, randscope, exp, money )
+			MISSDK_SCRIPTSDK_LUA_000063 = GetResString("MISSDK_SCRIPTSDK_LUA_000063")
+			PRINT( MISSDK_SCRIPTSDK_LUA_000063, level, itemid, randvalue, randscope, exp, money )
+			MISSDK_SCRIPTSDK_LUA_000064 = GetResString("MISSDK_SCRIPTSDK_LUA_000064")
+			LG( "randmission_error", MISSDK_SCRIPTSDK_LUA_000064, level, itemid, randvalue, randscope, exp, money )
 			return
 	end
+	LG( "randmission_init", "AddRandGetItem:level, itemid, randvalue, randscope, exp, money", level, itemid, randvalue, randscope, exp, money )
 end
 
 --添加送物件类型随机库信息
 function AddRandSendInfo( level, npcid, exp, money )
 	if Mission.curmission == nil or Mission.curmission.sid == nil then
-		PRINT( "AddRandSendInfo: register random quest notice, please define a random quest!level, npcid, exp, money", level, npcid, exp, money )
+		MISSDK_SCRIPTSDK_LUA_000065 = GetResString("MISSDK_SCRIPTSDK_LUA_000065")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000065, level, npcid, exp, money )
+		MISSDK_SCRIPTSDK_LUA_000065 = GetResString("MISSDK_SCRIPTSDK_LUA_000065")
+		LG( "randmission_error", MISSDK_SCRIPTSDK_LUA_000065, level, npcid, exp, money )
 		return
 	end
 	
 	if npcid == nil or NpcList[npcid] == nil or NpcList[npcid].mapid == nil or NpcList[npcid].areaid == nil then
-		PRINT( "AddRandSendInfo: Please input correct NPC ID notice. npcid = ", npcid )
+		MISSDK_SCRIPTSDK_LUA_000066 = GetResString("MISSDK_SCRIPTSDK_LUA_000066")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000066, npcid )
+		MISSDK_SCRIPTSDK_LUA_000066 = GetResString("MISSDK_SCRIPTSDK_LUA_000066")
+		LG( "randmission_error", MISSDK_SCRIPTSDK_LUA_000066, npcid )
 		return
 	end
 	
 	local ret = AddRandMissionInfo( Mission.curmission.sid, level, MIS_RAND_SEND, npcid, NpcList[npcid].areaid, NpcList[npcid].mapid, exp, money )
 	if ret ~= LUA_TRUE then
-			PRINT( "AddRandSendInfo:AddRandMissionInfo: register random quest notice error! level, npcid, mapid, areaid, mapid, exp, money", level, npcid, NpcList[npcid].areaid, NpcList[npcid].mapid, exp, money )
+			MISSDK_SCRIPTSDK_LUA_000067 = GetResString("MISSDK_SCRIPTSDK_LUA_000067")
+			PRINT( MISSDK_SCRIPTSDK_LUA_000067, level, npcid, NpcList[npcid].areaid, NpcList[npcid].mapid, exp, money )
+			MISSDK_SCRIPTSDK_LUA_000068 = GetResString("MISSDK_SCRIPTSDK_LUA_000068")
+			LG( "randmission_error", MISSDK_SCRIPTSDK_LUA_000068, level, npcid, NpcList[npcid].areaid, NpcList[npcid].mapid, exp, money )
 			return
 	end
+	LG( "randmission_init", "AddRandSendInfo:level, npcid, mapid, areaid, exp, money", level, npcid, NpcList[npcid].areaid, NpcList[npcid].mapid, exp, money )
 end
 
 --添加送物件类型随机库可选物件信息
 function AddRandSendItem( level, item )
 	if Mission.curmission.RandInfo[level] == nil then
-		PRINT( "AddRandSendItem: add send letter random quest item, exceeds level.level = ", level )
+		MISSDK_SCRIPTSDK_LUA_000069 = GetResString("MISSDK_SCRIPTSDK_LUA_000069")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000069, level )
+		MISSDK_SCRIPTSDK_LUA_000069 = GetResString("MISSDK_SCRIPTSDK_LUA_000069")
+		LG( "randmission_error", MISSDK_SCRIPTSDK_LUA_000069, level )
 		return
 	end
 	Mission.curmission.RandInfo[level].SendItem.count = Mission.curmission.RandInfo[level].SendItem.count + 1
 	Mission.curmission.RandInfo[level].SendItem[Mission.curmission.RandInfo[level].SendItem.count] = item
+	LG( "randmission_init", "AddRandSendItem:misid, level, item", Mission.curmission.sid, level, item )
 end
 
 --添加护送类型随机库信息
 function AddRandConvoyInfo( level, charid, mapid, areaid, x, y, scope, exp, money )
 	if Mission.curmission == nil or Mission.curmission.sid == nil then
-		PRINT( "AddRandConvoyInfo: when registering random quest notice , please define a random quest!level, npcid, areaid, mapid, exp, money", level, areaid, mapid, exp, money )
+		MISSDK_SCRIPTSDK_LUA_000070 = GetResString("MISSDK_SCRIPTSDK_LUA_000070")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000070, level, areaid, mapid, exp, money )
+		MISSDK_SCRIPTSDK_LUA_000070 = GetResString("MISSDK_SCRIPTSDK_LUA_000070")
+		LG( "randmission_error", MISSDK_SCRIPTSDK_LUA_000070, level, areaid, mapid, exp, money )
 		return
 	end
 
 	local ret = AddRandMissionInfo( Mission.curmission.sid, level, MIS_RAND_CONVOY, charid, mapid, areaid, x, y, scope, exp, money )
 	if ret ~= LUA_TRUE then
-			PRINT( "AddRandConvoyInfo:AddRandMissionInfo: Register random quest notice error! level, charid, mapid, mapid, areaid, x, y, scope, exp, money", level, charid, mapid, areaid, x, y, scope, exp, money )
+			MISSDK_SCRIPTSDK_LUA_000071 = GetResString("MISSDK_SCRIPTSDK_LUA_000071")
+			PRINT( MISSDK_SCRIPTSDK_LUA_000071, level, charid, mapid, areaid, x, y, scope, exp, money )
+			MISSDK_SCRIPTSDK_LUA_000072 = GetResString("MISSDK_SCRIPTSDK_LUA_000072")
+			LG( "randmission_error", MISSDK_SCRIPTSDK_LUA_000072, level, charid, mapid, areaid, x, y, scope, exp, money )
 			return
 	end
+	LG( "randmission_init", "AddRandConvoyInfo:level, charid, mapid, areaid, x, y, scope, exp, money", level, charid, mapid, areaid, x, y, scope, exp, money )
 end
 
 --添加探索类型随机库信息
@@ -2575,7 +2816,9 @@ end
 --添加随机任务完成次数后随机高级装备奖励
 --随机任务贸易税点奖励
 function AddRandPriceCess( level, cess, cessrange )
+	LG( "randmission_init", "AddRandPrizeItem:misid, level, cess, cessrange", Mission.curmission.sid, level, cess, cessrange )
 	if Mission.curmission.RandInfo[level] == nil then
+		LG( "randmission_prize_error", "AddRandPriceCess, level data error.", level )
 		return
 	end
 	
@@ -2595,7 +2838,9 @@ end
 
 --随机任务角色声望奖励
 function AddRandPriceFrame( level, frame, framerange )
+	LG( "randmission_init", "AddRandPrizeItem:misid, level, frame, framerange" )
 	if Mission.curmission.RandInfo[level] == nil then
+		LG( "randmission_prize_error", "AddRandPriceFrame, level data error.", level )
 		return
 	end
 	
@@ -2615,7 +2860,9 @@ end
 
 --随即任务角色宠物经验奖励
 function AddRandPricePetExp( level, exp, exprange )
+	LG( "randmission_init", "AddRandPricePetExp:misid, level, exp, exprange" )
 	if Mission.curmission.RandInfo[level] == nil then
+		LG( "randmission_prize_error", "AddRandPricePetExp, level data error.", level )
 		return
 	end
 	
@@ -2635,7 +2882,9 @@ end
 
 --开始添加随机任务高级奖励
 function SetRandPrizeItem( level )
+	LG( "randmission_init2", "SetRandPrizeItem:misid, level", Mission.curmission.sid, level )
 	if Mission.curmission.RandInfo[level] == nil then
+		LG( "randmission_prize_error", "SetRandPrizeItem, level data error.", level )
 		return
 	end
 	
@@ -2649,12 +2898,16 @@ end
 --随机任务高级物品奖励
 function AddRandPrizeItem( level, item1, itemdata1, item2, itemdata2, item3, itemdata3, item4, itemdata4 )	
 	if Mission.curmission.RandInfo[level] == nil then
+		LG( "randmission_prize_error", "AddRandPrizeItem, level data error.", level )
 		return
 	end
 	
 	if Mission.curmission.RandInfo[level].LoopData[Mission.curmission.RandInfo[level].LoopData.count] == nil or Mission.curmission.RandInfo[level].LoopData[Mission.curmission.RandInfo[level].LoopData.count].Prize == nil then
+		MISSDK_SCRIPTSDK_LUA_000073 = GetResString("MISSDK_SCRIPTSDK_LUA_000073")
+		LG( "randmission_error", MISSDK_SCRIPTSDK_LUA_000073, Mission.curmission.sid, level )
 		return
 	end
+	LG( "randmission_init2", "AddRandPrizeItem:misid, level, item1, itemdata1, item2, itemdata2, item3, itemdata3, item4, itemdata4", Mission.curmission.sid, level, item1, itemdata1, item2, itemdata2, item3, itemdata3, item4, itemdata4 )
 	
 	if item1 ~= nil then
 		local count = Mission.curmission.RandInfo[level].LoopData[Mission.curmission.RandInfo[level].LoopData.count].Prize.count + 1
@@ -2706,9 +2959,14 @@ end
 function SetRandPrizeOdds( loopnum, odds, completenum )
 	--Mission.curmission.RandInfo[level].PrizeItem.odds = odds
 	--Mission.curmission.RandInfo[level].PrizeItem.num  = completenum
+	--LG( "randmission_init", "AddRandPrizeItem:Add item, level, odds, completenum", level, odds, completenum )
 	
+	LG( "randmission_init", "SetRandPrizeOdds:loopnum, odds, completenum", loopnum, odds, completenum )
 	if Mission.curmission.loopinfo[loopnum] ~= nil then
-		PRINT( "SetRandPrizeOdds: data set duplicate.loopnum, odds completenum", loopnum, Mission.curmission.loopinfo[loopnum].odds, Mission.curmission.loopinfo[loopnum].completenum )
+		MISSDK_SCRIPTSDK_LUA_000074 = GetResString("MISSDK_SCRIPTSDK_LUA_000074")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000074, loopnum, Mission.curmission.loopinfo[loopnum].odds, Mission.curmission.loopinfo[loopnum].completenum )
+		MISSDK_SCRIPTSDK_LUA_000074 = GetResString("MISSDK_SCRIPTSDK_LUA_000074")
+		LG( "randmission_error", MISSDK_SCRIPTSDK_LUA_000074, loopnum, Mission.curmission.loopinfo[loopnum].odds, Mission.curmission.loopinfo[loopnum].completenum )
 	end
 	
 	Mission.curmission.loopinfo[loopnum] = {}
@@ -2724,9 +2982,16 @@ end
 
 --添加NPC信息
 function AddNpcInfo( npcid, name, mapid, areaid )
-	PRINT( "Add NPC, ID["..npcid.."], nick ["..name.."] , MapID = "..mapid.."AreaID = "..areaid )
+	MISSDK_SCRIPTSDK_LUA_000075 = GetResString("MISSDK_SCRIPTSDK_LUA_000075")
+	MISSDK_SCRIPTSDK_LUA_000076 = GetResString("MISSDK_SCRIPTSDK_LUA_000076")
+	MISSDK_SCRIPTSDK_LUA_000077 = GetResString("MISSDK_SCRIPTSDK_LUA_000077")
+	PRINT( MISSDK_SCRIPTSDK_LUA_000077..npcid..MISSDK_SCRIPTSDK_LUA_000076..name..MISSDK_SCRIPTSDK_LUA_000075..mapid.."AreaID = "..areaid )
+	LG( "npcinfo", "AddNpcInfo:npcid = "..npcid.."name = "..name.."mapid = "..mapid.."areaid = "..areaid )
 	if NpcList[npcid] ~= nil then
-		PRINT( "AddNpcInfo: found duplicate ID while adding notice, overlay original NPC notice.ID = "..npcid.."name = "..NpcList[npcid].name )
+		MISSDK_SCRIPTSDK_LUA_000078 = GetResString("MISSDK_SCRIPTSDK_LUA_000078")
+		LG( "npcinfo", MISSDK_SCRIPTSDK_LUA_000078..npcid.."name = "..NpcList[npcid].name )
+		MISSDK_SCRIPTSDK_LUA_000078 = GetResString("MISSDK_SCRIPTSDK_LUA_000078")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000078..npcid.."name = "..NpcList[npcid].name )
 	end
 	NpcList[npcid] = {}
 	NpcList[npcid].name = name
@@ -2736,7 +3001,8 @@ end
 
 function GetNpcName( npcid )
 	if npcid == nil or NpcList[npcid] == nil or NpcList[npcid].name == nil then
-		return "Unknown NPC"..npcid
+		MISSDK_SCRIPTSDK_LUA_000044 = GetResString("MISSDK_SCRIPTSDK_LUA_000044")
+		return MISSDK_SCRIPTSDK_LUA_000044..npcid
 	end
 	return NpcList[npcid].name
 end
@@ -2751,55 +3017,89 @@ end
 --添加资源信息
 function SetWoodResource( level, itemid, count, pileid )
 	if level == nil or itemid == nil or count == nil or pileid == nil then
-		PRINT( "SetWoodResource:Function parameter error!level, itemid, count, pileid", level, itemid, count, pileid )
+		MISSDK_SCRIPTSDK_LUA_000079 = GetResString("MISSDK_SCRIPTSDK_LUA_000079")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000079, level, itemid, count, pileid )
+		MISSDK_SCRIPTSDK_LUA_000079 = GetResString("MISSDK_SCRIPTSDK_LUA_000079")
+		LG( "goods_error", MISSDK_SCRIPTSDK_LUA_000079, level, itemid, count, pileid )
 		return LUA_FALSE
 	end
 	
 	if ResourceList == nil or ResourceList.wood == nil then
-		PRINT( "SetWoodResource: resource notice list cannot be as null!" )
+		MISSDK_SCRIPTSDK_LUA_000080 = GetResString("MISSDK_SCRIPTSDK_LUA_000080")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000080 )
+		MISSDK_SCRIPTSDK_LUA_000080 = GetResString("MISSDK_SCRIPTSDK_LUA_000080")
+		LG( "goods_error", MISSDK_SCRIPTSDK_LUA_000080 )
 		return LAU_FALSE
 	end
 	
 	if ResourceList.wood[level] ~= nil then
-		PRINT( "While setting wood resource loading notice, overlay of notice level is discovered!old data, level, itemid, count, pileid", level, itemid, count, pileid )
+		MISSDK_SCRIPTSDK_LUA_000081 = GetResString("MISSDK_SCRIPTSDK_LUA_000081")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000081, level, itemid, count, pileid )
+		MISSDK_SCRIPTSDK_LUA_000081 = GetResString("MISSDK_SCRIPTSDK_LUA_000081")
+		LG( "goods_error", MISSDK_SCRIPTSDK_LUA_000081, level, itemid, count, pileid )
 	end
 	
 	ResourceList.wood[level] = {}
 	ResourceList.wood[level].itemid = itemid
 	ResourceList.wood[level].count = count
 	ResourceList.wood[level].pileid  = pileid
-	PRINT( "Set wood resource loading notice: Level, ItemID, Count, PileID", level, itemid, count, pileid )
+	MISSDK_SCRIPTSDK_LUA_000082 = GetResString("MISSDK_SCRIPTSDK_LUA_000082")
+	PRINT( MISSDK_SCRIPTSDK_LUA_000082, level, itemid, count, pileid )
+	MISSDK_SCRIPTSDK_LUA_000082 = GetResString("MISSDK_SCRIPTSDK_LUA_000082")
+	LG( "packbag_init", MISSDK_SCRIPTSDK_LUA_000082, level, itemid, count, pileid )
 	return LUA_TRUE
 end
 
 function SetMineResource( level, itemid, count, pileid )
 	if level == nil or itemid == nil or count == nil or pileid == nil then
-		PRINT( "SetMineResource:Function parameter error!level, itemid, count, pileid", level, itemid, count, pileid )
+		MISSDK_SCRIPTSDK_LUA_000083 = GetResString("MISSDK_SCRIPTSDK_LUA_000083")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000083, level, itemid, count, pileid )
+		MISSDK_SCRIPTSDK_LUA_000083 = GetResString("MISSDK_SCRIPTSDK_LUA_000083")
+		LG( "goods_error", MISSDK_SCRIPTSDK_LUA_000083, level, itemid, count, pileid )
 		return LUA_FALSE
 	end
 	
 	if ResourceList == nil or ResourceList.mine == nil then
-		PRINT( "SetMineResource: resource notice list cannot be as null!" )
+		MISSDK_SCRIPTSDK_LUA_000084 = GetResString("MISSDK_SCRIPTSDK_LUA_000084")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000084 )
+		MISSDK_SCRIPTSDK_LUA_000084 = GetResString("MISSDK_SCRIPTSDK_LUA_000084")
+		LG( "goods_error", MISSDK_SCRIPTSDK_LUA_000084 )
 		return LAU_FALSE
 	end
 	
 	if ResourceList.mine[level] ~= nil then
-		PRINT( "While setting ore resource loading notice, level notice discovered to be overlayed! old data, level, itemid, count, pileid", level, itemid, count, pileid )
+		MISSDK_SCRIPTSDK_LUA_000085 = GetResString("MISSDK_SCRIPTSDK_LUA_000085")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000085, level, itemid, count, pileid )
+		MISSDK_SCRIPTSDK_LUA_000085 = GetResString("MISSDK_SCRIPTSDK_LUA_000085")
+		LG( "goods_error", MISSDK_SCRIPTSDK_LUA_000085, level, itemid, count, pileid )
 	end
 	
 	ResourceList.mine[level] = {}
 	ResourceList.mine[level].itemid = itemid
 	ResourceList.mine[level].count = count
 	ResourceList.mine[level].pileid  = pileid
-	PRINT( "set ore resource loading notice: level, ItemID, Count, PileID", level, itemid, count, pileid )
+	MISSDK_SCRIPTSDK_LUA_000086 = GetResString("MISSDK_SCRIPTSDK_LUA_000086")
+	PRINT( MISSDK_SCRIPTSDK_LUA_000086, level, itemid, count, pileid )
+	MISSDK_SCRIPTSDK_LUA_000086 = GetResString("MISSDK_SCRIPTSDK_LUA_000086")
+	LG( "packbag_init", MISSDK_SCRIPTSDK_LUA_000086, level, itemid, count, pileid )
 	return LUA_TRUE
 end
 
 --添加港口信息
 function AddBerthPort( id, name )
-	PRINT( "add harbor notice: ID["..id.."],名称《"..name.."]" )
+	MISSDK_SCRIPTSDK_LUA_000040 = GetResString("MISSDK_SCRIPTSDK_LUA_000040")
+	MISSDK_SCRIPTSDK_LUA_000087 = GetResString("MISSDK_SCRIPTSDK_LUA_000087")
+	MISSDK_SCRIPTSDK_LUA_000088 = GetResString("MISSDK_SCRIPTSDK_LUA_000088")
+	PRINT( MISSDK_SCRIPTSDK_LUA_000088..id..MISSDK_SCRIPTSDK_LUA_000087..name..MISSDK_SCRIPTSDK_LUA_000040 )
+	MISSDK_SCRIPTSDK_LUA_000040 = GetResString("MISSDK_SCRIPTSDK_LUA_000040")
+	MISSDK_SCRIPTSDK_LUA_000087 = GetResString("MISSDK_SCRIPTSDK_LUA_000087")
+	MISSDK_SCRIPTSDK_LUA_000088 = GetResString("MISSDK_SCRIPTSDK_LUA_000088")
+	LG( "boat_init", MISSDK_SCRIPTSDK_LUA_000088..id..MISSDK_SCRIPTSDK_LUA_000087..name..MISSDK_SCRIPTSDK_LUA_000040 )
 	if BerthPortList[id] ~= nil then
-		PRINT( "AddBerthPort: adds harbor notice sending duplicate ID found, overlayed date: ID = "..id.."name = "..BerthPortList[id].name )
+		MISSDK_SCRIPTSDK_LUA_000089 = GetResString("MISSDK_SCRIPTSDK_LUA_000089")
+		LG( "boat_error", MISSDK_SCRIPTSDK_LUA_000089..id.."name = "..BerthPortList[id].name )
+		MISSDK_SCRIPTSDK_LUA_000089 = GetResString("MISSDK_SCRIPTSDK_LUA_000089")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000089..id.."name = "..BerthPortList[id].name )
 	end
 	
 	BerthPortList[id] = {}
@@ -2809,57 +3109,84 @@ end
 --获取港口信息
 function GetBerthData( id )
 	if id == nil or BerthPortList[id] == nil or BerthPortList[id].name == nil then		
-		return "Unknown Harbor name"..id
+		MISSDK_SCRIPTSDK_LUA_000090 = GetResString("MISSDK_SCRIPTSDK_LUA_000090")
+		return MISSDK_SCRIPTSDK_LUA_000090..id
 	end
 	return BerthPortList[id].name
 end
 
 --创建事件实体
 function CreateBerthEntity( name, cid, infoid, xpos1, ypos1, dir1, berth, xpos2, ypos2, dir2 )
-	PRINT( "Build Dock", name, cid, infoid, xpos1, ypos1, dir1, berth, xpos2, ypos2, dir2 )
+	MISSDK_SCRIPTSDK_LUA_000091 = GetResString("MISSDK_SCRIPTSDK_LUA_000091")
+	PRINT( MISSDK_SCRIPTSDK_LUA_000091, name, cid, infoid, xpos1, ypos1, dir1, berth, xpos2, ypos2, dir2 )
 	if name == nil or cid == nil or infoid == nil or xpos1 == nil or ypos1 == nil or dir1 == nil or berth == nil or xpos2 == nil or ypos2 == nil or dir2 == nil then
-		PRINT( "CreateBerthEntity: Create function parameter notice error!" )
+		MISSDK_SCRIPTSDK_LUA_000092 = GetResString("MISSDK_SCRIPTSDK_LUA_000092")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000092 )
+		MISSDK_SCRIPTSDK_LUA_000092 = GetResString("MISSDK_SCRIPTSDK_LUA_000092")
+		LG( "entity_error", MISSDK_SCRIPTSDK_LUA_000092 )
 		return
 	end
+	LG( "entity_init", "CreateBerthEntity:name, cid, infoid, xpos1, ypos1, dir1, berth, xpos2, ypos2, dir2", name, cid, infoid, xpos1, ypos1, dir1, berth, xpos2, ypos2, dir2 )	
 	
 	local ret, submap = GetCurSubmap()
 	if ret ~= LUA_TRUE then
-		PRINT( "CreateBerthEntity:GetCurSubmapfunctiontransfer failed!" )
+		MISSDK_SCRIPTSDK_LUA_000093 = GetResString("MISSDK_SCRIPTSDK_LUA_000093")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000093 )
+		MISSDK_SCRIPTSDK_LUA_000093 = GetResString("MISSDK_SCRIPTSDK_LUA_000093")
+		LG( "entity_error", MISSDK_SCRIPTSDK_LUA_000093 )
 		return
 	end
 	local ret, e = CreateEventEntity( BERTH_ENTITY, submap, name, cid, infoid, xpos1, ypos1, dir1 )
 	if ret ~= LUA_TRUE then
-		PRINT( "CreateBerthEntity:CreateEventEntity:functiontransfer failed!tp, submap, name, cid, infoid, xpos1, ypos1, dir1", BERTH_ENTITY, submap, name, cid, infoid, xpos1, ypos1, dir1 )
+		MISSDK_SCRIPTSDK_LUA_000094 = GetResString("MISSDK_SCRIPTSDK_LUA_000094")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000094, BERTH_ENTITY, submap, name, cid, infoid, xpos1, ypos1, dir1 )
+		MISSDK_SCRIPTSDK_LUA_000095 = GetResString("MISSDK_SCRIPTSDK_LUA_000095")
+		LG( "entity_error", MISSDK_SCRIPTSDK_LUA_000095, BERTH_ENTITY, submap, name, cid, infoid, xpos1, ypos1, dir1 )
 		return
 	end
 	ret = SetEntityData( e, berth, xpos2, ypos2, dir2 )
 	if ret ~= LUA_TRUE then
-		PRINT( "CreateBerthEntity:SetEntityDatafunctiontransfer failed!e, berth, xpos2, ypos2, dir2 ", e, berth, xpos2, ypos2, dir2 )
+		MISSDK_SCRIPTSDK_LUA_000096 = GetResString("MISSDK_SCRIPTSDK_LUA_000096")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000096, e, berth, xpos2, ypos2, dir2 )
+		LG( "entity_error", "CreateBerthEntity:e, berth, xpos2, ypos2, dir2", e, berth, xpos2, ypos2, dir2 )
 		return
 	end
 end
 
 --创建资源实体
 function CreateResourceEntity( name, cid, infoid, xpos, ypos, dir, itemid, count, time )
-	PRINT( "create resource entity", name, cid, infoid, xpos, ypos, dir, itemid, count, time )
+	MISSDK_SCRIPTSDK_LUA_000097 = GetResString("MISSDK_SCRIPTSDK_LUA_000097")
+	PRINT( MISSDK_SCRIPTSDK_LUA_000097, name, cid, infoid, xpos, ypos, dir, itemid, count, time )
 	if name == nil or cid == nil or infoid == nil or xpos == nil or ypos == nil or dir == nil or itemid == nil or count == nil or time == nil then
-		PRINT( "CreateResourceEntity: create function parameter notice error!" )
+		MISSDK_SCRIPTSDK_LUA_000098 = GetResString("MISSDK_SCRIPTSDK_LUA_000098")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000098 )
+		MISSDK_SCRIPTSDK_LUA_000098 = GetResString("MISSDK_SCRIPTSDK_LUA_000098")
+		LG( "entity_error", MISSDK_SCRIPTSDK_LUA_000098 )
 		return
 	end
+	LG( "entity_init", "CreateResourceEntity:name, cid, infoid, xpos, ypos, dir, itemid, count, time", name, cid, infoid, xpos, ypos, dir, itemid, count, time )	
 	
 	local ret, submap = GetCurSubmap()
 	if ret ~= LUA_TRUE then
-		PRINT( "CreateResourceEntity:GetCurSubmapfunctiontransfer failed!" )
+		MISSDK_SCRIPTSDK_LUA_000099 = GetResString("MISSDK_SCRIPTSDK_LUA_000099")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000099 )
+		MISSDK_SCRIPTSDK_LUA_000099 = GetResString("MISSDK_SCRIPTSDK_LUA_000099")
+		LG( "entity_error", MISSDK_SCRIPTSDK_LUA_000099 )
 		return
 	end
 	local ret, e = CreateEventEntity( RESOURCE_ENTITY, submap, name, cid, infoid, xpos, ypos, dir )
 	if ret ~= LUA_TRUE then
-		PRINT( "CreateResourceEntity:CreateEventEntity: function transfer failed!tp, submap, name, cid, infoid, xpos, ypos, dir", RESOURCE_ENTITY, submap, name, cid, infoid, xpos, ypos, dir )
+		MISSDK_SCRIPTSDK_LUA_000100 = GetResString("MISSDK_SCRIPTSDK_LUA_000100")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000100, RESOURCE_ENTITY, submap, name, cid, infoid, xpos, ypos, dir )
+		MISSDK_SCRIPTSDK_LUA_000101 = GetResString("MISSDK_SCRIPTSDK_LUA_000101")
+		LG( "entity_error", MISSDK_SCRIPTSDK_LUA_000101, RESOURCE_ENTITY, submap, name, cid, infoid, xpos, ypos, dir )
 		return
 	end
 	ret = SetEntityData( e, itemid, count, time )
 	if ret ~= LUA_TRUE then
-		PRINT( "CreateResourceEntity:SetEntityDatafunctiontransfer failed!e, itemid, count, time ", e, itemid, count, time )
+		MISSDK_SCRIPTSDK_LUA_000102 = GetResString("MISSDK_SCRIPTSDK_LUA_000102")
+		PRINT( MISSDK_SCRIPTSDK_LUA_000102, e, itemid, count, time )
+		LG( "entity_error", "CreateResourceEntity:e, itemid, count, time", e, itemid, count, time )
 		return
 	end
 end
@@ -2873,7 +3200,10 @@ function AddPfTable( curpf, uppf )
 	
 	for n = 1, Profession[curpf].count, 1 do
 		if Profession[curpf][n] == uppf then
-			PRINT( "Set target class advancement list notice already existed, add target notice failed!curpf = , uppf = ", curpf, uppf )
+			MISSDK_SCRIPTSDK_LUA_000103 = GetResString("MISSDK_SCRIPTSDK_LUA_000103")
+			PRINT( MISSDK_SCRIPTSDK_LUA_000103, curpf, uppf )
+			MISSDK_SCRIPTSDK_LUA_000104 = GetResString("MISSDK_SCRIPTSDK_LUA_000104")
+			LG( "PfTable_error", MISSDK_SCRIPTSDK_LUA_000104 )
 			return
 		end
 	end
@@ -2881,6 +3211,7 @@ function AddPfTable( curpf, uppf )
 	Profession[curpf].count = Profession[curpf].count + 1
 	Profession[curpf][Profession[curpf].count] = uppf
 	
+	LG( "PfTable", "AddPfTable, curpf, uppf, count", curpf, uppf, Profession[curpf].count )
 end
 
 function AddCatTable( cat, pf )
@@ -2891,7 +3222,10 @@ function AddCatTable( cat, pf )
 	
 	for n = 1, Category[cat].count, 1 do
 		if Category[cat][n] == pf then
-			PRINT( "Set target size class advancement restriction notice already existed add target notice failed!, cat, pt ", cat, pf )
+			MISSDK_SCRIPTSDK_LUA_000105 = GetResString("MISSDK_SCRIPTSDK_LUA_000105")
+			PRINT( MISSDK_SCRIPTSDK_LUA_000105, cat, pf )
+			MISSDK_SCRIPTSDK_LUA_000106 = GetResString("MISSDK_SCRIPTSDK_LUA_000106")
+			LG( "PfTable_error", MISSDK_SCRIPTSDK_LUA_000106 )
 			return
 		end
 	end
@@ -2899,22 +3233,28 @@ function AddCatTable( cat, pf )
 	Category[cat].count = Category[cat].count + 1
 	Category[cat][Category[cat].count] = pf
 	
+	LG( "PfTable", "AddCatTable, cat, pf, count ", cat, pf, Category[cat].count )
 end
 
 ------------------------------------------------------------
 --测试代码
 function TestDefPage()
 	--第一页
-	Talk( 1, "Granny: \"Hello, young fellow!\"" )
-	Text( 1, "Quest", amp, 2 )
+	MISSDK_SCRIPTSDK_LUA_000107 = GetResString("MISSDK_SCRIPTSDK_LUA_000107")
+	Talk( 1, MISSDK_SCRIPTSDK_LUA_000107 )
+	MISSDK_SCRIPTSDK_LUA_000108 = GetResString("MISSDK_SCRIPTSDK_LUA_000108")
+	Text( 1, MISSDK_SCRIPTSDK_LUA_000108, amp, 2 )
 	Text( 1, "bye", ct, 2 )
 
 	--第二页
-	Talk( 2, "Granny: \"Nothing…Go do your stuff\"" )
+	MISSDK_SCRIPTSDK_LUA_000109 = GetResString("MISSDK_SCRIPTSDK_LUA_000109")
+	Talk( 2, MISSDK_SCRIPTSDK_LUA_000109 )
 
 	--第三页
-	Talk( 3, "Granny: \"Did you help me collect Leaf Buds? I need 10. Get them from the Mystic Shrub outside of Argent City.\"" )
-	Text( 3, "Ok, I understand", ct )
+	MISSDK_SCRIPTSDK_LUA_000110 = GetResString("MISSDK_SCRIPTSDK_LUA_000110")
+	Talk( 3, MISSDK_SCRIPTSDK_LUA_000110 )
+	MISSDK_SCRIPTSDK_LUA_000111 = GetResString("MISSDK_SCRIPTSDK_LUA_000111")
+	Text( 3, MISSDK_SCRIPTSDK_LUA_000111, ct )
 
 	--初始化MultiTrigger
 	InitTrigger()
@@ -2938,22 +3278,26 @@ function TestDefPage()
 	--以上两者取其一
 	
 	--第四页
-	Talk( 4, "Granny: \"Remember to bring the medicine to the physician. He should be near the starry bar in Argent City.\"" )
-	Text( 4, "Ok", MultiTrigger, GetMultiTrigger(), 2 )
+	MISSDK_SCRIPTSDK_LUA_000112 = GetResString("MISSDK_SCRIPTSDK_LUA_000112")
+	Talk( 4, MISSDK_SCRIPTSDK_LUA_000112 )
+	MISSCRIPT_NPCSCRIPT01_LUA_000190 = GetResString("MISSCRIPT_NPCSCRIPT01_LUA_000190")
+	Text( 4, MISSCRIPT_NPCSCRIPT01_LUA_000190, MultiTrigger, GetMultiTrigger(), 2 )
 	
 	--初始化多函数列表
 	InitFuncList()
 	
 	--添加函数到函数列表中
 	AddFuncList( CreditExchange, 0 ) --要钱
-	Test( 4, "Redeem gold", MultiFunc, GetFuncList(), GetNumFunc() )
+	MISSDK_SCRIPTSDK_LUA_000113 = GetResString("MISSDK_SCRIPTSDK_LUA_000113")
+	Test( 4, MISSDK_SCRIPTSDK_LUA_000113, MultiFunc, GetFuncList(), GetNumFunc() )
 	
 	--初始化多函数列表
 	InitFuncList()
 	
 	--添加函数到函数列表中
 	AddFuncList( CreditExchange, 1 ) --要物	
-	Test( 4, "Redemption item", MultiFunc, GetFuncList(), GetNumFunc() )
+	MISSDK_SCRIPTSDK_LUA_000114 = GetResString("MISSDK_SCRIPTSDK_LUA_000114")
+	Test( 4, MISSDK_SCRIPTSDK_LUA_000114, MultiFunc, GetFuncList(), GetNumFunc() )
 	
 	--定义交易信息
 	InitTrade()
@@ -2997,11 +3341,14 @@ function TestDefMission( id, name, misid, scriptid, npcid, areaid )
 	MisPrize( MIS_PRIZE_MONEY, 300, 1 )
 	MisPrizeSelAll() --全部给予
 	
-	MisBeginTalk( "Thank you for sending my parcel over!" )
+	MISSCRIPT_SENDMISSION_LUA_000001 = GetResString("MISSCRIPT_SENDMISSION_LUA_000001")
+	MisBeginTalk( MISSCRIPT_SENDMISSION_LUA_000001 )
 	MisBeginCondition( AlwaysFailure )
 	
-	MisReultTalk( "Thank you for sending my parcel over!" )
-	MisHelpTalk( "Quest incompleted, please continue" )
+	MISSCRIPT_SENDMISSION_LUA_000001 = GetResString("MISSCRIPT_SENDMISSION_LUA_000001")
+	MisReultTalk( MISSCRIPT_SENDMISSION_LUA_000001 )
+	MISSDK_SCRIPTSDK_LUA_000115 = GetResString("MISSDK_SCRIPTSDK_LUA_000115")
+	MisHelpTalk( MISSDK_SCRIPTSDK_LUA_000115 )
 	
 	MisResultCondition( HasRandMissionNpc, misid, npcid, areaid )
 	MisResultCondition( NoRandNpcItemFlag, misid, npcid )
@@ -3011,11 +3358,11 @@ function TestDefMission( id, name, misid, scriptid, npcid, areaid )
 	MisResultAction( RefreshCompleteFlag, scriptid )
 end
 
---TestDefMission( 1, "Parcel of Peter", 8, 3, 1 )
---AddNpcInfo( 3, "Peter", 1, 1 ) --添加该NPC到信息库中
+--TestDefMission( 1, "比特的包裹", 8, 3, 1 )
+--AddNpcInfo( 3, "比特", 1, 1 ) --添加该NPC到信息库中
 
---TestDefMission( 2, "Parcel of Shaitan Teleporter", 8, 4, 1 )
---AddNpcInfo( 4, "Shaitan Teleporter", 1, 1 )
+--TestDefMission( 2, "沙岚传送使的包裹", 8, 4, 1 )
+--AddNpcInfo( 4, "沙岚传送使", 1, 1 )
 
 function TestRegNpcMission()
 	AddNpcMission( 2 )
@@ -3025,7 +3372,8 @@ end
 function TestRandMission()
 	PRINT( "TestRandMission" )
    --初始化随机任务基本信息
-   DefineRandMission( 10, "Random Quest", 8 )
+   MISSDK_SCRIPTSDK_LUA_000116 = GetResString("MISSDK_SCRIPTSDK_LUA_000116")
+   DefineRandMission( 10, MISSDK_SCRIPTSDK_LUA_000116, 8 )
 
    --设置随机任务类型
    --AddRandMissionType( MIS_RAND_KILL, 1, 2, 3, 4 )
@@ -3095,20 +3443,24 @@ function TestBorn()
 	--define trigger 25
 	InitTrigger()
 	TriggerAction( 1, SystemNotice, "Goto map, 2197, 2780, 10 m!" )
-	TriggerAction( 1, SummonNpc, 1, 1, "Physican - Ditto", 4 )
+	MISSCRIPT_MISSIONSCRIPT01_LUA_000190 = GetResString("MISSCRIPT_MISSIONSCRIPT01_LUA_000190")
+	TriggerAction( 1, SummonNpc, 1, 1, MISSCRIPT_MISSIONSCRIPT01_LUA_000190, 4 )
 	RegTrigger( 25, 1 )
 	
 	--define trigger 26
 	InitTrigger()
 	TriggerAction( 1, SystemNotice, "Time single per 1 minute trig" )
-	TriggerAction( 1, SystemNotice, "Welcome to the world of Tales of Pirates!" )
+	MISSDK_SCRIPTSDK_LUA_000117 = GetResString("MISSDK_SCRIPTSDK_LUA_000117")
+	TriggerAction( 1, SystemNotice, MISSDK_SCRIPTSDK_LUA_000117 )
 	RegTrigger( 26, 1 )
 	
 	--define trigger 27
 	InitTrigger()
 	TriggerAction( 1, SystemNotice, "Time cycle per 1 minute" )
-	TriggerAction( 1, HelpInfo, MIS_HELP_DESP, "You are still new. Work hard and train hard!" )
-	TriggerAction( 1, HelpInfo, MIS_HELP_IMAGE, "新手map 指导手册.tga" )
+	MISSDK_SCRIPTSDK_LUA_000118 = GetResString("MISSDK_SCRIPTSDK_LUA_000118")
+	TriggerAction( 1, HelpInfo, MIS_HELP_DESP, MISSDK_SCRIPTSDK_LUA_000118 )
+	MISSDK_SCRIPTSDK_LUA_000119 = GetResString("MISSDK_SCRIPTSDK_LUA_000119")
+	TriggerAction( 1, HelpInfo, MIS_HELP_IMAGE, MISSDK_SCRIPTSDK_LUA_000119 )
 	TriggerAction( 1, HelpInfo, MIS_HELP_SOUNT, 18 )
 	RegTrigger( 27, 1 )
 	
@@ -3183,10 +3535,12 @@ function TestConvertProfession()
 	AddCatTable( 2, 17 )	--转职为爆发户
 	
 	--女主角一转职
+	AddCatTable( 3, 1 )		--转职为剑士
 	AddCatTable( 3, 2 )		--转职为猎人
 	AddCatTable( 3, 3 )		--转职为水手
 	AddCatTable( 3, 5 )		--转职为祈愿使
 	AddCatTable( 3, 7 )		--转职为商人
+	AddCatTable( 3, 9 )		--转职为双剑士
 	AddCatTable( 3, 11 )	--转职为训兽师
 	AddCatTable( 3, 12 )	--转职为狙击手
 	AddCatTable( 3, 13 )	--转职为圣职者
@@ -3213,74 +3567,26 @@ end
 --SetMineResource( 1, 1, 1, 2 )
 
 --船只升级数据测试
-InitBoatLevel()
-AddBoatLevel( 1, 10000, 100)
-AddBoatLevel( 2, 20000, 200)
-AddBoatLevel( 3, 30000, 300)
-AddBoatLevel( 4, 40000, 400)
-AddBoatLevel( 5, 50000, 500)
-AddBoatLevel( 6, 60000, 600)
-AddBoatLevel( 7, 70000, 700)
-AddBoatLevel( 8, 80000, 800)
-AddBoatLevel( 9, 90000, 900)
-AddBoatLevel( 10, 100000, 1000)
-AddBoatLevel( 11, 110000, 1100)
-AddBoatLevel( 12, 120000, 1200)
-AddBoatLevel( 13, 130000, 1300)
-AddBoatLevel( 14, 140000, 1400)
-AddBoatLevel( 15, 150000, 1500)
-AddBoatLevel( 16, 160000, 1600)
-AddBoatLevel( 17, 170000, 1700)
-AddBoatLevel( 18, 180000, 1800)
-AddBoatLevel( 19, 190000, 1900)
-AddBoatLevel( 20, 200000, 2000)
-AddBoatLevel( 21, 210000, 2100)
-AddBoatLevel( 22, 220000, 2200)
-AddBoatLevel( 23, 230000, 2300)
-AddBoatLevel( 24, 240000, 2400)
-AddBoatLevel( 25, 250000, 2500)
-AddBoatLevel( 26, 260000, 2600)
-AddBoatLevel( 27, 270000, 2700)
-AddBoatLevel( 28, 280000, 2800)
-AddBoatLevel( 29, 290000, 2900)
-AddBoatLevel( 30, 300000, 3000)
-AddBoatLevel( 31, 310000, 3100)
-AddBoatLevel( 32, 320000, 3200)
-AddBoatLevel( 33, 330000, 3300)
-AddBoatLevel( 34, 340000, 3400)
-AddBoatLevel( 35, 350000, 3500)
-AddBoatLevel( 36, 360000, 3600)
-AddBoatLevel( 37, 370000, 3700)
-AddBoatLevel( 38, 380000, 3800)
-AddBoatLevel( 39, 390000, 3900)
-AddBoatLevel( 40, 400000, 4000)
-AddBoatLevel( 41, 410000, 4100)
-AddBoatLevel( 42, 420000, 4200)
-AddBoatLevel( 43, 430000, 4300)
-AddBoatLevel( 44, 440000, 4400)
-AddBoatLevel( 45, 450000, 4500)
-AddBoatLevel( 46, 460000, 4600)
-AddBoatLevel( 47, 470000, 4700)
-AddBoatLevel( 48, 480000, 4800)
-AddBoatLevel( 49, 490000, 4900)
-AddBoatLevel( 50, 500000, 5000)
-AddBoatLevel( 51, 510000, 5100)
-AddBoatLevel( 52, 520000, 5200)
-AddBoatLevel( 53, 530000, 5300)
-AddBoatLevel( 54, 540000, 5400)
-AddBoatLevel( 55, 550000, 5500)
-AddBoatLevel( 56, 560000, 5600)
-AddBoatLevel( 57, 570000, 5700)
-AddBoatLevel( 58, 580000, 5800)
-AddBoatLevel( 59, 590000, 5900)
-AddBoatLevel( 60, 600000, 6000)
-AddBoatLevel( 61, 610000, 6100)
-AddBoatLevel( 62, 620000, 6200)
-AddBoatLevel( 63, 630000, 6300)
-AddBoatLevel( 64, 640000, 6400)
-AddBoatLevel( 65, 650000, 6500)
-AddBoatLevel( 66, 660000, 6600)
-AddBoatLevel( 67, 670000, 6700)
-AddBoatLevel( 68, 680000, 6800)
-AddBoatLevel( 69, 690000, 6900)
-AddBoatLevel( 70, 700000, 7000)
+--InitBoatLevel()
+--AddBoatLevel( 1, 10, 0)
+--AddBoatLevel( 2, 10, 0)
+--AddBoatLevel( 3, 10, 0)
+--AddBoatLevel( 4, 10, 0)
+--AddBoatLevel( 5, 10, 0)
+--AddBoatLevel( 6, 10, 0)
+--AddBoatLevel( 7, 10, 0)
+
+
+function GetNpc(character, name)
+
+	--SystemNotice( character, "NpcInfoList.count"..NpcInfoList.count )
+	
+	for n = 1, NpcInfoList.count, 1 do
+		if NpcInfoList[n].Name == name then
+			--SystemNotice( character, "NpcInfoList[NpcInfoList.count].Name"..NpcInfoList[n].Name )
+			return NpcInfoList[n].Npc
+		end
+	end
+	
+	return nil
+end

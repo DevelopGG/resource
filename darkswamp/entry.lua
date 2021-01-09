@@ -1,77 +1,56 @@
+--此文件中，凡是可能被多次执行的函数，函数名都要加上地图名前缀，如after_destroy_entry_testpk
+--此文件每行最大字符个数为255，若有异议，请与程序探讨
+
 function config_entry(entry) 
-    SetMapEntryEntiID(entry, 193,1) 
+    SetMapEntryEntiID(entry, 2492,4) --设置地图入口实体的编号（该编号对应于characterinfo.txt的索引）
 end 
 
 function after_create_entry(entry) 
-    local copy_mgr = GetMapEntryCopyObj(entry, 0)
+    local copy_mgr = GetMapEntryCopyObj(entry, 0) --创建副本管理对象，此函数在有显式入口的地图中必须调用，对于隐式入口的地图（如队伍挑战）无要调用该接口
 
-    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
-    --Notice("В Москве по координатам ["..posx..","..posy.."] открыт портал в Мир Дерьма!") 
-    Notice("\194 \204\238\241\234\226\229 \239\238 \234\238\238\240\228\232\237\224\242\224\236 ["..posx..","..posy.."] \238\242\234\240\251\242 \239\238\240\242\224\235 \226 \204\232\240 \196\229\240\252\236\224!") 
-
-    --local EntryName = "Мир Дерьма"
-    local EntryName = "\204\232\240 \196\229\240\252\236\224"
-    SetMapEntryEventName( entry, EntryName )
+    map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --取地图入口的位置信息（地图名，坐标，目标地图名）
+    DARKSWAMP_ENTRY_LUA_000001 = GetResString("DARKSWAMP_ENTRY_LUA_000001")
+    ABANDONEDCITY_ENTRY_LUA_000002 = GetResString("ABANDONEDCITY_ENTRY_LUA_000002")
+    Notice(ABANDONEDCITY_ENTRY_LUA_000002..posx..","..posy..DARKSWAMP_ENTRY_LUA_000001) --通知本组服务器的所有玩家
 end
 
 function after_destroy_entry_darkswamp(entry)
     map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
-    --Notice("В Москве по координатам ["..posx..","..posy.."] открыт портал в Мир Дерьма!") 
-    Notice("\194 \204\238\241\234\226\229 \239\238 \234\238\238\240\228\232\237\224\242\224\236 ["..posx..","..posy.."] \238\242\234\240\251\242 \239\238\240\242\224\235 \226 \204\232\240 \196\229\240\252\236\224!") 
+    ABANDONEDCITY_ENTRY_LUA_000003 = GetResString("ABANDONEDCITY_ENTRY_LUA_000003")
+    ABANDONEDCITY_ENTRY_LUA_000002 = GetResString("ABANDONEDCITY_ENTRY_LUA_000002")
+    Notice(ABANDONEDCITY_ENTRY_LUA_000002..posx..","..posy..ABANDONEDCITY_ENTRY_LUA_000003) 
+
 end
 
 function after_player_login_darkswamp(entry, player_name)
     map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --取地图入口的位置信息（地图名，坐标，目标地图名）
-    --ChaNotice(player_name, "В Москве по координатам ["..posx..","..posy.."] открыт портал в Мир Дерьма!") --通知本组服务器的所有玩家
-    ChaNotice(player_name, "\194 \204\238\241\234\226\229 \239\238 \234\238\238\240\228\232\237\224\242\224\236 ["..posx..","..posy.."] \238\242\234\240\251\242 \239\238\240\242\224\235 \226 \204\232\240 \196\229\240\252\236\224!") --通知本组服务器的所有玩家
-
+    DARKSWAMP_ENTRY_LUA_000001 = GetResString("DARKSWAMP_ENTRY_LUA_000001")
+    ABANDONEDCITY_ENTRY_LUA_000002 = GetResString("ABANDONEDCITY_ENTRY_LUA_000002")
+    ChaNotice(player_name, ABANDONEDCITY_ENTRY_LUA_000002..posx..","..posy..DARKSWAMP_ENTRY_LUA_000001) --通知本组服务器的所有玩家
 end
 
+
+--用于检测进入条件
+--返回值：0，不满足进入条件。1，成功进入。
 function check_can_enter_darkswamp( role, copy_mgr )
     local Cha = TurnToCha(role)
-	----------------------
-	-- Проверка на форж --
-	----------------------
-	--Проверяем тело на форж
-	local checkBody = EquipForgeCheck(Cha, enumEQUIP_BODY, '>', 3)
-	--Проверяем перчатки на форж
-	local checkGloves = EquipForgeCheck(Cha, enumEQUIP_GLOVE, '>', 3)
-	--Проверяем ботинки на форж
-	local checkBoots = EquipForgeCheck(Cha, enumEQUIP_SHOES, '>', 3)
-	--Проверяем оружие слева в инвентаре на форж
-	local checkWeap = EquipForgeCheck(Cha, enumEQUIP_RHAND, '>', 3)
-	--Проверяем оружие справа в инвентаре на форж
-	local checkWeap2 = EquipForgeCheck(Cha, enumEQUIP_LHAND, '>', 3)
-	--Проверяем ожерелье на форж
-	local checkNeck = EquipForgeCheck(Cha, enumEQUIP_NECK, '>', 3)
-	--Проверяем кольцо слева в инвентаре на форж
-	local checkRingL = EquipForgeCheck(Cha, enumEQUIP_HAND1, '>', 3)
-	--Проверяем кольцо справа в инвентаре на форж
-	local checkRingR = EquipForgeCheck(Cha, enumEQUIP_HAND2, '>', 3)
-	if (checkBody == true and checkGloves == true and checkBoots == true and (checkWeap == true or checkWeap2 == true)and checkNeck == true and checkRingL == true and checkRingR == true) then
+  
+	if Lv(Cha) >=40 and Lv(Cha) <=55 then
+		
 		return 1
+		
 	else
-		Dbag = DelBagItem(Cha, 8129, 1)
-		if Dbag == 1 then
-			return 1
-		else
-		--HelpInfo( Cha, 0, "Чтобы войти в Тёмную Топь, у тебя должен быть форж:_1. Тело +4 или выше;_2. Перчатки +4 или выше;_3. Ботинки +4 или выше;_4. Оружие +4 или выше;_5. Ожерелье +4 или выше;_6. Кольца +4 или выше. ")
-		HelpInfo( Cha, 0,  "\215\242\238\225\251 \226\238\233\242\232 \226 \210\184\236\237\243\254 \210\238\239\252, \243 \242\229\225\255 \228\238\235\230\229\237 \225\251\242\252 \244\238\240\230:_1. \210\229\235\238 +4 \232\235\232 \226\251\248\229;_2. \207\229\240\247\224\242\234\232 +4 \232\235\232 \226\251\248\229;_3. \193\238\242\232\237\234\232 +4 \232\235\232 \226\251\248\229;_4. \206\240\243\230\232\229 +4 \232\235\232 \226\251\248\229;_5. \206\230\229\240\229\235\252\229 +4 \232\235\232 \226\251\248\229;_6. \202\238\235\252\246\224 +4 \232\235\232 \226\251\248\229.")
-		return 0
-		end
-	end
-	----------------------------
-	-- Конец проверки на форж --
-	----------------------------
-	if Lv(Cha) >=150 then
-		return 1
-	else
-		--PopupNotice(role, "Чтобы войти, персонаж должен быть выше 150 уровня!")
-		PopupNotice(role, "\215\242\238\225\251 \226\238\233\242\232, \239\229\240\241\238\237\224\230 \228\238\235\230\229\237 \225\251\242\252 \226\251\248\229 150 \243\240\238\226\237\255!")
+		DARKSWAMP_ENTRY_LUA_000002 = GetResString("DARKSWAMP_ENTRY_LUA_000002")
+		SystemNotice(role, DARKSWAMP_ENTRY_LUA_000002)
 		return 0
 	end
 end
 
+
 function begin_enter_darkswamp(role, copy_mgr) 
-	MoveCity(role, "Dark Swamp")
+
+	DARKSWAMP_ENTRY_LUA_000003 = GetResString("DARKSWAMP_ENTRY_LUA_000003")
+	SystemNotice(role,DARKSWAMP_ENTRY_LUA_000003) 
+	DARKSWAMP_ENTRY_LUA_000004 = GetResString("DARKSWAMP_ENTRY_LUA_000004")
+	MoveCity(role, DARKSWAMP_ENTRY_LUA_000004)
 end 

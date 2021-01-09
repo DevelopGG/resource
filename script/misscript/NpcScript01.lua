@@ -944,6 +944,9 @@ end
 function for_newbie()
 
 	Talk( 1, "Привет, пират! Выбирай, что ты хочешь обменять: " )
+	InitTrigger()
+	TriggerAction( 1, CheskStats )
+	Text( 1, "Узнать статистику ", MultiTrigger, GetMultiTrigger(), 1)
 	Text( 1, "Сет Смерти(100) ", JumpPage, 2)
 	Text( 1, "Медаль новичка ", JumpPage, 3)
 	Text( 1, "Уйти. ", CloseTalk )

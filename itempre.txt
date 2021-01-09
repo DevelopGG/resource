@@ -1,4 +1,4 @@
-//scripted by skyfear919@hotmail.com
+//±àºÅ	Corresponding Prefix
 0	0
 1	Mammoth
 2	Precise
@@ -99,4 +99,3 @@
 97	0
 98	0
 99	0
-// [Gemini.Decompiler] End of data

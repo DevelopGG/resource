@@ -20,7 +20,9 @@ end
 
 function begin_enter_puzzleworld2(role, copy_mgr) 
   	
-	SystemNotice(role,"Enters [Demonic World 2]") 
-	MoveCity(role, "Demonic World 2")
+	PUZZLEWORLD2_ENTRY_LUA_000001 = GetResString("PUZZLEWORLD2_ENTRY_LUA_000001")
+	SystemNotice(role,PUZZLEWORLD2_ENTRY_LUA_000001) 
+	PUZZLEWORLD2_ENTRY_LUA_000002 = GetResString("PUZZLEWORLD2_ENTRY_LUA_000002")
+	MoveCity(role, PUZZLEWORLD2_ENTRY_LUA_000002)
 
 end

@@ -1,6 +1,7 @@
-print( "Loading Calculate Files:" )
-print( "------------------------------------" )
-print( "Loading SkillEffect.lua" )
+CALCULATE_SKILLEFFECT_LUA_000001 = GetResString("CALCULATE_SKILLEFFECT_LUA_000001")
+print(CALCULATE_SKILLEFFECT_LUA_000001.."haha,resource\\script\\calculate\\")
+
+dofile(GetResPath("script\\calculate\\exp_and_level.lua"))
 dofile(GetResPath("script\\calculate\\exp_and_level.lua"))
 dofile(GetResPath("script\\calculate\\JobType.lua"))
 dofile(GetResPath("script\\calculate\\AttrType.lua"))
@@ -13,81 +14,102 @@ dofile(GetResPath("script\\calculate\\variable.lua"))
 dofile(GetResPath("script\\calculate\\Look.lua"))
 dofile(GetResPath("script\\calculate\\forge.lua"))
 dofile(GetResPath("script\\calculate\\ItemGetMission.lua"))
+dofile(GetResPath("script\\calculate\\LuaSQL\\LuaSQL.lua"))
 dofile(GetResPath("script\\addon\\hook.lua"))
 dofile(GetResPath("script\\addon\\serialize.lua"))
 dofile(GetResPath("script\\addon\\Install.lua"))
 
-
 CheckDmgChaNameTest = {}
-CheckDmgChaNameTest [0] = "Reï¿½Yï¿½Kï¿½É©ï¿½ï¿½ï¿½"
-CheckDmgChaNameTest [1] = "Carsise"      
-CheckDmgChaNameTest [2] = "I am rubbish"    
-CheckDmgChaNameTest [3] = "CG mao mao"      
-CheckDmgChaNameTest [4] = "Chief mate against"
+CALCULATE_SKILLEFFECT_LUA_000002 = GetResString("CALCULATE_SKILLEFFECT_LUA_000002")
+CheckDmgChaNameTest [0] = CALCULATE_SKILLEFFECT_LUA_000002
+CALCULATE_SKILLEFFECT_LUA_000003 = GetResString("CALCULATE_SKILLEFFECT_LUA_000003")
+CheckDmgChaNameTest [1] = CALCULATE_SKILLEFFECT_LUA_000003      
+CALCULATE_SKILLEFFECT_LUA_000004 = GetResString("CALCULATE_SKILLEFFECT_LUA_000004")
+CheckDmgChaNameTest [2] = CALCULATE_SKILLEFFECT_LUA_000004    
+CALCULATE_SKILLEFFECT_LUA_000005 = GetResString("CALCULATE_SKILLEFFECT_LUA_000005")
+CheckDmgChaNameTest [3] = CALCULATE_SKILLEFFECT_LUA_000005      
+CALCULATE_SKILLEFFECT_LUA_000006 = GetResString("CALCULATE_SKILLEFFECT_LUA_000006")
+CheckDmgChaNameTest [4] = CALCULATE_SKILLEFFECT_LUA_000006
 
 
 BOSSXYSJ = {}
-BOSSXYSJ[979] = 25
-BOSSXYSJ[980] = 25
-BOSSXYSJ[981] = 25
-BOSSXYSJ[982] = 25
-BOSSXYSJ[983] = 25
-BOSSXYSJ[984] = 25
-BOSSXYSJ[985] = 25
-BOSSXYSJ[986] = 25
-BOSSXYSJ[987] = 25
-BOSSXYSJ[988] = 25
+BOSSXYSJ[979] = 1
+BOSSXYSJ[980] = 12
+BOSSXYSJ[981] = 6
+BOSSXYSJ[982] = 4
+BOSSXYSJ[983] = 12
+BOSSXYSJ[984] = 16
+BOSSXYSJ[985] = 16
+BOSSXYSJ[986] = 12
+BOSSXYSJ[987] = 4
+BOSSXYSJ[988] = 4
 
 BOSSSJSJ = {}
-BOSSSJSJ[979] = 25
-BOSSSJSJ[980] = 25
-BOSSSJSJ[981] = 25
-BOSSSJSJ[982] = 25
-BOSSSJSJ[983] = 25
-BOSSSJSJ[984] = 25
-BOSSSJSJ[985] = 25
-BOSSSJSJ[986] = 25
-BOSSSJSJ[987] = 25
-BOSSSJSJ[988] = 25
+BOSSSJSJ[979] = 8
+BOSSSJSJ[980] = 1
+BOSSSJSJ[981] = 6
+BOSSSJSJ[982] = 4
+BOSSSJSJ[983] = 12
+BOSSSJSJ[984] = 16
+BOSSSJSJ[985] = 16
+BOSSSJSJ[986] = 12
+BOSSSJSJ[987] = 4
+BOSSSJSJ[988] = 4
 
 BOSSTJSJ = {}
-BOSSTJSJ[979] = 25
-BOSSTJSJ[980] = 25
-BOSSTJSJ[981] = 25
-BOSSTJSJ[982] = 25
-BOSSTJSJ[983] = 25
-BOSSTJSJ[984] = 25
-BOSSTJSJ[985] = 25
-BOSSTJSJ[986] = 25
-BOSSTJSJ[987] = 25
-BOSSTJSJ[988] = 25
+BOSSTJSJ[979] = 8
+BOSSTJSJ[980] = 1
+BOSSTJSJ[981] = 6
+BOSSTJSJ[982] = 4
+BOSSTJSJ[983] = 12
+BOSSTJSJ[984] = 16
+BOSSTJSJ[985] = 16
+BOSSTJSJ[986] = 12
+BOSSTJSJ[987] = 4
+BOSSTJSJ[988] = 4
 
 BOSSXZSJ = {}
-BOSSXZSJ[979] = 25
-BOSSXZSJ[980] = 25
-BOSSXZSJ[981] = 25
-BOSSXZSJ[982] = 25
-BOSSXZSJ[983] = 25
-BOSSXZSJ[984] = 25
-BOSSXZSJ[985] = 25
-BOSSXZSJ[986] = 25
-BOSSXZSJ[987] = 25
-BOSSXZSJ[988] = 25
+BOSSXZSJ[979] = 12
+BOSSXZSJ[980] = 12
+BOSSXZSJ[981] = 16
+BOSSXZSJ[982] = 16
+BOSSXZSJ[983] = 12
+BOSSXZSJ[984] = 4
+BOSSXZSJ[985] = 1
+BOSSXZSJ[986] = 6
+BOSSXZSJ[987] = 4
+BOSSXZSJ[988] = 4
 
 BOSSAYSJ = {}
-BOSSAYSJ[979] = 25
-BOSSAYSJ[980] = 25
-BOSSAYSJ[981] = 25
-BOSSAYSJ[982] = 25
-BOSSAYSJ[983] = 25
-BOSSAYSJ[984] = 25
-BOSSAYSJ[985] = 25
-BOSSAYSJ[986] = 25
-BOSSAYSJ[987] = 25
-BOSSAYSJ[988] = 25
+BOSSAYSJ[979] = 12
+BOSSAYSJ[980] = 12
+BOSSAYSJ[981] = 16
+BOSSAYSJ[982] = 16
+BOSSAYSJ[983] = 12
+BOSSAYSJ[984] = 4
+BOSSAYSJ[985] = 1
+BOSSAYSJ[986] = 6
+BOSSAYSJ[987] = 4
+BOSSAYSJ[988] = 4
 
-function Check_Baoliao(ATKER, DEFER, ... ) 
+
+
+function SkillLog(atk,def,dmg,skname,sklv)
+	local atkName = GetChaDefaultName(atk)
+	local defName = GetChaDefaultName(def)
+	local atkBA = {}
+	local defBA = {}
+	local i = 1 
+	for i = 1,22,1 do 
+		atkBA[i]= GetChaAttr( atk ,ATTR_COUNT_BASE1+i-1)
+		defBA[i] = GetChaAttr( def ,ATTR_COUNT_BASE1+i-1)
+	end
+	LG("skillLOg",atkName,skname,sklv,atkBA[1],atkBA[2],atkBA[3],atkBA[4],atkBA[5],atkBA[7],atkBA[8],atkBA[9],atkBA[10],atkBA[11],atkBA[12],atkBA[13],atkBA[15],atkBA[16],atkBA[17],atkBA[18],atkBA[20],atkBA[22],defName,dmg,defBA[11],defBA[22])
+end
+function Check_Baoliao(ATKER, DEFER, ... ) --[[ÅÐ¶¨ÊÇ·ñ±©ÁÏ,´«Èë¹¥»÷ÕßµÈ¼¶¡¢ÊÜ»÷ÕßµÈ¼¶¡¢¹¥»÷Õß±©ÁÏÂÊ¡¢ÊÜ»÷Õß±©ÁÏÂÊ]]--
     local diaoliao_count = arg.n 
+	--LuaPrint("Enter function Check_Baoliao(Atker,Defer,mf_atker,mf_defer) --[[ÅÐ¶¨ÊÇ·ñ±©ÁÏ]]--".."\n" ) 
+	--LG("±©ÁÏ", "Enter function Check_Baoliao(Atker,Defer,mf_atker,mf_defer) --[[ÅÐ¶¨ÊÇ·ñ±©ÁÏ]]--","\n" ) 
 	Atker = TurnToCha ( ATKER ) 
 	Defer = TurnToCha ( DEFER ) 
 	local lv_atker = Lv(Atker)
@@ -100,8 +122,10 @@ function Check_Baoliao(ATKER, DEFER, ... )
 	local StateLv = GetChaStateLv ( ATKER , STATE_SBBLGZ )
 	item = {} 
 	local bsmf=( 1) * ( 1 ) 
-	if IsPlayer(Defer) == 1 then	
+	if IsPlayer(Defer) == 1 then		--______________________________________pk³¡ÄÚµôÂäÖ¤Ã÷_____________________________
+	--LG("±©ÁÏ","is PVP")	
 		if IsInGymkhana(Defer) == 1 then 
+		--LG("±©ÁÏ","is in PK")
 			count = 1 
 			if lv_defer - lv_atker >= 5 then
 				item[count] = 1
@@ -110,65 +134,63 @@ function Check_Baoliao(ATKER, DEFER, ... )
 			else
 				item[count] = 2
 			end
+			--LuaPrint("Out function Check_Baoliao(lv_atker,lv_defer,mf_atker,mf_defer) --[[ÅÐ¶¨ÊÇ·ñ±©ÁÏ]]--") 
+			--LG("±©ÁÏ" , "function Check_Baoliao : " , "count = " , count , "item[1] =" ,item[1] , "item[2] = " , item[2], "item[3] = " , item[3] ,  "item[4] = " ,item[4] , "item[5] = " , item[5] , "item[6] = " ,item[6] , "item[7] = " ,item[7], "item[8] = " ,item[8], "item[9] = " ,item[9], "item[10] = " ,item[10]) 
 			SetItemFall ( count , item[1] , item[2] , item[3] , item[4] , item[5] , item[6], item[7] ,item[8],item[9],item[10] )
 		end 
-	else	 
+	else	
+--______________________________________Õý³£¹ÖÎïµôÁÏ______________________________
+
+		--LG("±©ÁÏ", "±©ÁÏ¼¸ÂÊ = ", bsmf ,"\n") 
+		if diaoliao_count <= 0 or diaoliao_count > 10 then 
+			--LG("baoliao_err", "function Check_Baoliao : " , " µôÁÏ¸öÊý³¬³ö10¸ö£ºdiaoliao_count = " , diaoliao_count ) 
+			return 
+		end 
 		
 		if StateLv >= 0 and StateLv <= 10 then
-			if StateLv == 1 then
-				MF_RAID_STATE = StateLv + 1
-			end
-			if StateLv == 2 then
-				MF_RAID_STATE = 2.5
-			end
-			if StateLv == 3 then
-				MF_RAID_STATE = 3
-			end
-			if StateLv == 4 then
-				MF_RAID_STATE = 3.5
-			end
-			if StateLv == 5 then
-				MF_RAID_STATE = 4	
-			end
-			if StateLv == 6 then
-				MF_RAID_STATE = 4.5
-			end
-			if StateLv == 7 then
-				MF_RAID_STATE = 5
-			end
-			if StateLv == 8 then
-				MF_RAID_STATE = 5.5
-			end
-			if StateLv == 9 then
-				MF_RAID_STATE = 6
-			end
-			if StateLv == 10 then
-				MF_RAID_STATE = 10.0	
-		end
+
+			MF_RAID_STATE = BLStateBS[StateLv]
+			
 		end
 		for i = 1 , diaoliao_count , 1 do 
 			if arg[i] >= 100 then 
 				mf = math.min ( 1, 100 / arg[i] * bsmf ) * MF_RAID * MF_RAID_STATE
-				a = Percentage_Random(mf)
+				
+				--·À³ÁÃÔÏµÊý
+				local retExpState = GetExpState(ATKER)
+--				Notice("ÓÎÏ·µô±¦ÂÊµÄ·À³ÁÃÔÏµÊýÎª"..retExpState )
+				mf =	mf *GetExpState(ATKER) / 100
+				
+				a = Percentage_Random(mf) 
 				if a == 1 then 
 					count = count + 1 
 					item[count] = i 
 				end 
 			else 
+				--LG("baoliao_err", "function Check_Baoliao : " , " µôÁÏ¸ÅÂÊ´íÎó ", "µÚ", i , "ÖÖµôÁÏ¸ÅÂÊ = " , arg[i] )  
 			end 
 		end 
+		--LG("±©ÁÏ" , "function Check_Baoliao : " , "count = " , count , "item[1] =" ,item[1] , "item[2] = " , item[2], "item[3] = " , item[3] ,  "item[4] = " ,item[4] , "item[5] = " , item[5] , "item[6] = " ,item[6] , "item[7] = " ,item[7], "item[8] = " ,item[8], "item[9] = " ,item[9], "item[10] = " ,item[10]) 
 		SetItemFall ( count , item[1] , item[2] , item[3] , item[4] , item[5] , item[6], item[7] ,item[8],item[9],item[10] )  
 	end
 end 
 
-function Check_SpawnResource ( ATKER, DEFER , lv_skill , diaoliao_count , ...) 
+
+
+
+function Check_SpawnResource ( ATKER, DEFER , lv_skill , diaoliao_count , ...) --[[ÅÐ¶¨ÊÇ·ñ±©¿ó,¼¼ÄÜµÈ¼¶,±©¿ó¸ÅÂÊ]]--
+	--LuaPrint("Enter function Check_SpawnResource  --[[ÅÐ¶¨ÊÇ·ñ±©¿ó]]--".."\n" ) 
 	item = {} 
 	local count = 0 
-	local bsmf=1   
+	local bsmf=1  
+	--LG("±©¿ó", "±©¿ó¼¸ÂÊ = ", bsmf ,"\n") 
 	if diaoliao_count <= 0 or diaoliao_count > 10 then 
+		--LG("±©¿ó_err", "function Check_±©¿ó : " , " µôÁÏ¸öÊý³¬³ö6¸ö£ºdiaoliao_count = " , diaoliao_count ) 
 		return 
 	end 
 	
+--	local SpItemAdd = 1
+--	local Take_Item = 0
 	local ResourceGet_RAID = 1
 	local ResourceItemUse_Check = 0
 	ResourceItemUse_Check = CheckCha_ResourceItemUse ( ATKER )
@@ -187,7 +209,7 @@ function Check_SpawnResource ( ATKER, DEFER , lv_skill , diaoliao_count , ...)
 	local Un_C = 0
 	
 	for Un_C = 0 , UnNormal_ResourceID_Num , 1 do
-		if Resource_ID == UnNormal_ResourceID[Un_C] then				
+		if Resource_ID == UnNormal_ResourceID[Un_C] then				----ÌØÊâ×ÊÔ´ÓÃ¸ß¼¶·¥Ä¾¸«ºÍ¿ó¸äÎÞÐ§
 			ResourceGet_RAID = 1
 		end
 	end
@@ -196,7 +218,7 @@ function Check_SpawnResource ( ATKER, DEFER , lv_skill , diaoliao_count , ...)
 	local Tree_hp = Hp( DEFER )
 	local i = 0
 	
-	for Un_C = 0 , UnNormal_ResourceID_Num , 1 do						
+	for Un_C = 0 , UnNormal_ResourceID_Num , 1 do						----ÌØÊâ×ÊÔ´¼¼ÄÜµÈ¼¶ÎÞÐ§
 		if Tree_ID == UnNormal_ResourceID[Un_C] then
 				lv_skill = 0
 		end
@@ -210,9 +232,12 @@ function Check_SpawnResource ( ATKER, DEFER , lv_skill , diaoliao_count , ...)
 				count = count + 1 
 				item[count] = i 
 			end 
-		else   
+		else 
+			--LG("±©¿ó_err", "function Check_SpawnResource : " , " µôÁÏ¸ÅÂÊ´íÎó ", "µÚ", i , "ÖÖµôÁÏ¸ÅÂÊ = " , arg[i] )  
 		end 
 	end 
+	--LuaPrint("Out function Check_SpawnResource(lv_atker,lv_defer,mf_atker,mf_defer) --[[ÅÐ¶¨ÊÇ·ñ±©¿ó]]--") 
+	--LG("±©¿ó" , "function Check_SpawnResource : " , "count = " , count , "item[1] =" ,item[1] , "item[2] = " , item[2], "item[3] = " , item[3] ,  "item[4] = " ,item[4] , "item[5] = " , item[5] , "item[6] = " ,item[6] , "item[7] = " ,item[7], "item[8] = " ,item[8], "item[9] = " ,item[9], "item[10] = " ,item[10]) 
 	if count >= 1 then 
 		item[1] = item[count]  
 		count = 1 
@@ -224,11 +249,13 @@ function CheckCha_ResourceItemUse ( role )
 	local Item_Use = GetChaItem ( role , 1 , 9 )
 	local ItemID_Use = GetItemID ( Item_Use )
 	
-	if ItemID_Use == 207 or ItemID_Use == 208 or ItemID_Use == 7721 then
+	if ItemID_Use == 207 or ItemID_Use == 208 then
 		return 1
 	end
 	return 0
 end
+
+
 
 function SetSus( role , sus ) 
 	if sus == 0 then 
@@ -238,15 +265,33 @@ function SetSus( role , sus )
 	end 
 end 
 
-----------------
--- ï¿½ï¿½ï¿½ï¿½Ý§Ñ§ï¿½ ï¿½ï¿½ï¿½Ü§ï¿½ --
-----------------
-function Skill_Melee_End ( ATKER , DEFER , sklv )	
+
+function Skill_Melee_Begin ( role , sklv ) 
+end 
+
+function Skill_Melee_End ( ATKER , DEFER , sklv )						--[[¼¼ÄÜ"½üÉíÆÕÍ¨¹¥»÷"µÄÉËº¦¼ÆËã£¨°üÀ¨missºÍ±©»÷¼ÆËã£©]]--
+--		Check_State ( ATKER , DEFER ) 
+		if ValidCha(ATKER) == 0 then 
+			CALCULATE_SKILLEFFECT_LUA_000007 = GetResString("CALCULATE_SKILLEFFECT_LUA_000007")
+			LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000007 ) 
+			return 
+		end 
+		if ValidCha(DEFER) == 0 then 
+			CALCULATE_SKILLEFFECT_LUA_000008 = GetResString("CALCULATE_SKILLEFFECT_LUA_000008")
+			LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000008 ) 
+			return 
+		end 
 		local ChaName_ATKER = GetChaDefaultName ( ATKER )
 		local ChaName_DEFER = GetChaDefaultName ( DEFER )
-		dmg = Atk_Dmg( ATKER, DEFER )					
-		sus,dmgsa = Check_MisorCrt( ATKER , DEFER )		
-		SetSus( DEFER , sus )						
+
+		
+
+		dmg = Atk_Dmg( ATKER, DEFER )					--[[¼ÆËãÆÕÍ¨¹¥»÷µÄÕý³£¹¥»÷ÉËº¦]]--
+		sus,dmgsa = Check_MisorCrt( ATKER , DEFER )			--[[ÊÇ·ñmiss»òcrt]]--
+		SetSus( DEFER , sus )								--ÉèÖÃ±©»÷ºÍmiss 
+--		if atk_statecheck[STATE_ZMYJ] >= 1 then 
+--			dmgsa = Check_Zmyj ( ATKER , dmgsa )		--ÅÐ¶Ï±©»÷ÉËº¦±¶Êý
+--		end 
 		if dmgsa == 1 then
 			local Elf_Item = CheckHaveElf ( ATKER )
 			if Elf_Item ~= 0 then
@@ -256,21 +301,42 @@ function Skill_Melee_End ( ATKER , DEFER , sklv )
 				if CheckElfSkill == 2 then
 					ElfCrt = ElfSKill_ElfCrt ( ATKER , Elf_Item , Num )
 					if ElfCrt == 1 then
-						SystemNotice ( ATKER , "\194\224\248\224 \244\229\255 \224\234\242\232\226\232\240\238\226\224\235\224 \193\229\240\241\229\240\234, \239\238\235\243\247\229\237 \225\238\237\243\241 \224\242\224\234\232 " )
-						SystemNotice ( DEFER , "\212\229\255 \238\239\239\238\237\229\237\242\224 \224\234\242\232\226\232\240\238\226\224\235\224 \193\229\240\241\229\240\234, \239\238 \226\224\236 \225\251\235 \237\224\237\229\241\184\237 \228\238\239\238\235\237\232\242\229\235\252\237\251\233 \243\240\238\237 " )
+						CALCULATE_SKILLEFFECT_LUA_000009 = GetResString("CALCULATE_SKILLEFFECT_LUA_000009")
+						SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000009 )
+						CALCULATE_SKILLEFFECT_LUA_000010 = GetResString("CALCULATE_SKILLEFFECT_LUA_000010")
+						SystemNotice ( DEFER , CALCULATE_SKILLEFFECT_LUA_000010 )
 						dmgsa = 2
 						SetSus( DEFER , sus )
 					end
 				end
 			end
 		end
-		hpdmg = math.floor( dmg*dmgsa )				
-		Hp_Endure_Dmg( DEFER , hpdmg )				
-		Take_Atk_ItemURE ( ATKER )						
-		Take_Def_ItemURE ( DEFER )						
+		hpdmg = math.floor( dmg*dmgsa )				--[[È¡Õý³£ÉËº¦ºÍ×îÐ¡ÉËº¦ÖÐµÄ×î´óÖµ,¼°missºÍ±©»÷ÉËº¦]]--
+--		local mars = 0
+--		for mars = 0 , 4 , 1 do
+--			if ChaName_DEFER == CheckDmgChaNameTest [mars] then
+--				local Atker_aspd = Aspd ( ATKER )
+--				local Atker_mxatk = Mxatk ( ATKER )
+--				local Atker_mnatk = Mnatk ( ATKER )
+--				LG ( "whydie" , ChaName_DEFER.."±»"..ChaName_ATKER.."¹¥»÷".."ÉËº¦ÖµÎª"..hpdmg )
+--				LG ( "whydie" , ChaName_ATKER.."¹¥»÷ËÙ¶È"..Atker_aspd.."×î´ó¹¥»÷"..Atker_mxatk.."×îÐ¡¹¥»÷"..Atker_mnatk )
+--			end
+--		end
+		Hp_Endure_Dmg( DEFER , hpdmg )				--[[ÉèÖÃÊÜ»÷Õß¿ÛÑª]]--
+--		a = Check_Zjft ( )							--ÅÐ¶ÏÖØ¼×·´µ¯
+
+--		if a > 0 then 
+--			Hp_Endure_Dmg ( ATKER , hpdmg * a  )				--·´µ¯ÉËº¦
+--		end 
+--		if def_statecheck[STATE_BSHD] >= 1 then			--ÅÐ¶Ï±ùËª»¤¶Ü
+--			statetime = Check_Bshd ( def_statecheck[STATE_BSHD]) 
+--			AddState( ATKER , DEFER , STATE_BD , def_statecheck , statetime ) 
+--		end 
+		Take_Atk_ItemURE ( ATKER )						--¿ÛÈ¡¹¥»÷ÕßÎäÆ÷ÄÍ¾Ã
+		Take_Def_ItemURE ( DEFER )						--¿ÛÈ¡ÊÜ»÷Õß·À¾ßÄÍ¾Ã
 
 		local Check_Nianshou = CheckItem_Nianshou ( ATKER )
-		
+		local Check_ZHONGSHEN = CheckItem_ZHONGSHEN ( ATKER )
 		if Check_Nianshou == 1 then
 			local P_R = 0.1
 			local job = GetChaAttr( ATKER , ATTR_JOB )
@@ -280,23 +346,104 @@ function Skill_Melee_End ( ATKER , DEFER , sklv )
 			local Percentage = Percentage_Random ( P_R )
 			if Percentage == 1 then
 				AddState ( ATKER , DEFER , STATE_XY , 1 , 1 )
-				SystemNotice ( ATKER , "Recieved blessing from Goddess. Knock out target for 1 sec")
+				CALCULATE_SKILLEFFECT_LUA_000011 = GetResString("CALCULATE_SKILLEFFECT_LUA_000011")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000011)
+			end
+		end
+		if Check_ZHONGSHEN == 1 then
+			local P_R = 0.1
+			local job = GetChaAttr( ATKER , ATTR_JOB )
+			if job == 5 then
+				P_R = 0.03
+			end
+			local Percentage = Percentage_Random ( P_R )
+			if Percentage == 1 then
+				AddState ( ATKER , DEFER , STATE_XY , 1 , 1 )
+				CALCULATE_SKILLEFFECT_LUA_000012 = GetResString("CALCULATE_SKILLEFFECT_LUA_000012")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000012)
 			end
 		end
 		
-		Check_Ys_Rem ( ATKER , DEFER)			
+		Check_Ys_Rem ( ATKER , DEFER)						--ÅÐ¶ÏÊÇ·ñÒþÉí
+	-----±³ºóÁé×´Ì¬
+	GivePetState(ATKER , DEFER )
+		
  end 
 
------------------
--- ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Þ§ï¿½ï¿½Ü§Ö§ï¿½ --
------------------
-function Skill_Range_End ( ATKER , DEFER , sklv )		
+ function Skill_lackart_End ( ATKER , DEFER , sklv )						--[[¼¼ÄÜ"½üÉíÆÕÍ¨¹¥»÷"µÄÉËº¦¼ÆËã£¨°üÀ¨missºÍ±©»÷¼ÆËã£©]]--
+		if ValidCha(ATKER) == 0 then 
+			CALCULATE_SKILLEFFECT_LUA_000007 = GetResString("CALCULATE_SKILLEFFECT_LUA_000007")
+			LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000007 ) 
+			return 
+		end 
+		if ValidCha(DEFER) == 0 then 
+			CALCULATE_SKILLEFFECT_LUA_000008 = GetResString("CALCULATE_SKILLEFFECT_LUA_000008")
+			LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000008 ) 
+			return 
+		end 
+		local ChaName_ATKER = GetChaDefaultName ( ATKER )
+		local ChaName_DEFER = GetChaDefaultName ( DEFER )
+		dmg = Atk_Dmg( ATKER, DEFER )					--[[¼ÆËãÆÕÍ¨¹¥»÷µÄÕý³£¹¥»÷ÉËº¦]]--
+		Hp_Endure_Dmg( DEFER , dmg )				--[[ÉèÖÃÊÜ»÷Õß¿ÛÑª]]--
+		Take_Atk_ItemURE ( ATKER )						--¿ÛÈ¡¹¥»÷ÕßÎäÆ÷ÄÍ¾Ã
+		Take_Def_ItemURE ( DEFER )						--¿ÛÈ¡ÊÜ»÷Õß·À¾ßÄÍ¾Ã
+
+		local Check_Nianshou = CheckItem_Nianshou ( ATKER )
+		local Check_ZHONGSHEN = CheckItem_ZHONGSHEN ( ATKER )
+		if Check_Nianshou == 1 then
+			local P_R = 0.1
+			local job = GetChaAttr( ATKER , ATTR_JOB )
+			if job == 5 then
+				P_R = 0.03
+			end
+			local Percentage = Percentage_Random ( P_R )
+			if Percentage == 1 then
+				AddState ( ATKER , DEFER , STATE_XY , 1 , 1 )
+				CALCULATE_SKILLEFFECT_LUA_000011 = GetResString("CALCULATE_SKILLEFFECT_LUA_000011")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000011)
+			end
+		end
+		if Check_ZHONGSHEN == 1 then
+			local P_R = 0.1
+			local job = GetChaAttr( ATKER , ATTR_JOB )
+			if job == 5 then
+				P_R = 0.03
+			end
+			local Percentage = Percentage_Random ( P_R )
+			if Percentage == 1 then
+				AddState ( ATKER , DEFER , STATE_XY , 1 , 1 )
+				CALCULATE_SKILLEFFECT_LUA_000012 = GetResString("CALCULATE_SKILLEFFECT_LUA_000012")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000012)
+			end
+		end
+		
+		Check_Ys_Rem ( ATKER , DEFER)						--ÅÐ¶ÏÊÇ·ñÒþÉí
+	-----±³ºóÁé×´Ì¬
+	GivePetState(ATKER , DEFER )
+		
+ end 
+
+function Skill_Range_Begin ( role , sklv ) 
+end 
+
+function Skill_Range_End ( ATKER , DEFER , sklv )					--[[¼¼ÄÜ"Ô¶³ÌÆÕÍ¨¹¥»÷"µÄÉËº¦¼ÆËã£¨°üÀ¨missºÍ±©»÷¼ÆËã£©]]--
+	if ValidCha(ATKER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000013 = GetResString("CALCULATE_SKILLEFFECT_LUA_000013")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000013 ) 
+		return 
+	end 
+	if ValidCha(DEFER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000014 = GetResString("CALCULATE_SKILLEFFECT_LUA_000014")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000014 ) 
+		return 
+	end 
 		local ChaName_ATKER = GetChaDefaultName ( ATKER )
 		local ChaName_DEFER = GetChaDefaultName ( DEFER )
 
-		dmg = Atk_Dmg( ATKER , DEFER )					
-		sus,dmgsa = Check_MisorCrt( ATKER, DEFER )		
-		SetSus(DEFER , sus)							
+		dmg = Atk_Dmg( ATKER , DEFER )					--[[¼ÆËãÆÕÍ¨¹¥»÷µÄÕý³£¹¥»÷ÉËº¦]]--
+		sus,dmgsa = Check_MisorCrt( ATKER, DEFER )		--[[ÊÇ·ñmiss»òcrt]]--
+		SetSus(DEFER , sus)							--ÉèÖÃ±©»÷ºÍmiss 
+--		dmgsa = Check_Zmyj ( ATKER , dmgsa )		--ÅÐ¶Ï±©»÷ÉËº¦±¶Êý
 		if dmgsa == 1 then
 			local Elf_Item = CheckHaveElf ( ATKER )
 			if Elf_Item ~= 0 then
@@ -306,8 +453,10 @@ function Skill_Range_End ( ATKER , DEFER , sklv )
 				if CheckElfSkill == 2 then
 					ElfCrt = ElfSKill_ElfCrt ( ATKER , Elf_Item , Num )
 					if ElfCrt == 1 then
-						SystemNotice ( ATKER , "\212\229\255 \224\234\242\232\226\232\240\238\226\224\235\224 \225\229\240\241\229\240\234,\226\251 \237\224\237\229\241\235\232 \225\238\235\252\248\229 \243\240\238\237\224! " )
-						SystemNotice ( DEFER , "\212\229\255 \239\240\238\242\232\226\237\232\234\224 \224\234\242\232\226\232\240\238\226\224\235\224 \225\229\240\241\229\240\234,\239\238 \226\224\236 \237\224\237\229\241\235\232 \225\238\235\252\248\229 \243\240\238\237\224! " )
+						CALCULATE_SKILLEFFECT_LUA_000009 = GetResString("CALCULATE_SKILLEFFECT_LUA_000009")
+						SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000009 )
+						CALCULATE_SKILLEFFECT_LUA_000010 = GetResString("CALCULATE_SKILLEFFECT_LUA_000010")
+						SystemNotice ( DEFER , CALCULATE_SKILLEFFECT_LUA_000010 )
 						dmgsa = 2
 						SetSus( DEFER , sus )
 					end
@@ -315,51 +464,74 @@ function Skill_Range_End ( ATKER , DEFER , sklv )
 			end
 		end
 		
-		hpdmg = math.floor( dmg*dmgsa ) 			
-		Hp_Endure_Dmg( DEFER , hpdmg )					
+		hpdmg = math.floor( dmg*dmgsa ) 			--[[È¡Õý³£ÉËº¦ºÍ×îÐ¡ÉËº¦ÖÐµÄ×î´óÖµ,¼°missºÍ±©»÷ÉËº¦]]--
+--		local mars = 0
+--		for mars = 0 , 4 , 1 do
+--			if ChaName_DEFER == CheckDmgChaNameTest [mars] then
+--				local Atker_aspd = Aspd ( ATKER )
+--				local Atker_mxatk = Mxatk ( ATKER )
+--				local Atker_mnatk = Mnatk ( ATKER )
+--				LG ( "whydie" , ChaName_DEFER.."±»"..ChaName_ATKER.."¹¥»÷".."ÉËº¦ÖµÎª"..hpdmg )
+--				LG ( "whydie" , ChaName_ATKER.."¹¥»÷ËÙ¶È"..Atker_aspd.."×î´ó¹¥»÷"..Atker_mxatk.."×îÐ¡¹¥»÷"..Atker_mnatk )
+--			end
+--		end
+		Hp_Endure_Dmg( DEFER , hpdmg )					--[[ÉèÖÃÊÜ»÷Õß¿ÛÑª]]--
 		
-		Take_Atk_ItemURE ( ATKER )						
-		Take_Def_ItemURE ( DEFER )						
+		Take_Atk_ItemURE ( ATKER )						--¿ÛÈ¡¹¥»÷ÕßÎäÆ÷ÄÍ¾Ã
+		Take_Def_ItemURE ( DEFER )						--¿ÛÈ¡ÊÜ»÷Õß·À¾ßÄÍ¾Ã
 
 		local Check_Nianshou = CheckItem_Nianshou ( ATKER )
-		
+		local Check_ZHONGSHEN = CheckItem_ZHONGSHEN ( ATKER )
 		if Check_Nianshou == 1 then
 			local Percentage = Percentage_Random ( 0.1 )
 			if Percentage == 1 then
 				AddState ( ATKER , DEFER , STATE_XY , 1 , 1 )
-				SystemNotice ( ATKER , "Recieved blessing from Goddess. Knock out target for 1 sec")
+				CALCULATE_SKILLEFFECT_LUA_000011 = GetResString("CALCULATE_SKILLEFFECT_LUA_000011")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000011)
+			end
+		end
+		if Check_ZHONGSHEN == 1 then
+			local Percentage = Percentage_Random ( 0.1 )
+			if Percentage == 1 then
+				AddState ( ATKER , DEFER , STATE_XY , 1 , 1 )
+				CALCULATE_SKILLEFFECT_LUA_000012 = GetResString("CALCULATE_SKILLEFFECT_LUA_000012")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000012)
 			end
 		end
 
-		Check_Ys_Rem ( ATKER , DEFER )						
+		Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí
+	----±³ºóÁé×´Ì¬
+	GivePetState(ATKER , DEFER )	
 end 
 
--------------------
--- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ñ§ß§ï¿½ ï¿½Ü§ï¿½Ú§ï¿½ï¿½ --
--------------------
-function Mis_or_Crt(a,b)							
-	local m=Percentage_Random(a)					
-	local n=Percentage_Random(b)					
+
+function Mis_or_Crt(a,b)							--[[´«ÈëmissºÍcrtÂÊ]]-- 
+	local m=Percentage_Random(a)					--[[Ëæ»úÊÇ·ñmiss]]--
+	local n=Percentage_Random(b)					--[[Ëæ»úÊÇ·ñ±©»÷]]--
 	local rom,dmgsa=1,1  
 	if m==1 then 
 		rom=0 dmgsa=0 
 	elseif n==1 then 
 		rom=2 dmgsa=2 
-	end										
+	end										--[[ÅÐ¶¨ÊÇ·ñmiss»ò±©»÷]]--
 	return rom,dmgsa 
 end 
 
-
-function Phy_Dmg (atk, def, resist )	
+function Phy_Dmg (atk, def, resist )					--[[ÎïÀí¹¥»÷¼ÆËã]]--
+--Notice("Phy_Dmg1")
 	local phy_atk = atk 
 	local phy_def = def 
 	local phy_resist = resist 
+	
+--	LuaPrint ( " ÎïÀí¹¥»÷£½ "..phy_atk.." ÎïÀí·ÀÓù= "..phy_def.." ÎïÀíµÖ¿¹= "..phy_resist ) 
+--	LuaPrint (\n) 
+--	LG ( " ÉËº¦" , "ÎïÀí¹¥»÷ = ", phy_atk, " ÎïÀí·ÀÓù = " , phy_def, " ÎïÀíµÖ¿¹ = " , phy_resist, "\n" ) 
 	dmg = math.floor( phy_atk  * (1 - math.min (0.85 , phy_resist/100 )  ) - phy_def ) 
 	
 	return dmg 
 end 
 
-function Phy_Dmg_A (a,b,atk, def, resist )					--[[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]]--
+function Phy_Dmg_A (a,b,atk, def, resist )					--[[ÎïÀí¹¥»÷¼ÆËã]]--
 --Notice("Phy_Dmg1")
 	local phy_atk = atk 
 	local phy_def = def 
@@ -368,25 +540,27 @@ function Phy_Dmg_A (a,b,atk, def, resist )					--[[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿
 	local map_name_DEFER = GetChaMapName ( b )
 	local Can_Pk_Garner2 = Is_NormalMonster (b)
 		
-		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 			if Can_Pk_Garner2 == 0 then
 			dmg = math.floor( phy_atk  - phy_def ) * (1 - math.min (0.85 , phy_resist/100 )  ) 
 			return dmg 
 			end
 		end
---	LuaPrint ( " Physical Attack= "..phy_atk.." Physical Defense= "..phy_def.."Physical Resist= "..phy_resist ) 
+--	LuaPrint ( " ÎïÀí¹¥»÷£½ "..phy_atk.." ÎïÀí·ÀÓù= "..phy_def.." ÎïÀíµÖ¿¹= "..phy_resist ) 
 --	LuaPrint (\n) 
+--	LG ( " ÉËº¦" , "ÎïÀí¹¥»÷ = ", phy_atk, " ÎïÀí·ÀÓù = " , phy_def, " ÎïÀíµÖ¿¹ = " , phy_resist, "\n" ) 
 	dmg = math.floor( phy_atk  * (1 - math.min (0.85 , phy_resist/100 )  ) - phy_def ) 
 	
 	return dmg 
 end 
 
-function Pow_Dmg (atk, def, resist ) --[[ï¿½ï¿½Ò©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]]--
+function Pow_Dmg (atk, def, resist ) --[[»ðÒ©¹¥»÷¼ÆËã]]--
 	local pow_atk = atk 
 	local pow_def = def 
 	local pow_resist = resist 
---	LuaPrint ( " Gunpower Attack= "..pow_atk.." Physical Defense= "..phy_def.."Physical Resist= "..phy_resist ) 
+--	LuaPrint ( " »ðÒ©¹¥»÷£½ "..pow_atk.." ÎïÀí·ÀÓù= "..phy_def.." ÎïÀíµÖ¿¹= "..phy_resist ) 
 --	LuaPrint (\n) 
+--	LG ( " ÉËº¦" , "»ðÒ©¹¥»÷ = ", phy_atk, " ÎïÀí·ÀÓù = " , phy_def, " ÎïÀíµÖ¿¹ = " , phy_resist, "\n" ) 
 --	local statelv_rdgj = GetChaStateLv( ATKER, STATE_RDGJ ) 
 --	local pow_resist = pow_resist * ( 1 - statelv_rdgj * 0.05 ) 
 	dmg = math.floor( pow_atk * (1 - math.min(0.85 ,  pow_resist/100 )  ) - pow_def ) 
@@ -394,9 +568,10 @@ function Pow_Dmg (atk, def, resist ) --[[ï¿½ï¿½Ò©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]]--
 end 
 
 
---function MAGIC_Atk_Dmg(a,b) --[[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½]]--
+--function MAGIC_Atk_Dmg(a,b) --[[¼ÆËãÆÕÍ¨¹¥»÷µÄ»ù±¾Õý³£ÉËº¦]]--
 ----	Check_State ( a , b ) 
-	--LuaPrint("Enter function Atk_Dmg(a,b) --[[calculate normal attack base normal damage]]--".."\n") 
+--	--LuaPrint("Enter function Atk_Dmg(a,b) --[[¼ÆËãÆÕÍ¨¹¥»÷µÄ»ù±¾Õý³£ÉËº¦]]--".."\n") 
+--	--LG("Atk_Dmg","Enter function Atk_Dmg(a,b) --[[¼ÆËãÆÕÍ¨¹¥»÷µÄ»ù±¾Õý³£ÉËº¦]]--", "\n" ) 
 --	local atk_mnatk = Mnatk(a) 
 --	local atk_mxatk = Mxatk(a) 
 ----	if atk_statecheck[STATE_SMYB] >= 1 then 
@@ -413,17 +588,21 @@ end
 --	end 
 --		
 --	
+--	--LG("Atk_Dmg", "atk_mnatk = ", atk_mnatk, "atk_mxatk =", atk_mxatk, "defer_def = ", defer_def,  "atker_lv = ", atker_lv, "\n" ) 
 --	local atk = math.random( atk_mnatk , atk_mxatk ) 
---	local dmg = Phy_Dmg ( atk, defer_def , defer_resist )  --[[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½Öµ]]--
---	local mndmg = math.floor(  Lv(a) * 0.25 + Mnatk(a) * 0 ) + 1 --[[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½Ëºï¿½Öµ]]--
+--	local dmg = Phy_Dmg ( atk, defer_def , defer_resist )  --[[¼ÆËãÕý³£ÉËº¦Öµ]]--
+--	local mndmg = math.floor(  Lv(a) * 0.25 + Mnatk(a) * 0 ) + 1 --[[¼ÆËã×îÐ¡ÉËº¦Öµ]]--
 --	dmg =math.max(  lv_eff * dmg , mndmg ) 
---	--LuaPrint("Out function Atk_Dmg(a,b) --[[calculate normal attack base normal damage]]--") 
+--	--LG("Atk_Dmg", "Õý³£ÉËº¦dmg = ", dmg, "×îÐ¡ÉËº¦mndmg = ", mndmg, "\n" ) 
+--	--LG("Atk_Dmg","End function Atk_Dmg(a,b) --[[¼ÆËãÆÕÍ¨¹¥»÷µÄ»ù±¾Õý³£ÉËº¦]]--".."\n" ) 
+--	--LuaPrint("Out function Atk_Dmg(a,b) --[[¼ÆËãÆÕÍ¨¹¥»÷µÄ»ù±¾Õý³£ÉËº¦]]--") 
 --	return dmg 
 --end 
 
-function Atk_Dmg(a,b) --[[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½]]--
+function Atk_Dmg(a,b) --[[¼ÆËãÆÕÍ¨¹¥»÷µÄ»ù±¾Õý³£ÉËº¦]]--
 --	Check_State ( a , b ) 
-	--LuaPrint("Enter function Atk_Dmg(a,b) --[[calculate normal attack base normal damage]]--".."\n") 
+	--LuaPrint("Enter function Atk_Dmg(a,b) --[[¼ÆËãÆÕÍ¨¹¥»÷µÄ»ù±¾Õý³£ÉËº¦]]--".."\n") 
+	--LG("Atk_Dmg","Enter function Atk_Dmg(a,b) --[[¼ÆËãÆÕÍ¨¹¥»÷µÄ»ù±¾Õý³£ÉËº¦]]--", "\n" ) 
 	local atk_mnatk = Mnatk(a) 
 	local atk_mxatk = Mxatk(a) 
 --	if atk_statecheck[STATE_SMYB] >= 1 then 
@@ -440,13 +619,14 @@ function Atk_Dmg(a,b) --[[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿
 	end 
 		
 	
+	--LG("Atk_Dmg", "atk_mnatk = ", atk_mnatk, "atk_mxatk =", atk_mxatk, "defer_def = ", defer_def,  "atker_lv = ", atker_lv, "\n" ) 
 	local atk = math.random( atk_mnatk , atk_mxatk ) 
-	local dmg = Phy_Dmg ( atk, defer_def , defer_resist )  --[[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½Öµ]]--
+	local dmg = Phy_Dmg ( atk, defer_def , defer_resist )  --[[¼ÆËãÕý³£ÉËº¦Öµ]]--
 	local map_name_ATKER = GetChaMapName ( a )
 	local map_name_DEFER = GetChaMapName ( b )
 	local Can_Pk_Garner2 = Is_NormalMonster (b)
 		
-		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 	--	Notice("22")
 			
 			if Can_Pk_Garner2 == 0 then
@@ -455,14 +635,24 @@ function Atk_Dmg(a,b) --[[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿
 			end
 		end
 	--local dmg = Phy_Dmg ( a,b,atk, defer_def , defer_resist )
-	local mndmg = math.floor(  Lv( TurnToCha(a) ) * 0.25 + Mnatk(a) * 0 ) + 1 --[[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½Ëºï¿½Öµ]]--
+	local mndmg = math.floor(  Lv( TurnToCha(a) ) * 0.25 + Mnatk(a) * 0 ) + 1 --[[¼ÆËã×îÐ¡ÉËº¦Öµ]]--
 	dmg =math.max(  lv_eff * dmg, mndmg ) 
-	--LuaPrint("Out function Atk_Dmg(a,b) --[[calculate normal attack base normal damage]]--") 
+	--LG("Atk_Dmg", "Õý³£ÉËº¦dmg = ", dmg, "×îÐ¡ÉËº¦mndmg = ", mndmg, "\n" ) 
+	--LG("Atk_Dmg","End function Atk_Dmg(a,b) --[[¼ÆËãÆÕÍ¨¹¥»÷µÄ»ù±¾Õý³£ÉËº¦]]--".."\n" ) 
+	--LuaPrint("Out function Atk_Dmg(a,b) --[[¼ÆËãÆÕÍ¨¹¥»÷µÄ»ù±¾Õý³£ÉËº¦]]--")
+	local ZSExp = GetChaAttr( a , ATTR_CSAILEXP )
+	if ZSExp > 0 and ZSExp < 100 then
+		dmg = dmg * 1.055
+	end
+	if ZSExp >= 100 and ZSExp < 12100 then
+		dmg = dmg * ( 1.05 + math.floor( math.pow( (ZSExp / 100) , 0.5 )) * 0.005)
+	end
 	return dmg 
 end 
 
-function Fire_Dmg(a,b) --[[ï¿½ï¿½ï¿½ï¿½ï¿½Ò©ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½]]--
-	--LuaPrint("Enter function Atk_Dmg(a,b) --[[calculate normal attack base normal damage]]--".."\n") 
+function Fire_Dmg(a,b) --[[¼ÆËã»ðÒ©¹¥»÷µÄ»ù±¾Õý³£ÉËº¦]]--
+	--LuaPrint("Enter function Atk_Dmg(a,b) --[[¼ÆËãÆÕÍ¨¹¥»÷µÄ»ù±¾Õý³£ÉËº¦]]--".."\n") 
+	--LG("Atk_Dmg","Enter function Atk_Dmg(a,b) --[[¼ÆËãÆÕÍ¨¹¥»÷µÄ»ù±¾Õý³£ÉËº¦]]--".."\n" ) 
 	local defer_def = Def(b)  
 	local defer_resist = Resist(b)  
 	local atker_lv = Lv ( TurnToCha(a) ) 
@@ -472,18 +662,30 @@ function Fire_Dmg(a,b) --[[ï¿½ï¿½ï¿½ï¿½ï¿½Ò©ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï
 	if math.abs (lv_dis) >= 5 then 
 		lv_eff =math.min (  math.max ( 0.8 , 1 + 0.025 * lv_dis ) , 1.2 )  
 	end 
+--	LG("Fire_Dmg", "atk_mnatk = ", atk_mnatk, "atk_mxatk =", atk_mxatk, "defer_def = ", defer_def,  "atker_lv = ", atker_lv, "\n" )
 	local atk = math.random( Mnatk(a), Mxatk(a) ) 
-	local dmg = Pow_Dmg ( atk, defer_def , defer_resist )  --[[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½Öµ]]--
-	local mndmg = math.floor(  Lv(TurnToCha(a) ) * 0.25 + Mnatk(a) * 0 ) + 1 --[[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½Ëºï¿½Öµ]]--
+	local dmg = Pow_Dmg ( atk, defer_def , defer_resist )  --[[¼ÆËãÕý³£ÉËº¦Öµ]]--
+	local mndmg = math.floor(  Lv(TurnToCha(a) ) * 0.25 + Mnatk(a) * 0 ) + 1 --[[¼ÆËã×îÐ¡ÉËº¦Öµ]]--
 	dmg = math.max( dmg, mndmg ) 
-	--LuaPrint("Out function Atk_Dmg(a,b) --[[calculate normal attack base normal damage]]--") 
+--	LG("Fire_Dmg", "Õý³£ÉËº¦dmg = ", dmg, "×îÐ¡ÉËº¦mndmg = ", mndmg, "\n" ) 
+--	LG("Fire_Dmg","End function Fire_Dmg(a,b) --[[¼ÆËãÆÕÍ¨¹¥»÷µÄ»ù±¾Õý³£ÉËº¦]]--".."\n" ) 
+	--LuaPrint("Out function Atk_Dmg(a,b) --[[¼ÆËãÆÕÍ¨¹¥»÷µÄ»ù±¾Õý³£ÉËº¦]]--")
+	local ZSExp = GetChaAttr( a , ATTR_CSAILEXP )
+	if ZSExp > 0 and ZSExp < 100 then
+		dmg = dmg * 1.055
+	end
+	if ZSExp >= 100 and ZSExp < 12100 then
+		dmg = dmg * ( 1.05 + math.floor( math.pow( (ZSExp / 100) , 0.5 )) * 0.005)
+	end
 	return dmg 
 end 
 
-function Check_MisorCrt(a,b) --[[ï¿½Ð¶ï¿½ï¿½Ç·ï¿½missï¿½ï¿½crt]]--
-	--LuaPrint("Enter function Check_MisorCrt(a,b) --[[Determine if miss or crt]]--") 
+function Check_MisorCrt(a,b) --[[ÅÐ¶¨ÊÇ·ñmiss»òcrt]]--
+	--LuaPrint("Enter function Check_MisorCrt(a,b) --[[ÅÐ¶¨ÊÇ·ñmiss»òcrt]]--") 
+	--LG("Mis or Crt" , "Enter function Check_MisorCrt(a,b) --[[ÅÐ¶¨ÊÇ·ñmiss»òcrt]]--", "\n") 
 	local def_flee = Flee(b) 
 	local atk_hit = Hit(a) 
+	--LG("Mis or Crt" , "ÉÁ±Üflee = ", atk_flee , "ÃüÖÐhit = ", atk_hit, "\n") 
 	local def_lv = Lv( TurnToCha(b) ) 
 	local atk_lv = Lv( TurnToCha(a) ) 
 	local lv_dis = atk_lv - def_lv 
@@ -493,33 +695,48 @@ function Check_MisorCrt(a,b) --[[ï¿½Ð¶ï¿½ï¿½Ç·ï¿½missï¿½ï¿½crt]]--
 	end 
 	local dif_hit_flee = Flee(b) - Hit(a) 
 	local bsmiss = math.max( ((def_flee - atk_hit) + 10)/100 , 0) 
-	local miss = math.min( 0.9, bsmiss ) --[[ï¿½ï¿½missï¿½ï¿½]]--
+	local miss = math.min( 0.9, bsmiss ) --[[ÇómissÂÊ]]--
+	--LG("Mis or Crt", "missÂÊ = ", miss, "\n") 
 	local crt = math.min ( lv_eff + Crt( a ) , 1 ) 
-	local sus,dmgsa=Mis_or_Crt( miss, crt ) --[[ï¿½ï¿½ï¿½ï¿½missï¿½ï¿½crtï¿½ï¿½]]--
-	--LuaPrint("Out function Check_MisorCrt(a,b) --[[determine is miss or crt]]--") 
+	--LG ( "Mis or Crt" , " Ô­Ê¼crtÂÊ = " , Crt(a) ) 
+	--LG("Mis or Crt", "crtÂÊ = ", crt, "\n") 
+	local sus,dmgsa=Mis_or_Crt( miss, crt ) --[[´«ÈëmissºÍcrtÂÊ]]--
+	--LG("Mis or Crt", "¹¥»÷×´Ì¬sus = ", sus, "¹¥»÷×´Ì¬ÉËº¦±ÈÂÊ dmgsa = ", dmgsa, "\n") 
+	--LG("Mis or Crt" , "End function Check_MisorCrt(a,b) --[[ÅÐ¶¨ÊÇ·ñmiss»òcrt]]--", "\n") 
+	--LuaPrint("Out function Check_MisorCrt(a,b) --[[ÅÐ¶¨ÊÇ·ñmiss»òcrt]]--") 
 	return sus,dmgsa 
 end 
 
 
 
 
-function SkillArea_Circle_Paodan( sklv )
+function SkillArea_Circle_Paodan( sklv )													--[[¼¼ÄÜ"ÅÚµ¯ÆÕÍ¨¹¥»÷"µÄ½ÇÉ«Ó°ÏìÇøÓò]]--
 		local side = 400 
 		SetSkillRange ( 4 , side )  
 end 
 
-function Skill_Paodan_End ( ATKER , DEFER , sklv )
-		skr_posx, skr_posy = GetSkillPos ( ATKER ) 				
+function Skill_Paodan_Begin ( role , sklv ) 
+end 
+
+function Skill_Paodan_End ( ATKER , DEFER , sklv )	--[[¼¼ÄÜ"ÅÚµ¯ÆÕÍ¨¹¥»÷"µÄ½ÇÉ«Ó°Ïì²Ù×÷¼´ÉËº¦¼ÆËã£¨°üÀ¨missºÍ±©»÷¼ÆËã£©]]--
+		skr_posx, skr_posy = GetSkillPos ( ATKER ) 				--[[È¡¸Ã¼¼ÄÜµÄÊ©·Å×ø±ê]]--
+--		LG ("paodan"," skr_posx = ", skr_posx," skr_posy = ", skr_posy ) 
 		if ValidCha( DEFER ) == 0 then 
-			LG ( "luascript_err" , "fucntion Skill_Paodan_End : Cannon attack, send target index as nil\n" ) 
+			CALCULATE_SKILLEFFECT_LUA_000015 = GetResString("CALCULATE_SKILLEFFECT_LUA_000015")
+			LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000015 ) 
 			return 
 		end 
-		role_posx, role_posy = GetChaPos( DEFER )				
-		local dmg = Fire_Dmg( ATKER , DEFER )					
-		local dis = Dis ( skr_posx, skr_posy, role_posx, role_posy  )		
+		role_posx, role_posy = GetChaPos( DEFER )				--[[È¡ÊÜÓ°Ïì½ÇÉ«µÄ×ø±ê]]--
+--		LG ( "paodan" , " role_posx = ", role_posx , " role_posy = ", role_posy ) 
+		local dmg = Fire_Dmg( ATKER , DEFER )					--[[¼ÆËãÆÕÍ¨¹¥»÷µÄÕý³£¹¥»÷ÉËº¦]]--
+--		SetSus(DEFER , sus)								--ÉèÖÃ±©»÷ºÍmiss 
+		local dis = Dis ( skr_posx, skr_posy, role_posx, role_posy  )		--[[¼ÆËã½ÇÉ«ÖÁ¼¼ÄÜÊ©·ÅµãµÄ¾àÀë]]--
+--		hpdmg = math.floor ( dmg * dmgsa )					--[[È¡Õý³£ÉËº¦ºÍ×îÐ¡ÉËº¦ÖÐµÄ×î´óÖµ,¼°missºÍ±©»÷ÉËº¦]]--
 		local dis_eff = dis/100 * 0.1  
+--		LG("Fire_Dmg"," dis_eff = " , dis_eff ) 
 		dmg = math.floor ( dmg * (1 - math.min ( dis_eff, 1 ) ) ) 
-		Hp_Endure_Dmg ( DEFER, dmg )							
+--		LG("Fire_Dmg"," real_hpdmg = " , dmg ) 
+		Hp_Endure_Dmg ( DEFER, dmg )							--[[ÉèÖÃÊÜ»÷Õß¿ÛÑª]]--
 end 
 
 --function SkillArea_Circle_Huoqiang ( sklv )							
@@ -529,13 +746,13 @@ end
 function Skill_Huoqiang_Begin ( role , sklv ) 
 end 
 
-function Skill_Huoqiang_End ( ATKER , DEFER , sklv )
+function Skill_Huoqiang_End ( ATKER , DEFER , sklv ) --[[¼¼ÄÜ"¿ÕÊÖÆÕÍ¨¹¥»÷"µÄÉËº¦¼ÆËã£¨°üÀ¨missºÍ±©»÷¼ÆËã£©]]--
 		local js_dmg = 1 
-		dmg = Fire_Dmg( ATKER, DEFER )	 * js_dmg	
-		sus,dmgsa = Check_MisorCrt( ATKER, DEFER )	
-		SetSus(DEFER , sus)							
-		hpdmg = math.floor( dmg*dmgsa )				
-		Hp_Endure_Dmg( DEFER , hpdmg )				
+		dmg = Fire_Dmg( ATKER, DEFER )	 * js_dmg			--[[¼ÆËãÆÕÍ¨¹¥»÷µÄÕý³£¹¥»÷ÉËº¦]]--
+		sus,dmgsa = Check_MisorCrt( ATKER, DEFER )			--[[ÊÇ·ñmiss»òcrt]]--
+		SetSus(DEFER , sus)								--ÉèÖÃ±©»÷ºÍmiss 
+		hpdmg = math.floor( dmg*dmgsa )				--[[È¡Õý³£ÉËº¦ºÍ×îÐ¡ÉËº¦ÖÐµÄ×î´óÖµ,¼°missºÍ±©»÷ÉËº¦]]--
+		Hp_Endure_Dmg( DEFER , hpdmg )						--[[ÉèÖÃÊÜ»÷Õß¿ÛÑª]]--
 end 
 
 
@@ -546,10 +763,10 @@ end
 
 
 
---ï¿½ï¿½ï¿½Ü»ï¿½Ð¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ»¢Ð¥¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
-function SkillArea_Circle_Hx ( sklv )									--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½Ð¥"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Circle_Hx ( sklv )									--¼¼ÄÜ¡°»¢Ð¥"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local side = 200 
 	SetSkillRange ( 4 , side  )  
 end 
@@ -560,7 +777,7 @@ function SkillCooldown_Hx( sklv )
 end
 
 
-function SkillSp_Hx ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Tiger Roar"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Hx ( sklv )										--¼¼ÄÜ"»¢Ð¥"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 20 
 	return sp_reduce 
 end 
@@ -583,6 +800,7 @@ function Skill_Hx_End ( ATKER , DEFER , sklv )
 end 
 
 function State_Hx_Add ( role , statelv ) 
+	--LG("state_hx" , "function State_Hx_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local mxatksb_dif = 3 * statelv
 	local mnatksb_dif = 3 * statelv
 	local mspdsa_dif = 0.015 * statelv 
@@ -596,87 +814,9 @@ function State_Hx_Add ( role , statelv )
 end 
 
 
-function SkillSp_TAME ( sklv )
-	local sp_reduce = 10
-	return sp_reduce
-end
-
-function SkillCooldown_TAME( sklv )
-	local Cooldown = 35000
-	return Cooldown
-end
-
-function Skill_TAME_Begin ( role , sklv )
-	local sp = Sp(role)
-	local sp_reduce = SkillSp_HLKJ ( sklv )
-	if sp - sp_reduce < 0 then
-	SkillUnable(role)
-	return
-end
-
-	Sp_Red (role , sp_reduce )
-end
-
-function Skill_TAME_End ( ATKER , DEFER , sklv )
-	local norm = Is_NormalMonster (DEFER)
-	if norm == 0 then
-	BickerNotice(ATKER,"You cannot use this skill on players!")
-	return 0
-
-	elseif norm == 1 then
-	local mob_id = GetChaID(DEFER)
-	if mob_id == 937 or mob_id == 938 or mob_id == 939 or mob_id == 940 or mob_id == 941 then
-	BickerNotice(ATKER,"You cannot tame this monster , Capture fails..")
-	return 0
-else
-	local hp_percent = math.ceil( (Hp (DEFER) / Mxhp (DEFER)) * 100)
-	local xx = math.random(1, 200)
-	if hp_percent > xx then
-	BickerNotice(ATKER,"Try to capture agian , Capture Failed...")
-	elseif hp_percent < xx then
-	BickerNotice(ATKER,"Capturing "..GetChaDefaultName(DEFER).." Success")
-	local MonsterID = GetChaID(DEFER)
-	local x1, y1 = GetChaPos(ATKER)
-	local mob = CreateCha(MonsterID, x1, y1, 145, 50)
-	SetChaHost(mob, ATKER)
-	SetChaAIType(mob, 13)
-	SetChaLifeTime(mob, 10000000)
-	local hp = Mxhp(ATKER)
-	local Health = Mxhp(DEFER)
-	hp_recover = 2 * Health
-	Hp_Endure_Dmg ( DEFER , hp_recover )
-	end
-end
-end
-end
-
-
-
-------------------
---   VIP Neck	--
-------------------
-function VIPNECKY_Add ( role , statelv )
-	local CEXPsb_dif = 200
-	local CEXPsb = CEXPSb( role ) + CEXPsb_dif
-	SetCharaAttr( CEXPsb , role , ATTR_STATEV_CEXP )
-	
-	local BMFsb_dif = 200
-	local BMFsb = BMFSb(role) + BMFsb_dif
-	SetCharaAttr( BMFsb , role , ATTR_STATEV_BMF ) 
-
-end 
-
-function VIPNECKY_Rem ( role , statelv )
-	local mspdsb_dif = 60
-	local mspdsb = MspdSb(role) - mspdsb_dif
-	SetCharaAttr( mspdsb , role , ATTR_STATEV_MSPD ) 
-
-	local defsb_dif = 600
-	local defsb = DefSb(role) - defsb_dif 
-	SetCharaAttr( defsb , role , ATTR_STATEV_DEF )
-end
 
 function State_Hx_Rem ( role , statelv ) 
+	--LG("state_hx" , "function State_Hx_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local mxatksb_dif = 3 * statelv
 	local mnatksb_dif = 3 * statelv
 	local mspdsa_dif = 0.015 * statelv 
@@ -694,7 +834,7 @@ end
 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÌìÊ¹ÆíÔ¸¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillSp_Tsqy ( sklv )										
 	local sp_reduce = sklv * 1 
 	return sp_reduce 
@@ -718,24 +858,37 @@ end
 function Skill_Tsqy_End ( ATKER , DEFER , sklv )  
 	local statelv = sklv 
 	local statetime = 5 + sklv * 2
+   --LG( "Tsqy", "ÌìÊ¹ÆíÔ¸¼¼ÄÜµÈ¼¶ = " , sklv , "\n" ) 
    AddState( ATKER , DEFER , STATE_TSQY, statelv , statetime )
+	--LG("skill_Tsqy", "function Skill_Oper_Tsqy: " , "add state tsqy " , "\n" ) 
 
 
 end 
 
 function State_Tsqy_Add ( role , statelv ) 
+	--LG("state_tsqy" , "function State_Tsqy_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local hrecsa_dif =0.03 * statelv 
 	local hrecsa = (HrecSa(role) + hrecsa_dif ) * ATTR_RADIX
+	--LG("skill_tsqy" , " form_hrecsa = " , HrecSa(role) , "\n" ) 
+	--LG("skill_tsqy", "hrecsa = ", hrecsa, "\n") 
+	--LG("skill_hrecsa" , " form_hrecsa = " , HrecSa(role) , "\n" ) 
+	--LG("skill_hrecsa", "hrecsa = ", hrecsa, "\n") 
 	SetCharaAttr( hrecsa , role , ATTR_STATEC_HREC ) 
 	ALLExAttrSet(role)  
 end 
 
 function State_Tsqy_Rem ( role , statelv ) 
+	--LG("state_tqsy" , "function State_Tsqy_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local hrecsa_dif = 0.03 * statelv 
 	local hrecsa = (HrecSa(role) - hrecsa_dif ) * ATTR_RADIX
 	if hrecsa < 0 then 
+		--LG("Luaerror", "function State_Oper_Tsqy : ´íÎóÊý¾Ý½á¹û¡ª¡ª", " Hrecsa = ", HrecSa(role) , " statelv = " , statelv , " hrecsa = ", hrecsa , "\n" ) 
 		return 
 	end 
+	--LG("skill_tsqy" , " form_hrecsa = " , HrecSa(role) , "\n" ) 
+	--LG("skill_tsqy", "hrecsa = ", hrecsa, "\n") 
+	--LG("skill_hrecsa" , " form_hrecsa = " , HrecSa(role) , "\n" ) 
+	--LG("skill_hrecsa", "hrecsa = ", hrecsa, "\n") 
 	SetCharaAttr( hrecsa , role , ATTR_STATEC_HREC )
 	ALLExAttrSet(role)  
 end 
@@ -752,7 +905,7 @@ end
 
 
 
---ï¿½ï¿½ï¿½Ü½â¶¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ½â¶¾¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillSp_Jd ( sklv )										
 	local sp_reduce = sklv * 1 
@@ -765,6 +918,8 @@ function SkillCooldown_Jd( sklv )
 end
 
 function Skill_Jd_Begin ( role , sklv ) 
+	--LG( "skill_jd", "enter function Skill_Atk_Jd : " , "\n" ) 
+	--LG("skill_jd", "function Skill_Atk_Jd : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 	local sp = Sp(role) 
 	local sp_reduce = SkillSp_Jd ( sklv ) 
 	if sp - sp_reduce < 0 then 
@@ -775,14 +930,16 @@ function Skill_Jd_Begin ( role , sklv )
 end 
 
 function Skill_Jd_End ( ATKER , DEFER , sklv ) 
+	--LG( "skill_jd", "enter function Skill_Def_Jd : " , "\n" ) 
 	local jd_statelv = sklv 
 	local zd_statelv = GetChaStateLv ( DEFER , STATE_ZD ) 
 	RemoveState ( DEFER , STATE_ZD ) 
+	--LG("skill_jd", "function Skill_Def_Jd : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 	Check_Ys_Rem (ATKER , DEFER ) 
 
 end 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½Ã¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÖÕ¼«´ÌÃ¤¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillSp_Zjcm ( sklv )										
 	local sp_reduce = sklv * 1 
@@ -795,6 +952,8 @@ function SkillCooldown_Zjcm( sklv )
 end
 
 function Skill_Zjcm_Begin ( role , sklv ) 
+	--LG( "skill_zjcm", "enter function Skill_Atk_Zjcm : " , "\n" ) 
+	--LG("skill_zjcm", "function Skill_Atk_Zjcm : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 	local sp = Sp(role) 
 	local sp_reduce = SkillSp_Zjcm ( sklv ) 
 	if sp - sp_reduce < 0 then 
@@ -805,9 +964,10 @@ function Skill_Zjcm_Begin ( role , sklv )
 end 
 
 function Skill_Zjcm_End ( ATKER , DEFER , sklv ) 
+	--LG( "skill_zjcm", "enter function Skill_Def_Zjcm : " , "\n" ) 
 	local statelv = sklv 
 	local statetime = 5 + sklv * 2 
-	local zjcm_rad = 0.6 + sklv * 0.35  
+	local zjcm_rad = 0.3 + sklv * 0.05  
 	local atk_dire = GetObjDire ( ATKER ) 
 	local def_dire = GetObjDire ( DEFER ) 		
 	dif_dire = atk_dire - def_dire 
@@ -818,22 +978,25 @@ function Skill_Zjcm_End ( ATKER , DEFER , sklv )
 	if a == 1 then 
 		AddState ( ATKER , DEFER , STATE_SM , statelv , statetime ) 
 	end 
+	--LG("skill_zjcm", "function Skill_Def_Zjcm : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 	Check_Ys_Rem ( ATKER , DEFER ) 
 
 end 
 
 
 function State_Sm_Add ( role , statelv ) 
+	--LG("state_Sm" , "function State_Sm_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 
 end 
 
 function State_Sm_Rem ( role , statelv ) 
+	--LG("state_Sm" , "function State_Sm_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 
 end 
 
 
 
---ï¿½ï¿½ï¿½Ü±ï¿½Ëªï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ±ùËª»¤¶Ü¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillSp_Bshd ( sklv )										
 	local sp_reduce = sklv * 1 
@@ -846,6 +1009,8 @@ function SkillCooldown_Bshd( sklv )
 end
 
 function Skill_Bshd_Begin ( role , sklv ) 
+	--LG( "skill_bshd", "enter function Skill_Atk_Bshd : " , "\n" ) 
+	--LG("skill_bshd", "function Skill_Atk_Bshd : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 	local sp = Sp(role) 
 	local sp_reduce = SkillSp_Bshd ( sklv ) 
 	if sp - sp_reduce < 0 then 
@@ -856,13 +1021,16 @@ function Skill_Bshd_Begin ( role , sklv )
 end 
 
 function Skill_Bshd_End ( ATKER , DEFER , sklv ) 
+	--LG( "skill_bshd", "enter function Skill_Def_Bshd : " , "\n" ) 
 	local statelv = sklv 
 	local statetime = 5 + sklv * 2 
 	AddState ( ATKER , DEFER , STATE_BSHD , statelv , statetime ) 
+	--LG("skill_bshd", "function Skill_Def_Bshd : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 end 
 
 
 function State_Bshd_Add ( role , statelv ) 
+	--LG("state_Bshd" , "function State_Bshd_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local defsb_dif = 5 + statelv * 2 
 	local defsb = DefSb(role) + defsb_dif 
 	SetCharaAttr( defsb , role , ATTR_STATEV_DEF ) 
@@ -870,6 +1038,7 @@ function State_Bshd_Add ( role , statelv )
 end 
 
 function State_Bshd_Rem ( role , statelv ) 
+	--LG("state_Bshd" , "function State_Bshd_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local defsb_dif = 5 + statelv * 2 
 	local defsb = DefSb(role) - defsb_dif 
 	SetCharaAttr( defsb , role , ATTR_STATEV_DEF ) 
@@ -891,9 +1060,9 @@ end
 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÁÒÑæÖ®Òí¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-function SkillSp_Lyzy ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Inferno Wings"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Lyzy ( sklv )										--¼¼ÄÜ"ÁÒÑæÖ®Òí"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = sklv * 1 
 	return sp_reduce 
 end 
@@ -917,12 +1086,13 @@ function Skill_Lyzy_End ( ATKER , DEFER , sklv )
 	local statelv = sklv 
 	local statetime = 10 + sklv * 2
 	AddState( ATKER , DEFER , STATE_LYZY , statelv , statetime ) 
+	--LG( "Lyzy", "ÁÒÑæÖ®Òí¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
 
 end 
 
---ï¿½ï¿½ï¿½ï¿½Ê¥ï¿½ï¿½Ö®ï¿½â¡ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÊ¥»ðÖ®¹â¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­£­£­
 
-function SkillSp_Shzg ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Holy Beam"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Shzg ( sklv )										--¼¼ÄÜ"Ê¥»ðÖ®¹â"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = sklv * 1 
 	return sp_reduce 
 end 
@@ -946,12 +1116,13 @@ function Skill_Shzg_End ( ATKER , DEFER , sklv )
 	local statelv = sklv 
 	local statetime = 10 + sklv * 2
 	AddState( ATKER , DEFER , STATE_SHZG , statelv , statetime ) 
+	--LG( "Shzg", "Ê¥»ðÖ®¹â¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
 end 
 
 
---ï¿½ï¿½ï¿½Ü´ï¿½ï¿½Ö´ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ´ÔÁÖ´©Ô½¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-function SkillSp_Clcy ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Traversing"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Clcy ( sklv )										--¼¼ÄÜ"´ÔÁÖ´©Ô½"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = sklv * 1 
 	return sp_reduce 
 end 
@@ -975,6 +1146,7 @@ function Skill_Clcy_End ( ATKER , DEFER , sklv )
 	local statelv = sklv 
 	local statetime = 3 + sklv * 2
 	AddState( ATKER , DEFER , STATE_CLCY, statelv , statetime ) 
+	--LG( "Clcy", "´ÔÁÖ´©Ô½¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
 end 
 
 function State_Clcy_Add ( role , statelv ) 
@@ -992,9 +1164,9 @@ function State_Clcy_Rem ( role , statelv )
 end 
 
 
---ï¿½ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä¡ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ»ðÑæÅçÉä¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-function SkillPre_Hyps ( sklv )														--ï¿½ï¿½ï¿½ï¿½"Inferno Blast"ï¿½Ä¼ï¿½ï¿½ï¿½Ç°ï¿½ï¿½×¼ï¿½ï¿½
+function SkillPre_Hyps ( sklv )														--¼¼ÄÜ"»ðÑæÅçÉä"µÄ¼¼ÄÜÇ°ÆÚ×¼±¸
 end 
 
 function SkillCooldown_Hyps( sklv )
@@ -1002,7 +1174,7 @@ function SkillCooldown_Hyps( sklv )
 	return Cooldown
 end
 
-function SkillArea_Square_Hyps ( sklv )												--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Square_Hyps ( sklv )												--¼¼ÄÜ¡°»ðÑæÅçÉä"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local side = 250 
 	local angle = 90 
 	SetSkillRange ( 2 , side , angle )   
@@ -1011,15 +1183,16 @@ end
 function SkillArea_State_Hyps ( sklv )										
 	local statetime = 10 + sklv * 5 
 	local statelv = sklv 
-	SetRangeState ( STATE_RS , statelv  , statetime ) 									--ï¿½ï¿½ï¿½Óµï¿½ï¿½æ¡°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä¡±×´Ì¬
+	--LG("SkillPre_Hyps" , " fucntion SkillPre_Hyps :" , " statelv = " , statelv , "statetime " , statetime ) 
+	SetRangeState ( STATE_RS , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°»ðÑæÅçÉä¡±×´Ì¬
 end 
 
-function SkillSp_Hyps ( sklv )														--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä¡±ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Hyps ( sklv )														--¼¼ÄÜ¡°»ðÑæÅçÉä¡±µÄspÏûºÄ¹«Ê½
 	local sp_reduce = sklv * 1 
 	return sp_reduce 
 end 
 
-function Skill_Hyps_Begin ( role , sklv )												--ï¿½ï¿½ï¿½ï¿½"Inferno Blast"ï¿½Ä¼ï¿½ï¿½ï¿½Ê©ï¿½Å¹ï¿½Ê½
+function Skill_Hyps_Begin ( role , sklv )												--¼¼ÄÜ"»ðÑæÅçÉä"µÄ¼¼ÄÜÊ©·Å¹«Ê½
 	local sp = Sp(role) 
 	local sp_reduce = SkillSp_Hyps ( sklv ) 
 	if sp - sp_reduce < 0 then 
@@ -1037,6 +1210,7 @@ end
 
 
 function State_Hyps_Add ( role , statelv ) 
+	--LG("state_rs" , "function State_Hyps_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local arealv = GetAreaStateLevel ( role , STATE_HYPS ) 
 	local hp = GetChaAttr( role , ATTR_HP ) 
 	local hpdmg = statelv * 10  
@@ -1054,7 +1228,7 @@ function State_Hyps_Tran ( statelv )
 	return 2   
 end 
 
---ï¿½ï¿½ï¿½Ü¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ¿³Ê÷¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­
 
 function SkillSp_Ks ( sklv ) 
 	return 0 
@@ -1069,10 +1243,12 @@ function Skill_Ks_Begin  ( role , sklv )
 end 
 
 function Skill_Ks_End ( ATKER , DEFER , sklv ) 
-	SystemNotice ( ATKER , "Chop chop..." ) 
+	CALCULATE_SKILLEFFECT_LUA_000016 = GetResString("CALCULATE_SKILLEFFECT_LUA_000016")
+	SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000016 ) 
 	local defer_lv = GetChaAttr ( DEFER , ATTR_LV ) 
 	if sklv < defer_lv then 
-		SystemNotice ( ATKER , "Skill level is too low" ) 
+		CALCULATE_SKILLEFFECT_LUA_000017 = GetResString("CALCULATE_SKILLEFFECT_LUA_000017")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000017 ) 
 		return 
 	end 
 	local hpdmg = 1 
@@ -1086,12 +1262,15 @@ function Skill_Ks_End ( ATKER , DEFER , sklv )
 	if Tree_ID == UnNormal_Tree_ID then
 		if Tree_hp <= 800 then
 			hpdmg = 0
-			SystemNotice( ATKER , "Seems that nothing will come out anymore. Time to let the money tree rest before it really falls" )
+			CALCULATE_SKILLEFFECT_LUA_000018 = GetResString("CALCULATE_SKILLEFFECT_LUA_000018")
+			SystemNotice( ATKER , CALCULATE_SKILLEFFECT_LUA_000018 )
 		end
 	end
 
 	local hp = Hp(DEFER) - hpdmg 
+--	LG ( "sk_ks" , " tree_hp = "  , Hp(DEFER) ) 
 	SetCharaAttr(hp , DEFER , ATTR_HP ) 
+--	LG ( "sk_ks" , " now_tree_hp = "  , Hp(DEFER) ) 
 --	local hp = Hp(DEFER) - hpdmg 
 --	SetCharaAttr(hp , DEFER , ATTR_HP ) 
 
@@ -1109,7 +1288,7 @@ end
 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ó¡ª¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÍÚ¿ó¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­
 
 function SkillSp_Wk( sklv ) 
 	return 0 
@@ -1124,10 +1303,18 @@ function Skill_Wk_Begin  ( role , sklv )
 end 
 
 function Skill_Wk_End ( ATKER , DEFER , sklv ) 
+	local Item_Use = GetChaItem ( ATKER , 1 , 9 )			----È¡ÊÖÉÏ×°±¸µÄµÀ¾ß
+	local ItemID_Use = GetItemID ( Item_Use )			----È¡ID
+	if ItemID_Use == 6538 or ItemID_Use == 6539 then
+		CALCULATE_SKILLEFFECT_LUA_000019 = GetResString("CALCULATE_SKILLEFFECT_LUA_000019")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000019)
+		return 
+	end
 	local defer_lv = Lv ( DEFER ) 
 
 	if sklv < defer_lv then 
-		SystemNotice ( role , "Skill level is too low" ) 
+		CALCULATE_SKILLEFFECT_LUA_000017 = GetResString("CALCULATE_SKILLEFFECT_LUA_000017")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000017 ) 
 		return 
 	end 
 	
@@ -1139,19 +1326,20 @@ function Skill_Wk_End ( ATKER , DEFER , sklv )
 	local KS_hp = Hp( DEFER )
 	local i = 0
 	
-	if KS_ID == UnNormal_KS_ID then						----ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¯
+	if KS_ID == UnNormal_KS_ID then						----ÅÐ¶ÏÊÇ·ñÊÇÔÉÊ¯
 
-		local Item_Use = GetChaItem ( ATKER , 1 , 9 )			----È¡ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½
+		local Item_Use = GetChaItem ( ATKER , 1 , 9 )			----È¡ÊÖÉÏ×°±¸µÄµÀ¾ß
 		local ItemID_Use = GetItemID ( Item_Use )			----È¡ID
 	
 	
 		
-		if ItemID_Use ~= 3908 and ItemID_Use ~= 3108 then					----ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÇºÏ½ï¿½ï¿½ä²»ï¿½ï¿½ï¿½ï¿½
-			SystemNotice( ATKER , "Only Alloy Pickaxe can be used to mine" )
+		if ItemID_Use ~= 3908 and ItemID_Use ~= 3108 then					----Èç¹û²»ÊÇºÏ½ð¿ó¸ä²»ÄÜÍÚ
+			CALCULATE_SKILLEFFECT_LUA_000020 = GetResString("CALCULATE_SKILLEFFECT_LUA_000020")
+			SystemNotice( ATKER , CALCULATE_SKILLEFFECT_LUA_000020 )
 			return
 		end
 
-		local Item_URE = GetItemAttr ( Item_Use , ITEMATTR_URE )	----È¡ï¿½Ï½ï¿½ï¿½ï¿½ï¿½Í¾ï¿½
+		local Item_URE = GetItemAttr ( Item_Use , ITEMATTR_URE )	----È¡ºÏ½ð¿ó¸äÄÍ¾Ã
 		
 		local Take_Num = 0
 
@@ -1161,25 +1349,29 @@ function Skill_Wk_End ( ATKER , DEFER , sklv )
 			Take_Num = 1
 		end
 		
-		if Item_URE < 50 then						----ï¿½Í¾ï¿½Îª0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		if Item_URE < 50 then						----ÄÍ¾ÃÎª0²»ÄÜÍÚ
 			Take_Num = 0
 			hpdmg = 0
-			SystemNotice( ATKER , "Pickaxe is damaged. Unable to continue using" )
+			CALCULATE_SKILLEFFECT_LUA_000021 = GetResString("CALCULATE_SKILLEFFECT_LUA_000021")
+			SystemNotice( ATKER , CALCULATE_SKILLEFFECT_LUA_000021 )
 		end
 
 		Item_URE = Item_URE - Take_Num
 
-		local i = SetItemAttr ( Item_Use , ITEMATTR_URE , Item_URE )	----ï¿½ï¿½ï¿½Í¾ï¿½
+		local i = SetItemAttr ( Item_Use , ITEMATTR_URE , Item_URE )	----¿ÛÄÍ¾Ã
 		if i == 0 then
+			CALCULATE_FUNCTIONS_LUA_000045 = GetResString("CALCULATE_FUNCTIONS_LUA_000045")
+			LG("Item_URE",CALCULATE_FUNCTIONS_LUA_000045)
 		end
 		if Item_URE < 50 and Take_Num ~= 0 then
-			SetChaEquipValid ( role , 9 , 0 )			----ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½Ð§
+			SetChaEquipValid ( role , 9 , 0 )			----ÉèÖÃ×°±¸ÎÞÐ§
 		end
 
 
 		if KS_hp <= 800 then
 			hpdmg = 0
-			SystemNotice( ATKER , "Looks like the Metorite is exhausted. Let it have some rest" )
+			CALCULATE_SKILLEFFECT_LUA_000022 = GetResString("CALCULATE_SKILLEFFECT_LUA_000022")
+			SystemNotice( ATKER , CALCULATE_SKILLEFFECT_LUA_000022 )
 		end
 --	else local WaKuang_Check =  0
 
@@ -1198,7 +1390,7 @@ function Skill_Wk_End ( ATKER , DEFER , sklv )
 	
 end 
 
---ï¿½ï¿½ï¿½Ü²ï¿½ï¿½ã¡ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ²¶Óã¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­
 
 function SkillSp_By ( sklv ) 
 	return 0 
@@ -1213,15 +1405,19 @@ function Skill_By_Begin  ( role , sklv )
 end 
 
 function Skill_By_End ( ATKER , DEFER , sklv ) 
---	SystemNotice ( ATKER , "Starts to Fish!" ) 
+--	SystemNotice ( ATKER , " ¿ªÊ¼²¶Óã¿©£¡" ) 
 	local defer_lv = Lv ( DEFER ) 
 	if sklv < defer_lv then 
-		SystemNotice ( ATKER , "Skill level is too low" ) 
+		CALCULATE_SKILLEFFECT_LUA_000017 = GetResString("CALCULATE_SKILLEFFECT_LUA_000017")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000017 ) 
 		return 
 	end 
-	SystemNotice ( ATKER , "Fishing in progress..." ) 
+	CALCULATE_SKILLEFFECT_LUA_000023 = GetResString("CALCULATE_SKILLEFFECT_LUA_000023")
+	SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000023 ) 
 	local hpdmg = 1 
 	local hp = Hp(DEFER) - hpdmg 
+--	LG ( "sk_by" , "fish_hp = " , Hp(DEFER) ) 
+--	LG ( "sk_by" , "fish_nowhp = " , hp ) 
 	SetCharaAttr(hp , DEFER , ATTR_HP ) 
 --	local hp = Hp(DEFER) - hpdmg 
 --	SetCharaAttr(hp , DEFER , ATTR_HP ) 
@@ -1235,7 +1431,7 @@ function Skill_By_End ( ATKER , DEFER , sklv )
 --		end
 end 
 
---ï¿½ï¿½ï¿½Ü´ï¿½ï¿½Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ´òÀÌ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­
 
 function SkillSp_Dl ( sklv ) 
 	return 0 
@@ -1250,13 +1446,15 @@ function Skill_Dl_Begin  ( role , sklv )
 end 
 
 function Skill_Dl_End ( ATKER , DEFER , sklv ) 
---	SystemNotice ( ATKER , "Starts to Salvage!" ) 
+--	SystemNotice ( ATKER , " ¿ªÊ¼´òÀÌ¿©£¡" ) 
 	local defer_lv = Lv ( DEFER ) 
 	if sklv < defer_lv then 
-		SystemNotice ( ATKER , "Skill level is too low" ) 
+		CALCULATE_SKILLEFFECT_LUA_000017 = GetResString("CALCULATE_SKILLEFFECT_LUA_000017")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000017 ) 
 		return 
 	end 
-		SystemNotice ( ATKER , "Salvage in progressï¿½ï¿½" ) 
+		CALCULATE_SKILLEFFECT_LUA_000024 = GetResString("CALCULATE_SKILLEFFECT_LUA_000024")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000024 ) 
 	local hpdmg = 1 
 	local hp = Hp(DEFER) - hpdmg 
 	SetCharaAttr(hp , DEFER , ATTR_HP ) 
@@ -1286,7 +1484,7 @@ end
 
 
 
---ï¿½ï¿½ï¿½Ü¼ï¿½ï¿½Ù·ç±©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ¼«ËÙ·ç±©¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillSp_Jsfb ( sklv )										
 	local sp_reduce = 20
 	return sp_reduce 
@@ -1314,18 +1512,24 @@ function Skill_Jsfb_End ( ATKER , DEFER , sklv )
 	local map_name_DEFER = GetChaMapName ( DEFER )
 	local str_atker = Str(ATKER)
 	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
-		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 			if Can_Pk_Garner2 == 0 then
 			 statetime =math.max(30,math.floor(str_atker/5))+sklv*3
 		--		Notice ( "statetime="..statetime)
 			end
 		end
 
+        --LG( "Jxwb", "¼«ËÙ·ç±©¼¼ÄÜµÈ¼¶ = " , sklv , "\n" ) 
         AddState( ATKER , DEFER , STATE_JSFB, statelv , statetime ) 
+	--LG("skill_Jxwb", "function Skill_Oper_Jxwb: " , "add state Jxwb " , "\n" ) 
+---------------±³ºóÁé×´Ì¬
+	CheckAttackState1( ATKER , DEFER )	
+		
 end 
 
 function State_Jsfb_Add ( role , statelv ) 
-	local crtsb_dif =10 + 1 * statelv 
+	--LG("state_Jxwb" , "function State_Jxwb_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
+	local crtsb_dif =5 + 1 * statelv 
 	local crtsb = math.floor ( (CrtSb(role) + crtsb_dif ) ) 
 	SetCharaAttr( crtsb , role , ATTR_STATEV_CRT ) 
 	ALLExAttrSet(role)  
@@ -1334,6 +1538,7 @@ end
 
 
 function State_Jsfb_Rem ( role , statelv ) 
+	--LG("state_jxwb" , "function State_jxwb_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local crtsb_dif =5 + 1 * statelv 
 	local crtsb = math.floor ( (CrtSb(role) - crtsb_dif ) ) 
 	SetCharaAttr( crtsb , role , ATTR_STATEV_CRT ) 
@@ -1342,171 +1547,196 @@ end
 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß·ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÏÍÕß·âÓ¡¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
-function SkillSp_Xzfy ( sklv ) --ï¿½ï¿½ï¿½ï¿½"Seal of Elder"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
-local sp_reduce = 30 + sklv * 2
-return sp_reduce
-end
+function SkillSp_Xzfy ( sklv )										--¼¼ÄÜ"ÏÍÕß·âÓ¡"µÄspÏûºÄ¹«Ê½
+	local sp_reduce = 30 + sklv * 2 
+	return sp_reduce 
+end 
 
 function SkillCooldown_Xzfy( sklv )
-local Cooldown = 20000
-return Cooldown
+	local Cooldown = 20000
+	return Cooldown
 end
 
-function Skill_Xzfy_Begin ( role , sklv )
-local sp = Sp(role)
-local sp_reduce = SkillSp_Xzfy ( sklv )
-if sp - sp_reduce < 0 then
-SkillUnable(role)
-return
-end
-Sp_Red (role , sp_reduce )
-end
+function Skill_Xzfy_Begin ( role , sklv ) 
+	local sp = Sp(role) 
+	local sp_reduce = SkillSp_Xzfy ( sklv ) 
+	if sp - sp_reduce < 0 then 
+		SkillUnable(role)   
+		return 
+	end 
+	Sp_Red (role , sp_reduce ) 
+end 
 
-function Skill_Xzfy_End ( ATKER , DEFER , sklv )
-local statelv = sklv
-local statetime = 4 + math.floor ( sklv* 0.4 )
-local statetime2 = sklv* 0.7
-local map_name_ATKER = GetChaMapName ( ATKER )
-local map_name_DEFER = GetChaMapName ( DEFER )
-local con_atker = Con(ATKER)
-local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
+function Skill_Xzfy_End ( ATKER , DEFER , sklv ) 
+	local statelv = sklv 
+	local statetime = 10 + math.floor ( sklv* 0.5  ) 
+	local map_name_ATKER = GetChaMapName ( ATKER )
+	local map_name_DEFER = GetChaMapName ( DEFER )
+	local con_atker = Con(ATKER)
+	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
+			if Can_Pk_Garner2 == 0 then
+			 statetime =math.max(10,math.floor(con_atker/15))+sklv* 0.5
+	--			Notice ( "statetime="..statetime)
+			end
+		end
+	local Check_Heilong  = CheckItem_Heilong ( ATKER )
+	if Check_Heilong == 1 then
+		local Percentage = Percentage_Random ( 0.7)
+			if Percentage == 1 then
+				  statetime =  statetime*1.5
+				CALCULATE_FUNCTIONS_LUA_000004 = GetResString("CALCULATE_FUNCTIONS_LUA_000004")
+				SystemNotice ( ATKER , CALCULATE_FUNCTIONS_LUA_000004)
+			end
+	end
+		local Check_namei  = CheckItem_namei ( ATKER )
+		if Check_namei == 1 then
+			local Percentage = Percentage_Random ( 0.25 )
+			if Percentage == 1 then
+				  statetime =  statetime*2 
+				CALCULATE_SKILLEFFECT_LUA_000025 = GetResString("CALCULATE_SKILLEFFECT_LUA_000025")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000025)
+			end
+		end
+		
+		local Check_lufei  = CheckItem_lufei ( ATKER )
+		if Check_lufei == 1 then
+			local Percentage = Percentage_Random ( 0.25 )
+			if Percentage == 1 then
+				  statetime =  statetime*2 
+				CALCULATE_SKILLEFFECT_LUA_000026 = GetResString("CALCULATE_SKILLEFFECT_LUA_000026")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000026)
+			end
+	end
 
-local Check_Heilong = CheckItem_Heilong ( ATKER )
-if Check_Heilong == 1 then
-local Percentage = Percentage_Random ( 0.7)
-if Percentage == 1 then
-statetime = statetime*1.5
-SystemNotice ( ATKER , "\207\238\235\243\247\229\237\224 \241\232\235\224 \226\224\248\229\233 \253\234\232\239\232\240\238\226\234\232 - \243\241\232\235\229\237\232\229 \237\224\226\251\234\224 ")
-end
-end
-local hp_defer = Hp ( DEFER )
-if hp_defer >= 90000000 then
-local a = Percentage_Random (0.8)
-if a == 1 then
-statetime2 = 4 + math.floor ( sklv * 0.3 )
-else
-SetSus( DEFER , 0 )
-SystemNotice ( ATKER , "Seal of Elder usage failed!!")
-return
-end
-end
---bossï¿½â„–ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò‘Â¦ï¿½ï¿½
-if GetChaTypeID( ATKER ) == 985 then
-statetim = 15
-statelv = 10
-end
-if GetChaAIType( DEFER ) >= 21 then --21ï¿½ï¿½ï¿½ï¿½ï¿½Ð„BossAIï¿½Â¬ï¿½ï¿½â„–ï¿½ï¿½ï¿½Bossï¿½ï¿½Ñ•ï¿½bossÐ†ï¿½ï¿½Â¬ï¿½Â¬ï¿½ï¿½Â¶ï¿½Ñ—ï¿½ï¿½ï¿½Â±ï¿½ï¿½ï¿½ï¿½Ò‘ï¿½Â¬Âµï¿½Ò‘ï¿½ï¿½ï¿½
-if BOSSXZSJ[GetChaTypeID( DEFER )] == 0 then
-SystemNotice ("\223 \239\238\227\235\238\242\232\235 \242\226\238\233 \237\224\226\251\234 \247\229\235\238\226\229\247\232\248\234\238! ")
-return
-else
-BOSSXZSJ[GetChaTypeID( DEFER )] = BOSSXZSJ[GetChaTypeID( DEFER )] -1
-end
-end
+	local hp_defer = Hp ( DEFER ) 
+	if hp_defer >= 100000 then 
+		local a = Percentage_Random (0.8)
+		if a == 1 then
+			statetime = 5 + math.floor ( sklv * 0.3 ) 
+		else
+			SetSus( DEFER , 0 ) 
+			CALCULATE_SKILLEFFECT_LUA_000027 = GetResString("CALCULATE_SKILLEFFECT_LUA_000027")
+			SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000027) 
+			return
+		end
+	end 
+	----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí
+	if GetChaTypeID( ATKER ) == 985 then
+		statetime = 15
+		statelv = 10
+	end
+	if GetChaAIType( DEFER ) >= 21 then    --21ÒÔÉÏÎªBossAI£¬Èç¹ûÊÇBoss¸ù¾Ýboss²»Í¬£¬Éè¶¨¿ÉÒÔ±»¼Ó×´Ì¬µÄ´ÎÊý
+		if BOSSXZSJ[GetChaTypeID( DEFER )] == 0 then
+			CALCULATE_SKILLEFFECT_LUA_000028 = GetResString("CALCULATE_SKILLEFFECT_LUA_000028")
+			Notice (CALCULATE_SKILLEFFECT_LUA_000028)
+			return
+		else
+			BOSSXZSJ[GetChaTypeID( DEFER )] = BOSSXZSJ[GetChaTypeID( DEFER )] -1
+		end
+	end
 
+	----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí½áÊø
+	AddState( ATKER , DEFER , STATE_XY , 1 , 3 )
+	AddState ( ATKER , DEFER ,STATE_JNJZ , statelv , statetime ) 
+----------------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
+end 
 
-AddState ( ATKER , DEFER ,STATE_JNJZ , statelv , statetime )
-AddState( ATKER , DEFER , STATE_XY, statelv , statetime2 )
-end
+--¼¼ÄÜ°µÓ°Ö®ÕÂ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-
-
---ï¿½ï¿½ï¿½Ü°ï¿½Ó°Ö®ï¿½Â¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
-function SkillSp_Ayzz ( sklv )
-local sp_reduce = 30 + sklv * 3
-return sp_reduce
-end
+function SkillSp_Ayzz ( sklv )										--¼¼ÄÜ"°µÓ°Ö®ÕÂ"µÄspÏûºÄ¹«Ê½
+	local sp_reduce = 30 + sklv * 3  
+	return sp_reduce 
+end 
 
 function SkillCooldown_Ayzz( sklv )
-local Cooldown = 30000
-return Cooldown
+	local Cooldown = 30000
+	return Cooldown
 end
 
-function Skill_Ayzz_Begin ( role , sklv )
-local sp = Sp(role)
-local sp_reduce = SkillSp_Ayzz ( sklv )
-if sp - sp_reduce < 0 then
-SkillUnable(role)
-return
-end
-Sp_Red (role , sp_reduce )
-end
+function Skill_Ayzz_Begin ( role , sklv ) 
+	local sp = Sp(role) 
+	local sp_reduce = SkillSp_Ayzz ( sklv ) 
+	if sp - sp_reduce < 0 then 
+		SkillUnable(role)   
+		return 
+	end 
+	Sp_Red (role , sp_reduce ) 
+end 
 
-function Skill_Ayzz_End ( ATKER , DEFER , sklv )
-local statelv = sklv
-local statetime = 5 + sklv * 1
-local map_name_ATKER = GetChaMapName ( ATKER )
-local map_name_DEFER = GetChaMapName ( DEFER )
-local con_atker = Con(ATKER)
-local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
-if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
-if Can_Pk_Garner2 == 0 then
-statetime =math.max(5,math.floor(con_atker/30))+sklv
--- Notice ( "statetime="..statetime)
-end
-end
-local Check_Heilong = CheckItem_Heilong ( ATKER )
-if Check_Heilong == 1 then
-local Percentage = Percentage_Random ( 0.7)
-if Percentage == 1 then
-statetime = statetime*1.5
-SystemNotice ( ATKER , "\207\238\235\243\247\229\237\224 \241\232\235\224 \226\224\248\229\233 \253\234\232\239\232\240\238\226\234\232 - \243\241\232\235\229\237\232\229 \237\224\226\251\234\224 ")
-end
-end
-local hp_defer = Mxhp ( DEFER )
-if hp_defer >= 10000000 and hp_defer < 100000000 then
-local a = Percentage_Random (0.9)
-if a == 1 then
-statetime = 9
-else
-SetSus( DEFER , 0 )
-return
-end
-elseif hp_defer >= 100000000 then
-local a = Percentage_Random (0.9)
-if a == 1 then
-statetime = 4
-else
-SetSus( DEFER , 0 )
-return
-end
-end
-----bossï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½??ï¿½ï¿½ï¿½ï¿½?|ï¿½ï¿½ï¿½ï¿½
-if GetChaTypeID( ATKER ) == 985 then
-statetime = 15
-statelv = 10
-end
-if GetChaAIType( DEFER ) >= 21 then --21ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?BossAI??ï¿½ï¿½ï¿½Ù¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Bossï¿½×§ï¿½?ï¿½ï¿½boss??ï¿½ï¿½???ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½?ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½??ï¿½ï¿½ï¿½ï¿½?ï¿½ï¿½?ï¿½Ì§ï¿½?ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-if BOSSAYSJ[GetChaTypeID( DEFER )] == 0 then
-SystemNotice ("\223 \239\238\227\235\238\242\232\235 \242\226\238\233 \237\224\226\251\234 \247\229\235\238\226\229\247\232\248\234\238! ")
-return
-else
-BOSSAYSJ[GetChaTypeID( DEFER )] = BOSSAYSJ[GetChaTypeID( DEFER )] -1
-end
-end
-
-local statelv = sklv
-local statetime = 5 + statelv * 1
-local map_name_ATKER = GetChaMapName ( role )
-
-
-
-
-AddState ( ATKER , DEFER , STATE_TZ , statelv , statetime )
-AddState( ATKER , DEFER , STATE_OLX, statelv , statetime )
-AddState( ATKER , DEFER , STATE_GJJZ, statelv , statetime )
-Check_Ys_Rem ( ATKER , DEFER )
-
-end
+function Skill_Ayzz_End ( ATKER , DEFER , sklv ) 
+	local statelv = sklv 
+	local statetime = 5 + sklv * 1
+	local map_name_ATKER = GetChaMapName ( ATKER )
+	local map_name_DEFER = GetChaMapName ( DEFER )
+	local con_atker = Con(ATKER)
+	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
+			if Can_Pk_Garner2 == 0 then
+			 statetime =math.max(5,math.floor(con_atker/30))+sklv
+	--			Notice ( "statetime="..statetime)
+			end
+		end
+	local Check_Heilong  = CheckItem_Heilong ( ATKER )
+	if Check_Heilong == 1 then
+		local Percentage = Percentage_Random ( 0.7)
+			if Percentage == 1 then
+				  statetime =  statetime*1.5
+				CALCULATE_FUNCTIONS_LUA_000004 = GetResString("CALCULATE_FUNCTIONS_LUA_000004")
+				SystemNotice ( ATKER , CALCULATE_FUNCTIONS_LUA_000004)
+			end
+	end
+	local hp_defer = Mxhp ( DEFER )
+	if hp_defer >= 100000 and hp_defer < 1000000 then 
+		local a = Percentage_Random (0.7)
+		if a == 1 then
+			statetime = 9
+		else
+			SetSus( DEFER , 0 )
+			return
+		end
+	elseif hp_defer >= 1000000 then 
+		local a = Percentage_Random (0.7)
+		if a == 1 then
+			statetime = 4
+		else
+			SetSus( DEFER , 0 )
+			return
+		end
+	end 
+	----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí
+	if GetChaTypeID( ATKER ) == 985 then
+		statetime = 15
+		statelv = 10
+	end
+	if GetChaAIType( DEFER ) >= 21 then    --21ÒÔÉÏÎªBossAI£¬Èç¹ûÊÇBoss¸ù¾Ýboss²»Í¬£¬Éè¶¨¿ÉÒÔ±»¼Ó×´Ì¬µÄ´ÎÊý
+		if BOSSAYSJ[GetChaTypeID( DEFER )] == 0 then
+			CALCULATE_SKILLEFFECT_LUA_000028 = GetResString("CALCULATE_SKILLEFFECT_LUA_000028")
+			Notice (CALCULATE_SKILLEFFECT_LUA_000028)
+			return
+		else
+			BOSSAYSJ[GetChaTypeID( DEFER )] = BOSSAYSJ[GetChaTypeID( DEFER )] -1
+		end
+	end
+	----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí½áÊø
+	local statelv1 = New_Xlcz ( ATKER , DEFER )
+	AddState( ATKER , DEFER , STATE_GJJZ, statelv1 , statetime ) 
+	--LG( "Ayzz", "°µÓ°Ö®ÕÂ¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
+----------------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
+			
+end 
 
 
---ï¿½ï¿½ï¿½ï¿½Ó¥ï¿½Û¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÓ¥ÑÛ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-function SkillSp_Yy ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Eagle's Eye"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Yy ( sklv )										--¼¼ÄÜ"Ó¥ÑÛ"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 10  
 	return sp_reduce 
 end 
@@ -1533,6 +1763,7 @@ function Skill_Yy_End ( ATKER , DEFER , sklv )
 end 
 
 function State_Yy_Add ( role , statelv ) 
+	--LG("state_Yy" , "function State_Yy_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local hitsb_dif = statelv * 3 
 	local hitsb = HitSb(role) + hitsb_dif 
 	SetCharaAttr ( hitsb , role , ATTR_STATEV_HIT ) 
@@ -1540,6 +1771,7 @@ function State_Yy_Add ( role , statelv )
 end 
 
 function State_Yy_Rem ( role , statelv ) 
+	--LG("state_Yy" , "function State_Yy_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local hitsb_dif = statelv * 3 
 	local hitsb = HitSb(role) - hitsb_dif 
 	SetCharaAttr ( hitsb , role , ATTR_STATEV_HIT ) 
@@ -1549,16 +1781,16 @@ end
 
 
 
----------------------
--- ï¿½ï¿½ï¿½Ó§ï¿½Û§ß§ï¿½ï¿½ ï¿½Ó§ï¿½ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ --
----------------------
-function SkillSp_Lzj ( sklv )										
+--¼¼ÄÜÁ¬»÷¼ý¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+
+function SkillSp_Lzj ( sklv )										--¼¼ÄÜ"Á¬Öé¼ý"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 20  
 	return sp_reduce 
 end 
 
 function SkillCooldown_Lzj( sklv )
-	local Cooldown = 3000
+	local Cooldown = 5000
 	return Cooldown
 end
 
@@ -1573,17 +1805,29 @@ function Skill_Lzj_Begin ( role , sklv )
 end 
 
 function Skill_Lzj_End ( ATKER , DEFER , sklv ) 
-		hpdmg = ( 1.5+sklv * 0.1 ) * Atk_Dmg ( ATKER , DEFER ) 
+	if ValidCha(ATKER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000029 = GetResString("CALCULATE_SKILLEFFECT_LUA_000029")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000029 ) 
+		return 
+	end 
+	if ValidCha(DEFER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000030 = GetResString("CALCULATE_SKILLEFFECT_LUA_000030")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000030 ) 
+		return 
+	end 
+		hpdmg = ( 1.5+sklv * 0.15 ) * Atk_Dmg ( ATKER , DEFER ) 
 		Hp_Endure_Dmg ( DEFER , hpdmg )  
-		statetime = 5
-		AddState ( ATKER , DEFER , STATE_XY , statelv , statetime )  
+		--LG( "Lzj", "Á¬Öé¼ý¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
+-------------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
 end 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜåçÐÇÇ¿»÷¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
-function SkillSp_Hxqj ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Astro Strike"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Hxqj ( sklv )										--¼¼ÄÜ"åçÐÇÇ¿»÷"µÄspÏûºÄ¹«Ê½
    local sp_reduce = 20 + sklv * 2 
 	return sp_reduce 
 end 
@@ -1611,61 +1855,72 @@ function Skill_Hxqj_End ( ATKER , DEFER , sklv )
 	dmg = Phy_Dmg ( atk, defer_def , defer_resist ) 
 	Hp_Endure_Dmg ( DEFER , dmg )  
 	BeatBack ( ATKER , DEFER , back_dis )
+	--LG( "Hxqj", "åçÐÇÇ¿»÷¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
 
 end 
 
 
---ï¿½ï¿½ï¿½Ü»ï¿½Ó°Õ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ»ÃÓ°Õ¶¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
-function SkillSp_Hyz ( sklv )                                                                           
+function SkillSp_Hyz ( sklv )										--¼¼ÄÜ"»ÃÓ°Õ¶"µÄspÏûºÄ¹«Ê½
    local sp_reduce = 20 
-        return sp_reduce 
+	return sp_reduce 
 end 
 
 function SkillCooldown_Hyz( sklv )
-        local Cooldown = 5000
-        return Cooldown
+	local Cooldown = 5000
+	return Cooldown
 end
 
 function Skill_Hyz_Begin ( role , sklv ) 
-        local sp = Sp(role) 
-        local sp_reduce = SkillSp_Hyz ( sklv ) 
-        if sp - sp_reduce < 0 then 
-                SkillUnable(role)   
-                return 
-        end 
-        Sp_Red (role , sp_reduce ) 
+	local sp = Sp(role) 
+	local sp_reduce = SkillSp_Hyz ( sklv ) 
+	if sp - sp_reduce < 0 then 
+		SkillUnable(role)   
+		return 
+	end 
+	Sp_Red (role , sp_reduce ) 
 end 
 
 function Skill_Hyz_End ( ATKER , DEFER , sklv ) 
-        if ValidCha(ATKER) == 0 then 
-                return 
-        end 
-        if ValidCha(DEFER) == 0 then 
-                return 
-        end 
-        local aspd = Aspd ( ATKER )
-        local dmg = ( ( 1.5 + 0.1 * sklv ) ) * (math.min(3,( math.max ( 1, math.floor( aspd / 70  ) )  ))) * Atk_Dmg ( ATKER , DEFER )
-        local map_name_ATKER = GetChaMapName ( ATKER )
-        local map_name_DEFER = GetChaMapName ( DEFER )
-        local agi_atker = Agi(ATKER)
-        local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
-                if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
-                        if Can_Pk_Garner2 == 0 then
-                                dmg = ( ( 1 + 0.1 * sklv ) ) * (math.min(3,( math.max ( 1, math.floor( aspd / 70  ) )  ))) * Atk_Dmg ( ATKER , DEFER )
-        --                      Notice ( "dmg="..dmg)
-                        end
-                end
-        Hp_Endure_Dmg ( DEFER , dmg )  
-
-        Check_Ys_Rem ( ATKER , DEFER )                                          
+	if ValidCha(ATKER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000031 = GetResString("CALCULATE_SKILLEFFECT_LUA_000031")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000031 ) 
+		return 
+	end 
+	if ValidCha(DEFER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000032 = GetResString("CALCULATE_SKILLEFFECT_LUA_000032")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000032 ) 
+		return 
+	end 
+	local aspd = Aspd ( ATKER )
+	local dmg = ( ( 1.5 + 0.1 * sklv ) ) * (math.min(3,( math.max ( 1, math.floor( aspd / 70  ) )  ))) * Atk_Dmg ( ATKER , DEFER )
+	local map_name_ATKER = GetChaMapName ( ATKER )
+	local map_name_DEFER = GetChaMapName ( DEFER )
+	local agi_atker = Agi(ATKER)
+	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
+			if Can_Pk_Garner2 == 0 then
+				dmg = ( ( 1 + 0.1 * sklv ) ) * (math.min(3,( math.max ( 1, math.floor( aspd / 70  ) )  ))) * Atk_Dmg ( ATKER , DEFER )
+	--			Notice ( "dmg="..dmg)
+			end
+		end
+	Hp_Endure_Dmg ( DEFER , dmg )
+	if IsPlayer(DEFER) == 1 and IsPlayer(ATKER) == 1 then
+		CALCULATE_SKILLEFFECT_LUA_000033 = GetResString("CALCULATE_SKILLEFFECT_LUA_000033")
+		SkillLog(ATKER,DEFER,dmg,CALCULATE_SKILLEFFECT_LUA_000033,sklv)
+	end
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí
+--------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
 end 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Ø»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÖØ»÷¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
-function SkillSp_Zj ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Mighty Strike"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Zj ( sklv )										--¼¼ÄÜ"ÖØ»÷"µÄspÏûºÄ¹«Ê½
    local sp_reduce = 8 + sklv * 1  
 	return sp_reduce 
 end 
@@ -1689,17 +1944,21 @@ function Skill_Zj_End ( ATKER , DEFER , sklv )
 	atk_rad = 1.2 + sklv * 0.05 
 	hpdmg = Atk_Raise ( atk_rad , ATKER , DEFER )	
 	Hp_Endure_Dmg ( DEFER , hpdmg )  
-	Check_Ys_Rem ( ATKER ,DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	--LG( "Zj", "ÖØ»÷¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
+	Check_Ys_Rem ( ATKER ,DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí
+-------------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
 end 
---ï¿½ï¿½ï¿½Ü·ï¿½ï¿½ï¿½--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--¼¼ÄÜ·ÜÆð--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-function SkillSp_Fnq ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Rousing"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Fnq ( sklv )										--¼¼ÄÜ"·ÜÆð"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 25 
 	return sp_reduce 
 end 
 
 function SkillCooldown_Fnq( sklv )
-	local Cooldown = 35000
+	local Cooldown = 25000
 	return Cooldown
 end
 
@@ -1715,35 +1974,38 @@ end
 
 function Skill_Fnq_End ( ATKER , DEFER , sklv ) 
 	local statelv = sklv 
-	local statetime = 30
-----bossÊ¹ï¿½Ã¼ï¿½ï¿½Ü´ï¿½ï¿½ï¿½
+	local statetime = 20
+----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí
 	if GetChaTypeID( ATKER ) == 983 then
 		statetime = 120
 		statelv = 10
 	end
-----bossÊ¹ï¿½Ã¼ï¿½ï¿½Ü´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí½áÊø
 
 	AddState( ATKER , DEFER , STATE_FNQ, statelv , statetime ) 
+	--LG( "Fnq", "·ÜÆð¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
 end 
 
 function State_Fnq_Add ( role , statelv ) 
-	local aspd_dif = 140 + 1 * statelv 
+	--LG("state_Fnq" , "function State_Fnq_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
+	local aspd_dif = 10 + 1 * statelv 
 	local aspdsb = ( AspdSb(role) + aspd_dif ) 
 	SetCharaAttr( aspdsb , role , ATTR_STATEV_ASPD ) 
 	ALLExAttrSet(role)  
 end 
 
 function State_Fnq_Rem ( role , statelv ) 
-	local aspd_dif = 140 + 1 * statelv 
+	--LG("state_Fnq" , "function State_Fnq_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
+	local aspd_dif = 10 + 1 * statelv 
 	local aspdsb = ( AspdSb(role) - aspd_dif ) 
 	SetCharaAttr( aspdsb , role , ATTR_STATEV_ASPD ) 
 	ALLExAttrSet(role)  
 end
 
---ï¿½ï¿½ï¿½Ü¿ñ±©¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ¿ñ±©¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
-function SkillSp_Kb ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Berserk"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Kb ( sklv )										--¼¼ÄÜ"¿ñ±©"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 15 
 	return sp_reduce 
 end 
@@ -1767,9 +2029,14 @@ function Skill_Kb_End ( ATKER , DEFER , sklv )
 	local statelv = sklv 
 	local statetime = 20  
 	AddState( ATKER , DEFER , STATE_KB, statelv , statetime ) 
+	--LG( "Kb", "¿ñ±©¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
+-----------±³ºóÁé×´Ì¬
+	CheckAttackState1( ATKER , DEFER )
+	
 end 
 
 function State_Kb_Add ( role , statelv ) 
+	--LG("state_kb" , "function State_Kb_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local aspdsa_dif = 0.2 + statelv * 0.015
 	local aspdsa = ( AspdSa(role) + aspdsa_dif) * ATTR_RADIX
 	SetCharaAttr( aspdsa , role , ATTR_STATEC_ASPD ) 
@@ -1777,22 +2044,23 @@ function State_Kb_Add ( role , statelv )
 end 
 
 function State_Kb_Rem ( role , statelv ) 
+	--LG("state_kb" , "function State_Kb_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local aspdsa_dif = 0.2 + statelv * 0.015
 	local aspdsa = ( AspdSa(role) - aspdsa_dif) * ATTR_RADIX
 	SetCharaAttr( aspdsa , role , ATTR_STATEC_ASPD ) 
 	ALLExAttrSet(role)  
 end 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÊÞÍõ»÷¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
-function SkillSp_Swzq ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Primal Fist"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Swzq ( sklv )										--¼¼ÄÜ"ÊÞÍõÖ®È­"µÄspÏûºÄ¹«Ê½
    local sp_reduce = 50+sklv*3  
 	return sp_reduce 
 end 
 
 function SkillCooldown_Swzq( sklv )
-	local Cooldown = 30000
+	local Cooldown = 45000
 	return Cooldown
 end
 
@@ -1807,15 +2075,100 @@ function Skill_Swzq_Begin ( role , sklv )
 end 
 
 function Skill_Swzq_End ( ATKER , DEFER , sklv ) 
-	local dmg = ( 1.5 +sklv * 0.33 ) * Atk_Dmg ( ATKER , DEFER )  
-	Hp_Endure_Dmg ( DEFER , dmg )
-	local statetime = sklv/1.1
-	local statelv = sklv
-	if statelv >= 7 then
-		statetime = statetime*0.5
-		AddState ( ATKER , DEFER , STATE_XY , statelv , statetime )  
+	if ValidCha(ATKER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000034 = GetResString("CALCULATE_SKILLEFFECT_LUA_000034")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000034 ) 
+		return 
 	end 
-end
+	if ValidCha(DEFER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000035 = GetResString("CALCULATE_SKILLEFFECT_LUA_000035")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000035 ) 
+		return 
+	end 
+	
+	dmg = ( 3 +  sklv * 0.5 ) * Atk_Dmg ( ATKER ,DEFER ) 
+		
+	local Check_lufei  = CheckItem_lufei ( ATKER )
+
+	if Check_lufei == 1 then
+			local Percentage = Percentage_Random ( 0.25 )
+			if Percentage == 1 then
+				  dmg =  dmg*5 
+				CALCULATE_SKILLEFFECT_LUA_000036 = GetResString("CALCULATE_SKILLEFFECT_LUA_000036")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000036)
+			end
+	end
+	
+	
+	local Check_Heilong  = CheckItem_Heilong ( ATKER )
+	if Check_Heilong == 1 then
+			local Percentage = Percentage_Random ( 0.3 )
+			if Percentage == 1 then
+				  dmg =  dmg*3
+				CALCULATE_SKILLEFFECT_LUA_000037 = GetResString("CALCULATE_SKILLEFFECT_LUA_000037")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000037)
+			end
+	end
+	if IsPlayer ( DEFER ) == 1 and IsPlayer ( ATKER ) == 1 then
+			local Lv_Check = ReCheck_PK_Lv ( ATKER ,DEFER )
+			local Ran = math.min ( 90 , math.max ( 1 ,( 30 + Lv_Check * 2 )))
+			local map_name_ATKER = GetChaMapName ( ATKER )
+			local map_name_DEFER = GetChaMapName ( DEFER )
+			local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
+			local SwordLv = GetSkillLv (ATKER,67)
+				if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
+					Ran = Ran*(1+SwordLv*0.1)
+			--		Notice("Ran="..Ran)
+				end
+				local Check_wumian  = CheckItem_Wumian ( ATKER )
+			if Check_wumian == 1 then
+				Ran = math.random ( 80 , 100)
+				CALCULATE_SKILLEFFECT_LUA_000038 = GetResString("CALCULATE_SKILLEFFECT_LUA_000038")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000038..Ran)
+			end
+			local Check_Heilong  = CheckItem_Heilong ( ATKER )
+			if Check_Heilong == 1 then
+			local Percentage = Percentage_Random ( 0.5 )
+			if Percentage == 1 then
+				  Ran =  Ran*1.5
+				CALCULATE_SKILLEFFECT_LUA_000039 = GetResString("CALCULATE_SKILLEFFECT_LUA_000039")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000039)
+			end
+		
+			
+	end
+			local Dmg_Max = math.floor( dmg * (2/3) )
+			local Dmg_Min = math.floor( dmg / 8 )
+			dmg = ReCheck_Skill_Dmg ( Dmg_Max , Dmg_Min , Ran )
+			if dmg == Dmg_Min then
+				CALCULATE_SKILLEFFECT_LUA_000040 = GetResString("CALCULATE_SKILLEFFECT_LUA_000040")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000040 )
+			end
+	end
+	Hp_Endure_Dmg ( DEFER , dmg )  
+	if IsPlayer(DEFER) == 1 and IsPlayer(ATKER) == 1 then
+		CALCULATE_SKILLEFFECT_LUA_000041 = GetResString("CALCULATE_SKILLEFFECT_LUA_000041")
+		SkillLog(ATKER,DEFER,dmg,CALCULATE_SKILLEFFECT_LUA_000041,sklv)
+	end
+		--LG( "Swzq", "ÊÞÍõÖ®È­¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" )
+	local statelv = sklv 
+	local statetime = 1    
+	local Check_Heilong  = CheckItem_Heilong ( ATKER )
+	if Check_Heilong == 1 then
+			local Percentage = Percentage_Random ( 0.5 )
+			if Percentage == 1 then
+				  statetime =  statetime*3
+				CALCULATE_SKILLEFFECT_LUA_000042 = GetResString("CALCULATE_SKILLEFFECT_LUA_000042")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000042)
+			end
+	end
+	local hp_defer = Hp ( DEFER ) 
+	AddState ( ATKER , DEFER , STATE_XY , statelv , statetime )
+-----------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
+		
+end 
 
 function State_Xy_Add ( role , statelv )
 
@@ -1827,9 +2180,9 @@ end
 
 
 
---ï¿½ï¿½ï¿½Ü¸ï¿½ï¿½î¡ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ¸´»î¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-function SkillSp_Fh ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Revival"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Fh ( sklv )										--¼¼ÄÜ"¸´»î"µÄspÏûºÄ¹«Ê½
    local sp_reduce = 50   
 	return sp_reduce 
 end 
@@ -1842,14 +2195,16 @@ end
 function Skill_Fh_Begin ( role , sklv ) 
 	local map_name_ATKER = GetChaMapName ( role )
 	if map_name_ATKER == "garner2" then
-			SystemNotice ( role , "Unable to use Revival skills here." )
+			CALCULATE_SKILLEFFECT_LUA_000043 = GetResString("CALCULATE_SKILLEFFECT_LUA_000043")
+			SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000043 )
 	SkillUnable(role)   
 		end
 	
 	local item_count = CheckBagItem ( role , ITEM_RELIFE ) 
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , ITEM_RELIFE , 1 ) 
 end 
@@ -1858,21 +2213,25 @@ end
 function Skill_Fh_End ( ATKER , DEFER , sklv ) 
 	local ChaName = GetChaDefaultName ( ATKER )
 --	SystemNotice ( role , "aaaaa" ) 
-	SetRelive ( ATKER , DEFER ,  sklv , "Player"..ChaName.."\n\n wish to revive you. Accept?" ) 
+	CALCULATE_SKILLEFFECT_LUA_000045 = GetResString("CALCULATE_SKILLEFFECT_LUA_000045")
+	CALCULATE_EXP_AND_LEVEL_LUA_000040 = GetResString("CALCULATE_EXP_AND_LEVEL_LUA_000040")
+	SetRelive ( ATKER , DEFER ,  sklv , CALCULATE_EXP_AND_LEVEL_LUA_000040..ChaName..CALCULATE_SKILLEFFECT_LUA_000045 ) 
 --	local mxhp = GetChaAttr(DEFER,ATTR_MXHP)
---	local hp ï¿½ï¿½ mxhp * 0.05 * sklv
+--	local hp £½ mxhp * 0.05 * sklv
 --	SetCharaAttr(hp, DEFER, ATTR_HP) 
+-----±³ºóÁé×´Ì¬
+	CheckAttackState1( ATKER , DEFER )
 end 
 
 
---ï¿½ï¿½ï¿½ï¿½----------------------------------------------
-function SkillSp_BingX ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Skill Icy Fairy Enticement"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+--±ùÏä----------------------------------------------
+function SkillSp_BingX ( sklv )										--¼¼ÄÜ"¼¼ÄÜ±ùÁéÓÓ×ô"µÄspÏûºÄ¹«Ê½
    local sp_reduce = 40 + sklv * 4 
 	return sp_reduce 
 end 
 
 function SkillCooldown_BingX( sklv )
-	local Cooldown = 45000
+	local Cooldown = 3000
 	return Cooldown
 end
 
@@ -1888,30 +2247,53 @@ end
 
 function Skill_BingX_End ( ATKER , DEFER , sklv ) 
 	local i = CheckBagItem( ATKER , 3463 )
-	if i <= 0 then
-		SystemNotice ( ATKER , "Each summon requires 1 Icy Crystal")
+	local ii = CheckBagItem( ATKER , 6465 )
+	if i <= 0 and ii<=0 then
+		CALCULATE_SKILLEFFECT_LUA_000046 = GetResString("CALCULATE_SKILLEFFECT_LUA_000046")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000046)
 		return
 	end
-	local j = DelBagItem(ATKER,3463,1)
-	if j == 1 then
-		local statelv = sklv 
-		local statetime =  8 + sklv * 2
-		local map_name_ATKER = GetChaMapName ( ATKER )
-		local map_name_DEFER = GetChaMapName ( DEFER )
-		local sta_atker = Sta(ATKER)
-		local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
-			if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
-				if Can_Pk_Garner2 == 0 then
-					 statetime =5 + sklv * 2
-		--			Notice ( "statetime="..statetime)
+	if i > 0 and ii <= 0 then
+		local j = DelBagItem(ATKER,3463,1)
+		if j == 1 then
+			local statelv = sklv 
+			local statetime =  8 + sklv * 2
+			local map_name_ATKER = GetChaMapName ( ATKER )
+			local map_name_DEFER = GetChaMapName ( DEFER )
+			local sta_atker = Sta(ATKER)
+			local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
+				if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
+					if Can_Pk_Garner2 == 0 then
+						 statetime =math.max(8,math.floor(sta_atker/15))+sklv*2
+			--			Notice ( "statetime="..statetime)
+					end
 				end
-			end
-		AddState ( ATKER , DEFER , STATE_BIW , statelv , statetime )	
-	else
-	end
-
-
-	 
+			AddState ( ATKER , DEFER , STATE_BIW , statelv , statetime )	
+		else
+			CALCULATE_SKILLEFFECT_LUA_000047 = GetResString("CALCULATE_SKILLEFFECT_LUA_000047")
+			LG("Skill_Item",CALCULATE_SKILLEFFECT_LUA_000047)
+		end
+	elseif   ii > 0 then 
+		local jj = DelBagItem(ATKER,6465,1)
+		if jj == 1 then
+			local statelv = sklv 
+			local statetime =  8 + sklv * 2
+			local map_name_ATKER = GetChaMapName ( ATKER )
+			local map_name_DEFER = GetChaMapName ( DEFER )
+			local sta_atker = Sta(ATKER)
+			local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
+				if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
+					if Can_Pk_Garner2 == 0 then
+						 statetime =math.max(8,math.floor(sta_atker/15))+sklv*2
+			--			Notice ( "statetime="..statetime)
+					end
+				end
+			AddState ( ATKER , DEFER , STATE_BIW , statelv , statetime )	
+		else
+			CALCULATE_SKILLEFFECT_LUA_000047 = GetResString("CALCULATE_SKILLEFFECT_LUA_000047")
+			LG("Skill_Item",CALCULATE_SKILLEFFECT_LUA_000047)
+		end
+	 end
 end
 
 
@@ -1920,14 +2302,102 @@ end
 
 
 
+function Skill_BingX1_Begin ( role ) 
+--	SystemNotice ( role , "innnnn" ) 
+	local NocLock =	KitbagLock( role, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local valentinesring = CheckBagItem ( role , 2520 ) 
+	local item_count1 = CheckBagItem ( role , 6465 ) 
+	local item_count2 = CheckBagItem ( role , 3463 ) 
+	if valentinesring == 1 then
+		SkillUnable(role) 	
+		CALCULATE_SKILLEFFECT_LUA_000048 = GetResString("CALCULATE_SKILLEFFECT_LUA_000048")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000048 ) 
+		return 0
+	elseif item_count1 > 0 then  
+		RemoveChaItem( role , 6465 , 1 , 0 , -1 , 2 , 1 ) 
+		return 0	
+	elseif item_count2 >0 then
+		RemoveChaItem( role , 3463 , 1 , 0 , -1 , 2 , 1 ) 
+		return 0			
+	else
+		SkillUnable(role)   
+		CALCULATE_SKILLEFFECT_LUA_000049 = GetResString("CALCULATE_SKILLEFFECT_LUA_000049")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000049 ) 
+		return 0		
+	end 
+end 
+
+function Skill_BingX1_End ( ATKER , DEFER  ) 
+
+	local NocLock =	KitbagLock( ATKER, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local statetime = 8
+	local statelv = 10 
+	AddState ( ATKER , DEFER , STATE_BIW , statelv , statetime )
 
 
+end
 
 
---ï¿½ï¿½ï¿½ï¿½Ê¯ï¿½ï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+function Skill_BingX2_Begin ( role ) 
+--	SystemNotice ( role , "innnnn" ) 
+	local NocLock =	KitbagLock( role, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local valentinesring = CheckBagItem ( role , 2520 ) 
+	local item_count1 = CheckBagItem ( role , 6465 ) 
+	local item_count2 = CheckBagItem ( role , 3463 ) 
+	if valentinesring == 1 then
+		SkillUnable(role) 	
+		CALCULATE_SKILLEFFECT_LUA_000048 = GetResString("CALCULATE_SKILLEFFECT_LUA_000048")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000048 ) 
+		return 0
+	elseif item_count1 > 0 then  
+		RemoveChaItem( role , 6465 , 1 , 0 , -1 , 2 , 1 ) 
+		return 0	
+	elseif item_count2 >0 then
+		RemoveChaItem( role , 3463 , 1 , 0 , -1 , 2 , 1 ) 
+		return 0			
+	else
+		SkillUnable(role)   
+		CALCULATE_SKILLEFFECT_LUA_000049 = GetResString("CALCULATE_SKILLEFFECT_LUA_000049")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000049 ) 
+		return 0		
+	end 
+end 
+
+function Skill_BingX2_End ( ATKER , DEFER  ) 
+
+	local NocLock =	KitbagLock( ATKER, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local statetime = 3
+	local statelv = 10 
+	AddState ( ATKER , DEFER , STATE_BIW , statelv , statetime )
 
 
-function SkillSp_Shpf ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Skill Harden"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+end
+
+
+--¼¼ÄÜÊ¯»¯Æ¤·ô¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+
+function SkillSp_Shpf ( sklv )										--¼¼ÄÜ"¼¼ÄÜÊ¯»¯Æ¤·ô"µÄspÏûºÄ¹«Ê½
    local sp_reduce = 40 + sklv * 4 
 	return sp_reduce 
 end 
@@ -1950,12 +2420,16 @@ end
 function Skill_Shpf_End ( ATKER , DEFER , sklv ) 
  
 	local statelv = sklv 
-	local statetime =  3600    
+	local statetime =  180    
 	AddState ( ATKER , DEFER , STATE_SHPF , statelv , statetime ) 
+	--LG("skill_Shpf", "function Skill_Def_Shpf : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
+-----±³ºóÁé×´Ì¬
+	CheckAttackState1( ATKER , DEFER )		
 end 
 
 
 function State_Shpf_Add ( role , statelv ) 
+	--LG("state", "function State_Shpf_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 	local def_dif = 10 + statelv * 4  
 	local def = DefSb(role) + def_dif 
 	SetCharaAttr( def , role , ATTR_STATEV_DEF )	
@@ -1966,6 +2440,7 @@ end
 
 
 function State_Shpf_Rem ( role , statelv ) 
+--	LG("state", "function State_Shpf_Rem : " ,"statelv = " , statelv , " role = ", role, "\n" ) 
 	local def_dif = 10 + statelv * 4 
 	local def = DefSb(role) - def_dif
 	SetCharaAttr( def , role , ATTR_STATEV_DEF )
@@ -1973,7 +2448,7 @@ function State_Shpf_Rem ( role , statelv )
 end 
 
 
-----ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ß»ï¿½---------------------------------------------------------------
+----¼¼ÄÜÄ§Á¦´ß»¯---------------------------------------------------------------
 
 function SkillSp_Mlch ( sklv )										
    local sp_reduce = 40 + sklv * 4 
@@ -1997,24 +2472,48 @@ end
 
 function Skill_Mlch_End ( ATKER , DEFER , sklv ) 
 	local i = CheckBagItem( ATKER , 3462 )
-	if i <= 0 then
-		SystemNotice ( ATKER , "Intensify requires one Magical Clover")
+	local ii = CheckBagItem( ATKER , 6464 )
+	if i <= 0 and ii <=0 then
+		CALCULATE_SKILLEFFECT_LUA_000050 = GetResString("CALCULATE_SKILLEFFECT_LUA_000050")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000050)
 		return
 	end
 	local b = ( sklv - 1 ) * 0.05
 	local a = Percentage_Random ( b )
 	local j = 0
-	if a == 0 then
-		j = DelBagItem(ATKER,3462,1)
-	elseif a == 1 then
-		j = 1
-		SystemNotice ( ATKER , "Entering skill discharge, does not consume a Magical Clover" )
-	end
-	if j == 1 then
-		local statelv = sklv 
-		local statetime =  960 + 960 * sklv   
-		AddState ( ATKER , DEFER , STATE_MLCH , statelv , statetime ) 	
-	else
+	local jj = 0
+	if  i>0 and ii <= 0 then
+		if a == 0 then
+			j = DelBagItem(ATKER,3462,1)
+		elseif a == 1 then
+			j = 1
+			CALCULATE_SKILLEFFECT_LUA_000051 = GetResString("CALCULATE_SKILLEFFECT_LUA_000051")
+			SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000051 )
+		end
+		if j == 1  then
+			local statelv = sklv 
+			local statetime =  90 + 90 * sklv   
+			AddState ( ATKER , DEFER , STATE_MLCH , statelv , statetime ) 	
+		else
+			CALCULATE_SKILLEFFECT_LUA_000052 = GetResString("CALCULATE_SKILLEFFECT_LUA_000052")
+			LG("Skill_Item",CALCULATE_SKILLEFFECT_LUA_000052)
+		end
+	elseif ii > 0 then
+		if a == 0 then
+			jj = DelBagItem(ATKER,6464,1)
+		elseif a == 1 then
+			jj = 1
+			CALCULATE_SKILLEFFECT_LUA_000051 = GetResString("CALCULATE_SKILLEFFECT_LUA_000051")
+			SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000051 )
+		end
+		if jj == 1  then
+			local statelv = sklv 
+			local statetime =  90 + 90 * sklv   
+			AddState ( ATKER , DEFER , STATE_MLCH , statelv , statetime ) 	
+		else
+			CALCULATE_SKILLEFFECT_LUA_000052 = GetResString("CALCULATE_SKILLEFFECT_LUA_000052")
+			LG("Skill_Item",CALCULATE_SKILLEFFECT_LUA_000052)
+		end	
 	end
 
 end 
@@ -2038,16 +2537,16 @@ function Cuihua_Mofa ( dmg , statelv )
 end 
  
 
---ï¿½ï¿½ï¿½Ü¸ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ¸ÖÌúÒâÖ¾¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
-function SkillSp_Gtyz ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Skill Will of Steel"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Gtyz ( sklv )										--¼¼ÄÜ"¼¼ÄÜ¸ÖÌúÒâÖ¾"µÄspÏûºÄ¹«Ê½
    local sp_reduce = 15  
 	return sp_reduce 
 end 
 
 function SkillCooldown_Gtyz( sklv )
-	local Cooldown = 30000
+	local Cooldown = 15000
 	return Cooldown
 end
 
@@ -2064,14 +2563,18 @@ end
 function Skill_Gtyz_End ( ATKER , DEFER , sklv ) 
  
 	local statelv = sklv 
-	local statetime =  20    
+	local statetime =  15    
 	AddState ( ATKER , DEFER , STATE_GTYZ , statelv , statetime ) 
-	Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	--LG("skill_Gtyz", "function Skill_Def_Gtyz : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí
+-----±³ºóÁé×´Ì¬
+	CheckAttackState1( ATKER , DEFER )	
 end 
 
 
 function State_Gtyz_Add ( role , statelv ) 
-	local def_dif = statelv * 25
+	--LG("state", "function State_GTYZ_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
+	local def_dif = statelv * 3
 	local def = DefSb(role) + def_dif
 	SetCharaAttr( def , role , ATTR_STATEV_DEF )	
 	ALLExAttrSet(role)
@@ -2081,7 +2584,8 @@ end
 
 
 function State_Gtyz_Rem ( role , statelv ) 
-	local def_dif = statelv * 25
+--	LG("state", "function State_Gtyz_Rem : " ,"statelv = " , statelv , " role = ", role, "\n" ) 
+	local def_dif = statelv * 3
 	local def = DefSb(role) - def_dif
 	SetCharaAttr( def , role , ATTR_STATEV_DEF )
 	ALLExAttrSet(role)
@@ -2090,10 +2594,10 @@ end
 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼×¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÆÆ¼×¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
-function SkillSp_Pj ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Skill Break Armor"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Pj ( sklv )										--¼¼ÄÜ"¼¼ÄÜÆÆ¼×"µÄspÏûºÄ¹«Ê½
    local sp_reduce = 25  
 	return sp_reduce 
 end 
@@ -2120,7 +2624,7 @@ function Skill_Pj_End ( ATKER , DEFER , sklv )
 		local map_name_DEFER = GetChaMapName ( DEFER )
 		local agi_atker = Agi(ATKER)
 		local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
-		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 			if Can_Pk_Garner2 == 0  then
 				statetime = agi_atker/10
 				if statetime<1 then
@@ -2130,11 +2634,18 @@ function Skill_Pj_End ( ATKER , DEFER , sklv )
 			end
 		end
 		AddState ( ATKER , DEFER , STATE_PJ , statelv , statetime ) 
-		Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ 
+		--LG("skill_Pj", "function Skill_Def_Pj : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
+		Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí 
 
+		--LG( "sk_pj", "ÆÆ¼×¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
+---------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
+		
 end 
 
 function State_Pj_Add ( role , statelv ) 
+	--LG("state", "function State_Pj_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 	local def_dif = statelv * 4
 	local def = DefSb(role) - def_dif
 	SetCharaAttr( def , role , ATTR_STATEV_DEF )	
@@ -2145,14 +2656,16 @@ end
 
 
 function State_Pj_Rem ( role , statelv ) 
+--	LG("state", "function State_Pj_Rem : " ,"statelv = " , statelv , " role = ", role, "\n" ) 
 	local def_dif = statelv * 4
 	local def = DefSb(role) + def_dif
 	SetCharaAttr( def , role , ATTR_STATEV_DEF )
 	ALLExAttrSet(role)
 end 
 
-------------------------ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½
+------------------------¾«ÁéÆÆ¼×
 function State_JLPj_Add ( role , statelv ) 
+	--LG("state", "function State_Pj_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 	local def_dif = statelv * 60
 	local def = DefSb(role) - def_dif
 	SetCharaAttr( def , role , ATTR_STATEV_DEF )	
@@ -2161,14 +2674,15 @@ function State_JLPj_Add ( role , statelv )
 end 
 
 function State_JLPj_Rem ( role , statelv ) 
+--	LG("state", "function State_Pj_Rem : " ,"statelv = " , statelv , " role = ", role, "\n" ) 
 	local def_dif = statelv * 60
 	local def = DefSb(role) + def_dif
 	SetCharaAttr( def , role , ATTR_STATEV_DEF )
 	ALLExAttrSet(role)
 end 
---ï¿½ï¿½ï¿½Ü´ï¿½É±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ´ÌÉ±¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-function SkillSp_Bc ( sklv )										--ï¿½ï¿½ï¿½ï¿½"assassinate"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Bc ( sklv )										--¼¼ÄÜ"´ÌÉ±"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 15 + sklv * 2  
 	return sp_reduce 
 end 
@@ -2178,7 +2692,7 @@ function SkillCooldown_Bc( sklv )
 	return Cooldown
 end
 
-function Skill_Bc_Begin ( role , sklv )								--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½É±ï¿½ï¿½ï¿½ï¿½Ê©ï¿½Å½×¶ï¿½
+function Skill_Bc_Begin ( role , sklv )								--¼¼ÄÜ¡°´ÌÉ±¡±µÄÊ©·Å½×¶Î
 	local sp = Sp(role) 
 	local sp_reduce = SkillSp_Bc ( sklv ) 
 	if sp - sp_reduce < 0 then 
@@ -2188,7 +2702,7 @@ function Skill_Bc_Begin ( role , sklv )								--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½É±ï¿½ï¿½ï¿½
 	Sp_Red (role , sp_reduce ) 
 end 
 
-function Skill_Bc_End ( ATKER , DEFER , sklv )									--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½É±ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½×¶ï¿½
+function Skill_Bc_End ( ATKER , DEFER , sklv )									--¼¼ÄÜ¡°´ÌÉ±¡±µÄÐ§¹û½×¶Î
 	local atk_rad = 1+ sklv * 0.05
 	local atk_dire = GetObjDire ( ATKER ) 
 	local def_dire = GetObjDire ( DEFER ) 
@@ -2199,13 +2713,13 @@ function Skill_Bc_End ( ATKER , DEFER , sklv )									--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½É±ï
 		hpdmg = Atk_Raise ( atk_rad , ATKER , DEFER ) 
 	end
 	Hp_Endure_Dmg ( DEFER , hpdmg ) 
-	Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí
 
 end 
 
---ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ¹íÎèÕ¶¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-function SkillSp_Guz ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Shadow Slash"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Guz ( sklv )										--¼¼ÄÜ"¹íÎèÕ¶"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 20 + sklv * 3  
 	return sp_reduce 
 end 
@@ -2215,7 +2729,7 @@ function SkillCooldown_Guz( sklv )
 	return Cooldown
 end
 
-function Skill_Guz_Begin ( role , sklv )								--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½ï¿½Ê©ï¿½Å½×¶ï¿½
+function Skill_Guz_Begin ( role , sklv )								--¼¼ÄÜ¡°¹íÎèÕ¶¡±µÄÊ©·Å½×¶Î
 	local sp = Sp(role) 
 	local sp_reduce = SkillSp_Guz ( sklv ) 
 	if sp - sp_reduce < 0 then 
@@ -2226,35 +2740,39 @@ function Skill_Guz_Begin ( role , sklv )								--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½ï¿½ï¿½Õ¶ï¿
 
 end 
 
-function Skill_Guz_End ( ATKER , DEFER , sklv )									--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½×¶ï¿½
+function Skill_Guz_End ( ATKER , DEFER , sklv )									--¼¼ÄÜ¡°¹íÎèÕ¶¡±µÄÐ§¹û½×¶Î
 	if ValidCha(ATKER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000053 = GetResString("CALCULATE_SKILLEFFECT_LUA_000053")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000053 ) 
 		return 
 	end 
 	if ValidCha(DEFER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000054 = GetResString("CALCULATE_SKILLEFFECT_LUA_000054")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000054 ) 
 		return 
 	end 
 	local a = 1 
 	local hpdmg = ( 1 +  sklv * 0.1 ) * Atk_Dmg( ATKER , DEFER )  
 	local statelv = sklv 
-	local statetime = 3 + math.floor ( sklv * 0.2 ) 
+	local statetime = 3 + math.floor ( sklv * 0.5 ) 
 	local map_name_ATKER = GetChaMapName ( ATKER )
 	local map_name_DEFER = GetChaMapName ( DEFER )
 	local agi_atker = Agi(ATKER)
 	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
-	--	if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
-	--		if Can_Pk_Garner2 == 0 then
-	--			statetime = statetime*agi_atker/200
-	--			Notice ( "statetime="..statetime)
-	--		end
-	--	end
+		if  map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
+			if Can_Pk_Garner2 == 0 then
+				statetime = statetime*agi_atker/200
+				--Notice ( "statetime="..statetime)
+			end
+		end
 	local atk_dire = GetObjDire ( ATKER ) 
 	local def_dire = GetObjDire ( DEFER ) 
 	dif_dire = atk_dire - def_dire 
 	if math.abs(dif_dire) < 90 or math.abs(dif_dire) > 180 then 
-		statetime = statetime * 1  
+		statetime = statetime * 2  
 	end 
 	local hp_defer =Mxhp ( DEFER ) 
-	if hp_defer >= 900000000 then 
+	if hp_defer >= 100000 then 
 		a = Percentage_Random ( 0.8 ) 
 		statetime = math.floor ( statetime / 2 ) + 1 
 	end 
@@ -2263,36 +2781,61 @@ function Skill_Guz_End ( ATKER , DEFER , sklv )									--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½ï¿
 			local Percentage = Percentage_Random ( 0.5 )
 			if Percentage == 1 then
 				 statetime = statetime * 2
-				SystemNotice ( ATKER , "\207\238\235\243\247\229\237\224 \241\232\235\224 \226\224\248\229\233 \253\234\232\239\232\240\238\226\234\232 - \243\241\232\235\229\237\232\229 \237\224\226\251\234\224 ")
+				CALCULATE_FUNCTIONS_LUA_000004 = GetResString("CALCULATE_FUNCTIONS_LUA_000004")
+				SystemNotice ( ATKER , CALCULATE_FUNCTIONS_LUA_000004)
+			end
+	end
+
+	local Check_namei  = CheckItem_namei ( ATKER )
+	if Check_namei ==1 then
+			local Percentage = Percentage_Random ( 0.25 )
+			if Percentage == 1 then
+				 statetime = statetime + 5
+				CALCULATE_SKILLEFFECT_LUA_000055 = GetResString("CALCULATE_SKILLEFFECT_LUA_000055")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000055)
+			end
+	end
+	
+	local Check_lufei  = CheckItem_lufei ( ATKER )
+	if Check_lufei ==1 then
+			local Percentage = Percentage_Random ( 0.25 )
+			if Percentage == 1 then
+				 statetime = statetime + 5
+				CALCULATE_SKILLEFFECT_LUA_000056 = GetResString("CALCULATE_SKILLEFFECT_LUA_000056")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000056)
 			end
 	end
 	if  a == 1 then
-		----bossÊ¹ï¿½Ã¼ï¿½ï¿½Ü´ï¿½ï¿½ï¿½
+		----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí
 		if GetChaTypeID( ATKER ) == 979 then
 			statetime = 8
 		end
 
-	if GetChaAIType( DEFER ) >= 21 then    --21ï¿½ï¿½ï¿½ï¿½ÎªBossAIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Bossï¿½ï¿½ï¿½ï¿½bossï¿½ï¿½Í¬ï¿½ï¿½ï¿½è¶¨ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½×´Ì¬ï¿½Ä´ï¿½ï¿½ï¿½
+	if GetChaAIType( DEFER ) >= 21 then    --21ÒÔÉÏÎªBossAI£¬Èç¹ûÊÇBoss¸ù¾Ýboss²»Í¬£¬Éè¶¨¿ÉÒÔ±»¼Ó×´Ì¬µÄ´ÎÊý
 		if BOSSXYSJ[GetChaTypeID( DEFER )] == 0 then
-			Notice ("\223 \239\238\227\235\238\242\232\235 \242\226\238\233 \237\224\226\251\234 \247\229\235\238\226\229\247\232\248\234\238!")
+			CALCULATE_SKILLEFFECT_LUA_000028 = GetResString("CALCULATE_SKILLEFFECT_LUA_000028")
+			Notice (CALCULATE_SKILLEFFECT_LUA_000028)
 			return
 		else
 			BOSSXYSJ[GetChaTypeID( DEFER )] = BOSSXYSJ[GetChaTypeID( DEFER )] -1
 		end
 	end
-		----bossÊ¹ï¿½Ã¼ï¿½ï¿½Ü´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí½áÊø
 		Hp_Endure_Dmg ( DEFER , hpdmg ) 
 		AddState( ATKER , DEFER , STATE_XY, statelv , statetime ) 
 	else 
 		SetSus( DEFER , 0 ) 
 	end 
-	Check_Ys_Rem ( ATKER ,DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	Check_Ys_Rem ( ATKER ,DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí
+-----±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )	
 
 end 
---ï¿½ï¿½ï¿½Ü¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ¶¾¼ý¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillSp_Dj ( sklv )										
-	local sp_reduce = 50 
+	local sp_reduce = 20 
 	return sp_reduce 
 end
 
@@ -2302,6 +2845,8 @@ function SkillCooldown_Dj( sklv )
 end
 
 function Skill_Dj_Begin ( role , sklv ) 
+	--LG( "skill_dj", "enter function Skill_Atk_Dj : " , "\n" ) 
+	--LG("skill_dj", "function Skill_Atk_Dj : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 	local sp = Sp(role) 
 	local sp_reduce = SkillSp_Dj ( sklv ) 
 	if sp - sp_reduce < 0 then 
@@ -2312,23 +2857,31 @@ function Skill_Dj_Begin ( role , sklv )
 end 
 
 function Skill_Dj_End ( ATKER , DEFER , sklv ) 
+	--LG( "skill_db", "enter function Skill_Def_Dj : " , "\n" ) 
 	local statelv = sklv 
-	local statetime =  10 + sklv * 1    
+	local statetime =  11 + sklv * 1    
 	AddState ( ATKER , DEFER , STATE_DJ , statelv , statetime ) 
-	Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	--LG("skill_dj", "function Skill_Def_Dj : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí
+----------------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
+		
 end 
 
 
 function State_Dj_Add ( role , statelv ) 
-	local hpdmg = 850 + statelv * 15  
+	--LG("state_Dj" , "function State_Dj_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
+	local hpdmg = 10 + statelv * 2   
 	Hp_Endure_Dmg ( role , hpdmg ) 
- 
+	ALLExAttrSet(role)  
 end 
 
 function State_Dj_Rem ( role , statelv ) 
+	--LG("state_Dj" , "function State_Dj_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 end 
 
---Poison Dart ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ¶¾ïÚ ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillSp_Db ( sklv )										
 	local sp_reduce = 20 
@@ -2341,6 +2894,8 @@ function SkillCooldown_Db( sklv )
 end
 
 function Skill_Db_Begin ( role , sklv ) 
+	--LG( "skill_db", "enter function Skill_Atk_Db : " , "\n" ) 
+	--LG("skill_db", "function Skill_Atk_Db : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 	local sp = Sp(role) 
 	local sp_reduce = SkillSp_Db ( sklv ) 
 	if sp - sp_reduce < 0 then 
@@ -2351,15 +2906,21 @@ function Skill_Db_Begin ( role , sklv )
 end 
 
 function Skill_Db_End ( ATKER , DEFER , sklv ) 
+	--LG( "skill_db", "enter function Skill_Def_Db : " , "\n" ) 
 	local statelv = sklv 
 	local statetime =  5 + sklv * 4    
 	AddState ( ATKER , DEFER , STATE_ZD , statelv , statetime ) 
-	Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	--LG("skill_db", "function Skill_Def_Db : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí
+-----±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
 end 
 
 
 function State_Zd_Add ( role , statelv ) 
-	local hpdmg = 10 + statelv * 10  
+	--LG("state_Zd" , "function State_Zd_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
+	local hpdmg = 10 + statelv * 2  
 	local map_name_ATKER = GetChaMapName ( role )
 	local agi_atker = Agi(role)
 	local Can_Pk_Garner2 = Is_NormalMonster (role)
@@ -2375,15 +2936,18 @@ function State_Zd_Add ( role , statelv )
 end 
 
 function State_Zd_Rem ( role , statelv ) 
+	--LG("state_Zd" , "function State_Zd_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 end 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÂé±ÔÊõ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­
 --function SkillSp_Mb ( sklv )										
 --	local sp_reduce = 10 
 --	return sp_reduce 
 --end
 
 --function Skill_Mb_Begin ( role , sklv ) 
+--	LG( "skill_mb", "enter function Skill_Atk_Mb : " , "\n" ) 
+--	LG("skill_mb", "function Skill_Atk_Mb : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 --	local sp = Sp(role) 
 --	local sp_reduce = SkillSp_Mb ( sklv ) 
 --  	if sp - sp_reduce < 0 then 
@@ -2394,10 +2958,12 @@ end
 --end 
 --
 --  function Skill_Mb_End ( ATKER , DEFER , sklv ) 
+--	LG( "skill_mb", "enter function Skill_Def_Mb : " , "\n" ) 
 --	local statelv = sklv 
 --	local statetime = 5  
 --	AddState ( ATKER , DEFER , STATE_MB , statelv , statetime ) 
---	Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+--	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí
+--  	LG("skill_mb", "function Skill_Def_Mb : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 --end 
 --
 --
@@ -2408,6 +2974,7 @@ function SkillCooldown_Mb( sklv )
 end
 
 function State_Mb_Add ( role , statelv ) 
+--	LG("state_Mb" , "function State_Mb_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local aspdsa_dif = (-1) * (  0.1 + statelv * 0.03   ) 
 	local mspdsa_dif = (-1) * (  0.2 +statelv * 0.03 ) 
 
@@ -2423,6 +2990,7 @@ end
 
 
 function State_Mb_Rem ( role , statelv ) 
+--	LG("state_Mb" , "function State_Mb_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local aspdsa_dif = (-1) * (  0.1 + statelv * 0.03   ) 
 	local mspdsa_dif = (-1) * (  0.2 +statelv * 0.03 ) 
 	local aspdsa = math.floor ( ( AspdSa( role ) - aspdsa_dif ) * ATTR_RADIX )  
@@ -2433,7 +3001,7 @@ function State_Mb_Rem ( role , statelv )
 end 
 
 
---ï¿½ï¿½ï¿½ï¿½ì«·ç¡ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜì«·ç¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillSp_Jf ( sklv )										
 	local sp_reduce = 25 + sklv * 2   
 	return sp_reduce 
@@ -2445,7 +3013,7 @@ function SkillCooldown_Jf( sklv )
 end
 
 function SkillEnergy_Jf ( sklv )										
-	local energy_reduce = 0  
+	local energy_reduce = math.floor ( 1 + sklv * 0.25 )    
 	return energy_reduce 
 end 
 
@@ -2461,31 +3029,34 @@ end
 
 function Skill_Jf_End ( ATKER , DEFER , sklv ) 
 	local statelv = sklv 
-	local statetime = math.floor ( 1 + sklv * 0.2 ) 
+	local statetime = math.floor ( 3 + sklv * 0.5 ) 
 	local a = 1 
 	local hp_defer = Hp ( DEFER ) 
 	local MxHp_defer = Mxhp ( DEFER )
 	
-	if MxHp_defer >= 50000000 then
+	if MxHp_defer >= 100000 then
 		SetSus( DEFER , 0 )
 		return
 	end
 
-	if hp_defer >= 50000000 then 
+	if hp_defer >= 50000 then 
 		a = Percentage_Random ( 0.2 ) 
 		statetime = math.floor ( statetime / 2 ) + 1 
 	end 
 	if  a == 1 then
-	----bossÊ¹ï¿½Ã¼ï¿½ï¿½Ü´ï¿½ï¿½ï¿½
+	----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí
 	if GetChaTypeID( ATKER ) == 986 then
 		statetime = 12
 		statelv = 10
 	end
-	----bossÊ¹ï¿½Ã¼ï¿½ï¿½Ü´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí½áÊø
 		AddState ( ATKER , DEFER , STATE_JF , statelv , statetime ) 
 	else 
 		SetSus( DEFER , 0 ) 
 	end 
+----------------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
 end 
 
 function State_Jf_Add ( role , statelv ) 
@@ -2496,21 +3067,20 @@ end
 
 
 
---Voyager lightning Bolt (by Azure)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
+--¼¼ÄÜÀ×»÷¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillSp_Lj ( sklv )										
-	local sp_reduce = 50 + sklv * 2   
+	local sp_reduce = 25 + sklv * 2   
 	return sp_reduce 
 end
 
 function SkillCooldown_Lj( sklv )
-	local Cooldown = 10000 - sklv * 400
+	local Cooldown = 8400 - sklv * 400
 	return Cooldown
 end
 
-
 function SkillEnergy_Lj ( sklv )										
-	local energy_reduce = 0    
+	local energy_reduce = math.floor ( 3 + sklv * 0.5 )    
 	return energy_reduce 
 end 
 
@@ -2525,50 +3095,90 @@ function Skill_Lj_Begin ( role , sklv )
 end 
 
 function Skill_Lj_End ( ATKER , DEFER , sklv ) 
-	local sta_atk = Sta ( ATKER ) 
-	local sta_def = Sta ( DEFER ) 
+	local statelv = 2  
+	local statetime = 3 
+	local atk_role = TurnToCha ( ATKER ) 
+	local def_role = TurnToCha ( DEFER ) 
+	local sta_atk= Sta ( ATKER ) 
+	local sta_def = Sta ( DEFER )
+	local Lv = Lv( ATKER )
 	local AddStateLv = 0
-	AddStateLv = GetChaStateLv ( ATKER , STATE_MLCH ) 
-	local hpdmg = math.floor(( 10 + sta_atk * 25 ) * ( 1 + sklv * 0.30 ) * ( 1 + 0 * 0.09 )) 
-	local rate =math.random(1,30000)		
-	local map_name_ATKER = GetChaMapName ( ATKER )
+	AddStateLv = GetChaStateLv ( ATKER , STATE_MLCH )
+	
+	local dmg = math.floor (( 80 + sklv*10 +sta_atk * 6 ) + 3 * Lv)*1.15
+
 	local map_name_DEFER = GetChaMapName ( DEFER )
 	local agi_atker = Agi(ATKER)
 	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
-		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 			if Can_Pk_Garner2 == 0 then
 			
-		local dmg = MAGIC_Atk_Dmg(ATKER,DEFER)
-		hpdmg = math.floor(( 10 + sta_atk * 20 ) * ( 1 + sklv * 0.30 ) * ( 1 + 0 * 0.09 ))
+			dmg = math.floor(MAGIC_Atk_Dmg(ATKER,DEFER)*math.pow(sklv,1/2))
+
 			end
 		end
+
+	local Check_Heilong  = CheckItem_Heilong ( ATKER )
+	if Check_Heilong == 1 then
+			local Percentage = Percentage_Random ( 0.8 )
+			if Percentage == 1 then
+				  dmg =  dmg*1.5 
+				CALCULATE_SKILLEFFECT_LUA_000057 = GetResString("CALCULATE_SKILLEFFECT_LUA_000057")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000057)
+			end
+	end
 	
-local dmg_fin = Cuihua_Mofa( hpdmg, AddStateLv ) 
-local dmg_ElfSkill = ElfSkill_MagicAtk( hpdmg, ATKER ) 
+	local Check_namei  = CheckItem_namei ( ATKER )
+	if Check_namei == 1 then
+			local Percentage = Percentage_Random ( 0.25 )
+			if Percentage == 1 then
+				  dmg =  dmg*3 
+				CALCULATE_SKILLEFFECT_LUA_000058 = GetResString("CALCULATE_SKILLEFFECT_LUA_000058")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000058)
+			end
+	end
+	
+	local Check_lufei  = CheckItem_lufei ( ATKER )
+	if Check_lufei == 1 then
+			local Percentage = Percentage_Random ( 0.25 )
+			if Percentage == 1 then
+				  dmg =  dmg*3 
+				CALCULATE_SKILLEFFECT_LUA_000059 = GetResString("CALCULATE_SKILLEFFECT_LUA_000059")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000059)
+			end
+	end
+	
+	local dmg_fin = Cuihua_Mofa ( dmg , AddStateLv )
+	local dmg_ElfSkill = ElfSkill_MagicAtk ( dmg , ATKER )
+	dmg_fin = dmg_fin + dmg_ElfSkill
+	local ZSExp = GetChaAttr( ATKER , ATTR_CSAILEXP )
+	if ZSExp > 0 and ZSExp < 100 then
+		dmg_fin = dmg_fin * 1.055
+	end
+	if ZSExp >= 100 and ZSExp < 12100 then
+		dmg_fin = dmg_fin * ( 1.05 + math.floor( math.pow( (ZSExp / 100) , 0.5 )) * 0.005)
+	end
+	AddState ( ATKER , DEFER , STATE_MB , statelv , statetime ) 
+	Hp_Endure_Dmg ( DEFER , dmg_fin ) 
+	if IsPlayer(DEFER) == 1 and IsPlayer(ATKER) == 1 then
+		CALCULATE_SKILLEFFECT_LUA_000060 = GetResString("CALCULATE_SKILLEFFECT_LUA_000060")
+		SkillLog(ATKER,DEFER,dmg_fin,CALCULATE_SKILLEFFECT_LUA_000060,sklv)
+	end	
+----------------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
+end 
 
-dmg_fin = ( dmg_fin + dmg_ElfSkill )
-if IsPlayer( DEFER ) == 0 then -- ï¿½ï¿½ï¿½ ï¿½Þ§ï¿½Ò§Ñ§ï¿½ 
-dmg_fin = dmg_fin * 0.6 -- ï¿½ï¿½ï¿½Ó§Ö§Ý§Ú§ï¿½Ú§Ó§Ñ§Ö§ï¿½ ï¿½Ñ§ï¿½Ñ§Ü§ï¿½ ï¿½ï¿½ 5 ï¿½ï¿½Ñ§Ù§ï¿½ 
-elseif IsPlayer( DEFER ) == 1 then --ï¿½ï¿½ï¿½ ï¿½Ý§ï¿½Õ§ï¿½ï¿½
-dmg_fin = dmg_fin * 0.2 -- ï¿½ï¿½ï¿½Ó§Ö§Ý§Ú§ï¿½Ú§Ó§Ñ§Ö§ï¿½ ï¿½Ñ§ï¿½Ñ§Ü§ï¿½ ï¿½ï¿½ 5 ï¿½ï¿½Ñ§Ù§ï¿½ 
-end  
-local timestan = sklv/3
-local lvstan = sklv
-AddState ( ATKER , DEFER , STATE_XY , lvstan , timestan )  
-Hp_Endure_Dmg( DEFER, dmg_fin ) 
-end
 
 
 
 
 
 
+--¼¼ÄÜÁÔµ¶´Ì¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½Ì¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
-
-function SkillSp_Ldc ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Hunter Strike"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Ldc ( sklv )										--¼¼ÄÜ"ÁÔµ¶´Ì"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 10  
 	return sp_reduce 
 end 
@@ -2590,9 +3200,13 @@ end
 
 function Skill_Ldc_End ( ATKER , DEFER , sklv ) 
 	if ValidCha(ATKER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000061 = GetResString("CALCULATE_SKILLEFFECT_LUA_000061")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000061 ) 
 		return 
 	end 
 	if ValidCha(DEFER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000062 = GetResString("CALCULATE_SKILLEFFECT_LUA_000062")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000062 ) 
 		return 
 	end 
 		dmg = ( 2 +  sklv * 0.2 ) * Atk_Dmg ( ATKER ,DEFER ) 
@@ -2600,9 +3214,9 @@ function Skill_Ldc_End ( ATKER , DEFER , sklv )
 
 end 
 
---ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÐ¡ÖÎÓú¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillSp_Xzy ( sklv )							
-	local sp_reduce = 40 + sklv * 6    
+	local sp_reduce = 30 + sklv * 4    
 	return sp_reduce 
 end
 
@@ -2624,14 +3238,35 @@ end
 function Skill_Xzy_End ( ATKER , DEFER , sklv ) 
 	local sta = Sta( ATKER ) 
 	local exp = Exp( ATKER ) 
-	local hpdmg = ( -1 ) * math.floor ( 390 + 210 * sklv + sta * 25 ) 
+	local hpdmg = ( -1 ) * math.floor ( 50 + 15 * sklv + sta * 7 )*1.1 
+		local Check_namei  = CheckItem_namei ( ATKER )
+		if Check_namei == 1 then
+			local Percentage = Percentage_Random ( 0.25 )
+			if Percentage == 1 then
+				  hpdmg =  hpdmg*2 
+				CALCULATE_SKILLEFFECT_LUA_000063 = GetResString("CALCULATE_SKILLEFFECT_LUA_000063")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000063)
+			end
+		end
+		
+		local Check_lufei  = CheckItem_lufei ( ATKER )
+		if Check_lufei == 1 then
+			local Percentage = Percentage_Random ( 0.25 )
+			if Percentage == 1 then
+				  hpdmg =  hpdmg*2 
+				CALCULATE_SKILLEFFECT_LUA_000064 = GetResString("CALCULATE_SKILLEFFECT_LUA_000064")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000064)
+			end
+	end
+
+
 	local mxhp_def = Mxhp( DEFER ) 
 	local hp_def = Hp( DEFER ) 
 	local hp_recover = math.max( math.min ( ( mxhp_def - hp_def ) , (-1) * hpdmg ) , 0 )
-	local exp_add = hp_recover / 99999 
+	local exp_add = hp_recover / 8 
 	local Lv = Lv( ATKER )
-		if Lv >= 1 then
-			exp_add = exp_add / 99999
+		if Lv >= 80 then
+			exp_add = exp_add / 50
 		end
 	local rolemode_defer = IsPlayer ( DEFER ) 
 	local ChaList = {}
@@ -2659,13 +3294,15 @@ function Skill_Xzy_End ( ATKER , DEFER , sklv )
 			end
 		end
 	end
-
+---------------±³ºóÁé×´Ì¬
+	CheckAttackState1( ATKER , DEFER )		
+		
 end 
 
 
---ï¿½ï¿½ï¿½Ü»Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ»Ø¸´Êõ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-function SkillSp_Hfs ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Recover"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Hfs ( sklv )										--¼¼ÄÜ"»Ø¸´Êõ"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 20    
 	return sp_reduce 
 end 
@@ -2690,19 +3327,23 @@ end
 
 function Skill_Hfs_End ( ATKER , DEFER , sklv ) 
 		Rem_State_Unnormal ( DEFER ) 
+		--LG( "Hfs", "»Ø¸´Êõ¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
+-----±³ºóÁé×´Ì¬
+	CheckAttackState1( ATKER , DEFER )
+		
+		
 end 
 
 
----------------------
--- ï¿½ï¿½ï¿½ï¿½Ú§Ù§ï¿½Ñ§ï¿½ß§ï¿½ï¿½ï¿½ ï¿½ï¿½Õ§Ñ§ï¿½ --
----------------------
-function SkillSp_Xlcz ( sklv )										
-	local sp_reduce = 50 + sklv * 5   
+--¼¼ÄÜÐÄÁé³å×²¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+function SkillSp_Xlcz ( sklv )										--¼¼ÄÜ"ÐÄÁé³å×²"µÄspÏûºÄ¹«Ê½
+	local sp_reduce = 30 + sklv * 2   
 	return sp_reduce 
 end 
 
 function SkillCooldown_Xlcz( sklv ) 
-	local Cooldown = 4500 - sklv * 400
+	local Cooldown = 6000 - sklv * 300
 	return Cooldown
 end
 
@@ -2716,101 +3357,65 @@ function Skill_Xlcz_Begin ( role , sklv )
 	Sp_Red (role , sp_reduce ) 
 end 
 
-function Skill_Xlcz_End( ATKER, DEFER, sklv ) 
-local lv_atker = Lv( TurnToCha( ATKER )) 
-local lv_defer = Lv( TurnToCha( DEFER )) 
-local sta_atker = Sta( ATKER ) 
-local sta_defer = Sta( DEFER ) 
-local lv_dif = math.max(( -1 ) * 5, math.min( 5, lv_atker - lv_defer )) 
-local AddStateLv = 0 
-AddStateLv = GetChaStateLv ( ATKER , STATE_MLCH )
---hpdmg = math.floor(( 10 + sta_atker * 65 ) * ( 1 + sklv * 0.30 ) * ( 1 + 0 * 0.09 )) 
-hpdmg = 10 + (sta_atker * 20)
-local dmg_fin = Cuihua_Mofa( hpdmg, AddStateLv ) 
-local dmg_ElfSkill = ElfSkill_MagicAtk( hpdmg, ATKER ) 
-	local map_name_ATKER = GetChaMapName ( ATKER )
+function Skill_Xlcz_End ( ATKER , DEFER , sklv ) 
+	if ValidCha(ATKER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000065 = GetResString("CALCULATE_SKILLEFFECT_LUA_000065")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000065 ) 
+		return 
+	end 
+	if ValidCha(DEFER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000066 = GetResString("CALCULATE_SKILLEFFECT_LUA_000066")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000066 ) 
+		return 
+	end 
+--	local atkdmg = Atk_Dmg ( ATKER , DEFER )
+	local lv_atker = Lv ( TurnToCha ( ATKER ) ) 
+	local lv_defer = Lv ( TurnToCha ( DEFER ) ) 
+	local sta_atker = Sta(ATKER) 
+	local sta_defer = Sta(DEFER) 
+	local lv_dif = math.max ( ( - 1 ) * 10 , math.min ( 10 , lv_atker - lv_defer ) ) 
+	local AddStateLv = 0
+	AddStateLv = GetChaStateLv ( ATKER , STATE_MLCH )
+
+	hpdmg = math.floor (( 10 + sta_atker * 2 ) * ( 1 + sklv * 0.25 ) * ( 1 +  lv_dif * 0.025 ))*1.1
+		local map_name_ATKER = GetChaMapName ( ATKER )
 	local map_name_DEFER = GetChaMapName ( DEFER )
 	local agi_atker = Agi(ATKER)
 	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
-		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 			if Can_Pk_Garner2 == 0 then
 			
 		local dmg = MAGIC_Atk_Dmg(ATKER,DEFER)
-		hpdmg =hpdmg*20
+
+		hpdmg = math.floor (dmg * ( 1 + sklv * 0.1 ) )
+	--			Notice ( "statetime="..statetime)
 			end
 		end
-
-if IsPlayer( DEFER ) == 0 then 
-dmg_fin = dmg_fin * 2
-		local ChaStateLv = GetChaStateLv ( ATKER , 192 )
-		if ChaStateLv == 1 then
-		dmg_fin = dmg_fin * 1.5
-		elseif ChaStateLv == 2 then
-		dmg_fin = dmg_fin * 2
-		elseif ChaStateLv == 3 then
-		dmg_fin = dmg_fin * 2.5
-		elseif ChaStateLv == 4 then
-		dmg_fin = dmg_fin * 3
-		elseif ChaStateLv == 5 then
-		dmg_fin = dmg_fin * 3.5
-		end
-elseif IsPlayer( DEFER ) == 1 then 
-dmg_fin = dmg_fin * 0.5
+	local dmg_fin = Cuihua_Mofa ( hpdmg ,AddStateLv )
+	local dmg_ElfSkill = ElfSkill_MagicAtk ( hpdmg , ATKER )
+	dmg_fin = dmg_fin + dmg_ElfSkill
+	local ZSExp = GetChaAttr( ATKER , ATTR_CSAILEXP )
+	if ZSExp > 0 and ZSExp < 100 then
+		dmg_fin = dmg_fin * 1.055
+	end
+	if ZSExp >= 100 and ZSExp < 12100 then
+		dmg_fin = dmg_fin * ( 1.05 + math.floor( math.pow( (ZSExp / 100) , 0.5 )) * 0.005)
+	end
+	Hp_Endure_Dmg ( DEFER, dmg_fin )  
+	if IsPlayer(DEFER) == 1 and IsPlayer(ATKER) == 1 then
+		CALCULATE_SKILLEFFECT_LUA_000067 = GetResString("CALCULATE_SKILLEFFECT_LUA_000067")
+		SkillLog(ATKER,DEFER,dmg_fin,CALCULATE_SKILLEFFECT_LUA_000067,sklv)
+	end
+--	LG( "xlcz", "ÐÄÁé³å×²¼¼ÄÜµÈ¼¶ = " , sklv ,"¹¥»÷Õßsta=", sta ,"ÆÕÍ¨¹¥»÷ÉËº¦=", atkdmg , "¼¼ÄÜÉËº¦ = " , dmg , "\n" ) 
+----------------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
+		
 end 
-local dmg_for_mob = dmg_fin * 2 -- ï¿½ï¿½ï¿½ ï¿½Ò§ï¿½ï¿½ï¿½ï¿½
-local dmg_for_BM = dmg_fin * 3 -- ï¿½ï¿½ï¿½ ï¿½Þ§Ö§Ô§Ñ§Ò§ï¿½ï¿½ï¿½ï¿½
-if GetChaID( DEFER ) == 673 then
-dmg_fin = dmg_for_mob
-end
-if GetChaID( DEFER ) == 1493 then
-dmg_fin = dmg_for_mob
-end
-if GetChaID( DEFER ) == 967 then
-dmg_fin = dmg_for_mob
-end
-if GetChaID( DEFER ) == 959 then
-dmg_fin = dmg_for_mob
-end
-if GetChaID( DEFER ) == 807 then
-dmg_fin = dmg_for_mob
-end
-if GetChaID( DEFER ) == 933 then
-dmg_fin = dmg_for_mob
-end
-if GetChaID( DEFER ) == 1113 then
-dmg_fin = dmg_for_mob
-end
-if GetChaID( DEFER ) == 1468 then
-dmg_fin = dmg_for_BM
-end
-if GetChaID( DEFER ) == 1473 then
-dmg_fin = dmg_for_BM
-end
-if GetChaID( DEFER ) == 1503 then
-dmg_fin = dmg_for_BM
-end
-if GetChaID( DEFER ) == 1507 then
-dmg_fin = dmg_for_BM
-end
-if GetChaID( DEFER ) == 1511 then
-dmg_fin = dmg_for_BM
-end
-if GetChaID( DEFER ) == 1515 then
-dmg_fin = dmg_for_BM
-end
-if GetChaID( DEFER ) == 1522 then
-dmg_fin = dmg_for_BM
-end
 
-dmg_fin = ( dmg_fin + dmg_ElfSkill )
-Hp_Endure_Dmg( DEFER, dmg_fin ) 
+function MAGIC_Atk_Dmg(a,b) --[[¼ÆËãÆÕÍ¨¹¥»÷µÄ»ù±¾Õý³£ÉËº¦]]--
 
-end
-
-
-
-function MAGIC_Atk_Dmg(a,b) 
-	local job = GetChaAttr(a, ATTR_JOB) 
+	local job = GetChaAttr(a, ATTR_JOB) --²»Í¬Ö°Òµ²ÉÓÃ²»Í¬µÄÊôÐÔ³É³¤ÂÊ
 	local sta_atker = Sta(a) 
 	local sta_defer = Sta(b) 
 	local atk_mnatk = math.floor (MnatkIb(a) + sta_atker*Magic_rate1[job] +  Magic_rate2[job] * math.pow(math.floor( sta_atker*4/20), 2 ))
@@ -2826,23 +3431,28 @@ function MAGIC_Atk_Dmg(a,b)
 	end 
 		
 	local atk = math.random( atk_mnatk , atk_mxatk ) 
-	local dmg = Magic_Dmg ( atk, defer_mgic_def , defer_resist )  
-	local mndmg = math.floor(  Lv(a) * 0.25 + Mnatk(a) * 0 ) + 1 
+	local dmg = Magic_Dmg ( atk, defer_mgic_def , defer_resist )  --[[¼ÆËãÕý³£ÉËº¦Öµ]]--
+	local mndmg = math.floor(  Lv(a) * 0.25 + Mnatk(a) * 0 ) + 1 --[[¼ÆËã×îÐ¡ÉËº¦Öµ]]--
 	dmg =math.max(  lv_eff * dmg , mndmg ) 
+
 	return dmg 
 end 
 
-function Magic_Dmg (atk, def, resist )					
+function Magic_Dmg (atk, def, resist )					--[[ÎïÀí¹¥»÷¼ÆËã]]--
 	local magic_atk = atk 
 	local magic_def = def 
 	local magic_resist = resist 
+--	LuaPrint ( " ÎïÀí¹¥»÷£½ "..phy_atk.." ÎïÀí·ÀÓù= "..phy_def.." ÎïÀíµÖ¿¹= "..phy_resist ) 
+--	LuaPrint (\n) 
+--	LG ( " ÉËº¦" , "ÎïÀí¹¥»÷ = ", phy_atk, " ÎïÀí·ÀÓù = " , phy_def, " ÎïÀíµÖ¿¹ = " , phy_resist, "\n" ) 
 	dmg = math.floor( (magic_atk   - magic_def ) * (1 - math.min (0.85 , magic_resist/100 )  ))
 	return dmg 
 end 
 
 
-Magic_rate1 = {} 
-Magic_rate2 = {} 
+	Magic_rate1 = {} 
+	Magic_rate2 = {} 
+
 Magic_rate1[	JOB_TYPE_XINSHOU	]=	1
 Magic_rate1[	JOB_TYPE_JIANSHI	]=	1
 Magic_rate1[	JOB_TYPE_LIEREN	]=	1
@@ -2883,7 +3493,7 @@ Magic_rate2[	JOB_TYPE_HANGHAISHI	]=	0.35
 Magic_rate2[	JOB_TYPE_BAOFAHU	]=	0.4
 Magic_rate2[	JOB_TYPE_GONGCHENGSHI	]=	0.4
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ð¡ª¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÐÄÁéÖ®»ð¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillSp_Xlzh ( sklv )										
 	local sp_reduce = 45  + math.floor ( sklv * 3 )  
 	return sp_reduce 
@@ -2906,11 +3516,17 @@ end
 
 function Skill_Xlzh_End ( ATKER , DEFER , sklv )  
 	local statelv = sklv 
-	local statetime = 3600 + sklv * 20 
+	local statetime = 180 + sklv * 20 
+	--LG( "Xlzh", "ÐÄÁéÖ®»ð¼¼ÄÜµÈ¼¶ = " , sklv , "\n" ) 
 	AddState( ATKER , DEFER , STATE_XLZH, statelv , statetime )
+	--LG("skill_Xlzh", "function Skill_Oper_Xlzh: " , "add state Xlzh " , "\n" ) 
+-----------±³ºóÁé×´Ì¬
+	CheckAttackState1( ATKER , DEFER )
+		
 end 
 
 function State_Xlzh_Add ( role , statelv ) 
+	--LG("state_xlzh" , "function State_xlzh_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local mnatksa_dif =0.1 + 0.01 * statelv 
 	local mxatksa_dif =0.1 + 0.01 * statelv
 	local mnatksa = math.floor ( (MnatkSa(role) + mnatksa_dif ) * ATTR_RADIX) 
@@ -2918,11 +3534,15 @@ function State_Xlzh_Add ( role , statelv )
 	SetCharaAttr( mnatksa , role , ATTR_STATEC_MNATK ) 
 	SetCharaAttr( mxatksa , role , ATTR_STATEC_MXATK ) 
 	ALLExAttrSet(role)  
+---------------±³ºóÁé×´Ì¬
+		
+		
 end 
 
 
 
 function State_Xlzh_Rem ( role , statelv ) 
+	--LG("state_xlzh" , "function State_xlzh_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local mnatksa_dif =0.1 + 0.01 * statelv 
 	local mxatksa_dif =0.1 + 0.01 * statelv
 	local mnatksa = math.floor ( (MnatkSa(role) - mnatksa_dif ) * ATTR_RADIX) 
@@ -2932,7 +3552,7 @@ function State_Xlzh_Rem ( role , statelv )
 	ALLExAttrSet(role)  
 end 
 
---ï¿½ï¿½ï¿½Ü·ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ·çÖ®ÁìÖ÷¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillSp_Fzlz ( sklv )										
 	local sp_reduce = 40  + sklv * 4
 	return sp_reduce 
@@ -2956,14 +3576,23 @@ end
 function Skill_Fzlz_End ( ATKER , DEFER , sklv )  
 	local statelv = sklv 
 	local statetime = 180 + sklv * 18 
+	--LG( "Fzlz", "·çÖ®ÁìÖ÷¼¼ÄÜµÈ¼¶ = " , sklv , "\n" ) 
+	----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí
 	if GetChaTypeID( ATKER ) == 984 then
 		statetime = 360
 		statelv = 10
 	end
+	----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí½áÊø
+
 	AddState( ATKER , DEFER , STATE_FZLZ, statelv , statetime )
+	--LG("skill_Fzlz", "function Skill_Oper_Fzlz: " , "add state Fzlz " , "\n" ) 
+---------------±³ºóÁé×´Ì¬
+	CheckAttackState1( ATKER , DEFER )		
+		
 end 
 
 function State_Fzlz_Add ( role , statelv ) 
+	--LG("state_Fzlz" , "function State_Fzlz_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local mspdsa_dif = 0.05 + 0.01 * statelv 
 	local aspdsa_dif = 0.05 + 0.01 * statelv 
 	local mspdsa = math.floor ( (MspdSa(role) + mspdsa_dif ) * ATTR_RADIX) 
@@ -2974,6 +3603,7 @@ function State_Fzlz_Add ( role , statelv )
 end 
 
 function State_Fzlz_Rem ( role , statelv ) 
+	--LG("state_fzlz" , "function State_fzlz_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local mspdsa_dif =0.05 + 0.01 * statelv 
 	local aspdsa_dif = 0.05 + 0.01 * statelv 
 	local mspdsa = math.floor ( (MspdSa(role) - mspdsa_dif ) * ATTR_RADIX) 
@@ -2983,16 +3613,15 @@ function State_Fzlz_Rem ( role , statelv )
 	ALLExAttrSet(role)  
 end 
 
---------------------
--- ï¿½ï¿½ï¿½Ö§Õ§ï¿½ß§Ñ§ï¿½ ï¿½ï¿½ï¿½ï¿½Ö§Ý§ï¿½ --
---------------------
-function SkillSp_Bdj ( sklv )										
+--¼¼ÄÜ±ù¶³¼ý¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+function SkillSp_Bdj ( sklv )										--¼¼ÄÜ"±ù¶³¼ý"µÄspÏûºÄ¹«Ê½
    local sp_reduce = 15   
 	return sp_reduce 
 end 
 
 function SkillCooldown_Bdj( sklv )
-	local Cooldown = 4000
+	local Cooldown = 15000
 	return Cooldown
 end
 
@@ -3007,30 +3636,50 @@ function Skill_Bdj_Begin ( role , sklv )
 end 
 
 function Skill_Bdj_End ( ATKER , DEFER , sklv ) 
-	local hpdmg =2.3 * Atk_Dmg ( ATKER , DEFER ) 
+	if ValidCha(ATKER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000068 = GetResString("CALCULATE_SKILLEFFECT_LUA_000068")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000068 ) 
+		return 
+	end 
+	if ValidCha(DEFER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000069 = GetResString("CALCULATE_SKILLEFFECT_LUA_000069")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000069 ) 
+		return 
+	end 
+	local hpdmg =1.2 * Atk_Dmg ( ATKER , DEFER ) 
 	Hp_Endure_Dmg ( DEFER , hpdmg )  
 	local statelv = sklv 
-	local statetime = 7 
+	local statetime = 5 
+	----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí
+	if GetChaTypeID( ATKER ) == 983 then
+		statelv = 10
+	end
+	----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí½áÊø
 	AddState ( ATKER , DEFER , STATE_BDJ , statelv , statetime ) 
-	
+---------------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
+		
 end 
 
 function State_Bdj_Add ( role , statelv ) 
-	local mspdsa_dif = 0.2 + statelv * 0.045
+	--LG("state_Bdj" , "function State_Bdj_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
+	local mspdsa_dif = 0.2 + statelv * 0.03
 	local mspdsa = ( MspdSa(role) - mspdsa_dif ) * ATTR_RADIX  
 	SetCharaAttr ( mspdsa , role , ATTR_STATEC_MSPD ) 
 	ALLExAttrSet(role)  
 end 
 
 function State_Bdj_Rem ( role , statelv ) 
-	local mspdsa_dif = 0.2 + statelv * 0.045
+	--LG("state_Bdj" , "function State_Bdj_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
+	local mspdsa_dif = 0.2 + statelv * 0.03
 	local mspdsa =( MspdSa(role) + mspdsa_dif ) * ATTR_RADIX  
 	SetCharaAttr ( mspdsa , role , ATTR_STATEC_MSPD ) 
 	ALLExAttrSet(role)  
 end 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½È¾Ñ¹ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÍÈ¾Ñ¹«Ê½¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillSp_Tj ( sklv )										
 	local sp_reduce = 10 + sklv * 0.5  
 	return sp_reduce 
@@ -3058,14 +3707,44 @@ function Skill_Tj_End ( ATKER , DEFER , sklv )
 	local map_name_DEFER = GetChaMapName ( DEFER )
 	local agi_atker = Agi(ATKER)
 	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
+	--	if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+	--		if Can_Pk_Garner2 == 0 then
+	--		 statetime =math.max(3,math.floor(agi_atker/20))+sklv*0.5
+	--			Notice ( "statetime="..statetime)
+	--		end
+	--	end
 	local hp_defer = Mxhp ( DEFER ) 
+	if hp_defer >= 100000 then 
+		statetime = math.floor ( statetime / 3 ) + 1 
+	end 
  	dmg = ( 1 + sklv * 0.05 ) * Atk_Dmg ( ATKER , DEFER )  
 	Hp_Endure_Dmg ( DEFER , dmg )  
-	AddState( ATKER , DEFER , STATE_TJ, statelv , statetime ) 
 
+----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí
+
+	if GetChaTypeID( ATKER ) == 980 then
+		statetime = 5
+	end
+	if GetChaAIType( DEFER ) >= 21 then    --21ÒÔÉÏÎªBossAI£¬Èç¹ûÊÇBoss¸ù¾Ýboss²»Í¬£¬Éè¶¨¿ÉÒÔ±»¼Ó×´Ì¬µÄ´ÎÊý
+		if BOSSTJSJ[GetChaTypeID( DEFER )] == 0 then
+			CALCULATE_SKILLEFFECT_LUA_000028 = GetResString("CALCULATE_SKILLEFFECT_LUA_000028")
+			Notice (CALCULATE_SKILLEFFECT_LUA_000028)
+			return
+		else
+			BOSSTJSJ[GetChaTypeID( DEFER )] = BOSSTJSJ[GetChaTypeID( DEFER )] -1
+		end
+	end
+
+----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí½áÊø
+
+	AddState( ATKER , DEFER , STATE_TJ, statelv , statetime ) 
+-----------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )	
 end 
 
 function State_Tj_Add ( role , statelv ) 
+	--LG("state_Tj" , "function State_Tj_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local fleesa_dif = (-1) * 0.2 
 	local mspdsa_dif = (-1) * ( 0.5 + 0.025 * statelv ) 
 	local fleesa = (FleeSa(role) + fleesa_dif ) * ATTR_RADIX
@@ -3076,6 +3755,7 @@ function State_Tj_Add ( role , statelv )
 end 
 
 function State_Tj_Rem ( role , statelv ) 
+	--LG("state_tj" , "function State_Tj_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local fleesa_dif = (-1) * 0.2 
 	local mspdsa_dif = (-1) * ( 0.5 + 0.025 * statelv ) 
 	local fleesa = (FleeSa(role) - fleesa_dif ) * ATTR_RADIX
@@ -3086,7 +3766,7 @@ function State_Tj_Rem ( role , statelv )
 end 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾Ñ¹ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÊÖ¾Ñ¹«Ê½¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillSp_Sj ( sklv )										
 	local sp_reduce = 25 + sklv * 1   
 	return sp_reduce 
@@ -3114,15 +3794,53 @@ function Skill_Sj_End ( ATKER , DEFER , sklv )
 	local map_name_DEFER = GetChaMapName ( DEFER )
 	local agi_atker = Agi(ATKER)
 	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
+	--	if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+	--		if Can_Pk_Garner2 == 0 then
+	--		 statetime =math.max(5,math.floor(agi_atker/20))+sklv
+	--			Notice ( "statetime="..statetime)
+	--		end
+	--	end
 	local a = 1 
  	local dmg = math.floor( 100 + sklv * 10  )  
 	Hp_Endure_Dmg ( DEFER , dmg )  
+	--LG( "Sj", "ÊÖ¾Ñ¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
 	local hp_defer = Mxhp ( DEFER ) 
+	if hp_defer >= 100000 then 
+		local a = Percentage_Random (1)
+		if a == 1 then
+			statetime = math.floor ( 3 + sklv * 0.3 ) 
+		else
+			SetSus( DEFER , 0 )
+			CALCULATE_SKILLEFFECT_LUA_000070 = GetResString("CALCULATE_SKILLEFFECT_LUA_000070")
+			SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000070 ) 
+			return
+		end
+	end 
+----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí
+	if GetChaTypeID( ATKER ) == 980 then
+		statetime = 5
+	end
+	if GetChaAIType( DEFER ) >= 21 then    --21ÒÔÉÏÎªBossAI£¬Èç¹ûÊÇBoss¸ù¾Ýboss²»Í¬£¬Éè¶¨¿ÉÒÔ±»¼Ó×´Ì¬µÄ´ÎÊý
+		if BOSSSJSJ[GetChaTypeID( DEFER )] == 0 then
+			CALCULATE_SKILLEFFECT_LUA_000028 = GetResString("CALCULATE_SKILLEFFECT_LUA_000028")
+			Notice (CALCULATE_SKILLEFFECT_LUA_000028)
+			return
+		else
+			BOSSSJSJ[GetChaTypeID( DEFER )] = BOSSSJSJ[GetChaTypeID( DEFER )] -1
+		end
+	end
+----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí½áÊø
 	AddState( ATKER , DEFER , STATE_SJ, statelv , statetime ) 
 	AddState( ATKER , DEFER , STATE_JNJZ, statelv , statetime ) 
+	--LG( "Sj", "ÊÖ¾Ñ¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
+-----------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
+		
 end 
 
 function State_Sj_Add ( role , statelv ) 
+	--LG("state_sj" , "function State_Sj_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local mnatksa_dif = (-1) * 0.2 
 	local mxatksa_dif = (-1) * 0.2  
 	local mnatksa = (MnatkSa(role) + mnatksa_dif ) * ATTR_RADIX
@@ -3133,6 +3851,7 @@ function State_Sj_Add ( role , statelv )
 end 
 
 function State_Sj_Rem ( role , statelv ) 
+	--LG("state_sj" , "function State_Sj_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local mnatksa_dif = (-1) * 0.2 
 	local mxatksa_dif = (-1) * 0.2  
 	local mnatksa = (MnatkSa(role) - mnatksa_dif ) * ATTR_RADIX 
@@ -3143,10 +3862,9 @@ function State_Sj_Rem ( role , statelv )
 end 
 
 
-----------------------
--- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ ï¿½ï¿½ ï¿½Ô§ï¿½Ý§ï¿½Ó§ï¿½ --
-----------------------
-function SkillSp_Bt ( sklv )										
+--¼¼ÄÜ±©Í·¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+function SkillSp_Bt ( sklv )										--¼¼ÄÜ"±©Í·"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = sklv * 2 + 30  
 	return sp_reduce 
 end 
@@ -3168,15 +3886,63 @@ end
 
 function Skill_Bt_End ( ATKER , DEFER , sklv ) 
 	local 	hp = GetChaAttr ( DEFER , ATTR_HP ) 
-	local 	dmg = math.floor ( 320 + 30 * sklv) 
+	local 	dmg = math.floor ( 320 + 30 * sklv +hp * ( 0.05 +0.005 * sklv) ) 
 	local map_name_ATKER = GetChaMapName ( ATKER )
 	local map_name_DEFER = GetChaMapName ( DEFER )
 	local dex_atker = Dex(ATKER)
+	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
+			if Can_Pk_Garner2 == 0 then
+				dmg = math.floor ( dex_atker*2 + 30 * sklv +hp * ( 0.05 +0.005 * sklv) ) 
+	--			Notice ( "dmg="..dmg)
+			end
+		end
+	if dmg > 2500 then
+		dmg = 2500
+	end
+	local Check_Heilong  = CheckItem_Heilong ( ATKER )
+	if Check_Heilong == 1 then
+			local Percentage = Percentage_Random ( 0.1 )
+			if Percentage == 1 then
+				  dmg =  dmg*10 
+				CALCULATE_SKILLEFFECT_LUA_000057 = GetResString("CALCULATE_SKILLEFFECT_LUA_000057")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000057)
+			end
+	end
+	
+	local Check_namei  = CheckItem_namei ( ATKER )
+		if Check_namei == 1 then
+			local Percentage = Percentage_Random ( 0.25 )
+			if Percentage == 1 then
+				  dmg =  dmg*10 
+				CALCULATE_SKILLEFFECT_LUA_000071 = GetResString("CALCULATE_SKILLEFFECT_LUA_000071")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000071)
+			end
+	end
+
+	local Check_lufei  = CheckItem_lufei ( ATKER )
+		if Check_lufei == 1 then
+			local Percentage = Percentage_Random ( 0.25 )
+			if Percentage == 1 then
+				  dmg =  dmg*10 
+				CALCULATE_SKILLEFFECT_LUA_000072 = GetResString("CALCULATE_SKILLEFFECT_LUA_000072")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000072)
+			end
+	end
+
 	hp = hp - dmg 
 	SetCharaAttr ( hp , DEFER , ATTR_HP ) 
+	if IsPlayer(DEFER) == 1 and IsPlayer(ATKER) == 1 then
+		CALCULATE_SKILLEFFECT_LUA_000073 = GetResString("CALCULATE_SKILLEFFECT_LUA_000073")
+		SkillLog(ATKER,DEFER,dmg,CALCULATE_SKILLEFFECT_LUA_000073,sklv)
+	end	
+--------------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
+		
 end 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÌìÊ¹»¤¶Ü¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillSp_Tshd ( sklv )										
 	local sp_reduce = 20 
 	return sp_reduce 
@@ -3204,22 +3970,27 @@ function Skill_Tshd_End ( ATKER , DEFER , sklv )
 	local map_name_DEFER = GetChaMapName ( DEFER )
 	local sta_atker = Sta(ATKER)
 	local Can_Pk_Garner2 = Is_NormalMonster (ATKER)
-		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 			if Can_Pk_Garner2 == 0 then
 			 statetime =math.max(30,math.floor(sta_atker/5))+sklv*3
 		--		Notice ( "statetime="..statetime)
 			end
 		end
-	----bossÊ¹ï¿½Ã¼ï¿½ï¿½Ü´ï¿½ï¿½ï¿½
+	----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí
 	if GetChaTypeID( ATKER ) == 984 then
-		statetime = 3600
+		statetime = 360
 		statelv = 10
 	end
-	----bossÊ¹ï¿½Ã¼ï¿½ï¿½Ü´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí½áÊø
         AddState( ATKER , DEFER , STATE_TSHD, statelv , statetime )
+	--LG("skill_Tshd", "function Skill_Oper_Tshd: " , "add state tshd " , "\n" ) 
+---------------±³ºóÁé×´Ì¬
+	CheckAttackState1( ATKER , DEFER )	
+			
 end 
 
 function State_Tshd_Add ( role , statelv ) 
+	--LG("state_tshd" , "function State_Tshd_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local defsa_dif = 0.03 * statelv 
 	local defsa = math.floor ( ( DefSa(role) + defsa_dif ) * ATTR_RADIX ) 
 	SetCharaAttr( defsa , role , ATTR_STATEC_DEF ) 
@@ -3227,13 +3998,14 @@ function State_Tshd_Add ( role , statelv )
 end 
 
 function State_Tshd_Rem ( role , statelv ) 
+	--LG("state_xlzh" , "function State_Tshd_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local defsa_dif = 0.03 * statelv 
 	local defsa = math.floor ( ( DefSa(role) - defsa_dif ) * ATTR_RADIX ) 
 	SetCharaAttr( defsa , role , ATTR_STATEC_DEF ) 
 	ALLExAttrSet(role)  
 end 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÐÄÁéÆÁÕÏ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillSp_Xlpz ( sklv )										
 	local sp_reduce = 0  
 	return sp_reduce 
@@ -3257,15 +4029,19 @@ end
 function Skill_Xlpz_End ( ATKER , DEFER , sklv )  
 	local statelv = sklv 
 	local statetime = -1  
-	----bossÊ¹ï¿½Ã¼ï¿½ï¿½Ü´ï¿½ï¿½ï¿½
+	----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí
 	if GetChaTypeID( ATKER ) == 984 then
 		statelv = 10
 	end
-	----bossÊ¹ï¿½Ã¼ï¿½ï¿½Ü´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí½áÊø
         AddState( ATKER , DEFER , STATE_MFD, statelv , statetime )
+	--LG("skill_Xlpz", "function Skill_Oper_Xlpz: " , "add state xlpz " , "\n" ) 
+---------------±³ºóÁé×´Ì¬
+	CheckAttackState1( ATKER , DEFER )		
+		
 end 
 
---ï¿½ï¿½ï¿½ï¿½Ç±ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÇ±ÐÐ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillSp_Ys ( sklv ) 
 	local sp_reduce = 10  
@@ -3278,6 +4054,8 @@ function SkillCooldown_Ys( sklv )
 end 
 
 function Skill_Ys_Begin ( role , sklv ) 
+	--LG( "skill_ys", "enter function Skill_Atk_Ys : " , "\n" ) 
+	--LG("skill_ys", "function Skill_Atk_Ys : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 	local sp = Sp(role) 
 	local sp_reduce = SkillSp_Ys ( sklv ) 
 	if sp - sp_reduce < 0 then 
@@ -3288,24 +4066,30 @@ function Skill_Ys_Begin ( role , sklv )
 end 
 
 function Skill_Ys_End ( ATKER , DEFER , sklv ) 
+	--LG( "skill_ys", "enter function Skill_Def_Ys : " , "\n" ) 
 	local statelv = sklv 
 	local statetime = 20 + sklv * 10
 	local map_name_ATKER = GetChaMapName ( ATKER )
 	local map_name_DEFER = GetChaMapName ( DEFER )
 	local agi_atker = Agi(ATKER)
 	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
-	if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+	if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 		if Can_Pk_Garner2 == 0 then
 			statetime = 20 + agi_atker/4 + sklv*5
 	--		Notice ( "statetime="..statetime)
 		end
 	end
 	AddState ( ATKER , DEFER , STATE_YS , statelv , statetime ) 
+	
+	--LG("skill_ys", "function Skill_Def_Ys : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
+-----±³ºóÁé×´Ì¬
+	CheckAttackState1( ATKER , DEFER )
 end 
 
 
 
 function State_Ys_Add ( role , statelv ) 
+	--LG("state_Ys" , "function State_Ys_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local sp = Sp(role) 
 	local sp_reduce = 10 - math.floor ( statelv * 0.5  ) 
 --	local map_name_ATKER = GetChaMapName ( ATKER )
@@ -3325,7 +4109,7 @@ function State_Ys_Add ( role , statelv )
 --		end
 --	end
 	sp = sp - sp_reduce 
-	if sp <= 0 then			--spï¿½ï¿½ï¿½ï¿½Ê±ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ 
+	if sp <= 0 then			--sp²»×ãÊ±ÒÆ³ýÒþÉí×´Ì¬ 
 		RemoveState ( role , STATE_YS ) 
 		return 
 	end 
@@ -3352,7 +4136,7 @@ end
 
 
 
---ï¿½ï¿½ï¿½Üºï¿½ï¿½ï¿½ï¿½ï¿½Æ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜº£Ôå²øÈÆ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillSp_Hzcr ( sklv )										
 	local sp_reduce = 20 + sklv * 1  
 	return sp_reduce 
@@ -3364,6 +4148,8 @@ function SkillCooldown_Hzcr( sklv )
 end
 
 function Skill_Hzcr_Begin ( role , sklv ) 
+	--LG( "skill_hzcr", "enter function Skill_Atk_Hzcr : " , "\n" ) 
+	--LG("skill_hzcr", "function Skill_Atk_Hzcr : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 	local sp = Sp(role) 
 	local sp_reduce = SkillSp_Hzcr ( sklv ) 
 	if sp - sp_reduce < 0 then 
@@ -3374,25 +4160,32 @@ function Skill_Hzcr_Begin ( role , sklv )
 end 
 
 function Skill_Hzcr_End ( ATKER , DEFER , sklv ) 
+--	LG( "skill_hzcr", "enter function Skill_Def_Hzcr : " , "\n" ) 
 --	a = ChaIsBoat ( ATKER ) 
 --	if a == 1 then 
+--		LG ( "skill_hzcr" , " ATKER½ÇÉ«ÐÎÌ¬ÀàÐÍÎª´¬Ö» = " , a ) 
 --	else 
+--		LG ( "skill_hzcr" , " ATKER½ÇÉ«ÐÎÌ¬ÀàÐÍÎªÈËÎï = " , a ) 
 --	end 
 --	b = ChaIsBoat ( DEFER ) 
 --	if b == 1 then 
+--		LG ( "skill_hzcr" , " DEFER½ÇÉ«ÐÎÌ¬ÀàÐÍÎª´¬Ö» = " , b ) 
 --	else 
+--		LG ( "skill_hzcr" , " DEFER½ÇÉ«ÐÎÌ¬ÀàÐÍÎªÈËÎï = " , b ) 
 --	end 
 	local statelv = sklv 
 	local statetime =math.floor ( 6 + sklv * 0.5 ) 
 	local role1 = TurnToCha ( ATKER )
 	local Check_Heilong  = CheckItem_Heilong ( role1)
 		if Check_Heilong == 1 then
-			local Percentage = Percentage_Random ( 0.1 )
+			local Percentage = Percentage_Random ( 0.8 )
 			if Percentage == 1 then
 				  statetime =  statetime*2
-				SystemNotice ( ATKER , "\207\238\235\243\247\229\237\224 \241\232\235\224 \226\224\248\229\233 \253\234\232\239\232\240\238\226\234\232,\239\240\238\228\238\235\230\232\242\229\235\252\237\238\241\242\252 \237\224\226\251\234\224 \239\240\238\228\235\229\237\224 ")
+				CALCULATE_SKILLEFFECT_LUA_000074 = GetResString("CALCULATE_SKILLEFFECT_LUA_000074")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000074)
 			end
 	end
+	
 	local hp_defer = Mxhp ( DEFER ) 
 	if hp_defer >= 1000000 then 
 		local a = Percentage_Random (0.5)
@@ -3400,12 +4193,18 @@ function Skill_Hzcr_End ( ATKER , DEFER , sklv )
 			statetime = math.floor ( 6 + sklv * 0.5 ) 
 		else
 			SetSus( DEFER , 0 )
-			SystemNotice ( ATKER , "Alga Entanglement failed" ) 
+			CALCULATE_SKILLEFFECT_LUA_000075 = GetResString("CALCULATE_SKILLEFFECT_LUA_000075")
+			SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000075 ) 
 			return
 		end
 	end 
 
 	AddState ( ATKER , DEFER , STATE_HZCR , statelv , statetime ) 
+--	LG("skill_hzcr", "function Skill_Def_Hzcr : " , "ATKER = " , ATKER , "DEFER = ", DEFER , "sklv =  " , sklv , "\n" ) 
+----------------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
+		
 end 
 
 
@@ -3416,7 +4215,7 @@ end
 
 function State_Hzcr_Rem ( role , statelv ) 
 end
--------------ï¿½ï¿½ï¿½Ü³ï¿½ï¿½ï¿½---------------------------------------------------------------------------------------------------------------
+-------------¼¼ÄÜ³°·í---------------------------------------------------------------------------------------------------------------
 function SkillSp_CHF ( sklv )										
 	local sp_reduce = 10  
 	return sp_reduce 
@@ -3445,16 +4244,22 @@ function Skill_CHF_End ( ATKER , DEFER , sklv )
 	local hate = mxhp
 	
 	if ValidCha ( ATKER ) == 0 then
+		CALCULATE_SKILLEFFECT_LUA_000076 = GetResString("CALCULATE_SKILLEFFECT_LUA_000076")
+		LG("Skill_CHF" , CALCULATE_SKILLEFFECT_LUA_000076)
 		SkillUnable( ATKER )   
 		return
 	end
 	
 	if ValidCha ( DEFER ) == 0 then
+		CALCULATE_SKILLEFFECT_LUA_000077 = GetResString("CALCULATE_SKILLEFFECT_LUA_000077")
+		LG("Skill_CHF" , CALCULATE_SKILLEFFECT_LUA_000077)
 		SkillUnable( ATKER )   
 		return
 	end
 	
 	if IsPlayer( DEFER ) == 1 then
+		CALCULATE_SKILLEFFECT_LUA_000078 = GetResString("CALCULATE_SKILLEFFECT_LUA_000078")
+		LG("Skill_CHF" , CALCULATE_SKILLEFFECT_LUA_000078)
 		SkillUnable( ATKER )   
 		return
 	end
@@ -3463,13 +4268,17 @@ function Skill_CHF_End ( ATKER , DEFER , sklv )
 
 
 	Check_Ys_Rem ( ATKER , DEFER)
+-----------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
+		
 end 
 
 function State_Chf_Add ( role , statelv )
 		local map_name_DEFER = GetChaMapName ( role )
-		local Can_Pk_magicsea = Is_NormalMonster (role)
+		local Can_Pk_Garner2 = Is_NormalMonster (role)
 		
-		if map_name_ATKER == "magicsea" or map_name_DEFER == "magicsea" then
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 		local sklv =math.floor(statelv)-1
 		local CfLv = (statelv - sklv)*10
 		--	if Can_Pk_Garner2 == 0 then
@@ -3494,12 +4303,12 @@ function State_Chf_Rem ( role , statelv )
 	local mxhp = Mxhp ( role )
 	local hate = mxhp * -1
 		local map_name_DEFER = GetChaMapName ( role )
-		local Can_Pk_magicsea = Is_NormalMonster (role)
+		local Can_Pk_Garner2 = Is_NormalMonster (role)
 		
-		if map_name_ATKER == "magicsea" or map_name_DEFER == "magicsea" then
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 		local sklv =math.floor(statelv)-1
 		local CfLv = (statelv - sklv)*10
-		--Notice("CfLv ="..CfLv)
+		Notice("CfLv ="..CfLv)
 		--	if Can_Pk_Garner2 == 0 then
 				if CfLv ~= 0 then
 				--	local statelv = sklv  
@@ -3526,12 +4335,16 @@ function State_Chf_Rem ( role , statelv )
 	end
 	
 	if ValidCha ( role ) == 0 then
+		CALCULATE_SKILLEFFECT_LUA_000079 = GetResString("CALCULATE_SKILLEFFECT_LUA_000079")
+		LG("Skill_CHF" , CALCULATE_SKILLEFFECT_LUA_000079)
 		SkillUnable( role )   
 		return
 	end
 
 	if ValidCha ( ATKER ) == 0 then
-		SkillUnable( role )   
+		CALCULATE_SKILLEFFECT_LUA_000080 = GetResString("CALCULATE_SKILLEFFECT_LUA_000080")
+		LG("Skill_CHF" , CALCULATE_SKILLEFFECT_LUA_000080)
+--		SkillUnable( role )   
 		return
 	end
 	
@@ -3540,7 +4353,7 @@ function State_Chf_Rem ( role , statelv )
 
 end 
 
------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½---------------------------------------------------------------------------------------------------------------
+-----------¼¼ÄÜÅØÏø---------------------------------------------------------------------------------------------------------------
 
 function SkillArea_Circle_Pax ( sklv )										
 	local side = 200 + 20 * sklv 
@@ -3586,15 +4399,19 @@ function Skill_Pax_End ( ATKER , DEFER , sklv )
 	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
 	local CfLv = GetSkillLv (ATKER,242)
 	local PxLv = GetSkillLv (ATKER,243)
-		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 			statelv = sklv + CfLv/10
 		end
 	if ValidCha ( ATKER ) == 0 then
+			CALCULATE_SKILLEFFECT_LUA_000076 = GetResString("CALCULATE_SKILLEFFECT_LUA_000076")
+			LG("Skill_PAX" , CALCULATE_SKILLEFFECT_LUA_000076)
 			SkillUnable( ATKER )   
 			return
 	end
 	
 	if ValidCha ( DEFER ) == 0 then
+			CALCULATE_SKILLEFFECT_LUA_000077 = GetResString("CALCULATE_SKILLEFFECT_LUA_000077")
+			LG("Skill_PAX" , CALCULATE_SKILLEFFECT_LUA_000077)
 			SkillUnable( ATKER )   
 			return
 	end
@@ -3625,6 +4442,10 @@ function Skill_Pax_End ( ATKER , DEFER , sklv )
 		AddHate( DEFER , ATKER , hate )
 
 		Check_Ys_Rem ( ATKER , DEFER)
+-----------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
+		
 	end
 end 
 
@@ -3650,10 +4471,11 @@ end
 
 
 
---ï¿½ï¿½ï¿½Ü¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ¶ÜÅÆÊìÁ·¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­£­£­£­
 
 
 function Skill_Dpsl_Use( role , sklv ) 
+	--LG("skill_dpsl", "enter function Skill_Oper_Dpsl:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local defsb_dif = 3 * statelv 
 	local resistsb_dif = 1 * statelv 
@@ -3684,26 +4506,33 @@ function Skill_Dpsl_Unuse( role , sklv )
 end 
 
 --function State_Dpsl_Add ( role , statelv ) 
+--	LG("state", "function State_Dpsl_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 
 
 --function State_Dpsl_Rem ( role , statelv ) 
+--	LG("state", "function State_Dpsl_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 
 
---ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½Ö§ï¿½ ï¿½Ò§ï¿½Ý§ï¿½ï¿½ï¿½Ô§ï¿½ ï¿½Þ§Ö§ï¿½ï¿½
+--¼¼ÄÜ¾Þ½£ÊìÁ·¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+
 function Skill_Jjsl_Use( role , sklv ) 
+	--LG("skill_jjslsl", "enter function Skill_Oper_Jjsl:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local atksb_dif = 7 * statelv 
 	local mnatksb = MnatkSb(role) + atksb_dif  
 	local mxatksb = MxatkSb(role ) + atksb_dif 
 	local map_name_ATKER = GetChaMapName ( role )
+--	local map_name_DEFER = GetChaMapName ( DEFER )
+--	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
 	local JianLv = GetSkillLv (role,62)
-		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "darkblue2" or map_name_DEFER == "darkblue2" or map_name_ATKER == "magicsea2" or map_name_DEFER == "magicsea2" then
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 			local hitsa_dif = (1) * (  0.02 * JianLv ) 
 			local hitsa = math.floor (  (HitSa(role) + hitsa_dif ) * ATTR_RADIX ) 
 			SetCharaAttr( hitsa , role , ATTR_STATEC_HIT ) 
@@ -3711,7 +4540,10 @@ function Skill_Jjsl_Use( role , sklv )
 	SetCharaAttr( mnatksb , role , ATTR_STATEV_MNATK ) 
 	SetCharaAttr( mxatksb , role , ATTR_STATEV_MXATK ) 
 	ALLExAttrSet(role)  
+	--LG("skill_jjsl", "function Skill_Oper_Jjsl: " , "add state jjsl " , "\n" ) 
 end 
+
+
 
 function Skill_Jjsl_Unuse( role , sklv ) 
 	local statelv = sklv 
@@ -3719,8 +4551,10 @@ function Skill_Jjsl_Unuse( role , sklv )
 	local mnatksb = MnatkSb(role) - atksb_dif  
 	local mxatksb = MxatkSb(role ) - atksb_dif 
 		local map_name_ATKER = GetChaMapName ( role )
+--	local map_name_DEFER = GetChaMapName ( DEFER )
+--	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
 	local JianLv = GetSkillLv (role,62)
-		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "darkblue2" or map_name_DEFER == "darkblue2" or map_name_ATKER == "magicsea2" or map_name_DEFER == "magicsea2" then
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 			local hitsa_dif = (1) * (  0.02 * JianLv ) 
 			local hitsa = math.floor (  (HitSa(role) - hitsa_dif ) * ATTR_RADIX ) 
 			SetCharaAttr( hitsa , role , ATTR_STATEC_HIT ) 
@@ -3731,34 +4565,38 @@ function Skill_Jjsl_Unuse( role , sklv )
 end 
 
 --function State_Jjsl_Add ( role , statelv ) 
+--	LG("state", "function State_Jjsl_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 
 
 --function State_Jjsl_Rem ( role , statelv ) 
+--	LG("state", "function State_Jjsl_Rem : " ,"statelv = " , statelv , " role = ", role, "\n" ) 
 
 --end 
 
 
---ï¿½ï¿½ï¿½Ü½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ½£ÊõÊìÁ·¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
 function Skill_Jssl_Use( role , sklv ) 
+	--LG("skill_jssl", "enter function Skill_Oper_Jssl:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
-	local atksb_dif = 50 * statelv 
+	local atksb_dif = 4 * statelv 
 	local mnatksb = MnatkSb(role) + atksb_dif  
 	local mxatksb = MxatkSb(role ) + atksb_dif 
 	SetCharaAttr( mnatksb , role , ATTR_STATEV_MNATK ) 
 	SetCharaAttr( mxatksb , role , ATTR_STATEV_MXATK ) 
 	ALLExAttrSet(role)  
+	--LG("skill_jssl", "function Skill_Oper_Jssl: " , "add state Jssl " , "\n" ) 
 end 
 
 
 
 function Skill_Jssl_Unuse( role , sklv ) 
 	local statelv = sklv 
-	local atksb_dif = 50 * statelv 
+	local atksb_dif = 4 * statelv 
 	local mnatksb = MnatkSb(role) - atksb_dif  
 	local mxatksb = MxatkSb(role ) - atksb_dif 
 	SetCharaAttr( mnatksb , role , ATTR_STATEV_MNATK ) 
@@ -3767,25 +4605,29 @@ function Skill_Jssl_Unuse( role , sklv )
 end 
 
 --function State_Jssl_Add ( role , statelv ) 
+--	LG("state", "function State_Jssl_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 
 
 --function State_Jssl_Rem ( role , statelv ) 
+--	LG("state", "function State_Jssl_Rem : " ,"statelv = " , statelv , " role = ", role, "\n" ) 
 
 --end 
 
 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Þ»ï¿½ï¿½ï¿½ï¿½Ê¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÊÞ»¯ÌåÖÊ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function Skill_Shtz_Use( role , sklv ) 
+	--LG("skill_shtz", "enter function Skill_Oper_Shtz:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local mxhpsb_dif = 50 * statelv 
 	local mxhpsb = MxhpSb(role) + mxhpsb_dif  
 	SetCharaAttr( mxhpsb , role , ATTR_STATEV_MXHP ) 
 	ALLExAttrSet(role)  
+	--LG("skill_shtz", "function Skill_Oper_Shtz: " , "add state shtz " , "\n" ) 
 end 
 
 function Skill_Shtz_Unuse( role , sklv ) 
@@ -3794,25 +4636,29 @@ function Skill_Shtz_Unuse( role , sklv )
 	local mxhpsb = MxhpSb(role) - mxhpsb_dif  
 	SetCharaAttr( mxhpsb , role , ATTR_STATEV_MXHP ) 
 	ALLExAttrSet(role)  
+	--LG( " Luaerror " , " ¼¼ÄÜ¡ª¡ªÊÞ»¯ÌåÖÊµ÷ÓÃ·½Ê½´íÎó" ,  "µ÷ÓÃ·½Ê½tranxwer_type = " , tranxwer_type , "\n" ) 
 end 
 
 --function State_Shtz_Add ( role , statelv ) 
+--	LG("state", "function State_Shtz_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 --function State_Shtz_Rem ( role , statelv ) 
+--	LG("state", "function State_Shtz_Rem : " ," role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
---ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½Ê¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÇ¿»¯ÌåÖÊ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function Skill_Qhtz_Use( role , sklv ) 
+	--LG("skill_qhtz", "enter function Skill_Oper_Qhtz:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local mxhpsb_dif = 20 * statelv + Con(role) * 3 
 	local mxhpsb = MxhpSb(role) + mxhpsb_dif  
 	local map_name_ATKER = GetChaMapName ( role )
 	--local map_name_DEFER = GetChaMapName ( DEFER )
 	--local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
-		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 			local GTYZ_Lv = GetSkillLv(role,63)
 			local  resistsb_dif = 1 * GTYZ_Lv
 			local resistsb = ResistSb(role) + resistsb_dif
@@ -3821,6 +4667,7 @@ function Skill_Qhtz_Use( role , sklv )
 	
 	SetCharaAttr( mxhpsb , role , ATTR_STATEV_MXHP ) 
 	ALLExAttrSet(role)  
+	--LG("skill_qhtz", "function Skill_Oper_Qhtz: " , "add state qhtz " , "\n" ) 
 end 
 
 function Skill_Qhtz_Unuse( role , sklv ) 
@@ -3828,7 +4675,7 @@ function Skill_Qhtz_Unuse( role , sklv )
 	local mxhpsb_dif = 20 * statelv + Con(role) * 3 
 	local mxhpsb = MxhpSb(role) - mxhpsb_dif  
 	local map_name_ATKER = GetChaMapName ( role )
-		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 			local GTYZ_Lv = GetSkillLv(role,63)
 			local  resistsb_dif = 1 * GTYZ_Lv
 			local resistsb = ResistSb(role) - resistsb_dif
@@ -3836,24 +4683,29 @@ function Skill_Qhtz_Unuse( role , sklv )
 		end
 	SetCharaAttr( mxhpsb , role , ATTR_STATEV_MXHP ) 
 	ALLExAttrSet(role)  
+	--LG( " Luaerror " , " ¼¼ÄÜ¡ª¡ªÇ¿»¯ÌåÖÊµ÷ÓÃ·½Ê½´íÎó" ,  "µ÷ÓÃ·½Ê½tranxwer_type = " , tranxwer_type , "\n" ) 
 end 
 
 --function State_Qhtz_Add ( role , statelv ) 
+--	LG("state", "function State_Qhtz_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 --function State_Qhtz_Rem ( role , statelv ) 
+--	LG("state", "function State_Qhtz_Rem : " ," role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É»Ø±Ü¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÁéÇÉ»Ø±Ü¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function Skill_Lqhb_Use( role , sklv ) 
+	--LG("skill_lqhb", "enter function Skill_Oper_Lqhb:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local fleesb_dif = 3 * statelv 
 	local fleesb = FleeSb(role) + fleesb_dif  
 	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE ) 
 	ALLExAttrSet(role)  
+	--LG("skill_lqhb", "function Skill_Oper_Lqhb: " , "add state lqhb " , "\n" ) 
 end 
 
 function Skill_Lqhb_Unuse( role , sklv ) 
@@ -3862,24 +4714,29 @@ function Skill_Lqhb_Unuse( role , sklv )
 	local fleesb = FleeSb(role) - fleesb_dif  
 	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE ) 
 	ALLExAttrSet(role)  
+	--LG( " Luaerror " , " ¼¼ÄÜ¡ª¡ªÊÞ»¯ÌåÖÊµ÷ÓÃ·½Ê½´íÎó" ,  "µ÷ÓÃ·½Ê½tranxwer_type = " , tranxwer_type , "\n" ) 
 end 
 
 --function State_Lqhb_Add ( role , statelv ) 
+--	LG("state", "function State_Lqhb_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 --function State_Lqhb_Rem ( role , statelv ) 
+--	LG("state", "function State_Lqhb_Rem : " ," role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 
---ï¿½ï¿½ï¿½Ü½ï¿½ï¿½ï¿½×¨×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ½£µÀ×¨×¢¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function Skill_Jdzz_Use( role , sklv ) 
+	--LG("skill_jdzz", "enter function Skill_Oper_Jdzz:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local hitsb_dif = 1 * statelv 
 	local hitsb = HitSb(role) + hitsb_dif  
 	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT ) 
 	ALLExAttrSet(role)  
+	--LG("skill_jdzz", "function Skill_Oper_Jdzz: " , "add state jdzz " , "\n" ) 
 end 
 
 function Skill_Jdzz_Unuse( role , sklv ) 
@@ -3888,29 +4745,33 @@ function Skill_Jdzz_Unuse( role , sklv )
 	local hitsb = HitSb(role) - hitsb_dif  
 	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT ) 
 	ALLExAttrSet(role)  
+	--LG( " Luaerror " , " ¼¼ÄÜ¡ª¡ªÊÞ»¯ÌåÖÊµ÷ÓÃ·½Ê½´íÎó" ,  "µ÷ÓÃ·½Ê½tranxwer_type = " , tranxwer_type , "\n" ) 
 end 
 
 --function State_Jdzz_Add ( role , statelv ) 
+--	LG("state", "function State_Jdzz_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 --function State_Jdzz_Rem ( role , statelv ) 
+--	LG("state", "function State_Jdzz_Rem : " ," role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å£ï¿½ï¿½Ñªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÂùÅ£ÈÈÑª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function Skill_Mnrx_Use( role , sklv ) 
+	--LG("skill_mnrx", "enter function Skill_Oper_Mnrx:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
-	local mxhpsa_dif = 0.1 + 0.01 * statelv 
-	local defsa_dif = 0.3 + 0.02 * statelv 
+	local mxhpsa_dif = 0.1 + 0.02 * statelv 
+	local defsa_dif = 0.1 + 0.02 * statelv 
 	local mxhpsa = math.floor ( (MxhpSa(role) + mxhpsa_dif ) * ATTR_RADIX )
 	local defsa = math.floor ( (DefSa(role) + defsa_dif ) * ATTR_RADIX )	
 	local map_name_ATKER = GetChaMapName ( role )
 --	local map_name_DEFER = GetChaMapName ( DEFER )
 --	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
 	local GangTieLv = GetSkillLv (role,63)
-		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 			local hrecsb_dif =  10 * GangTieLv  
 			local hrecsb = math.floor ( ( HrecSb ( role ) + hrecsb_dif )  ) 
 			SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC ) 
@@ -3919,19 +4780,20 @@ function Skill_Mnrx_Use( role , sklv )
 	SetCharaAttr( defsa , role , ATTR_STATEC_DEF ) 
 
 	ALLExAttrSet(role)  
+	--LG("skill_mnrx", "function Skill_Oper_Mnrx: " , "add state mnrx " , "\n" ) 
 end 
  
 function Skill_Mnrx_Unuse( role , sklv ) 
 	local statelv = sklv 
-	local mxhpsa_dif = 0.1 + 0.01 * statelv 
-	local defsa_dif = 0.3 + 0.02 * statelv 
+	local mxhpsa_dif = 0.1 + 0.02 * statelv 
+	local defsa_dif = 0.1 + 0.02 * statelv 
 	local mxhpsa = math.floor ( (MxhpSa(role) - mxhpsa_dif ) * ATTR_RADIX )
 	local defsa = math.floor ( (DefSa(role) - defsa_dif ) * ATTR_RADIX )
 		local map_name_ATKER = GetChaMapName ( role )
 --	local map_name_DEFER = GetChaMapName ( DEFER )
 --	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
 	local GangTieLv = GetSkillLv (role,63)
-		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 			local hrecsb_dif =  10 * GangTieLv  
 			local hrecsb = math.floor ( ( HrecSb ( role ) + hrecsb_dif )  ) 
 			SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC ) 
@@ -3941,23 +4803,24 @@ function Skill_Mnrx_Unuse( role , sklv )
 	ALLExAttrSet(role)  
 end 
 
-------------------
--- ï¿½ï¿½ï¿½ï¿½ï¿½Ó§Ñ§Ó§ï¿½ï¿½ï¿½ ï¿½Ò§ï¿½ï¿½ï¿½ --
-------------------
-function State_Mnrx_Add ( role , statelv ) 
+--function State_Mnrx_Add ( role , statelv ) 
+--	LG("state", "function State_Mnrx_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
-end 
+--end 
 
-function State_Mnrx_Rem ( role , statelv ) 
+--function State_Mnrx_Rem ( role , statelv ) 
+--	LG("state", "function State_Mnrx_Rem : " ," role = ", role, "statelv = " , statelv , "\n" ) 
 
-end 
---ï¿½ï¿½ï¿½Ü»ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--end 
+--¼¼ÄÜ»ÃÓ°ÉÁ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function Skill_Hys_Use( role , sklv ) 
+	--LG("skill_hys", "enter function Skill_Oper_Hys:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local fleesb_dif =4 * statelv 
 	local fleesb = math.floor ( ( FleeSb(role) + fleesb_dif  )    )  
 	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE ) 
 	ALLExAttrSet(role)  
+	--LG("skill_hys", "function Skill_Oper_Hys: " , "add state hys " , "\n" ) 
 end 
 
 function Skill_Hys_Unuse( role , sklv ) 
@@ -3969,16 +4832,19 @@ function Skill_Hys_Unuse( role , sklv )
 end 
 
 --function State_Hys_Add ( role , statelv ) 
+--	LG("state", "function State_Hys_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 --function State_Hys_Rem ( role , statelv ) 
+--	LG("state", "function State_Hys_Rem : " ," role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñªï¿½ñ¹¥¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÆÆÑª¿ñ¹¥¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function Skill_Pxkg_Use( role , sklv ) 
+	--LG("skill_pxkg", "enter function Skill_Oper_Pxkg:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv 
 	local aspdsa_dif =  ( 0.1 + 0.01 * statelv ) 
 	local map_name_ATKER = GetChaMapName ( role )
@@ -3994,6 +4860,7 @@ function Skill_Pxkg_Use( role , sklv )
 	local aspdsa = math.floor ( ( AspdSa(role) + aspdsa_dif  ) * ATTR_RADIX   )  
 	SetCharaAttr( aspdsa , role , ATTR_STATEC_ASPD ) 
 	ALLExAttrSet(role)  
+	--LG("skill_pxkg", "function Skill_Oper_Pxkg: " , "add state pxkg " , "\n" ) 
 end 
 
 function Skill_Pxkg_Unuse( role , sklv ) 
@@ -4005,20 +4872,24 @@ function Skill_Pxkg_Unuse( role , sklv )
 end 
 
 --function State_Pxkg_Add ( role , statelv ) 
+--	LG("state", "function State_Pxkg_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 --function State_Pxkg_Rem ( role , statelv ) 
+--	LG("state", "function State_Pxkg_Rem : " ," role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê»Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÌåÖÊ»Ø¸´¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function Skill_Tzhf_Use( role , sklv ) 
+	--LG("skill_tzhf", "enter function Skill_Oper_tzhf:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local hrecsb_dif =  statelv  
 	local hrecsb = math.floor ( ( HrecSb(role) + hrecsb_dif  ) * ATTR_RADIX   )  
 	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC ) 
 	ALLExAttrSet(role)  
+	--LG("skill_tzhf", "function Skill_Oper_tzhf: " , "add state tzhf " , "\n" ) 
 end 
 
 function Skill_Tzhf_Unuse( role , sklv ) 
@@ -4030,29 +4901,35 @@ function Skill_Tzhf_Unuse( role , sklv )
 end 
 
 --function State_Tzhf_Add ( role , statelv ) 
+--	LG("state", "function State_tzhf_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 --function State_Tzhf_Rem ( role , statelv ) 
+--	LG("state", "function State_tzhf_Rem : " ," role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
---ï¿½ï¿½ï¿½Ü¾ï¿½ï¿½ï¿½Ö®ï¿½Ü¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ¾£¼¬Ö®¶Ü¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function Skill_Zjft_Use( role , sklv ) 
+	--LG("skill_zjft", "enter function Skill_Oper_Zjft:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	AddState ( role , role , STATE_ZJFT , statelv , -1 ) 
+	--LG("skill_zjft", "function Skill_Oper_Zjft: " , "add state zjft " , "\n" ) 
 end 
 
 
 function Skill_Zjft_Unuse( role , sklv ) 
 	local statelv = sklv 
 	RemoveState ( role , STATE_ZJFT ) 
+	--LG( " Luaerror" , " ¼¼ÄÜ¡ª¡ªÖØ¼×·´µ¯µ÷ÓÃ·½Ê½´íÎó" ,  "µ÷ÓÃ·½Ê½tranxwer_type = " , tranxwer_type , "\n" ) 
 end 
 
---ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ¹­¼ýÊìÁ·¹«Ê½¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function Skill_Gjsl_Use( role , sklv ) 
+	--LG("skill_gjsl", "enter function Skill_Oper_Gjsl:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local mnatksb_dif = 2 * statelv 
 	local mxatksb_dif = 2 * statelv 
@@ -4061,6 +4938,7 @@ function Skill_Gjsl_Use( role , sklv )
 	SetCharaAttr( mnatksb , role , ATTR_STATEV_MNATK ) 
 	SetCharaAttr( mxatksb , role , ATTR_STATEV_MXATK ) 
 	ALLExAttrSet(role)  
+	--LG("skill_gjsl", "function Skill_Oper_Gjsl: " , "add state gjsl " , "\n" ) 
 end 
 
 
@@ -4074,49 +4952,59 @@ function Skill_Gjsl_Unuse( role , sklv )
 	SetCharaAttr( mnatksb , role , ATTR_STATEV_MNATK ) 
 	SetCharaAttr( mxatksb , role , ATTR_STATEV_MXATK ) 
 	ALLExAttrSet(role)  
+	--LG( " Luaerror" , " ¼¼ÄÜ¡ª¡ª¹­¼ýÊìÁ·µ÷ÓÃ·½Ê½´íÎó" ,  "µ÷ÓÃ·½Ê½tranxwer_type = " , tranxwer_type , "\n" ) 
 end 
 
 --function State_Gjsl_Add ( role , statelv ) 
+--	LG("state", "function State_Gjsl_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 --function State_Gjsl_Rem ( role , statelv ) 
+--	LG("state", "function State_Gjsl_Rem : " ," role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
---ï¿½ï¿½ï¿½Ü¼ï¿½ï¿½ç²½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ¼²·ç²½¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function Skill_Jfb_Use( role , sklv ) 
+	--LG("skill_jfb", "enter function Skill_Oper_jfb:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
-	local mspdsa_dif =  statelv * 0.01   
+	local mspdsa_dif =  statelv * 0.02   
 	local mspdsa = (MspdSa(role) + mspdsa_dif) * ATTR_RADIX  
 	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD ) 
 	ALLExAttrSet(role)  
+	--LG("skill_jfb", "function Skill_Oper_jfb: " , "add state jfb " , "\n" ) 
+	
 end 
 
 function Skill_Jfb_Unuse( role , sklv ) 
 	local statelv = sklv 
-	local mspdsa_dif =  statelv * 0.01 
+	local mspdsa_dif =  statelv * 0.02 
 	local mspdsa = (MspdSa(role) - mspdsa_dif) *  ATTR_RADIX 
 	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD ) 
 	ALLExAttrSet(role)  
 end 
 
 --function State_Jfb_Add ( role , statelv ) 
+--	LG("state", "function State_jfb_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 --function State_Jfb_Rem ( role , statelv ) 
+--	LG("state", "function State_jfb_Rem : " ," role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
---ï¿½ï¿½ï¿½Ü¾ï¿½ï¿½ï¿½Ó³Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ¾«Éñ¼Ó³Ö¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function Skill_Jsjc_Use( role , sklv ) 
+	--LG("skill_jsjc", "enter function Skill_Oper_jsjc:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local mxspsb_dif =  statelv * 40    
 	local mxspsb = math.floor ( MxspSb(role) + mxspsb_dif  )  
 	SetCharaAttr( mxspsb , role , ATTR_STATEV_MXSP ) 
 	ALLExAttrSet(role)  
+	--LG("skill_jsjc", "function Skill_Oper_jsjc: " , "add state jsjc " , "\n" ) 
 end 
 
 function Skill_Jsjc_Unuse( role , sklv ) 
@@ -4128,51 +5016,59 @@ function Skill_Jsjc_Unuse( role , sklv )
 end 
 
 --function State_Jsjc_Add ( role , statelv ) 
+--	LG("state", "function State_jsjc_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 --function State_Jsjc_Rem ( role , statelv ) 
+--	LG("state", "function State_jsjc_Rem : " ," role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÉñÓÓ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function Skill_Sy_Use( role , sklv ) 
+	--LG("skill_sy", "enter function Skill_Oper_Sy:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local srecsb_dif = 1+statelv*1   
 	local srecsb = SrecSb(role) + srecsb_dif
 	SetCharaAttr( srecsb , role , ATTR_STATEV_SREC ) 
 	ALLExAttrSet(role)  
+	--LG("skill_sy", "function Skill_Oper_Sy: " , "add state sy " , "\n" ) 
 end 
 
 
 
 function Skill_Sy_Unuse( role , sklv ) 
 	local statelv = sklv 
-	local srecsb_dif = 1+statelv*1  
+	local srecsb_dif = 2+statelv*1  
 	local srecsb = SrecSb(role) - srecsb_dif
 	SetCharaAttr( srecsb , role , ATTR_STATEV_SREC ) 
 	ALLExAttrSet(role)  
 end 
 
-function State_Sy_Add ( role , statelv ) 
+--function State_Sy_Add ( role , statelv ) 
+--	LG("state", "function State_Sy_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
-end 
+--end 
 
-function State_Sy_Rem ( role , statelv ) 
+--function State_Sy_Rem ( role , statelv ) 
+--	LG("state", "function State_Sy_Rem : " ," role = ", role, "statelv = " , statelv , "\n" ) 
 
-end 
+--end 
 
 
 
---ï¿½ï¿½ï¿½Ü¼ï¿½ï¿½Í¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ¼áÈÍ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function Skill_Jr_Use( role , sklv ) 
+	--LG("skill_jr", "enter function Skill_Oper_Jr:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local srecsb_dif = 1+statelv*1   
 	local srecsb = SrecSb(role) + srecsb_dif
 	SetCharaAttr( srecsb , role , ATTR_STATEV_SREC ) 
 	ALLExAttrSet(role)  
+	--LG("skill_jr", "function Skill_Oper_Jr: " , "add state jr " , "\n" ) 
 end 
 
 
@@ -4188,9 +5084,10 @@ end
 
 
 
---ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜË³Á÷¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function Skill_Sl_Use( role , sklv ) 
+--	LG("skill_sl", "enter function Skill_Oper_Sl:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local ship_mspdsa_dif = 0.05 + statelv * 0.01    
 	local ship_mspdsa = ( Ship_MspdSa ( role ) + ship_mspdsa_dif )  * ATTR_RADIX
@@ -4201,6 +5098,7 @@ end
 
 
 function Skill_Sl_Unuse( role , sklv ) 
+--	LG("skill_sl", "enter function Skill_Sl_Unuse:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local ship_mspdsa_dif = 0.05 + statelv * 0.01    
 	local ship_mspdsa = ( Ship_MspdSa ( role ) - ship_mspdsa_dif )  * ATTR_RADIX
@@ -4208,8 +5106,9 @@ function Skill_Sl_Unuse( role , sklv )
 	ALLExAttrSet(role)  
 end 
 
---ï¿½ï¿½ï¿½Ü±ï¿½ï¿½ï¿½×°ï¿½ï¿½------------------------------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ±´¿Ç×°¼×------------------------------------------------------------¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function Skill_Bkzj_Use( role , sklv ) 
+--	LG("skill_Bkzj", "enter function Skill_Oper_Bkzj:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local ship_defsb_dif = statelv * 8    
 	local ship_defsb = ( Ship_DefSb ( role ) + ship_defsb_dif )
@@ -4220,6 +5119,7 @@ end
 
 
 function Skill_Bkzj_Unuse( role , sklv ) 
+--	LG("skill_Bkzj", "enter function Skill_Oper_Bkzj:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local ship_defsb_dif = statelv * 8    
 	local ship_defsb = ( Ship_DefSb ( role ) - ship_defsb_dif )
@@ -4228,8 +5128,9 @@ function Skill_Bkzj_Unuse( role , sklv )
 end 
 
 
---ï¿½ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½------------------------------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ»ðÅÚÊìÁ·------------------------------------------------------------¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function Skill_Hpsl_Use( role , sklv ) 
+--	LG("skill_Hpsl", "enter function Skill_Oper_Hpsl:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local ship_mxatk_dif = statelv * 25
 	local ship_mnatk_dif = statelv * 25
@@ -4243,6 +5144,7 @@ end
 
 
 function Skill_Hpsl_Unuse( role , sklv ) 
+--	LG("skill_Bkzj", "enter function Skill_Oper_Bkzj:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local ship_mxatk_dif = statelv * 25
 	local ship_mnatk_dif = statelv * 25
@@ -4255,8 +5157,9 @@ end
 
 
 
---ï¿½ï¿½ï¿½Ü¼×°ï¿½Ó¹ï¿½------------------------------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ¼×°å¼Ó¹Ì------------------------------------------------------------¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function Skill_Jbjg_Use( role , sklv ) 
+	LG("skill_Jbjg", "enter function Skill_Oper_Jbjg:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local ship_def_dif = statelv * 12    
 	local ship_def = ( Ship_Def ( role ) + ship_def_dif )  
@@ -4267,6 +5170,7 @@ end
 
 
 function Skill_Jbjg_Unuse( role , sklv ) 
+	LG("skill_Jbjg", "enter function Skill_Oper_Jbjg:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local ship_def_dif = statelv * 12    
 	local ship_def = ( Ship_Def ( role ) - ship_def_dif )  
@@ -4275,8 +5179,9 @@ function Skill_Jbjg_Unuse( role , sklv )
 end 
 
 
---ï¿½ï¿½ï¿½Ü²Ù·ï¿½ï¿½ï¿½------------------------------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ²Ù·«Êõ------------------------------------------------------------¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function Skill_Cfs_Use( role , sklv ) 
+	LG("skill_Cfs", "enter function Skill_Oper_Cfs:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local ship_aspdsa_dif = 0.1 + statelv * 0.02    
 	local ship_aspdsa = ( Ship_AspdSa ( role ) + ship_aspdsa_dif )  * ATTR_RADIX
@@ -4287,6 +5192,7 @@ end
 
 
 function Skill_Cfs_Unuse( role , sklv ) 
+	LG("skill_Cfs", "enter function Skill_Oper_Cfs:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local ship_aspdsa_dif = 0.1 + statelv * 0.02    
 	local ship_aspdsa = ( Ship_AspdSa ( role ) - ship_aspdsa_dif )  * ATTR_RADIX
@@ -4295,8 +5201,9 @@ function Skill_Cfs_Unuse( role , sklv )
 end 
 
 
---ï¿½ï¿½ï¿½Ü´ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½------------------------------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ´¬ÌåÇ¿»¯------------------------------------------------------------¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function Skill_Ctqh_Use( role , sklv ) 
+	LG("skill_Ctqh", "enter function Skill_Oper_Ctqh:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local ship_hp_dif = statelv * 400    
 	local ship_hp = ( Ship_Mxhp ( role ) + ship_hp_dif ) 
@@ -4307,6 +5214,7 @@ end
 
 
 function Skill_Ctqh_Unuse( role , sklv ) 
+	LG("skill_Ctqh", "enter function Skill_Oper_Ctqh:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local ship_hp_dif = statelv * 400    
 	local ship_hp = ( Ship_Mxhp ( role ) - ship_hp_dif ) 
@@ -4315,8 +5223,9 @@ function Skill_Ctqh_Unuse( role , sklv )
 end 
 
 
---ï¿½ï¿½ï¿½Ü²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½------------------------------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ²¹¸øÀ©ÈÝ------------------------------------------------------------¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function Skill_Bjcr_Use( role , sklv ) 
+	LG("skill_Bjcr", "enter function Skill_Oper_Bjcr:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local ship_sp_dif = statelv * 30    
 	local ship_sp = ( Ship_Mxsp ( role ) + ship_sp_dif ) 
@@ -4327,6 +5236,7 @@ end
 
 
 function Skill_Bjcr_Unuse( role , sklv ) 
+	LG("skill_Bjcr", "enter function Skill_Oper_Bjcr:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local ship_sp_dif = statelv * 30    
 	local ship_sp = ( Ship_Mxsp ( role ) - ship_sp_dif ) 
@@ -4335,48 +5245,55 @@ function Skill_Bjcr_Unuse( role , sklv )
 end 
 
 
---ï¿½ï¿½ï¿½Ü´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ´ÔÁÖÐÐÕß¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-function Skill_Clxz_Use( role , sklv )										--ï¿½ï¿½ï¿½Ü´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµÄ¼ï¿½ï¿½ï¿½
+function Skill_Clxz_Use( role , sklv )										--¼¼ÄÜ´ÔÁÖÐÐÕßµÄ¼¤»î
+	--LG("skill_clxz", "enter function Skill_Oper_Clxz:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local fleesb_dif = 3 * statelv 
 	local fleesb =  FleeSb(role) + fleesb_dif  
 	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE ) 
 	ALLExAttrSet(role)  
+	--LG("skill_clxz", "function Skill_Oper_Clxz: " , "add state clxz " , "\n" ) 
 end 
 
 
 
-function Skill_Clxz_Unuse( role , sklv )									--ï¿½ï¿½ï¿½Ü´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½
+function Skill_Clxz_Unuse( role , sklv )									--¼¼ÄÜ´ÔÁÖÐÐÕßµÄÏû³ý
 	local statelv = sklv 
 	local fleesb_dif = 3 * statelv 
 	local fleesb =  FleeSb(role) - fleesb_dif  
 	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE ) 
 	ALLExAttrSet(role)  
+	--LG( " Luaerror" , " ¼¼ÄÜ¡ª¡ª´ÔÁÖÐÐÕßµ÷ÓÃ·½Ê½´íÎó" ,  "µ÷ÓÃ·½Ê½tranxwer_type = " , tranxwer_type , "\n" ) 
 end 
 
---function State_Clxz_Add ( role , statelv )								--×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--function State_Clxz_Add ( role , statelv )								--×´Ì¬´ÔÁÖÐÐÕßµÄÐ§¹û¼¤»î
+--	LG("state", "function State_Clxz_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 
 
---function State_Clxz_Rem ( role , statelv )								--×´Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--function State_Clxz_Rem ( role , statelv )								--×´Ì¬´ÔÁÖÐÐÕßµÄÐ§¹ûÏû³ý
+--	LG("state", "function State_Clxz_Rem : " ," role = ", role, "statelv = " , statelv , "\n" ) 
 
 	
 --end 
 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î±×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÁÔÈËÎ±×°¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­£­£­£­
 
 
 function Skill_Lrwz_Use( role , sklv ) 
+	--LG("skill_lrwz", "enter function Skill_Oper_Lrwz:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
 	local fleesb_dif = 2 * statelv 
 	local fleesb = FleeSb(role) + fleesb_dif  
 	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE ) 
 	ALLExAttrSet(role)  
+	--LG("skill_lrwz", "function Skill_Oper_Lrwz: " , "add state lrwz " , "\n" ) 
 end 
 
 
@@ -4390,71 +5307,81 @@ function Skill_Lrwz_Unuse( role , sklv )
 end 
 
 --function State_Lrwz_Add ( role , statelv ) 
+--	LG("state", "function State_Lrwz_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 
 
 --function State_Lrwz_Rem ( role , statelv ) 
+--	LG("state", "function State_Lrwz_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
---ï¿½ï¿½ï¿½Ü»ï¿½Ç¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ»ðÇ¹ÊìÁ·¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function Skill_Hqsl_Use( role , sklv ) 
+	--LG("skill_hqsl", "enter function Skill_Oper_Hqsl:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
-	local mnatksb_dif = 6 * statelv 
-	local mxatksb_dif = 10 * statelv 
+	local mnatksb_dif = 10 * statelv 
+	local mxatksb_dif = 15 * statelv 
 	local mnatksb = MnatkSb(role) + mnatksb_dif  
 	local mxatksb = MxatkSb(role) + mxatksb_dif  
 	SetCharaAttr( mnatksb , role , ATTR_STATEV_MNATK ) 
 	SetCharaAttr( mxatksb , role , ATTR_STATEV_MXATK ) 
 	ALLExAttrSet(role)  
+	--LG("skill_hqsl", "function Skill_Oper_Hqsl: " , "add state hqsl " , "\n" ) 
 end 
 
 
 function Skill_Hqsl_Unuse( role , sklv ) 
 	local statelv = sklv  
-	local mnatksb_dif = 6 * statelv 
-	local mxatksb_dif = 10 * statelv 
+	local mnatksb_dif = 10 * statelv 
+	local mxatksb_dif = 15 * statelv 
 	local mnatksb = MnatkSb(role) - mnatksb_dif  
 	local mxatksb = MxatkSb(role) - mxatksb_dif  
 	SetCharaAttr( mnatksb , role , ATTR_STATEV_MNATK ) 
 	SetCharaAttr( mxatksb , role , ATTR_STATEV_MXATK ) 
 	ALLExAttrSet(role)  
+	--LG( " Luaerror" , " ¼¼ÄÜ¡ª¡ª»ðÇ¹ÊìÁ·µ÷ÓÃ·½Ê½´íÎó" ,  "µ÷ÓÃ·½Ê½tranxwer_type = " , tranxwer_type , "\n" ) 
 end 
 
 --function State_Hqsl_Add ( role , statelv ) 
+--	LG("state", "function State_Hqsl_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 
 
 --function State_Hqsl_Rem ( role , statelv ) 
+--	LG("state", "function State_Hqsl_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 --end 
 
 
---ï¿½ï¿½ï¿½ï¿½Ë«ï¿½Ö½ï¿½ï¿½Ó³É¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜË«ÊÖ½£¼Ó³É¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
 function Skill_Fsz_Use( role , sklv ) 
+	--LG("skill_fsz", "enter function Skill_Oper_Fsz:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local statelv = sklv  
-	local lefthand_rad_dif = statelv * 10 
+	local lefthand_rad_dif = statelv * 8 
 	local lefthand_rad = GetChaAttr ( role , ATTR_LHAND_ITEMV ) + lefthand_rad_dif 
 	SetCharaAttr ( lefthand_rad , role , ATTR_LHAND_ITEMV ) 
+	--LG("skill_fsz", "function Skill_Oper_Fsz: " , "add state fsz " , "\n" ) 
 
 end 
 
 function Skill_Fsz_Unuse( role , sklv ) 
 	local statelv = sklv 
-	local lefthand_rad_dif = statelv * 10 
+	local lefthand_rad_dif = statelv * 8 
 	local lefthand_rad = GetChaAttr ( role , ATTR_LHAND_ITEMV ) - lefthand_rad_dif 
 	SetCharaAttr ( lefthand_rad , role , ATTR_LHAND_ITEMV ) 
 
 end 
 
 --function State_Fsz_Add ( role , statelv ) 
+--	LG("state", "function State_Fsz_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 
 --end 
@@ -4462,6 +5389,7 @@ end
 
 
 --function State_Fsz_Rem ( role , statelv ) 
+--	LG("state", "function State_Fsz_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 
 
 --end 
@@ -4470,9 +5398,10 @@ end
 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ×øÏÂ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function Skill_Zx_Use( role , sklv ) 
+	--LG("skill_zx", "enter function Skill_Oper_Zx:", "sklv = ", sklv ,"role = ", role , "\n") 
 	local ys_statelv = GetChaStateLv ( role , STATE_YS ) 
 	if ys_statelv >= 1 then  
 		RemoveState( role , STATE_YS ) 
@@ -4481,6 +5410,10 @@ function Skill_Zx_Use( role , sklv )
 	local hrecsa_dif = 5    
 	local hrecsa = math.floor ( (HrecSa(role) + hrecsa_dif )  * ATTR_RADIX) 
 	local hrecsb = math.floor ( ( HrecSb ( role ) + hrecsb_dif )  ) 
+	--LG("skill_zx" , " form_hrecsa = " , HrecSa(role) , "\n" ) 
+	--LG("skill_zx", "hrecsa = ", hrecsa, "\n") 
+	--LG("skill_hrecsa" , " form_hrecsa = " , HrecSa(role) , "\n" ) 
+	--LG("skill_hrecsa", "hrecsa = ", hrecsa, "\n") 
 	SetCharaAttr( hrecsa , role , ATTR_STATEC_HREC ) 
 	SetCharaAttr ( hrecsb , role , ATTR_STATEV_HREC ) 
 
@@ -4489,6 +5422,10 @@ function Skill_Zx_Use( role , sklv )
 	local srecsa = math.floor ( (SrecSa(role) + srecsa_dif ) * ATTR_RADIX ) 
 	local srecsb = math.floor ( (SrecSb(role) + srecsb_dif )  ) 
 
+	--LG("skill_zx" , " form_srecsa = " , SrecSa(role) , "\n" ) 
+	--LG("skill_zx", "srecsa = ", srecsa, "\n") 
+	--LG("skill_srecsa" , " form_srecsa = " , SrecSa(role) , "\n" ) 
+	--LG("skill_srecsa", "srecsa = ", srecsa, "\n") 
 	SetCharaAttr( srecsa , role , ATTR_STATEC_SREC ) 
 	SetCharaAttr ( srecsb , role , ATTR_STATEV_SREC ) 
 	Check_Ys_Rem ( role , role)
@@ -4496,11 +5433,16 @@ function Skill_Zx_Use( role , sklv )
 end 
 
 function Skill_Zx_Unuse( role , sklv ) 
+	--LG("skill_zx", "enter function Skill_Oper_Zx:", "sklv = ", sklv ,"role = ", role , "\n") 
 
 	local hrecsb_dif = 15 
 	local hrecsa_dif = 5    
 	local hrecsa = math.floor ( (HrecSa(role) - hrecsa_dif )  * ATTR_RADIX) 
 	local hrecsb = math.floor ( ( HrecSb ( role ) - hrecsb_dif ) ) 
+	--LG("skill_zx" , " form_hrecsa = " , HrecSa(role) , "\n" ) 
+	--LG("skill_zx", "hrecsa = ", hrecsa, "\n") 
+	--LG("skill_hrecsa" , " form_hrecsa = " , HrecSa(role) , "\n" ) 
+	--LG("skill_hrecsa", "hrecsa = ", hrecsa, "\n") 
 	SetCharaAttr( hrecsa , role , ATTR_STATEC_HREC ) 
 	SetCharaAttr ( hrecsb , role , ATTR_STATEV_HREC ) 
 
@@ -4509,6 +5451,10 @@ function Skill_Zx_Unuse( role , sklv )
 	local srecsa = math.floor ( (SrecSa(role) - srecsa_dif ) * ATTR_RADIX ) 
 	local srecsb = math.floor ( (SrecSb(role) - srecsb_dif )  ) 
 
+	--LG("skill_zx" , " form_srecsa = " , SrecSa(role) , "\n" ) 
+	--LG("skill_zx", "srecsa = ", srecsa, "\n") 
+	--LG("skill_srecsa" , " form_srecsa = " , SrecSa(role) , "\n" ) 
+	--LG("skill_srecsa", "srecsa = ", srecsa, "\n") 
 	SetCharaAttr( srecsa , role , ATTR_STATEC_SREC ) 
 	SetCharaAttr ( srecsb , role , ATTR_STATEV_SREC ) 
 
@@ -4524,23 +5470,23 @@ end
 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ê¡ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÁ÷ÐÇ¼ýÓê¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
-function SkillArea_Square_Lxjy ( sklv )										--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½ï¿½Ç¼ï¿½ï¿½ï¿½"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Square_Lxjy ( sklv )										--¼¼ÄÜ¡°Á÷ÐÇ¼ýÓê"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local side = 400 
 	SetSkillRange ( 4 , side )  	
 end 
 
-function SkillPre_Lxjy ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Meteor Shower"ï¿½Ä¼ï¿½ï¿½ï¿½Ç°ï¿½ï¿½×¼ï¿½ï¿½
+function SkillPre_Lxjy ( sklv )										--¼¼ÄÜ"Á÷ÐÇ¼ýÓê"µÄ¼¼ÄÜÇ°ÆÚ×¼±¸
 end 
 
 function SkillCooldown_Lxjy( sklv )
-	local Cooldown = 16000
+	local Cooldown = 25000
 	return Cooldown
 end
 
-function SkillSp_Lxjy ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Meteor Shower"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Lxjy ( sklv )										--¼¼ÄÜ"Á÷ÐÇ¼ýÓê"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 26 + sklv * 2     
 	return sp_reduce 
 end 
@@ -4548,6 +5494,8 @@ end
 
 function Skill_Lxjy_Begin ( role , sklv ) 
 --   	Check_State ( role , nil ) 
+	--LG( "skill_lxjy", "enter function Skill_Atk_Lxjy : " , "\n" ) 
+	--LG("skill_lxjy", "function Skill_Atk_Lxjy : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 	local sp = Sp(role) 
 	local sp_reduce = SkillSp_Lxjy ( sklv ) 
 	if sp - sp_reduce < 0 then 
@@ -4558,19 +5506,32 @@ function Skill_Lxjy_Begin ( role , sklv )
 end 
 
 function Skill_Lxjy_End ( ATKER , DEFER , sklv ) 
+	--LG( "skill_lxjy", "enter function Skill_Def_Lxjy : " , "\n" ) 
+	--LG("skill_lxjy", "function Skill_Def_Lxjy : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 	local hp = Hp( DEFER ) 
-	local dmg = ( 1.2 +sklv * 0.23 ) * Atk_Dmg ( ATKER , DEFER )  
-	Hp_Endure_Dmg ( DEFER , dmg )
-	local statetime = sklv/2.2
-	local statelv = sklv
-	AddState ( ATKER , DEFER , STATE_XY , statelv , statetime )  
+	if ValidCha(ATKER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000081 = GetResString("CALCULATE_SKILLEFFECT_LUA_000081")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000081 ) 
+		return 
+	end 
+	if ValidCha(DEFER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000082 = GetResString("CALCULATE_SKILLEFFECT_LUA_000082")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000082 ) 
+		return 
+	end 
+	local dmg = ( 0.5 +sklv * 0.1 ) * Atk_Dmg ( ATKER , DEFER )  
+	Hp_Endure_Dmg ( DEFER , dmg )  
+	--LG( "Lxjy", "Á÷ÐÇ¼ýÓê¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
+		
 end 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Çºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÀÇº¿¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
-function SkillArea_Circle_Lh ( sklv )										--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½Çºï¿½"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
-	local side = 100 + math.floor ( sklv * 20 ) 
+function SkillArea_Circle_Lh ( sklv )										--¼¼ÄÜ¡°ÀÇº¿"µÄ¼¼ÄÜÇøÓò¹«Ê½
+	--LG( "skarea_lh", " enter function SkillArea_Circle_Lh : " , "sklv = " ,sklv ) 
+	local side = 300 + math.floor ( sklv * 20 ) 
+	--LG( "skarea_lh" , " side = " , side ) 
 	SetSkillRange ( 4 , side )   
 end 
 
@@ -4579,10 +5540,10 @@ function SkillCooldown_Lh( sklv )
 	return Cooldown
 end
 
-function SkillPre_Lh ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Howl"ï¿½Ä¼ï¿½ï¿½ï¿½Ç°ï¿½ï¿½×¼ï¿½ï¿½
+function SkillPre_Lh ( sklv )										--¼¼ÄÜ"ÀÇº¿"µÄ¼¼ÄÜÇ°ÆÚ×¼±¸
 end 
 
-function SkillSp_Lh ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Howl"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Lh ( sklv )										--¼¼ÄÜ"ÀÇº¿"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 20 - math.floor ( sklv * 0.5 ) 
 	return sp_reduce 
 end 
@@ -4599,75 +5560,32 @@ function Skill_Lh_Begin ( role , sklv )
 end 
 
 function Skill_Lh_End ( ATKER , DEFER , sklv ) 
+	--LG( "sk_lh" , "function Skill_Lh_End : "  , " ¹¥»÷Õß: " , GetChaName(ATKER) , "ÊÜ»÷Õß: " , GetChaName(DEFER), "sklv = " , sklv ) 
 	local hp = Hp( DEFER ) 
 	if ValidCha(ATKER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000083 = GetResString("CALCULATE_SKILLEFFECT_LUA_000083")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000083 ) 
 		return 
 	end 
 	if ValidCha(DEFER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000084 = GetResString("CALCULATE_SKILLEFFECT_LUA_000084")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000084 ) 
 		return 
 	end 
-	dmg = ( 1+sklv*0.10 ) * Atk_Dmg ( ATKER , DEFER ) 
-	Hp_Endure_Dmg ( DEFER , dmg )  
-	Check_Ys_Rem ( ATKER , DEFER)						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
-end 
-
---ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Õ§Ý§ï¿½ ï¿½Ü§ï¿½ï¿½Ù§Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-function SkillCooldown_BlackYq( sklv ) 
-    local Cooldown = 90000 
-    return Cooldown
-end
-
- function Skill_BlackYq_End ( ATKER , DEFER , sklv )
-    local Sta_role = Sta ( DEFER ) 
-    hpdmg = (10 + (sta_atker * 22.5))*3
-    Hp_Endure_Dmg ( DEFER, hpdmg )
-end
-
-function SkillArea_Circle_LhCruz ( sklv )										--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½Çºï¿½"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
-	local side = 100 + math.floor ( sklv * 20 ) 
-	SetSkillRange ( 4 , side )   
-end 
-
-function SkillCooldown_LhCruz( sklv )
-	local Cooldown = 5000
-	return Cooldown
-end
-
-function SkillPre_LhCruz ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Howl"ï¿½Ä¼ï¿½ï¿½ï¿½Ç°ï¿½ï¿½×¼ï¿½ï¿½
-end 
-
-function SkillSp_LhCruz ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Howl"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
-	local sp_reduce = 20 - math.floor ( sklv * 0.5 ) 
-	return sp_reduce 
+	dmg = ( 1+sklv*0.05 ) * Atk_Dmg ( ATKER , DEFER ) 
+	Hp_Endure_Dmg ( DEFER , dmg ) 
+	if IsPlayer(DEFER) == 1 and IsPlayer(ATKER) == 1 then
+		CALCULATE_SKILLEFFECT_LUA_000085 = GetResString("CALCULATE_SKILLEFFECT_LUA_000085")
+		SkillLog(ATKER,DEFER,dmg,CALCULATE_SKILLEFFECT_LUA_000085,sklv)
+	end	
+	--LG( "Lh", "ÀÇº¿¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
+	Check_Ys_Rem ( ATKER , DEFER)						--ÅÐ¶ÏÊÇ·ñÒþÉí
+		
 end 
 
 
-function Skill_LhCruz_Begin ( role , sklv ) 
-	local sp = Sp(role) 
-	local sp_reduce = SkillSp_Lh ( sklv ) 
-	if sp - sp_reduce < 0 then 
-		SkillUnable(role)   
-		return 
-	end 
-	Sp_Red (role , sp_reduce ) 
-end 
-
-function Skill_LhCruz_End ( ATKER , DEFER , sklv ) 
-	local hp = Hp( DEFER ) 
-	if ValidCha(ATKER) == 0 then 
-		return 
-	end 
-	if ValidCha(DEFER) == 0 then 
-		return 
-	end 
-	dmg = ( 1+sklv*0.10 ) * Atk_Dmg ( ATKER , DEFER ) 
-	Hp_Endure_Dmg ( DEFER , dmg )  
-	Check_Ys_Rem ( ATKER , DEFER)						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
-end 
-
-
---ï¿½ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-function SkillArea_Sector_Hxdj ( sklv )										--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü»ï¿½"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+--¼¼ÄÜ»ØÐý¶Ü»÷¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+function SkillArea_Sector_Hxdj ( sklv )										--¼¼ÄÜ¡°»ØÐý¶Ü»÷"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local radius = 400 + math.floor ( sklv * 10 ) 
 	local angle = 100 + math.floor ( sklv / 5 ) * 20 
 	SetSkillRange ( 2 , radius , angle  )  
@@ -4678,10 +5596,10 @@ function SkillCooldown_Hxdj( sklv )
 	return Cooldown
 end
 
-function SkillPre_Hxdj ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Parry"ï¿½Ä¼ï¿½ï¿½ï¿½Ç°ï¿½ï¿½×¼ï¿½ï¿½
+function SkillPre_Hxdj ( sklv )										--¼¼ÄÜ"»ØÐý¶Ü»÷"µÄ¼¼ÄÜÇ°ÆÚ×¼±¸
 end 
 
-function SkillSp_Hxdj ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Parry"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Hxdj ( sklv )										--¼¼ÄÜ"»ØÐý¶Ü»÷"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 20 + sklv * 2  
 	return sp_reduce 
 end 
@@ -4705,13 +5623,16 @@ function Skill_Hxdj_End ( ATKER , DEFER , sklv )
 	Hp_Endure_Dmg ( DEFER , dmg )  
 	AddState ( ATKER , DEFER , STATE_XY , statelv , statetime ) 
 	BeatBack(ATKER , DEFER , back_dis) 
+	--LG( "Hxdj", "»ØÐý¶Ü»÷¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
 end 
 
---ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÒ°ÂùËéÁÑ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
-function SkillArea_Circle_Ymsl ( sklv )										--ï¿½ï¿½ï¿½Ü¡ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Circle_Ymsl ( sklv )										--¼¼ÄÜ¡°Ò°ÂùËéÁÑ"µÄ¼¼ÄÜÇøÓò¹«Ê½
+	--LG( "skarea_ymsl", " enter function SkillArea_Circle_Ymsl : " , "sklv = " ,sklv ) 
 	local side = 200 + math.floor ( sklv * 10 ) 
+	--LG( "skarea_ymsl" , " side = " , side ) 
 	SetSkillRange ( 4 , side )   
 end 
 
@@ -4720,10 +5641,10 @@ function SkillCooldown_Ymsl( sklv )
 	return Cooldown
 end
 
-function SkillPre_Ymsl ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Barbaric Crush"ï¿½Ä¼ï¿½ï¿½ï¿½Ç°ï¿½ï¿½×¼ï¿½ï¿½
+function SkillPre_Ymsl ( sklv )										--¼¼ÄÜ"Ò°ÂùËéÁÑ"µÄ¼¼ÄÜÇ°ÆÚ×¼±¸
 end 
 
-function SkillSp_Ymsl ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Barbaric Crush"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Ymsl ( sklv )										--¼¼ÄÜ"Ò°ÂùËéÁÑ"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 10 + sklv * 1  
 	return sp_reduce 
 end 
@@ -4734,26 +5655,29 @@ function Skill_Ymsl_Begin ( role , sklv )
 	local sp_reduce = SkillSp_Ymsl ( sklv ) 
 	if sp - sp_reduce < 0 then 
 		SkillUnable(role)   
+		--LG("skill_ymsl", "function Skill_Atk_Ymsl : ", "sp²»×ãÎÞ·¨Ê¹ÓÃÒ°ÂùËéÁÑ" , "\n" ) 
 		return 
 	end 
 end 
 
 function Skill_Ymsl_End ( ATKER , DEFER , sklv ) 
 	local hp = Hp( DEFER ) 
+	--LG("ymsl" , "enter defer_mod " ) 
 	atk_rad = 1.5+sklv*0.1 
 	hpdmg = Atk_Raise ( atk_rad , ATKER , DEFER )
 	Hp_Endure_Dmg ( DEFER , hpdmg )  
+	--LG( "Ymsl", "Ò°ÂùËéÁÑ¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
  end
 
 
---ï¿½ï¿½ï¿½Ü´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ´óÖÎÓú¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-function SkillArea_Circle_Dzy ( sklv )									--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Circle_Dzy ( sklv )									--¼¼ÄÜ¡°´óÖÎÓú"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local side = 300 + math.floor ( sklv * 30 ) 
 	SetSkillRange ( 4 , side )   
 end 
 
-function SkillPre_Dzy ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Greater Heal"ï¿½Ä¼ï¿½ï¿½ï¿½Ç°ï¿½ï¿½×¼ï¿½ï¿½
+function SkillPre_Dzy ( sklv )										--¼¼ÄÜ"´óÖÎÓú"µÄ¼¼ÄÜÇ°ÆÚ×¼±¸
 end 
 
 function SkillCooldown_Dzy( sklv )
@@ -4761,7 +5685,7 @@ function SkillCooldown_Dzy( sklv )
 	return Cooldown
 end
 
-function SkillSp_Dzy ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Greater Heal"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Dzy ( sklv )										--¼¼ÄÜ"´óÖÎÓú"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 30 + sklv * 1 
 	return sp_reduce 
 end 
@@ -4780,12 +5704,13 @@ end
 function Skill_Dzy_End ( ATKER , DEFER , sklv ) 
 	local dmg = ( -1 ) * math.floor(10 + 15 * sklv + math.floor ( Sta(ATKER)*0.5     )  )
 	Hp_Endure_Dmg ( DEFER , dmg )  
+	--LG( "Dzy", "´óÖÎÓú¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
 end 
 
 
---ï¿½ï¿½ï¿½Ü´ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ´ó»Ø¸´Êõ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-function SkillArea_Circle_Dhfs ( sklv )									--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Circle_Dhfs ( sklv )									--¼¼ÄÜ¡°´ó»Ø¸´Êõ"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local side = 300 + math.floor ( sklv * 30 ) 
 	SetSkillRange ( 4 , side )   
 end 
@@ -4795,10 +5720,10 @@ function SkillCooldown_Dhfs( sklv )
 	return Cooldown
 end
 
-function SkillPre_Dhfs ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Greater Recover"ï¿½Ä¼ï¿½ï¿½ï¿½Ç°ï¿½ï¿½×¼ï¿½ï¿½
+function SkillPre_Dhfs ( sklv )										--¼¼ÄÜ"´ó»Ø¸´Êõ"µÄ¼¼ÄÜÇ°ÆÚ×¼±¸
 end 
 
-function SkillSp_Dhfs ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Greater Recover"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Dhfs ( sklv )										--¼¼ÄÜ"´ó»Ø¸´Êõ"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 15 + math.floor ( sklv*0.5 ) 
 	return sp_reduce 
 end 
@@ -4818,31 +5743,31 @@ function Skill_Dhfs_End ( ATKER , DEFER , sklv )
 		dmg = ( -1 ) * ( 5 + sklv * 3  ) 
 		Hp_Endure_Dmg ( DEFER , dmg )  
 		Rem_State_Unnormal ( DEFER ) 
+		--LG( "Hfs", "´ó»Ø¸´Êõ¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
 end 
 
 
---------------------
--- ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ý§Ý§ï¿½Ó§ï¿½ï¿½ï¿½ ï¿½Ý§ï¿½ï¿½ --
---------------------
-function SkillArea_Line_Bkcj ( sklv )										
-	local lenth = 600 + sklv * 20  
-	local width = 140 + sklv * 10 
+--¼¼ÄÜ±´¿Ç³å»÷¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+function SkillArea_Line_Bkcj ( sklv )										--¼¼ÄÜ"±´¿Ç³å»÷"µÄ¼¼ÄÜÇøÓò¹«Ê½
+	local lenth = 500 + sklv * 30  
+	local width = 100 + sklv * 10 
 	SetSkillRange ( 1 , lenth , width  )  
 end
 
 function SkillCooldown_Bkcj( sklv )
-	local Cooldown = 4500 - sklv * 400
+	local Cooldown = 7000 - sklv * 500
 	return Cooldown
 end
 
 function SkillSp_Bkcj ( sklv )										
-	local sp_reduce = 50+ sklv * 5   
+	local sp_reduce = 20+ sklv * 3   
 	return sp_reduce 
 end
 
 
 function SkillEnergy_Bkcj ( sklv )										
-	local energy_reduce = 0
+	local energy_reduce = math.floor ( 3 + sklv * 0.5 )    
 	return energy_reduce 
 end 
 
@@ -4857,102 +5782,54 @@ function Skill_Bkcj_Begin ( role , sklv )
 end 
 
 function Skill_Bkcj_End ( ATKER , DEFER , sklv ) 
-	local sta_atk = Sta ( ATKER ) 
+	local sta_atk= Sta ( ATKER ) 
 	local sta_def = Sta ( DEFER ) 
 	local AddStateLv = 0
 	AddStateLv = GetChaStateLv ( ATKER , STATE_MLCH ) 
 
-	hpdmg = math.floor(( 10 + sta_atk * 22.5 ) * ( 1 + sklv * 0.30 ) * ( 1 + 0 * 0.09 )) 
+	local dmg = math.floor( 200 + sklv*30 +sta_atk*6 )*1.1 
 
-	local map_name_ATKER = GetChaMapName ( ATKER )
 	local map_name_DEFER = GetChaMapName ( DEFER )
 	local agi_atker = Agi(ATKER)
 	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
-		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 			if Can_Pk_Garner2 == 0 then
-				local dmg = MAGIC_Atk_Dmg(ATKER,DEFER)
-				hpdmg = math.floor(( 7 + sta_atk * 35 ) * ( 1 + sklv * 0.15 ) * ( 1 + 0 * 0.09 )) 
+
+
+			dmg = math.floor(MAGIC_Atk_Dmg(ATKER,DEFER)+sklv*200)
+			local rate =math.random(1,200)
+
+				if rate >= Con(DEFER) then
+					local statetime = math.floor(sklv/4+1)
+					local statelv = sklv
+					AddState ( ATKER , DEFER , STATE_XY , statelv , statetime ) 
+				end
 			end
 		end
-	local dmg_fin = Cuihua_Mofa( hpdmg, AddStateLv ) 
-	local dmg_ElfSkill = ElfSkill_MagicAtk( hpdmg, ATKER ) 
 
-dmg_fin = ( dmg_fin + dmg_ElfSkill )
-if IsPlayer( DEFER ) == 0 then --ï¿½ï¿½ï¿½ï¿½Ý§ï¿½ ï¿½ï¿½ï¿½ ï¿½Þ§ï¿½Ò§Ñ§ï¿½ 
-dmg_fin = dmg_fin * 0.4
---ï¿½ï¿½ï¿½ï¿½Ó§Ö§ï¿½Ü§ï¿½ ï¿½ß§ï¿½ ï¿½Ò§ï¿½ï¿½ï¿½ ï¿½Þ§Ñ§ï¿½ ï¿½ï¿½ï¿½ï¿½ß§ï¿½
-		local ChaStateLv = GetChaStateLv ( ATKER , 192 )
-		--ï¿½ï¿½ï¿½ï¿½Ý§ï¿½ ï¿½ß§Ñ§Ý§ï¿½Ø§Ö§ï¿½ ï¿½ï¿½ï¿½ï¿½Ö§Ü§ï¿½ 1ï¿½ï¿½ï¿½ï¿½Ó§ß§ï¿½, ï¿½ï¿½ï¿½ ï¿½Ò§ï¿½ß§ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ö§ï¿½ 50%
-		if ChaStateLv == 1 then
-		dmg_fin = dmg_fin * 1.5
-		--ï¿½ï¿½ï¿½ï¿½Ý§ï¿½ ï¿½ß§Ñ§Ý§ï¿½Ø§Ö§ï¿½ ï¿½ï¿½ï¿½ï¿½Ö§Ü§ï¿½ 1ï¿½ï¿½ï¿½ï¿½Ó§ß§ï¿½, ï¿½ï¿½ï¿½ ï¿½Ò§ï¿½ß§ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ö§ï¿½ 100%
-		elseif ChaStateLv == 2 then
-		dmg_fin = dmg_fin * 2
-		--ï¿½ï¿½ï¿½ï¿½Ý§ï¿½ ï¿½ß§Ñ§Ý§ï¿½Ø§Ö§ï¿½ ï¿½ï¿½ï¿½ï¿½Ö§Ü§ï¿½ 1ï¿½ï¿½ï¿½ï¿½Ó§ß§ï¿½, ï¿½ï¿½ï¿½ ï¿½Ò§ï¿½ß§ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ö§ï¿½ 150%
-		elseif ChaStateLv == 3 then
-		dmg_fin = dmg_fin * 2.5
-		--ï¿½ï¿½ï¿½ï¿½Ý§ï¿½ ï¿½ß§Ñ§Ý§ï¿½Ø§Ö§ï¿½ ï¿½ï¿½ï¿½ï¿½Ö§Ü§ï¿½ 1ï¿½ï¿½ï¿½ï¿½Ó§ß§ï¿½, ï¿½ï¿½ï¿½ ï¿½Ò§ï¿½ß§ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ö§ï¿½ 200%
-		elseif ChaStateLv == 4 then
-		dmg_fin = dmg_fin * 3
-		--ï¿½ï¿½ï¿½ï¿½Ý§ï¿½ ï¿½ß§Ñ§Ý§ï¿½Ø§Ö§ï¿½ ï¿½ï¿½ï¿½ï¿½Ö§Ü§ï¿½ 1ï¿½ï¿½ï¿½ï¿½Ó§ß§ï¿½, ï¿½ï¿½ï¿½ ï¿½Ò§ï¿½ß§ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ö§ï¿½ 250%
-		elseif ChaStateLv == 5 then
-		dmg_fin = dmg_fin * 3.5
+
+	local dmg_fin = Cuihua_Mofa ( dmg , AddStateLv ) 
+	local dmg_ElfSkill = ElfSkill_MagicAtk ( dmg , ATKER ) 
+	dmg_fin = dmg_fin + dmg_ElfSkill
+	local ZSExp = GetChaAttr( ATKER , ATTR_CSAILEXP )
+	if ZSExp > 0 and ZSExp < 100 then
+		dmg_fin = dmg_fin * 1.055
 	end
-elseif IsPlayer ( DEFER ) == 1 then -- ï¿½ß§ï¿½ ï¿½Ý§ï¿½Õ§ï¿½ï¿½
-dmg_fin = dmg_fin * 0.075
+	if ZSExp >= 100 and ZSExp < 12100 then
+		dmg_fin = dmg_fin * ( 1.05 + math.floor( math.pow( (ZSExp / 100) , 0.5 )) * 0.005)
+	end
+	Hp_Endure_Dmg ( DEFER , dmg_fin ) 
+	if IsPlayer(DEFER) == 1 and IsPlayer(ATKER) == 1 then
+		CALCULATE_SKILLEFFECT_LUA_000086 = GetResString("CALCULATE_SKILLEFFECT_LUA_000086")
+		SkillLog(ATKER,DEFER,dmg_fin,CALCULATE_SKILLEFFECT_LUA_000086,sklv)
+	end
+
+			
 end 
-local dmg_for_mob = dmg_fin * 2 -- ï¿½ï¿½ï¿½ ï¿½Ò§ï¿½ï¿½ï¿½ï¿½
-local dmg_for_BM = dmg_fin * 3 -- ï¿½ï¿½ï¿½ ï¿½Þ§Ö§Ô§Ñ§Ò§ï¿½ï¿½ï¿½ï¿½
-if GetChaID( DEFER ) == 673 then
-dmg_fin = dmg_for_mob
-end
-if GetChaID( DEFER ) == 1493 then
-dmg_fin = dmg_for_mob
-end
-if GetChaID( DEFER ) == 967 then
-dmg_fin = dmg_for_mob
-end
-if GetChaID( DEFER ) == 959 then
-dmg_fin = dmg_for_mob
-end
-if GetChaID( DEFER ) == 807 then
-dmg_fin = dmg_for_mob
-end
-if GetChaID( DEFER ) == 933 then
-dmg_fin = dmg_for_mob
-end
-if GetChaID( DEFER ) == 1113 then
-dmg_fin = dmg_for_mob
-end
-if GetChaID( DEFER ) == 1468 then
-dmg_fin = dmg_for_BM
-end
-if GetChaID( DEFER ) == 1473 then
-dmg_fin = dmg_for_BM
-end
-if GetChaID( DEFER ) == 1503 then
-dmg_fin = dmg_for_BM
-end
-if GetChaID( DEFER ) == 1507 then
-dmg_fin = dmg_for_BM
-end
-if GetChaID( DEFER ) == 1511 then
-dmg_fin = dmg_for_BM
-end
-if GetChaID( DEFER ) == 1515 then
-dmg_fin = dmg_for_BM
-end
-if GetChaID( DEFER ) == 1522 then
-dmg_fin = dmg_for_BM
-end
-dmg_fin = ( dmg_fin + dmg_ElfSkill )
-Hp_Endure_Dmg( DEFER, dmg_fin ) 
-end
 
+--¼¼ÄÜË³·ç¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
---ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ç¡ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
-function SkillArea_Circle_Sf ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Tail Wind"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Circle_Sf ( sklv )										--¼¼ÄÜ"Ë³·ç"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local side = 1000  
 	SetSkillRange ( 3 , side  )  
 end
@@ -4987,6 +5864,7 @@ function Skill_Sf_End ( ATKER , DEFER , sklv )
 	local statelv = sklv 
 	local statetime = 150 + sklv * 10 
 	AddState ( ATKER , DEFER , STATE_SF , statelv , statetime ) 
+		
 end 
 
 function State_Sf_Add ( role , statelv ) 
@@ -5014,41 +5892,44 @@ end
 
 
 
---ï¿½ï¿½ï¿½ï¿½È¼ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÈ¼ÉÕµ¯¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
-function SkillPre_Rsd ( sklv )														--ï¿½ï¿½ï¿½ï¿½"Magma Bullet"ï¿½Ä¼ï¿½ï¿½ï¿½Ç°ï¿½ï¿½×¼ï¿½ï¿½
+function SkillPre_Rsd ( sklv )														--¼¼ÄÜ"È¼ÉÕµ¯"µÄ¼¼ÄÜÇ°ÆÚ×¼±¸
 end 
 
-function SkillArea_Square_Rsd ( sklv )												--ï¿½ï¿½ï¿½Ü¡ï¿½È¼ï¿½Õµï¿½"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
-	local side = 600
+function SkillArea_Square_Rsd ( sklv )												--¼¼ÄÜ¡°È¼ÉÕµ¯"µÄ¼¼ÄÜÇøÓò¹«Ê½
+	local side = 250 
 	SetSkillRange ( 4 , side )   
 end 
 
 function SkillCooldown_Rsd( sklv )
-	local Cooldown = 30000
+	local Cooldown = 15000
 	return Cooldown
 end
 
 function SkillArea_State_Rsd ( sklv )										
 	local statetime = 10 
 	local statelv = sklv 
-	SetRangeState ( STATE_RS , statelv  , statetime ) 									--ï¿½ï¿½ï¿½Óµï¿½ï¿½æ¡°È¼ï¿½Õ¡ï¿½×´Ì¬
+	--LG("SkillPre_Rsd" , " fucntion SkillPre_Rsd :" , " statelv = " , statelv , "statetime " , statetime ) 
+	SetRangeState ( STATE_RS , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°È¼ÉÕ¡±×´Ì¬
 end 
 
-function SkillSp_Rsd ( sklv )														--ï¿½ï¿½ï¿½Ü¡ï¿½È¼ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
-	local sp_reduce = sklv * 10 + 15   
+function SkillSp_Rsd ( sklv )														--¼¼ÄÜ¡°È¼ÉÕµ¯¡±µÄspÏûºÄ¹«Ê½
+	local sp_reduce = sklv * 2 + 15   
 	return sp_reduce 
 end 
 
-function Skill_Rsd_Begin ( role , sklv )												--ï¿½ï¿½ï¿½ï¿½"Magma Bullet"ï¿½Ä¼ï¿½ï¿½ï¿½Ê©ï¿½Å¹ï¿½Ê½
+function Skill_Rsd_Begin ( role , sklv )												--¼¼ÄÜ"È¼ÉÕµ¯"µÄ¼¼ÄÜÊ©·Å¹«Ê½
 	local sp = Sp(role) 
 	local sp_reduce = SkillSp_Rsd ( sklv ) 
 	if sp - sp_reduce < 0 then 
 		SkillUnable(role)   
+		--LG("skill_Rsd", "function Skill_Atk_Rsd : ", "sp²»×ãÎÞ·¨Ê¹ÓÃÈ¼ÉÕµ¯" , "\n" ) 
 		return 
 	end 
 	Sp_Red ( role , sp_reduce ) 
+	--LG( "Rsd", "È¼ÉÕµ¯¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜspÏûºÄ = " , sp_reduce , '\n" ) 
 end 
 
 function Skill_Rsd_End ( ATKER , DEFER , sklv ) 
@@ -5060,11 +5941,12 @@ function Skill_Rsd_End ( ATKER , DEFER , sklv )
 end 
 
 function State_Rs_Add ( role , statelv ) 
+	--LG("state_rs" , "function State_Rs_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local arealv = GetAreaStateLevel ( role , STATE_RS ) 
 	local hp = GetChaAttr( role , ATTR_HP ) 
-	local hpdmg = 1 
+	local hpdmg = 10 
 	if arealv >= 1 then 
-		hpdmg = arealv * 1 + 1  
+		hpdmg = arealv * 3 + 30  
 	end 
 	Hp_Endure_Dmg ( role , hpdmg ) 
 end 
@@ -5074,11 +5956,87 @@ end
 
 
 function State_Rs_Tran ( statelv ) 
-	return 1   
+	return 10   
 end 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ð¡ª¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ³¬¼¶È¼ÉÕµ¯¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+
+function SkillPre_CJRsd ( sklv )														--¼¼ÄÜ"È¼ÉÕµ¯"µÄ¼¼ÄÜÇ°ÆÚ×¼±¸
+end 
+
+function SkillArea_Square_CJRsd ( sklv )												--¼¼ÄÜ¡°È¼ÉÕµ¯"µÄ¼¼ÄÜÇøÓò¹«Ê½
+	local side = 1000 
+	SetSkillRange ( 4 , side )   
+end 
+
+function SkillCooldown_CJRsd( sklv )
+	local Cooldown = 15000
+	return Cooldown
+end
+
+function SkillArea_State_CJRsd ( sklv )										
+	local statetime = 10
+	local statelv = sklv 
+	--LG("SkillPre_CJRsd" , " fucntion SkillPre_CJRsd :" , " statelv = " , statelv , "statetime " , statetime ) 
+	SetRangeState ( STATE_RS , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°È¼ÉÕ¡±×´Ì¬
+end 
+
+function SkillSp_CJRsd ( sklv )														--¼¼ÄÜ¡°È¼ÉÕµ¯¡±µÄspÏûºÄ¹«Ê½
+---	local sp_reduce = sklv * 2 + 15   
+---	return sp_reduce 
+end 
+
+function Skill_CJRsd_Begin ( role , sklv )												--¼¼ÄÜ"È¼ÉÕµ¯"µÄ¼¼ÄÜÊ©·Å¹«Ê½
+	local sp = Sp(role) 
+	local sp_reduce = SkillSp_CJRsd ( sklv ) 
+	if sp - sp_reduce < 0 then 
+		SkillUnable(role)   
+		--LG("skill_CJRsd", "function Skill_Atk_CJRsd : ", "sp²»×ãÎÞ·¨Ê¹ÓÃÈ¼ÉÕµ¯" , "\n" ) 
+		return 
+	end 
+	Sp_Red ( role , sp_reduce ) 
+	--LG( "CJRsd", "È¼ÉÕµ¯¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜspÏûºÄ = " , sp_reduce , '\n" ) 
+end 
+
+function Skill_CJRsd_End ( ATKER , DEFER , sklv ) 
+--	local hpdmg = sklv * 3 
+--	local hp = GetChaAttr(DEFER) 
+--	if role == DEFER then 
+--		Hp_Endure_Dmg( DEFER , hpdmg ) 
+--	end 
+end 
+
+function State_CJRs_Add ( role , statelv ) 
+		Notice("come State_CJRs_Add")
+	--LG("state_rs" , "function State_Rs_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
+	local arealv = GetAreaStateLevel ( role , STATE_RS ) 
+	local hp = GetChaAttr( role , ATTR_HP ) 
+	local hpdmg = 10 
+	if arealv >= 1 then 
+		hpdmg = arealv * 3000 + 30  
+	end 
+	Hp_Endure_Dmg ( role , hpdmg ) 
+end 
+
+function State_CJRs_Rem ( role , statelv ) 
+		Notice(dead,"come State_CJRs_Rem")
+
+end 
+
+
+function State_CJRs_Tran ( statelv ) 
+	return 10   
+end 
+
+
+
+
+
+
+
+--¼¼ÄÜ×çÖäÖ®»ð¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­£­
 function SkillSp_Zzzh ( sklv )										
 	local sp_reduce = 20   
 	return sp_reduce 
@@ -5089,43 +6047,52 @@ function SkillCooldown_Zzzh( sklv )
 	return Cooldown
 end
 
-function SkillArea_Square_Zzzh ( sklv )										--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Square_Zzzh ( sklv )										--¼¼ÄÜ¡°×çÖäÖ®»ð"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local side = 300 
 	SetSkillRange ( 3 , side ) 	
 end 
 
 function SkillArea_State_Zzzh ( sklv )										
-	local statetime = 8  
+	local statetime = 5 + sklv  * 1  
 	local map_name_ATKER = GetChaMapName ( ATKER )
 	local map_name_DEFER = GetChaMapName ( DEFER )
 	local sta_atker = Sta(ATKER)
 	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
-		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
+		if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
 			if Can_Pk_Garner2 == 0 then
 			 statetime =math.max(5,math.floor(sta_atker/30))+sklv
 		--		Notice ( "statetime="..statetime)
 			end
 		end
 	local statelv = sklv 
-	SetRangeState ( STATE_ZZZH , statelv  , statetime ) 									--ï¿½ï¿½ï¿½Óµï¿½ï¿½æ¡°ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½×´Ì¬
+	--LG("SkillPre_Zzzh" , " fucntion SkillPre_Zzzh :" , " statelv = " , statelv , "statetime " , statetime ) 
+	SetRangeState ( STATE_ZZZH , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°×çÖäÖ®»ð¡±×´Ì¬
 end 
 
 function Skill_Zzzh_Begin ( role , sklv ) 
+	--LG( "skill_Zzzh", "enter function Skill_Atk_Zzzh : " , "\n" ) 
+	--LG("skill_Zzzh", "function Skill_Atk_Zzzh : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 	local sp = Sp(role) 
 	local sp_reduce 
 	sp_reduce = SkillSp_Zzzh ( sklv ) 
 	if sp - sp_reduce < 0 then 
 		SkillUnable(role)   
+		--LG("skill_zzzh", "function Skill_Atk_zzzh : ", "sp²»×ãÎÞ·¨Ê¹ÓÃ×çÖäÖ®»ð" , "\n" ) 
 		return 
 	end 
 	
 	Sp_Red (role , sp_reduce ) 
+	--LG( "Zzzh", "×çÖäÖ®»ð¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜspÏûºÄ = " , sp_reduce , '\n" ) 
 end 
 
 function Skill_Zzzh_End ( ATKER , DEFER , sklv ) 
+	--LG( "skill_zzzh", "enter function Skill_Def_Zzzh : " , "\n" ) 
+	--LG("skill_zzzh", "function Skill_Def_Zzzh : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
+		
 end 
 
 function State_Zzzh_Add ( role , statelv ) 
+	--LG("state_Zzzh" , "function State_Zzzh_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local defsa_dif = (-1) * ( 0.1 + 0.02 * statelv ) 
 	local defsa = math.floor (  (DefSa(role) + defsa_dif ) * ATTR_RADIX ) 
 	SetCharaAttr( defsa , role , ATTR_STATEC_DEF ) 
@@ -5135,6 +6102,7 @@ end
 
 
 function State_Zzzh_Rem ( role , statelv ) 
+	--LG("state_zzzh" , "function State_Zzzh_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local defsa_dif = (-1) * ( 0.1 + 0.02 * statelv ) 
 	local defsa = math.floor (  (DefSa(role) - defsa_dif ) * ATTR_RADIX ) 
 	SetCharaAttr( defsa , role , ATTR_STATEC_DEF ) 
@@ -5146,7 +6114,7 @@ function  State_Zzzh_Tran ( statelv )
 	return statetime 
 end 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÉÁ¶ã±ÚÕÏ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­£­
 function SkillSp_Sdbz ( sklv )										
 	local sp_reduce = 20   
 	return sp_reduce 
@@ -5157,7 +6125,7 @@ function SkillCooldown_Sdbz( sklv )
 	return Cooldown
 end
 
-function SkillArea_Square_Sdbz ( sklv )										--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Square_Sdbz ( sklv )										--¼¼ÄÜ¡°ÉÁ¶ã±ÚÕÏ"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local side = 300 
 	SetSkillRange ( 3 , side ) 	
 end 
@@ -5165,25 +6133,33 @@ end
 function SkillArea_State_Sdbz ( sklv )										
 	local statetime = 5    
 	local statelv = sklv 
-	SetRangeState ( STATE_SDBZ , statelv  , statetime ) 									--ï¿½ï¿½ï¿½Óµï¿½ï¿½æ¡°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¡ï¿½×´Ì¬
+	--LG("SkillPre_Sdbz" , " fucntion SkillPre_Sdbz :" , " statelv = " , statelv , "statetime " , statetime ) 
+	SetRangeState ( STATE_SDBZ , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°ÉÁ¶ã±ÚÕÏ¡±×´Ì¬
 end 
 
 function Skill_Sdbz_Begin ( role , sklv ) 
+	--LG( "skill_Sdbz", "enter function Skill_Atk_Sdbz : " , "\n" ) 
+	--LG("skill_Sdbz", "function Skill_Atk_Sdbz : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 	local sp = Sp(role) 
 	local sp_reduce 
 	sp_reduce = SkillSp_Sdbz ( sklv ) 
 	if sp - sp_reduce < 0 then 
 		SkillUnable(role)   
+		--LG("skill_sdbz", "function Skill_Atk_sdbz : ", "sp²»×ãÎÞ·¨Ê¹ÓÃÉÁ¶ã±ÚÕÏ" , "\n" ) 
 		return 
 	end 
 	
 	Sp_Red (role , sp_reduce ) 
+	--LG( "Sdbz", "ÉÁ¶ã±ÚÕÏ¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜspÏûºÄ = " , sp_reduce , '\n" ) 
 end 
 
 function Skill_Sdbz_End ( ATKER , DEFER , sklv ) 
+	--LG( "skill_sdbz", "enter function Skill_Def_Sdbz : " , "\n" ) 
+	--LG("skill_sdbz", "function Skill_Def_Sdbz : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 end 
 
 function State_Sdbz_Add ( role , statelv ) 
+	--LG("state_Sdbz" , "function State_Sdbz_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local hitsa_dif = (-1) * (  0.02 * statelv ) 
 	local hitsa = math.floor (  (HitSa(role) + hitsa_dif ) * ATTR_RADIX ) 
 	SetCharaAttr( hitsa , role , ATTR_STATEC_HIT ) 
@@ -5193,6 +6169,7 @@ end
 
 
 function State_Sdbz_Rem ( role , statelv ) 
+	--LG("state_sdbz" , "function State_Sdbz_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local hitsa_dif = (-1) * (  0.02 * statelv ) 
 	local hitsa = math.floor (  (HitSa(role) - hitsa_dif ) * ATTR_RADIX ) 
 	SetCharaAttr( hitsa , role , ATTR_STATEC_HIT ) 
@@ -5204,7 +6181,7 @@ function  State_Sdbz_Tran ( statelv )
 	return statetime 
 end 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¨ï¿½ï¿½ï¿½Ó¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÉîÔ¨ÄàÕÓ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­£­
 function SkillSp_Synz ( sklv )										
 	local sp_reduce = sklv * 5 + 50  
 	return sp_reduce 
@@ -5215,7 +6192,7 @@ function SkillCooldown_Synz( sklv )
 	return Cooldown
 end
 
-function SkillArea_Square_Synz ( sklv )										--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½Ô¨ï¿½ï¿½ï¿½ï¿½"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Square_Synz ( sklv )										--¼¼ÄÜ¡°ÉîÔ¨ÄàÕÓ"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local side = 500 
 	SetSkillRange ( 3 , side ) 	
 end 
@@ -5223,46 +6200,55 @@ end
 function SkillArea_State_Synz ( sklv )										
 	local statetime = 20 + sklv * 2     
 	local statelv = sklv 
-	----bossÊ¹ï¿½Ã¼ï¿½ï¿½Ü´ï¿½ï¿½ï¿½
+	--LG("SkillPre_Synz" , " fucntion SkillPre_Synz :" , " statelv = " , statelv , "statetime " , statetime ) 
+	----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí
 	if GetChaTypeID( ATKER ) == 985 then
 		statetime = 40
 		statelv = 10
 	end
-	----bossÊ¹ï¿½Ã¼ï¿½ï¿½Ü´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí½áÊø
 
-	SetRangeState ( STATE_SYNZ , statelv  , statetime ) 									--ï¿½ï¿½ï¿½Óµï¿½ï¿½æ¡°ï¿½ï¿½Ô¨ï¿½ï¿½ï¿½Ó¡ï¿½×´Ì¬
+	SetRangeState ( STATE_SYNZ , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°ÉîÔ¨ÄàÕÓ¡±×´Ì¬
 end 
 
 function Skill_Synz_Begin ( role , sklv ) 
+	--LG( "skill_Synz", "enter function Skill_Atk_Synz : " , "\n" ) 
+	--LG("skill_Synz", "function Skill_Atk_Synz : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 	local sp = Sp(role) 
 	local sp_reduce 
 	sp_reduce = SkillSp_Synz ( sklv ) 
 	if sp - sp_reduce < 0 then 
 		SkillUnable(role)   
+		--LG("skill_synz", "function Skill_Atk_synz : ", "sp²»×ãÎÞ·¨Ê¹ÓÃÉÁ¶ã±ÚÕÏ" , "\n" ) 
 		return 
 	end 
 	
 	Sp_Red (role , sp_reduce ) 
+	--LG( "Synz", "ÉîÔ¨ÄàÕÓ¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜspÏûºÄ = " , sp_reduce , '\n" ) 
 end 
 
 function Skill_Synz_End ( ATKER , DEFER , sklv ) 
---	local hpdmg = sklv * 50
---	local hp = GetChaAttr(DEFER) 
---	if role == DEFER then 
---		Hp_Endure_Dmg( DEFER , hpdmg ) 
---	end 
-
+	--LG( "skill_synz", "enter function Skill_Def_Synz : " , "\n" ) 
+	--LG("skill_synz", "function Skill_Def_Synz : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
+----------------±³ºóÁé×´Ì¬
+	CheckAttackState( ATKER , DEFER )
+	GivePetState( ATKER , DEFER )
+		
 end 
 
 function State_Synz_Add ( role , statelv ) 
+	--LG("state_Synz" , "function State_Synz_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local mspdsa_dif = (-1) * ( 0.20 + 0.015 * statelv ) 
 	local mspdsa = math.floor (  (MspdSa(role) + mspdsa_dif ) * ATTR_RADIX ) 
+
 	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD ) 
 	ALLExAttrSet(role)  
 end 
 
 
+
 function State_Synz_Rem ( role , statelv ) 
+	--LG("state_synz" , "function State_Synz_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local mspdsa_dif = (-1) * ( 0.20 + 0.015 * statelv ) 
 	local mspdsa = math.floor (  (MspdSa(role) - mspdsa_dif ) * ATTR_RADIX ) 
 	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD ) 
@@ -5275,7 +6261,7 @@ function  State_Synz_Tran ( statelv )
 end 
 
 
---ï¿½ï¿½ï¿½Ü»Ø¸ï¿½ï¿½ï¿½Èªï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ»Ø¸´ÎÂÈª¹«Ê½¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­
 function SkillSp_Hfwq ( sklv )										
 	local sp_reduce = sklv * 2 + 30  
 	return sp_reduce 
@@ -5286,35 +6272,62 @@ function SkillCooldown_Hfwq( sklv )
 	return Cooldown
 end
 
-function SkillArea_Square_Hfwq ( sklv )										--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½Èª"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
-	local side = 800 + sklv * 40 
+function SkillArea_Square_Hfwq ( sklv )										--¼¼ÄÜ¡°»Ø¸´ÎÂÈª"µÄ¼¼ÄÜÇøÓò¹«Ê½
+	local side = 400 + sklv * 40 
 	SetSkillRange ( 3 , side ) 	
 end 
 
 function SkillArea_State_Hfwq ( sklv )										
-	local statetime = 15 + sklv * 1 
+	local statetime = 15 + sklv * 2 
 	local statelv = sklv 
-	SetRangeState ( STATE_HFWQ , statelv  , statetime ) 									--ï¿½ï¿½ï¿½Óµï¿½ï¿½æ¡°ï¿½Ø¸ï¿½ï¿½ï¿½Èªï¿½ï¿½×´Ì¬
+	--LG("Skillarea_state_Hfwq" , " fucntion SkillArea_State_Hfwq :" , " statelv = " , statelv , "statetime " , statetime ) 
+	SetRangeState ( STATE_HFWQ , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°»Ø¸´ÎÂÈª¡±×´Ì¬
 end 
 
 function Skill_Hfwq_Begin ( role , sklv ) 
+	--LG( "skill_Hfwq", "enter function Skill_Atk_Hfwq : " , "\n" ) 
+	--LG("skill_Hfwq", "function Skill_Atk_Hfwq : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 	local sp = Sp(role) 
 	local sp_reduce 
 	sp_reduce = SkillSp_Hfwq ( sklv )	
 	if sp - sp_reduce < 0 then 
 		SkillUnable(role)   
+		--LG("skill_Hfwq", "function Skill_Atk_Hfwq : ", "sp²»×ãÎÞ·¨Ê¹ÓÃ»Ø¸´ÎÂÈª" , "\n" ) 
 		return 
 	end 
 	Sp_Red (role , sp_reduce ) 
+	--LG( "Hfwq", "»Ø¸´ÎÂÈª¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜspÏûºÄ = " , sp_reduce , '\n" ) 
 end 
 
 function Skill_Hfwq_End ( ATKER , DEFER , sklv ) 
+		 
 end 
 
 function State_Hfwq_Add ( role , statelv ) 
-	local sp = Sp(role) 
-	local dmg = -1 * ( sp/1.5 + statelv * 100 )
+	
+	local dmg = -1 * ( 50 + statelv * 15 )
 	Hp_Endure_Dmg ( role , dmg ) 
+	
+		local Check_namei  = CheckItem_namei ( ATKER )
+		if Check_namei == 1 then
+			local Percentage = Percentage_Random ( 0.25 )
+			if Percentage == 1 then
+				  dmg =  dmg*2 
+				CALCULATE_SKILLEFFECT_LUA_000087 = GetResString("CALCULATE_SKILLEFFECT_LUA_000087")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000087)
+			end
+		end
+		
+	local Check_lufei  = CheckItem_lufei ( ATKER )
+		if Check_lufei == 1 then
+			local Percentage = Percentage_Random ( 0.25 )
+			if Percentage == 1 then
+				  dmg =  dmg*2 
+				CALCULATE_SKILLEFFECT_LUA_000088 = GetResString("CALCULATE_SKILLEFFECT_LUA_000088")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000088)
+			end
+	end
+
 end 
 
 function State_Hfwq_Rem ( role , statelv ) 
@@ -5326,7 +6339,7 @@ function State_Hfwq_Tran ( statelv )
 end 
 
 
---ï¿½ï¿½ï¿½ï¿½Ê¥ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÊ¥ÑÛÖ®Òí¹«Ê½¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­
 function SkillSp_Syzy ( sklv )										
 	local sp_reduce = 10 + sklv * 3    
 	return sp_reduce 
@@ -5337,7 +6350,7 @@ function SkillCooldown_Syzy( sklv )
 	return Cooldown
 end
 
-function SkillArea_Square_Syzy ( sklv )										--ï¿½ï¿½ï¿½Ü¡ï¿½Ê¥ï¿½ï¿½Ö®ï¿½ï¿½"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Square_Syzy ( sklv )										--¼¼ÄÜ¡°Ê¥ÑÛÖ®Òí"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local side = 600 + sklv * 20 
 	SetSkillRange ( 3 , side ) 	
 end 
@@ -5345,10 +6358,13 @@ end
 function SkillArea_State_Syzy ( sklv )										
 	local statetime = 90 + sklv *9   
 	local statelv = sklv 
-	SetRangeState ( STATE_SYZY , statelv  , statetime ) 									--ï¿½ï¿½ï¿½Óµï¿½ï¿½æ¡°Ê¥ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½×´Ì¬
+	--LG("Skillarea_state_Syzy" , " fucntion SkillArea_State_Syzy :" , " statelv = " , statelv , "statetime " , statetime ) 
+	SetRangeState ( STATE_SYZY , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°Ê¥ÑÛÖ®Òí¡±×´Ì¬
 end 
 
 function Skill_Syzy_Begin ( role , sklv ) 
+	--LG( "skill_Syzy", "enter function Skill_Atk_Syzy : " , "\n" ) 
+	--LG("skill_Syzy", "function Skill_Atk_Syzy : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
 	local sp = Sp(role) 
 	local sp_reduce  = SkillSp_Syzy ( sklv )	
 	if sp - sp_reduce < 0 then 
@@ -5356,9 +6372,13 @@ function Skill_Syzy_Begin ( role , sklv )
 		return 
 	end 
 	Sp_Red (role , sp_reduce ) 
+	--LG( "Syzy", "Ê¥ÑÛÖ®Òí¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜspÏûºÄ = " , sp_reduce , '\n" ) 
 end 
 
 function Skill_Syzy_End ( ATKER , DEFER , sklv ) 
+---------------±³ºóÁé×´Ì¬
+	CheckAttackState1( ATKER , DEFER )		
+		
 end 
 
 function State_Syzy_Add ( role , statelv ) 
@@ -5374,8 +6394,8 @@ function State_Syzy_Tran ( statelv )
 end 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-function SkillArea_Circle_Xw ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Whirlpool"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+--¼¼ÄÜäöÎÐ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+function SkillArea_Circle_Xw ( sklv )										--¼¼ÄÜ"äöÎÐ"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local side = 300  
 	SetSkillRange ( 3 , side  )  
 end
@@ -5393,7 +6413,7 @@ end
 function SkillArea_State_Xw ( sklv )										
 	local statetime = 20 + sklv * 1    
 	local statelv = sklv 
-	SetRangeState ( STATE_XW , statelv  , statetime ) 									--ï¿½ï¿½ï¿½Óµï¿½ï¿½æ¡°Ê¥ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½×´Ì¬
+	SetRangeState ( STATE_XW , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°Ê¥ÑÛÖ®Òí¡±×´Ì¬
 end 
 
 
@@ -5408,6 +6428,7 @@ function Skill_Xw_Begin ( role , sklv )
 end 
 
 function Skill_Xw_End ( ATKER , DEFER , sklv ) 
+		
 end 
 
 function State_Xw_Add ( role , statelv ) 
@@ -5435,8 +6456,8 @@ function State_Xw_Tran ( statelv )
 end
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-function SkillArea_Circle_Mw ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Fog"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+--¼¼ÄÜÃÔÎí¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+function SkillArea_Circle_Mw ( sklv )										--¼¼ÄÜ"ÃÔÎí"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local side = 300 + sklv * 50  
 	SetSkillRange ( 3 , side  )  
 end
@@ -5454,7 +6475,7 @@ end
 function SkillArea_State_Mw ( sklv )										
 	local statetime = 20    
 	local statelv = sklv 
-	SetRangeState ( STATE_MW , statelv  , statetime ) 									--ï¿½ï¿½ï¿½Óµï¿½ï¿½æ¡°Ê¥ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½×´Ì¬
+	SetRangeState ( STATE_MW , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°Ê¥ÑÛÖ®Òí¡±×´Ì¬
 end 
 
 function SkillEnergy_Mw ( sklv )										
@@ -5473,6 +6494,7 @@ function Skill_Mw_Begin ( role , sklv )
 end 
 
 function Skill_Mw_End ( ATKER , DEFER , sklv ) 
+		
 end 
 
 function State_Mw_Add ( role , statelv ) 
@@ -5502,20 +6524,20 @@ end
 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÀ×Ä»¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­
 
-function SkillArea_Circle_Lm ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Lightning Curtain"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Circle_Lm ( sklv )										--¼¼ÄÜ"À×Ä»"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local side = 300  
 	SetSkillRange ( 3 , side  )  
 end
 
 function SkillCooldown_Lm( sklv )
-	local Cooldown = 25000
+	local Cooldown = 10000
 	return Cooldown
 end
 
 function SkillSp_Lm ( sklv )										
-	local sp_reduce = sklv * 1000    
+	local sp_reduce = 20+ sklv * 1    
 	return sp_reduce 
 end
 
@@ -5525,9 +6547,9 @@ function SkillEnergy_Lm ( sklv )
 end 
 
 function SkillArea_State_Lm ( sklv )										
-	local statetime = 1 + 1 * 1    
+	local statetime = 15 + sklv * 1    
 	local statelv = sklv 
-	SetRangeState ( STATE_LM , statelv  , statetime ) 									--ï¿½ï¿½ï¿½Óµï¿½ï¿½æ¡°ï¿½ï¿½Ä»ï¿½ï¿½×´Ì¬
+	SetRangeState ( STATE_LM , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°À×Ä»¡±×´Ì¬
 end 
 
 function Skill_Lm_Begin ( role , sklv ) 
@@ -5541,36 +6563,12 @@ function Skill_Lm_Begin ( role , sklv )
 end 
 
 function Skill_Lm_End ( ATKER , DEFER , sklv ) 
-local sta_atk= Sta ( ATKER ) 
-	local sta_def = Sta ( DEFER ) 
-	local AddStateLv = 0
-	AddStateLv = GetChaStateLv ( ATKER , STATE_MLCH ) 
-
-	local hpdmg = math.floor( 1000 + sklv*100 +sta_atk*110 )
-			local rate =math.random(1,20000)
-
-				if rate >= Con(DEFER) then
-					local statetime = sklv/2
-					local statelv = sklv
-					AddState ( ATKER , DEFER , STATE_XY , statelv , statetime )
-
-end
-	
-local dmg_fin = Cuihua_Mofa( hpdmg, AddStateLv ) 
-local dmg_ElfSkill = ElfSkill_MagicAtk( hpdmg, ATKER ) 
-
-local dmg_mob = 0.20 
-
-if IsPlayer( DEFER ) == 0 then 
-dmg_mob = 0.70 -- ï¿½ï¿½ï¿½Ó§Ö§Ý§Ú§ï¿½Ú§Ó§Ñ§Ö§ï¿½ ï¿½Ñ§ï¿½Ñ§Ü§ï¿½ ï¿½ï¿½ 5 ï¿½ï¿½Ñ§Ù§ï¿½ 
+		
 end 
 
-dmg_fin = ( dmg_fin + dmg_ElfSkill ) * dmg_mob 
-Hp_Endure_Dmg( DEFER, dmg_fin ) 
-	end
-
 function State_Lm_Add ( role , statelv ) 
-	
+	local dmg = 160 + statelv * 20 
+	Hp_Endure_Dmg ( role , dmg ) 
 end 
 
 function State_Lm_Rem ( role , statelv ) 
@@ -5590,9 +6588,9 @@ end
 
 
 
---ï¿½ï¿½ï¿½Ü´ï¿½Í¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ´©Í¸µ¯¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­£­
 
-function SkillArea_Line_Ctd ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Penetrating Bullet"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Line_Ctd ( sklv )										--¼¼ÄÜ"´©Í¸µ¯"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local lenth = 1500 + sklv * 50  
 	local width = 50 
 	SetSkillRange ( 1 , lenth , width  )  
@@ -5603,10 +6601,10 @@ function SkillCooldown_Ctd( sklv )
 	return Cooldown
 end
 
-function SkillPre_Ctd ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Penetrating Bullet"ï¿½Ä¼ï¿½ï¿½ï¿½Ç°ï¿½ï¿½×¼ï¿½ï¿½
+function SkillPre_Ctd ( sklv )										--¼¼ÄÜ"´©Í¸µ¯"µÄ¼¼ÄÜÇ°ÆÚ×¼±¸
 end 
 
-function SkillSp_Ctd ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Penetrating Bullet"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Ctd ( sklv )										--¼¼ÄÜ"´©Í¸µ¯"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 10 + sklv * 1 
 	return sp_reduce 
 end 
@@ -5614,6 +6612,7 @@ end
 
 
 function Skill_Ctd_Begin ( role , sklv ) 
+	--LG("line", "step 1 : skill_atk_ctd")
 	local sp = Sp(role) 
 	local sp_reduce = SkillSp_Ctd ( sklv ) 
 	if sp - sp_reduce < 0 then 
@@ -5624,11 +6623,16 @@ function Skill_Ctd_Begin ( role , sklv )
 end 
 
 function Skill_Ctd_End ( ATKER , DEFER , sklv ) 
+	--LG("line", "step 3 : skill_atk_ctd")
 	local hp = Hp( DEFER ) 
 	if ValidCha(ATKER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000089 = GetResString("CALCULATE_SKILLEFFECT_LUA_000089")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000089 ) 
 		return 
 	end 
 	if ValidCha(DEFER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000090 = GetResString("CALCULATE_SKILLEFFECT_LUA_000090")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000090 ) 
 		return 
 	end 
 	dmg = ( 1+sklv * 0.2  ) * Atk_Dmg ( ATKER , DEFER ) 
@@ -5642,10 +6646,10 @@ end
 
 
 
---ï¿½ï¿½ï¿½ï¿½É¢ï¿½äµ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÉ¢Éäµ¯¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
-function SkillArea_Sector_Ssd ( sklv )										--ï¿½ï¿½ï¿½Ü¡ï¿½É¢ï¿½äµ¯"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Sector_Ssd ( sklv )										--¼¼ÄÜ¡°É¢Éäµ¯"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local radius = 600 + math.floor ( sklv * 20 ) 
 	local angle = 90 + math.floor ( sklv / 5 ) * 15 
 	SetSkillRange ( 2 , radius , angle  )  
@@ -5656,10 +6660,10 @@ function SkillCooldown_Ssd( sklv )
 	return Cooldown
 end
 
-function SkillPre_Ssd ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Dispersion Bullet"ï¿½Ä¼ï¿½ï¿½ï¿½Ç°ï¿½ï¿½×¼ï¿½ï¿½
+function SkillPre_Ssd ( sklv )										--¼¼ÄÜ"É¢Éäµ¯"µÄ¼¼ÄÜÇ°ÆÚ×¼±¸
 end 
 
-function SkillSp_Ssd ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Dispersion Bullet"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Ssd ( sklv )										--¼¼ÄÜ"É¢Éäµ¯"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = sklv * 1 + 15 
 	return sp_reduce 
 end 
@@ -5670,9 +6674,11 @@ function Skill_Ssd_Begin ( role , sklv )
 	local sp_reduce = SkillSp_Ssd ( sklv ) 
 	if sp - sp_reduce < 0 then 
 		SkillUnable(role) 
+		--LG("skill_Ssd", "function Skill_Atk_Ssd : ", "sp²»×ãÎÞ·¨Ê¹ÓÃÉ¢Éäµ¯" , "\n" ) 
 		return 
 	end 
 	Sp_Red ( role , sp_reduce ) 
+	--LG( "Ssd", "É¢Éäµ¯¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜspÏûºÄ = " , sp_reduce , '\n" ) 
 end 
 
 function Skill_Ssd_End ( ATKER , DEFER , sklv ) 
@@ -5680,19 +6686,22 @@ function Skill_Ssd_End ( ATKER , DEFER , sklv )
 		atk_rad = 1.2 + sklv * 0.15 
 		dmg = Atk_Raise ( atk_rad , ATKER , DEFER ) 
 		Hp_Endure_Dmg ( DEFER, dmg )  
+		--LG( "Ssd", "É¢Éäµ¯¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
+		--LG( "Ssd" , "É¢Éäµ¯¼¼ÄÜ¶Ô¹¥»÷ÕßÎÞÉËº¦" , "\n" ) 
 end 
 
 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬----------------------------------------------------------------------------------------------------------------------------------------------------
+--º£ÃæÇøÓò×´Ì¬----------------------------------------------------------------------------------------------------------------------------------------------------
 
---ï¿½ï¿½ï¿½ï¿½----------
+--À×Çø----------
 function State_Larea_Tran ( statelv ) 
 	return 1 
 end 
 
 function State_Larea_Add ( role , statelv ) 
+	LG ( "LeiQu" , " role = " , role , " statelv = " , statelv ) 
 	local role_type = IsPlayer ( role ) 
 	if role_type == 0 then 
 		return 
@@ -5707,7 +6716,7 @@ end
 function State_Larea_Rem ( role , statelv ) 
 end 
 
---ï¿½ï¿½ï¿½ï¿½-----------
+--ÎíÇø-----------
 
 function State_Warea_Tran ( statelv ) 
 	return 1 
@@ -5717,6 +6726,7 @@ function State_Warea_Add ( role , statelv )
 	local cha_role = TurnToCha ( role ) 
 	local a = AddEquipEnergy ( cha_role , enumEQUIP_HAND2 , 29 , 50 ) 
 
+--	LG ( "WuiQu" , " role = " , role , " statelv = " , statelv ) 
 --	local ship_mnatksa_dif = -1 * ( 0.05+0.02 * statelv ) 
 --	local ship_mnatksa = math.floor ( ( Ship_MnatkSa ( role ) + ship_mnatksa_dif ) * ATTR_RADIX ) 
 --	SetCharaAttr( hrecsa , role , ATTR_BOAT_SKILLC_MNATK ) 
@@ -5724,13 +6734,14 @@ function State_Warea_Add ( role , statelv )
 end 
 
 function State_Warea_Rem ( role , statelv ) 
+--	LG ( "WuiQu" , " role = " , role , " statelv = " , statelv ) 
 --	local ship_mnatksa_dif = -1 * ( 0.05+0.02 * statelv ) 
 --	local ship_mnatksa = math.floor ( ( Ship_MnatkSa ( role ) + ship_mnatksa_dif ) * ATTR_RADIX ) 
 --	SetCharaAttr( hrecsa , role , ATTR_BOAT_SKILLC_MNATK ) 
 --	ALLExAttrSet(role)  
 end 
 
---ï¿½ï¿½ï¿½ï¿½--------------
+--·çÇø--------------
 
 function State_Farea_Tran ( statelv ) 
 	return 1 
@@ -5740,6 +6751,7 @@ function State_Farea_Add ( role , statelv )
 	local cha_role = TurnToCha ( role ) 
 	local a = AddEquipEnergy ( cha_role , enumEQUIP_NECK , 29 , 50 ) 
 
+--	LG ( "WuiQu" , " role = " , role , " statelv = " , statelv ) 
 --	local ship_mnatksa_dif = -1 * ( 0.05+0.02 * statelv ) 
 --	local ship_mnatksa = math.floor ( ( Ship_MnatkSa ( role ) + ship_mnatksa_dif ) * ATTR_RADIX ) 
 --	SetCharaAttr( hrecsa , role , ATTR_BOAT_SKILLC_MNATK ) 
@@ -5747,6 +6759,7 @@ function State_Farea_Add ( role , statelv )
 end 
 
 function State_Farea_Rem ( role , statelv ) 
+--	LG ( "WuiQu" , " role = " , role , " statelv = " , statelv ) 
 --	local ship_mnatksa_dif = -1 * ( 0.05+0.02 * statelv ) 
 --	local ship_mnatksa = math.floor ( ( Ship_MnatkSa ( role ) + ship_mnatksa_dif ) * ATTR_RADIX ) 
 --	SetCharaAttr( hrecsa , role , ATTR_BOAT_SKILLC_MNATK ) 
@@ -5754,7 +6767,7 @@ function State_Farea_Rem ( role , statelv )
 end 
 
 	
-----------------ï¿½ï¿½ï¿½ï¼¼ï¿½ï¿½cooldownï¿½ï¿½ï¿½ï¿½---------------------------------------------------------------------------------------------------------------
+----------------¹ÖÎï¼¼ÄÜcooldown¼ÆËã---------------------------------------------------------------------------------------------------------------
 function SkillCooldown_Gwptjn( sklv )
 	local Cooldown = 2500
 	return Cooldown
@@ -5765,12 +6778,12 @@ function SkillCooldown_Zcmtl( sklv )
 	return Cooldown
 end
 
----------------ï¿½ï¿½ï¿½ï¼¼ï¿½ï¿½-----------------------------------------------------------------------------------------------------------------------------
+---------------¹ÖÎï¼¼ÄÜ-----------------------------------------------------------------------------------------------------------------------------
 
 
------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¦-------------------------------------------------
+-----ËÀÍö³°Ð¦-------------------------------------------------
 
-function SkillSp_Swcx ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Death Shriek"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Swcx ( sklv )										--¼¼ÄÜ"ËÀÍö³°Ð¦"µÄspÏûºÄ¹«Ê½
    local sp_reduce = 50  
 	return sp_reduce 
 end 
@@ -5794,7 +6807,7 @@ function Skill_Swcx_End ( ATKER , DEFER , sklv )
 	
 	Hp_Endure_Dmg ( DEFER , dmg )  
 	local statelv = sklv 
-	local statetime = 15    
+	local statetime = 30    
 	AddState ( ATKER , DEFER , STATE_SWCX , statelv , statetime )
 end 
 
@@ -5833,14 +6846,12 @@ function Skill_Xn_End ( ATKER , DEFER , sklv )
 	local statetime =  60    
 	AddState ( ATKER , DEFER , STATE_XN , statelv , statetime )
 	
-	Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí
 end 
 
 
 function State_Xn_Add ( role , statelv ) 
-	local mxhp = GetChaAttr(role,ATTR_MXHP) 
-	local hp = GetChaAttr(role, ATTR_HP)
-	local hpdmg = 0.03*mxhp  	
+	local hpdmg = 300   
 	Hp_Endure_Dmg ( role , hpdmg ) 
 	ALLExAttrSet(role)  
 end 
@@ -5849,14 +6860,14 @@ function State_Xn_Rem ( role , statelv )
 			
 end 
 
------ï¿½ï¿½Ì¶------------------------------------------------------------------
+-----ÄàÌ¶------------------------------------------------------------------
 function SkillSp_Nt ( sklv )										
 	local sp_reduce = 40
 	return sp_reduce 
 end
 
 function SkillCooldown_Nt( sklv )
-	local Cooldown = 15000
+	local Cooldown = 3000
 	return Cooldown
 end
 
@@ -5872,7 +6883,7 @@ end
 
 function Skill_Nt_End ( ATKER , DEFER , sklv )  
 	local statelv = sklv 
-	local statetime = 10 
+	local statetime = 60 
 	local hpdmg = 3 * Atk_Dmg ( ATKER , DEFER ) 
 	Hp_Endure_Dmg ( DEFER , hpdmg )  
 	AddState( ATKER , DEFER , STATE_NT, statelv , statetime )
@@ -5899,7 +6910,7 @@ function State_Nt_Rem ( role , statelv )
 	ALLExAttrSet(role)  
 end 
 
-----ï¿½ï¿½ï¿½ï¿½--------------------------------------------------------------------
+----µØÕð--------------------------------------------------------------------
 function SkillSp_DiZ ( sklv )										
 	local sp_reduce = sklv * 5 + 50  
 	return sp_reduce 
@@ -5962,7 +6973,7 @@ function  State_DiZ_Tran ( statelv )
 	return statetime 
 end 
 
------ï¿½×¿ï¿½-------------------------------------------------------------------------------------
+-----Ð×¿³-------------------------------------------------------------------------------------
 
 function SkillSp_XiK ( sklv )										
    local sp_reduce = 20 
@@ -5990,11 +7001,11 @@ function Skill_Xik_End ( ATKER , DEFER , sklv )
 	local dmg = 20 * Atk_Dmg ( ATKER , DEFER )   
 	Hp_Endure_Dmg ( DEFER , dmg )  
 
-	Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí
 end 
 
 
-----ï¿½ï¿½ï¿½ï¿½-------------------------------------------------------------------------------------
+----±ùÎÇ-------------------------------------------------------------------------------------
 
 function SkillSp_Biw ( sklv )										
    local sp_reduce = 50  
@@ -6031,7 +7042,7 @@ function State_Biw_Rem ( role , statelv )
 
 end
 
-----ï¿½ï¿½ï¿½ï¿½--------------------------------------------------------------------
+----·çÈÐ--------------------------------------------------------------------
 
 function SkillArea_Circle_Fer ( sklv )										
 	local side = 1000
@@ -6069,7 +7080,7 @@ function Skill_Fer_End ( ATKER , DEFER , sklv )
 	Check_Ys_Rem ( ATKER , DEFER)						
 end 
 
-----ï¿½ï¿½ï¿½Ü¸ï¿½ï¿½ï¿½------------------------------------------------------------------------------------------
+----¼¼ÄÜ¸´ÖÆ------------------------------------------------------------------------------------------
 function SkillSp_Fuz ( sklv )										
 	local sp_reduce = 10  
 	return sp_reduce 
@@ -6094,7 +7105,7 @@ function Skill_Fuz_End ( ATKER , DEFER , sklv )
 
 end 
 
---ï¿½ï¿½ï¿½Üºï¿½ï¿½ï¿½Í»Ï®-------------------------------------------------------------------------------------------
+--¼¼ÄÜº£ÔåÍ»Ï®-------------------------------------------------------------------------------------------
 
 
 function SkillArea_Circle_Hztx ( sklv )									
@@ -6129,7 +7140,7 @@ function Skill_Hztx_End ( ATKER , DEFER , sklv )
 	AddState( ATKER , DEFER , STATE_HZCR, statelv , statetime ) 
 end 
 
---ï¿½ï¿½ï¿½ï¿½Ë®Ä¸ï¿½ï¿½ï¿½---------------------------------------------------------------------------------------------
+--¼¼ÄÜË®Ä¸µç»÷---------------------------------------------------------------------------------------------
 
 function SkillArea_Circle_Smdj ( sklv )										
 	local side = 400  
@@ -6168,7 +7179,7 @@ function Skill_Smdj_End ( ATKER , DEFER , sklv )
 end 
 
 
----ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-------------------------------------------------------------------------------------------------------
+---¼¼ÄÜÎÚÔôÐý·ç-------------------------------------------------------------------------------------------------------
 
 
 
@@ -6209,9 +7220,9 @@ end
 
 
 
------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½----------------------------------------------------------------------------------------------
+-----öèÓãÖÂÃüÒ»»÷----------------------------------------------------------------------------------------------
 
-function SkillSp_Syzm ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Headshot"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_Syzm ( sklv )										--¼¼ÄÜ"±©Í·"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = sklv * 2 + 30  
 	return sp_reduce 
 end 
@@ -6239,7 +7250,7 @@ function Skill_Syzm_End ( ATKER , DEFER , sklv )
 end
 
 
----ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½-----------------------------------------------------------------------------------------------------
+---¼¼ÄÜòòò½×Ô±¬-----------------------------------------------------------------------------------------------------
 
 function SkillArea_Circle_Kdzb ( sklv )										
 	local side = 400
@@ -6288,10 +7299,11 @@ function SkillCooldown_Sgjn2( sklv )
 end
 
 
---ï¿½ï¿½ï¿½ï¿½Ë®ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜË®À××Ô±©¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function State_Slzb_Add ( role , statelv ) 
---	Notice ( "Check Water Mine going to explode?") 
+--	LG ( "bomb" , "¼ì²éË®À×ÒªÕ¨À²Âð?" ) 
+--	Notice ( "¼ì²éË®À×ÒªÕ¨À²Âð?") 
 	local hp = Hp ( role ) 
 	if hp <= 0 then 
 		RemoveState ( role , STATE_BOMB ) 
@@ -6299,7 +7311,8 @@ function State_Slzb_Add ( role , statelv )
 end 
 
 function State_Slzb_Rem ( role , statelv ) 
---	Notice ( "Water Mine is going to explode") 
+--	LG ( "bomb" , "Ë®À×ÒªÕ¨À²?" ) 
+--	Notice ( "Ë®À×ÒªÕ¨À²") 
 	local x , y = GetChaPos ( role  ) 
 	ChaUseSkill2 ( role , SK_BOMB , 1 , x, y ) 
 	Notice ( "after use skill" ) 
@@ -6308,8 +7321,10 @@ function State_Slzb_Rem ( role , statelv )
 end 
 
 
-function SkillArea_Circle_Slzb ( sklv )										--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½Çºï¿½"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Circle_Slzb ( sklv )										--¼¼ÄÜ¡°ÀÇº¿"µÄ¼¼ÄÜÇøÓò¹«Ê½
+	--LG( "skarea_lh", " enter function SkillArea_Circle_Lh : " , "sklv = " ,sklv ) 
 	local side = 1200 + math.floor ( sklv * 20 ) 
+	--LG( "skarea_lh" , " side = " , side ) 
 	SetSkillRange ( 4 , side )   
 end 
 
@@ -6334,27 +7349,56 @@ end
 function Skill_Slzb_End ( ATKER , DEFER , sklv ) 
 	local atker_type = GetChaTypeID ( ATKER ) 
 	local defer_type = GetChaTypeID ( DEFER ) 
+--	LG ( "bomb" , "Ë®À×ÕæµÄÕ¨À²" ) 
 
---	Notice ( "Water Mine has really exploded") 
+--	Notice ( "Ë®À×ÕæµÄÕ¨À²") 
 --	Notice ( "atker_type = "..atker_type) 
 --	Notice ( "defer_type = "..defer_type) 
 	local hp = Hp( DEFER ) 
 	Notice ( "defer_hp = "..hp )
 	if ValidCha(ATKER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000091 = GetResString("CALCULATE_SKILLEFFECT_LUA_000091")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000091 ) 
 		return 
 	end 
 	if ValidCha(DEFER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000092 = GetResString("CALCULATE_SKILLEFFECT_LUA_000092")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000092 ) 
 		return 
 	end 
 	dmg = 1500 
 	Hp_Endure_Dmg ( DEFER , dmg )  
 	SetCharaAttr ( -1 , ATKER , ATTR_HP ) 
---	Notice ( "Water Mine finished bombing") 
+--	Notice ( "Ë®À×Õ¨ÍêÀ²") 
+end 
+
+---Ê¥Õ½ÌØÊâ×´Ì¬------------------
+function State_JHKML_Add ( role , statelv ) 
+	local mnatksa_dif = -0.3
+	local mxatksa_dif = -0.3
+	local mnatksa = math.floor ( (MnatkSa(role) + mnatksa_dif ) * ATTR_RADIX) 
+	local mxatksa = math.floor ( (MxatkSa(role) + mxatksa_dif ) * ATTR_RADIX) 
+	SetCharaAttr( mnatksa , role , ATTR_STATEC_MNATK ) 
+	SetCharaAttr( mxatksa , role , ATTR_STATEC_MXATK ) 
+	ALLExAttrSet(role)  
 end 
 
 
----PKï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬------------------
----ï¿½ï¿½Ò©ï¿½ï¿½Ã»ï¿½ï¿½--------------------
+
+function State_JHKML_Rem ( role , statelv ) 
+	local mnatksa_dif = -0.3
+	local mxatksa_dif = -0.3
+	local mnatksa = math.floor ( (MnatkSa(role) - mnatksa_dif ) * ATTR_RADIX) 
+	local mxatksa = math.floor ( (MxatkSa(role) - mxatksa_dif ) * ATTR_RADIX) 
+	SetCharaAttr( mnatksa , role , ATTR_STATEC_MNATK ) 
+	SetCharaAttr( mxatksa , role , ATTR_STATEC_MXATK ) 
+	ALLExAttrSet(role)  
+end
+
+
+
+---PKµºÌØÊâ×´Ì¬------------------
+---µ¯Ò©¿âÃ»À²--------------------
 function State_PKDYK_Add ( role , statelv ) 
 	local mnatksa_dif = -0.8 
 	local mxatksa_dif = -0.8
@@ -6377,7 +7421,7 @@ function State_PKDYK_Rem ( role , statelv )
 	ALLExAttrSet(role)  
 end
 
----ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½-----------------------------
+---Á¸²ÖÃ»À²-----------------------------
 
 function State_PKLC_Add ( role , statelv ) 
 	local def_dif = -200  
@@ -6405,7 +7449,7 @@ function State_PKLC_Rem ( role , statelv )
 	ALLExAttrSet(role)
 end 
 
-----ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-------------------------------
+----ÐÞÀí½¨ÖþÎï-------------------------------
 function SkillSp_PKXL ( sklv ) 
 	return 0 
 end 
@@ -6421,40 +7465,44 @@ end
 function Skill_PKXL_End ( ATKER , DEFER , sklv ) 
 	local i = CheckBagItem( ATKER , 4661 )
 	if i <= 0 then
-		SystemNotice ( ATKER , "Does not have wood to repairï¿½ï¿½what do you use?")
+		CALCULATE_SKILLEFFECT_LUA_000093 = GetResString("CALCULATE_SKILLEFFECT_LUA_000093")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000093)
 		return
 	end
 	local j = DelBagItem(ATKER,4661,1)
 	if j == 1 then
-		SystemNotice ( ATKER , "Repairingï¿½ï¿½" ) 
+		CALCULATE_SKILLEFFECT_LUA_000094 = GetResString("CALCULATE_SKILLEFFECT_LUA_000094")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000094 ) 
 		local hpdmg = 200 + sklv * 20 
 		local hp = Hp(DEFER) + hpdmg 
 		SetCharaAttr(hp , DEFER , ATTR_HP )
 	else
+		CALCULATE_SKILLEFFECT_LUA_000095 = GetResString("CALCULATE_SKILLEFFECT_LUA_000095")
+		LG("PK_repair",CALCULATE_SKILLEFFECT_LUA_000095)
 	end
 	
 end 
 
-----PKï¿½ï¿½ï¿½ï¿½ï¿½ï¿½---------------------------------
+----PKµºµÀ¾ß---------------------------------
 
---ï¿½ï¿½Å£Ò©Ë®----------------------------------
+--ÂùÅ£Ò©Ë®----------------------------------
 function State_PKMNYS_Add ( role ,statelv )
-	local MxhpSb_dif = 500000
+	local MxhpSb_dif = 1000
 	local MxhpSb = MxhpSb( role ) + MxhpSb_dif
 	SetCharaAttr( MxhpSb , role , ATTR_STATEV_MXHP )
 	ALLExAttrSet(role)
 end
 
 function State_PKMNYS_Rem ( role , statelv )
-	local MxhpSb_dif = 500000
+	local MxhpSb_dif = 1000
 	local MxhpSb = MxhpSb( role ) - MxhpSb_dif
 	SetCharaAttr( MxhpSb , role , ATTR_STATEV_MXHP )
 	ALLExAttrSet(role)
 end
 
---Õ½ï¿½ï¿½Ò©Ë®----------------------------------
+--Õ½¶·Ò©Ë®----------------------------------
 function State_PKZDYS_Add ( role , statelv )
-	local atksb_dif = 200000
+	local atksb_dif = 150
 	if statelv == 1 then
 		atksb_dif = 30
 	end
@@ -6466,7 +7514,7 @@ function State_PKZDYS_Add ( role , statelv )
 end
 
 function State_PKZDYS_Rem ( role , statelv )
-	local atksb_dif = 200000
+	local atksb_dif = 150
 	if statelv == 1 then
 		atksb_dif = 30
 	end
@@ -6476,7 +7524,7 @@ function State_PKZDYS_Rem ( role , statelv )
 	SetCharaAttr( mxatksb , role , ATTR_STATEV_MXATK ) 
 	ALLExAttrSet(role)
 end
-------ï¿½ï¿½Õ½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß¹ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ß³ï¿½ï¿½ï¿½Ê±ï¿½ï¿½15ï¿½ï¿½ï¿½ï¿½
+------¿ñÕ½Êõ ´ó·ùÌá¸ß¹¥»÷Á¦Ð¡·ù½µµÍ·ÀÓùÁ¦µÄµÀ¾ß³ÖÐøÊ±¼ä15·ÖÖÓ
 
 function State_KUANGZ_Add ( role , statelv )
 	local atksb_dif = 50	
@@ -6501,63 +7549,39 @@ function State_KUANGZ_Rem ( role , statelv )
 	SetCharaAttr( defsb , role , ATTR_STATEV_DEF )
 	ALLExAttrSet(role)
 end
---------------------
--- ï¿½ï¿½ï¿½Ö§Ý§ï¿½ï¿½ ï¿½Ò§Ö§ï¿½ï¿½Ö§ï¿½Ü§ï¿½ --
---------------------
+--¿ñ±©Ò©Ë®----------------------------------
 function State_PKKBYS_Add ( role , statelv )
-	local aspd_dif = 0
-	if statelv == 1 then
-		aspd_dif = 10
-	elseif statelv == 2 then
-		aspd_dif = 20
-	elseif statelv == 3 then
-		aspd_dif = 30
-	elseif statelv == 4 then
-		aspd_dif = 40
-	elseif statelv == 5 then
-		aspd_dif = 50
-	end
+	local aspd_dif = 140
 	local aspdsb = ( AspdSb(role) + aspd_dif ) 
 	SetCharaAttr( aspdsb , role , ATTR_STATEV_ASPD ) 
 	ALLExAttrSet(role)
 end
 
 function State_PKKBYS_Rem ( role , statelv )
-	local aspd_dif = 0
-	if statelv == 1 then
-		aspd_dif = 10
-	elseif statelv == 2 then
-		aspd_dif = 20
-	elseif statelv == 3 then
-		aspd_dif = 30
-	elseif statelv == 4 then
-		aspd_dif = 40
-	elseif statelv == 5 then
-		aspd_dif = 50
-	end
+	local aspd_dif = 140
 	local aspdsb = ( AspdSb(role) - aspd_dif ) 
 	SetCharaAttr( aspdsb , role , ATTR_STATEV_ASPD ) 
 	ALLExAttrSet(role)
 end
 
---ï¿½ï¿½ï¿½ï¿½Ò©Ë®--------------------------------------
+--¾«ÉñÒ©Ë®--------------------------------------
 function State_PKJSYS_Add ( role , statelv )
-	local sta_dif = 500
+	local sta_dif = 30
 	local stasb = StaSb( role ) + sta_dif
 	SetCharaAttr( stasb , role , ATTR_STATEV_STA )
 	ALLExAttrSet(role)
 end
 
 function State_PKJSYS_Rem ( role , statelv )
-	local sta_dif = 500
+	local sta_dif = 30
 	local stasb = StaSb( role ) - sta_dif
 	SetCharaAttr( stasb , role , ATTR_STATEV_STA )
 	ALLExAttrSet(role)
 end
 
---Ê¯ï¿½ï¿½Ò©Ë®-------------------------------------
+--Ê¯·ôÒ©Ë®-------------------------------------
 function State_PKSFYS_Add ( role , statelv )
-	local def_dif = 50000
+	local def_dif = 150
 	if statelv == 1 then
 		def_dif = 30
 	end
@@ -6567,7 +7591,7 @@ function State_PKSFYS_Add ( role , statelv )
 end
 
 function State_PKSFYS_Rem ( role , statelv )
-	local def_dif = 50000
+	local def_dif = 150
 	if statelv == 1 then
 		def_dif = 30
 	end
@@ -6575,7 +7599,7 @@ function State_PKSFYS_Rem ( role , statelv )
 	SetCharaAttr( defsb , role , ATTR_STATEV_DEF )
 	ALLExAttrSet(role)
 end
-----È«ï¿½ï¿½×°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß·ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Í¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ß³ï¿½ï¿½ï¿½Ê±ï¿½ï¿½15ï¿½ï¿½ï¿½ï¿½
+----È«Éí×°¼× ´ó·ùÌá¸ß·ÀÓùÁ¦Ð¡·ù½µµÍ¹¥»÷Á¦µÄµÀ¾ß³ÖÐøÊ±¼ä15·ÖÖÓ
 
 function State_QUANS_Add ( role , statelv )
 	local def_dif = 70
@@ -6600,60 +7624,26 @@ function State_QUANS_Rem ( role , statelv )
 	SetCharaAttr( mxatksb , role , ATTR_STATEV_MXATK ) 
 	ALLExAttrSet(role)
 end
---------------------
--- ï¿½ï¿½ï¿½Ñ§ß§ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ§Õ§Ñ§ß§Ú§ï¿½ --
---------------------
+--¾«×¼Ò©Ë®--------------------------------------
 function State_PKJZYS_Add ( role , statelv )
-	local hit_dif = 0
-	if statelv == 1 then
-		hit_dif = 40
-	elseif statelv == 2 then
-		hit_dif = 80
-	elseif statelv == 3 then
-		hit_dif = 120
-	elseif statelv == 4 then
-		hit_dif = 160
-	elseif statelv == 5 then
-		hit_dif = 200
-	end
+	local hit_dif = 30
 	local hitsb  = HitSb( role ) + hit_dif
 	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT )
 	ALLExAttrSet(role)
 end
 
 function State_PKJZYS_Rem ( role , statelv )
-	local hit_dif = 0
-	if statelv == 1 then
-		hit_dif = 40
-	elseif statelv == 2 then
-		hit_dif = 80
-	elseif statelv == 3 then
-		hit_dif = 120
-	elseif statelv == 4 then
-		hit_dif = 160
-	elseif statelv == 5 then
-		hit_dif = 200
-	end
+	local hit_dif = 30
 	local hitsb  = HitSb( role ) - hit_dif
 	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT )
 	ALLExAttrSet(role)
 end
 
----------------------
--- ï¿½ï¿½ï¿½Ö§Ò§Ö§ï¿½ß§ï¿½ï¿½ï¿½ ï¿½Ü§Ý§Ö§Ó§Ö§ï¿½ --
----------------------
+--°¬²Ý£¨ÉÁ±ÜÒ©Ë®£©----------------------------------
 function State_PKSBYS_Add ( role ,statelv )
-	local Flee_dif = 0
+	local Flee_dif = 10
 	if statelv == 1 then
-		Flee_dif = 40
-	elseif statelv == 2 then
-		Flee_dif = 80
-	elseif statelv == 3 then
-		Flee_dif = 120
-	elseif statelv == 4 then
-		Flee_dif = 160
-	elseif statelv == 5 then
-		Flee_dif = 200
+		Flee_dif = 10
 	end
 	local Flee = FleeSb( role ) + Flee_dif
 	SetCharaAttr( Flee , role , ATTR_STATEV_FLEE )
@@ -6661,17 +7651,9 @@ function State_PKSBYS_Add ( role ,statelv )
 end
 
 function State_PKSBYS_Rem ( role , statelv )
-	local Flee_dif = 0
+	local Flee_dif = 10
 	if statelv == 1 then
-		Flee_dif = 40
-	elseif statelv == 2 then
-		Flee_dif = 80
-	elseif statelv == 3 then
-		Flee_dif = 120
-	elseif statelv == 4 then
-		Flee_dif = 160
-	elseif statelv == 5 then
-		Flee_dif = 200
+		Flee_dif = 10
 	end
 	local Flee = FleeSb( role ) - Flee_dif
 	SetCharaAttr( Flee , role , ATTR_STATEV_FLEE )
@@ -6679,9 +7661,9 @@ function State_PKSBYS_Rem ( role , statelv )
 end
 
 
---ï¿½Þµï¿½×´Ì¬---------------------------------------
+--ÎÞµÐ×´Ì¬---------------------------------------
 function SkillCooldown_Wudiyaoshui( sklv )
-	local Cooldown = 25000 
+	local Cooldown = 20000 
 	return Cooldown
 end
 function Skill_Wudiyaoshui_Begin ( role , sklv ) 
@@ -6689,13 +7671,22 @@ function Skill_Wudiyaoshui_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( atk_role , 1860 ) --ï¿½Þµï¿½Ò©Ë®
+	local map_name = GetChaMapName ( atk_role )	
+	if map_name ~=  "secretgarden" then
+		SkillUnable(atk_role)   
+		CALCULATE_SKILLEFFECT_LUA_000096 = GetResString("CALCULATE_SKILLEFFECT_LUA_000096")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000096 ) 
+		return 0
+	end
+	local item_count = CheckBagItem ( atk_role , 1860 ) --ÎÞµÐÒ©Ë®
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 1860 , 1 ) 
 end 
@@ -6704,16 +7695,18 @@ function Skill_Wudiyaoshui_End( ATKER , DEFER , sklv )
 		--SystemNotice( ATKER , "Skill_Wudiyaoshui_End")
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local statelv = 10
-	local statetime = 500
+	local statetime = 5
 		--SystemNotice( ATKER , "STATE_PKWD_Begin")
 	AddState( ATKER , DEFER , STATE_PKWD , statelv , statetime )
 		--SystemNotice( ATKER , "STATE_PKWD_End")
 	local cha_name = GetChaDefaultName ( ATKER ) 
-	local message = cha_name.."Entering invincible mode for 5 secs"  
+	CALCULATE_SKILLEFFECT_LUA_000097 = GetResString("CALCULATE_SKILLEFFECT_LUA_000097")
+	local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000097  
 	Notice ( message )
 end 
 
@@ -6725,251 +7718,97 @@ function State_PKWd_Rem ( role , statelv )
 
 end
 
------ï¿½ï¿½ï¿½ï¿½
--- function State_CAPE_Add ( role , statelv ) 
-        -- local strsb_dif = 100
-        -- local strsb = StrSb( role ) + strsb_dif
-        -- SetCharaAttr( strsb , role , ATTR_STATEV_STR )
-
-        -- local consb_dif = 100
-        -- local consb = ConSb( role ) + consb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_CON )
-
-        -- local agisb_dif = 100
-        -- local agisb = ConSb( role ) + agisb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_AGI )
-
-        -- local dexsb_dif = 100
-        -- local dexsb = ConSb( role ) + dexsb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_DEX )
-
-        -- local stasb_dif = 100
-        -- local stasb = ConSb( role ) + stasb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_STA )
-
-        -- ALLExAttrSet(role)  
--- end 
-
--- function State_CAPE_Rem ( role , statelv )
-        
-        -- local strsb_dif = 100
-        -- local strsb = StrSb( role ) - strsb_dif
-        -- SetCharaAttr( strsb , role , ATTR_STATEV_STR )
-
-        -- local consb_dif = 100
-        -- local consb = ConSb( role ) - consb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_CON )
-        
-
-        -- local agisb_dif = 100
-        -- local agisb = ConSb( role ) + agisb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_AGI )
-
-        -- local dexsb_dif = 100
-        -- local dexsb = ConSb( role ) + dexsb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_DEX )
-
-        -- local stasb_dif = 100
-        -- local stasb = ConSb( role ) + stasb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_STA )
-        -- ALLExAttrSet(role)  
--- end	
-
--- function State_CAPEQ_Add ( role , statelv ) 
-        -- local strsb_dif = 200
-        -- local strsb = StrSb( role ) + strsb_dif
-        -- SetCharaAttr( strsb , role , ATTR_STATEV_STR )
-
-        -- local consb_dif = 200
-        -- local consb = ConSb( role ) + consb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_CON )
-
-        -- local agisb_dif = 200
-        -- local agisb = ConSb( role ) + agisb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_AGI )
-
-        -- local dexsb_dif = 200
-        -- local dexsb = ConSb( role ) + dexsb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_DEX )
-
-        -- local stasb_dif = 200
-        -- local stasb = ConSb( role ) + stasb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_STA )
-
-        -- ALLExAttrSet(role)  
--- end 
-
--- function State_CAPEQ_Rem ( role , statelv )
-        
-        -- local strsb_dif = 200
-        -- local strsb = StrSb( role ) - strsb_dif
-        -- SetCharaAttr( strsb , role , ATTR_STATEV_STR )
-
-        -- local consb_dif = 200
-        -- local consb = ConSb( role ) - consb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_CON )
-        
-
-        -- local agisb_dif = 200
-        -- local agisb = ConSb( role ) + agisb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_AGI )
-
-        -- local dexsb_dif = 200
-        -- local dexsb = ConSb( role ) + dexsb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_DEX )
-
-        -- local stasb_dif = 200
-        -- local stasb = ConSb( role ) + stasb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_STA )
-        -- ALLExAttrSet(role)  
--- end	
-
--- function State_CAPEW_Add ( role , statelv ) 
-        -- local strsb_dif = 300
-        -- local strsb = StrSb( role ) + strsb_dif
-        -- SetCharaAttr( strsb , role , ATTR_STATEV_STR )
-
-        -- local consb_dif = 300
-        -- local consb = ConSb( role ) + consb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_CON )
-
-        -- local agisb_dif = 300
-        -- local agisb = ConSb( role ) + agisb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_AGI )
-
-        -- local dexsb_dif = 300
-        -- local dexsb = ConSb( role ) + dexsb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_DEX )
-
-        -- local stasb_dif = 300
-        -- local stasb = ConSb( role ) + stasb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_STA )
-
-        -- ALLExAttrSet(role)  
--- end 
-
--- function State_CAPEW_Rem ( role , statelv )
-        
-        -- local strsb_dif = 300
-        -- local strsb = StrSb( role ) - strsb_dif
-        -- SetCharaAttr( strsb , role , ATTR_STATEV_STR )
-
-        -- local consb_dif = 300
-        -- local consb = ConSb( role ) - consb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_CON )
-        
-
-        -- local agisb_dif = 300
-        -- local agisb = ConSb( role ) + agisb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_AGI )
-
-        -- local dexsb_dif = 300
-        -- local dexsb = ConSb( role ) + dexsb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_DEX )
-
-        -- local stasb_dif = 300
-        -- local stasb = ConSb( role ) + stasb_dif
-        -- SetCharaAttr( consb , role , ATTR_STATEV_STA )
-        -- ALLExAttrSet(role)  
--- end	
 
 
---Ò©Ë®ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½
+
+--Ò©Ë®Á¦Á¿Ç¿»¯
 
 function State_YSLLQH_Add ( role , statelv )
-	local str_dif = 250
+	local str_dif = 5
 	local strsb = StrSb( role ) + str_dif
 	SetCharaAttr( strsb , role , ATTR_STATEV_STR )
 	ALLExAttrSet(role)
 end
 
 function State_YSLLQH_Rem ( role , statelv )
-	local str_dif = 250
+	local str_dif = 5
 	local strsb = StrSb( role ) - str_dif
 	SetCharaAttr( strsb , role , ATTR_STATEV_STR )
 	ALLExAttrSet(role)
 end
 
 
---Ò©Ë®ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½
+--Ò©Ë®Ãô½ÝÇ¿»¯
 
 function State_YSMJQH_Add ( role , statelv )
-	local agi_dif = 250
+	local agi_dif = 5
 	local agisb = AgiSb( role ) + agi_dif
 	SetCharaAttr( agisb , role , ATTR_STATEV_AGI )
 	ALLExAttrSet(role)
 end
 
 function State_YSMJQH_Rem ( role , statelv )
-	local agi_dif = 250
+	local agi_dif = 5
 	local agisb = AgiSb( role ) - agi_dif
 	SetCharaAttr( agisb , role , ATTR_STATEV_AGI )
 	ALLExAttrSet(role)
 end
 
---Ò©Ë®×¨×¢Ç¿ï¿½ï¿½
+--Ò©Ë®×¨×¢Ç¿»¯
 
 function State_YSLQQH_Add ( role , statelv )
-	local dex_dif = 250
+	local dex_dif = 5
 	local dexsb = DexSb( role ) + dex_dif
 	SetCharaAttr( dexsb , role , ATTR_STATEV_DEX )
 	ALLExAttrSet(role)
 end
 
 function State_YSLQQH_Rem ( role , statelv )
-	local dex_dif = 250
+	local dex_dif = 5
 	local dexsb = DexSb( role ) - dex_dif
 	SetCharaAttr( dexsb , role , ATTR_STATEV_DEX )
 	ALLExAttrSet(role)
 end
 
---Ò©Ë®ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½
+--Ò©Ë®ÌåÖÊÇ¿»¯
 
 function State_YSTZQH_Add ( role , statelv )
-	local con_dif = 250
+	local con_dif = 5
 	local consb = ConSb( role ) + con_dif
 	SetCharaAttr( consb , role , ATTR_STATEV_CON )
 	ALLExAttrSet(role)
 end
 
 function State_YSTZQH_Rem ( role , statelv )
-	local con_dif = 250
+	local con_dif = 5
 	local consb = ConSb( role ) - con_dif
 	SetCharaAttr( consb , role , ATTR_STATEV_CON )
 	ALLExAttrSet(role)
 end
 
 
---Ò©Ë®ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½
+--Ò©Ë®¾«ÉñÇ¿»¯
 
 function State_YSJSQH_Add ( role , statelv )
-	local sta_dif = 250
+	local sta_dif = 5
 	local stasb = StaSb( role ) + sta_dif
 	SetCharaAttr( stasb , role , ATTR_STATEV_STA )
 	ALLExAttrSet(role)
 end
 
 function State_YSJSQH_Rem ( role , statelv )
-	local sta_dif = 250
+	local sta_dif = 5
 	local stasb = StaSb( role ) - sta_dif
 	SetCharaAttr( stasb , role , ATTR_STATEV_STA )
 	ALLExAttrSet(role)
 end
 
---Ò©Ë®ï¿½Ù¶ï¿½Ç¿ï¿½ï¿½
+--Ò©Ë®ËÙ¶ÈÇ¿»¯
 
 function State_YSMspd_Add ( role , statelv )
 	local mspdsa_dif = 0
-	if statelv == 1 then								
-		mspdsa_dif = 0.1
-	elseif statelv == 2 then								
-		mspdsa_dif = 0.2
-	elseif statelv == 3 then								
-		mspdsa_dif = 0.3
-	elseif statelv == 4 then								
-		mspdsa_dif = 0.4
-	elseif statelv == 5 then								
-		mspdsa_dif = 0.5
+	if statelv == 1 then								--¼ÓËÙÒ©Ë®
+		mspdsa_dif = 0.15
 	end
 	local mspdsa = MspdSa ( role )
 	local mspdsa_fin = ( mspdsa + mspdsa_dif ) * ATTR_RADIX
@@ -6979,16 +7818,8 @@ end
 
 function State_YSMspd_Rem ( role , statelv )
 	local mspdsa_dif = 0
-	if statelv == 1 then								
-		mspdsa_dif = 0.1
-	elseif statelv == 2 then								
-		mspdsa_dif = 0.2
-	elseif statelv == 3 then								
-		mspdsa_dif = 0.3
-	elseif statelv == 4 then								
-		mspdsa_dif = 0.4
-	elseif statelv == 5 then								
-		mspdsa_dif = 0.5
+	if statelv == 1 then
+		mspdsa_dif = 0.15
 	end
 	local mspdsa = MspdSa ( role )
 	local mspdsa_fin = ( mspdsa - mspdsa_dif ) * ATTR_RADIX
@@ -6996,29 +7827,35 @@ function State_YSMspd_Rem ( role , statelv )
 	ALLExAttrSet(role)
 end
 
---ï¿½ï¿½×°Ò©Ë® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ß³ï¿½ï¿½ï¿½Ê±ï¿½ï¿½15ï¿½ï¿½ï¿½ï¿½
+--Çá×°Ò©Ë® ´ó·ùÌá¸ßÐÐ×ßËÙ¶ÈÐ¡·ù½µµÍ·ÀÓùµÄµÀ¾ß³ÖÐøÊ±¼ä15·ÖÖÓ
 
 function State_QINGZ_Add ( role , statelv )
-	local mspdsa_dif = 0.5
+	local mspdsa_dif = 0.3
+	local def_dif = 50
 	local mspdsa = MspdSa ( role )
 	local mspdsa_fin = ( mspdsa + mspdsa_dif ) * ATTR_RADIX
+	local defsb = DefSb( role ) - def_dif
+	SetCharaAttr( defsb , role , ATTR_STATEV_DEF )
 	SetCharaAttr( mspdsa_fin , role , ATTR_STATEC_MSPD )
 	ALLExAttrSet(role)
 end
 
 function State_QINGZ_Rem ( role , statelv )
-	local mspdsa_dif = 0.5
+	local mspdsa_dif = 0.3
+	local def_dif = 50
 	local mspdsa = MspdSa ( role )
 	local mspdsa_fin = ( mspdsa - mspdsa_dif ) * ATTR_RADIX
+	local defsb = DefSb( role ) + def_dif
+	SetCharaAttr( defsb , role , ATTR_STATEV_DEF )
 	SetCharaAttr( mspdsa_fin , role , ATTR_STATEC_MSPD )
 	ALLExAttrSet(role)
 end
 
---Ò©Ë®ï¿½ï¿½Ö»ï¿½Ù¶ï¿½Ç¿ï¿½ï¿½
+--Ò©Ë®´¬Ö»ËÙ¶ÈÇ¿»¯
 
 function State_YSBoatMspd_Add ( role , statelv )
 	local mspdsa_dif = 0
-	if statelv == 1 then								--ï¿½ï¿½ï¿½Ç·ï¿½
+	if statelv == 1 then								--Èý½Ç·«
 		mspdsa_dif = 0.15
 	end
 	local mspdsa = ( MspdSa ( role ) + mspdsa_dif )  * ATTR_RADIX
@@ -7037,11 +7874,11 @@ function State_YSBoatMspd_Rem ( role , statelv )
 end
 
 
---Ò©Ë®ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½
+--Ò©Ë®´¬Ö»·ÀÓùÇ¿»¯
 
 function State_YSBoatDEF_Add ( role , statelv )
 	local defsb_dif = 0
-	if statelv == 1 then								--Ç¿ï¿½ï¿½×°ï¿½ï¿½
+	if statelv == 1 then								--Ç¿»¯×°¼×
 		defsb_dif = 200
 	end
 	local defsb = ( DefSb ( role ) + defsb_dif )
@@ -7051,7 +7888,7 @@ end
 
 function State_YSBoatDEF_Rem ( role , statelv )
 	local defsb_dif = 0
-	if statelv == 1 then								--Ç¿ï¿½ï¿½×°ï¿½ï¿½
+	if statelv == 1 then								--Ç¿»¯×°¼×
 		defsb_dif = 200
 	end
 	local defsb = ( DefSb ( role ) - defsb_dif )
@@ -7060,22 +7897,22 @@ function State_YSBoatDEF_Rem ( role , statelv )
 end
 
 
--- ï¿½ï¿½ï¿½ï¿½
+-- µÆÁý
 function State_DengLong_Add ( role , statelv )
-	local def_dif = 500
+	local def_dif = 50
 	local defsb = DefSb( role ) + def_dif
 	SetCharaAttr( defsb , role , ATTR_STATEV_DEF )
 	ALLExAttrSet(role)
 end
 
 function State_DengLong_Rem ( role , statelv )
-	local def_dif = 500
+	local def_dif = 50
 	local defsb = DefSb( role ) - def_dif
 	SetCharaAttr( defsb , role , ATTR_STATEV_DEF )
 	ALLExAttrSet(role)
 end
 
---ï¿½ï¿½Ê¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--------------------------------------
+--½©Ê¬´ø¶¾¹¥»÷--------------------------------------
 function SkillSp_JSDD ( sklv )										
 	local sp_reduce = 5 
 	return sp_reduce 
@@ -7099,26 +7936,26 @@ end
 function Skill_JSDD_End ( ATKER , DEFER , sklv ) 
 	local statelv = 1 
 	local statetime =  30    
-	dmg = Atk_Dmg( ATKER , DEFER )					--[[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½]]--
-	sus,dmgsa = Check_MisorCrt( ATKER, DEFER )		--[[ï¿½Ç·ï¿½missï¿½ï¿½crt]]--
-	SetSus(DEFER , sus)							--ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½miss 
---	dmgsa = Check_Zmyj ( ATKER , dmgsa )		--ï¿½Ð¶Ï±ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½
-	hpdmg = math.floor( dmg*dmgsa ) 			--[[È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½Ëºï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½Öµ,ï¿½ï¿½missï¿½Í±ï¿½ï¿½ï¿½ï¿½Ëºï¿½]]--
-	Hp_Endure_Dmg( DEFER , hpdmg )					--[[ï¿½ï¿½ï¿½ï¿½ï¿½Ü»ï¿½ï¿½ß¿ï¿½Ñª]]--
+	dmg = Atk_Dmg( ATKER , DEFER )					--[[¼ÆËãÆÕÍ¨¹¥»÷µÄÕý³£¹¥»÷ÉËº¦]]--
+	sus,dmgsa = Check_MisorCrt( ATKER, DEFER )		--[[ÊÇ·ñmiss»òcrt]]--
+	SetSus(DEFER , sus)							--ÉèÖÃ±©»÷ºÍmiss 
+--	dmgsa = Check_Zmyj ( ATKER , dmgsa )		--ÅÐ¶Ï±©»÷ÉËº¦±¶Êý
+	hpdmg = math.floor( dmg*dmgsa ) 			--[[È¡Õý³£ÉËº¦ºÍ×îÐ¡ÉËº¦ÖÐµÄ×î´óÖµ,¼°missºÍ±©»÷ÉËº¦]]--
+	Hp_Endure_Dmg( DEFER , hpdmg )					--[[ÉèÖÃÊÜ»÷Õß¿ÛÑª]]--
 	local StateLv = GetChaStateLv ( DEFER , STATE_TTISW )
 	if StateLv ~= 4 then	
 		AddState ( ATKER , DEFER , STATE_JSDD , statelv , statetime )
 	end
-	Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí
 end 
 
 
 function State_JSDD_Add ( role , statelv )
 	if statelv == 3 then
-		--Ê¬ï¿½ï¿½
+		--Ê¬¶¾
 	end
 	if statelv == 4 then
-		--ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
+		--Çõ³¤ÖÐ¶¾
 	end
 	local hpdmg = 100 * statelv   
 	Hp_Endure_Dmg ( role , hpdmg ) 
@@ -7126,15 +7963,16 @@ function State_JSDD_Add ( role , statelv )
 end 
 
 function State_JSDD_Rem ( role , statelv ) 
+	--LG("state_JSDD" , "function State_JSDD_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 end 
 
---ï¿½ï¿½Ê¬Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--------------------------------------
-function SkillSp_JSMF ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Zombie Sorcery Attack"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+--½©Ê¬Ä§·¨¹¥»÷--------------------------------------
+function SkillSp_JSMF ( sklv )										--¼¼ÄÜ"½©Ê¬Ä§·¨¹¥»÷"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 3 + sklv * 2   
 	return sp_reduce 
 end 
 
-function SkillArea_Line_JSMF ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Corpse Attack Wave"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Line_JSMF ( sklv )										--¼¼ÄÜ"½©Ê¬³å»÷²¨"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local lenth = 800   
 	local width = 200 + sklv * 10 
 	SetSkillRange ( 1 , lenth , width  )  
@@ -7166,9 +8004,9 @@ function Skill_JSMF_End ( ATKER , DEFER , sklv )
 
 end 
 
---ï¿½ï¿½ï¿½ï¿½Ê¿Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--------------------------------------
+--ºüµÀÊ¿Ä§·¨¹¥»÷--------------------------------------
 
-function SkillSp_HDSMF ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Fox Sorcery Attack"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_HDSMF ( sklv )										--¼¼ÄÜ"ºüÀêÄ§·¨¹¥»÷"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 30 + sklv * 2   
 	return sp_reduce 
 end 
@@ -7193,8 +8031,8 @@ function Skill_HDSMF_End ( ATKER , DEFER , sklv )
 	hpdmg =  math.max ( 1 , math.max ( 30 , ( 150 - Sta_role ) ) * 4 ) 
 	Hp_Endure_Dmg ( DEFER, hpdmg )
 end 
---ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--------------------------------------
-function SkillSp_HYMF ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Fox Sorcery Attack"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+--ºüÑýÄ§·¨¹¥»÷--------------------------------------
+function SkillSp_HYMF ( sklv )										--¼¼ÄÜ"ºüÀêÄ§·¨¹¥»÷"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 10 + sklv * 2   
 	return sp_reduce 
 end
@@ -7222,9 +8060,9 @@ end
 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½--------------------------------------
---ï¿½ï¿½ï¿½Ô½ï¿½É«Ò»ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Þ·ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·Å¼ï¿½ï¿½ï¿½
-function SkillSp_HYMH ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Fascinate"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+--ºüÑý÷È»ó--------------------------------------
+--ÄÐÐÔ½ÇÉ«Ò»¶¨Ê±¼äÎÞ·¨ÒÆ¶¯¡¢¹¥»÷¡¢ÊÍ·Å¼¼ÄÜ
+function SkillSp_HYMH ( sklv )										--¼¼ÄÜ"ºüÀê÷È»ó"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 50 + sklv * 2   
 	return sp_reduce 
 end 
@@ -7253,7 +8091,7 @@ function Skill_HYMH_End ( ATKER , DEFER , sklv )
 
 	if cha_type == 1 or cha_type == 2 then
 		AddState ( ATKER , DEFER , STATE_HYMH , statelv , statetime ) 
-		Check_Ys_Rem ( ATKER , DEFER )					--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+		Check_Ys_Rem ( ATKER , DEFER )					--ÅÐ¶ÏÊÇ·ñÒþÉí
 	end
 end 
 
@@ -7265,9 +8103,9 @@ function State_HYMH_Rem ( role , statelv )
 
 end 
 
---ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--ºüÏÉÄ§·¨¹¥»÷
 
-function SkillSp_FoxMagic ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Fox Sorcery Attack"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_FoxMagic ( sklv )										--¼¼ÄÜ"ºüÀêÄ§·¨¹¥»÷"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 10 + sklv * 2   
 	return sp_reduce 
 end
@@ -7294,7 +8132,7 @@ function Skill_FoxMagic_End ( ATKER , DEFER , sklv )
 end 
 
 
---ï¿½ï¿½ï¿½É·ï¿½Î§Ä§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--ºüÏÉ·¶Î§Ä§·¨¹¥»÷
 
 function SkillArea_Circle_FoxSquareMagic ( sklv )										
 	local side = 100 
@@ -7330,9 +8168,9 @@ function Skill_FoxSquareMagic_End ( ATKER , DEFER , sklv )
 
 end
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¦Ä§ï¿½ï¿½
+--ÍÁÖø¼ÀÊ¦Ä§·¨
 
-function SkillSp_TZJSMagic ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Fox Sorcery Attack"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_TZJSMagic ( sklv )										--¼¼ÄÜ"ºüÀêÄ§·¨¹¥»÷"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 10 + sklv * 2   
 	return sp_reduce 
 end
@@ -7358,7 +8196,7 @@ function Skill_TZJSMagic_End ( ATKER , DEFER , sklv )
 	Hp_Endure_Dmg ( DEFER, hpdmg )
 end 
 
---ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½
+--Çõ³¤Ä§·¨
 
 function SkillArea_Circle_TZQZMagic ( sklv )										
 	local side = 100 
@@ -7366,7 +8204,7 @@ function SkillArea_Circle_TZQZMagic ( sklv )
 end
 
 
-function SkillSp_TZQZMagic ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Fox Sorcery Attack"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_TZQZMagic ( sklv )										--¼¼ÄÜ"ºüÀêÄ§·¨¹¥»÷"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 10 + sklv * 2   
 	return sp_reduce 
 end
@@ -7397,7 +8235,7 @@ function Skill_TZQZMagic_End ( ATKER , DEFER , sklv )
 end
 
 
---ï¿½ï¿½ï¿½ï¿½È®Ð¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÈ®Ð¥¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillSp_QuanX ( sklv )										
 	local sp_reduce = sklv * 5 + 50  
@@ -7427,15 +8265,15 @@ function Skill_QuanX_Begin ( role , sklv )
 end 
 
 function Skill_QuanX_End ( ATKER , DEFER , sklv )
-	local statetime = 2
+	local statetime = 5
 	local statelv = 10
 	AddState ( ATKER , DEFER , STATE_XY , statelv , statetime )
-	local hpdmg =   100000 
+	local hpdmg =   200 
 	Hp_Endure_Dmg ( DEFER, hpdmg )
 
 end 
 
---Ê¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--------------------------------------
+--Ê¬¶¾¹¥»÷--------------------------------------
 function SkillSp_SD ( sklv )										
 	local sp_reduce = 20 
 	return sp_reduce 
@@ -7462,14 +8300,14 @@ function Skill_SD_End ( ATKER , DEFER , sklv )
 	local hpdmg =   300
 	Hp_Endure_Dmg ( DEFER, hpdmg )
 	AddState ( ATKER , DEFER , STATE_JSDD , statelv , statetime ) 
-	Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí
 end 
 
---ï¿½ï¿½Ðµï¿½Þ±ï¿½
+--»úÐµ¾Þ±ø
 
---ï¿½Þ±ï¿½ï¿½ï¿½Î§
+--¾Þ±ø·¶Î§
 
-function SkillArea_Line_JXJBFW ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Conch Ray"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Line_JXJBFW ( sklv )										--¼¼ÄÜ"±´¿Ç³å»÷"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local lenth = 500
 	local width = 200
 	SetSkillRange ( 1 , lenth , width  )  
@@ -7502,9 +8340,9 @@ function Skill_JXJBFW_End ( ATKER , DEFER , sklv )
 end 
 
 
---ï¿½ï¿½×ªï¿½Ö±ï¿½
+--Ðý×ªÊÖ±Û
 
-function SkillArea_Circle_JBXZSB ( sklv )										--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½×ªï¿½Ö±ï¿½"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Circle_JBXZSB ( sklv )										--¼¼ÄÜ¡°Ðý×ªÊÖ±Û"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	
 	local side = 300  
 	SetSkillRange ( 4 , side )   
@@ -7515,10 +8353,10 @@ function SkillCooldown_JBXZSB( sklv )
 	return Cooldown
 end
 
-function SkillPre_JBXZSB ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Swirling Arm"ï¿½Ä¼ï¿½ï¿½ï¿½Ç°ï¿½ï¿½×¼ï¿½ï¿½
+function SkillPre_JBXZSB ( sklv )										--¼¼ÄÜ"Ðý×ªÊÖ±Û"µÄ¼¼ÄÜÇ°ÆÚ×¼±¸
 end 
 
-function SkillSp_JBXZSB ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Swirling Arm"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_JBXZSB ( sklv )										--¼¼ÄÜ"Ðý×ªÊÖ±Û"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 20 - math.floor ( sklv * 0.5 ) 
 	return sp_reduce 
 end 
@@ -7539,19 +8377,19 @@ function Skill_JBXZSB_End ( ATKER , DEFER , sklv )
 
 	dmg =  Atk_Dmg ( ATKER , DEFER ) 
 	Hp_Endure_Dmg ( DEFER , dmg )
-	Check_Ys_Rem ( ATKER , DEFER)										--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	Check_Ys_Rem ( ATKER , DEFER)										--ÅÐ¶ÏÊÇ·ñÒþÉí
 end 
 
 
---ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ï¿½ï¿½
+--³¤ÈÞÐ·Êø¸¿
 
-function SkillSp_CRXSF ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Fascinate"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
-	local sp_reduce = 50 + sklv * 100   
+function SkillSp_CRXSF ( sklv )										--¼¼ÄÜ"ºüÀê÷È»ó"µÄspÏûºÄ¹«Ê½
+	local sp_reduce = 50 + sklv * 2   
 	return sp_reduce 
 end 
 
 function SkillCooldown_CRXSF( sklv ) 
-	local Cooldown = 15000
+	local Cooldown = 2000
 	return Cooldown
 end
 
@@ -7567,9 +8405,14 @@ end
 
 function Skill_CRXSF_End ( ATKER , DEFER , sklv ) 
 	local statelv = sklv 
-	local statetime = 4																																																																																																																																																																													
-	AddState ( ATKER , DEFER , STATE_CRXSF , statelv , statetime ) 
+	local statetime = 15 
+	local StateLv = GetChaStateLv ( DEFER , STATE_TTISW )
+	if StateLv ~= 3 then
+		AddState ( ATKER , DEFER , STATE_CRXSF , statelv , statetime ) 
 	end
+
+	Check_Ys_Rem ( ATKER , DEFER )					--ÅÐ¶ÏÊÇ·ñÒþÉí
+end 
 
 function State_CRXSF_Add ( role , statelv ) 
 
@@ -7579,9 +8422,9 @@ function State_CRXSF_Rem ( role , statelv )
 
 end
 
---Ë®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--Ë®ÏÉ×Ó×çÖä
 
-function SkillSp_SXZZZ ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Fascinate"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_SXZZZ ( sklv )										--¼¼ÄÜ"ºüÀê÷È»ó"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 50 + sklv * 2   
 	return sp_reduce 
 end 
@@ -7608,13 +8451,13 @@ function Skill_SXZZZ_End ( ATKER , DEFER , sklv )
 	if StateLv ~= 2 then
 		AddState ( ATKER , DEFER , STATE_ZZZH , statelv , statetime )
 	end
-	Check_Ys_Rem ( ATKER , DEFER )					--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	Check_Ys_Rem ( ATKER , DEFER )					--ÅÐ¶ÏÊÇ·ñÒþÉí
 end 
 
 
---Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--Ð¡±ùÁú±ù¶³
 
-function SkillSp_XBLBD ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Fascinate"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_XBLBD ( sklv )										--¼¼ÄÜ"ºüÀê÷È»ó"µÄspÏûºÄ¹«Ê½
 	local sp_reduce = 50 + sklv * 2   
 	return sp_reduce 
 end 
@@ -7636,25 +8479,25 @@ end
 
 function Skill_XBLBD_End ( ATKER , DEFER , sklv ) 
 	local statelv = 5
-	local statetime = 30 
+	local statetime = 180 
 	local StateLv = GetChaStateLv ( DEFER , STATE_TTISW )
 	if StateLv ~= 1 then
 		AddState ( ATKER , DEFER , STATE_BDJ , statelv , statetime )
 	end
-	Check_Ys_Rem ( ATKER , DEFER )					--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	Check_Ys_Rem ( ATKER , DEFER )					--ÅÐ¶ÏÊÇ·ñÒþÉí
 end 
 
 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--------------------------------------
+--±ùÁú¹¥»÷--------------------------------------
 
-function SkillSp_BLGJ ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Icy Dragon Strike"ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
+function SkillSp_BLGJ ( sklv )										--¼¼ÄÜ"±ùÁú¹¥»÷"µÄspÏûºÄ¹«Ê½
    local sp_reduce = 15   
 	return sp_reduce 
 end 
 
-function SkillArea_Sector_BLGJ ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Icy Dragon Strike"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Sector_BLGJ ( sklv )										--¼¼ÄÜ"±ùÁú¹¥»÷"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local angle = 120  
 	local radius = 800 
 	SetSkillRange ( 2 , radius , angle  )  
@@ -7683,9 +8526,9 @@ function Skill_BLGJ_End ( ATKER , DEFER , sklv )
 end 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--±ùÁú±ù¶³
 
-function SkillArea_Circle_BHSD ( sklv )										--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Circle_BHSD ( sklv )										--¼¼ÄÜ¡°±ùÁú±ù¶³"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	
 	local side = 300
 	SetSkillRange ( 4 , side )   
@@ -7716,12 +8559,12 @@ function Skill_BHSD_End ( ATKER , DEFER , sklv )
 	local statelv = 10 
 	local statetime = 15 
 	AddState ( ATKER , DEFER , STATE_BDJ , statelv , statetime )
-	local hpdmg = 1000000 
+	local hpdmg = 500 
 	Hp_Endure_Dmg ( DEFER , hpdmg )
 	
 end
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½--------------------------------------
+--ºÚÁú¿Ö¾å--------------------------------------
 
 function SkillSp_HLKJ ( sklv )	
 	local sp_reduce = 200
@@ -7753,7 +8596,7 @@ end
 
 
 function State_HLKJ_Add ( role , statelv ) 
-	--ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+	--²»ÄÜÒÆ¶¯
 end 
 
 
@@ -7761,14 +8604,14 @@ function State_HLKJ_Rem ( role , statelv )
 end 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+--ºÚÁúÁúÏ¢
 
-function SkillSp_BlackDrgDeadHit ( sklv )										--"Icy Dragon Strike"
+function SkillSp_BlackDrgDeadHit ( sklv )										--¼¼ÄÜ"±ùÁú¹¥»÷"µÄspÏûºÄ¹«Ê½
    local sp_reduce = 15   
 	return sp_reduce 
 end 
 
-function SkillArea_Sector_BlackDrgDeadHit ( sklv )									--"Icy Dragon Strike"
+function SkillArea_Sector_BlackDrgDeadHit ( sklv )										--¼¼ÄÜ"±ùÁú¹¥»÷"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local angle = 120  
 	local radius = 600
 	SetSkillRange ( 2 , radius , angle  )  
@@ -7796,7 +8639,7 @@ function Skill_BlackDrgDeadHit_End ( ATKER , DEFER , sklv )
 end 
 
 
----ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-----------------------------------
+---ºÚÁúÁúÃù-----------------------------------
 
 
 function SkillArea_Circle_HLLM ( sklv )										
@@ -7830,35 +8673,32 @@ end
 
 function Skill_HLLM_End ( ATKER , DEFER , sklv ) 
 	local statelv = sklv 
-	local statetime = 20 
-	local ChaStateLv = GetChaStateLv ( DEFER , STATE_HLLM )
+	local statetime = 120 
+	AddState ( ATKER , DEFER , STATE_HLLM , statelv , statetime ) 
 	
-	if ChaStateLv == 0 then
-		AddState ( ATKER , DEFER , STATE_HLLM , statelv , statetime ) 
-	end
 end 
 
 function State_HLLM_Add ( role , statelv ) 
-	local chid = GetCharID ( role )
-	local _dif = 0.5
-	local mnatksa =(MnatkSa(role) - _dif ) 	
-	local mxatksa =(MxatkSa(role) - _dif )
-	
-	SetCharaAttr( mnatksa , role , ATTR_STATEC_MNATK )
+	local mxatksa_dif = 0.5
+	local mnatksa_dif = 0.5
+	local mxatksa = ( MxatkSa(role) - mxatksa_dif ) 
+	local mnatksa = ( MnatkSa(role) - mnatksa_dif ) 
 	SetCharaAttr( mxatksa , role , ATTR_STATEC_MXATK )
+	SetCharaAttr( mnatksa , role , ATTR_STATEC_MNATK )
 	ALLExAttrSet(role)  
 end 
 
 function State_HLLM_Rem ( role , statelv ) 
-	local chid = GetCharID ( role )		
-	local mnatksa = ATTR_RADIX
-	local mxatksa = ATTR_RADIX
-	SetCharaAttr( mnatksa , role , ATTR_STATEC_MNATK )
+	local mxatksa_dif = 0.5
+	local mnatksa_dif = 0.5
+	local mxatksa = ( MxatkSa(role) + mxatksa_dif ) 
+	local mnatksa = ( MnatkSa(role) + mnatksa_dif ) 
 	SetCharaAttr( mxatksa , role , ATTR_STATEC_MXATK )
-	ALLExAttrSet(role)	
+	SetCharaAttr( mnatksa , role , ATTR_STATEC_MNATK )
+	ALLExAttrSet(role)
 end
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--ºÚÁúÁúÒí¹¥»÷
 
 function SkillArea_Circle_BlackDrgWing ( sklv )										
 	local side = 3000
@@ -7891,13 +8731,13 @@ end
 
 function Skill_BlackDrgWing_End ( ATKER , DEFER , sklv ) 
 	local Sta_role = Sta ( DEFER ) 
-	hpdmg =  math.max ( 100 , ( 150 - Sta_role ) ) * 1500000
+	hpdmg =  math.max ( 100 , ( 150 - Sta_role ) ) * 15
 	Hp_Endure_Dmg ( DEFER, hpdmg )
 end 
 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--ÆðËÀ»ØÉú
 
 function SkillSp_BlackHeal ( sklv )							
 	local sp_reduce = 30 + sklv * 4    
@@ -7921,14 +8761,14 @@ end
 
 function Skill_BlackHeal_End ( ATKER , DEFER , sklv ) 
 	
-	local hpdmg = -300000 
+	local hpdmg = -50000 
 	Hp_Endure_Dmg ( DEFER , hpdmg ) 
 
 end 
 
 
 
---ï¿½ï¿½ï¿½Â¾ï¿½ï¿½ï¿½
+--ÈýÔÂ¾«Áé
 
 function State_MarchElf_Add ( role , statelv )
 	local def_dif = 50
@@ -7950,9 +8790,9 @@ function State_MarchElf_Rem ( role , statelv )
 	ALLExAttrSet(role)
 end
 
---Black Dragon Roar
+--ºÚÁú»¢Ð¥
 
- function SkillArea_Circle_BlackHx( sklv )										
+ function SkillArea_Circle_BlackHx( sklv )									--¼¼ÄÜ¡°»¢Ð¥"µÄ¼¼ÄÜÇøÓò¹«Ê½	
 	local side = 5000 
 	SetSkillRange ( 4 , side  )  
 end 
@@ -7973,6 +8813,7 @@ end
  
 
 function State_BlackHx_Add ( role , statelv ) 
+	--LG("state_hx" , "function State_Hx_Add : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local mspdsa_dif = 1
 	local mspdsa = (MspdSa(role) - mspdsa_dif ) * ATTR_RADIX 
 	local aspda_dif =0.3
@@ -7986,6 +8827,7 @@ end
 
 
 function State_BlackHx_Rem ( role , statelv ) 
+	--LG("state_hx" , "function State_Hx_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local mspdsa_dif = 1
 	local mspdsa = (MspdSa(role) + mspdsa_dif ) * ATTR_RADIX 
 	local aspda_dif =0.3
@@ -7997,7 +8839,7 @@ function State_BlackHx_Rem ( role , statelv )
 end 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½×»ï¿½
+--ºÚÁúÀ×»÷
 function SkillCooldown_BlackLj( sklv )
 	local Cooldown = 10000
 	return Cooldown
@@ -8016,7 +8858,7 @@ end
 
 
 function State_BlackLj_Add ( role , statelv ) 
-	--ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+	--²»ÄÜÒÆ¶¯
 end 
 
 
@@ -8024,7 +8866,7 @@ function State_BlackLj_Rem ( role , statelv )
 end 
 
 
----ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°Õ¶
+---ºÚÁú»ÃÓ°Õ¶
  function SkillCooldown_BlackHyz( sklv )
 	local Cooldown = 3000
 	return Cooldown
@@ -8039,11 +8881,11 @@ function Skill_BlackHyz_End ( ATKER , DEFER , sklv )
 	Hp_Endure_Dmg ( DEFER , dmg1 )  
 	 
 
-	Check_Ys_Rem ( ATKER , DEFER )						
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí
 end 
 
 
-----ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+----ºÚÁúÑ×Çò
  function SkillCooldown_BlackYq( sklv ) 
 	local Cooldown = 10000 
 	return Cooldown
@@ -8051,11 +8893,11 @@ end
 
  function Skill_BlackYq_End ( ATKER , DEFER , sklv )
 	local Sta_role = Sta ( DEFER ) 
-	hpdmg = 100000 +  math.max ( 50 , ( 150 - Sta_role ) )  * 20
+	hpdmg = 2500 +  math.max ( 50 , ( 150 - Sta_role ) )  * 20
 	Hp_Endure_Dmg ( DEFER, hpdmg )
 end 
 
--------ï¿½ï¿½ï¿½ï¿½ï¿½Ù»ï¿½
+-------ºÚÁúÕÙ»½
  function SkillCooldown_BlackZh( sklv )
 	local Cooldown = 1200000
 	return Cooldown
@@ -8081,7 +8923,7 @@ function Skill_BlackZh_End( ATKER , DEFER , sklv )
 		SetChaLifeTime(new2, 900000)
 		SetChaLifeTime(new3, 900000)
 end
----------------------------------ï¿½ï¿½ï¿½é¶¾ï¿½ï¿½
+---------------------------------¾«Áé¶¾ÊÉ
 function State_JLDS_Add ( role , statelv )
 	local hpdmg = 30 * statelv   
 	Hp_Endure_Dmg ( role , hpdmg ) 
@@ -8089,8 +8931,9 @@ function State_JLDS_Add ( role , statelv )
 end 
 
 function State_JLDS_Rem ( role , statelv ) 
+	--LG("state_JSDD" , "function State_JSDD_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 end 
---ï¿½ï¿½ï¿½Ë°ï¿½ï¿½ï¿½ï¿½ï¿½-------------------------------------
+--³¬ÈË°ô°ôÌÇ-------------------------------------
 function State_CJBBT_Add ( role , statelv )
 	local str = GetChaAttr( role , ATTR_STR )
 	SetCharaAttr(str ,role , ATTR_STATEV_STR)
@@ -8100,7 +8943,7 @@ function State_CJBBT_Rem ( role , statelv )
 	SetCharaAttr(0 ,role , ATTR_STATEV_STR)
 	ALLExAttrSet(role)
 end
---ï¿½ï¿½ï¿½ï¿½ï¿½É¿ï¿½ï¿½ï¿½-------------------------------------
+--¾ÞÈËÇÉ¿ËÁ¦-------------------------------------
 function State_JRQKL_Add ( role , statelv )
 	local con = GetChaAttr( role , ATTR_CON ) 
 	SetCharaAttr( con , role , ATTR_STATEV_CON )
@@ -8112,7 +8955,7 @@ function State_JRQKL_Rem ( role , statelv )
 end
 
 
---------------------ï¿½ï¿½ï¿½ï¿½È¼ï¿½Õµï¿½
+--------------------ÍöÁéÈ¼ÉÕµ¯
 function SkillCooldown_wlrsd( sklv ) 
 	local Cooldown = 2000 
 	return Cooldown
@@ -8137,7 +8980,7 @@ end
 function State_wlrsd_Rem ( role , statelv ) 
 end
 
-----------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+----------------------------ÍöÁé¼ÓËÙ
 function SkillCooldown_wljs( sklv )
 	local Cooldown = 2000 
 	return Cooldown
@@ -8166,7 +9009,7 @@ function State_wljs_Rem  ( role , statelv )
 	ALLExAttrSet(role)  
 end 
 
------------------------------------ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½ï¿½
+-----------------------------------»ðÇ¹¹¥»÷
 function SkillCooldown_hqgj( sklv )
 	local Cooldown = 3000 
 	return Cooldown
@@ -8182,18 +9025,18 @@ function Skill_hqgj_End ( ATKER , DEFER , sklv )
 end 
 
 
------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+-----------------------------ÍöÁé»÷ÔÎ
 function SkillCooldown_wljy( sklv )
-	local Cooldown = 20000 
+	local Cooldown = 2000 
 	return Cooldown
 end
 
 function Skill_wljy_End ( ATKER , DEFER , sklv )
 	local statelv = sklv 
-	local statetime = 1 
+	local statetime = 3 
 	local statelv = 4
 	local Sta_role = Sta ( DEFER ) 
-	hpdmg =40000 +  math.max ( 50 , ( 150 - Sta_role ) )  * 8
+	hpdmg =400 +  math.max ( 50 , ( 150 - Sta_role ) )  * 8
 	Hp_Endure_Dmg ( DEFER, hpdmg )
 	AddState ( ATKER , DEFER , STATE_WLJY , statelv , statetime ) 
  end
@@ -8206,24 +9049,24 @@ function State_wljy_Rem ( role , statelv )
  end 
 
 
---------------------------------- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--------------------------------- ¼¤¹âÊø
 function SkillCooldown_jgs( sklv )
-	local Cooldown = 12000 
+	local Cooldown = 5000 
 	return Cooldown
 end
 
 function Skill_jgs_End ( ATKER , DEFER , sklv )
-	local dmg = ( 1.2 +sklv * 0.23 ) * Atk_Dmg ( ATKER , DEFER )  
-	Hp_Endure_Dmg ( DEFER , dmg )
-	local statetime = 5
-	local statelv = 5
-	if statelv >= 1 then
-	AddState ( ATKER , DEFER , STATE_XY , statelv , statetime )  
+	local 	hp = GetChaAttr ( DEFER , ATTR_HP ) 
+	local 	dmg = math.floor ( 500 +hp *0.05) 
+	if dmg > 2000 then
+		dmg = 2000
+	end
+	hp = hp - dmg 
+	SetCharaAttr ( hp , DEFER , ATTR_HP ) 
 end 
-end
 
 
---------------------------------- ï¿½ï¿½ï¿½é¶¾ï¿½ï¿½
+--------------------------------- ÍöÁé¶¾ïÚ
 function SkillCooldown_wldb ( sklv )
 	local Cooldown = 2000
 	return Cooldown
@@ -8237,12 +9080,12 @@ function Skill_wldb_End ( ATKER , DEFER , sklv )
 	--hpdmg = 300 +  math.max ( 50 , ( 300 - defer_def ) )  * 5
 	Hp_Endure_Dmg ( DEFER, hpdmg )
 	AddState ( ATKER , DEFER , STATE_WLDB , statelv , statetime ) 
-	Check_Ys_Rem ( ATKER , DEFER )						
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí
 end 
 
 
 function State_wldb_Add ( role , statelv ) 
-	local hpdmg = 20000 
+	local hpdmg = 160 
 	Hp_Endure_Dmg ( role , hpdmg ) 
 	ALLExAttrSet(role)  
 end 
@@ -8251,7 +9094,7 @@ function State_wldb_Rem ( role , statelv )
 end 
 
 
------------------------------------------ Ô¶ï¿½Ì±ï¿½ï¿½ï¿½
+----------------------------------------- Ô¶³Ì±¬ÆÆ
 function SkillCooldown_ycbp ( ATKER , DEFER , sklv )
 	local Cooldown = 2000 
 	return Cooldown
@@ -8264,8 +9107,8 @@ function Skill_ycbp_End ( ATKER , DEFER , sklv )
 end 
 
 
--------------------------------------------- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-function SkillArea_Circle_ywgj ( sklv )				
+-------------------------------------------- ÑÌÎí¹¥»÷
+function SkillArea_Circle_ywgj ( sklv )										--¼¼ÄÜ"ÃÔÎí"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local side = 300    
 	SetSkillRange ( 3 , side  )  
 end
@@ -8279,7 +9122,7 @@ end
 function SkillArea_State_ywgj ( sklv )										
 	local statetime = 20    
 	local statelv = sklv 
-	SetRangeState ( STATE_MW , statelv  , statetime ) 		
+	SetRangeState ( STATE_MW , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°Ê¥ÑÛÖ®Òí¡±×´Ì¬
 end 
 
 
@@ -8307,7 +9150,7 @@ function State_ywgj_Tran ( statelv )
 end
 
 
------------------------------------------ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½
+-----------------------------------------÷¼÷Ã²øÉí
 function SkillCooldown_klcs ( ATKER , DEFER , sklv )
 	local Cooldown = 2000 
 	return Cooldown
@@ -8328,7 +9171,7 @@ end
 function State_klcs_Rem ( role , statelv ) 
 end
 
------------------------------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
+-----------------------------------------------------------ÁéÒìÒÆ¶¯
 function SkillCooldown_lyyd ( ATKER , DEFER , sklv )
 	local Cooldown = 2000 
 	return Cooldown
@@ -8342,7 +9185,7 @@ function Skill_lyyd_End ( ATKER , DEFER , sklv )
 	GoTo(ATKER, x,y, map_name)
  end
 
------------------------------------------------------------------ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½
+-----------------------------------------------------------------÷¼÷Ã»¤¶Ü
 function SkillCooldown_klhd ( ATKER , DEFER , sklv )
 	local Cooldown = 5000 
 	return Cooldown
@@ -8368,7 +9211,7 @@ function State_klhd_Rem ( role , statelv )
 	ALLExAttrSet(role)  
 end 
 
--------------------------------------------------------- Ð°ï¿½ñ¹¥»ï¿½
+-------------------------------------------------------- Ð°¶ñ¹¥»÷
 function SkillCooldown_xegj ( ATKER , DEFER , sklv )
 	local Cooldown = 2000 
 	return Cooldown
@@ -8382,7 +9225,7 @@ function Skill_xegj_End ( ATKER , DEFER , sklv )
  end
 
 
------------------------------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½Ò¿ï¿½
+-----------------------------------------------------------ÍöÁéÂÒ¿³
 function SkillCooldown_wllk ( ATKER , DEFER , sklv )
 	local Cooldown = 2000 
 	return Cooldown
@@ -8397,7 +9240,7 @@ function Skill_wllk_End ( ATKER , DEFER , sklv )
 	Hp_Endure_Dmg ( DEFER , dmg1 ) 
 end 
 
-------------------------------------------------------------Õ¨ï¿½ï¿½Í¶ï¿½ï¿½
+------------------------------------------------------------Õ¨µ¯Í¶ÖÀ
 function SkillCooldown_zdtz ( ATKER , DEFER , sklv )
 	local Cooldown = 4000 
 	return Cooldown
@@ -8409,7 +9252,7 @@ function Skill_zdtz_End ( ATKER , DEFER , sklv )
 		Hp_Endure_Dmg ( DEFER, hpdmg )
 end 
 
----------------------------------------------------------------ï¿½ï¿½ï¿½ï¿½Å­ï¿½ï¿½
+---------------------------------------------------------------ÍöÁéÅ­ºð
 
 
 function SkillCooldown_wlnh ( ATKER , DEFER , sklv )
@@ -8442,7 +9285,7 @@ function State_wlnh_Rem ( role , statelv )
 end
 
 
-------------------------------------------------------------ï¿½ï¿½ï¿½é³°Ð¦
+------------------------------------------------------------ÍöÁé³°Ð¦
 function SkillCooldown_wlcx ( ATKER , DEFER , sklv )
 	local Cooldown = 2000 
 	return Cooldown
@@ -8482,7 +9325,7 @@ function State_wlcx_Rem ( role , statelv )
 	ALLExAttrSet(role)  
 end 
 
------------------------------------------------------------------------------ ï¿½ï¿½ï¿½ï¿½Ö®Ñª
+----------------------------------------------------------------------------- ×çÖäÖ®Ñª
 function SkillCooldown_zzzx ( ATKER , DEFER , sklv )
 	local Cooldown = 2000 
 	return Cooldown
@@ -8511,7 +9354,7 @@ function State_wlcx_Rem  ( role , sklv )
 	ALLExAttrSet(role)  
 end 
 
--------------------------------------------------------------ï¿½Â¹ï¿½Ö¸ï¿½
+-------------------------------------------------------------ÔÂ¹â»Ö¸´
 function SkillCooldown_yghf ( ATKER , DEFER , sklv )
 	local Cooldown = 2000 
 	return Cooldown
@@ -8529,7 +9372,7 @@ function Skill_yghf_End ( ATKER , DEFER , sklv )
 	SetCharaAttr( hp_now , ATKER , ATTR_HP )  
 end
 
---------------------------------------------------------------------------ï¿½ï¿½ï¿½ï¿½Ë®ï¿½ï¿½
+--------------------------------------------------------------------------ÍöÁéË®¼ý
 function SkillCooldown_yghf ( ATKER , DEFER , sklv )
 	local Cooldown = 2000 
 	return Cooldown
@@ -8544,13 +9387,13 @@ function Skill_wlsj_End ( ATKER , DEFER , sklv )
 	Hp_Endure_Dmg ( DEFER , dmg1 )  
 end 
 
------------------------------------------------------------------- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+------------------------------------------------------------------ ÍöÁéäöÎÐ
 function SkillCooldown_wlxw ( ATKER , DEFER , sklv )
 	local Cooldown = 2000 
 	return Cooldown
 end 
 
-function SkillArea_Circle_wlxw ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Whirlpool"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Circle_wlxw ( sklv )										--¼¼ÄÜ"äöÎÐ"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local side = 1000  
 	SetSkillRange ( 3 , side  )  
 end
@@ -8558,7 +9401,7 @@ end
 function SkillArea_State_wlxw ( sklv )										
 	local statetime = 10    
 	local statelv = sklv 
-	SetRangeState ( STATE_XW , statelv  , statetime ) 									--ï¿½ï¿½ï¿½Óµï¿½ï¿½æ¡°Ê¥ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½×´Ì¬
+	SetRangeState ( STATE_XW , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°Ê¥ÑÛÖ®Òí¡±×´Ì¬
 
 end 
 
@@ -8590,8 +9433,8 @@ function State_wlxw_Tran ( statelv )
 	return 1     
 end 
 
---------------------------------------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»
-function SkillArea_Circle_wllm ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Lightning Curtain"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+--------------------------------------------------------------------ÍöÁéÀ×Ä»
+function SkillArea_Circle_wllm ( sklv )										--¼¼ÄÜ"À×Ä»"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local side = 500  
 	SetSkillRange ( 3 , side  )  
 end
@@ -8604,7 +9447,7 @@ end
 function SkillArea_State_wllm ( sklv )										
 	local statetime = 15      
 	local statelv = 7 
-	SetRangeState ( STATE_LM , statelv  , statetime ) 									--ï¿½ï¿½ï¿½Óµï¿½ï¿½æ¡°ï¿½ï¿½Ä»ï¿½ï¿½×´Ì¬
+	SetRangeState ( STATE_LM , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°À×Ä»¡±×´Ì¬
 end 
 
 function Skill_wllm_End ( ATKER , DEFER , sklv ) 
@@ -8623,7 +9466,7 @@ function State_Lm_Tran ( statelv )
 end
 
 
----------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½Ù»ï¿½
+---------------------------------ÍöÁéÕÙ»½
 function SkillCooldown_wlzh ( sklv )
 	local Cooldown = 500000
 	return Cooldown
@@ -8653,37 +9496,8 @@ function Skill_wlzh_End( ATKER , DEFER , sklv )
 		SetChaLifeTime(new3, 900000)
 		SetChaLifeTime(new4, 900000)
 end
----ï¿½Ñ§Õ§ï¿½Ü§Ú§ï¿½ ï¿½ï¿½Ó§Ñ§ï¿½ï¿½
-function SkillCooldown_wadt ( sklv )
-	local Cooldown = 60000
-	return Cooldown
-end
 
-function SkillArea_Circle_wadt( sklv )									
-	local side = 1000 
-	SetSkillRange ( 4 , side  )  
-end
-
-function Skill_wadt_End( ATKER , DEFER , sklv )
-	local x, y = GetChaPos(ATKER)
-		local x1 = x + 200
-		local x2 = x + 200
-		local x3 = x - 200
-		local x4 = x - 200
-		local y1 = y + 200
-		local y2 = y - 200
-		local y3 = y + 200
-		local y4 = y - 200
-		local new1 = CreateCha(1265, x1, y1, 145, 50)
-		local new2 = CreateCha(1265, x2, y2, 145, 50)
-		local new3 = CreateCha(1265, x3, y3, 145, 50)
-		local new4 = CreateCha(1265, x4, y4, 145, 50)
-		SetChaLifeTime(new1, 900000)
-		SetChaLifeTime(new2, 900000)
-		SetChaLifeTime(new3, 900000)
-		SetChaLifeTime(new4, 900000)
-end
------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½
+-----------------------------------ÎïÀí·Éµ¶
 function SkillCooldown_wlfd( sklv )
 	local Cooldown = 1000 
 	return Cooldown
@@ -8698,7 +9512,7 @@ function Skill_wlfd_End ( ATKER , DEFER , sklv )
 	Hp_Endure_Dmg ( DEFER , dmg1 )  
 end 
 
----------------------------------ï¿½ï¿½ï¿½ï¿½Éµï¿½
+---------------------------------¾«Éñ·Éµ¶
 function SkillCooldown_jsfd ( ATKER , DEFER , sklv )
 	local Cooldown = 1000 
 	return Cooldown
@@ -8710,328 +9524,191 @@ function Skill_jsfd_End ( ATKER , DEFER , sklv )
 		Hp_Endure_Dmg ( DEFER, hpdmg )
 end 
 
---Fairy Body -------------------------------------
+--¾«Áé¸½Ìå-------------------------------------
 function SkillCooldown_JLFT( sklv )
-    local Cooldown = 160000
-    return Cooldown
+	local Cooldown = 180000
+	return Cooldown
 end
- 
-function SkillSp_JLFT ( sklv )                                     
-    local sp_reduce = 20
-    return sp_reduce
-end
- 
+function SkillSp_JLFT ( sklv )										--¼¼ÄÜ"¾«Áé¸½Ìå"µÄspÏûºÄ¹«Ê½
+	local sp_reduce = 20 
+	return sp_reduce 
+end 
 function Skill_JLFT_BEGIN( role , sklv )			
 		--SystemNotice ( role , "Skill_JLFT_BEGIN" ) 
-	local item_elf = GetChaItem(role , 2, 1)			-- Pet Handle
-	local item_elf_type = GetItemType ( item_elf )			-- Pet Type
-	local item_elf_maxhp = GetItemAttr(item_elf,ITEMATTR_MAXURE)	-- Max Stamina	
-	local item_elf_hp = GetItemAttr(item_elf,ITEMATTR_URE)		-- Current Stamina
+	local item_elf = GetChaItem(role , 2, 1)			--»ñÈ¡±³°üµÚ2¸ñµÀ¾ßÖ¸Õë
+	local item_elf_type = GetItemType ( item_elf )			--»ñÈ¡±³°üµÚ2¸ñµÀ¾ßÀàÐÍ
+	local item_elf_maxhp = GetItemAttr(item_elf,ITEMATTR_MAXURE)	--»ñÈ¡¾«Áé×î´óhp	
+	local item_elf_hp = GetItemAttr(item_elf,ITEMATTR_URE)		--»ñÈ¡¾«Áéµ±Ç°hp
 	local role_hp = GetChaAttr(role, ATTR_HP)
 	local role_mxhp = GetChaAttr(role, ATTR_MXHP)
 	local Num_JL = GetItemForgeParam ( item_elf , 1 )
-	--local Part1 = GetNum_Part1 ( Num_JL )
+	local Part1 = GetNum_Part1 ( Num_JL )	--Get Num Part 1 µ½ Part 7
+		--SystemNotice ( role , "item_elf_type=="..item_elf_type ) 
+		--SystemNotice ( role , "item_elf_hp=="..item_elf_hp ) 
+		--SystemNotice ( role , "Part1=="..Part1 ) 
 
-		-- Value Checks
-		--SystemNotice ( role , "item_elf_type == "..item_elf_type ) 
-		--SystemNotice ( role , "item_elf_hp == "..item_elf_hp ) 
-		--SystemNotice ( role , "Part1 == "..Part1 ) 
-
-	if item_elf_type ~= 59 then -- or Part1~=1 then
+	if item_elf_type ~= 59 or Part1~=1 then
 		SkillUnable(role) 
-		SystemNotice ( role , "ï¿½ï¿½ï¿½Ö§ï¿½ï¿½Ñ§Ó§Ú§Ý§ï¿½ß§ï¿½ï¿½ï¿½ ï¿½ï¿½Ú§ï¿½ ï¿½ï¿½Ö§ï¿½ï¿½Þ§ï¿½ï¿½! " ) 
+		CALCULATE_SKILLEFFECT_LUA_000098 = GetResString("CALCULATE_SKILLEFFECT_LUA_000098")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000098 ) 
 		return 
 	end
-
-	local str = GetItemAttr( item_elf ,ITEMATTR_VAL_STR )		 -- Str Lv 
-	local con = GetItemAttr( item_elf ,ITEMATTR_VAL_CON )		 -- Con Lv 
-	local agi = GetItemAttr( item_elf ,ITEMATTR_VAL_AGI )		 -- Agi Lv 
-	local dex = GetItemAttr( item_elf ,ITEMATTR_VAL_DEX )		 -- Spr Lv 
-	local sta = GetItemAttr( item_elf ,ITEMATTR_VAL_STA )		 -- Acc Lv 
-	local lv_JL = str + con + agi + dex + sta		---- Total Lv of Pet
-
-	if item_elf_hp < 2500 then
-		SkillUnable ( role ) 
-		SystemNotice ( role , "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ó§Ñ§ï¿½Ñ§Ö§ï¿½ ï¿½ï¿½ï¿½Ñ§Þ§Ú§ß§ï¿½ ï¿½ï¿½Ö§ï¿½ ï¿½Õ§Ý§ï¿½ ï¿½Ñ§Ü§ï¿½Ú§Ó§Ñ§ï¿½Ú§ï¿½ ï¿½ß§Ñ§Ó§ï¿½ï¿½Ü§ï¿½ ï¿½ï¿½ï¿½Ö§Ý§ï¿½ ï¿½ï¿½ï¿½Ö§ï¿½" ) 
+	local str = GetItemAttr( item_elf ,ITEMATTR_VAL_STR )			--Á¦Á¿ 
+	local con = GetItemAttr( item_elf ,ITEMATTR_VAL_CON )		 ---ÌåÖÊ 
+	local agi = GetItemAttr( item_elf ,ITEMATTR_VAL_AGI )			--Ãô½Ý 
+	local dex = GetItemAttr( item_elf ,ITEMATTR_VAL_DEX )		 --×¨×¢ 
+	local sta = GetItemAttr( item_elf ,ITEMATTR_VAL_STA )			 --¾«Éñ 
+	local lv_JL = str + con + agi + dex + sta	----Ò»¸ö¾«ÁéµÄµÈ¼¶
+	if item_elf_hp<5000 then
+		SkillUnable(role) 
+		CALCULATE_SKILLEFFECT_LUA_000099 = GetResString("CALCULATE_SKILLEFFECT_LUA_000099")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000099 ) 
 		return 
 	end
-
-	item_elf_hp = item_elf_hp - (6 * lv_JL / sklv) * 2
+	item_elf_hp=item_elf_hp-(6*lv_JL/sklv)*50
 	SetItemAttr ( item_elf , ITEMATTR_URE , item_elf_hp ) 
-end
-
+end 
 function Skill_JLFT_End ( ATKER , DEFER , sklv )
 	local statelv = sklv 
 	local statetime = 190 - sklv * 10 
-	local item_elf = GetChaItem(ATKER , 2, 1)			-- Pet Handle
-	local item_elf_type = GetItemType ( item_elf )			-- Pet Type
-	local Item_ID = GetItemID ( item_elf )				-- Pet ID
+	local item_elf = GetChaItem(ATKER , 2, 1)			--»ñÈ¡±³°üµÚ2¸ñµÀ¾ßÖ¸Õë
+	local item_elf_type = GetItemType ( item_elf )			--»ñÈ¡±³°üµÚ2¸ñµÀ¾ßÀàÐÍ
+	local Item_ID = GetItemID ( item_elf )	--È¡ID
 		--SystemNotice ( ATKER , "Item_ID=="..Item_ID ) 
 
-	if Item_ID==231 then
-		--SystemNotice ( ATKER , "Fairy of Luck == "..Item_ID ) 
-		AddState( ATKER , ATKER , STATE_JLFT8, statelv , statetime ) 
+	if Item_ID==231 then------ÔËÖ®¾«Áé
+			--SystemNotice ( ATKER , "ÔËÖ®¾«Áé=="..Item_ID ) 
 
-	elseif Item_ID==235 then
-		--SystemNotice ( ATKER , "Fairy of Strength == "..Item_ID ) 
-		AddState( ATKER , ATKER , STATE_JLFT4, statelv , statetime ) 
+		AddState( ATKER , ATKER , STATE_JLFT1, statelv , statetime ) 
+	elseif Item_ID==232 then---------Á¦Ö®¾«Áé
+			--SystemNotice ( ATKER , "Item_ID=="..Item_ID ) 
 
-	elseif Item_ID==236 then
-		--SystemNotice ( ATKER , "Fairy of Constitution == "..Item_ID ) 
-		AddState( ATKER , ATKER , STATE_JLFT3, statelv , statetime ) 
-
-	elseif Item_ID==237 then
-		--SystemNotice ( ATKER , "Fairy of Spirit == "..Item_ID ) 
-		AddState( ATKER , ATKER , STATE_JLFT4, statelv , statetime ) 
-
-	elseif Item_ID==450 then
-		--SystemNotice ( ATKER , "Fairy of Accuracy == "..Item_ID ) 
-		AddState( ATKER , ATKER , STATE_JLFT3, statelv , statetime ) 
-
-	elseif Item_ID==451 then
-		--SystemNotice ( ATKER , "Fairy of Agility == "..Item_ID ) 
 		AddState( ATKER , ATKER , STATE_JLFT2, statelv , statetime ) 
+	elseif Item_ID==233 then---------ÌåÖ®¾«Áé
+			--SystemNotice ( ATKER , "Á¦Ö®¾«Áé=="..Item_ID ) 
 
-	elseif Item_ID==457 then
-		--SystemNotice ( ATKER , "Fairy of Evil == "..Item_ID ) 
-		AddState( ATKER , ATKER , STATE_JLFT8, statelv , statetime ) 
+		AddState( ATKER , ATKER , STATE_JLFT3, statelv , statetime ) 
+	elseif Item_ID==234 then---------ÉñÖ®¾«Áé
+			--SystemNotice ( ATKER , "ÉñÖ®¾«Áé=="..Item_ID ) 
 
-	elseif Item_ID==458 then
-		--SystemNotice ( ATKER , "Mordo Junior == "..Item_ID ) 
-		AddState( ATKER , ATKER , STATE_JLFT8, statelv , statetime ) 
+		AddState( ATKER , ATKER , STATE_JLFT4, statelv , statetime ) 
+	elseif Item_ID==235 then---------×¨Ö®¾«Áé
+			--SystemNotice ( ATKER , "×¨Ö®¾«Áé=="..Item_ID ) 
 
-	elseif Item_ID==459 then
-		--SystemNotice ( ATKER , "Mordo Junior == "..Item_ID ) 
 		AddState( ATKER , ATKER , STATE_JLFT5, statelv , statetime ) 
+	elseif Item_ID==236 then---------ÃôÖ®¾«Áé
+			--SystemNotice ( ATKER , "ÃôÖ®¾«Áé=="..Item_ID ) 
 
-	elseif Item_ID==234 then
-		--SystemNotice ( ATKER , "Mordo Junior == "..Item_ID ) 
+		AddState( ATKER , ATKER , STATE_JLFT6, statelv , statetime ) 
+	elseif Item_ID==237 then---------Ð°Ö®¾«Áé
+			--SystemNotice ( ATKER , "Ð°Ö®¾«Áé=="..Item_ID ) 
+
+		AddState( ATKER , ATKER , STATE_JLFT7, statelv , statetime ) 
+	elseif Item_ID==681 then---------Ä¦¶þ
+			--SystemNotice ( ATKER , "Ä¦¶þ=="..Item_ID ) 
+
 		AddState( ATKER , ATKER , STATE_JLFT8, statelv , statetime ) 
-
-	elseif Item_ID==681 then
-		--SystemNotice ( ATKER , "Mordo Junior == "..Item_ID ) 
-		--AddState( ATKER , ATKER , STATE_JLFT7, statelv , statetime ) --ï¿½Ò§ï¿½ï¿½Ý§ï¿½ 7
-		AddState( ATKER , ATKER , STATE_JLFT3, statelv , statetime ) --ï¿½Ò§ï¿½ï¿½Ý§ï¿½ 7
-	
-	elseif Item_ID==452 then
-        --SystemNotice ( ATKER , "Mordo Junior == "..Item_ID )
-        AddState( ATKER , ATKER , STATE_JLFT7, statelv , statetime )
 	end
 end 
- 
 function State_JLFT_Add ( role , sklv )
-	local Item_bg = GetChaItem ( role , 2 , 1  ) 
-	local Get_Item_Type = GetItemType ( Item_bg ) 
+	local Item_bg = GetChaItem ( role , 2 , 1  ) --È¡½ÇÉ«±³°üµÚ¶þÀ¸µÄÖ¸Õë
+	local Get_Item_Type = GetItemType ( Item_bg ) --µ÷ÓÃ³ÌÐò½Ó¿Ú»ñµÃItemµÀ¾ßÀàÐÍ
+		--SystemNotice ( role , "Get_Item_Type=="..Get_Item_Type ) 
 
-	if Get_Item_Type == 59 then 
-		local  Item_ID = GetItemID ( Item_bg )	
-		local str = GetItemAttr( Item_bg ,ITEMATTR_VAL_STR )
-		local con = GetItemAttr( Item_bg ,ITEMATTR_VAL_CON )
-		local agi = GetItemAttr( Item_bg ,ITEMATTR_VAL_AGI )
-		local dex = GetItemAttr( Item_bg ,ITEMATTR_VAL_DEX )
-		local sta = GetItemAttr( Item_bg ,ITEMATTR_VAL_STA )
-		local URE = GetItemAttr( Item_bg ,ITEMATTR_URE )
-		local MAXURE = GetItemAttr( Item_bg ,ITEMATTR_MAXURE )
-
-		local lv_JL = str + con + agi + dex + sta
+	if Get_Item_Type==59 then --------ÅÐ¶ÏÊÇ·ñÎª¾«Áé²¢ÇÒÌåÁ¦´óÓÚ100
+		local  Item_ID = GetItemID ( Item_bg )	--È¡ID
+		local str = GetItemAttr( Item_bg ,ITEMATTR_VAL_STR )			--Á¦Á¿ 
+		local con = GetItemAttr( Item_bg ,ITEMATTR_VAL_CON )		 ---ÌåÖÊ 
+		local agi = GetItemAttr( Item_bg ,ITEMATTR_VAL_AGI )			--Ãô½Ý 
+		local dex = GetItemAttr( Item_bg ,ITEMATTR_VAL_DEX )		 --×¨×¢ 
+		local sta = GetItemAttr( Item_bg ,ITEMATTR_VAL_STA )			 --¾«Éñ 
+		local URE = GetItemAttr( Item_bg ,ITEMATTR_URE )			--ÌåÁ¦ 
+		local MAXURE = GetItemAttr( Item_bg ,ITEMATTR_MAXURE )		 --×î´óÌåÁ¦
+		local lv_JL = str + con + agi + dex + sta	----Ò»¸ö¾«ÁéµÄµÈ¼¶
 		local Num_JL = GetItemForgeParam ( Item_bg , 1 )
-
-		-- No idea Wtf these are for
-		local Part1 = 1 --GetNum_Part1 ( Num_JL )
+		local Part1 = GetNum_Part1 ( Num_JL )	--Get Num Part 1 µ½ Part 7
 		local Part2 = GetNum_Part2 ( Num_JL )	
 		local Part3 = GetNum_Part3 ( Num_JL )
 		local Part4 = GetNum_Part4 ( Num_JL )
 		local Part5 = GetNum_Part5 ( Num_JL )
 		local Part6 = GetNum_Part6 ( Num_JL )
 		local Part7 = GetNum_Part7 ( Num_JL)
-		if Part1 == 1 then 
-			local star = 0
-			-- Effect increase by skill level
-			local statelv = lv_JL * 0.050 * (sklv + 1) * 0.07 ----lv*1/40*(skilllv+1)/2*0.1
-
-			if Item_ID ==232 then 
+		--SystemNotice ( role , "State_JLFT_Add_URE=="..URE ) 
+		--SystemNotice ( role , "State_JLFT_Add_Part1=="..Part1 ) 
+		if Part1 ==1 then ------ÅÐ¶Ï¶þ×ª¾«Áé
+			local star=0
+			local statelv=lv_JL*0.025*(sklv+1)*0.05 ----lv*1/40*(skilllv+1)/2*0.1
+			if Item_ID ==232 then -------------Á¦Ö®¾«Áé
 				--local star = GetChaAttr( role , ATTR_BSTR )*statelv
 				local star = lv_JL
-				SetCharaStatev(star, role, ATTR_STATEV_STR, "STATE_JLFT")
-			end
-	
-			if Item_ID ==233 then 
+				SetCharaAttr(star ,role , ATTR_STATEV_STR)
+			end	
+			if Item_ID ==233 then -------------ÌåÖ®¾«Áé
 				--local star = GetChaAttr( role , ATTR_BCON )*statelv
 				local star = lv_JL
-				SetCharaStatev(star, role, ATTR_STATEV_CON, "STATE_JLFT")
+				SetCharaAttr(star ,role , ATTR_STATEV_CON)
 			end
-
-			if Item_ID ==234 then 
+			if Item_ID ==234 then -------------ÉñÖ®¾«Áé
 				--local star = GetChaAttr( role , ATTR_BSTA )*statelv
 				local star = lv_JL
-				SetCharaStatev(star, role, ATTR_STATEV_STA, "STATE_JLFT")
+				SetCharaAttr(star ,role , ATTR_STATEV_STA)
 			end
-
-			if Item_ID ==236 then 
+			if Item_ID ==235 then -------------×¨Ö®¾«Áé
+				--local star = GetChaAttr( role , ATTR_BDEX )*statelv
+				local star = lv_JL
+				SetCharaAttr(star ,role , ATTR_STATEV_DEX)
+			end
+			if Item_ID ==236 then -------------ÃôÖ®¾«Áé
 				--local star = GetChaAttr( role , ATTR_BAGI )*statelv
 				local star = lv_JL
-				SetCharaStatev(star, role, ATTR_STATEV_AGI, "STATE_JLFT")
+				SetCharaAttr(star ,role , ATTR_STATEV_AGI)
 			end
-
-			if Item_ID == 681 then -- ï¿½Ö§ï¿½Ý§ï¿½ ï¿½ï¿½Ö§ï¿½ = ï¿½Þ§ï¿½ï¿½Õ§ï¿½ ï¿½Þ§ï¿½
+			--if Item_ID ==237 then -------------Ð°Ö®¾«Áé
+			--end
+			if Item_ID ==231 or  Item_ID ==681 then -------------ÔËÖ®¾«ÁéºÍÄ¦¶¹Ð¡×Ó¶þÊÀ
+				--local star = lv_JL
+				local star1 = GetChaAttr( role , ATTR_BMF )
+				local star = GetChaAttr( role , ATTR_BMF )*lv_JL*0.02
+				local star2=star+star1
+				--SystemNotice ( role , "½ÇÉ«Ö®Ç°µÄMFÎª"..star1 ) 
+				--SystemNotice ( role , "½ÇÉ«ÏÖÔÚµÄMFÎª"..star2 ) 
+				SetCharaAttr(star ,role , ATTR_STATEV_MF)
+			end
+			if Item_ID ==681 then -------------Ä¦¶¹Ð¡×Ó¶þÊÀ
 				if str~=nil and str~=0 then
-					local star = str
-					SetCharaStatev(star, role, ATTR_STATEV_STR, "STATE_JLFT")
+					SetCharaAttr(str ,role , ATTR_STATEV_STR)
 				end
 				if con~=nil and con~=0 then
-					local star = con
-					SetCharaStatev(star, role, ATTR_STATEV_CON, "STATE_JLFT")
+					SetCharaAttr(con ,role , ATTR_STATEV_CON)
 				end
 				if sta~=nil and sta~=0 then
-					local star = sta
-					SetCharaStatev(star, role, ATTR_STATEV_STA, "STATE_JLFT")
+					SetCharaAttr(sta ,role , ATTR_STATEV_STA)
 				end
 				if dex~=nil and dex~=0 then
-					local star = dex
-					SetCharaStatev(star, role, ATTR_STATEV_DEX, "STATE_JLFT")
+					SetCharaAttr(dex ,role , ATTR_STATEV_DEX)
 				end
 				if agi~=nil and agi~=0 then
-					local star = agi
-					SetCharaStatev(star, role, ATTR_STATEV_AGI, "STATE_JLFT")
+					SetCharaAttr(agi  ,role , ATTR_STATEV_AGI)
 				end
 			end
-			--ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ ï¿½Õ§Ý§ï¿½ ï¿½ï¿½ï¿½ß§Ø§Ö§Ý§ï¿½
-			if Item_ID == 450 then 
-				if str~=nil and str~=0 then
-					local star = str*1.5
-					SetCharaStatev(star, role, ATTR_STATEV_STR, "STATE_JLFT")
-				end
-				if con~=nil and con~=0 then
-					local star = con*1.5
-					SetCharaStatev(star, role, ATTR_STATEV_CON, "STATE_JLFT")
-				end
-				if sta~=nil and sta~=0 then
-					local star = sta*1.5
-					SetCharaStatev(star, role, ATTR_STATEV_STA, "STATE_JLFT")
-				end
-				if dex~=nil and dex~=0 then
-					local star = dex*1.5
-					SetCharaStatev(star, role, ATTR_STATEV_DEX, "STATE_JLFT")
-				end
-				if agi~=nil and agi~=0 then
-					local star = agi*1.5
-					SetCharaStatev(star, role, ATTR_STATEV_AGI, "STATE_JLFT")
-				end
-				local star = GetChaAttr( role, ATTR_STATEV_PDEF ) + 3
-				SetCharaStatev(star, role, ATTR_STATEV_PDEF, "STATE_JLFT")
-			end
-			
-			--ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ ï¿½Õ§Ý§ï¿½ ï¿½ï¿½ï¿½ß§Ø§Ö§Ý§ï¿½ ï¿½Þ§ï¿½
-			if Item_ID == 451 then 
-				if str~=nil and str~=0 then
-					local star = str*2
-					SetCharaStatev(star, role, ATTR_STATEV_STR, "STATE_JLFT")
-				end
-				if con~=nil and con~=0 then
-					local star = con*2
-					SetCharaStatev(star, role, ATTR_STATEV_CON, "STATE_JLFT")
-				end
-				if sta~=nil and sta~=0 then
-					local star = sta*2
-					SetCharaStatev(star, role, ATTR_STATEV_STA, "STATE_JLFT")
-				end
-				if dex~=nil and dex~=0 then
-					local star = dex*2
-					SetCharaStatev(star, role, ATTR_STATEV_DEX, "STATE_JLFT")
-				end
-				if agi~=nil and agi~=0 then
-					local star = agi*2
-					SetCharaStatev(star, role, ATTR_STATEV_AGI, "STATE_JLFT")
-				end
-				local star = GetChaAttr( role, ATTR_STATEV_PDEF ) + 3
-				SetCharaStatev(star, role, ATTR_STATEV_PDEF, "STATE_JLFT")
-			end
-			
-			--ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ ï¿½Õ§Ý§ï¿½ ï¿½Ñ§Ó§Ô§ï¿½ï¿½ï¿½ï¿½.
-			if Item_ID == 235 then 
-				if str~=nil and str~=0 then
-					local star = str*1.6
-					SetCharaStatev(star, role, ATTR_STATEV_STR, "STATE_JLFT")
-				end
-				if con~=nil and con~=0 then
-					local star = con*1.6
-					SetCharaStatev(star, role, ATTR_STATEV_CON, "STATE_JLFT")
-				end
-				if sta~=nil and sta~=0 then
-					local star = sta*1.6
-					SetCharaStatev(star, role, ATTR_STATEV_STA, "STATE_JLFT")
-				end
-				if dex~=nil and dex~=0 then
-					local star = dex*1.6
-					SetCharaStatev(star, role, ATTR_STATEV_DEX, "STATE_JLFT")
-				end
-				if agi~=nil and agi~=0 then
-					local star = agi*1.6
-					SetCharaStatev(star, role, ATTR_STATEV_AGI, "STATE_JLFT")
-				end
-				local star = GetChaAttr( role, ATTR_STATEV_PDEF ) + 3
-				SetCharaStatev(star, role, ATTR_STATEV_PDEF, "STATE_JLFT")
-			end
-			
-			--ï¿½ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ ï¿½Õ§Ý§ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ§Ü§ï¿½ß§ï¿½.
-			if Item_ID == 459 then 
-				if str~=nil and str~=0 then
-					local star = str*1.8
-					SetCharaStatev(star, role, ATTR_STATEV_STR, "STATE_JLFT")
-				end
-				if con~=nil and con~=0 then
-					local star = con*1.8
-					SetCharaStatev(star, role, ATTR_STATEV_CON, "STATE_JLFT")
-				end
-				if sta~=nil and sta~=0 then
-					local star = sta*1.8
-					SetCharaStatev(star, role, ATTR_STATEV_STA, "STATE_JLFT")
-				end
-				if dex~=nil and dex~=0 then
-					local star = dex*1.8
-					SetCharaStatev(star, role, ATTR_STATEV_DEX, "STATE_JLFT")
-				end
-				if agi~=nil and agi~=0 then
-					local star = agi*1.8
-					SetCharaStatev(star, role, ATTR_STATEV_AGI, "STATE_JLFT")
-				end
-				local star = GetChaAttr( role, ATTR_STATEV_PDEF ) + 1
-				SetCharaStatev(star, role, ATTR_STATEV_PDEF, "STATE_JLFT")
-			end
-			
-		end 	
+			--URE=URE-4500
+		end
+		--SetItemAttr ( Item_bg , ITEMATTR_URE , URE ) 	
 	end
 	ALLExAttrSet(role)
-	RefreshCha(role)
 end
-
 function State_JLFT_Rem ( role , sklv )
-	RemCharaStatev(0, role, ATTR_STATEV_STR, "STATE_JLFT") 
-	RemCharaStatev(0, role, ATTR_STATEV_AGI, "STATE_JLFT") 
-	RemCharaStatev(0, role, ATTR_STATEV_DEX, "STATE_JLFT") 
-	RemCharaStatev(0, role, ATTR_STATEV_CON, "STATE_JLFT") 
-	RemCharaStatev(0, role, ATTR_STATEV_STA, "STATE_JLFT")
-	RemCharaStatev(0, role, ATTR_STATEV_PDEF, "STATE_JLFT")
+	SetCharaAttr(0 ,role , ATTR_STATEV_STR)
+	SetCharaAttr(0 ,role , ATTR_STATEV_CON)
+	SetCharaAttr(0 ,role , ATTR_STATEV_STA)
+	SetCharaAttr(0 ,role , ATTR_STATEV_DEX)
+	SetCharaAttr(0 ,role , ATTR_STATEV_AGI)
+	SetCharaAttr(0 ,role , ATTR_STATEV_MF)
 	ALLExAttrSet(role)
-	RefreshCha(role)
 end
 
--- function State_JLFT_Rem ( role , sklv )
-	-- local statelv_STATE_NC = GetChaStateLv ( role , STATE_NC ) -- ï¿½ï¿½Ù§ß§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ó§Ö§ß§ï¿½ ï¿½ï¿½ï¿½ï¿½Ö§Ü§ï¿½ï¿½ ï¿½ï¿½Ý§Ñ§ï¿½ï¿½
-	-- local statelv_STATE_JLFT7 = GetChaStateLv ( role , STATE_JLFT7 ) -- ï¿½ï¿½Ù§ß§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ó§Ö§ß§ï¿½ ï¿½ï¿½ï¿½ï¿½Ö§Ü§ï¿½ï¿½ ï¿½Õ§Ñ§ï¿½ï¿½Ú§ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½
-	-- local STATE_JLFT7 = statelv_bbring1 * 5
-	-- local statistika = 0 + bring1 -- ï¿½ï¿½Ý§ï¿½Ø§Ú§ï¿½ ï¿½Ó§ï¿½ï¿½ ï¿½Ò§ï¿½ß§ï¿½ï¿½ï¿½
-	-- SystemNotice ( role , "ï¿½ï¿½ï¿½ï¿½Ù§Ó§ï¿½Ñ§ï¿½Ö§ß§ï¿½ ï¿½ï¿½Ú§Ý§ï¿½: "..statistika) --ï¿½Ó§ï¿½ï¿½Ó§Ö§Õ§Ö§ï¿½ ï¿½ï¿½ï¿½ï¿½Ý§ï¿½ ï¿½ï¿½Ü§ï¿½ß§ï¿½Ñ§ß§Ú§ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
-	-- SetCharaAttr(statistika ,role , ATTR_STATEV_STR) -- ï¿½ï¿½Ò§ï¿½ï¿½ï¿½Ú§ï¿½ ï¿½ï¿½Ú§Ý§ï¿½ ï¿½ï¿½ï¿½ï¿½Ý§ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ü§ï¿½ï¿½ï¿½Ö§Ü§ï¿½Ú§ï¿½ï¿½Ó§Ü§ï¿½ï¿½ ï¿½ß§ï¿½ ï¿½ï¿½Ý§Ñ§ï¿½
-    -- SetCharaAttr(statistika ,role , ATTR_STATEV_CON)
-    -- SetCharaAttr(statistika ,role , ATTR_STATEV_STA)
-    -- SetCharaAttr(statistika ,role , ATTR_STATEV_DEX)
-    -- SetCharaAttr(statistika ,role , ATTR_STATEV_AGI)
-    -- SetCharaAttr(statistika ,role , ATTR_STATEV_MF)
-    -- SetCharaAttr(statistika ,role , ATTR_STATEV_LUK)
-    -- ALLExAttrSet(role)
--- end
----------------------------------Self Destruct
+
+---------------------------------¾«Áé×Ô±©
 function SkillCooldown_jlzb ( sklv )
 	local Cooldown = 180000
 	return Cooldown
@@ -9043,26 +9720,28 @@ function SkillArea_Circle_jlzb( sklv )
 end
 
 function Skill_jlzb_Begin( role , sklv )	
-	local item_elf = GetChaItem(role , 2, 1)			--ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
-	local item_elf_type = GetItemType ( item_elf )			--ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-	local elf_str =  GetItemAttr( item_elf ,ITEMATTR_VAL_STR )		--ï¿½ï¿½ï¿½ï¿½
-	local elf_con =  GetItemAttr( item_elf ,ITEMATTR_VAL_CON )		--ï¿½ï¿½ï¿½ï¿½
+	local item_elf = GetChaItem(role , 2, 1)			--»ñÈ¡±³°üµÚ2¸ñµÀ¾ßÖ¸Õë
+	local item_elf_type = GetItemType ( item_elf )			--»ñÈ¡±³°üµÚ2¸ñµÀ¾ßÀàÐÍ
+	local elf_str =  GetItemAttr( item_elf ,ITEMATTR_VAL_STR )		--Á¦Á¿
+	local elf_con =  GetItemAttr( item_elf ,ITEMATTR_VAL_CON )		--ÌåÖÊ
 	local elf_agi =  GetItemAttr( item_elf ,ITEMATTR_VAL_AGI )		--×¨×¢
-	local elf_dex =  GetItemAttr( item_elf ,ITEMATTR_VAL_DEX )		--ï¿½ï¿½ï¿½ï¿½
-	local elf_sta =  GetItemAttr( item_elf ,ITEMATTR_VAL_STA )		--ï¿½ï¿½ï¿½ï¿½
-	local elf_lv = elf_str + elf_con + elf_agi + elf_dex + elf_sta		--ï¿½È¼ï¿½
-	local item_elf_hp = GetItemAttr(item_elf,ITEMATTR_URE)		--ï¿½ï¿½È¡ï¿½ï¿½ï¿½éµ±Ç°hp
+	local elf_dex =  GetItemAttr( item_elf ,ITEMATTR_VAL_DEX )		--Ãô½Ý
+	local elf_sta =  GetItemAttr( item_elf ,ITEMATTR_VAL_STA )		--¾«Éñ
+	local elf_lv = elf_str + elf_con + elf_agi + elf_dex + elf_sta		--µÈ¼¶
+	local item_elf_hp = GetItemAttr(item_elf,ITEMATTR_URE)		--»ñÈ¡¾«Áéµ±Ç°hp
 	local Num_JL = GetItemForgeParam ( item_elf , 1 )
-	--SystemNotice( role , "Skill discharge phase second inventory item type:  (Fairy= 59): "..item_elf_type ) 	
-	if item_elf_type ~= 59 then
+	local Part1 = GetNum_Part1 ( Num_JL )	--Get Num Part 1 µ½ Part 7
+	if item_elf_type ~= 59 or Part1~=1 then
 		SkillUnable(role) 
-		SystemNotice ( role , "Current skill is only available if the new generation of pet is equipped!" ) 
+		CALCULATE_SKILLEFFECT_LUA_000098 = GetResString("CALCULATE_SKILLEFFECT_LUA_000098")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000098 ) 
 		return 
 	end
 
 	if item_elf_hp<50 then
 		SkillUnable(role) 
-		SystemNotice ( role , "Fairy's HP must be more than 0 to use this skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000100 = GetResString("CALCULATE_SKILLEFFECT_LUA_000100")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000100 ) 
 		return 
 	end
 	item_elf_hp = item_elf_hp - (9 *elf_lv/sklv)*50
@@ -9077,16 +9756,16 @@ function Skill_jlzb_End( ATKER , DEFER , sklv )
 	local item_elf = GetChaItem(ATKER , 2, 1)
 	local item_elf_type = GetItemType ( item_elf )
 	local ptnRoleType = GetChaAttr(DEFER, ATTR_CHATYPE)
-	if ptnRoleType == 1 or ptnRoleType ==5 or ptnRoleType == 17 then   --ï¿½ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
+	if ptnRoleType == 1 or ptnRoleType ==5 or ptnRoleType == 17 then   --ÔÉÊ¯£¬Ê÷Ä¾¹æ±Ü
 		if item_elf_type == 59 then
-			local elf_str =  GetItemAttr( item_elf ,ITEMATTR_VAL_STR )		--ï¿½ï¿½ï¿½ï¿½
-			local elf_con =  GetItemAttr( item_elf ,ITEMATTR_VAL_CON )		--ï¿½ï¿½ï¿½ï¿½
-			local elf_agi =  GetItemAttr( item_elf ,ITEMATTR_VAL_AGI )		--×¨×¢
-			local elf_dex =  GetItemAttr( item_elf ,ITEMATTR_VAL_DEX )		--ï¿½ï¿½ï¿½ï¿½
-			local elf_sta =  GetItemAttr( item_elf ,ITEMATTR_VAL_STA )		--ï¿½ï¿½ï¿½ï¿½
-			local elf_lv = elf_str + elf_con + elf_agi + elf_dex + elf_sta		--ï¿½È¼ï¿½
-			local elf_ure=GetItemAttr(item_elf,ITEMATTR_URE )*-1			 ---------È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-			local elf_maxure=GetItemAttr(item_elf,ITEMATTR_MAXURE )			 ---------È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			local elf_str =  GetItemAttr( item_elf ,ITEMATTR_VAL_STR )		--Á¦Á¿
+			local elf_con =  GetItemAttr( item_elf ,ITEMATTR_VAL_CON )		--ÌåÖÊ
+			local elf_agi =  GetItemAttr( item_elf ,ITEMATTR_VAL_AGI  )		--×¨×¢
+			local elf_dex =  GetItemAttr( item_elf ,ITEMATTR_VAL_DEX )		--Ãô½Ý
+			local elf_sta =  GetItemAttr( item_elf ,ITEMATTR_VAL_STA )		--¾«Éñ
+			local elf_lv = elf_str + elf_con + elf_agi + elf_dex + elf_sta		--µÈ¼¶
+			local elf_ure=GetItemAttr(item_elf,ITEMATTR_URE )*-1			 ---------È¡¾«ÁéÌåÁ¦
+			local elf_maxure=GetItemAttr(item_elf,ITEMATTR_MAXURE )			 ---------È¡¾«ÁéÌåÁ¦
 			
 			local str = GetChaAttr( DEFER , ATTR_STR )
 			local con = GetChaAttr( DEFER , ATTR_CON ) 
@@ -9095,17 +9774,17 @@ function Skill_jlzb_End( ATKER , DEFER , sklv )
 			local dex = GetChaAttr( DEFER , ATTR_DEX )
 			local Defer_Sum =  str+con+sta+agi+dex
 
-			 dmg_fin = elf_lv * 40 - (Defer_Sum * Defer_Sum * Defer_Sum/10000)		--ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½
+			 dmg_fin = elf_lv * 200 - (Defer_Sum * Defer_Sum * Defer_Sum/10000)		--ÉËº¦¼ÆËã
 			 if dmg_fin < 0 then
 				dmg_fin = 0
 			 end
 
-			if is_friend(ATKER,DEFER) ~= 1 then								--ï¿½Ñ¾ï¿½ï¿½Ð¶ï¿½
+			if is_friend(ATKER,DEFER) ~= 1 then								--ÓÑ¾üÅÐ¶Ï
 				Hp_Endure_Dmg ( DEFER , dmg_fin )
 			end
 			
 			local statetime = 20      
-			local statelv = 10 		--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
+			local statelv = 10 		--ÎÞÌØÊâÐ§¹û
 			local atker_hp = GetChaAttr( ATKER , ATTR_HP ) 
 	
 			if dmg_fin>=atker_hp then
@@ -9123,7 +9802,8 @@ end
 function State_5MBS_Add(role , sklv)
 	local role_mxhp = GetChaAttr(role, ATTR_MXHP)
 	Hp_Endure_Dmg ( role , role_mxhp*0.95 )
-	SystemNotice (role,"The Almighty is angry with your actions! Prepare to be punished!")
+	CALCULATE_SKILLEFFECT_LUA_000101 = GetResString("CALCULATE_SKILLEFFECT_LUA_000101")
+	SystemNotice (role,CALCULATE_SKILLEFFECT_LUA_000101)
 end
 
 
@@ -9131,35 +9811,38 @@ function State_5MBS_Rem(role , sklv)
 
 end
 
-------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§Í¨ï¿½Ãºï¿½ï¿½ï¿½
+------------------------------------¾«ÁéÌØÐ§Í¨ÓÃº¯Êý
 function JLTX_usu(role)
 	local item_elf = GetChaItem(role , 2, 1)
 	local item_elf_type = GetItemType (item_elf )	
-	if item_elf_type ~= 59 then				--ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð¾ï¿½ï¿½ï¿½
+	if item_elf_type ~= 59 then				--¼ì²éÓÐÃ»ÓÐ¾«Áé
 		SkillUnable(role)
-		SystemNotice ( role , "You need to equip a pet Fairy" )  
+		CALCULATE_SKILLEFFECT_LUA_000102 = GetResString("CALCULATE_SKILLEFFECT_LUA_000102")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000102 )  
 		return 0
 	end
-	local item_elf_hp = GetItemAttr(item_elf,ITEMATTR_URE)		--ï¿½ï¿½È¡ï¿½ï¿½ï¿½éµ±Ç°hp
-	local item_elf_endure = item_elf_hp - 100			--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
+	local item_elf_hp = GetItemAttr(item_elf,ITEMATTR_URE)		--»ñÈ¡¾«Áéµ±Ç°hp
+	local item_elf_endure = item_elf_hp - 100			--¾«ÁéÌØÐ§¼¼ÄÜÏûºÄ¾«ÁéÌåÁ¦Öµ
 	if item_elf_hp<50 then
 		SkillUnable(role) 
-		SystemNotice ( role , "Fairy's HP must be more than 0 to use this skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000100 = GetResString("CALCULATE_SKILLEFFECT_LUA_000100")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000100 ) 
 		return 
 	end
-	local item_count = CheckBagItem ( role , 855 )		--ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð¾ï¿½ï¿½ï¿½Ó²ï¿½ï¿½
+	local item_count = CheckBagItem ( role , 855 )		--¼ì²éÓÐÃ»ÓÐ¾«ÁéÓ²±Ò
 	if item_count <= 0 then    
 		SkillUnable(role)
-		SystemNotice ( role , "You do not have the required Fairy Coin to use the skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000103 = GetResString("CALCULATE_SKILLEFFECT_LUA_000103")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000103 ) 
 		return 0
 	end 
 	
 	local a = DelBagItem ( role , 855 , 1 ) 
-	SetItemAttr(item_elf,ITEMATTR_URE,item_elf_endure)	--ï¿½Û³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½
+	SetItemAttr(item_elf,ITEMATTR_URE,item_elf_endure)	--¿Û³ý¾«ÁéÏàÓ¦ÌåÁ¦
 	return 1
 end
 
-------------------------------------ï¿½ï¿½ï¿½é¾«ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½1
+------------------------------------¾«Áé¾«ÁéÌØÐ§¼¼ÄÜ1
 function SkillCooldown_Jltx1( sklv )
 	local Cooldown = 10000
 	return Cooldown
@@ -9176,27 +9859,14 @@ function Skill_Jltx1_End ( ATKER , DEFER , sklv )
 end 
 
 function State_jltx1_Add(role , sklv)
-local mspdsa_dif = 0.15 + 0.02 * statelv 
-	local aspdsa_dif = 0.15 + 0.02 * statelv 
-	local mspdsa = math.floor ( (MspdSa(role) + mspdsa_dif ) * ATTR_RADIX) 
-	local aspdsa = math.floor ( (AspdSa(role) + aspdsa_dif ) * ATTR_RADIX)
-	SetCharaAttr( aspdsa , role , ATTR_STATEC_ASPD )
-	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD )
-	ALLExAttrSet(role)  
-end 
+
+end
 
 function State_jltx1_Rem(role , sklv)
-	local mspdsa_dif =0.15 + 0.02 * statelv 
-	local aspdsa_dif = 0.15 + 0.02 * statelv 
-	local mspdsa = math.floor ( (MspdSa(role) - mspdsa_dif ) * ATTR_RADIX) 
-	local aspdsa = math.floor ( (AspdSa(role) - aspdsa_dif ) * ATTR_RADIX)
-	SetCharaAttr( aspdsa , role , ATTR_STATEC_ASPD )
-	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD )
-	ALLExAttrSet(role)  
-end 
 
+end
 
-------------------------------------ï¿½ï¿½ï¿½é¾«ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½2
+------------------------------------¾«Áé¾«ÁéÌØÐ§¼¼ÄÜ2
 function SkillCooldown_Jltx2( sklv )
 	local Cooldown = 10000
 	return Cooldown
@@ -9219,7 +9889,7 @@ end
 function State_jltx2_Rem(role , sklv)
 
 end
-------------------------------------ï¿½ï¿½ï¿½é¾«ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½3
+------------------------------------¾«Áé¾«ÁéÌØÐ§¼¼ÄÜ3
 function SkillCooldown_Jltx3( sklv )
 	local Cooldown = 10000
 	return Cooldown
@@ -9242,7 +9912,7 @@ end
 function State_jltx3_Rem(role , sklv)
 
 end
-------------------------------------ï¿½ï¿½ï¿½é¾«ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½4
+------------------------------------¾«Áé¾«ÁéÌØÐ§¼¼ÄÜ4
 function SkillCooldown_Jltx4( sklv )
 	local Cooldown = 10000
 	return Cooldown
@@ -9266,7 +9936,7 @@ function State_jltx4_Rem(role , sklv)
 
 end
 
-------------------------------------ï¿½ï¿½ï¿½é¾«ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½5
+------------------------------------¾«Áé¾«ÁéÌØÐ§¼¼ÄÜ5
 function SkillCooldown_Jltx5( sklv )
 	local Cooldown = 10000
 	return Cooldown
@@ -9289,7 +9959,7 @@ end
 function State_jltx5_Rem(role , sklv)
 
 end
-------------------------------------ï¿½ï¿½ï¿½é¾«ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½6
+------------------------------------¾«Áé¾«ÁéÌØÐ§¼¼ÄÜ6
 function SkillCooldown_Jltx6( sklv )
 	local Cooldown = 10000
 	return Cooldown
@@ -9312,7 +9982,7 @@ end
 function State_jltx6_Rem(role , sklv)
 
 end
-------------------------------------ï¿½ï¿½ï¿½é¾«ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½7
+------------------------------------¾«Áé¾«ÁéÌØÐ§¼¼ÄÜ7
 function SkillCooldown_Jltx7( sklv )
 	local Cooldown = 10000
 	return Cooldown
@@ -9335,7 +10005,7 @@ end
 function State_jltx7_Rem(role , sklv)
 
 end
-------------------------------------ï¿½ï¿½ï¿½é¾«ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½8
+------------------------------------¾«Áé¾«ÁéÌØÐ§¼¼ÄÜ8
 function SkillCooldown_Jltx8( sklv )
 	local Cooldown = 10000
 	return Cooldown
@@ -9359,7 +10029,7 @@ function State_jltx8_Rem(role , sklv)
 
 end
 
-------------------------------------ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½
+------------------------------------´¿ÕæÖ®ÐÄ
 function State_CZZX_Add ( role , statelv )
 	local str = GetChaAttr( role , ATTR_STR )
 	local con = GetChaAttr( role , ATTR_CON ) 
@@ -9386,7 +10056,7 @@ function State_CZZX_Rem ( role , statelv )
 	SetCharaAttr(0 ,role , ATTR_STATEV_DEX)
 	ALLExAttrSet(role)
 end
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¤ï¿½ï¿½-------------------------------------
+--¿¨À­µÄÊ¤Àû-------------------------------------
 function State_KALA_Add ( role , statelv )
 	local sta = GetChaAttr( role , ATTR_STA )
 	SetCharaAttr(sta ,role , ATTR_STATEV_STA)
@@ -9396,7 +10066,7 @@ function State_KALA_Rem ( role , statelv )
 	SetCharaAttr(0 ,role , ATTR_STATEV_STA)
 	ALLExAttrSet(role)
 end
---+ï¿½ï¿½ï¿½HPï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½Ö¿ï¿½ï¿½ï¿½-------------------------------------
+--+×î´óHP¼°+ÎïÀíµÖ¿¹Àà-------------------------------------
 function State_XUEYU_Add ( role , statelv )
 	local star=statelv*statelv*100
 	local eleven=1
@@ -9415,10 +10085,10 @@ function State_XUEYU_Add ( role , statelv )
 	end
 	SetCharaAttr(eleven ,role , ATTR_STATEV_PDEF)
 	SetCharaAttr(star ,role , ATTR_STATEV_MXHP)
-	local mxhp = GetChaAttr( role , ATTR_MXHP) 
-	mxhp=mxhp+star
-	--SystemNotice (role, "mxhp=="..mxhp)
-	SetCharaAttr(mxhp, role, ATTR_HP) 
+--	local mxhp = GetChaAttr( role , ATTR_MXHP) 
+--	mxhp=mxhp+star
+--	--SystemNotice (role, "mxhp=="..mxhp)
+--	SetCharaAttr(mxhp, role, ATTR_HP) 
 	ALLExAttrSet(role)
 end
 function State_XUEYU_Rem ( role , statelv )
@@ -9426,9 +10096,9 @@ function State_XUEYU_Rem ( role , statelv )
 	SetCharaAttr(0 ,role , ATTR_STATEV_MXHP)
 	ALLExAttrSet(role)
 end
-------ï¿½ï¿½Í·ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+------ÂøÍ·Àà+¹¥»÷Á¦
 function State_MANTOU_Add ( role , statelv )
-	local atksb_dif = 199600+(statelv-1)*100	
+	local atksb_dif = 50+(statelv-1)*100	
 	local mnatksb = MnatkSb(role) + atksb_dif  
 	local mxatksb = MxatkSb(role ) + atksb_dif 
 	SetCharaAttr( mnatksb , role , ATTR_STATEV_MNATK ) 
@@ -9443,7 +10113,7 @@ function State_MANTOU_Rem ( role , statelv )
 	SetCharaAttr( mxatksb , role , ATTR_STATEV_MXATK ) 
 	ALLExAttrSet(role)
 end
---Å®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½-------------------------------------
+--Å®¶ùºìÀà+¾«Éñ-------------------------------------
 function State_NVER_Add ( role , statelv )
 	local sta = statelv*5
 	SetCharaAttr(sta ,role , ATTR_STATEV_STA)
@@ -9453,34 +10123,34 @@ function State_NVER_Rem ( role , statelv )
 	SetCharaAttr(0 ,role , ATTR_STATEV_STA)
 	ALLExAttrSet(role)
 end
---Shoe Barrage-------------------------------------
+--Ð¬Ö®ÂÒÎè-------------------------------------
 function Skill_xzlw_End( ATKER , DEFER , sklv )
 	local dmg =math.random(15,35)
 	Hp_Endure_Dmg ( DEFER , dmg )  
 end 
 
---ï¿½ï¿½ï¿½
+--Åëâ¿
 function Skill_Cooking_End( ATKER , DEFER , sklv )
 end
 
 
---ï¿½ï¿½ï¿½ï¿½
+--ÖÆÔì
 function Skill_Making_End( ATKER , DEFER , sklv )
 end
 
 
---ï¿½ï¿½ï¿½ï¿½
+--ÖýÔì
 function Skill_Founding_End( ATKER , DEFER , sklv )
 end
 
---ï¿½Ö½ï¿½
+--·Ö½â
 function Skill_Dismissing_End( ATKER , DEFER , sklv )
 end
 
 
 
 
---ï¿½ï¿½ï¿½Ü»ï¿½Ó°Õ¶ï¿½ï¿½ï¿½ó¡ª¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ»ÃÓ°Õ¶»ÃÏó¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillCooldown_HyzHX( sklv )
 	local Cooldown = 1000
@@ -9491,9 +10161,13 @@ end
 
 function Skill_HyzHX_End ( ATKER , DEFER , sklv ) 
 	if ValidCha(ATKER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000031 = GetResString("CALCULATE_SKILLEFFECT_LUA_000031")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000031 ) 
 		return 
 	end 
 	if ValidCha(DEFER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000032 = GetResString("CALCULATE_SKILLEFFECT_LUA_000032")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000032 ) 
 		return 
 	end 
 	local aspd = Aspd ( ATKER )
@@ -9501,12 +10175,13 @@ function Skill_HyzHX_End ( ATKER , DEFER , sklv )
 	local dmg = ( ( 1.5 + 0.1 * sklv ) ) * (math.min(3,( math.max ( 1, math.floor( aspd / 70  ) )  ))) * Atk_Dmg ( ATKER , DEFER )   
 	Hp_Endure_Dmg ( DEFER , dmg )  
 
-	Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí
+	
 end 
 
---ï¿½ï¿½ï¿½Ü±ï¿½ï¿½Ç³ï¿½ï¿½ï¿½ï¿½ï¿½ó¡ª¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ±´¿Ç³å»÷»ÃÏó¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-function SkillArea_Line_BkcjHX ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Conch Ray"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
+function SkillArea_Line_BkcjHX ( sklv )										--¼¼ÄÜ"±´¿Ç³å»÷"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local sklv = 8
 	local lenth = 500 + sklv * 30  
 	local width = 100 + sklv * 10 
@@ -9514,7 +10189,7 @@ function SkillArea_Line_BkcjHX ( sklv )										--ï¿½ï¿½ï¿½ï¿½"Conch Ray"ï¿½Ä¼ï
 end
 
 function SkillCooldown_BkcjHX( sklv )
-	local Cooldown = 5000
+	local Cooldown = 2000
 	return Cooldown
 end
 
@@ -9527,14 +10202,14 @@ function Skill_BkcjHX_End ( ATKER , DEFER , sklv )
 	local AddStateLv = 0
 	AddStateLv = GetChaStateLv ( ATKER , STATE_MLCH ) 
 
-	local dmg = math.floor( 50000 + sklv*30 +sta_atk*6 ) 
+	local dmg = math.floor( 200 + sklv*30 +sta_atk*6 ) 
 	local dmg_fin = Cuihua_Mofa ( dmg , AddStateLv ) 
 	local dmg_ElfSkill = ElfSkill_MagicAtk ( dmg , ATKER ) 
 	dmg_fin = dmg_fin + dmg_ElfSkill
 	Hp_Endure_Dmg ( DEFER , dmg_fin ) 
 end 
 
---ï¿½ï¿½ï¿½Ü±ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ±©Í·¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
 
@@ -9557,14 +10232,15 @@ function Skill_BtHX_End ( ATKER , DEFER , sklv )
 			local Percentage = Percentage_Random ( 0.1 )
 			if Percentage == 1 then
 				  dmg =  dmg*10 
-				SystemNotice ( ATKER , "\207\238\235\243\247\229\237\224 \241\232\235\224 \226\224\248\229\233 \253\234\232\239\232\240\238\226\234\232 - \243\226\229\235\232\247\229\237\232\229 \243\240\238\237\224 ")
+				CALCULATE_SKILLEFFECT_LUA_000057 = GetResString("CALCULATE_SKILLEFFECT_LUA_000057")
+				SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000057)
 			end
 	end
 	hp = hp - dmg 
 	SetCharaAttr ( hp , DEFER , ATTR_HP ) 
 end 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÐÄÁé³å×²¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillCooldown_XlczHX( sklv ) 
 	local Cooldown = 2000
@@ -9574,27 +10250,38 @@ end
 
 
 function Skill_XlczHX_End ( ATKER , DEFER , sklv ) 
+	if ValidCha(ATKER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000065 = GetResString("CALCULATE_SKILLEFFECT_LUA_000065")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000065 ) 
+		return 
+	end 
+	if ValidCha(DEFER) == 0 then 
+		CALCULATE_SKILLEFFECT_LUA_000066 = GetResString("CALCULATE_SKILLEFFECT_LUA_000066")
+		LG ( "luascript_err" , CALCULATE_SKILLEFFECT_LUA_000066 ) 
+		return 
+	end 
 --	local atkdmg = Atk_Dmg ( ATKER , DEFER )
 	local lv_atker = Lv ( TurnToCha ( ATKER ) ) 
 	local lv_defer = Lv ( TurnToCha ( DEFER ) ) 
 	local sta_atker = Sta(ATKER) 
 	local sklv = 10
 	local sta_defer = Sta(DEFER) 
-	local lv_dif = 2000
+	local lv_dif = math.max ( ( - 1 ) * 10 , math.min ( 10 , lv_atker - lv_defer ) ) 
 	local AddStateLv = 0
 	AddStateLv = GetChaStateLv ( ATKER , STATE_MLCH )
 
-	hpdmg = math.floor (( 1 + sta_atker * 1 ) * ( 1 + sklv * 0.1 ) * ( 1 +  lv_dif * 0.015 ))
+	hpdmg = math.floor (( 10 + sta_atker * 2 ) * ( 1 + sklv * 0.7 ) * ( 1 +  lv_dif * 0.025 ))
 	local dmg_fin = Cuihua_Mofa ( hpdmg ,AddStateLv )
 	local dmg_ElfSkill = ElfSkill_MagicAtk ( hpdmg , ATKER )
 	dmg_fin = dmg_fin + dmg_ElfSkill
 	Hp_Endure_Dmg ( DEFER, dmg_fin )  
+--	LG( "xlcz", "ÐÄÁé³å×²¼¼ÄÜµÈ¼¶ = " , sklv ,"¹¥»÷Õßsta=", sta ,"ÆÕÍ¨¹¥»÷ÉËº¦=", atkdmg , "¼¼ÄÜÉËº¦ = " , dmg , "\n" ) 
 end 
 
 
--------------------
--- ï¿½ï¿½ï¿½ï¿½Ñ§ß§Ñ§ï¿½ï¿½ 1 ï¿½ï¿½ï¿½. --
--------------------
+----------------ÊÖÀ×1
+
+
 function SkillCooldown_Shoulei1( sklv )
 	local Cooldown = 1500
 	return Cooldown
@@ -9603,13 +10290,15 @@ end
 function Skill_Shoulei1_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( role , 1135 ) 
+	local item_count = CheckBagItem ( role , 1135 ) --ÊÖÀ×
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 1135 , 1 ) 
 end 
@@ -9618,21 +10307,31 @@ end
 function Skill_Shoulei1_End ( ATKER , DEFER , sklv ) 
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local  sklv = 1
 	local 	hp = GetChaAttr ( DEFER , ATTR_HP ) 
-	dmg = hp/100*5
+	dmg = 4*math.floor ( 320 + 30 * sklv +hp * ( 0.05 +0.008 * sklv) )-1200
+	if dmg > 1000 then
+		dmg = 1000
+	end
 	Hp_Endure_Dmg ( DEFER , dmg )
+
+--	 r1 = RemoveChaItem ( ATKER , 1135 , 1 , 2 , -1, 2 , 1  )
+--	 Notice("11")
+--		if r1== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
 end
 
 
 
---------------------------
--- ï¿½ï¿½ï¿½Ó§Ö§ï¿½ï¿½Ó§Ñ§ï¿½ ï¿½Ò§ï¿½Þ§Ò§ï¿½ 1 ï¿½ï¿½ï¿½. --
---------------------------
- function SkillArea_Circle_ShanGD1( sklv )									
+---------------ÉÁ¹âµ¯1
+
+ function SkillArea_Circle_ShanGD1( sklv )									--¼¼ÄÜ¡°»¢Ð¥"µÄ¼¼ÄÜÇøÓò¹«Ê½	
 	local side = 800 
 	SetSkillRange ( 4 , side  )  
 end 
@@ -9645,29 +10344,61 @@ end
 function Skill_ShanGD1_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( role , 1136 )
+	local item_count = CheckBagItem ( role , 1136 ) --ÉÁ¹âµ¯1
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 1136 , 1 ) 
 end 
 
 
 function Skill_ShanGD1_End ( ATKER , DEFER , sklv ) 
+--	r2 = RemoveChaItem ( ATKER , 1136 , 1 , 2 , -1, 2 , 1  )
+--		if r2== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
+--	local hp = Hp( DEFER ) 
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local  sklv = 1
 	local statelv = sklv 
 	local statetime = sklv
 	local hp_defer = Mxhp ( DEFER ) 
+	if hp_defer >= 1000000 then 
+		CALCULATE_SKILLEFFECT_LUA_000104 = GetResString("CALCULATE_SKILLEFFECT_LUA_000104")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000104 ) 
+		return
+	end 
+		----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí
+		if GetChaTypeID( ATKER ) == 979 then
+			statetime = 8
+		end
+
+	if GetChaAIType( DEFER ) >= 21 then    --21ÒÔÉÏÎªBossAI£¬Èç¹ûÊÇBoss¸ù¾Ýboss²»Í¬£¬Éè¶¨¿ÉÒÔ±»¼Ó×´Ì¬µÄ´ÎÊý
+		if BOSSXYSJ[GetChaTypeID( DEFER )] == 0 then
+			CALCULATE_SKILLEFFECT_LUA_000028 = GetResString("CALCULATE_SKILLEFFECT_LUA_000028")
+			Notice (CALCULATE_SKILLEFFECT_LUA_000028)
+			return
+		else
+			BOSSXYSJ[GetChaTypeID( DEFER )] = BOSSXYSJ[GetChaTypeID( DEFER )] -1
+		end
+	end
+		----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí½áÊø
+
 	AddState( ATKER , DEFER , STATE_ShanGD, statelv , statetime ) 
+--	dmg = 0.8 * math.random ( Mnatk( ATKER ) , Mxatk ( ATKER ) ) 
+--	Hp_Endure_Dmg ( DEFER , dmg) 
 end 
  
 
@@ -9678,10 +10409,9 @@ function State_ShanGD_Add ( role , statelv )
 function State_ShanGD_Rem ( role , statelv )
  end 
 
---------------------
--- ï¿½ï¿½ï¿½Ñ§Õ§Ú§Ñ§ï¿½Ú§ï¿½ 1 ï¿½ï¿½ï¿½. --
---------------------
- function SkillArea_Circle_FuShe1( sklv )									--ï¿½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½Ð¥"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½	
+ ------------------------·øÉä1
+
+ function SkillArea_Circle_FuShe1( sklv )									--¼¼ÄÜ¡°»¢Ð¥"µÄ¼¼ÄÜÇøÓò¹«Ê½	
 	local  sklv = 1
 	local side = 800 + sklv*100
 	SetSkillRange ( 4 , side  )  
@@ -9695,13 +10425,15 @@ end
 function Skill_FuShe1_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( role , 1137 ) --Radiation lvl 1
+	local item_count = CheckBagItem ( role , 1137 ) --·øÉä1
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 1137 , 1 ) 
 end 
@@ -9709,11 +10441,13 @@ end
 function Skill_FuShe1_End( ATKER , DEFER , sklv ) 
 --	 r3 = RemoveChaItem ( ATKER , 1137 , 1 , 2 , -1, 2 , 1  )
 --		if r3== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local  sklv = 1
@@ -9740,15 +10474,14 @@ end
 function State_FuShe_Rem ( role , statelv ) 
 end 
 
--------------------------
--- ï¿½ï¿½ï¿½Ö§ï¿½Ö§Ü§ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½. --
--------------------------
+---------------------ÓÄÁéÌ½²âÆ÷1
+
 function SkillCooldown_YouL1( sklv )
 	local Cooldown = 1500
 	return Cooldown
 end
 
-function SkillArea_Square_YouL1 ( sklv )
+function SkillArea_Square_YouL1 ( sklv )--¼¼ÄÜ¡°Ê¥ÑÛÖ®Òí"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local  sklv = 1
 	local side = 600 + sklv * 20 
 	SetSkillRange ( 3 , side ) 	
@@ -9756,29 +10489,36 @@ end
 
 function SkillArea_State_YouL1 ( sklv )	
 	local  sklv = 1
+-- r3 = RemoveChaItem ( ATKER , 1138, 1 , 2 , -1, 2 , 1  )
+--		if r3== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
 	local statetime = 40 + sklv *9   
 	local statelv = sklv 
-	SetRangeState ( STATE_SYZY , statelv  , statetime ) 									
+	SetRangeState ( STATE_SYZY , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°Ê¥ÑÛÖ®Òí¡±×´Ì¬
 end 
 
 function Skill_YouL1_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		SkillUnable(role)   
 		return 0
 	end
-	local item_count = CheckBagItem ( role , 1138 )
+	local item_count = CheckBagItem ( role , 1138 ) --ÓÄÁéÌ½²âÆ÷1
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 1138 , 1 ) 
 end 
 
 function Skill_YouL1_End ( ATKER , DEFER , sklv ) 
 end 
----------------------------
+
 function State_Syzy_Add ( role , statelv ) 
 
 end 
@@ -9790,7 +10530,7 @@ end
 function State_Syzy_Tran ( statelv ) 
 	return 1     
 end 
-----------------------------ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+----------------------------´¬Ö»¼ÓËÙÆ÷1
 function SkillCooldown_JiaSuQi( sklv )
 	local Cooldown = 1500 
 	return Cooldown
@@ -9799,14 +10539,16 @@ end
 function Skill_JiaSuQi1_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 1139 ) --ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+	local item_count = CheckBagItem ( atk_role , 1139 ) --´¬Ö»ÅçÉäÆ÷1
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem (atk_role , 1139 , 1 ) 
 end 
@@ -9814,11 +10556,13 @@ end
 function Skill_JiaSuQi1_End ( ATKER , DEFER , sklv )
 --	r5 = RemoveChaItem ( ATKER , 1139 , 1 , 2 , -1, 2 , 1  )
 --		if r5== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local  sklv = 1
@@ -9843,7 +10587,7 @@ function State_wljs_Rem  ( role , statelv )
 	ALLExAttrSet(role)  
 end 
 
-----------------------------ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+----------------------------´¬Ö»ÅçÉäÆ÷1
 function SkillCooldown_PengSheQi1( sklv )
 	local Cooldown = 1500 
 	return Cooldown
@@ -9852,14 +10596,16 @@ end
 function Skill_PengSheQi1_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 1140 ) --ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+	local item_count = CheckBagItem ( atk_role , 1140 ) --´¬Ö»ÅçÉäÆ÷1
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 1140 , 1 ) 
 end 
@@ -9867,12 +10613,14 @@ end
 function Skill_PengSheQi1_End ( ATKER , DEFER , sklv )
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local  sklv = 1
 --	 r6 = RemoveChaItem ( ATKER , 1140 , 1 , 2 , -1, 2 , 1  )
 --		if r6== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 	local statetime = 3+sklv*2
@@ -9896,7 +10644,7 @@ function State_PengSheQi_Rem  ( role , statelv )
 	ALLExAttrSet(role)  
 end 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÆÆ¼×1¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
 
@@ -9908,14 +10656,16 @@ end
 function Skill_PoJiaDan1_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 1141 ) --ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+	local item_count = CheckBagItem ( atk_role , 1141 ) --´¬Ö»ÅçÉäÆ÷1
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 1141 , 1 ) 
 end 
@@ -9925,11 +10675,13 @@ function Skill_PoJiaDan1_End ( ATKER , DEFER , sklv )
 		local  sklv = 1
 --	r7= RemoveChaItem ( ATKER , 1141 , 1 , 2 , -1, 2 , 1  )
 --	if r7== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end	
 	local statelv = sklv 
@@ -9937,11 +10689,14 @@ function Skill_PoJiaDan1_End ( ATKER , DEFER , sklv )
 	dmg = math.random ( 400 , 500 )*( 1 + sklv * 0.5 )
 	Hp_Endure_Dmg ( DEFER , dmg) 
 	AddState ( ATKER , DEFER , STATE_PJ , statelv , statetime ) 
-	Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	--LG("skill_Pj", "function Skill_Def_Pj : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí 
 
+	--LG( "sk_pj", "ÆÆ¼×¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
 end 
 
 function State_Pj_Add ( role , statelv ) 
+	--LG("state", "function State_Pj_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 	local def_dif = 30
 	local def = DefSb(role) - def_dif
 	SetCharaAttr( def , role , ATTR_STATEV_DEF )	
@@ -9952,13 +10707,14 @@ end
 
 
 function State_Pj_Rem ( role , statelv ) 
+--	LG("state", "function State_Pj_Rem : " ,"statelv = " , statelv , " role = ", role, "\n" ) 
 	local def_dif = 30
 	local def = DefSb(role) + def_dif
 	SetCharaAttr( def , role , ATTR_STATEV_DEF )
 	ALLExAttrSet(role)
 end 
 
---ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--ÆÆÈÐµ¯¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
 
@@ -9970,14 +10726,16 @@ end
 function Skill_PoRenDan1_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 1142 ) --ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+	local item_count = CheckBagItem ( atk_role , 1142 ) --´¬Ö»ÅçÉäÆ÷1
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 1142 , 1 )  
 end 
@@ -9986,12 +10744,14 @@ end
 function Skill_PoRenDan1_End ( ATKER , DEFER , sklv ) 
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local  sklv = 1
 --	 r8 = RemoveChaItem ( ATKER , 1142 , 1 , 2 , -1, 2 , 1  )
 --		if r8== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 	local statelv = sklv 
@@ -9999,7 +10759,7 @@ function Skill_PoRenDan1_End ( ATKER , DEFER , sklv )
 	dmg = math.random ( 400 , 500 )*( 1 + sklv * 0.5 )
 	Hp_Endure_Dmg ( DEFER , dmg) 
 	AddState ( ATKER , DEFER , STATE_PRD , statelv , statetime ) 
-	Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí 
 
 end 
 
@@ -10028,7 +10788,7 @@ function State_PoRenDan_Rem( role , sklv )
 end 
 
 
--------ï¿½ï¿½Ö»È¼ï¿½Õµï¿½1
+-------´¬Ö»È¼ÉÕµ¯1
 function SkillCooldown_RanShaoDan1( sklv ) 
 	local Cooldown = 1500 
 	return Cooldown
@@ -10037,14 +10797,16 @@ end
 function Skill_RanShaoDan1_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 1143 ) --ï¿½ï¿½Ö»È¼ï¿½Õµï¿½1
+	local item_count = CheckBagItem ( atk_role , 1143 ) --´¬Ö»È¼ÉÕµ¯1
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 1143 , 1 ) 
 end 
@@ -10052,12 +10814,14 @@ end
 function Skill_RanShaoDan1_End( ATKER , DEFER , sklv )
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local  sklv = 1
 --	 r9 = RemoveChaItem ( ATKER , 1143 , 1 , 2 , -1, 2 , 1  )
 --		if r9== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 --	local hp = Hp( DEFER ) 
@@ -10078,9 +10842,9 @@ function State_RanShaoDan_Rem ( role , statelv )
 end
 
 
--------------------
--- ï¿½ï¿½ï¿½ï¿½Ñ§ß§Ñ§ï¿½ï¿½ 2 ï¿½ï¿½ï¿½. --
--------------------
+----------------ÊÖÀ×2
+
+
 function SkillCooldown_Shoulei2( sklv )
 	local Cooldown = 1500
 	return Cooldown
@@ -10089,13 +10853,15 @@ end
 function Skill_Shoulei2_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( role , 2719 ) 
+	local item_count = CheckBagItem ( role , 2719 ) --ÊÖÀ×
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2719 , 1 ) 
 end 
@@ -10104,21 +10870,30 @@ end
 function Skill_Shoulei2_End ( ATKER , DEFER , sklv ) 
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local  sklv = 2
 	local 	hp = GetChaAttr ( DEFER , ATTR_HP ) 
-	dmg = hp/100*10
+	dmg = 4*math.floor ( 320 + 30 * sklv +hp * ( 0.05 +0.008 * sklv) )-1200
+	if dmg > 2000 then
+		dmg = 2000
+	end
 	Hp_Endure_Dmg ( DEFER , dmg )
+--	 r1 = RemoveChaItem ( ATKER , 1135 , 1 , 2 , -1, 2 , 1  )
+--	 Notice("11")
+--		if r1== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
 end
 
 
 
---------------------------
--- ï¿½ï¿½ï¿½Ó§Ö§ï¿½ï¿½Ó§Ñ§ï¿½ ï¿½Ò§ï¿½Þ§Ò§ï¿½ 2 ï¿½ï¿½ï¿½. --
---------------------------
- function SkillArea_Circle_ShanGD2( sklv )										
+---------------ÉÁ¹âµ¯2
+
+ function SkillArea_Circle_ShanGD2( sklv )									--¼¼ÄÜ¡°»¢Ð¥"µÄ¼¼ÄÜÇøÓò¹«Ê½	
 	local side = 800 
 	SetSkillRange ( 4 , side  )  
 end 
@@ -10131,13 +10906,15 @@ end
 function Skill_ShanGD2_Begin ( role , sklv )
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( role , 2720 ) 
+	local item_count = CheckBagItem ( role , 2720 ) --ÉÁ¹âµ¯2
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2720 , 1 ) 
 end 
@@ -10146,13 +10923,45 @@ end
 function Skill_ShanGD2_End ( ATKER , DEFER , sklv ) 
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
+--	r2 = RemoveChaItem ( ATKER , 1136 , 1 , 2 , -1, 2 , 1  )
+--		if r2== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
+--	local hp = Hp( DEFER ) 
 	local  sklv = 2
 	local statelv = sklv 
 	local statetime = sklv
+	local hp_defer = Mxhp ( DEFER ) 
+	if hp_defer >= 1000000 then 
+		CALCULATE_SKILLEFFECT_LUA_000104 = GetResString("CALCULATE_SKILLEFFECT_LUA_000104")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000104 ) 
+		return
+	end
+
+		----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí
+		if GetChaTypeID( ATKER ) == 979 then
+			statetime = 8
+		end
+
+	if GetChaAIType( DEFER ) >= 21 then    --21ÒÔÉÏÎªBossAI£¬Èç¹ûÊÇBoss¸ù¾Ýboss²»Í¬£¬Éè¶¨¿ÉÒÔ±»¼Ó×´Ì¬µÄ´ÎÊý
+		if BOSSXYSJ[GetChaTypeID( DEFER )] == 0 then
+			CALCULATE_SKILLEFFECT_LUA_000028 = GetResString("CALCULATE_SKILLEFFECT_LUA_000028")
+			Notice (CALCULATE_SKILLEFFECT_LUA_000028)
+			return
+		else
+			BOSSXYSJ[GetChaTypeID( DEFER )] = BOSSXYSJ[GetChaTypeID( DEFER )] -1
+		end
+	end
+		----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí½áÊø
+
 	AddState( ATKER , DEFER , STATE_ShanGD, statelv , statetime ) 
+--	dmg = 0.8 * math.random ( Mnatk( ATKER ) , Mxatk ( ATKER ) ) 
+--	Hp_Endure_Dmg ( DEFER , dmg) 
 end 
  
 
@@ -10163,10 +10972,9 @@ function State_ShanGD_Add ( role , statelv )
 function State_ShanGD_Rem ( role , statelv )
  end 
 
---------------------
--- ï¿½ï¿½ï¿½Ñ§Õ§Ú§Ñ§ï¿½Ú§ï¿½ 2 ï¿½ï¿½ï¿½. --
---------------------
- function SkillArea_Circle_FuShe2( sklv )									
+ ------------------------·øÉä2
+
+ function SkillArea_Circle_FuShe2( sklv )									--¼¼ÄÜ¡°»¢Ð¥"µÄ¼¼ÄÜÇøÓò¹«Ê½	
 	local  sklv = 2
 	local side = 800 + sklv*100
 	SetSkillRange ( 4 , side  )  
@@ -10180,13 +10988,15 @@ end
 function Skill_FuShe2_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( role , 2721 )
+	local item_count = CheckBagItem ( role , 2721 ) --·øÉä2
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2721 , 1 ) 
 end 
@@ -10194,29 +11004,45 @@ end
 function Skill_FuShe2_End( ATKER , DEFER , sklv ) 
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
+--	 r3 = RemoveChaItem ( ATKER , 1137 , 1 , 2 , -1, 2 , 1  )
+--		if r3== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
 	local  sklv = 2
 	local hp = Hp( DEFER ) 
 	local statelv = sklv 
 	local statetime = 15+sklv*2
 	AddState( ATKER , DEFER , STATE_ZD, statelv , statetime ) 
 	local 	hp = GetChaAttr ( DEFER , ATTR_HP ) 
-	local 	dmg = hp/100*2
+	local 	dmg = 2*math.floor ( 320 + 30 * sklv +hp * ( 0.05 +0.008 * sklv) )-600
+	if dmg > 1000 then
+		dmg = 1000
+	end
 	Hp_Endure_Dmg ( DEFER , dmg) 
 end 
  
 
--------------------------
--- ï¿½ï¿½ï¿½Ö§ï¿½Ö§Ü§ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2 ï¿½ï¿½ï¿½. --
--------------------------
+--function State_FuShe_Add ( role , statelv ) 
+--	local hpdmg = 20
+--	Hp_Endure_Dmg ( role , hpdmg ) 
+--	ALLExAttrSet(role)  
+--end 
+--
+--function State_FuShe_Rem ( role , statelv ) 
+--end 
+
+---------------------ÓÄÁéÌ½²âÆ÷2
 function SkillCooldown_YouL2( sklv )
 	local Cooldown = 1500
 	return Cooldown
 end
 
-function SkillArea_Square_YouL2 ( sklv )
+function SkillArea_Square_YouL2 ( sklv )--¼¼ÄÜ¡°Ê¥ÑÛÖ®Òí"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local  sklv = 2
 	local side = 600 + sklv * 20 
 	SetSkillRange ( 3 , side ) 	
@@ -10224,29 +11050,35 @@ end
 
 function SkillArea_State_YouL2 ( sklv )	
 	local  sklv = 2
+-- r3 = RemoveChaItem ( ATKER , 1138, 1 , 2 , -1, 2 , 1  )
+--		if r3== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
 	local statetime = 40 + sklv *9   
 	local statelv = sklv 
-	SetRangeState ( STATE_SYZY , statelv  , statetime ) 									
+	SetRangeState ( STATE_SYZY , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°Ê¥ÑÛÖ®Òí¡±×´Ì¬
 end 
 
 function Skill_YouL2_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		SkillUnable(role)   
 		return 0
 	end
-	local item_count = CheckBagItem ( role , 2722 )
+	local item_count = CheckBagItem ( role , 2722 ) --ÓÄÁéÌ½²âÆ÷2
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2722 , 1 ) 
 end 
 
 function Skill_YouL2_End ( ATKER , DEFER , sklv ) 
 end 
---------------------------
 
 function State_Syzy_Add ( role , statelv ) 
 
@@ -10259,7 +11091,7 @@ end
 function State_Syzy_Tran ( statelv ) 
 	return 1     
 end 
-----------------------------ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+----------------------------´¬Ö»¼ÓËÙÆ÷2
 function SkillCooldown_JiaSuQi2( sklv )
 	local Cooldown = 1500 
 	return Cooldown
@@ -10269,13 +11101,15 @@ function Skill_JiaSuQi2_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( atk_role , 2723 ) --ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+	local item_count = CheckBagItem ( atk_role , 2723 ) --´¬Ö»ÅçÉäÆ÷1
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2723 , 1 ) 
 end 
@@ -10283,11 +11117,13 @@ end
 function Skill_JiaSuQi2_End ( ATKER , DEFER , sklv )
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 --	r5 = RemoveChaItem ( ATKER , 1139 , 1 , 2 , -1, 2 , 1  )
 --		if r5== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 	local  sklv = 2
@@ -10312,7 +11148,7 @@ function State_wljs_Rem  ( role , statelv )
 	ALLExAttrSet(role)  
 end 
 
-----------------------------ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+----------------------------´¬Ö»ÅçÉäÆ÷2
 function SkillCooldown_PengSheQi2( sklv )
 	local Cooldown = 1500 
 	return Cooldown
@@ -10322,13 +11158,15 @@ function Skill_PengSheQi2_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( atk_role , 2724 ) --ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+	local item_count = CheckBagItem ( atk_role , 2724 ) --´¬Ö»ÅçÉäÆ÷1
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2724 , 1 ) 
 end 
@@ -10336,12 +11174,14 @@ end
 function Skill_PengSheQi2_End ( ATKER , DEFER , sklv )
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local  sklv = 2
 --	 r6 = RemoveChaItem ( ATKER , 1140 , 1 , 2 , -1, 2 , 1  )
 --		if r6== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 	local statetime = 3+sklv*2
@@ -10365,7 +11205,7 @@ function State_PengSheQi_Rem  ( role , statelv )
 	ALLExAttrSet(role)  
 end 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÆÆ¼×2¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
 
@@ -10378,13 +11218,15 @@ function Skill_PoJiaDan2_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( atk_role , 2725 ) --ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+	local item_count = CheckBagItem ( atk_role , 2725 ) --´¬Ö»ÅçÉäÆ÷1
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2725 , 1 )  
 end 
@@ -10393,12 +11235,14 @@ end
 function Skill_PoJiaDan2_End ( ATKER , DEFER , sklv ) 
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 		local  sklv = 2
 --	r7= RemoveChaItem ( ATKER , 1141 , 1 , 2 , -1, 2 , 1  )
 --	if r7== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 		local statelv = sklv 
@@ -10406,11 +11250,14 @@ function Skill_PoJiaDan2_End ( ATKER , DEFER , sklv )
 		dmg = math.random ( 400 , 500 )*( 1 + sklv * 0.5 )
 		Hp_Endure_Dmg ( DEFER , dmg) 
 		AddState ( ATKER , DEFER , STATE_PJ , statelv , statetime ) 
-		Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ 
+		--LG("skill_Pj", "function Skill_Def_Pj : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
+		Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí 
 
+		--LG( "sk_pj", "ÆÆ¼×¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
 end 
 
 function State_Pj_Add ( role , statelv ) 
+	--LG("state", "function State_Pj_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 	local def_dif = 30
 	local def = DefSb(role) - def_dif
 	SetCharaAttr( def , role , ATTR_STATEV_DEF )	
@@ -10421,13 +11268,14 @@ end
 
 
 function State_Pj_Rem ( role , statelv ) 
+--	LG("state", "function State_Pj_Rem : " ,"statelv = " , statelv , " role = ", role, "\n" ) 
 	local def_dif = 30
 	local def = DefSb(role) + def_dif
 	SetCharaAttr( def , role , ATTR_STATEV_DEF )
 	ALLExAttrSet(role)
 end 
 
---ï¿½ï¿½ï¿½Ðµï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--ÆÆÈÐµ¯2¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
 
@@ -10440,13 +11288,15 @@ function Skill_PoRenDan2_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( atk_role , 2726 ) --ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+	local item_count = CheckBagItem ( atk_role , 2726 ) --´¬Ö»ÅçÉäÆ÷1
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2726 , 1 ) 
 end 
@@ -10455,12 +11305,14 @@ end
 function Skill_PoRenDan2_End ( ATKER , DEFER , sklv ) 
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 		local  sklv = 2
 --	 r8 = RemoveChaItem ( ATKER , 1142 , 1 , 2 , -1, 2 , 1  )
 --		if r8== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 		local statelv = sklv 
@@ -10468,7 +11320,7 @@ function Skill_PoRenDan2_End ( ATKER , DEFER , sklv )
 		dmg = math.random ( 400 , 500 )*( 1 + sklv * 0.5 )
 		Hp_Endure_Dmg ( DEFER , dmg) 
 		AddState ( ATKER , DEFER , STATE_PRD , statelv , statetime ) 
-		Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ 
+		Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí 
 
 end 
 
@@ -10497,7 +11349,7 @@ function State_PoRenDan_Rem( role , sklv )
 end 
 
 
--------ï¿½ï¿½Ö»È¼ï¿½Õµï¿½2
+-------´¬Ö»È¼ÉÕµ¯2
 function SkillCooldown_RanShaoDan1( sklv ) 
 	local Cooldown = 1500 
 	return Cooldown
@@ -10507,13 +11359,15 @@ function Skill_RanShaoDan2_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( atk_role , 2727 ) --ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+	local item_count = CheckBagItem ( atk_role , 2727 ) --´¬Ö»ÅçÉäÆ÷1
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2727 , 1 ) 
 end 
@@ -10521,12 +11375,14 @@ end
 function Skill_RanShaoDan2_End( ATKER , DEFER , sklv )
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local  sklv = 2
 --	 r9 = RemoveChaItem ( ATKER , 1143 , 1 , 2 , -1, 2 , 1  )
 --		if r9== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 --	local hp = Hp( DEFER ) 
@@ -10547,9 +11403,9 @@ function State_RanShaoDan_Rem ( role , statelv )
 end
 
 
--------------------
--- ï¿½ï¿½ï¿½ï¿½Ñ§ß§Ñ§ï¿½ï¿½ 3 ï¿½ï¿½ï¿½. --
--------------------
+----------------ÊÖÀ×3
+
+
 function SkillCooldown_Shoulei3( sklv )
 	local Cooldown = 1500
 	return Cooldown
@@ -10558,13 +11414,15 @@ end
 function Skill_Shoulei3_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( role , 2743 )
+	local item_count = CheckBagItem ( role , 2743 ) --ÊÖÀ×3
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2743 , 1 ) 
 end 
@@ -10573,20 +11431,30 @@ end
 function Skill_Shoulei3_End ( ATKER , DEFER , sklv ) 
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local  sklv = 3
 	local 	hp = GetChaAttr ( DEFER , ATTR_HP ) 
-	dmg = hp/100*15
+	dmg = 4*math.floor ( 320 + 30 * sklv +hp * ( 0.05 +0.008 * sklv) )-1200
+	if dmg > 3000 then
+		dmg = 3000
+	end
 	Hp_Endure_Dmg ( DEFER , dmg )
+--	 r1 = RemoveChaItem ( ATKER , 1135 , 1 , 2 , -1, 2 , 1  )
+--	 Notice("11")
+--		if r1== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
 end
 
 
---------------------------
--- ï¿½ï¿½ï¿½Ó§Ö§ï¿½ï¿½Ó§Ñ§ï¿½ ï¿½Ò§ï¿½Þ§Ò§ï¿½ 3 ï¿½ï¿½ï¿½. --
---------------------------
- function SkillArea_Circle_ShanGD3( sklv )										
+
+---------------ÉÁ¹âµ¯3
+
+ function SkillArea_Circle_ShanGD3( sklv )									--¼¼ÄÜ¡°»¢Ð¥"µÄ¼¼ÄÜÇøÓò¹«Ê½	
 	local side = 800 
 	SetSkillRange ( 4 , side  )  
 end 
@@ -10599,13 +11467,15 @@ end
 function Skill_ShanGD3_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( role , 2744 ) 
+	local item_count = CheckBagItem ( role , 2744 ) --ÉÁ¹âµ¯3
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2744 , 1 ) 
 end 
@@ -10614,15 +11484,45 @@ end
 function Skill_ShanGD3_End ( ATKER , DEFER , sklv ) 
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
+--	r2 = RemoveChaItem ( ATKER , 1136 , 1 , 2 , -1, 2 , 1  )
+--		if r2== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
+--	local hp = Hp( DEFER ) 
 	local  sklv = 3
 	local statelv = sklv 
 	local statetime = sklv
 	local hp_defer = Mxhp ( DEFER ) 
-	
+	if hp_defer >= 1000000 then 
+		CALCULATE_SKILLEFFECT_LUA_000104 = GetResString("CALCULATE_SKILLEFFECT_LUA_000104")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000104 ) 
+		return
+	end 
+
+		----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí
+		if GetChaTypeID( ATKER ) == 979 then
+			statetime = 8
+		end
+
+	if GetChaAIType( DEFER ) >= 21 then    --21ÒÔÉÏÎªBossAI£¬Èç¹ûÊÇBoss¸ù¾Ýboss²»Í¬£¬Éè¶¨¿ÉÒÔ±»¼Ó×´Ì¬µÄ´ÎÊý
+		if BOSSXYSJ[GetChaTypeID( DEFER )] == 0 then
+			CALCULATE_SKILLEFFECT_LUA_000028 = GetResString("CALCULATE_SKILLEFFECT_LUA_000028")
+			Notice (CALCULATE_SKILLEFFECT_LUA_000028)
+			return
+		else
+			BOSSXYSJ[GetChaTypeID( DEFER )] = BOSSXYSJ[GetChaTypeID( DEFER )] -1
+		end
+	end
+		----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí½áÊø
+
 	AddState( ATKER , DEFER , STATE_ShanGD, statelv , statetime ) 
+--	dmg = 0.8 * math.random ( Mnatk( ATKER ) , Mxatk ( ATKER ) ) 
+--	Hp_Endure_Dmg ( DEFER , dmg) 
 end 
  
 
@@ -10633,10 +11533,9 @@ function State_ShanGD_Add ( role , statelv )
 function State_ShanGD_Rem ( role , statelv )
  end 
 
---------------------
--- ï¿½ï¿½ï¿½Ñ§Õ§Ú§Ñ§ï¿½Ú§ï¿½ 3 ï¿½ï¿½ï¿½. --
---------------------
- function SkillArea_Circle_FuShe3( sklv )								
+ ------------------------·øÉä3
+
+ function SkillArea_Circle_FuShe3( sklv )									--¼¼ÄÜ¡°»¢Ð¥"µÄ¼¼ÄÜÇøÓò¹«Ê½	
 	local  sklv = 3
 	local side = 800 + sklv*100
 	SetSkillRange ( 4 , side  )  
@@ -10650,13 +11549,15 @@ end
 function Skill_FuShe3_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( role , 2745 ) 
+	local item_count = CheckBagItem ( role , 2745 ) --·øÉä3
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2745 , 1 ) 
 end 
@@ -10664,29 +11565,46 @@ end
 function Skill_FuShe3_End( ATKER , DEFER , sklv )
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
+--	 r3 = RemoveChaItem ( ATKER , 1137 , 1 , 2 , -1, 2 , 1  )
+--		if r3== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
 	local  sklv = 3
 	local hp = Hp( DEFER ) 
 	local statelv = sklv 
 	local statetime = 15+sklv*2
 	AddState( ATKER , DEFER , STATE_ZD, statelv , statetime ) 
 	local 	hp = GetChaAttr ( DEFER , ATTR_HP ) 
-	local 	dmg = hp/100*3
+	local 	dmg = 2*math.floor ( 320 + 30 * sklv +hp * ( 0.05 +0.008 * sklv) )-600
+	if dmg > 1500 then
+		dmg = 1500
+	end
 	Hp_Endure_Dmg ( DEFER , dmg) 
 end 
  
 
--------------------------
--- ï¿½ï¿½ï¿½Ö§ï¿½Ö§Ü§ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3 ï¿½ï¿½ï¿½. --
--------------------------
+--function State_FuShe_Add ( role , statelv ) 
+--	local hpdmg = 20
+--	Hp_Endure_Dmg ( role , hpdmg ) 
+--	ALLExAttrSet(role)  
+--end 
+--
+--function State_FuShe_Rem ( role , statelv ) 
+--end 
+
+---------------------ÓÄÁéÌ½²âÆ÷3
+
 function SkillCooldown_YouL3( sklv )
 	local Cooldown = 1500
 	return Cooldown
 end
 
-function SkillArea_Square_YouL3 ( sklv )
+function SkillArea_Square_YouL3 ( sklv )--¼¼ÄÜ¡°Ê¥ÑÛÖ®Òí"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local  sklv = 3
 	local side = 600 + sklv * 20 
 	SetSkillRange ( 3 , side ) 	
@@ -10694,29 +11612,36 @@ end
 
 function SkillArea_State_YouL3 ( sklv )	
 	local  sklv = 3
+-- r3 = RemoveChaItem ( ATKER , 1138, 1 , 2 , -1, 2 , 1  )
+--		if r3== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
 	local statetime = 40 + sklv *9   
 	local statelv = sklv 
-	SetRangeState ( STATE_SYZY , statelv  , statetime ) 									
+	SetRangeState ( STATE_SYZY , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°Ê¥ÑÛÖ®Òí¡±×´Ì¬
 end 
 
 function Skill_YouL3_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		SkillUnable(role)   
 		return 0
 	end
-	local item_count = CheckBagItem ( role , 2746 ) 
+	local item_count = CheckBagItem ( role , 2746 ) --ÓÄÁéÌ½²âÆ÷2
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2746 , 1 ) 
 end 
 
 function Skill_YouL3_End ( ATKER , DEFER , sklv ) 
 end 
------------------------------
+
 function State_Syzy_Add ( role , statelv ) 
 
 end 
@@ -10728,7 +11653,7 @@ end
 function State_Syzy_Tran ( statelv ) 
 	return 1     
 end 
-----------------------------ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3
+----------------------------´¬Ö»¼ÓËÙÆ÷3
 function SkillCooldown_JiaSuQi3( sklv )
 	local Cooldown = 1500 
 	return Cooldown
@@ -10738,13 +11663,15 @@ function Skill_JiaSuQi3_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( atk_role , 2747 ) --ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3
+	local item_count = CheckBagItem ( atk_role , 2747 ) --´¬Ö»¼ÓËÙÆ÷3
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2747 , 1 ) 
 end 
@@ -10752,11 +11679,13 @@ end
 function Skill_JiaSuQi3_End ( ATKER , DEFER , sklv )
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 --	r5 = RemoveChaItem ( ATKER , 1139 , 1 , 2 , -1, 2 , 1  )
 --		if r5== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 	local  sklv = 3
@@ -10781,7 +11710,7 @@ function State_wljs_Rem  ( role , statelv )
 	ALLExAttrSet(role)  
 end 
 
-----------------------------ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3
+----------------------------´¬Ö»ÅçÉäÆ÷3
 function SkillCooldown_PengSheQi3( sklv )
 	local Cooldown = 1500 
 	return Cooldown
@@ -10791,13 +11720,15 @@ function Skill_PengSheQi3_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( atk_role , 2748 ) --ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3
+	local item_count = CheckBagItem ( atk_role , 2748 ) --´¬Ö»ÅçÉäÆ÷3
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2748 , 1 ) 
 end 
@@ -10805,12 +11736,14 @@ end
 function Skill_PengSheQi3_End ( ATKER , DEFER , sklv )
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local  sklv = 3
 --	 r6 = RemoveChaItem ( ATKER , 1140 , 1 , 2 , -1, 2 , 1  )
 --		if r6== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 	local statetime = 3+sklv*2
@@ -10834,7 +11767,7 @@ function State_PengSheQi_Rem  ( role , statelv )
 	ALLExAttrSet(role)  
 end 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÆÆ¼×3¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
 
@@ -10847,13 +11780,15 @@ function Skill_PoJiaDan3_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( atk_role , 2749 ) --ï¿½ï¿½ï¿½Æ¼ï¿½3
+	local item_count = CheckBagItem ( atk_role , 2749 ) --ÄÜÆÆ¼×3
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2749 , 1 )  
 end 
@@ -10862,12 +11797,14 @@ end
 function Skill_PoJiaDan3_End ( ATKER , DEFER , sklv )
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 		local  sklv = 3
 --	r7= RemoveChaItem ( ATKER , 1141 , 1 , 2 , -1, 2 , 1  )
 --	if r7== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 		local statelv = sklv 
@@ -10875,11 +11812,14 @@ function Skill_PoJiaDan3_End ( ATKER , DEFER , sklv )
 		dmg = math.random ( 400 , 500 )*( 1 + sklv * 0.5 )
 		Hp_Endure_Dmg ( DEFER , dmg) 
 		AddState ( ATKER , DEFER , STATE_PJ , statelv , statetime ) 
-		Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ 
+		--LG("skill_Pj", "function Skill_Def_Pj : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
+		Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí 
 
+		--LG( "sk_pj", "ÆÆ¼×¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
 end 
 
 function State_Pj_Add ( role , statelv ) 
+	--LG("state", "function State_Pj_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 	local def_dif = 30
 	local def = DefSb(role) - def_dif
 	SetCharaAttr( def , role , ATTR_STATEV_DEF )	
@@ -10890,13 +11830,14 @@ end
 
 
 function State_Pj_Rem ( role , statelv ) 
+--	LG("state", "function State_Pj_Rem : " ,"statelv = " , statelv , " role = ", role, "\n" ) 
 	local def_dif = 30
 	local def = DefSb(role) + def_dif
 	SetCharaAttr( def , role , ATTR_STATEV_DEF )
 	ALLExAttrSet(role)
 end 
 
---ï¿½ï¿½ï¿½Ðµï¿½3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--ÆÆÈÐµ¯3¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
 
@@ -10909,13 +11850,15 @@ function Skill_PoRenDan3_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( atk_role , 2750 ) --ï¿½ï¿½ï¿½Ðµï¿½3
+	local item_count = CheckBagItem ( atk_role , 2750 ) --ÆÆÈÐµ¯3
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2750 , 1 ) 
 end 
@@ -10924,12 +11867,14 @@ end
 function Skill_PoRenDan3_End ( ATKER , DEFER , sklv ) 
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 		local  sklv = 3
 --	 r8 = RemoveChaItem ( ATKER , 1142 , 1 , 2 , -1, 2 , 1  )
 --		if r8== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 		local statelv = sklv 
@@ -10937,7 +11882,7 @@ function Skill_PoRenDan3_End ( ATKER , DEFER , sklv )
 		dmg = math.random ( 400 , 500 )*( 1 + sklv * 0.5 )
 		Hp_Endure_Dmg ( DEFER , dmg) 
 		AddState ( ATKER , DEFER , STATE_PRD , statelv , statetime ) 
-		Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ 
+		Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí 
 
 end 
 
@@ -10966,7 +11911,7 @@ function State_PoRenDan_Rem( role , sklv )
 end 
 
 
--------ï¿½ï¿½Ö»È¼ï¿½Õµï¿½3
+-------´¬Ö»È¼ÉÕµ¯3
 function SkillCooldown_RanShaoDan3( sklv ) 
 	local Cooldown = 1500 
 	return Cooldown
@@ -10976,13 +11921,15 @@ function Skill_RanShaoDan3_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( atk_role , 2751 ) --ï¿½ï¿½Ö»È¼ï¿½Õµï¿½3
+	local item_count = CheckBagItem ( atk_role , 2751 ) --´¬Ö»È¼ÉÕµ¯3
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2751 , 1 ) 
 end 
@@ -10990,12 +11937,14 @@ end
 function Skill_RanShaoDan3_End( ATKER , DEFER , sklv )
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local  sklv = 3
 --	 r9 = RemoveChaItem ( ATKER , 1143 , 1 , 2 , -1, 2 , 1  )
 --		if r9== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 --	local hp = Hp( DEFER ) 
@@ -11015,9 +11964,9 @@ end
 function State_RanShaoDan_Rem ( role , statelv ) 
 end
 
-----------------------
--- ï¿½ï¿½ï¿½ï¿½Ñ§ß§Ñ§ï¿½ï¿½ 4 ï¿½ï¿½ï¿½ï¿½Ó§ß§ï¿½ --
-----------------------
+----------------ÊÖÀ×4
+
+
 function SkillCooldown_Shoulei4( sklv )
 	local Cooldown = 1500
 	return Cooldown
@@ -11026,13 +11975,15 @@ end
 function Skill_Shoulei4_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( role , 2767 ) 
+	local item_count = CheckBagItem ( role , 2767 ) --ÊÖÀ×4
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2767 , 1 ) 
 end 
@@ -11041,21 +11992,30 @@ end
 function Skill_Shoulei4_End ( ATKER , DEFER , sklv ) 
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local  sklv = 4
 	local 	hp = GetChaAttr ( DEFER , ATTR_HP ) 
-	dmg = hp-100*20
+	dmg = 4*math.floor ( 320 + 30 * sklv +hp * ( 0.05 +0.008 * sklv) )-1200
+	if dmg > 4000 then
+		dmg = 4000
+	end
 	Hp_Endure_Dmg ( DEFER , dmg )
+--	 r1 = RemoveChaItem ( ATKER , 1135 , 1 , 2 , -1, 2 , 1  )
+--	 Notice("11")
+--		if r1== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
 end
 
 
 
---------------------------
--- ï¿½ï¿½ï¿½Ó§Ö§ï¿½ï¿½Ó§Ñ§ï¿½ ï¿½Ò§ï¿½Þ§Ò§ï¿½ 4 ï¿½ï¿½ï¿½. --
---------------------------
- function SkillArea_Circle_ShanGD4( sklv )									
+---------------ÉÁ¹âµ¯4
+
+ function SkillArea_Circle_ShanGD4( sklv )									--¼¼ÄÜ¡°»¢Ð¥"µÄ¼¼ÄÜÇøÓò¹«Ê½	
 	local side = 800 
 	SetSkillRange ( 4 , side  )  
 end 
@@ -11068,34 +12028,75 @@ end
 function Skill_ShanGD4_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "\200\237\226\229\237\242\224\240\252 \231\224\225\235\238\234\232\240\238\226\224\237 ")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( role , 2768 ) 
+	local item_count = CheckBagItem ( role , 2768 ) --ÉÁ¹âµ¯4
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "\211 \226\224\241 \237\229\242\243 \241\226\229\242\238\226\251\245 \225\238\236\225 " ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2768 , 1 ) 
 end 
 
+
 function Skill_ShanGD4_End ( ATKER , DEFER , sklv ) 
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "\200\237\226\229\237\242\224\240\252 \231\224\225\235\238\234\232\240\238\226\224\237 ")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
+--	r2 = RemoveChaItem ( ATKER , 1136 , 1 , 2 , -1, 2 , 1  )
+--		if r2== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
+--	local hp = Hp( DEFER ) 
 	local  sklv = 4
 	local statelv = sklv 
 	local statetime = sklv
 	local hp_defer = Mxhp ( DEFER ) 
+	if hp_defer >= 1000000 then 
+		CALCULATE_SKILLEFFECT_LUA_000104 = GetResString("CALCULATE_SKILLEFFECT_LUA_000104")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000104 ) 
+		return
+	end 
+
+		----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí
+		if GetChaTypeID( ATKER ) == 979 then
+			statetime = 8
+		end
+
+	if GetChaAIType( DEFER ) >= 21 then    --21ÒÔÉÏÎªBossAI£¬Èç¹ûÊÇBoss¸ù¾Ýboss²»Í¬£¬Éè¶¨¿ÉÒÔ±»¼Ó×´Ì¬µÄ´ÎÊý
+		if BOSSXYSJ[GetChaTypeID( DEFER )] == 0 then
+			CALCULATE_SKILLEFFECT_LUA_000028 = GetResString("CALCULATE_SKILLEFFECT_LUA_000028")
+			Notice (CALCULATE_SKILLEFFECT_LUA_000028)
+			return
+		else
+			BOSSXYSJ[GetChaTypeID( DEFER )] = BOSSXYSJ[GetChaTypeID( DEFER )] -1
+		end
+	end
+		----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí½áÊø
+
 	AddState( ATKER , DEFER , STATE_ShanGD, statelv , statetime ) 
+--	dmg = 0.8 * math.random ( Mnatk( ATKER ) , Mxatk ( ATKER ) ) 
+--	Hp_Endure_Dmg ( DEFER , dmg) 
 end 
  
---------------------
--- ï¿½ï¿½ï¿½Ñ§Õ§Ú§Ñ§ï¿½Ú§ï¿½ 4 ï¿½ï¿½ï¿½. --
---------------------
- function SkillArea_Circle_FuShe4( sklv )								
+
+function State_ShanGD_Add ( role , statelv )
+
+ end 
+
+function State_ShanGD_Rem ( role , statelv )
+ end 
+
+ ------------------------·øÉä4
+
+ function SkillArea_Circle_FuShe4( sklv )									--¼¼ÄÜ¡°»¢Ð¥"µÄ¼¼ÄÜÇøÓò¹«Ê½	
 	local  sklv = 4
 	local side = 800 + sklv*100
 	SetSkillRange ( 4 , side  )  
@@ -11109,13 +12110,15 @@ end
 function Skill_FuShe4_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( role , 2769 )
+	local item_count = CheckBagItem ( role , 2769 ) --·øÉä4
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2769 , 1 ) 
 end 
@@ -11123,29 +12126,46 @@ end
 function Skill_FuShe4_End( ATKER , DEFER , sklv ) 
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
+--	 r3 = RemoveChaItem ( ATKER , 1137 , 1 , 2 , -1, 2 , 1  )
+--		if r3== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
 	local  sklv = 4
 	local hp = Hp( DEFER ) 
 	local statelv = sklv 
 	local statetime = 15+sklv*2
 	AddState( ATKER , DEFER , STATE_ZD, statelv , statetime ) 
 	local 	hp = GetChaAttr ( DEFER , ATTR_HP ) 
-	local 	dmg = hp/100*4
+	local 	dmg = 2*math.floor ( 320 + 30 * sklv +hp * ( 0.05 +0.008 * sklv) )-600
+	if dmg > 2000 then
+		dmg = 2000
+	end
 	Hp_Endure_Dmg ( DEFER , dmg) 
 end 
  
 
--------------------------
--- ï¿½ï¿½ï¿½Ö§ï¿½Ö§Ü§ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 4 ï¿½ï¿½ï¿½. --
--------------------------
+--function State_FuShe_Add ( role , statelv ) 
+--	local hpdmg = 20
+--	Hp_Endure_Dmg ( role , hpdmg ) 
+--	ALLExAttrSet(role)  
+--end 
+--
+--function State_FuShe_Rem ( role , statelv ) 
+--end 
+
+---------------------ÓÄÁéÌ½²âÆ÷4
+
 function SkillCooldown_YouL4( sklv )
 	local Cooldown = 1500
 	return Cooldown
 end
 
-function SkillArea_Square_YouL4 ( sklv )
+function SkillArea_Square_YouL4 ( sklv )--¼¼ÄÜ¡°Ê¥ÑÛÖ®Òí"µÄ¼¼ÄÜÇøÓò¹«Ê½
 	local  sklv = 4
 	local side = 600 + sklv * 20 
 	SetSkillRange ( 3 , side ) 	
@@ -11153,29 +12173,35 @@ end
 
 function SkillArea_State_YouL4 ( sklv )	
 	local  sklv = 4
+-- r3 = RemoveChaItem ( ATKER , 1138, 1 , 2 , -1, 2 , 1  )
+--		if r3== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
 	local statetime = 40 + sklv *9   
 	local statelv = sklv 
-	SetRangeState ( STATE_SYZY , statelv  , statetime ) 									
+	SetRangeState ( STATE_SYZY , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°Ê¥ÑÛÖ®Òí¡±×´Ì¬
 end 
 
 function Skill_YouL4_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		SkillUnable(role)   
 		return 0
 	end
-	local item_count = CheckBagItem ( role , 2770 ) 
+	local item_count = CheckBagItem ( role , 2770 ) --ÓÄÁéÌ½²âÆ÷4
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2770 , 1 ) 
 end 
 
 function Skill_YouL4_End ( ATKER , DEFER , sklv ) 
 end 
---------------------------
 
 function State_Syzy_Add ( role , statelv ) 
 
@@ -11188,7 +12214,7 @@ end
 function State_Syzy_Tran ( statelv ) 
 	return 1     
 end 
-----------------------------ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4
+----------------------------´¬Ö»¼ÓËÙÆ÷4
 function SkillCooldown_JiaSuQi4( sklv )
 	local Cooldown = 1500 
 	return Cooldown
@@ -11198,13 +12224,15 @@ function Skill_JiaSuQi4_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( atk_role , 2771 ) --ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4
+	local item_count = CheckBagItem ( atk_role , 2771 ) --´¬Ö»¼ÓËÙÆ÷4
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2771 , 1 ) 
 end 
@@ -11212,11 +12240,13 @@ end
 function Skill_JiaSuQi4_End ( ATKER , DEFER , sklv )
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 --	r5 = RemoveChaItem ( ATKER , 1139 , 1 , 2 , -1, 2 , 1  )
 --		if r5== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 	local  sklv = 4
@@ -11241,7 +12271,7 @@ function State_wljs_Rem  ( role , statelv )
 	ALLExAttrSet(role)  
 end 
 
-----------------------------ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4
+----------------------------´¬Ö»ÅçÉäÆ÷4
 function SkillCooldown_PengSheQi4( sklv )
 	local Cooldown = 1500 
 	return Cooldown
@@ -11251,13 +12281,15 @@ function Skill_PengSheQi4_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( atk_role , 2772 ) --ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4
+	local item_count = CheckBagItem ( atk_role , 2772 ) --´¬Ö»ÅçÉäÆ÷4
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2772 , 1 ) 
 end 
@@ -11265,474 +12297,14 @@ end
 function Skill_PengSheQi4_End ( ATKER , DEFER , sklv )
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local  sklv = 4
 --	 r6 = RemoveChaItem ( ATKER , 1140 , 1 , 2 , -1, 2 , 1  )
 --		if r6== 0 then
---		return
---	end
-	local statetime = 3+sklv*2
-	local statelv = sklv
-	AddState( ATKER , DEFER , STATE_PSQ, statelv5 , statetime ) 
-end
-
-function  State_PengSheQi_Add ( role , statelv )
-	local mspdsa_dif = 3
-	local mspds4a = (MspdSa(role) + mspdsa_dif ) * ATTR_RADIX 
-	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD )  
-	 
-	ALLExAttrSet(role)  
-end 
-
-function State_PengSheQi_Rem  ( role , statelv )
-	local mspdsa_dif = 3
-	local mspdsa = (MspdSa(role) - mspdsa_dif ) * ATTR_RADIX 
-	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD )  
-	 
-	ALLExAttrSet(role)  
-end 
-
---ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
-
-
-function SkillCooldown_PoJiaDan4( sklv )
-	local Cooldown = 1500
-	return Cooldown
-end
-
-function Skill_PoJiaDan4_Begin ( role , sklv ) 
-	local atk_role = TurnToCha ( role ) 
-	local NocLock =	KitbagLock( role, 0 )
-	if Noc7Lock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
-		return 0
-	end
-	local item_count = CheckBagItem ( atk_role , 2773 ) --ï¿½ï¿½ï¿½Æ¼ï¿½4
-	if item_count <= 0 then  
-		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
-	end 
-	local a = DelBagItem ( atk_role , 2773 , 1 )  
-end 
-
-
-function Skill_PoJiaDan4_End ( ATKER , DEFER , sklv ) 
-	local NocLock =	KitbagLock( ATKER, 0 )
-	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
-		return 0
-	end
-		local  sklv = 4
---	r7= RemoveChaItem ( ATKER , 1141 , 1 , 2 , -1, 2 , 1  )
---	if r7== 0 then
---		return
---	end
-	local statelv = sklv 
-	local statetime = 10 + sklv  
-	dmg = math.random ( 400 , 500 )*( 1 + sklv * 0.5 )
-	Hp_Endure_Dmg ( DEFER , dmg) 
-	AddState ( ATKER , DEFER , STATE_PJ , statelv , statetime ) 
-	Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ 
-
-end 
-
-function State_Pj_Add ( role , statelv ) 
-	local def_dif = 30
-	local def = DefSb(role) - def_dif
-	SetCharaAttr( def , role , ATTR_STATEV_DEF )	
-	ALLExAttrSet(role)
-
-end 
-
-
-
-function State_Pj_Rem ( role , statelv ) 
-	local def_dif = 30
-	local def = DefSb(role) + def_dif
-	SetCharaAttr( def , role , ATTR_STATEV_DEF )
-	ALLExAttrSet(role)
-end 
-
---ï¿½ï¿½ï¿½Ðµï¿½4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
-
-
-function SkillCooldown_PoRenDan4( sklv )
-	local Cooldown = 1500
-	return Cooldown
-end
-
-function Skill_PoRenDan4_Begin ( role , sklv ) 
-	local atk_role = TurnToCha ( role ) 
-	local NocLock =	KitbagLock( role, 0 )
-	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
-		return 0
-	end
-	local item_count = CheckBagItem ( atk_role , 2774 ) --ï¿½ï¿½ï¿½Ðµï¿½4
-	if item_count <= 0 then  
-		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
-	end 
-	local a = DelBagItem ( atk_role , 2774 , 1 ) 
-end 
-
-
-function Skill_PoRenDan4_End ( ATKER , DEFER , sklv ) 
-	local NocLock =	KitbagLock( ATKER, 0 )
-	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
-		return 0
-	end
-		local  sklv = 4
---	 r8 = RemoveChaItem ( ATKER , 1142 , 1 , 2 , -1, 2 , 1  )
---		if r8== 0 then
---		return
---	end
-	local statelv = sklv 
-	local statetime = 10 + sklv  
-	dmg = math.random ( 400 , 500 )*( 1 + sklv * 0.5 )
-	Hp_Endure_Dmg ( DEFER , dmg) 
-	AddState ( ATKER , DEFER , STATE_PRD , statelv , statetime ) 
-	Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ 
-
-end 
-
-
-
-function State_PoRenDan_Add( role , sklv ) 
-	local statelv = sklv  
-	local atksb_dif = 50*sklv
-	local mnatksb = MnatkSb(role) - atksb_dif  
-	local mxatksb = MxatkSb(role ) - atksb_dif 
-	SetCharaAttr( mnatksb , role , ATTR_STATEV_MNATK ) 
-	SetCharaAttr( mxatksb , role , ATTR_STATEV_MXATK ) 
-	ALLExAttrSet(role)  
-end 
-
-
-
-function State_PoRenDan_Rem( role , sklv ) 
-	local statelv = sklv 
-	local atksb_dif = 50*sklv
-	local mnatksb = MnatkSb(role) + atksb_dif  
-	local mxatksb = MxatkSb(role ) + atksb_dif 
-	SetCharaAttr( mnatksb , role , ATTR_STATEV_MNATK ) 
-	SetCharaAttr( mxatksb , role , ATTR_STATEV_MXATK ) 
-	ALLExAttrSet(role)  
-end 
-
-
--------ï¿½ï¿½Ö»È¼ï¿½Õµï¿½4
-function SkillCooldown_RanShaoDan4( sklv ) 
-	local Cooldown = 1500 
-	return Cooldown
-end
-
-function Skill_RanShaoDan4_Begin ( role , sklv ) 
-	local atk_role = TurnToCha ( role ) 
-	local NocLock =	KitbagLock( role, 0 )
-	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
-		return 0
-	end
-	local item_count = CheckBagItem ( atk_role , 2775 ) --ï¿½ï¿½Ö»È¼ï¿½Õµï¿½4
-	if item_count <= 0 then  
-		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
-	end 
-	local a = DelBagItem ( atk_role , 2775 , 1 ) 
-end 
-
-function Skill_RanShaoDan4_End( ATKER , DEFER , sklv )
-	local NocLock =	KitbagLock( ATKER, 0 )
-	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
-		return 0
-	end
-	local  sklv = 4
---	 r9 = RemoveChaItem ( ATKER , 1143 , 1 , 2 , -1, 2 , 1  )
---		if r9== 0 then
---		return
---	end
---	local hp = Hp( DEFER ) 
-	local statelv = sklv 
-	local statetime = 4 + sklv*2
-	AddState( ATKER , DEFER , STATE_CZRSD, statelv , statetime ) 
-	dmg =  math.random ( 100 , 200 )*(1+sklv*0.5)
-	Hp_Endure_Dmg ( DEFER , dmg) 
-end 
-
-function State_RanShaoDan_Add ( role , statelv ) 
-	local hpdmg = 150  
-		Hp_Endure_Dmg ( role , hpdmg ) 
-		ALLExAttrSet(role)  
-end 
-
-function State_RanShaoDan_Rem ( role , statelv ) 
-end
-
-
-----------------------
--- ï¿½ï¿½ï¿½ï¿½Ñ§ß§Ñ§ï¿½ï¿½ 5 ï¿½ï¿½ï¿½ï¿½Ó§ß§ï¿½ --
-----------------------
-function SkillCooldown_Shoulei5( sklv )
-	local Cooldown = 1500
-	return Cooldown
-end
-
-function Skill_Shoulei5_Begin ( role , sklv ) 
-	local NocLock =	KitbagLock( role, 0 )
-	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
-		return 0
-	end
-	local item_count = CheckBagItem ( role , 2791 ) --ï¿½ï¿½ï¿½ï¿½5
-	if item_count <= 0 then  
-		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
-	end 
-	local a = DelBagItem ( role , 2791 , 1 ) 
-end 
-
-
-function Skill_Shoulei5_End ( ATKER , DEFER , sklv ) 
-	local NocLock =	KitbagLock( ATKER, 0 )
-	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
-		return 0
-	end
-	local  sklv = 5
-	local 	hp = GetChaAttr ( DEFER , ATTR_HP ) 
-	--ï¿½ï¿½ï¿½ß§Ú§Þ§Ñ§Ö§ï¿½ 25% ï¿½ï¿½ï¿½
-	dmg = hp/100*25 
-	Hp_Endure_Dmg ( DEFER , dmg )
-end
-
-
-
---------------------------
--- ï¿½ï¿½ï¿½Ó§Ö§ï¿½ï¿½Ó§Ñ§ï¿½ ï¿½Ò§ï¿½Þ§Ò§ï¿½ 5 ï¿½ï¿½ï¿½. --
---------------------------
- function SkillArea_Circle_ShanGD5( sklv )									
-	local side = 800 
-	SetSkillRange ( 4 , side  )  
-end 
-
-function SkillCooldown_ShanGD5( sklv )
-	local Cooldown = 1500
-	return Cooldown
-end
-
-function Skill_ShanGD5_Begin ( role , sklv ) 
-	local NocLock =	KitbagLock( role, 0 )
-	if NocLock == LUA_FALSE then
-		SystemNotice( role , "\200\237\226\229\237\242\224\240\252 \231\224\225\235\238\234\232\240\238\226\224\237 ")
-		return 0
-	end
-	local item_count = CheckBagItem ( role , 2792 ) 
-	if item_count <= 0 then  
-		SkillUnable(role)   
-		SystemNotice ( role , "\211 \226\224\241 \237\229\242\243 \241\226\229\242\238\226\251\245 \225\238\236\225 " ) 
-	end 
-	local a = DelBagItem ( role , 2792 , 1 ) 
-end 
-
-function Skill_ShanGD5_End ( ATKER , DEFER , sklv ) 
-	local NocLock =	KitbagLock( ATKER, 0 )
-	if NocLock == LUA_FALSE then
-		SystemNotice( role , "\200\237\226\229\237\242\224\240\252 \231\224\225\235\238\234\232\240\238\226\224\237 ")
-		return 0
-	end
-	local  sklv = 5
-	local statelv = sklv 
-	local statetime = sklv
-	AddState( ATKER , DEFER , STATE_ShanGD, statelv , statetime ) 
-end 
-
-
------------------------
--- ï¿½ï¿½ï¿½Ñ§Õ§Ú§Ñ§ï¿½Ú§ï¿½ 5 ï¿½ï¿½ï¿½ï¿½Ó§ß§ï¿½ --
------------------------
-
- function SkillArea_Circle_FuShe5( sklv )										
-	local  sklv = 5
-	local side = 800 + sklv*100
-	SetSkillRange ( 4 , side  )  
-end 
-
-function SkillCooldown_FuShe5( sklv )
-	local Cooldown = 1500
-	return Cooldown
-end
-
-function Skill_FuShe5_Begin ( role , sklv ) 
-	local NocLock =	KitbagLock( role, 0 )
-	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
-		return 0
-	end
-	local item_count = CheckBagItem ( role , 2793 )
-	if item_count <= 0 then  
-		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
-	end 
-	local a = DelBagItem ( role , 2793 , 1 ) 
-end 
-
-function Skill_FuShe5_End( ATKER , DEFER , sklv ) 
-	local NocLock =	KitbagLock( ATKER, 0 )
-	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
-		return 0
-	end
-	local  sklv = 5
-	local hp = Hp( DEFER ) 
-	local statelv = sklv 
-	local statetime = 15+sklv*2
-	AddState( ATKER , DEFER , STATE_ZD, statelv , statetime ) 
-	local 	hp = GetChaAttr ( DEFER , ATTR_HP ) 
-	--ï¿½ï¿½ï¿½ï¿½ß§Ú§Þ§Ñ§Ö§ï¿½ 5% ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ú§Ó§ß§Ú§Ü§ï¿½
-	local 	dmg = hp/100*5
-	Hp_Endure_Dmg ( DEFER , dmg) 
-end 
- 
-----------------------------
--- ï¿½ï¿½ï¿½Ö§ï¿½Ö§Ü§ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 5 ï¿½ï¿½ï¿½ï¿½Ó§ß§ï¿½ --
-----------------------------
-function SkillCooldown_YouL5( sklv )
-	local Cooldown = 1500
-	return Cooldown
-end
-
-function SkillArea_Square_YouL5 ( sklv )
-	local  sklv = 5
-	local side = 600 + sklv * 20 
-	SetSkillRange ( 3 , side ) 	
-end 
-
-function SkillArea_State_YouL5 ( sklv )	
-	local  sklv = 5
-	local statetime = 40 + sklv *9   
-	local statelv = sklv 
-	SetRangeState ( STATE_SYZY , statelv  , statetime ) 									
-end 
-
-function Skill_YouL5_Begin ( role , sklv ) 
-	local NocLock =	KitbagLock( role, 0 )
-	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
-		SkillUnable(role)   
-		return 0
-	end
-	local item_count = CheckBagItem ( role , 2794 )
-	if item_count <= 0 then  
-		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
-	end 
-	local a = DelBagItem ( role , 2794 , 1 ) 
-end 
-
-function Skill_YouL5_End ( ATKER , DEFER , sklv ) 
-end 
---------------------
-function State_Syzy_Add ( role , statelv ) 
-
-end 
-
-function State_Syzy_Rem ( role , statelv ) 
-
-end 
-
-function State_Syzy_Tran ( statelv ) 
-	return 1     
-end 
-----------------------------ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5
-function SkillCooldown_JiaSuQi5( sklv )
-	local Cooldown = 1500 
-	return Cooldown
-end
-
-function Skill_JiaSuQi5_Begin ( role , sklv ) 
-	local atk_role = TurnToCha ( role ) 
-	local NocLock =	KitbagLock( role, 0 )
-	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
-		return 0
-	end
-	local item_count = CheckBagItem ( atk_role , 2795 ) --ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5
-	if item_count <= 0 then  
-		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
-	end 
-	local a = DelBagItem ( atk_role , 2795 , 1 ) 
-end 
-
-function Skill_JiaSuQi5_End ( ATKER , DEFER , sklv )
-	local NocLock =	KitbagLock( ATKER, 0 )
-	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
-		return 0
-	end
---	r5 = RemoveChaItem ( ATKER , 1139 , 1 , 2 , -1, 2 , 1  )
---		if r5== 0 then
---		return
---	end
-	local  sklv = 5
-	local statelv = sklv
-	local statetime = 30+sklv*20
-	AddState( ATKER , DEFER , STATE_WLJS, statelv , statetime ) 
- end
-
-function  State_wljs_Add ( role , statelv )
-	local mspdsa_dif = 1
-	local mspdsa = (MspdSa(role) + mspdsa_dif ) * ATTR_RADIX 
-	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD )  
-	 
-	ALLExAttrSet(role)  
-end 
-
-function State_wljs_Rem  ( role , statelv )
-	local mspdsa_dif = 1
-	local mspdsa = (MspdSa(role) - mspdsa_dif ) * ATTR_RADIX 
-	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD )  
-	 
-	ALLExAttrSet(role)  
-end 
-
-----------------------------ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5
-function SkillCooldown_PengSheQi5( sklv )
-	local Cooldown = 1500 
-	return Cooldown
-end
-
-function Skill_PengSheQi5_Begin ( role , sklv ) 
-	local atk_role = TurnToCha ( role ) 
-	local NocLock =	KitbagLock( role, 0 )
-	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
-		return 0
-	end
-	local item_count = CheckBagItem ( atk_role , 2796 ) --ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5
-	if item_count <= 0 then  
-		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
-	end 
-	local a = DelBagItem ( atk_role , 2796 , 1 ) 
-end 
-
-function Skill_PengSheQi5_End ( ATKER , DEFER , sklv )
-	local NocLock =	KitbagLock( ATKER, 0 )
-	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
-		return 0
-	end
-	local  sklv = 5
---	 r6 = RemoveChaItem ( ATKER , 1140 , 1 , 2 , -1, 2 , 1  )
---		if r6== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 	local statetime = 3+sklv*2
@@ -11756,40 +12328,44 @@ function State_PengSheQi_Rem  ( role , statelv )
 	ALLExAttrSet(role)  
 end 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜÆÆ¼×4¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
 
-function SkillCooldown_PoJiaDan5( sklv )
+function SkillCooldown_PoJiaDan4( sklv )
 	local Cooldown = 1500
 	return Cooldown
 end
 
-function Skill_PoJiaDan5_Begin ( role , sklv ) 
+function Skill_PoJiaDan4_Begin ( role , sklv ) 
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( atk_role , 2797 ) --ï¿½ï¿½ï¿½Æ¼ï¿½5
+	local item_count = CheckBagItem ( atk_role , 2773 ) --ÄÜÆÆ¼×4
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
-	local a = DelBagItem ( atk_role , 2797 , 1 )  
+	local a = DelBagItem ( atk_role , 2773 , 1 )  
 end 
 
 
-function Skill_PoJiaDan5_End ( ATKER , DEFER , sklv ) 
+function Skill_PoJiaDan4_End ( ATKER , DEFER , sklv ) 
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local  sklv = 5
+		local  sklv = 4
 --	r7= RemoveChaItem ( ATKER , 1141 , 1 , 2 , -1, 2 , 1  )
 --	if r7== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 	local statelv = sklv 
@@ -11797,11 +12373,14 @@ function Skill_PoJiaDan5_End ( ATKER , DEFER , sklv )
 	dmg = math.random ( 400 , 500 )*( 1 + sklv * 0.5 )
 	Hp_Endure_Dmg ( DEFER , dmg) 
 	AddState ( ATKER , DEFER , STATE_PJ , statelv , statetime ) 
-	Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	--LG("skill_Pj", "function Skill_Def_Pj : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí 
 
+	--LG( "sk_pj", "ÆÆ¼×¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
 end 
 
 function State_Pj_Add ( role , statelv ) 
+	--LG("state", "function State_Pj_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
 	local def_dif = 30
 	local def = DefSb(role) - def_dif
 	SetCharaAttr( def , role , ATTR_STATEV_DEF )	
@@ -11812,46 +12391,51 @@ end
 
 
 function State_Pj_Rem ( role , statelv ) 
+--	LG("state", "function State_Pj_Rem : " ,"statelv = " , statelv , " role = ", role, "\n" ) 
 	local def_dif = 30
 	local def = DefSb(role) + def_dif
 	SetCharaAttr( def , role , ATTR_STATEV_DEF )
 	ALLExAttrSet(role)
 end 
 
---ï¿½ï¿½ï¿½Ðµï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--ÆÆÈÐµ¯4¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
 
-function SkillCooldown_PoRenDan5( sklv )
+function SkillCooldown_PoRenDan4( sklv )
 	local Cooldown = 1500
 	return Cooldown
 end
 
-function Skill_PoRenDan5_Begin ( role , sklv ) 
+function Skill_PoRenDan4_Begin ( role , sklv ) 
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( atk_role , 2798 ) --ï¿½ï¿½ï¿½Ðµï¿½5
+	local item_count = CheckBagItem ( atk_role , 2774 ) --ÆÆÈÐµ¯4
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
-	local a = DelBagItem ( atk_role , 2798 , 1 ) 
+	local a = DelBagItem ( atk_role , 2774 , 1 ) 
 end 
 
 
-function Skill_PoRenDan5_End ( ATKER , DEFER , sklv ) 
+function Skill_PoRenDan4_End ( ATKER , DEFER , sklv ) 
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local  sklv = 5
+		local  sklv = 4
 --	 r8 = RemoveChaItem ( ATKER , 1142 , 1 , 2 , -1, 2 , 1  )
 --		if r8== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 	local statelv = sklv 
@@ -11859,7 +12443,7 @@ function Skill_PoRenDan5_End ( ATKER , DEFER , sklv )
 	dmg = math.random ( 400 , 500 )*( 1 + sklv * 0.5 )
 	Hp_Endure_Dmg ( DEFER , dmg) 
 	AddState ( ATKER , DEFER , STATE_PRD , statelv , statetime ) 
-	Check_Ys_Rem ( ATKER , DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ 
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí 
 
 end 
 
@@ -11888,36 +12472,40 @@ function State_PoRenDan_Rem( role , sklv )
 end 
 
 
--------ï¿½ï¿½Ö»È¼ï¿½Õµï¿½5
-function SkillCooldown_RanShaoDan5( sklv ) 
+-------´¬Ö»È¼ÉÕµ¯4
+function SkillCooldown_RanShaoDan4( sklv ) 
 	local Cooldown = 1500 
 	return Cooldown
 end
 
-function Skill_RanShaoDan5_Begin ( role , sklv ) 
+function Skill_RanShaoDan4_Begin ( role , sklv ) 
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( atk_role , 2799 ) --ï¿½ï¿½Ö»È¼ï¿½Õµï¿½5
+	local item_count = CheckBagItem ( atk_role , 2775 ) --´¬Ö»È¼ÉÕµ¯4
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
-	local a = DelBagItem ( atk_role , 2799 , 1 ) 
+	local a = DelBagItem ( atk_role , 2775 , 1 ) 
 end 
 
-function Skill_RanShaoDan5_End( ATKER , DEFER , sklv )
+function Skill_RanShaoDan4_End( ATKER , DEFER , sklv )
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local  sklv = 5
+	local  sklv = 4
 --	 r9 = RemoveChaItem ( ATKER , 1143 , 1 , 2 , -1, 2 , 1  )
 --		if r9== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
 --		return
 --	end
 --	local hp = Hp( DEFER ) 
@@ -11936,7 +12524,543 @@ end
 
 function State_RanShaoDan_Rem ( role , statelv ) 
 end
-----------------------------------------------Ð¡Ñ©ï¿½ï¿½ 
+
+
+----------------ÊÖÀ×5
+
+
+function SkillCooldown_Shoulei5( sklv )
+	local Cooldown = 1500
+	return Cooldown
+end
+
+function Skill_Shoulei5_Begin ( role , sklv ) 
+	local NocLock =	KitbagLock( role, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local item_count = CheckBagItem ( role , 2791 ) --ÊÖÀ×5
+	if item_count <= 0 then  
+		SkillUnable(role)   
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
+	end 
+	local a = DelBagItem ( role , 2791 , 1 ) 
+end 
+
+
+function Skill_Shoulei5_End ( ATKER , DEFER , sklv ) 
+	local NocLock =	KitbagLock( ATKER, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local  sklv = 5
+	local 	hp = GetChaAttr ( DEFER , ATTR_HP ) 
+	dmg = 4*math.floor ( 320 + 30 * sklv +hp * ( 0.05 +0.008 * sklv) )-1200
+	if dmg > 5000 then
+		dmg = 5000
+	end
+	Hp_Endure_Dmg ( DEFER , dmg )
+--	 r1 = RemoveChaItem ( ATKER , 1135 , 1 , 2 , -1, 2 , 1  )
+--	 Notice("11")
+--		if r1== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
+end
+
+
+
+---------------ÉÁ¹âµ¯5
+
+ function SkillArea_Circle_ShanGD5( sklv )									--¼¼ÄÜ¡°»¢Ð¥"µÄ¼¼ÄÜÇøÓò¹«Ê½	
+	local side = 800 
+	SetSkillRange ( 4 , side  )  
+end 
+
+function SkillCooldown_ShanGD5( sklv )
+	local Cooldown = 1500
+	return Cooldown
+end
+
+function Skill_ShanGD5_Begin ( role , sklv ) 
+	local NocLock =	KitbagLock( role, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local item_count = CheckBagItem ( role , 2792 ) --ÉÁ¹âµ¯5
+	if item_count <= 0 then  
+		SkillUnable(role)   
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
+	end 
+	local a = DelBagItem ( role , 2792 , 1 ) 
+end 
+
+
+function Skill_ShanGD5_End ( ATKER , DEFER , sklv ) 
+	local NocLock =	KitbagLock( ATKER, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+--	r2 = RemoveChaItem ( ATKER , 1136 , 1 , 2 , -1, 2 , 1  )
+--		if r2== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
+--	local hp = Hp( DEFER ) 
+	local  sklv = 5
+	local statelv = sklv 
+	local statetime = sklv
+	local hp_defer = Mxhp ( DEFER ) 
+	if hp_defer >= 1000000 then 
+		CALCULATE_SKILLEFFECT_LUA_000104 = GetResString("CALCULATE_SKILLEFFECT_LUA_000104")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000104 ) 
+		return
+	end 
+	AddState( ATKER , DEFER , STATE_ShanGD, statelv , statetime ) 
+--	dmg = 0.8 * math.random ( Mnatk( ATKER ) , Mxatk ( ATKER ) ) 
+--	Hp_Endure_Dmg ( DEFER , dmg) 
+end 
+ 
+
+function State_ShanGD_Add ( role , statelv )
+
+ end 
+
+function State_ShanGD_Rem ( role , statelv )
+ end 
+
+ ------------------------·øÉä5
+
+ function SkillArea_Circle_FuShe5( sklv )									--¼¼ÄÜ¡°»¢Ð¥"µÄ¼¼ÄÜÇøÓò¹«Ê½	
+	local  sklv = 5
+	local side = 800 + sklv*100
+	SetSkillRange ( 4 , side  )  
+end 
+
+function SkillCooldown_FuShe5( sklv )
+	local Cooldown = 1500
+	return Cooldown
+end
+
+function Skill_FuShe5_Begin ( role , sklv ) 
+	local NocLock =	KitbagLock( role, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local item_count = CheckBagItem ( role , 2793 ) --·øÉä5
+	if item_count <= 0 then  
+		SkillUnable(role)   
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
+	end 
+	local a = DelBagItem ( role , 2793 , 1 ) 
+end 
+
+function Skill_FuShe5_End( ATKER , DEFER , sklv ) 
+	local NocLock =	KitbagLock( ATKER, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+--	 r3 = RemoveChaItem ( ATKER , 1137 , 1 , 2 , -1, 2 , 1  )
+--		if r3== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
+	local  sklv = 5
+	local hp = Hp( DEFER ) 
+	local statelv = sklv 
+	local statetime = 15+sklv*2
+	AddState( ATKER , DEFER , STATE_ZD, statelv , statetime ) 
+	local 	hp = GetChaAttr ( DEFER , ATTR_HP ) 
+	local 	dmg = 2*math.floor ( 320 + 30 * sklv +hp * ( 0.05 +0.008 * sklv) )-600
+	if dmg > 2500 then
+		dmg = 2500
+	end
+	Hp_Endure_Dmg ( DEFER , dmg) 
+end 
+ 
+
+---------------------ÓÄÁéÌ½²âÆ÷5
+
+function SkillCooldown_YouL5( sklv )
+	local Cooldown = 1500
+	return Cooldown
+end
+
+function SkillArea_Square_YouL5 ( sklv )--¼¼ÄÜ¡°Ê¥ÑÛÖ®Òí"µÄ¼¼ÄÜÇøÓò¹«Ê½
+	local  sklv = 5
+	local side = 600 + sklv * 20 
+	SetSkillRange ( 3 , side ) 	
+end 
+
+function SkillArea_State_YouL5 ( sklv )	
+	local  sklv = 5
+-- r3 = RemoveChaItem ( ATKER , 1138, 1 , 2 , -1, 2 , 1  )
+--		if r3== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
+	local statetime = 40 + sklv *9   
+	local statelv = sklv 
+	SetRangeState ( STATE_SYZY , statelv  , statetime ) 									--Ìí¼ÓµØÃæ¡°Ê¥ÑÛÖ®Òí¡±×´Ì¬
+end 
+
+function Skill_YouL5_Begin ( role , sklv ) 
+	local NocLock =	KitbagLock( role, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
+		SkillUnable(role)   
+		return 0
+	end
+	local item_count = CheckBagItem ( role , 2794 ) --ÓÄÁéÌ½²âÆ÷5
+	if item_count <= 0 then  
+		SkillUnable(role)   
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
+	end 
+	local a = DelBagItem ( role , 2794 , 1 ) 
+end 
+
+function Skill_YouL5_End ( ATKER , DEFER , sklv ) 
+end 
+
+function State_Syzy_Add ( role , statelv ) 
+
+end 
+
+function State_Syzy_Rem ( role , statelv ) 
+
+end 
+
+function State_Syzy_Tran ( statelv ) 
+	return 1     
+end 
+----------------------------´¬Ö»¼ÓËÙÆ÷5
+function SkillCooldown_JiaSuQi5( sklv )
+	local Cooldown = 1500 
+	return Cooldown
+end
+
+function Skill_JiaSuQi5_Begin ( role , sklv ) 
+	local atk_role = TurnToCha ( role ) 
+	local NocLock =	KitbagLock( role, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local item_count = CheckBagItem ( atk_role , 2795 ) --´¬Ö»¼ÓËÙÆ÷5
+	if item_count <= 0 then  
+		SkillUnable(atk_role)   
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
+	end 
+	local a = DelBagItem ( atk_role , 2795 , 1 ) 
+end 
+
+function Skill_JiaSuQi5_End ( ATKER , DEFER , sklv )
+	local NocLock =	KitbagLock( ATKER, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+--	r5 = RemoveChaItem ( ATKER , 1139 , 1 , 2 , -1, 2 , 1  )
+--		if r5== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
+	local  sklv = 5
+	local statelv = sklv
+	local statetime = 30+sklv*20
+	AddState( ATKER , DEFER , STATE_WLJS, statelv , statetime ) 
+ end
+
+function  State_wljs_Add ( role , statelv )
+	local mspdsa_dif = 1
+	local mspdsa = (MspdSa(role) + mspdsa_dif ) * ATTR_RADIX 
+	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD )  
+	 
+	ALLExAttrSet(role)  
+end 
+
+function State_wljs_Rem  ( role , statelv )
+	local mspdsa_dif = 1
+	local mspdsa = (MspdSa(role) - mspdsa_dif ) * ATTR_RADIX 
+	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD )  
+	 
+	ALLExAttrSet(role)  
+end 
+
+----------------------------´¬Ö»ÅçÉäÆ÷5
+function SkillCooldown_PengSheQi5( sklv )
+	local Cooldown = 1500 
+	return Cooldown
+end
+
+function Skill_PengSheQi5_Begin ( role , sklv ) 
+	local atk_role = TurnToCha ( role ) 
+	local NocLock =	KitbagLock( role, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local item_count = CheckBagItem ( atk_role , 2796 ) --´¬Ö»ÅçÉäÆ÷5
+	if item_count <= 0 then  
+		SkillUnable(atk_role)   
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
+	end 
+	local a = DelBagItem ( atk_role , 2796 , 1 ) 
+end 
+
+function Skill_PengSheQi5_End ( ATKER , DEFER , sklv )
+	local NocLock =	KitbagLock( ATKER, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local  sklv = 5
+--	 r6 = RemoveChaItem ( ATKER , 1140 , 1 , 2 , -1, 2 , 1  )
+--		if r6== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
+	local statetime = 3+sklv*2
+	local statelv = sklv
+	AddState( ATKER , DEFER , STATE_PSQ, statelv , statetime ) 
+end
+
+function  State_PengSheQi_Add ( role , statelv )
+	local mspdsa_dif = 3
+	local mspdsa = (MspdSa(role) + mspdsa_dif ) * ATTR_RADIX 
+	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD )  
+	 
+	ALLExAttrSet(role)  
+end 
+
+function State_PengSheQi_Rem  ( role , statelv )
+	local mspdsa_dif = 3
+	local mspdsa = (MspdSa(role) - mspdsa_dif ) * ATTR_RADIX 
+	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD )  
+	 
+	ALLExAttrSet(role)  
+end 
+
+--¼¼ÄÜÆÆ¼×5¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+
+
+function SkillCooldown_PoJiaDan5( sklv )
+	local Cooldown = 1500
+	return Cooldown
+end
+
+function Skill_PoJiaDan5_Begin ( role , sklv ) 
+	local atk_role = TurnToCha ( role ) 
+	local NocLock =	KitbagLock( role, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local item_count = CheckBagItem ( atk_role , 2797 ) --ÄÜÆÆ¼×5
+	if item_count <= 0 then  
+		SkillUnable(atk_role)   
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
+	end 
+	local a = DelBagItem ( atk_role , 2797 , 1 )  
+end 
+
+
+function Skill_PoJiaDan5_End ( ATKER , DEFER , sklv ) 
+	local NocLock =	KitbagLock( ATKER, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local  sklv = 5
+--	r7= RemoveChaItem ( ATKER , 1141 , 1 , 2 , -1, 2 , 1  )
+--	if r7== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
+	local statelv = sklv 
+	local statetime = 10 + sklv  
+	dmg = math.random ( 400 , 500 )*( 1 + sklv * 0.5 )
+	Hp_Endure_Dmg ( DEFER , dmg) 
+	AddState ( ATKER , DEFER , STATE_PJ , statelv , statetime ) 
+	--LG("skill_Pj", "function Skill_Def_Pj : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí 
+
+	--LG( "sk_pj", "ÆÆ¼×¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
+end 
+
+function State_Pj_Add ( role , statelv ) 
+	--LG("state", "function State_Pj_Add : " , " role = ", role, "statelv = " , statelv , "\n" ) 
+	local def_dif = 30
+	local def = DefSb(role) - def_dif
+	SetCharaAttr( def , role , ATTR_STATEV_DEF )	
+	ALLExAttrSet(role)
+
+end 
+
+
+
+function State_Pj_Rem ( role , statelv ) 
+--	LG("state", "function State_Pj_Rem : " ,"statelv = " , statelv , " role = ", role, "\n" ) 
+	local def_dif = 30
+	local def = DefSb(role) + def_dif
+	SetCharaAttr( def , role , ATTR_STATEV_DEF )
+	ALLExAttrSet(role)
+end 
+
+--ÆÆÈÐµ¯5¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+
+
+function SkillCooldown_PoRenDan5( sklv )
+	local Cooldown = 1500
+	return Cooldown
+end
+
+function Skill_PoRenDan5_Begin ( role , sklv ) 
+	local atk_role = TurnToCha ( role ) 
+	local NocLock =	KitbagLock( role, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local item_count = CheckBagItem ( atk_role , 2798 ) --ÆÆÈÐµ¯5
+	if item_count <= 0 then  
+		SkillUnable(atk_role)   
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
+	end 
+	local a = DelBagItem ( atk_role , 2798 , 1 ) 
+end 
+
+
+function Skill_PoRenDan5_End ( ATKER , DEFER , sklv ) 
+	local NocLock =	KitbagLock( ATKER, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local  sklv = 5
+--	 r8 = RemoveChaItem ( ATKER , 1142 , 1 , 2 , -1, 2 , 1  )
+--		if r8== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
+	local statelv = sklv 
+	local statetime = 10 + sklv  
+	dmg = math.random ( 400 , 500 )*( 1 + sklv * 0.5 )
+	Hp_Endure_Dmg ( DEFER , dmg) 
+	AddState ( ATKER , DEFER , STATE_PRD , statelv , statetime ) 
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí 
+
+end 
+
+
+
+function State_PoRenDan_Add( role , sklv ) 
+	local statelv = sklv  
+	local atksb_dif = 50*sklv
+	local mnatksb = MnatkSb(role) - atksb_dif  
+	local mxatksb = MxatkSb(role ) - atksb_dif 
+	SetCharaAttr( mnatksb , role , ATTR_STATEV_MNATK ) 
+	SetCharaAttr( mxatksb , role , ATTR_STATEV_MXATK ) 
+	ALLExAttrSet(role)  
+end 
+
+
+
+function State_PoRenDan_Rem( role , sklv ) 
+	local statelv = sklv 
+	local atksb_dif = 50*sklv
+	local mnatksb = MnatkSb(role) + atksb_dif  
+	local mxatksb = MxatkSb(role ) + atksb_dif 
+	SetCharaAttr( mnatksb , role , ATTR_STATEV_MNATK ) 
+	SetCharaAttr( mxatksb , role , ATTR_STATEV_MXATK ) 
+	ALLExAttrSet(role)  
+end 
+
+
+-------´¬Ö»È¼ÉÕµ¯5
+function SkillCooldown_RanShaoDan5( sklv ) 
+	local Cooldown = 1500 
+	return Cooldown
+end
+
+function Skill_RanShaoDan5_Begin ( role , sklv ) 
+	local atk_role = TurnToCha ( role ) 
+	local NocLock =	KitbagLock( role, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local item_count = CheckBagItem ( atk_role , 2799 ) --´¬Ö»È¼ÉÕµ¯5
+	if item_count <= 0 then  
+		SkillUnable(atk_role)   
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
+	end 
+	local a = DelBagItem ( atk_role , 2799 , 1 ) 
+end 
+
+function Skill_RanShaoDan5_End( ATKER , DEFER , sklv )
+	local NocLock =	KitbagLock( ATKER, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local  sklv = 5
+--	 r9 = RemoveChaItem ( ATKER , 1143 , 1 , 2 , -1, 2 , 1  )
+--		if r9== 0 then
+--		LG( "ÒÆ³ýÎïÆ·Ê§°Ü" )
+--		return
+--	end
+--	local hp = Hp( DEFER ) 
+	local statelv = sklv 
+	local statetime = 4 + sklv*2
+	AddState( ATKER , DEFER , STATE_CZRSD, statelv , statetime ) 
+	dmg =  math.random ( 100 , 200 )*(1+sklv*0.5)
+	Hp_Endure_Dmg ( DEFER , dmg) 
+end 
+
+function State_RanShaoDan_Add ( role , statelv ) 
+	local hpdmg = 150  
+		Hp_Endure_Dmg ( role , hpdmg ) 
+		ALLExAttrSet(role)  
+end 
+
+function State_RanShaoDan_Rem ( role , statelv ) 
+end
+----------------------------------------------Ð¡Ñ©Çò 
 function SkillCooldown_Xiaoxueqiu ( sklv )
 	local Cooldown = 3000
 	return Cooldown
@@ -11944,13 +13068,15 @@ end
 function Skill_Xiaoxueqiu_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local item_count = CheckBagItem ( role , 2896 ) 
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2896 , 1 ) 
 
@@ -11958,18 +13084,19 @@ end
 function Skill_Xiaoxueqiu_End ( ATKER , DEFER , sklv ) 
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "Inventory has been binded")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local statetime = 1 
+	local statetime = 2 
 	local statelv = 10 
-	local rad_star = math.random ( 1, 20 )
+	local rad_star = math.random ( 1, 3 )
 	if rad_star==1 then
-		AddState ( ATKER , DEFER , STATE_XY , statelv , statetime )
+		AddState ( ATKER , DEFER , STATE_GANMAO , statelv , statetime )
 	end
 end
 
---ï¿½ï¿½Ê´Ö®ï¿½ï¿½LV1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¸¯Ê´Ö®ÇòLV1¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillCooldown_FuShiZhiQiu1( sklv )
 	local Cooldown = 5000
 	return Cooldown
@@ -11979,14 +13106,16 @@ function Skill_FuShiZhiQiu1_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(atk_role)
 			return 0
 		end
-	local item_count = CheckBagItem ( atk_role , 1146 ) --ï¿½ï¿½Ê´Ö®ï¿½ï¿½LV1
+	local item_count = CheckBagItem ( atk_role , 1146 ) --¸¯Ê´Ö®ÇòLV1
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 1146 , 1 ) 
 end 
@@ -12022,7 +13151,7 @@ function State_FuShiZhiQiu_Rem ( role , statelv )
 	SetCharaAttr( bd_fin , role , ATTR_STATEC_PDEF ) 
 	ALLExAttrSet(role)  
 end 
---ï¿½ï¿½Ê´Ö®ï¿½ï¿½LV2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¸¯Ê´Ö®ÇòLV2¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillCooldown_FuShiZhiQiu2( sklv )
 	local Cooldown = 5000
 	return Cooldown
@@ -12032,14 +13161,16 @@ function Skill_FuShiZhiQiu2_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(atk_role)
 			return 0
 		end
-	local item_count = CheckBagItem ( atk_role , 2730 ) --ï¿½ï¿½Ê´Ö®ï¿½ï¿½LV2
+	local item_count = CheckBagItem ( atk_role , 2730 ) --¸¯Ê´Ö®ÇòLV2
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2730 , 1 ) 
 end 
@@ -12055,7 +13186,7 @@ end
 
 
 
---ï¿½ï¿½Ê´Ö®ï¿½ï¿½LV3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¸¯Ê´Ö®ÇòLV3¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillCooldown_FuShiZhiQiu3( sklv )
 	local Cooldown = 5000
 	return Cooldown
@@ -12065,14 +13196,16 @@ function Skill_FuShiZhiQiu3_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(atk_role)
 			return 0
 		end
-	local item_count = CheckBagItem ( atk_role , 2754 ) --ï¿½ï¿½Ê´Ö®ï¿½ï¿½LV3
+	local item_count = CheckBagItem ( atk_role , 2754 ) --¸¯Ê´Ö®ÇòLV3
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2754 , 1 ) 
 end 
@@ -12085,7 +13218,7 @@ function Skill_FuShiZhiQiu3_End ( ATKER , DEFER , sklv )
 end 
 
 
---ï¿½ï¿½Ê´Ö®ï¿½ï¿½LV4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¸¯Ê´Ö®ÇòLV4¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillCooldown_FuShiZhiQiu4( sklv )
 	local Cooldown = 5000
 	return Cooldown
@@ -12095,14 +13228,16 @@ function Skill_FuShiZhiQiu4_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(atk_role)
 			return 0
 		end
-	local item_count = CheckBagItem ( atk_role , 2778 ) --ï¿½ï¿½Ê´Ö®ï¿½ï¿½LV4
+	local item_count = CheckBagItem ( atk_role , 2778 ) --¸¯Ê´Ö®ÇòLV4
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2778 , 1 ) 
 end 
@@ -12117,7 +13252,7 @@ end
 
 
 
---ï¿½ï¿½Ê´Ö®ï¿½ï¿½LV5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¸¯Ê´Ö®ÇòLV5¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillCooldown_FuShiZhiQiu5( sklv )
 	local Cooldown = 5000
 	return Cooldown
@@ -12127,14 +13262,16 @@ function Skill_FuShiZhiQiu5_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(atk_role)
 			return 0
 		end
-	local item_count = CheckBagItem ( atk_role , 2802 ) --ï¿½ï¿½Ê´Ö®ï¿½ï¿½LV5
+	local item_count = CheckBagItem ( atk_role , 2802 ) --¸¯Ê´Ö®ÇòLV5
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2802 , 1 ) 
 end 
@@ -12148,7 +13285,7 @@ end
 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LV1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--ÔëÒôÖÆÔìÆ÷LV1¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillCooldown_ZaoYinZhiZao1( sklv )
 	local Cooldown = 1500
@@ -12172,14 +13309,16 @@ function Skill_ZaoYinZhiZao1_Begin ( role , sklv )
 
 local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
-	local item_count = CheckBagItem ( role , 1147 ) --ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Lv1
+	local item_count = CheckBagItem ( role , 1147 ) --ÔëÒôÖÆÔìÆ÷Lv1
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 1147 , 1 ) 
 end 
@@ -12202,7 +13341,7 @@ function State_ZaoYinZhiZao_Add ( role , statelv )
 	ALLExAttrSet(role)
         
 --       local sta_dif = (-1) * ( 0.05 + 0.1 * statelv )
---       local sta = math.floor(  (StaSa(role) + sta_dif) * ATTR_RADIX ) ----------------ï¿½ï¿½15%ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--       local sta = math.floor(  (StaSa(role) + sta_dif) * ATTR_RADIX ) ----------------¼õ15%µÄ×î´ó¾«Éñ
 --       SetCharaAttr( sta , role , ATTR_STATEC_STA )	
 --       ALLExAttrSet(role)
 
@@ -12221,7 +13360,7 @@ end
 function State_ZaoYinZhiZao_Tran ( statelv ) 
          return 1
 end
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LV2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--ÔëÒôÖÆÔìÆ÷LV2¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillCooldown_ZaoYinZhiZao2( sklv )
 	local Cooldown = 1500
@@ -12245,14 +13384,16 @@ function Skill_ZaoYinZhiZao2_Begin ( role , sklv )
 
 local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
-	local item_count = CheckBagItem ( role , 2731 ) --ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Lv2
+	local item_count = CheckBagItem ( role , 2731 ) --ÔëÒôÖÆÔìÆ÷Lv2
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2731 , 1 ) 
 end 
@@ -12263,7 +13404,7 @@ end
  
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LV3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--ÔëÒôÖÆÔìÆ÷LV3¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillCooldown_ZaoYinZhiZao3( sklv )
 	local Cooldown = 1500
@@ -12287,14 +13428,16 @@ function Skill_ZaoYinZhiZao3_Begin ( role , sklv )
 
 local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
-	local item_count = CheckBagItem ( role , 2755 ) --ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Lv3
+	local item_count = CheckBagItem ( role , 2755 ) --ÔëÒôÖÆÔìÆ÷Lv3
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2755 , 1 ) 
 end 
@@ -12305,7 +13448,7 @@ end
  
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LV4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--ÔëÒôÖÆÔìÆ÷LV4¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillCooldown_ZaoYinZhiZao4( sklv )
 	local Cooldown = 1500
@@ -12329,14 +13472,16 @@ function Skill_ZaoYinZhiZao4_Begin ( role , sklv )
 
 local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
-	local item_count = CheckBagItem ( role , 2779 ) --ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Lv4
+	local item_count = CheckBagItem ( role , 2779 ) --ÔëÒôÖÆÔìÆ÷Lv4
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2779 , 1 ) 
 end 
@@ -12347,7 +13492,7 @@ end
  
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LV5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--ÔëÒôÖÆÔìÆ÷LV5¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillCooldown_ZaoYinZhiZao5( sklv )
 	local Cooldown = 1500
@@ -12371,14 +13516,16 @@ function Skill_ZaoYinZhiZao5_Begin ( role , sklv )
 
 local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
-	local item_count = CheckBagItem ( role , 2803 ) --ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Lv5
+	local item_count = CheckBagItem ( role , 2803 ) --ÔëÒôÖÆÔìÆ÷Lv5
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2803 , 1 ) 
 end 
@@ -12391,9 +13538,8 @@ end
 
 
 
------------------------------------
--- ï¿½ï¿½ï¿½Ö§ß§Ö§ï¿½Ñ§ï¿½ï¿½ï¿½ ï¿½Ù§Ö§Þ§Ý§Ö§ï¿½ï¿½ï¿½ï¿½Ö§ß§Ú§ï¿½ 1 ï¿½ï¿½ï¿½. --
------------------------------------
+--µØÕð·¢ÉúÆ÷LV1¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function SkillCooldown_DiZhenFaSheng1( sklv )
 	local Cooldown = 3000
 	return Cooldown
@@ -12416,14 +13562,16 @@ function Skill_DiZhenFaSheng1_Begin ( role , sklv )
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE 
 		    then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
-	local item_count = CheckBagItem ( role , 1148 )
+	local item_count = CheckBagItem ( role , 1148 ) --µØÕð·¢ÉúÆ÷Lv1
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 1148 , 1 ) 
 end 
@@ -12433,15 +13581,19 @@ end
 function Skill_DiZhenFaSheng1_End ( ATKER , DEFER , sklv ) 
 end 
 
-function State_DiZhenFaSheng_Add ( role , statelv )
+function State_DiZhenFaSheng_Add ( role , statelv ) 
+      
+	
 	local mspdsa_dif = (-1) * ( 0.2 * statelv + 0.1 ) 
 	local mspdsa = math.floor (  (MspdSa(role) + mspdsa_dif ) * ATTR_RADIX ) 
-    SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD ) 
+        SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD ) 
 	ALLExAttrSet(role)  
 end 
 
 function State_DiZhenFaSheng_Rem ( role , statelv ) 
-    local mspdsa_dif = (-1) * ( 0.2 * statelv + 0.1 )  
+
+        
+        local mspdsa_dif = (-1) * ( 0.2 * statelv + 0.1 )  
 	local mspdsa = math.floor (  (MspdSa(role) - mspdsa_dif ) * ATTR_RADIX ) 
 	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD ) 
 	ALLExAttrSet(role)  
@@ -12450,10 +13602,8 @@ end
 function State_DiZhenFaSheng_Tran ( statelv ) 
          return 1
 end 
+--µØÕð·¢ÉúÆ÷LV2¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
------------------------------------
--- ï¿½ï¿½ï¿½Ö§ß§Ö§ï¿½Ñ§ï¿½ï¿½ï¿½ ï¿½Ù§Ö§Þ§Ý§Ö§ï¿½ï¿½ï¿½ï¿½Ö§ß§Ú§ï¿½ 2 ï¿½ï¿½ï¿½. --
------------------------------------
 function SkillCooldown_DiZhenFaSheng2( sklv )
 	local Cooldown = 3000
 	return Cooldown
@@ -12476,14 +13626,16 @@ function Skill_DiZhenFaSheng2_Begin ( role , sklv )
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE 
 		    then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
-	local item_count = CheckBagItem ( role , 2732 ) 
+	local item_count = CheckBagItem ( role , 2732 ) --µØÕð·¢ÉúÆ÷Lv2
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2732 , 1 ) 
 end 
@@ -12494,9 +13646,9 @@ function Skill_DiZhenFaSheng2_End ( ATKER , DEFER , sklv )
 end 
 
 
------------------------------------
--- ï¿½ï¿½ï¿½Ö§ß§Ö§ï¿½Ñ§ï¿½ï¿½ï¿½ ï¿½Ù§Ö§Þ§Ý§Ö§ï¿½ï¿½ï¿½ï¿½Ö§ß§Ú§ï¿½ 3 ï¿½ï¿½ï¿½. --
------------------------------------
+
+--µØÕð·¢ÉúÆ÷LV3¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function SkillCooldown_DiZhenFaSheng3( sklv )
 	local Cooldown = 3000
 	return Cooldown
@@ -12519,14 +13671,16 @@ function Skill_DiZhenFaSheng3_Begin ( role , sklv )
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE 
 		    then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
-	local item_count = CheckBagItem ( role , 2756 )
+	local item_count = CheckBagItem ( role , 2756 ) --µØÕð·¢ÉúÆ÷Lv3
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2756 , 1 ) 
 end 
@@ -12537,9 +13691,9 @@ function Skill_DiZhenFaSheng3_End ( ATKER , DEFER , sklv )
 end 
 
 
------------------------------------
--- ï¿½ï¿½ï¿½Ö§ß§Ö§ï¿½Ñ§ï¿½ï¿½ï¿½ ï¿½Ù§Ö§Þ§Ý§Ö§ï¿½ï¿½ï¿½ï¿½Ö§ß§Ú§ï¿½ 4 ï¿½ï¿½ï¿½. --
------------------------------------
+
+--µØÕð·¢ÉúÆ÷LV4¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function SkillCooldown_DiZhenFaSheng4( sklv )
 	local Cooldown = 3000
 	return Cooldown
@@ -12562,14 +13716,16 @@ function Skill_DiZhenFaSheng4_Begin ( role , sklv )
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE 
 		    then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
-	local item_count = CheckBagItem ( role , 2780 ) 
+	local item_count = CheckBagItem ( role , 2780 ) --µØÕð·¢ÉúÆ÷Lv4
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2780 , 1 ) 
 end 
@@ -12581,9 +13737,8 @@ end
 
 
 
------------------------------------
--- ï¿½ï¿½ï¿½Ö§ß§Ö§ï¿½Ñ§ï¿½ï¿½ï¿½ ï¿½Ù§Ö§Þ§Ý§Ö§ï¿½ï¿½ï¿½ï¿½Ö§ß§Ú§ï¿½ 5 ï¿½ï¿½ï¿½. --
------------------------------------
+--µØÕð·¢ÉúÆ÷LV5¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
 function SkillCooldown_DiZhenFaSheng5( sklv )
 	local Cooldown = 3000
 	return Cooldown
@@ -12606,14 +13761,16 @@ function Skill_DiZhenFaSheng5_Begin ( role , sklv )
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE 
 		    then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
-	local item_count = CheckBagItem ( role , 2804 )
+	local item_count = CheckBagItem ( role , 2804 ) --µØÕð·¢ÉúÆ÷Lv5
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice ( role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 2804 , 1 ) 
 end 
@@ -12626,7 +13783,7 @@ end
 
 
 
---ï¿½ï¿½ï¿½ï¿½LV1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--Á´µ¯LV1¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillCooldown_LianDan1( sklv )
 	local Cooldown = 3000
 	return Cooldown
@@ -12636,15 +13793,17 @@ function Skill_LianDan1_Begin ( role , sklv )
 
 local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2677 ) --ï¿½ï¿½ï¿½ï¿½1
+	local item_count = CheckBagItem ( atk_role , 2677 ) --Á´µ¯1
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2677 , 1 )  
 end 
@@ -12677,7 +13836,7 @@ function State_LianDan_Rem( role , statelv )
 	ALLExAttrSet(role)  
 end
 
---ï¿½ï¿½ï¿½ï¿½LV2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--Á´µ¯LV2¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillCooldown_LianDan2( sklv )
 	local Cooldown = 3000
 	return Cooldown
@@ -12686,15 +13845,17 @@ end
 function Skill_LianDan2_Begin ( role , sklv ) 
 local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2741 ) --ï¿½ï¿½ï¿½ï¿½2
+	local item_count = CheckBagItem ( atk_role , 2741 ) --Á´µ¯2
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2741 , 1 )  
 end 
@@ -12707,7 +13868,7 @@ function Skill_LianDan2_End ( ATKER , DEFER , sklv )
 end 
 
 
---ï¿½ï¿½ï¿½ï¿½LV3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--Á´µ¯LV3¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillCooldown_LianDan3( sklv )
 	local Cooldown = 3000
 	return Cooldown
@@ -12716,15 +13877,17 @@ end
 function Skill_LianDan3_Begin ( role , sklv ) 
 local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2765 ) --ï¿½ï¿½ï¿½ï¿½3
+	local item_count = CheckBagItem ( atk_role , 2765 ) --Á´µ¯3
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2765 , 1 )  
 end 
@@ -12738,7 +13901,7 @@ end
 
 
 
---ï¿½ï¿½ï¿½ï¿½LV4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--Á´µ¯LV4¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillCooldown_LianDan4( sklv )
 	local Cooldown = 3000
 	return Cooldown
@@ -12747,15 +13910,17 @@ end
 function Skill_LianDan4_Begin ( role , sklv ) 
 local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2789 ) --ï¿½ï¿½ï¿½ï¿½4
+	local item_count = CheckBagItem ( atk_role , 2789 ) --Á´µ¯4
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2789 , 1 )  
 end 
@@ -12769,7 +13934,7 @@ end
 
 
 
---ï¿½ï¿½ï¿½ï¿½LV5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--Á´µ¯LV5¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillCooldown_LianDan5( sklv )
 	local Cooldown = 3000
 	return Cooldown
@@ -12778,15 +13943,17 @@ end
 function Skill_LianDan5_Begin ( role , sklv ) 
 local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2813 ) --ï¿½ï¿½ï¿½ï¿½5
+	local item_count = CheckBagItem ( atk_role , 2813 ) --Á´µ¯5
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2813 , 1 )  
 end 
@@ -12800,7 +13967,7 @@ end
 
 
 
---ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LV1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--»ÃÓ°·¢ÉúÆ÷LV1¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillCooldown_HuanYinFaSheng1( sklv )
 	local Cooldown = 3000
@@ -12811,16 +13978,18 @@ function Skill_HuanYinFaSheng1_Begin ( role , sklv )
 local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE 
 		then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2673 ) --ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+	local item_count = CheckBagItem ( atk_role , 2673 ) --»ÃÓ°·¢ÉúÆ÷1
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role) 
-		SystemNotice ( atk_role , "Does not possess required item to use skill" )
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 )
 		return 0
 		
 	end 
@@ -12838,7 +14007,7 @@ function State_HuanYinFaSheng_Add( role , statelv )
 end 
 function State_HuanYinFaSheng_Add( role , statelv ) 
 end 
---ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LV2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--»ÃÓ°·¢ÉúÆ÷LV2¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillCooldown_HuanYinFaSheng2( sklv )
 	local Cooldown = 3000
@@ -12849,16 +14018,18 @@ function Skill_HuanYinFaSheng2_Begin ( role , sklv )
 local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE 
 		then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2737 ) --ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+	local item_count = CheckBagItem ( atk_role , 2737 ) --»ÃÓ°·¢ÉúÆ÷2
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" )
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 )
 		return 0
 	end 
 	local a = DelBagItem ( atk_role , 2737 , 1 )  
@@ -12871,7 +14042,7 @@ function Skill_HuanYinFaSheng2_End ( ATKER , DEFER , sklv )
 		AddState ( ATKER , DEFER , STATE_HYFS , statelv , statetime )  
 end 
 
---ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LV3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--»ÃÓ°·¢ÉúÆ÷LV3¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillCooldown_HuanYinFaSheng3( sklv )
 	local Cooldown = 3000
@@ -12882,16 +14053,18 @@ function Skill_HuanYinFaSheng3_Begin ( role , sklv )
 local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE 
 		then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2761 ) --ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+	local item_count = CheckBagItem ( atk_role , 2761 ) --»ÃÓ°·¢ÉúÆ÷1
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		return 0
 	end 
 	local a = DelBagItem ( atk_role , 2761 , 1 )  
@@ -12904,7 +14077,7 @@ function Skill_HuanYinFaSheng3_End ( ATKER , DEFER , sklv )
 		AddState ( ATKER , DEFER , STATE_HYFS , statelv , statetime )  
 end 
 
---ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LV4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--»ÃÓ°·¢ÉúÆ÷LV4¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillCooldown_HuanYinFaSheng4( sklv )
 	local Cooldown = 3000
@@ -12915,16 +14088,18 @@ function Skill_HuanYinFaSheng4_Begin ( role , sklv )
 local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE 
 		then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2785 ) --ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+	local item_count = CheckBagItem ( atk_role , 2785 ) --»ÃÓ°·¢ÉúÆ÷1
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		return 0
 	end 
 	local a = DelBagItem ( atk_role , 2785 , 1 )  
@@ -12937,7 +14112,7 @@ function Skill_HuanYinFaSheng4_End ( ATKER , DEFER , sklv )
 		AddState ( ATKER , DEFER , STATE_HYFS , statelv , statetime )  
 end 
 
---ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LV5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--»ÃÓ°·¢ÉúÆ÷LV5¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillCooldown_HuanYinFaSheng5( sklv )
 	local Cooldown = 3000
@@ -12948,16 +14123,18 @@ function Skill_HuanYinFaSheng5_Begin ( role , sklv )
 local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE 
 		then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2809 ) --ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+	local item_count = CheckBagItem ( atk_role , 2809 ) --»ÃÓ°·¢ÉúÆ÷1
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		return 0
 	end 
 	local a = DelBagItem ( atk_role , 2809 , 1 )  
@@ -12972,7 +14149,7 @@ end
 
 
 
---ï¿½ï¿½Ö»Ç±ï¿½ï¿½LV1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--´¬Ö»Ç±ÐÐLV1¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillCooldown_ChuanZhiQianXing1( sklv ) 
 	local Cooldown = 3000 
 	return Cooldown 
@@ -12980,17 +14157,19 @@ end
 function Skill_ChuanZhiQianXing1_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2675 ) --Ç±ï¿½ï¿½1
+	local item_count = CheckBagItem ( atk_role , 2675 ) --Ç±ÐÐ1
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2675 , 1 )  
 	 
@@ -13007,7 +14186,7 @@ function State_ChuanZhiQianXing_Add ( role , statelv )
 end
 function State_ChuanZhiQianXing_Rem  ( role , statelv ) 
 end
---ï¿½ï¿½Ö»Ç±ï¿½ï¿½LV2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--´¬Ö»Ç±ÐÐLV2¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillCooldown_ChuanZhiQianXing2( sklv ) 
 	local Cooldown = 3000 
 	return Cooldown 
@@ -13015,16 +14194,18 @@ end
 function Skill_ChuanZhiQianXing2_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2739 ) --Ç±ï¿½ï¿½2
+	local item_count = CheckBagItem ( atk_role , 2739 ) --Ç±ÐÐ2
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2739 , 1 )  
 	 
@@ -13038,7 +14219,7 @@ end
 
 
 
---ï¿½ï¿½Ö»Ç±ï¿½ï¿½LV3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--´¬Ö»Ç±ÐÐLV3¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillCooldown_ChuanZhiQianXing3( sklv ) 
 	local Cooldown = 3000 
 	return Cooldown 
@@ -13046,16 +14227,18 @@ end
 function Skill_ChuanZhiQianXing3_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2763 ) --Ç±ï¿½ï¿½3
+	local item_count = CheckBagItem ( atk_role , 2763 ) --Ç±ÐÐ3
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2763 , 1 )  
 	 
@@ -13069,7 +14252,7 @@ end
 
 
 
---ï¿½ï¿½Ö»Ç±ï¿½ï¿½LV4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--´¬Ö»Ç±ÐÐLV4¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillCooldown_ChuanZhiQianXing4( sklv ) 
 	local Cooldown = 3000 
 	return Cooldown 
@@ -13077,16 +14260,18 @@ end
 function Skill_ChuanZhiQianXing4_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2787 ) --Ç±ï¿½ï¿½4
+	local item_count = CheckBagItem ( atk_role , 2787 ) --Ç±ÐÐ4
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2787 , 1 )  
 	 
@@ -13100,7 +14285,7 @@ end
 
 
 
---ï¿½ï¿½Ö»Ç±ï¿½ï¿½LV5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--´¬Ö»Ç±ÐÐLV5¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 function SkillCooldown_ChuanZhiQianXing5( sklv ) 
 	local Cooldown = 3000 
 	return Cooldown 
@@ -13108,16 +14293,18 @@ end
 function Skill_ChuanZhiQianXing5_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2811 ) --Ç±ï¿½ï¿½5
+	local item_count = CheckBagItem ( atk_role , 2811 ) --Ç±ÐÐ5
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 2811 , 1 )  
 	 
@@ -13132,7 +14319,7 @@ end
 
 
 
---ï¿½×´ï¿½LV1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--À×´ïLV1¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­
 function SkillCooldown_LeiDa1( sklv ) 
 	local Cooldown = 3000 
 	return Cooldown 
@@ -13156,15 +14343,17 @@ function Skill_LeiDa1_Begin ( role , sklv )
 		if NocLock == LUA_FALSE 
 		then
 			SkillUnable(role)
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2676 ) --ï¿½×´ï¿½1
+	local item_count = CheckBagItem ( atk_role , 2676 ) --À×´ï1
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		
 	end 
 	local a = DelBagItem ( atk_role , 2676 , 1 )  
@@ -13179,7 +14368,7 @@ end
 function State_LeiDa_Tran ( statelv ) 
 	return 1     
 end
---ï¿½×´ï¿½LV2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--À×´ïLV2¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­
 function SkillCooldown_LeiDa2( sklv ) 
 	local Cooldown = 3000 
 	return Cooldown 
@@ -13200,15 +14389,17 @@ function Skill_LeiDa2_Begin ( role , sklv )
 		if NocLock == LUA_FALSE 
 		then
 			SkillUnable(role)
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2740 ) --ï¿½×´ï¿½2
+	local item_count = CheckBagItem ( atk_role , 2740 ) --À×´ï2
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)  
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		
 	end 
 	local a = DelBagItem ( atk_role , 2740 , 1 )  
@@ -13217,7 +14408,7 @@ end
 function Skill_LeiDa2_End ( ATKER , DEFER , sklv ) 
 end 
 
---ï¿½×´ï¿½LV3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--À×´ïLV3¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­
 function SkillCooldown_LeiDa3( sklv ) 
 	local Cooldown = 3000 
 	return Cooldown 
@@ -13238,15 +14429,17 @@ function Skill_LeiDa3_Begin ( role , sklv )
 		if NocLock == LUA_FALSE 
 		then
 			SkillUnable(role)
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2764 ) --ï¿½×´ï¿½3
+	local item_count = CheckBagItem ( atk_role , 2764 ) --À×´ï3
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)  
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		
 	end 
 	local a = DelBagItem ( atk_role , 2764 , 1 )  
@@ -13255,7 +14448,7 @@ end
 function Skill_LeiDa3_End ( ATKER , DEFER , sklv ) 
 end 
 
---ï¿½×´ï¿½LV4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--À×´ïLV4¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­
 function SkillCooldown_LeiDa4( sklv ) 
 	local Cooldown = 3000 
 	return Cooldown 
@@ -13276,15 +14469,17 @@ function Skill_LeiDa4_Begin ( role , sklv )
 		if NocLock == LUA_FALSE 
 		then
 			SkillUnable(role)
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2788 ) --ï¿½×´ï¿½4
+	local item_count = CheckBagItem ( atk_role , 2788 ) --À×´ï4
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)  
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		
 	end 
 	local a = DelBagItem ( atk_role , 2788 , 1 )  
@@ -13293,7 +14488,7 @@ end
 function Skill_LeiDa4_End ( ATKER , DEFER , sklv ) 
 end 
 
---ï¿½×´ï¿½LV5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--À×´ïLV5¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª£­
 function SkillCooldown_LeiDa5( sklv ) 
 	local Cooldown = 3000 
 	return Cooldown 
@@ -13314,15 +14509,17 @@ function Skill_LeiDa5_Begin ( role , sklv )
 		if NocLock == LUA_FALSE 
 		then
 			SkillUnable(role)
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			return 0
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2812 ) --ï¿½×´ï¿½5
+	local item_count = CheckBagItem ( atk_role , 2812 ) --À×´ï5
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		
 	end 
 	local a = DelBagItem ( atk_role , 2812 , 1 )  
@@ -13332,7 +14529,7 @@ function Skill_LeiDa5_End ( ATKER , DEFER , sklv )
 end 
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½LV1--------------------------------------------------------------------------
+--´¬ÌåÐÞ¸´LV1--------------------------------------------------------------------------
 function SkillCooldown_ChuanTiXiuFu1( sklv ) 
 	local Cooldown = 3000 
 	return Cooldown 
@@ -13341,16 +14538,18 @@ end
 function Skill_ChuanTiXiuFu1_Begin ( role , Item ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 1150 ) --ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½1
+	local item_count = CheckBagItem ( atk_role , 1150 ) --´¬ÌåÐÞ¸´1
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		return
 	end 
 	local a = DelBagItem ( atk_role , 1150 , 1 )  
@@ -13367,7 +14566,7 @@ end
 function State_ChuanTiXiuFu_Rem ( role , statelv ) 
 end
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½LV2--------------------------------------------------------------------------
+--´¬ÌåÐÞ¸´LV2--------------------------------------------------------------------------
 function SkillCooldown_ChuanTiXiuFu2( sklv ) 
 	local Cooldown = 3000 
 	return Cooldown 
@@ -13376,16 +14575,18 @@ end
 function Skill_ChuanTiXiuFu2_Begin ( role , Item ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2734 ) --ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½2
+	local item_count = CheckBagItem ( atk_role , 2734 ) --´¬ÌåÐÞ¸´2
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		return
 	end 
 	local a = DelBagItem ( atk_role , 2734 , 1 )  
@@ -13398,7 +14599,7 @@ function Skill_ChuanTiXiuFu2_End ( ATKER , DEFER , sklv )
 	ALLExAttrSet(role)
 end
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½LV3--------------------------------------------------------------------------
+--´¬ÌåÐÞ¸´LV3--------------------------------------------------------------------------
 function SkillCooldown_ChuanTiXiuFu3( sklv ) 
 	local Cooldown = 3000 
 	return Cooldown 
@@ -13407,16 +14608,18 @@ end
 function Skill_ChuanTiXiuFu3_Begin ( role , Item ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2758 ) --ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½3
+	local item_count = CheckBagItem ( atk_role , 2758 ) --´¬ÌåÐÞ¸´3
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		return
 	end 
 	local a = DelBagItem ( atk_role , 2758 , 1 )  
@@ -13429,7 +14632,7 @@ function Skill_ChuanTiXiuFu3_End ( ATKER , DEFER , sklv )
 	ALLExAttrSet(role)
 end
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½LV4--------------------------------------------------------------------------
+--´¬ÌåÐÞ¸´LV4--------------------------------------------------------------------------
 function SkillCooldown_ChuanTiXiuFu4( sklv ) 
 	local Cooldown = 3000 
 	return Cooldown 
@@ -13438,16 +14641,18 @@ end
 function Skill_ChuanTiXiuFu4_Begin ( role , Item ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2782 ) --ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½4
+	local item_count = CheckBagItem ( atk_role , 2782 ) --´¬ÌåÐÞ¸´4
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		return
 	end 
 	local a = DelBagItem ( atk_role , 2782 , 1 )  
@@ -13461,7 +14666,7 @@ function Skill_ChuanTiXiuFu4_End ( ATKER , DEFER , sklv )
 end
 
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½LV5--------------------------------------------------------------------------
+--´¬ÌåÐÞ¸´LV5--------------------------------------------------------------------------
 function SkillCooldown_ChuanTiXiuFu5( sklv ) 
 	local Cooldown = 3000 
 	return Cooldown 
@@ -13470,16 +14675,18 @@ end
 function Skill_ChuanTiXiuFu5_Begin ( role , Item ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2806 ) --ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½5
+	local item_count = CheckBagItem ( atk_role , 2806 ) --´¬ÌåÐÞ¸´5
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		return
 	end 
 	local a = DelBagItem ( atk_role , 2806 , 1 )  
@@ -13493,7 +14700,7 @@ function Skill_ChuanTiXiuFu5_End ( ATKER , DEFER , sklv )
 end
 
 
---Ê³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LV1--------------------------------------------------------------------------
+--Ê³ÎïÔÙÉúLV1--------------------------------------------------------------------------
 
 function SkillCooldown_ShiWuZaiSheng1( sklv ) 
 	local Cooldown = 3000 
@@ -13503,16 +14710,18 @@ end
 function Skill_ShiWuZaiSheng1_Begin ( role , Item ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 1151 ) --Ê³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1
+	local item_count = CheckBagItem ( atk_role , 1151 ) --Ê³ÎïÔÙÉú1
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)  
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		return
 	end 
 	local a = DelBagItem ( atk_role , 1151 , 1 )  
@@ -13527,7 +14736,7 @@ function Skill_ShiWuZaiSheng1_End ( ATKER , DEFER , sklv )
 	mxsp = GetChaAttr(DEFER,ATTR_MXSP) 
 	if sp > mxsp 
 	then    
-	   sp = mxsp                       --ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½spÊ±ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½sp
+	   sp = mxsp                       --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
         end 
 	SetCharaAttr ( sp , DEFER , ATTR_SP ) 
 end
@@ -13536,7 +14745,7 @@ function State_ShiWuZaiSheng_Add ( role , statelv )
 end 
 function State_ShiWuZaiSheng_Rem ( role , statelv ) 
 end
---Ê³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LV2--------------------------------------------------------------------------
+--Ê³ÎïÔÙÉúLV2--------------------------------------------------------------------------
 
 function SkillCooldown_ShiWuZaiSheng2( sklv ) 
 	local Cooldown = 3000 
@@ -13546,16 +14755,18 @@ end
 function Skill_ShiWuZaiSheng2_Begin ( role , Item ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2735 ) --Ê³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2
+	local item_count = CheckBagItem ( atk_role , 2735 ) --Ê³ÎïÔÙÉú2
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		return
 	end 
 	local a = DelBagItem ( atk_role , 2735 , 1 )  
@@ -13570,13 +14781,13 @@ function Skill_ShiWuZaiSheng2_End ( ATKER , DEFER , sklv )
 	mxsp = GetChaAttr(DEFER,ATTR_MXSP) 
 	if sp > mxsp 
 	then    
-	   sp = mxsp                       --ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½spÊ±ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½sp
+	   sp = mxsp                       --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
         end 
 	SetCharaAttr ( sp , DEFER , ATTR_SP ) 
 end
 	
 
---Ê³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LV3--------------------------------------------------------------------------
+--Ê³ÎïÔÙÉúLV3--------------------------------------------------------------------------
 
 function SkillCooldown_ShiWuZaiSheng3( sklv ) 
 	local Cooldown = 3000 
@@ -13586,16 +14797,18 @@ end
 function Skill_ShiWuZaiSheng3_Begin ( role , Item ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2759 ) --Ê³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3
+	local item_count = CheckBagItem ( atk_role , 2759 ) --Ê³ÎïÔÙÉú3
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		return
 	end 
 	local a = DelBagItem ( atk_role , 2759 , 1 )  
@@ -13610,13 +14823,13 @@ function Skill_ShiWuZaiSheng3_End ( ATKER , DEFER , sklv )
 	mxsp = GetChaAttr(DEFER,ATTR_MXSP) 
 	if sp > mxsp 
 	then    
-	   sp = mxsp                       --ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½spÊ±ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½sp
+	   sp = mxsp                       --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
         end 
 	SetCharaAttr ( sp , DEFER , ATTR_SP ) 
 end
 	
 
---Ê³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LV4--------------------------------------------------------------------------
+--Ê³ÎïÔÙÉúLV4--------------------------------------------------------------------------
 
 function SkillCooldown_ShiWuZaiSheng4( sklv ) 
 	local Cooldown = 3000 
@@ -13626,16 +14839,18 @@ end
 function Skill_ShiWuZaiSheng4_Begin ( role , Item ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2783 ) --Ê³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4
+	local item_count = CheckBagItem ( atk_role , 2783 ) --Ê³ÎïÔÙÉú4
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		return
 	end 
 	local a = DelBagItem ( atk_role , 2783 , 1 )  
@@ -13650,13 +14865,13 @@ function Skill_ShiWuZaiSheng4_End ( ATKER , DEFER , sklv )
 	mxsp = GetChaAttr(DEFER,ATTR_MXSP) 
 	if sp > mxsp 
 	then    
-	   sp = mxsp                       --ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½spÊ±ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½sp
+	   sp = mxsp                       --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
         end 
 	SetCharaAttr ( sp , DEFER , ATTR_SP ) 
 end
 	
 
---Ê³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½LV5--------------------------------------------------------------------------
+--Ê³ÎïÔÙÉúLV5--------------------------------------------------------------------------
 
 function SkillCooldown_ShiWuZaiSheng5( sklv ) 
 	local Cooldown = 3000 
@@ -13666,16 +14881,18 @@ end
 function Skill_ShiWuZaiSheng5_Begin ( role , Item ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2807 ) --Ê³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½5
+	local item_count = CheckBagItem ( atk_role , 2807 ) --Ê³ÎïÔÙÉú5
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		return
 	end 
 	local a = DelBagItem ( atk_role , 2807 , 1 )  
@@ -13690,14 +14907,14 @@ function Skill_ShiWuZaiSheng5_End ( ATKER , DEFER , sklv )
 	mxsp = GetChaAttr(DEFER,ATTR_MXSP) 
 	if sp > mxsp 
 	then    
-	   sp = mxsp                       --ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½spÊ±ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½sp
+	   sp = mxsp                       --¼Ó³¬¹ý×î´óspÊ±·µ»ØÎª×î´ósp
         end 
 	SetCharaAttr ( sp , DEFER , ATTR_SP ) 
 end
 	
 
 
---ï¿½ï¿½Ê´ï¿½ï¿½LV1--------------------------------------------------------------------------
+--¸¯Ê´µ¯LV1--------------------------------------------------------------------------
 
 function SkillCooldown_FuShiDan1( sklv ) 
 	local Cooldown = 3000 
@@ -13707,16 +14924,18 @@ end
 function Skill_FuShiDan1_Begin ( role , Item ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 1152 ) --ï¿½ï¿½Ê´ï¿½ï¿½1
+	local item_count = CheckBagItem ( atk_role , 1152 ) --¸¯Ê´µ¯1
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		return
 	end 
 	local a = DelBagItem ( atk_role , 1152 , 1 )  
@@ -13745,7 +14964,7 @@ end
 
 function State_FuShiDan_Rem ( role , statelv ) 
 end
---ï¿½ï¿½Ê´ï¿½ï¿½LV2--------------------------------------------------------------------------
+--¸¯Ê´µ¯LV2--------------------------------------------------------------------------
 
 function SkillCooldown_FuShiDan2( sklv ) 
 	local Cooldown = 3000 
@@ -13755,16 +14974,18 @@ end
 function Skill_FuShiDan2_Begin ( role , Item ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2736 ) --ï¿½ï¿½Ê´ï¿½ï¿½2
+	local item_count = CheckBagItem ( atk_role , 2736 ) --¸¯Ê´µ¯2
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)  
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		return
 	end 
 	local a = DelBagItem ( atk_role , 2736 , 1 )  
@@ -13779,7 +15000,7 @@ function Skill_FuShiDan2_End ( ATKER , DEFER , sklv )
 end
 	
 
---ï¿½ï¿½Ê´ï¿½ï¿½LV3--------------------------------------------------------------------------
+--¸¯Ê´µ¯LV3--------------------------------------------------------------------------
 
 function SkillCooldown_FuShiDan3( sklv ) 
 	local Cooldown = 3000 
@@ -13789,16 +15010,18 @@ end
 function Skill_FuShiDan3_Begin ( role , Item ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2760 ) --ï¿½ï¿½Ê´ï¿½ï¿½3
+	local item_count = CheckBagItem ( atk_role , 2760 ) --¸¯Ê´µ¯3
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		return
 	end 
 	local a = DelBagItem ( atk_role , 2760 , 1 )  
@@ -13813,7 +15036,7 @@ function Skill_FuShiDan3_End ( ATKER , DEFER , sklv )
 end
 	
 
---ï¿½ï¿½Ê´ï¿½ï¿½LV4--------------------------------------------------------------------------
+--¸¯Ê´µ¯LV4--------------------------------------------------------------------------
 
 function SkillCooldown_FuShiDan4( sklv ) 
 	local Cooldown = 3000 
@@ -13823,16 +15046,18 @@ end
 function Skill_FuShiDan4_Begin ( role , Item ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2784 ) --ï¿½ï¿½Ê´ï¿½ï¿½4
+	local item_count = CheckBagItem ( atk_role , 2784 ) --¸¯Ê´µ¯4
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)  
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		return
 	end 
 	local a = DelBagItem ( atk_role , 2784 , 1 )  
@@ -13847,7 +15072,7 @@ function Skill_FuShiDan4_End ( ATKER , DEFER , sklv )
 end
 	
 
---ï¿½ï¿½Ê´ï¿½ï¿½LV5--------------------------------------------------------------------------
+--¸¯Ê´µ¯LV5--------------------------------------------------------------------------
 
 function SkillCooldown_FuShiDan5( sklv ) 
 	local Cooldown = 3000 
@@ -13857,16 +15082,18 @@ end
 function Skill_FuShiDan5_Begin ( role , Item ) 
 	local NocLock =	KitbagLock( role, 0 )
 		if NocLock == LUA_FALSE then
-			SystemNotice( role , "Inventory has been binded")
+			CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+			SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 			SkillUnable(role)
 			return
 		end
 	local atk_role = TurnToCha ( role ) 
-	local item_count = CheckBagItem ( atk_role , 2808 ) --ï¿½ï¿½Ê´ï¿½ï¿½5
+	local item_count = CheckBagItem ( atk_role , 2808 ) --¸¯Ê´µ¯5
 	if item_count <= 0 
 	then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "Does not possess required item to use skill" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 		return
 	end 
 	local a = DelBagItem ( atk_role , 2808 , 1 )  
@@ -13883,7 +15110,7 @@ end
 
 
 
---ï¿½ï¿½Ö»Ë®ï¿½ï¿½LV1--------------------------------------------------------------------------
+--´¬Ö»Ë®À×LV1--------------------------------------------------------------------------
 function SkillArea_Circle_Czsl1 ( sklv )
         local sklv=1
 	local side = 650 + math.floor ( sklv * 50 ) 
@@ -13936,7 +15163,7 @@ function State_Slrs_Tran ( statelv )
 	return 1
 end
 
---ï¿½ï¿½Ö»Ë®ï¿½ï¿½LV2--------------------------------------------------------------------------
+--´¬Ö»Ë®À×LV2--------------------------------------------------------------------------
 function SkillArea_Circle_Czsl2 ( sklv )
         local sklv=2
 	local side = 650 + math.floor ( sklv * 50 ) 
@@ -13979,7 +15206,7 @@ end
 
 
 
---ï¿½ï¿½Ö»Ë®ï¿½ï¿½LV3--------------------------------------------------------------------------
+--´¬Ö»Ë®À×LV3--------------------------------------------------------------------------
 function SkillArea_Circle_Czsl3 ( sklv )
         local sklv=3
 	local side = 650 + math.floor ( sklv * 50 ) 
@@ -14023,7 +15250,7 @@ end
 
 
 
---ï¿½ï¿½Ö»Ë®ï¿½ï¿½LV4--------------------------------------------------------------------------
+--´¬Ö»Ë®À×LV4--------------------------------------------------------------------------
 function SkillArea_Circle_Czsl4 ( sklv )
         local sklv=4
 	local side = 650 + math.floor ( sklv * 50 ) 
@@ -14066,7 +15293,7 @@ end
 
 
 
---ï¿½ï¿½Ö»Ë®ï¿½ï¿½LV5--------------------------------------------------------------------------
+--´¬Ö»Ë®À×LV5--------------------------------------------------------------------------
 function SkillArea_Circle_Czsl5 ( sklv )
         local sklv=5
 	local side = 650 + math.floor ( sklv * 50 ) 
@@ -14107,7 +15334,7 @@ function Skill_Czsl5_End ( ATKER , DEFER , sklv )
 	AddState ( ATKER , ATKER , STATE_Slrs , statelv , statetime ) 
 	AddState ( ATKER , DEFER , STATE_Slrs , statelv , statetime ) 
 end 
-----------------ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½LV1
+----------------×Ô±¬ÃàÑòLV1
 
 function SkillSp_Myzb1 ( sklv )										
 	local sp_reduce = 20 
@@ -14170,7 +15397,7 @@ end
 function State_Myrs_Tran ( statelv ) 
 	return 1   
 end 
-----------------ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½LV2
+----------------×Ô±¬ÃàÑòLV2
 
 function SkillSp_Myzb2 ( sklv )										
 	local sp_reduce = 20 
@@ -14220,7 +15447,7 @@ function Skill_Myzb2_End ( ATKER , DEFER , sklv )
 end 
 
 
-------------------ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½LV3
+------------------×Ô±¬ÃàÑòLV3
 
 function SkillSp_Myzb3 ( sklv )										
 	local sp_reduce = 20 
@@ -14269,7 +15496,7 @@ function Skill_Myzb3_End ( ATKER , DEFER , sklv )
 	AddState ( ATKER , DEFER , STATE_Myrs , statelv , statetime )
 end 
  
-----------------ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½LV4
+----------------×Ô±¬ÃàÑòLV4
 
 function SkillSp_Myzb4 ( sklv )										
 	local sp_reduce = 20 
@@ -14319,7 +15546,7 @@ function Skill_Myzb4_End ( ATKER , DEFER , sklv )
 end 
 
 
-----------------ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½LV5
+----------------×Ô±¬ÃàÑòLV5
 
 function SkillSp_Myzb5 ( sklv )										
 	local sp_reduce = 20 
@@ -14370,58 +15597,60 @@ end
 
 
 
-----------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
---
---function Skill_JST_End ( ATKER , DEFER , sklv ) 
---
---		local  sklv = 1
---	        local statelv = sklv
---	        local statetime = 3 
---		AddState ( ATKER , DEFER , STATE_LST , statelv , statetime ) 
---end 
---
---function State_JST_Add( role , statelv ) 
---        
---        local statelv = 1
---	local mspdsa_dif =  0.5 * statelv
---	--local mspdsa_dif = 1 
---	local mspdsa = math.floor (  (MspdSa(role) - mspdsa_dif ) * ATTR_RADIX ) 
---	
---	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD ) 
---	ALLExAttrSet(role)  
---end 
---
---function State_JST_Rem( role , statelv ) 
---        local statelv = 1
---	local mspdsa_dif =  0.5 * statelv
---	--local mspdsa_dif = 1
---	local mspdsa = math.floor (  (MspdSa(role) + mspdsa_dif ) * ATTR_RADIX ) 
---        SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD ) 
---	ALLExAttrSet(role)  
---end
---
------------ï¿½ï¿½Ä§ï¿½ï¿½--------------------------------------------------------------------------
---
---function Skill_XMT_End ( ATKER , DEFER , sklv ) 
---         
---	--local statelv = 1
---	--local statetime = 1
---	local sklv = 1
---	local sp_sum = -50
---        local sp = GetChaAttr(DEFER, ATTR_SP) 
---	sp=sp+sp_sum
---	if sp < 0 
---	then    
---	   sp = 0                       
---        end 
---	SetCharaAttr ( sp , DEFER , ATTR_SP ) 
---	ALLExAttrSet(DEFER)
---        --AddState ( ATKER , DEFER , STATE_FSD , statelv , statetime )
---end
---
---
-------ï¿½ï¿½ï¿½ß³ï¿½ï¿½ï¿½-------------------------------------------------------------------------------------
---
+--------¼õËÙËþ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+
+function Skill_JST_End ( ATKER , DEFER , sklv ) 
+
+		local  sklv = 1
+	        local statelv = sklv
+	        local statetime = 3 
+		AddState ( ATKER , DEFER , STATE_LST , statelv , statetime ) 
+end 
+
+function State_JST_Add( role , statelv ) 
+        
+        local statelv = 1
+	local mspdsa_dif =  0.5 * statelv
+	--local mspdsa_dif = 1 
+	local mspdsa = math.floor (  (MspdSa(role) - mspdsa_dif ) * ATTR_RADIX ) 
+	
+	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD ) 
+	ALLExAttrSet(role)  
+end 
+
+function State_JST_Rem( role , statelv ) 
+        local statelv = 1
+	local mspdsa_dif =  0.5 * statelv
+	--local mspdsa_dif = 1
+	local mspdsa = math.floor (  (MspdSa(role) + mspdsa_dif ) * ATTR_RADIX ) 
+        SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD ) 
+	ALLExAttrSet(role)  
+end
+
+---------ÎüÄ§Ëþ--------------------------------------------------------------------------
+
+function Skill_XMT_End ( ATKER , DEFER , sklv ) 
+         
+	--local statelv = 1
+	--local statetime = 1
+	local dmg = 800
+	local sklv = 1
+	local sp_sum = -50
+        local sp = GetChaAttr(DEFER, ATTR_SP) 
+	sp=sp+sp_sum
+	if sp <= 0 
+	then    
+	   sp = 0
+	   Hp_Endure_Dmg ( DEFER , dmg ) 
+        end 
+	SetCharaAttr ( sp , DEFER , ATTR_SP ) 
+	ALLExAttrSet(DEFER)
+        --AddState ( ATKER , DEFER , STATE_FSD , statelv , statetime )
+end
+
+
+----·ÉÉß³ö»÷-------------------------------------------------------------------------------------
+
 function Skill_FeiShe_End ( ATKER , DEFER , sklv ) 
 	
 	
@@ -14430,16 +15659,278 @@ function Skill_FeiShe_End ( ATKER , DEFER , sklv )
 
 end 
 
- ---ï¿½ï¿½ï¿½ï¿½ï¿½Ì¢------------------------------------------------------------
+ ---¾«Éñ±ÞÌ¢------------------------------------------------------------
 
 function Skill_JSBT_End ( ATKER , DEFER , sklv )
 	local Sta_role = Sta ( DEFER ) 
 	hpdmg =300 +  math.max ( 50 , ( 150 - Sta_role ) )  * 10
 		Hp_Endure_Dmg ( DEFER, hpdmg )
 end 
+ 
+-- --Ä§·¨ÃâÒß---------------------------------------------------------------
+--
+--function Skill_Mfmy_Use( role , sklv ) 
+--
+--        AddState ( role , role , STATE_MFMY , 10 , -1 )
+--       
+--end 
+--
+--function Skill_Mfmy_Unuse( role , sklv ) 
+-- 
+--       RemoveState ( role , STATE_MFMY )
+--end
 
--- Red Thunder Cannon
-------------------------------------- MOMO CODE -------------------------------
+--º£µÁ»Ó»÷------------------------------------------------------------------
+
+function SkillArea_Line_Hdhj ( sklv )
+
+
+	local lenth = 1000  
+	local width = 200
+	SetSkillRange ( 1 , lenth , width  )  
+end
+
+function Skill_Hdhj_End ( ATKER , DEFER , sklv ) 
+   if GetChaGuildID(DEFER) > 100 and GetChaGuildID(DEFER) <= 200 then
+          return 0
+   else
+        local dmg = math.random ( 1400 , 2500 )
+	Hp_Endure_Dmg ( DEFER , dmg ) 
+   end
+ end
+
+--º£¾ü»Ó»÷------------------------------------------------------------------
+
+function SkillArea_Line_Hjhj ( sklv )
+
+
+	local lenth = 1000  
+	local width = 200
+	SetSkillRange ( 1 , lenth , width  )  
+end
+
+function Skill_Hjhj_End ( ATKER , DEFER , sklv ) 
+
+  if GetChaGuildID(DEFER) <= 100 and GetChaGuildID(DEFER) > 0 then
+      return 0
+  else
+      local dmg = math.random ( 1400 , 2500 )
+      Hp_Endure_Dmg ( DEFER , dmg ) 
+  end
+end
+
+----»Ø¸´Ö®Èª-------------------------------------------------------------------------------------
+
+function State_HFZQ_Add( role , statelv ) 
+     
+        local statelv = 1
+        local hp_dif = Mxhp(role) * 0.1 * statelv
+	local sp_dif = Mxsp(role) * 0.1 * statelv
+	local hp_now = Hp(role) + hp_dif 
+	local sp_now = Sp(role) + sp_dif
+
+	SetCharaAttr( hp_now , role , ATTR_HP ) 
+	SetCharaAttr( sp_now , role , ATTR_SP ) 
+	ALLExAttrSet(role)  
+	
+end 
+
+function State_HFZQ_Rem( role , statelv ) 
+end
+
+----------ÉñÊ¥À¯Öò
+
+function Skill_Shenshenglazhu_End( ATKER , DEFER , sklv )
+	local NocLock =	KitbagLock( ATKER, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local Item_CanGet = GetChaFreeBagGridNum ( ATKER )	
+	if Item_CanGet <= 0 then
+		CALCULATE_SKILLEFFECT_LUA_000105 = GetResString("CALCULATE_SKILLEFFECT_LUA_000105")
+		SystemNotice(ATKER ,CALCULATE_SKILLEFFECT_LUA_000105)
+		UseItemFailed ( ATKER )
+		return
+	end
+	local a = DelBagItem ( ATKER , 3006 , 1 ) 
+	if a ~= 1 then
+		CALCULATE_SKILLEFFECT_LUA_000106 = GetResString("CALCULATE_SKILLEFFECT_LUA_000106")
+		SystemNotice(ATKER, CALCULATE_SKILLEFFECT_LUA_000106)
+		return 0
+	end
+	GiveItem ( ATKER , 0 , 3007 , 1 , 41) 
+end 
+
+------Å®ÉñµñÏñ
+function Skill_NSDX_End( ATKER , DEFER , sklv )
+	local NocLock =	KitbagLock( ATKER, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local role_NSDX = GetChaItem2 ( ATKER , 2 , 3010)
+	local Energy_NSDX = GetItemAttr ( role_NSDX , ITEMATTR_ENERGY )
+	if Energy_NSDX <999 then
+		local Energy_NSDX = Energy_NSDX + 1
+		SetItemAttr ( role_NSDX , ITEMATTR_ENERGY , Energy_NSDX )
+		RefreshCha( ATKER )
+	end
+end
+
+----------------¶ñÄ§×çÖä
+
+function SkillSp_EmoYuYan ( sklv )										
+	local sp_reduce = 155
+	return sp_reduce
+end 
+
+function SkillArea_Circle_EmoYuYan ( sklv )
+       
+	--local sklv=1
+	local side = 550 + math.floor ( sklv * 50 ) 
+	SetSkillRange ( 4 , side )  
+end
+
+
+function SkillCooldown_EmoYuYan( sklv )
+	local Cooldown = 30000
+	return Cooldown
+end
+
+function Skill_EmoYuYan_Begin ( role , sklv ) 
+	local sp = Sp(role) 
+	local sp_reduce = SkillSp_EmoYuYan ( sklv ) 
+	if sp - sp_reduce < 0 then 
+		SkillUnable(role)   
+		return 
+	end 
+	Sp_Red (role , sp_reduce ) 
+end 
+		
+
+function Skill_EmoYuYan_End ( ATKER , DEFER , sklv )
+        
+	
+	
+	--local sklv = 1
+	local statetime = 20
+	local statelv = sklv 
+	local dmg = 1050+300*sklv 
+	Hp_Endure_Dmg ( DEFER , dmg )
+	AddState ( ATKER , DEFER , STATE_EMYY , statelv , statetime )
+			 
+end 
+
+function State_EmoYuYan_Add ( role , statelv ) 
+
+	local hpdmg = 120 + statelv * 30 
+	Hp_Endure_Dmg ( role , hpdmg ) 
+	ALLExAttrSet(role) 
+
+end 
+function State_EmoYuYan_Rem ( role , statelv ) 
+end
+
+--------------------ÉñÊ¥ÉóÅÐ--------------------------------
+
+function SkillArea_Circle_SSSP( sklv )									
+	local side = 1000 
+	SetSkillRange ( 4 , side  )  
+end 
+
+function SkillCooldown_SSSP( sklv )
+	local Cooldown = 30000
+	return Cooldown
+end
+
+function SkillSp_SSSP ( sklv )										
+	local sp_reduce = 120 + sklv * 20     
+	return sp_reduce 
+end 
+
+
+
+function Skill_SSSP_Begin ( role , sklv ) 
+   
+        
+
+	local sp = Sp(role) 
+	local sp_reduce = SkillSp_SSSP ( sklv ) 
+	if sp - sp_reduce < 0 then 
+		SkillUnable(role)   
+		return 
+	end 
+	Sp_Red (role , sp_reduce ) 
+end 
+
+function Skill_SSSP_End ( ATKER , DEFER , sklv )
+	local dmg_1 = 1440 + sklv*360
+	local dmg_2 = -800 - sklv*200
+	local reg1 = 0
+	reg1 =IsChaInRegion( ATKER, 2 )
+	if reg1 == 1 then
+		dmg_1 = 0
+	end
+	local reg2 = 0
+	reg2 =IsChaInRegion( DEFER, 2 )
+	if reg2 == 1 then
+		dmg_1 = 0
+	end
+	if is_friend(ATKER, DEFER) == 0 then
+	   Hp_Endure_Dmg ( DEFER , dmg_1 ) 
+	else
+	   Hp_Endure_Dmg ( DEFER , dmg_2 )
+	end 
+		
+end 
+
+
+------------------°ÙÊÞ»÷--------------------------
+
+function SkillSp_ShouWangS ( sklv )										
+	local sp_reduce = 125  
+	return sp_reduce 
+end
+
+function SkillCooldown_ShouWangS( sklv )
+	local Cooldown = 30000
+	return Cooldown
+end
+
+function SkillArea_Circle_ShouWangS ( sklv )					
+	local side = 800
+	SetSkillRange ( 4 , side  ) 	
+end 
+
+function Skill_ShouWangS_Begin ( role , sklv ) 
+	
+	local sp = Sp(role) 
+	local sp_reduce 
+	sp_reduce = SkillSp_ShouWangS ( sklv )	
+	if sp - sp_reduce < 0 then 
+		SkillUnable(role)   
+		
+		return 
+	end 
+	Sp_Red (role , sp_reduce ) 
+	
+end 
+
+function Skill_ShouWangS_End ( ATKER , DEFER , sklv ) 
+
+
+        local dmg = 2000 + sklv * 500
+	Hp_Endure_Dmg ( DEFER , dmg ) 
+		
+end 
+
+
+
+
+-------ºìÀ×ÅÚ¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillArea_Line_ArfGX ( sklv )										
 	local lenth = 900 + sklv * 30  
@@ -14448,12 +15939,12 @@ function SkillArea_Line_ArfGX ( sklv )
 end
 
 function SkillCooldown_ArfGX( sklv )
-	local Cooldown = 90000
+	local Cooldown = 30000
 	return Cooldown
 end
 
 function SkillSp_ArfGX ( sklv )										
-	local sp_reduce = 500
+	local sp_reduce = 105   
 	return sp_reduce 
 end
 
@@ -14470,12 +15961,11 @@ end
 
 function Skill_ArfGX_End ( ATKER , DEFER , sklv ) 
 
-        local dmg = math.random ( 30000 , 30000 ) 
+        local dmg = 2000 + sklv * 500 
         Hp_Endure_Dmg ( DEFER , dmg ) 
+		
 end 
-
- 
--- Ethereal Slash
+--------------------ÎÞÓ°Õ¶--------------------------------
 
  function SkillArea_Circle_WuYin( sklv )							
 	local side = 800 
@@ -14483,12 +15973,12 @@ end
 end 
 
 function SkillCooldown_WuYin( sklv )
-	local Cooldown = 90000
+	local Cooldown = 30000
 	return Cooldown
 end
 
 function SkillSp_WuYin ( sklv )										
-	local sp_reduce = 500  
+	local sp_reduce = 125  
 	return sp_reduce 
 end 
 
@@ -14505,12 +15995,13 @@ end
 
 function Skill_WuYin_End ( ATKER , DEFER , sklv ) 
 
-    local dmg = math.random ( 100000 , 500000 )
+        local dmg = 1760 + sklv * 440
 	Hp_Endure_Dmg ( DEFER , dmg ) 
 
 end 
 
--- Super Consciousness
+
+------------------³¬ÒâÄî--------------------------
 
 function SkillSp_XYSYF ( sklv )										
 	local sp_reduce = 160  
@@ -14518,7 +16009,7 @@ function SkillSp_XYSYF ( sklv )
 end
 
 function SkillCooldown_XYSYF( sklv )
-	local Cooldown = 90000
+	local Cooldown = 30000
 	return Cooldown
 end
 
@@ -14553,7 +16044,7 @@ end
 
 function State_XYSYF_Add ( role , statelv ) 
 	
-	local dmg =  150 + statelv * 500000 
+	local dmg =  600 + statelv * 300 
 	Hp_Endure_Dmg ( role , dmg ) 
 end 
 
@@ -14565,466 +16056,7 @@ function State_XYSYF_Tran ( statelv )
 	return 3
 end
 
-
--- Holy Judgement
-
-function SkillArea_Circle_SSSP( sklv )								
-	local side = 10000 
-	SetSkillRange ( 4 , side  )  
-end 
-
-function SkillCooldown_SSSP( sklv )
-	local Cooldown = 90000
-	return Cooldown
-end
-
-function SkillSp_SSSP ( sklv )										
-	local sp_reduce = 120 + ( sklv * 20 )
-	return sp_reduce 
-end 
-
-
-
-function Skill_SSSP_Begin ( role , sklv ) 
-   
-        
-	local sp = Sp(role) 
-	local sp_reduce = SkillSp_SSSP ( sklv ) 
-	if sp - sp_reduce < 0 then 
-		SkillUnable(role)   
-		return 
-	end 
-	Sp_Red (role , sp_reduce ) 
-end 
-
-function Skill_SSSP_End ( ATKER , DEFER , sklv )
-	local dmg_1 = 10000 + ( sklv*150 )
-	local dmg_2 = -15000 - ( sklv*150 )
-	local reg1 = 0
-	reg1 =IsChaInRegion( ATKER, 2 )
-	if reg1 == 1 then
-		dmg_1 = 0
-	end
-	local reg2 = 0
-	reg2 =IsChaInRegion( DEFER, 2 )
-	if reg2 == 1 then
-		dmg_1 = 0
-	end
-	if is_friend(ATKER, DEFER) == 0 then
-	   Hp_Endure_Dmg ( DEFER , dmg_1 ) 
-	else
-	   Hp_Endure_Dmg ( DEFER , dmg_2 )
-	end 
-
-end 
-
--- Devil Curse  ===============================
-
-function SkillSp_EmoYuYan ( sklv )
-	local sp_reduce = 155
-	return sp_reduce
-end 
-
-function SkillArea_Circle_EmoYuYan ( sklv )
-	local side = 550 + math.floor ( sklv * 50 ) 
-	SetSkillRange ( 4 , side )  
-end
-
-function SkillCooldown_EmoYuYan( sklv )
-	local Cooldown = 30000
-	return Cooldown
-end
-
-function Skill_EmoYuYan_Begin ( role , sklv )
-	local sp = Sp(role) 
-	local sp_reduce = SkillSp_EmoYuYan ( sklv ) 
-	if sp - sp_reduce < 0 then 
-		SkillUnable(role)   
-		return 
-	end 
-	Sp_Red (role , sp_reduce ) 
-end 
-
-function Skill_EmoYuYan_End ( ATKER , DEFER , sklv )
-        
-	local statetime = 25
-	local statelv = sklv 
-	local dmg = 150 
-	Hp_Endure_Dmg ( DEFER , dmg )
-	AddState ( ATKER , DEFER , STATE_EMYY , statelv , statetime )
-	 
-end 
-
-function State_EmoYuYan_Add ( role , statelv )
-	local hpdmg = 20 + statelv * 15 
-	Hp_Endure_Dmg ( role , hpdmg ) 
-	ALLExAttrSet(role) 
-end 
-
-function State_EmoYuYan_Rem ( role , statelv )
-end
-
-
--- using this for devils curse part b
-function State_dev2_Add( role , statelv ) 
-	local statelv = 1
-	local mspdsa_dif = (-1) * ( 0.28 + 0.02 * statelv ) -- reduce mspd by 30%
-	local mspdsa = math.floor (  (MspdSa(role) + mspdsa_dif ) * ATTR_RADIX ) 
-	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD ) 
-
-	local defsa_dif = (-1) * ( 0.048 + 0.02 * statelv ) -- Drops Defense %5
-	local defsa = math.floor (  (DefSa(role) + defsa_dif ) * ATTR_RADIX ) 
-	SetCharaAttr( defsa , role , ATTR_STATEC_DEF )  
-
-	local mnatksa_dif = (-1) * ( 0.48 + 0.02 * statelv ) -- Drops Min Attack by 50%
-	local mnatksa = math.floor ( (MnatkSa(role) + mnatksa_dif ) * ATTR_RADIX) 
-	SetCharaAttr( mnatksa , role , ATTR_STATEC_MNATK )
-	
-	local mxatksa_dif = (-1) * ( 0.48 + 0.02 * statelv ) -- Drops Max Attack by 50%
-	local mxatksa = math.floor ( (MxatkSa(role) + mxatksa_dif ) * ATTR_RADIX) 
-	SetCharaAttr( mxatksa , role , ATTR_STATEC_MXATK )
-	
-	local aspdsa_dif = (-1) * ( 0.28 + 0.02 * statelv ) -- Drops Attack Speed by 30%
-	local aspdsa = math.floor ( (AspdSa(role) + aspdsa_dif ) * ATTR_RADIX) 
-	SetCharaAttr( aspdsa , role , ATTR_STATEC_ASPD )
-	
-	ALLExAttrSet(role)  
-end 
-
-function State_dev2_Rem( role , statelv ) 
-	local statelv = 1
-	local mspdsa_dif = (-1) * ( 0.28 + 0.02 * statelv ) -- Increases Movement Speed by 30%
-	local mspdsa = math.floor (  (MspdSa(role) - mspdsa_dif ) * ATTR_RADIX ) 
-	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD ) 
-	
-	local defsa_dif = (-1) * ( 0.048 + 0.02 * statelv ) -- Increases Def by 5%
-	local defsa = math.floor (  (DefSa(role) - defsa_dif ) * ATTR_RADIX ) 
-	SetCharaAttr( defsa , role , ATTR_STATEC_DEF ) 
-	
-	local mnatksa_dif = (-1) * ( 0.48 + 0.02 * statelv ) -- Increases Min Attack by 50%
-	local mnatksa = math.floor ( (MnatkSa(role) - mnatksa_dif ) * ATTR_RADIX) 
-	SetCharaAttr( mnatksa , role , ATTR_STATEC_MNATK )
-	
-	local mxatksa_dif = (-1) * ( 0.48 + 0.02 * statelv ) -- Increases Max Attack by 50%
-	local mxatksa = math.floor ( (MxatkSa(role) - mxatksa_dif ) * ATTR_RADIX) 
-	SetCharaAttr( mxatksa , role , ATTR_STATEC_MXATK )
-	
-	local aspdsa_dif = (-1) * ( 0.28 + 0.02 * statelv ) -- Increases Attack Speed by 30%
-	local aspdsa = math.floor ( (AspdSa(role) - aspdsa_dif ) * ATTR_RADIX) 
-	SetCharaAttr( aspdsa , role , ATTR_STATEC_ASPD )
-	
-	ALLExAttrSet(role)  
-end
-
-
------------------------------------
--- ï¿½ï¿½ï¿½Ú§ï¿½ï¿½Ú§ï¿½Ö§ï¿½Ü§Ñ§ï¿½ ï¿½ï¿½Ú§Ý§ï¿½ ï¿½ï¿½Ö§ï¿½Ö§ï¿½ï¿½Ø§Õ§Ö§ß§Ú§ï¿½ --
------------------------------------
-
-function Skill_Rbmp_Use( role , sklv ) 
-    local statelv  = sklv  
-    local rb_bonus = (-1) * ( 0.05 * statelv ) -- ï¿½ï¿½ï¿½ï¿½Ò§Ñ§Ó§Ý§ï¿½Ö§ï¿½ 5%
-    local mnatksa  = math.floor (  (MnatkSa (role) - rb_bonus ) * ATTR_RADIX ) 
-    local mxatksa  = math.floor (  (MxatkSa (role) - rb_bonus ) * ATTR_RADIX )
-    local defsa    = math.floor (  (DefSa   (role) - rb_bonus ) * ATTR_RADIX ) 
-    SetCharaAttr( mnatksa  , role , ATTR_STATEC_MNATK )
-    SetCharaAttr( mxatksa  , role , ATTR_STATEC_MXATK )
-    SetCharaAttr( defsa    , role , ATTR_STATEC_DEF   )
-    ALLExAttrSet(role)    
-end 
-
-function Skill_Rbmp_Unuse( role , sklv ) 
-    local statelv  = sklv  
-    local rb_bonus = (-1) * ( 0.05 * statelv ) -- ï¿½ï¿½ï¿½ß§Ú§Þ§Ñ§Ö§ï¿½ 5%
-    local mnatksa  = math.floor (  (MnatkSa (role) + rb_bonus ) * ATTR_RADIX ) 
-    local mxatksa  = math.floor (  (MxatkSa (role) + rb_bonus ) * ATTR_RADIX )
-    local defsa    = math.floor (  (DefSa   (role) + rb_bonus ) * ATTR_RADIX ) 
-    SetCharaAttr( mnatksa  , role , ATTR_STATEC_MNATK )
-    SetCharaAttr( mxatksa  , role , ATTR_STATEC_MXATK )
-    SetCharaAttr( defsa    , role , ATTR_STATEC_DEF   ) 
-    ALLExAttrSet(role)             
-end 
-
--------------------
--- ï¿½ï¿½ï¿½Ó§ï¿½ï¿½Ö§ß§ß§ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ --
--------------------
-
-function SkillArea_Circle_SSSP( sklv )
-	local side = 1000 
-	SetSkillRange ( 4 , side  )  
-end 
-
-function SkillCooldown_SSSP( sklv )
-	local Cooldown = 30000
-	return Cooldown
-end
-
-function SkillSp_SSSP ( sklv )
-	local sp_reduce = 120 + sklv * 20     
-	return sp_reduce 
-end 
-
-function Skill_SSSP_Begin ( role , sklv )
-	local sp = Sp(role) 
-	local sp_reduce = SkillSp_SSSP ( sklv ) 
-	if sp - sp_reduce < 0 then 
-		SkillUnable(role)   
-		return 
-	end 
-	Sp_Red (role , sp_reduce ) 
-end 
-
-function Skill_SSSP_End ( ATKER , DEFER , sklv )
-	local dmg_1 = 500 + sklv*150
-	local dmg_2 = -200 - sklv*150
-	local reg1 = 0
-	reg1 =IsChaInRegion( ATKER, 2 )
-	if reg1 == 1 then
-		dmg_1 = 0
-	end
-	local reg2 = 0
-	reg2 =IsChaInRegion( DEFER, 2 )
-	if reg2 == 1 then
-		dmg_1 = 0
-	end
-	if is_friend(ATKER, DEFER) == 0 then
-	   Hp_Endure_Dmg ( DEFER , dmg_1 ) 
-	   
-	else
-	   Hp_Endure_Dmg ( DEFER , dmg_2 )
-	end 
-end 
-
-
-------------------
--- ï¿½ï¿½ï¿½Õ§Ñ§ï¿½ ï¿½Ý§Ö§Ô§Ú§ï¿½ß§ï¿½ --
-------------------
-
-function SkillSp_ShouWangS ( sklv )
-	local sp_reduce = 125  
-	return sp_reduce 
-end
-
-function SkillCooldown_ShouWangS( sklv )
-	local Cooldown = 30000
-	return Cooldown
-end
-
-function SkillArea_Circle_ShouWangS ( sklv )
-	local side = 800
-	SetSkillRange ( 4 , side  ) 	
-end 
-
-function Skill_ShouWangS_Begin ( role , sklv )
-	local sp = Sp(role) 
-	local sp_reduce 
-	sp_reduce = SkillSp_ShouWangS ( sklv )	
-	if sp - sp_reduce < 0 then 
-		SkillUnable(role)   
-		return 
-	end 
-	Sp_Red (role , sp_reduce ) 
-end 
-
-function Skill_ShouWangS_End ( ATKER , DEFER , sklv )
-        local dmg = math.random ( 350 , 650 )
-	Hp_Endure_Dmg ( DEFER , dmg ) 
-end 
-
-
-
-
------------------
--- ï¿½ï¿½ï¿½ï¿½ï¿½Ü§ï¿½ ï¿½Ô§ï¿½ï¿½Þ§ï¿½ --
------------------
-
-function SkillArea_Line_ArfGX ( sklv )
-	local lenth = 900 + sklv * 30  
-	local width = 250 + sklv * 10 
-	SetSkillRange ( 1 , lenth , width  )  
-end
-
-function SkillCooldown_ArfGX( sklv )
-	local Cooldown = 30000
-	return Cooldown
-end
-
-function SkillSp_ArfGX ( sklv )
-	local sp_reduce = 105   
-	return sp_reduce 
-end
-
-function Skill_ArfGX_Begin ( role , sklv )
-	local sp = Sp(role) 
-	local sp_reduce  = SkillSp_ArfGX ( sklv )  
-	if sp - sp_reduce < 0 then 
-		SkillUnable(role) 
-		return 
-	end 
-	Sp_Red (role , sp_reduce ) 
-end 
-
-function Skill_ArfGX_End ( ATKER , DEFER , sklv )
-        local dmg = math.random ( 350 , 650 ) 
-        Hp_Endure_Dmg ( DEFER , dmg ) 
-end  
-
----------------------
--- ï¿½ï¿½ï¿½ï¿½Ú§Ù§ï¿½Ñ§ï¿½ß§ï¿½ï¿½ï¿½ ï¿½ï¿½Õ§Ñ§ï¿½ --
----------------------
-
-function SkillArea_Circle_WuYin( sklv )
-	local side = 800 
-	SetSkillRange ( 4 , side  )  
-end 
-
-function SkillCooldown_WuYin( sklv )
-	local Cooldown = 30000
-	return Cooldown
-end
-
-function SkillSp_WuYin ( sklv )
-	local sp_reduce = 125  
-	return sp_reduce 
-end 
-
-function Skill_WuYin_Begin ( role , sklv )
-	local sp = Sp(role) 
-	local sp_reduce = SkillSp_WuYin ( sklv ) 
-	if sp - sp_reduce < 0 then 
-		SkillUnable(role)   
-		return 
-	end 
-	Sp_Red (role , sp_reduce ) 
-end 
-
-function Skill_WuYin_End ( ATKER , DEFER , sklv )
-        local dmg = math.random ( 350 , 650 )
-	Hp_Endure_Dmg ( DEFER , dmg ) 
-end 
-
---ï¿½ï¿½ï¿½ß§Ó§Ú§ï¿½ ï¿½Õ§Ý§ï¿½ ï¿½Ò§Ü¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
-function SkillSp_Ysc ( sklv ) 
-	local sp_reduce = 10  
-	return sp_reduce 
-end 
-
-function SkillCooldown_Ysc( sklv ) 
-	local Cooldown = 30000 
-	return Cooldown 
-end 
-
-function Skill_Ysc_Begin ( role , sklv ) 
-	local sp = Sp(role) 
-	local sp_reduce = SkillSp_Ys ( sklv ) 
-	if sp - sp_reduce < 0 then 
-		SkillUnable(role)   
-		return 
-	end 
-	Sp_Red (role , sp_reduce ) 
-end 
-
-function Skill_Ysc_End ( ATKER , DEFER , sklv ) 
-	local statelv = sklv 
-	local statetime = 20 + sklv * 10
-	local map_name_ATKER = GetChaMapName ( ATKER )
-	local map_name_DEFER = GetChaMapName ( DEFER )
-	local agi_atker = Agi(ATKER)
-	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
-	if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" then
-		if Can_Pk_Garner2 == 0 then
-			statetime = 20 + agi_atker/4 + sklv*5
-		end
-	end
-	AddState ( ATKER , DEFER , STATE_YS , statelv , statetime ) 
-end 
-
-
-
-function State_Ysc_Add ( role , statelv ) 
-	local sp = Sp(role) 
-	local sp_reduce = 10 - math.floor ( statelv * 0.5  ) 
-	local map_name_DEFER = GetChaMapName ( role )
-	local agi_atker = Agi(role)
-	local Can_Pk_Garner2 = Is_NormalMonster (role)
-	sp = sp - sp_reduce 
-	if sp <= 0 then			--spï¿½ï¿½ï¿½ï¿½Ê±ï¿½Æ³ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ 
-		RemoveState ( role , STATE_YS ) 
-		return 
-	end 
-	SetCharaAttr ( sp , role , ATTR_SP ) 
-end 
-
-function State_Ysc_Rem ( role , statelv ) 
-	local map_name_DEFER = GetChaMapName ( role )
-	local agi_atker = Agi(role)
-	local Can_Pk_Garner2 = Is_NormalMonster (role)
-end 
-
-----ï¿½ï¿½ï¿½Ô§ß§Ö§ï¿½.ï¿½ï¿½Ñ§ï¿½ ï¿½Õ§Ý§ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
- function SkillCooldown_BlackYq( sklv ) 
-	local Cooldown = 90000 
-	return Cooldown
-end
-
- function Skill_BlackYq_End ( ATKER , DEFER , sklv )
-	local Sta_role = Sta ( DEFER ) 
-	hpdmg = (10 + (sta_atker * 22.5))*3
-	Hp_Endure_Dmg ( DEFER, hpdmg )
-end 
--------------------
--- ï¿½ï¿½ï¿½Ó§Ö§ï¿½ï¿½ï¿½ï¿½Ù§ß§Ñ§ß§Ú§ï¿½ --
--------------------
-function SkillSp_XYSYF ( sklv )
-	local sp_reduce = 160  
-	return sp_reduce 
-end
-
-function SkillCooldown_XYSYF( sklv )
-	local Cooldown = 30000
-	return Cooldown
-end
-
-function SkillArea_Circle_XYSYF ( sklv )
-	local side = 800 
-	SetSkillRange ( 4 , side  ) 	
-end 
-
-function SkillArea_State_XYSYF ( sklv )
-	local statetime = 15 
-	local statelv = sklv 
-	SetRangeState ( STATE_YNZL , statelv  , statetime ) 									
-end 
-
-function Skill_XYSYF_Begin ( role , sklv )
-	local sp = Sp(role) 
-	local sp_reduce 
-	sp_reduce = SkillSp_XYSYF ( sklv )	
-	if sp - sp_reduce < 0 then 
-		SkillUnable(role)  
-		
-		return 
-	end 
-	Sp_Red (role , sp_reduce )
-end 
-
-function Skill_XYSYF_End ( ATKER , DEFER , sklv )
-end 
-
-function State_XYSYF_Add ( role , statelv )
-	local dmg =  150 + statelv * 30 
-	Hp_Endure_Dmg ( role , dmg ) 
-end 
-
-function State_XYSYF_Rem ( role , statelv )
-end 
-
-function State_XYSYF_Tran ( statelv )
-	return 3
-end
-
---ï¿½ï¿½ï¿½Ü±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+--¼¼ÄÜ±ù¶³»·¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 
 function SkillArea_Circle_BDH ( sklv )									
@@ -15070,7 +16102,7 @@ function State_BDH_Rem ( role , statelv )
 	SetCharaAttr( mspdsa , role , ATTR_STATEC_MSPD ) 
 	ALLExAttrSet(role)  
 end 
--- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½----10ï¿½ï¿½ï¿½Ó¼Ó·ï¿½ï¿½ï¿½
+-- µ°»ÆôÕ----10·ÖÖÓ¼Ó·ÀÓù
 function State_DHZ_Add ( role , statelv )
 	local def_dif = 60
 	local defsb = DefSb( role ) + def_dif
@@ -15086,7 +16118,7 @@ function State_DHZ_Rem ( role , statelv )
 end
 
 
---ï¿½ï¿½É³ï¿½ï¿½-----ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ÈµÄµï¿½ï¿½ß³ï¿½ï¿½ï¿½Ê±ï¿½ï¿½15ï¿½ï¿½ï¿½ï¿½
+--¶¹É³ôÕ-----´ó·ùÌá¸ßÐÐ×ßËÙ¶ÈµÄµÀ¾ß³ÖÐøÊ±¼ä15·ÖÖÓ
 
 function State_DSZ_Add ( role , statelv )
 	local mspdsa_dif = 0.20
@@ -15105,7 +16137,7 @@ function State_DSZ_Rem ( role , statelv )
 end
 
 
---===========================ï¿½ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬=======================
+--===========================ÀÏ×Ó°®¸¸Ç××´Ì¬=======================
 function State_Ilovedad_Add( role ,  statelv )
 --	SystemNotice(role ,"I'm in")
 	
@@ -15116,18 +16148,20 @@ function State_Ilovedad_Rem( role ,  statelv )
 
 end
 
-------------------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½Ò©ï¿½ï¿½(kokora)---------------------------------
+------------------------------------------------³ÖÐøÌåÁ¦»Ö¸´Ò©¼Á(kokora)---------------------------------
 function Skill_thewdrug_Begin ( role , sklv ) 
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( atk_role , 1075 ) --ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½Ò©ï¿½ï¿½
+	local item_count = CheckBagItem ( atk_role , 1075 ) --³ÖÐøÌåÁ¦»Ö¸´Ò©¼Á
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 1075 , 1 ) 
 end
@@ -15135,58 +16169,66 @@ end
 function Skill_thewdrug_End( ATKER , DEFER , sklv )
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local statelv = 7
 
 	local ChaStateLv = GetChaStateLv ( ATKER , STATE_HPHMHF )
 	if ChaStateLv > statelv then
-		SystemNotice ( ATKER , "ï¿½ï¿½Ê¹ï¿½Ã¸ï¿½ï¿½ß¼ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½Ôºï¿½ï¿½ï¿½ï¿½ï¿½" )
+		CALCULATE_ITEMEFFECT_LUA_000251 = GetResString("CALCULATE_ITEMEFFECT_LUA_000251")
+		SystemNotice ( ATKER , CALCULATE_ITEMEFFECT_LUA_000251 )
 		UseItemFailed ( ATKER )
 		return 0
 	end
 	local statetime = 10
 	AddState( ATKER , DEFER , STATE_HPHMHF , statelv , statetime )
-	SystemNotice ( ATKER , "Ã¿ï¿½ï¿½Ö¸ï¿½300HP,ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½" )
+	CALCULATE_SKILLEFFECT_LUA_000107 = GetResString("CALCULATE_SKILLEFFECT_LUA_000107")
+	SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000107 )
 	SystemNotice ( ATKER ,"ATKER="..ATKER )
 	SystemNotice ( ATKER ,"DEFER="..DEFER )
 end
 
-------------------------------------------------Ì©Ì¹Ò©ï¿½ï¿½(kokora)---------------------------------
+------------------------------------------------Ì©Ì¹Ò©¼Á(kokora)---------------------------------
 function Skill_thaitdrug_Begin ( role , sklv )
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 
 	end
-	local item_count = CheckBagItem ( atk_role , 1098 ) --Ì©Ì¹Ò©ï¿½ï¿½
+	local item_count = CheckBagItem ( atk_role , 1098 ) --Ì©Ì¹Ò©¼Á
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 1098 , 1 )
 	end
 function Skill_thaitdrug_End( ATKER , DEFER , sklv )
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 
 	end
 	local statelv = 8
 	local ChaStateLv = GetChaStateLv ( ATKER , STATE_HPHMHF )
 	if ChaStateLv > statelv then
-		SystemNotice ( ATKER , "" )
+		CALCULATE_ITEMEFFECT_LUA_000251 = GetResString("CALCULATE_ITEMEFFECT_LUA_000251")
+		SystemNotice ( ATKER , CALCULATE_ITEMEFFECT_LUA_000251 )
 		UseItemFailed ( ATKER )
 		return
 	end
 	local statetime = 10
 	AddState( ATKER , DEFER , STATE_HPHMHF , statelv , statetime )
-	SystemNotice ( ATKER , "Ã¿ï¿½ï¿½Ö¸ï¿½1000HP,ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½" )
+	CALCULATE_SKILLEFFECT_LUA_000108 = GetResString("CALCULATE_SKILLEFFECT_LUA_000108")
+	SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000108 )
 end
-----------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½------------------------------------
---ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--
+----------------------------------------ÀàÌìÉÏÈË¼ä------------------------------------
+--»ºÂý»Ö¸´ÉúÃüÀà--
 
 function STATE_HPHMHF_Add ( role , statelv)
 	local hp_now = GetChaAttr( role , ATTR_HP )
@@ -15210,12 +16252,12 @@ function STATE_HPHMHF_Add ( role , statelv)
 	end
 
 
-	if hp_now <= 0 then						--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
+	if hp_now <= 0 then						--ÈËÎïËÀÍöÊ±²»¿ÉÊ¹ÓÃ
 		return 0
 	end  
 	hp_now = hp_now + hp_resume 
 	local mxhp = GetChaAttr( role , ATTR_MXHP) 
-	if hp_now > mxhp then						--ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½hpÊ±ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½hp
+	if hp_now > mxhp then						--¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		 hp_now = mxhp 
 	 end 
 	SetCharaAttr(hp_now, role, ATTR_HP)
@@ -15224,114 +16266,131 @@ end
 function STATE_HPHMHF_Rem ( role , statelv)
 
 end
-------------------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(kokora)---------------------------------
+------------------------------------------------ÉñÍõ»¤ÓÓ(kokora)---------------------------------
 function Skill_deitybless_Begin ( role , sklv ) 
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 
 	end
-	local item_count = CheckBagItem ( atk_role , 1099 ) --ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	local item_count = CheckBagItem ( atk_role , 1099 ) --ÉñÍõ»¤ÓÓ
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ê¹ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 1099 , 1 )
 	end
 function Skill_deitybless_End( ATKER , DEFER , sklv )
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 
 	end
 	local statelv = 1
 	local ChaStateLv = GetChaStateLv ( ATKER , STATE_SPHMHF )
 	if ChaStateLv > statelv then
-		SystemNotice ( ATKER , "ï¿½ï¿½Ê¹ï¿½Ã¸ï¿½ï¿½ß¼ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½Ôºï¿½ï¿½ï¿½ï¿½ï¿½" )
+		CALCULATE_ITEMEFFECT_LUA_000251 = GetResString("CALCULATE_ITEMEFFECT_LUA_000251")
+		SystemNotice ( ATKER , CALCULATE_ITEMEFFECT_LUA_000251 )
 		UseItemFailed ( ATKER )
 		return
 	end
 	local statetime = 10
 	AddState( ATKER , DEFER , STATE_SPHMHF , statelv , statetime )
-	SystemNotice ( ATKER , "Ã¿ï¿½ï¿½Ö¸ï¿½100SP,ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½" )
+	CALCULATE_SKILLEFFECT_LUA_000109 = GetResString("CALCULATE_SKILLEFFECT_LUA_000109")
+	SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000109 )
 end
 
-------------------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½(kokora)---------------------------------
+------------------------------------------------ÄÜÁ¿ºÏ¼Á(kokora)---------------------------------
 function Skill_energydrug_Begin ( role , sklv ) 
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 
 	end
-	local item_count = CheckBagItem ( atk_role , 1100 ) --ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½
+	local item_count = CheckBagItem ( atk_role , 1100 ) --ÄÜÁ¿ºÏ¼Á
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ê¹ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 1100 , 1 )
 	end
 function Skill_energydrug_End( ATKER , DEFER , sklv )
 	local NocLock =	KitbagLock( ATKER, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 
 	end
 	local statelv = 2
 	local ChaStateLv = GetChaStateLv ( ATKER , STATE_SPHMHF )
 	if ChaStateLv > statelv then
-		SystemNotice ( ATKER , "ï¿½ï¿½Ê¹ï¿½Ã¸ï¿½ï¿½ß¼ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½Ôºï¿½ï¿½ï¿½ï¿½ï¿½" )
+		CALCULATE_ITEMEFFECT_LUA_000251 = GetResString("CALCULATE_ITEMEFFECT_LUA_000251")
+		SystemNotice ( ATKER , CALCULATE_ITEMEFFECT_LUA_000251 )
 		UseItemFailed ( ATKER )
 		return
 	end
 	local statetime = 10
 	AddState( ATKER , DEFER , STATE_SPHMHF , statelv , statetime )
-	SystemNotice ( ATKER , "Ã¿ï¿½ï¿½Ö¸ï¿½500SP,ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½" )
+	CALCULATE_SKILLEFFECT_LUA_000110 = GetResString("CALCULATE_SKILLEFFECT_LUA_000110")
+	SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000110 )
 end
 
---ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--
+--»ºÂý»Ö¸´·¨Á¦Àà--
 
 function STATE_SPHMHF_Add ( role , statelv)
 	local sp_now = GetChaAttr( role , ATTR_SP )
 	local hp_now = GetChaAttr( role , ATTR_HP )
 	local array={100,500}
 	local sp_resume = array[statelv]
-	if hp_now <= 0 then						--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
+	if hp_now <= 0 then						--ÈËÎïËÀÍöÊ±²»¿ÉÊ¹ÓÃ
 		return 0
 	end  
 	sp_now = sp_now + sp_resume 
 	local mxsp = GetChaAttr( role , ATTR_MXSP) 
-	if sp_now > mxsp then						--ï¿½Ó³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½hpÊ±ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½hp
+	if sp_now > mxsp then						--¼Ó³¬¹ý×î´óhpÊ±·µ»ØÎª×î´óhp
 		 sp_now = mxsp 
 	 end 
 	SetCharaAttr(sp_now, role, ATTR_SP) 
 end 
 
 
-function STATE_XZDLL_Add ( role)
+function STATE_XZDLL_Add ( role , statelv)
+
+end
+function STATE_XZDLL_Rem ( role , statelv)
 
 
 end
 
-function STATE_XZDLL_Rem ( role)
+function STATE_QB_Add ( role , statelv)
+
+end
+function STATE_QB_Rem ( role , statelv)
 
 
 end
-
---Ë²ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--Ä§ï¿½ï¿½Ö®ï¿½ï¿½
+--Ë²¼ä»Ö¸´ÉúÃü¼°·¨Á¦--Ä§ÁúÖ®ÐÄ
 
 function Skill_dragonheart_Begin ( role , sklv ) 
 	local atk_role = TurnToCha ( role ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 
 	end
-	local item_count = CheckBagItem ( atk_role , 1101 ) --Ä§ï¿½ï¿½Ö®ï¿½ï¿½
+	local item_count = CheckBagItem ( atk_role , 1101 ) --Ä§ÁúÖ®ÐÄ
 	if item_count <= 0 then  
 		SkillUnable(atk_role)   
-		SystemNotice ( atk_role , "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ê¹ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( atk_role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( atk_role , 1101 , 1 )
 	end
@@ -15339,90 +16398,103 @@ function Skill_dragonheart_Begin ( role , sklv )
 function Skill_dragonheart_End ( role)
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local hp_now = GetChaAttr( role , ATTR_HP )
 	local mxhp = GetChaAttr( role , ATTR_MXHP)	
 	local mxsp = GetChaAttr( role , ATTR_MXSP)
-	if hp_now <= 0 then						--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½
+	if hp_now <= 0 then						--ÈËÎïËÀÍöÊ±²»¿ÉÊ¹ÓÃ
 		return 0
 	end  
 	SetCharaAttr(mxhp, role, ATTR_HP) 
 	SetCharaAttr(mxsp, role, ATTR_SP) 
 end
------Ç§ï¿½ï¿½×·Ñ°ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ë½Ú½ï¿½Ö¸ï¿½ï¿½---------
---ï¿½ï¿½ï¿½Ù§ï¿½ ï¿½Ý§ï¿½Ò§Ó§ï¿½
-function Skill_Qlzx_End ( ATKER , DEFER , sklv )
-    local NocLock = KitbagLock( ATKER, 0 )
-    if NocLock == LUA_FALSE then
-        SystemNotice( ATKER , "\200\237\226\229\237\242\224\240\252 \231\224\225\235\238\234\232\240\238\226\224\237")
-        --SystemNotice( ATKER , "ï¿½ï¿½ï¿½ß§Ó§Ö§ß§ï¿½Ñ§ï¿½ï¿½ ï¿½Ù§Ñ§Ò§Ý§ï¿½Ü§Ú§ï¿½ï¿½Ó§Ñ§ï¿½")
-        return
-    end
-    local item_count = CheckBagItem ( ATKER , 2520 )
-    if item_count <= 0 then  
-        SystemNotice( ATKER , "\211 \194\224\241 \237\229\242 \202\238\235\252\246\224 \194\235\254\225\235\229\237\237\251\245")
-        --SystemNotice( ATKER , "ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ ï¿½ß§Ö§ï¿½ ï¿½ï¿½ï¿½ï¿½Ý§ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý§ï¿½Ò§Ý§Ö§ß§ß§ï¿½ï¿½ï¿½")
-        return
-    else
-        local ring = GetChaItem2 ( ATKER , 2 , 2520 )
-        local Num_ATK_JZ = GetItemForgeParam ( ring , 1 )
-        Num_ATK_JZ = TansferNum ( Num_ATK_JZ )
-        local ID_ATK_Num = GetRoleID(ATKER)
-        local t = {}
-        t[0] = DEFER
-        t[1] = GetTeamCha(DEFER, 0 )  
-        t[2] = GetTeamCha(DEFER, 1 )  
-        t[3] = GetTeamCha(DEFER, 2 )    
-        t[4] = GetTeamCha(DEFER, 3 )
-        local i = 1
-        for i = 1 , 4 , 1 do
-            if t[i] ~= nil then
-                local item_count = CheckBagItem ( t[i] , 2520 )
-                if item_count == 1 then  
-                    local Item = GetChaItem2 ( t[i] , 2 , 2520 )
-                    local Num_JZ = GetItemForgeParam ( Item , 1 )
-                    Num_JZ = TansferNum ( Num_JZ )
-                    if Num_JZ == ID_ATK_Num  then
-                        local ID_Num = GetRoleID(t[i])
-                        if Num_ATK_JZ==ID_Num then
-                            local x, y = GetChaPos(t[i])
-                            local map_name = GetChaMapName (t[i])
-                            x = math.floor (x*0.01)
-                            y = math.floor (y*0.01)
-                            if map_name == "prisonisland" or map_name == "mingyun" or map_name == "guildwar" or map_name == "guildwar2" or map_name == "darkswamp" or map_name == "abandonedcity" or map_name == "abandonedcity2" or map_name == "abandonedcity3" then
-                                SystemNotice ( ATKER , "\194\238\231\236\238\230\237\238, \194\224\248\224 \239\238\235\238\226\232\237\234\224 \237\224\245\238\228\232\242\241\255 \237\224 \234\224\240\242\229, \227\228\229 \237\229\235\252\231\255 \232\241\239\238\235\252\231\238\226\224\242\252 \228\224\237\237\238\229 \243\236\229\237\232\229" )
-                                --SystemNotice ( ATKER , "ï¿½ï¿½ï¿½ï¿½Ù§Þ§ï¿½Ø§ß§ï¿½, ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½Ý§ï¿½Ó§Ú§ß§Ü§ï¿½ ï¿½ß§Ñ§ï¿½ï¿½Õ§Ú§ï¿½ï¿½ï¿½ ï¿½ß§ï¿½ ï¿½Ü§Ñ§ï¿½ï¿½ï¿½, ï¿½Ô§Õ§ï¿½ ï¿½ß§Ö§Ý§ï¿½Ù§ï¿½ ï¿½Ú§ï¿½ï¿½ï¿½Ý§ï¿½Ù§ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½Õ§Ñ§ß§ß§ï¿½ï¿½ ï¿½ï¿½Þ§Ö§ß§Ú§ï¿½" )
-                                UseItemFailed ( ATKER )
-                                return
-                            else
-                                local map_name2 = GetChaMapName ( ATKER )
-                                if map_name2 == "prisonisland" or map_name2 == "mingyun" or map_name2 == "guildwar" or map_name2 == "guildwar2" or map_name2 == "darkswamp" or map_name2 == "abandonedcity" or map_name2 == "abandonedcity2" or map_name2 == "abandonedcity3" then
-                                    SystemNotice ( ATKER , "\205\229\235\252\231\255 \232\241\239\238\235\252\231\238\226\224\242\252 \243\236\229\237\232\229 \237\224 \228\224\237\237\238\233 \234\224\240\242\229" )
-                                    --SystemNotice ( ATKER , ï¿½ï¿½ï¿½Ö§Ý§ï¿½Ù§ï¿½ ï¿½Ú§ï¿½ï¿½ï¿½Ý§ï¿½Ù§ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½Þ§Ö§ß§Ú§ï¿½ ï¿½ß§ï¿½ ï¿½Õ§Ñ§ß§ß§ï¿½ï¿½ ï¿½Ü§Ñ§ï¿½ï¿½ï¿½" )
-                                    UseItemFailed ( ATKER )
-                                    return
-                                end
-                            end
-                            GoTo(ATKER, x,y, map_name)
-                            return
-                        end
-                    end
-                end
-            end
-            if i == 4 then
-                SystemNotice( ATKER , "\194 \194\224\248\229\236 \238\242\240\255\228\229 \237\229\242 \194\224\248\229\233 \239\238\235\238\226\232\237\234\232")
-                --SystemNotice( ATKER , "ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½Ö§ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ§ï¿½ ï¿½ß§Ö§ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½Ö§ï¿½ ï¿½ï¿½ï¿½Ý§ï¿½Ó§Ú§ß§Ü§ï¿½")
-            end
-        end
-    end
-end
+-----Ç§Àï×·Ñ°£¨ÐèÒªÇéÈË½Ú½äÖ¸£©---------
+function Skill_Qlzx_End ( ATKER , DEFER , sklv ) 
+	local NocLock =	KitbagLock( ATKER, 0 )
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
+		return
+	end
+	local item_count = CheckBagItem ( ATKER , 2520 ) --ÇéÈË½Ú½äÖ¸
+	if item_count <= 0 then  
+		CALCULATE_SKILLEFFECT_LUA_000111 = GetResString("CALCULATE_SKILLEFFECT_LUA_000111")
+		SystemNotice( ATKER , CALCULATE_SKILLEFFECT_LUA_000111)
+		return
+	else
+		local ring = GetChaItem2 ( ATKER , 2 , 2520 )	--È¡µÃÇéÈË½Ú½äÖ¸Ö¸Õë
+		local Num_ATK_JZ = GetItemForgeParam ( ring , 1 )
+		Num_ATK_JZ = TansferNum ( Num_ATK_JZ )		---ÇéÈËIDºÅ
+		local ID_ATK_Num = GetRoleID(ATKER)
+--		local RoleType = GetChaID(ATKER)
+		local t = {} 
+		t[0] = DEFER 
+		t[1] = GetTeamCha(DEFER, 0 )  
+		t[2] = GetTeamCha(DEFER, 1 )   
+		t[3] = GetTeamCha(DEFER, 2 )    
+		t[4] = GetTeamCha(DEFER, 3 )
+		local i = 1
+		for i = 1 , 4 , 1 do
+			if t[i] ~= nil then
+				local item_count = CheckBagItem ( t[i] , 2520 )	--¼ì²â¶ÓÓÑÉíÉÏÊÇ·ñÓÐ½äÖ¸
+				if item_count == 1 then  
+					local Item = GetChaItem2 ( t[i] , 2 , 2520 )	--È¡µÃÇéÈË½Ú½äÖ¸Ö¸Õë
+					local Num_JZ = GetItemForgeParam ( Item , 1 )
+					Num_JZ = TansferNum ( Num_JZ )
+					if Num_JZ == ID_ATK_Num  then
+						local ID_Num = GetRoleID(t[i])
+						if Num_ATK_JZ==ID_Num then
+							local x, y = GetChaPos(t[i])
+							local map_name = GetChaMapName (t[i])
+							local checkteam = CheckRoleIsInJJCBS ( t[i] )   -------È¡½ÇÉ«ÊÇ·ñÔÚJJCÄÚ
+							if checkteam == 0 then
+								x = math.floor (x*0.01)
+								y = math.floor (y*0.01)
+								if map_name == "prisonisland" or map_name == "mingyun" or map_name == "guildwar" or map_name == "guildwar2" or map_name == "darkswamp" or map_name == "abandonedcity" or map_name == "abandonedcity2" or map_name == "abandonedcity3" then
+									CALCULATE_SKILLEFFECT_LUA_000112 = GetResString("CALCULATE_SKILLEFFECT_LUA_000112")
+									SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000112 )
+									UseItemFailed ( ATKER )
+									return
+								else
+									local checkteam2 = CheckRoleIsInJJCBS ( ATKER )   -------È¡½ÇÉ«ÊÇ·ñÔÚJJCÄÚ
+									if checkteam2 == 0 then
+										local map_name2 = GetChaMapName ( ATKER )
+										if map_name2 == "prisonisland" or map_name2 == "mingyun" or map_name2 == "guildwar" or map_name2 == "guildwar2" or map_name2 == "darkswamp" or map_name2 == "abandonedcity" or map_name2 == "abandonedcity2" or map_name2 == "abandonedcity3" then
+											CALCULATE_SKILLEFFECT_LUA_000113 = GetResString("CALCULATE_SKILLEFFECT_LUA_000113")
+											SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000113 )
+											UseItemFailed ( ATKER )
+											return
+										end
+									else 
+										CALCULATE_SKILLEFFECT_LUA_000114 = GetResString("CALCULATE_SKILLEFFECT_LUA_000114")
+										SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000114)
+										return
+									end
+								end
+							else
+								CALCULATE_SKILLEFFECT_LUA_000114 = GetResString("CALCULATE_SKILLEFFECT_LUA_000114")
+								SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000114)
+								return 
+							end 
+							GoTo(ATKER, x,y, map_name)
+							return
+						end
+					end
+				end
+			end
+			if i == 4 then
+				CALCULATE_SKILLEFFECT_LUA_000115 = GetResString("CALCULATE_SKILLEFFECT_LUA_000115")
+				SystemNotice( ATKER , CALCULATE_SKILLEFFECT_LUA_000115)
+			end
+		end
 		
---		local Item = GetChaItem2 ( ATKER , 2 , 2520 )	--È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ë½Ú½ï¿½Ö¸Ö¸ï¿½ï¿½
+--		local Item = GetChaItem2 ( ATKER , 2 , 2520 )	--È¡µÃÇéÈË½Ú½äÖ¸Ö¸Õë
 --		local Num_JZ = GetItemForgeParam ( Item , 1 )
 --		Num_JZ = TansferNum ( Num_JZ )
---		local Part1_JZ = GetNum_Part1 ( Num_JZ )	--Get Num Part 1 ï¿½ï¿½ Part 7
+--		local Part1_JZ = GetNum_Part1 ( Num_JZ )	--Get Num Part 1 µ½ Part 7
 --		local Part2_JZ = GetNum_Part2 ( Num_JZ )	
 --		local Part3_JZ = GetNum_Part3 ( Num_JZ )
 --		local Part4_JZ = GetNum_Part4 ( Num_JZ )
@@ -15433,51 +16505,36 @@ end
 --			Num_JZ = SetNum_Part1 ( Num_JZ , 1 ) 
 --			SetItemForgeParam ( Item , 1 , Num_JZ )
 
+	end
+end
 
------BBRING1---85BBÅ£ï¿½ï¿½
+-----BBRING1---85BBÅ£½ä
 function State_BBRING1_Add ( role , statelv ) 
-	
-	local strsb_dif = 0
+	local strsb_dif = 10
 	local strsb = StrSb( role ) + strsb_dif
 	SetCharaAttr( strsb , role , ATTR_STATEV_STR )
 
-	local dexsb_dif = 0
-	local dexsb = DexSb( role ) + dexsb_dif
-	SetCharaAttr( dexsb , role , ATTR_STATEV_DEX )
-
-	local agisb_dif = 0
-	local agisb = AgiSb( role ) + agisb_dif
-	SetCharaAttr( agisb , role , ATTR_STATEV_AGI )
-	
-	local consb_dif = 0
+	local consb_dif = 8
 	local consb = ConSb( role ) + consb_dif
 	SetCharaAttr( consb , role , ATTR_STATEV_CON )
-	
-	local stasb_dif = 0
-	local stasb = StaSb( role ) + stasb_dif
-	SetCharaAttr( stasb , role , ATTR_STATEV_STA )
-	
-	local mspdsb_dif = 0
-	local mspdsb = MspdSb( role ) + mspdsb_dif
-	SetCharaAttr( mspdsb , role , ATTR_STATEV_MSPD )
-	
-	local defsb_dif = 0
+
+	local defsb_dif = 100
 	local defsb = DefSb(role) + defsb_dif
 	SetCharaAttr( defsb , role , ATTR_STATEV_DEF ) 
 
-	local fleesb_dif = 0
+	local fleesb_dif = 10
 	local fleesb = FleeSb(role) + fleesb_dif 
 	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE )
 	
-	local hitsb_dif = 0
+	local hitsb_dif = 10
 	local hitsb = HitSb(role) + hitsb_dif
 	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT ) 
 
-	local hrecsb_dif = 0
+	local hrecsb_dif = 6
 	local hrecsb = HrecSb(role) + hrecsb_dif
 	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC ) 
 
-	local pdef_dif = 0
+	local pdef_dif = 4
 	local pdef = ResistSb(role) + pdef_dif 
 	SetCharaAttr( pdef , role , ATTR_STATEV_PDEF )
 
@@ -15486,155 +16543,142 @@ end
 
 function State_BBRING1_Rem ( role , statelv )
 	
-	local strsb_dif = 0
+	local strsb_dif = 10
 	local strsb = StrSb( role ) - strsb_dif
 	SetCharaAttr( strsb , role , ATTR_STATEV_STR )
 
-	local dexsb_dif = 0
-	local dexsb = DexSb( role ) - dexsb_dif
-	SetCharaAttr( dexsb , role , ATTR_STATEV_DEX )
-	
-	local agisb_dif = 0
-	local agisb = AgiSb(role) - agisb_dif
-	SetCharaAttr( agisb , role , ATTR_STATEV_AGI ) 
-	
-	local consb_dif = 0
-	local consb = ConSb(role) - consb_dif 
+	local consb_dif = 8
+	local consb = ConSb( role ) - consb_dif
 	SetCharaAttr( consb , role , ATTR_STATEV_CON )
 	
-	local stasb_dif = 0
-	local stasb = StaSb(role) - stasb_dif
-	SetCharaAttr( stasb , role , ATTR_STATEV_STA ) 
-
-	local mspdsb_dif = 0
-	local mspdsb = MspdSb(role) - mspdsb_dif
-	SetCharaAttr( mspdsb , role , ATTR_STATEV_MSPD ) 
-
-	local defsb_dif = 0
-	local defsb = DefSb(role) - defsb_dif 
-	SetCharaAttr( defsb , role , ATTR_STATEV_DEF )
+	local defsb_dif = 100
+	local defsb = DefSb(role) - defsb_dif
+	SetCharaAttr( defsb , role , ATTR_STATEV_DEF ) 
 	
-	local fleesb_dif = 0
+	local fleesb_dif = 10
 	local fleesb = FleeSb(role) - fleesb_dif 
 	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE )
 	
-	local hitsb_dif = 0
-	local hitsb = Hitsb(role) - hitsb_dif 
-	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT )
-	
-	local hrecsb_dif = 0
-	local hrecsb = Hrecsb(role) - hrecsb_dif 
-	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC )
-	
-	local pdef_dif = 0
+	local hitsb_dif = 10
+	local hitsb = HitSb(role) - hitsb_dif
+	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT ) 
+
+	local hrecsb_dif = 6
+	local hrecsb = HrecSb(role) - hrecsb_dif
+	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC ) 
+
+	local pdef_dif = 4
 	local pdef = ResistSb(role) - pdef_dif 
 	SetCharaAttr( pdef , role , ATTR_STATEV_PDEF )
 
 	ALLExAttrSet(role)  
 end
 
------BBRING2---85BBË«ï¿½ï¿½
+-----BBRING2---85BBË«½ä
 function State_BBRING2_Add ( role , statelv ) 
-	local mspdsb_dif = 0
-	local mspdsb = MspdSb( role ) + mspdsb_dif
-	SetCharaAttr( mspdsb , role , ATTR_STATEV_MSPD )
+	local strsb_dif = 8
+	local strsb = StrSb( role ) + strsb_dif
+	SetCharaAttr( strsb , role , ATTR_STATEV_STR )
+
+	local agisb_dif = 3
+	local agisb = AgiSb( role ) + agisb_dif
+	SetCharaAttr( agisb , role , ATTR_STATEV_AGI )
 	
-	local defsb_dif = 0
+	local consb_dif = 8
+	local consb = ConSb( role ) + consb_dif
+	SetCharaAttr( consb , role , ATTR_STATEV_CON )
+
+	local defsb_dif = 80
 	local defsb = DefSb(role) + defsb_dif
 	SetCharaAttr( defsb , role , ATTR_STATEV_DEF ) 
 
-	local fleesb_dif = 0
+	local fleesb_dif = 30
 	local fleesb = FleeSb(role) + fleesb_dif 
 	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE )
 	
-	local hitsb_dif = 0
+	local hitsb_dif = 10
 	local hitsb = HitSb(role) + hitsb_dif
 	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT ) 
 
-	local hrecsb_dif = 0
+	local hrecsb_dif = 8
 	local hrecsb = HrecSb(role) + hrecsb_dif
 	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC ) 
 
-	local pdef_dif = 0
+	local pdef_dif = 4
 	local pdef = ResistSb(role) + pdef_dif 
 	SetCharaAttr( pdef , role , ATTR_STATEV_PDEF )
 
 	ALLExAttrSet(role)  
 end 
 
-
 function State_BBRING2_Rem ( role , statelv ) 
-	local mspdsb_dif = 0
-	local mspdsb = MspdSb(role) - mspdsb_dif
-	SetCharaAttr( mspdsb , role , ATTR_STATEV_MSPD ) 
+	local strsb_dif = 8
+	local strsb = StrSb( role ) - strsb_dif
+	SetCharaAttr( strsb , role , ATTR_STATEV_STR )
 
-	local defsb_dif = 0
-	local defsb = DefSb(role) - defsb_dif 
-	SetCharaAttr( defsb , role , ATTR_STATEV_DEF )
+	local agisb_dif = 3
+	local agisb = AgiSb( role ) - agisb_dif
+	SetCharaAttr( agisb , role , ATTR_STATEV_AGI )
 	
-	local fleesb_dif = 0
+	local consb_dif = 8
+	local consb = ConSb( role ) - consb_dif
+	SetCharaAttr( consb , role , ATTR_STATEV_CON )
+
+	local defsb_dif = 80
+	local defsb = DefSb(role) - defsb_dif
+	SetCharaAttr( defsb , role , ATTR_STATEV_DEF ) 
+
+	local fleesb_dif = 30
 	local fleesb = FleeSb(role) - fleesb_dif 
 	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE )
 	
-	local hitsb_dif = 0
-	local hitsb = Hitsb(role) - hitsb_dif 
-	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT )
-	
-	local hrecsb_dif = 0
-	local hrecsb = Hrecsb(role) - hrecsb_dif 
-	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC )
-	
-	local pdef_dif = 0
+	local hitsb_dif = 10
+	local hitsb = HitSb(role) - hitsb_dif
+	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT ) 
+
+	local hrecsb_dif = 8
+	local hrecsb = HrecSb(role) - hrecsb_dif
+	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC ) 
+
+	local pdef_dif = 4
 	local pdef = ResistSb(role) - pdef_dif 
 	SetCharaAttr( pdef , role , ATTR_STATEV_PDEF )
 
 	ALLExAttrSet(role)  
 end
 
------200set
+-----BBRING3---85BBÁÔ½ä
 function State_BBRING3_Add ( role , statelv ) 
 	
-	local strsb_dif = 0
-	local strsb = StrSb( role ) + strsb_dif
-	SetCharaAttr( strsb , role , ATTR_STATEV_STR )
-
-	local dexsb_dif = 0
-	local dexsb = DexSb( role ) + dexsb_dif
-	SetCharaAttr( dexsb , role , ATTR_STATEV_DEX )
-
-	local agisb_dif = 0
+	local agisb_dif = 4
 	local agisb = AgiSb( role ) + agisb_dif
 	SetCharaAttr( agisb , role , ATTR_STATEV_AGI )
 	
-	local consb_dif = 0
+	local dexsb_dif = 8
+	local dexsb = DexSb( role ) + dexsb_dif
+	SetCharaAttr( dexsb , role , ATTR_STATEV_DEX )
+	
+	local consb_dif = 6
 	local consb = ConSb( role ) + consb_dif
 	SetCharaAttr( consb , role , ATTR_STATEV_CON )
 	
-	local stasb_dif = 0
-	local stasb = StaSb( role ) + stasb_dif
-	SetCharaAttr( stasb , role , ATTR_STATEV_STA )
-	
-	local mspdsb_dif = 0
-	local mspdsb = MspdSb( role ) + mspdsb_dif
-	SetCharaAttr( mspdsb , role , ATTR_STATEV_MSPD )
-	
-	local defsb_dif = 0
+	local defsb_dif = 75
 	local defsb = DefSb(role) + defsb_dif
 	SetCharaAttr( defsb , role , ATTR_STATEV_DEF ) 
 
-	local fleesb_dif = 0
+	local fleesb_dif = 15
 	local fleesb = FleeSb(role) + fleesb_dif 
 	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE )
 	
-	local hitsb_dif = 0
+	local hitsb_dif = 30
 	local hitsb = HitSb(role) + hitsb_dif
 	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT ) 
 
-	local hrecsb_dif = 0
+	local hrecsb_dif = 6
 	local hrecsb = HrecSb(role) + hrecsb_dif
 	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC ) 
 
-	local pdef_dif = 0
+	local pdef_dif = 3
 	local pdef = ResistSb(role) + pdef_dif 
 	SetCharaAttr( pdef , role , ATTR_STATEV_PDEF )
 
@@ -15642,97 +16686,70 @@ function State_BBRING3_Add ( role , statelv )
 end 
 
 function State_BBRING3_Rem ( role , statelv ) 
-	local strsb_dif = 0
-	local strsb = StrSb( role ) - strsb_dif
-	SetCharaAttr( strsb , role , ATTR_STATEV_STR )
-
-	local dexsb_dif = 0
+	local agisb_dif = 4
+	local agisb = AgiSb( role ) - agisb_dif
+	SetCharaAttr( agisb , role , ATTR_STATEV_AGI )
+	
+	local dexsb_dif = 8
 	local dexsb = DexSb( role ) - dexsb_dif
 	SetCharaAttr( dexsb , role , ATTR_STATEV_DEX )
 	
-	local agisb_dif = 0
-	local agisb = AgiSb(role) - agisb_dif
-	SetCharaAttr( agisb , role , ATTR_STATEV_AGI ) 
-	
-	local consb_dif = 0
-	local consb = ConSb(role) - consb_dif 
+	local consb_dif = 6
+	local consb = ConSb( role ) - consb_dif
 	SetCharaAttr( consb , role , ATTR_STATEV_CON )
 	
-	local stasb_dif = 0
-	local stasb = StaSb(role) - stasb_dif
-	SetCharaAttr( stasb , role , ATTR_STATEV_STA ) 
-
-	local mspdsb_dif = 0
-	local mspdsb = MspdSb(role) - mspdsb_dif
-	SetCharaAttr( mspdsb , role , ATTR_STATEV_MSPD ) 
-
-	local defsb_dif = 0
-	local defsb = DefSb(role) - defsb_dif 
-	SetCharaAttr( defsb , role , ATTR_STATEV_DEF )
 	
-	local fleesb_dif = 0
+	local defsb_dif = 75
+	local defsb = DefSb(role) - defsb_dif
+	SetCharaAttr( defsb , role , ATTR_STATEV_DEF ) 
+
+	local fleesb_dif = 15
 	local fleesb = FleeSb(role) - fleesb_dif 
 	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE )
 	
-	local hitsb_dif = 0
-	local hitsb = Hitsb(role) - hitsb_dif 
-	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT )
-	
-	local hrecsb_dif = 0
-	local hrecsb = Hrecsb(role) - hrecsb_dif 
-	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC )
-	
-	local pdef_dif = 0
+	local hitsb_dif = 30
+	local hitsb = HitSb(role) - hitsb_dif
+	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT ) 
+
+	local hrecsb_dif = 6
+	local hrecsb = HrecSb(role) - hrecsb_dif
+	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC ) 
+
+	local pdef_dif = 3
 	local pdef = ResistSb(role) - pdef_dif 
 	SetCharaAttr( pdef , role , ATTR_STATEV_PDEF )
 
 	ALLExAttrSet(role)  
 end
 
------400set
+-----BBRING4---85BBº½½ä
 function State_BBRING4_Add ( role , statelv ) 
 	
-	local strsb_dif = 0
-	local strsb = StrSb( role ) + strsb_dif
-	SetCharaAttr( strsb , role , ATTR_STATEV_STR )
-
-	local dexsb_dif = 0
-	local dexsb = DexSb( role ) + dexsb_dif
-	SetCharaAttr( dexsb , role , ATTR_STATEV_DEX )
-
-	local agisb_dif = 0
-	local agisb = AgiSb( role ) + agisb_dif
-	SetCharaAttr( agisb , role , ATTR_STATEV_AGI )
-	
-	local consb_dif = 0
+	local consb_dif = 8
 	local consb = ConSb( role ) + consb_dif
 	SetCharaAttr( consb , role , ATTR_STATEV_CON )
 	
-	local stasb_dif = 0
+	local stasb_dif = 10
 	local stasb = StaSb( role ) + stasb_dif
 	SetCharaAttr( stasb , role , ATTR_STATEV_STA )
 	
-	local mspdsb_dif = 0
-	local mspdsb = MspdSb( role ) + mspdsb_dif
-	SetCharaAttr( mspdsb , role , ATTR_STATEV_MSPD )
-	
-	local defsb_dif = 0
+	local defsb_dif = 75
 	local defsb = DefSb(role) + defsb_dif
 	SetCharaAttr( defsb , role , ATTR_STATEV_DEF ) 
 
-	local fleesb_dif = 0
-	local fleesb = FleeSb(role) + fleesb_dif 
-	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE )
-	
-	local hitsb_dif = 0
+	local hitsb_dif = 30
 	local hitsb = HitSb(role) + hitsb_dif
 	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT ) 
 
-	local hrecsb_dif = 0
+	local hrecsb_dif = 4
 	local hrecsb = HrecSb(role) + hrecsb_dif
 	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC ) 
+	
+	local srecsb_dif = 2
+	local srecsb = SrecSb(role) + srecsb_dif
+	SetCharaAttr( srecsb , role , ATTR_STATEV_SREC ) 
 
-	local pdef_dif = 0
+	local pdef_dif = 3
 	local pdef = ResistSb(role) + pdef_dif 
 	SetCharaAttr( pdef , role , ATTR_STATEV_PDEF )
 
@@ -15741,76 +16758,61 @@ end
 
 function State_BBRING4_Rem ( role , statelv ) 
 		
-	local strsb_dif = 0
-	local strsb = StrSb( role ) - strsb_dif
-	SetCharaAttr( strsb , role , ATTR_STATEV_STR )
-
-	local dexsb_dif = 0
-	local dexsb = DexSb( role ) - dexsb_dif
-	SetCharaAttr( dexsb , role , ATTR_STATEV_DEX )
-	
-	local agisb_dif = 0
-	local agisb = AgiSb(role) - agisb_dif
-	SetCharaAttr( agisb , role , ATTR_STATEV_AGI ) 
-	
-	local consb_dif = 0
-	local consb = ConSb(role) - consb_dif 
+	local consb_dif = 8
+	local consb = ConSb( role ) - consb_dif
 	SetCharaAttr( consb , role , ATTR_STATEV_CON )
 	
-	local stasb_dif = 0
-	local stasb = StaSb(role) - stasb_dif
-	SetCharaAttr( stasb , role , ATTR_STATEV_STA ) 
+	local stasb_dif = 10
+	local stasb = StaSb( role ) - stasb_dif
+	SetCharaAttr( stasb , role , ATTR_STATEV_STA )
+	
+	local defsb_dif = 75
+	local defsb = DefSb(role) - defsb_dif
+	SetCharaAttr( defsb , role , ATTR_STATEV_DEF ) 
 
-	local mspdsb_dif = 0
-	local mspdsb = MspdSb(role) - mspdsb_dif
-	SetCharaAttr( mspdsb , role , ATTR_STATEV_MSPD ) 
+	local hitsb_dif = 30
+	local hitsb = HitSb(role) - hitsb_dif
+	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT ) 
 
-	local defsb_dif = 0
-	local defsb = DefSb(role) - defsb_dif 
-	SetCharaAttr( defsb , role , ATTR_STATEV_DEF )
+	local hrecsb_dif = 4
+	local hrecsb = HrecSb(role) - hrecsb_dif
+	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC ) 
 	
-	local fleesb_dif = 0
-	local fleesb = FleeSb(role) - fleesb_dif 
-	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE )
-	
-	local hitsb_dif = 0
-	local hitsb = Hitsb(role) - hitsb_dif 
-	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT )
-	
-	local hrecsb_dif = 0
-	local hrecsb = Hrecsb(role) - hrecsb_dif 
-	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC )
-	
-	local pdef_dif = 0
+	local srecsb_dif = 2
+	local srecsb = SrecSb(role) - srecsb_dif
+	SetCharaAttr( srecsb , role , ATTR_STATEV_SREC ) 
+
+	local pdef_dif = 3
 	local pdef = ResistSb(role) - pdef_dif 
 	SetCharaAttr( pdef , role , ATTR_STATEV_PDEF )
 
 	ALLExAttrSet(role)  
 end
 
------BBRING5---85BBï¿½ï¿½Ó¡ï¿½ï¿½
+-----BBRING5---85BB·âÓ¡½ä
 function State_BBRING5_Add ( role , statelv ) 
-	local mspdsb_dif = 0
-	local mspdsb = MspdSb( role ) + mspdsb_dif
-	SetCharaAttr( mspdsb , role , ATTR_STATEV_MSPD )
 	
-	local defsb_dif = 0
+	local consb_dif = 7
+	local consb = ConSb( role ) + consb_dif
+	SetCharaAttr( consb , role , ATTR_STATEV_CON )
+	
+	local stasb_dif = 10
+	local stasb = StaSb( role ) + stasb_dif
+	SetCharaAttr( stasb , role , ATTR_STATEV_STA )
+	
+	local defsb_dif = 55
 	local defsb = DefSb(role) + defsb_dif
 	SetCharaAttr( defsb , role , ATTR_STATEV_DEF ) 
 
-	local fleesb_dif = 0
-	local fleesb = FleeSb(role) + fleesb_dif 
-	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE )
-	
-	local hitsb_dif = 0
+	local hitsb_dif = 30
 	local hitsb = HitSb(role) + hitsb_dif
 	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT ) 
 
-	local hrecsb_dif = 0
-	local hrecsb = HrecSb(role) + hrecsb_dif
-	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC ) 
+	local srecsb_dif = 8
+	local srecsb = SrecSb(role) + srecsb_dif
+	SetCharaAttr( srecsb , role , ATTR_STATEV_SREC ) 
 
-	local pdef_dif = 0
+	local pdef_dif = 2
 	local pdef = ResistSb(role) + pdef_dif 
 	SetCharaAttr( pdef , role , ATTR_STATEV_PDEF )
 
@@ -15818,78 +16820,62 @@ function State_BBRING5_Add ( role , statelv )
 end 
 
 function State_BBRING5_Rem ( role , statelv ) 
-	local mspdsb_dif = 0
-	local mspdsb = MspdSb(role) - mspdsb_dif
-	SetCharaAttr( mspdsb , role , ATTR_STATEV_MSPD ) 
+		
+	local consb_dif = 7
+	local consb = ConSb( role ) - consb_dif
+	SetCharaAttr( consb , role , ATTR_STATEV_CON )
+	
+	local stasb_dif = 10
+	local stasb = StaSb( role ) - stasb_dif
+	SetCharaAttr( stasb , role , ATTR_STATEV_STA )
+	
+	local defsb_dif = 55
+	local defsb = DefSb(role) - defsb_dif
+	SetCharaAttr( defsb , role , ATTR_STATEV_DEF ) 
 
-	local defsb_dif = 0
-	local defsb = DefSb(role) - defsb_dif 
-	SetCharaAttr( defsb , role , ATTR_STATEV_DEF )
-	
-	local fleesb_dif = 0
-	local fleesb = FleeSb(role) - fleesb_dif 
-	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE )
-	
-	local hitsb_dif = 0
-	local hitsb = Hitsb(role) - hitsb_dif 
-	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT )
-	
-	local hrecsb_dif = 0
-	local hrecsb = Hrecsb(role) - hrecsb_dif 
-	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC )
-	
-	local pdef_dif = 0
+	local hitsb_dif = 30
+	local hitsb = HitSb(role) - hitsb_dif
+	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT ) 
+
+	local srecsb_dif = 8
+	local srecsb = SrecSb(role) - srecsb_dif
+	SetCharaAttr( srecsb , role , ATTR_STATEV_SREC ) 
+
+	local pdef_dif = 2
 	local pdef = ResistSb(role) - pdef_dif 
 	SetCharaAttr( pdef , role , ATTR_STATEV_PDEF )
 
 	ALLExAttrSet(role)  
-	
 end
 
------BBRING6---85BBÊ¥ï¿½ï¿½
+-----BBRING6---85BBÊ¥½ä
 function State_BBRING6_Add ( role , statelv ) 
 	
-	local strsb_dif = 0
-	local strsb = StrSb( role ) + strsb_dif
-	SetCharaAttr( strsb , role , ATTR_STATEV_STR )
-
-	local dexsb_dif = 0
+	local dexsb_dif = 2
 	local dexsb = DexSb( role ) + dexsb_dif
 	SetCharaAttr( dexsb , role , ATTR_STATEV_DEX )
-
-	local agisb_dif = 0
-	local agisb = AgiSb( role ) + agisb_dif
-	SetCharaAttr( agisb , role , ATTR_STATEV_AGI )
 	
-	local consb_dif = 0
+	local consb_dif = 3
 	local consb = ConSb( role ) + consb_dif
 	SetCharaAttr( consb , role , ATTR_STATEV_CON )
 	
-	local stasb_dif = 0
+	local stasb_dif = 12
 	local stasb = StaSb( role ) + stasb_dif
 	SetCharaAttr( stasb , role , ATTR_STATEV_STA )
 	
-	local mspdsb_dif = 0
-	local mspdsb = MspdSb( role ) + mspdsb_dif
-	SetCharaAttr( mspdsb , role , ATTR_STATEV_MSPD )
-	
-	local defsb_dif = 0
+	local defsb_dif = 55
 	local defsb = DefSb(role) + defsb_dif
 	SetCharaAttr( defsb , role , ATTR_STATEV_DEF ) 
 
-	local fleesb_dif = 0
-	local fleesb = FleeSb(role) + fleesb_dif 
-	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE )
-	
-	local hitsb_dif = 0
+	local hitsb_dif = 30
 	local hitsb = HitSb(role) + hitsb_dif
 	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT ) 
 
-	local hrecsb_dif = 0
-	local hrecsb = HrecSb(role) + hrecsb_dif
-	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC ) 
+	local srecsb_dif = 6
+	local srecsb = SrecSb(role) + srecsb_dif
+	SetCharaAttr( srecsb , role , ATTR_STATEV_SREC ) 
 
-	local pdef_dif = 0
+	local pdef_dif = 2
 	local pdef = ResistSb(role) + pdef_dif 
 	SetCharaAttr( pdef , role , ATTR_STATEV_PDEF )
 
@@ -15899,148 +16885,31 @@ end
 
 function State_BBRING6_Rem ( role , statelv ) 
 	
-	local strsb_dif = 0
-	local strsb = StrSb( role ) - strsb_dif
-	SetCharaAttr( strsb , role , ATTR_STATEV_STR )
-
-	local dexsb_dif = 0
+	local dexsb_dif = 2
 	local dexsb = DexSb( role ) - dexsb_dif
 	SetCharaAttr( dexsb , role , ATTR_STATEV_DEX )
 	
-	local agisb_dif = 0
-	local agisb = AgiSb(role) - agisb_dif
-	SetCharaAttr( agisb , role , ATTR_STATEV_AGI ) 
-	
-	local consb_dif = 0
-	local consb = ConSb(role) - consb_dif 
+	local consb_dif = 3
+	local consb = ConSb( role ) - consb_dif
 	SetCharaAttr( consb , role , ATTR_STATEV_CON )
 	
-	local stasb_dif = 0
-	local stasb = StaSb(role) - stasb_dif
-	SetCharaAttr( stasb , role , ATTR_STATEV_STA ) 
-
-	local mspdsb_dif = 0
-	local mspdsb = MspdSb(role) - mspdsb_dif
-	SetCharaAttr( mspdsb , role , ATTR_STATEV_MSPD ) 
-
-	local defsb_dif = 0
-	local defsb = DefSb(role) - defsb_dif 
-	SetCharaAttr( defsb , role , ATTR_STATEV_DEF )
-	
-	local fleesb_dif = 0
-	local fleesb = FleeSb(role) - fleesb_dif 
-	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE )
-	
-	local hitsb_dif = 0
-	local hitsb = Hitsb(role) - hitsb_dif 
-	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT )
-	
-	local hrecsb_dif = 0
-	local hrecsb = Hrecsb(role) - hrecsb_dif 
-	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC )
-	
-	local pdef_dif = 0
-	local pdef = ResistSb(role) - pdef_dif 
-	SetCharaAttr( pdef , role , ATTR_STATEV_PDEF )
-
-	ALLExAttrSet(role)  
-	
-end
-
-
-function State_BBRING7_Add ( role , statelv ) 
-	
-	local strsb_dif = 0
-	local strsb = StrSb( role ) + strsb_dif
-	SetCharaAttr( strsb , role , ATTR_STATEV_STR )
-
-	local dexsb_dif = 0
-	local dexsb = DexSb( role ) + dexsb_dif
-	SetCharaAttr( dexsb , role , ATTR_STATEV_DEX )
-
-	local agisb_dif = 0
-	local agisb = AgiSb( role ) + agisb_dif
-	SetCharaAttr( agisb , role , ATTR_STATEV_AGI )
-	
-	local consb_dif = 0
-	local consb = ConSb( role ) + consb_dif
-	SetCharaAttr( consb , role , ATTR_STATEV_CON )
-	
-	local stasb_dif = 0
-	local stasb = StaSb( role ) + stasb_dif
+	local stasb_dif = 12
+	local stasb = StaSb( role ) - stasb_dif
 	SetCharaAttr( stasb , role , ATTR_STATEV_STA )
 	
-	local mspdsb_dif = 0
-	local mspdsb = MspdSb( role ) + mspdsb_dif
-	SetCharaAttr( mspdsb , role , ATTR_STATEV_MSPD )
-	
-	local defsb_dif = 0
-	local defsb = DefSb(role) + defsb_dif
+	local defsb_dif = 55
+	local defsb = DefSb(role) - defsb_dif
 	SetCharaAttr( defsb , role , ATTR_STATEV_DEF ) 
 
-	local fleesb_dif = 0
-	local fleesb = FleeSb(role) + fleesb_dif 
-	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE )
-	
-	local hitsb_dif = 0
-	local hitsb = HitSb(role) + hitsb_dif
+	local hitsb_dif = 30
+	local hitsb = HitSb(role) - hitsb_dif
 	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT ) 
 
-	local hrecsb_dif = 0
-	local hrecsb = HrecSb(role) + hrecsb_dif
-	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC ) 
+	local srecsb_dif = 6
+	local srecsb = SrecSb(role) - srecsb_dif
+	SetCharaAttr( srecsb , role , ATTR_STATEV_SREC ) 
 
-	local pdef_dif = 0
-	local pdef = ResistSb(role) + pdef_dif 
-	SetCharaAttr( pdef , role , ATTR_STATEV_PDEF )
-
-	ALLExAttrSet(role)  
-	
-end 
-
-function State_BBRING7_Rem ( role , statelv ) 
-	
-	local strsb_dif = 0
-	local strsb = StrSb( role ) - strsb_dif
-	SetCharaAttr( strsb , role , ATTR_STATEV_STR )
-
-	local dexsb_dif = 0
-	local dexsb = DexSb( role ) - dexsb_dif
-	SetCharaAttr( dexsb , role , ATTR_STATEV_DEX )
-	
-	local agisb_dif = 0
-	local agisb = AgiSb(role) - agisb_dif
-	SetCharaAttr( agisb , role , ATTR_STATEV_AGI ) 
-	
-	local consb_dif = 0
-	local consb = ConSb(role) - consb_dif 
-	SetCharaAttr( consb , role , ATTR_STATEV_CON )
-	
-	local stasb_dif = 0
-	local stasb = StaSb(role) - stasb_dif
-	SetCharaAttr( stasb , role , ATTR_STATEV_STA ) 
-
-	local mspdsb_dif = 0
-	local mspdsb = MspdSb(role) - mspdsb_dif
-	SetCharaAttr( mspdsb , role , ATTR_STATEV_MSPD ) 
-
-	local defsb_dif = 0
-	local defsb = DefSb(role) - defsb_dif 
-	SetCharaAttr( defsb , role , ATTR_STATEV_DEF )
-	
-	local fleesb_dif = 0
-	local fleesb = FleeSb(role) - fleesb_dif 
-	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE )
-	
-	local hitsb_dif = 0
-	local hitsb = Hitsb(role) - hitsb_dif 
-	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT )
-	
-	local hrecsb_dif = 0
-	local hrecsb = Hrecsb(role) - hrecsb_dif 
-	SetCharaAttr( hrecsb , role , ATTR_STATEV_HREC )
-	
-	local pdef_dif = 0
+	local pdef_dif = 2
 	local pdef = ResistSb(role) - pdef_dif 
 	SetCharaAttr( pdef , role , ATTR_STATEV_PDEF )
 
@@ -16048,8 +16917,9 @@ function State_BBRING7_Rem ( role , statelv )
 	
 end
 
---------------------------------------------------------------08ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ö¸Ä±ï¿½,Ð§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)kokora---------------------------------------------------
--------------------------------------------------ï¿½ìº½ï¿½ï¿½ï¿½ï¿½--------------------------------------------------------------------
+
+--------------------------------------------------------------08ÉÌÆ·µ÷Õû(Ãû×Ö¸Ä±ä,Ð§¹ûÌáÉý)kokora---------------------------------------------------
+-------------------------------------------------Áìº½µÆÁý--------------------------------------------------------------------
 function State_lantern_Add ( role , statelv )
 	local def_dif = 100
 	local defsb = DefSb( role ) + def_dif
@@ -16064,7 +16934,7 @@ function State_lantern_Rem ( role , statelv )
 	ALLExAttrSet(role)
 end
 
---Ñ¸ï¿½Ý»ï¿½ï¿½ï¿½Ë® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ß³ï¿½ï¿½ï¿½Ê±ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½------------------------------------------------------
+--Ñ¸½Ý»ÃÐÐË® ´ó·ùÌá¸ßÐÐ×ßËÙ¶ÈÐ¡·ù½µµÍ·ÀÓùµÄµÀ¾ß³ÖÐøÊ±¼ä5·ÖÖÓ------------------------------------------------------
 
 function State_rapiddrug_Add ( role , statelv )
 	local mspdsa_dif = 0.5
@@ -16088,7 +16958,7 @@ function State_rapiddrug_Rem ( role , statelv )
 	ALLExAttrSet(role)
 end
 
---Õ½ï¿½ï¿½Ò©ï¿½ï¿½ Ë²ï¿½ï¿½ï¿½ï¿½ß¹ï¿½ï¿½ï¿½ï¿½ï¿½500Í¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½60ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½10ï¿½ï¿½ï¿½ï¿½------------------------------------------------------
+--Õ½¿ñÒ©¼Á Ë²¼äÌá¸ß¹¥»÷Á¦500Í¬Ê±·ÀÓùÁ¦½µµÍ60³ÖÐøÊ±¼ä10·ÖÖÓ------------------------------------------------------
 
 function State_warsit_Add ( role , statelv )
 	local atksb_dif = 500	
@@ -16114,7 +16984,7 @@ function State_warsit_Rem ( role , statelv )
 	ALLExAttrSet(role)
 end
 
-----------------------------------------ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ Ë²ï¿½ï¿½ï¿½ï¿½ß¹ï¿½ï¿½ï¿½ï¿½ï¿½100Í¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½30ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½10ï¿½ï¿½ï¿½ï¿½--------------------------------------------
+----------------------------------------ÐþÁú×°¼× Ë²¼äÌá¸ß¹¥»÷Á¦100Í¬Ê±·ÀÓùÁ¦½µµÍ30³ÖÐøÊ±¼ä10·ÖÖÓ--------------------------------------------
 
 function State_darkdress_Add ( role , statelv )
 	local def_dif = 100
@@ -16140,7 +17010,7 @@ function State_darkdress_Rem ( role , statelv )
 	ALLExAttrSet(role)
 end
 
--------------------------------------------------------------------ï¿½ï¿½Ä§ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½+10)------------------------------------------------------------
+-------------------------------------------------------------------¸½Ä§Õë¼Á(¾«Éñ+10)------------------------------------------------------------
 
 function State_DEMON_Add ( role , statelv )
 	local sta_dif = 10
@@ -16156,7 +17026,7 @@ function State_DEMON_Rem ( role , statelv )
 	ALLExAttrSet(role)
 end
 
----------------------------------------------------ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½+10)---------------------------------------------------------------------------------
+---------------------------------------------------¾Þ¼×Õë¼Á(ÌåÖÊ+10)---------------------------------------------------------------------------------
 
 function State_GREATSH_Add ( role , statelv )
 	local con_dif = 10
@@ -16172,7 +17042,7 @@ function State_GREATSH_Rem ( role , statelv )
 	ALLExAttrSet(role)
 end
 
-----------------------------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½+10)--------------------------------------------------------
+----------------------------------------------------------»ÃÁéÕë¼Á(Ãô½Ý+10)--------------------------------------------------------
 
 function State_MIRAGE_Add ( role , statelv )
 	local agi_dif = 10
@@ -16188,7 +17058,7 @@ function State_MIRAGE_Rem ( role , statelv )
 	ALLExAttrSet(role)
 end
 
------------------------------------------------------------------×¨×¢ï¿½ï¿½ï¿½(×¨×¢+10)----------------------------------------------------------------------------
+-----------------------------------------------------------------×¨×¢Õë¼Á(×¨×¢+10)----------------------------------------------------------------------------
 
 function State_DEVOTE_Add ( role , statelv )
 	local dex_dif = 10
@@ -16204,7 +17074,7 @@ function State_DEVOTE_Rem ( role , statelv )
 	ALLExAttrSet(role)
 end
 
--------------------------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½+10)----------------------------------------------------------------------------
+-------------------------------------------------------Á¦¿ñÕë¼Á(Á¦Á¿+10)----------------------------------------------------------------------------
 
 function State_VIGOUR_Add ( role , statelv )
 	local str_dif = 10
@@ -16220,7 +17090,7 @@ function State_VIGOUR_Rem ( role , statelv )
 	ALLExAttrSet(role)
 end
 
----------------------------------------------------------ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--------------------------------------------------
+---------------------------------------------------------´¬Ö»¶¯Á¦·«--------------------------------------------------
 
 function State_SHIPDRIVE_Add ( role , statelv )
 	local mspdsa_dif = 0
@@ -16242,7 +17112,7 @@ function State_SHIPDRIVE_Rem ( role , statelv )
 	ALLExAttrSet(role)
 end
 
--------------------------------------------------ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½----------------------------------------------------
+-------------------------------------------------´¬Ö»·ÀÓù¼×----------------------------------------------------
 
 function State_SHIPRECOVER_Add ( role , statelv )
 	local defsb_dif = 0
@@ -16268,17 +17138,395 @@ end
 
 ------------------------------------------------------------------end----------------------------------------------------------------------------------
 
-----------------------------------------------ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½
+------------------1¼¶´þ²¶Ö¤
+function SkillCooldown_Daibuzheng1( sklv )
+	local Cooldown = 5000
+	return Cooldown
+end
+
+function Skill_Daibuzheng1_End ( ATKER , DEFER , sklv )
+	local atker_name = GetChaDefaultName ( ATKER )
+	local defer_name = GetChaDefaultName ( DEFER )
+	local NocLock =	KitbagLock( ATKER, 0 )
+	local re_type = IsPlayer ( DEFER )
+	local State_baitan = GetChaStateLv ( DEFER, STATE_BAT )
+	local State_jiaoyi = GetChaStateLv ( DEFER, STATE_JY )
+	if re_type == 0 then
+		CALCULATE_SKILLEFFECT_LUA_000116 = GetResString("CALCULATE_SKILLEFFECT_LUA_000116")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000116)
+		return
+	end
+	if State_baitan >= 1 then
+		CALCULATE_SKILLEFFECT_LUA_000117 = GetResString("CALCULATE_SKILLEFFECT_LUA_000117")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000117)
+		return
+	end
+	if State_jiaoyi >= 1 then
+		CALCULATE_SKILLEFFECT_LUA_000118 = GetResString("CALCULATE_SKILLEFFECT_LUA_000118")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000118)
+		return
+	end
+	if atker_name == defer_name then					-------------------kokora080328
+		CALCULATE_SKILLEFFECT_LUA_000119 = GetResString("CALCULATE_SKILLEFFECT_LUA_000119")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000119)    
+		return
+	end
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local item_count = CheckBagItem ( ATKER , 5717 ) --´þ²¶Ö¤
+	if item_count <= 0 then  
+		
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000044 ) 
+		return
+	end
+	local statelv_bkdb = GetChaStateLv ( DEFER , STATE_BKDB )		--È¡²»¿É´þ²¶×´Ì¬µÈ¼¶
+	if statelv_bkdb >=1 then
+		
+		CALCULATE_SKILLEFFECT_LUA_000120 = GetResString("CALCULATE_SKILLEFFECT_LUA_000120")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000120)
+		return
+	end
+	local Lv_defer = Lv ( DEFER )
+	if Lv_defer > 40 then
+		
+		CALCULATE_SKILLEFFECT_LUA_000121 = GetResString("CALCULATE_SKILLEFFECT_LUA_000121")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000121)
+		return
+	end		
+	local a = DelBagItem ( ATKER , 5717 , 1 ) --É¾³ý´þ²¶Ö¤
+	local Num_Haorenzheng = CheckBagItem(  DEFER , 5721 ) --ºÃÈËÖ¤
+	local Num_Liangminzheng = CheckBagItem(  DEFER , 5722 ) --Á¼ÃñÖ¤
+	if Num_Haorenzheng >= 1 then
+		DelBagItem ( DEFER, 5721, 1) --É¾³ýºÃÈËÖ¤
+		CALCULATE_SKILLEFFECT_LUA_000122 = GetResString("CALCULATE_SKILLEFFECT_LUA_000122")
+		CALCULATE_EXP_AND_LEVEL_LUA_000040 = GetResString("CALCULATE_EXP_AND_LEVEL_LUA_000040")
+		SystemNotice( DEFER, CALCULATE_EXP_AND_LEVEL_LUA_000040..atker_name..CALCULATE_SKILLEFFECT_LUA_000122)
+		CALCULATE_SKILLEFFECT_LUA_000123 = GetResString("CALCULATE_SKILLEFFECT_LUA_000123")
+		Notice ( defer_name..CALCULATE_SKILLEFFECT_LUA_000123)
+	else
+		if Num_Liangminzheng >= 1 then
+			DelBagItem ( DEFER, 5722, 1) --É¾³ýÁ¼ÃñÖ¤
+			CALCULATE_SKILLEFFECT_LUA_000124 = GetResString("CALCULATE_SKILLEFFECT_LUA_000124")
+			CALCULATE_SKILLEFFECT_LUA_000125 = GetResString("CALCULATE_SKILLEFFECT_LUA_000125")
+			SystemNotice( ATKER, CALCULATE_SKILLEFFECT_LUA_000125..defer_name..CALCULATE_SKILLEFFECT_LUA_000124)
+			CALCULATE_SKILLEFFECT_LUA_000124 = GetResString("CALCULATE_SKILLEFFECT_LUA_000124")
+			CALCULATE_SKILLEFFECT_LUA_000126 = GetResString("CALCULATE_SKILLEFFECT_LUA_000126")
+			Notice ( atker_name..CALCULATE_SKILLEFFECT_LUA_000126..defer_name..CALCULATE_SKILLEFFECT_LUA_000124)
+			BIRTH_BIRTH_CONF_LUA_000052 = GetResString("BIRTH_BIRTH_CONF_LUA_000052")
+			SetSpawnPos ( ATKER , BIRTH_BIRTH_CONF_LUA_000052 )
+			BIRTH_BIRTH_CONF_LUA_000052 = GetResString("BIRTH_BIRTH_CONF_LUA_000052")
+			MoveCity( ATKER , BIRTH_BIRTH_CONF_LUA_000052)
+		else
+			CALCULATE_SKILLEFFECT_LUA_000127 = GetResString("CALCULATE_SKILLEFFECT_LUA_000127")
+			CALCULATE_SKILLEFFECT_LUA_000128 = GetResString("CALCULATE_SKILLEFFECT_LUA_000128")
+			Notice ( defer_name..CALCULATE_SKILLEFFECT_LUA_000128..atker_name..CALCULATE_SKILLEFFECT_LUA_000127)
+			BIRTH_BIRTH_CONF_LUA_000052 = GetResString("BIRTH_BIRTH_CONF_LUA_000052")
+			SetSpawnPos ( DEFER , BIRTH_BIRTH_CONF_LUA_000052 )
+			BIRTH_BIRTH_CONF_LUA_000052 = GetResString("BIRTH_BIRTH_CONF_LUA_000052")
+			MoveCity( DEFER , BIRTH_BIRTH_CONF_LUA_000052)
+		end
+	end
+end
+
+------------------2¼¶´þ²¶Ö¤
+function SkillCooldown_Daibuzheng2( sklv )
+	local Cooldown = 5000
+	return Cooldown
+end
+
+function Skill_Daibuzheng2_End ( ATKER , DEFER , sklv )
+	local atker_name = GetChaDefaultName ( ATKER )
+	local defer_name = GetChaDefaultName ( DEFER )
+	local NocLock =	KitbagLock( ATKER, 0 )
+	local re_type = IsPlayer ( DEFER )
+	local State_baitan = GetChaStateLv ( DEFER, STATE_BAT )
+	local State_jiaoyi = GetChaStateLv ( DEFER, STATE_JY )
+	if re_type == 0 then
+		CALCULATE_SKILLEFFECT_LUA_000116 = GetResString("CALCULATE_SKILLEFFECT_LUA_000116")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000116)
+		return
+	end
+	if State_baitan >= 1 then
+		CALCULATE_SKILLEFFECT_LUA_000117 = GetResString("CALCULATE_SKILLEFFECT_LUA_000117")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000117)
+		return
+	end
+	if State_jiaoyi >= 1 then
+		CALCULATE_SKILLEFFECT_LUA_000118 = GetResString("CALCULATE_SKILLEFFECT_LUA_000118")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000118)
+		return
+	end
+	if atker_name == defer_name then					-------------------kokora080328
+		CALCULATE_SKILLEFFECT_LUA_000119 = GetResString("CALCULATE_SKILLEFFECT_LUA_000119")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000119)     
+		return
+	end
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0  
+	end
+	local item_count = CheckBagItem ( ATKER , 5718 ) --´þ²¶Ö¤
+	if item_count <= 0 then  
+		
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000044 ) 
+		return
+	end
+	local statelv_bkdb = GetChaStateLv ( DEFER , STATE_BKDB )		--È¡²»¿É´þ²¶×´Ì¬µÈ¼¶
+	if statelv_bkdb >=1 then
+		
+		CALCULATE_SKILLEFFECT_LUA_000120 = GetResString("CALCULATE_SKILLEFFECT_LUA_000120")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000120)
+		return
+	end
+	local Lv_defer = Lv ( DEFER )
+	if Lv_defer > 60 then
+		
+		CALCULATE_SKILLEFFECT_LUA_000121 = GetResString("CALCULATE_SKILLEFFECT_LUA_000121")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000121)
+		return
+	end		
+	local a = DelBagItem ( ATKER , 5718 , 1 ) --É¾³ý´þ²¶Ö¤
+	local Num_Haorenzheng = CheckBagItem(  DEFER , 5721 ) --ºÃÈËÖ¤
+	local Num_Liangminzheng = CheckBagItem(  DEFER , 5722 ) --Á¼ÃñÖ¤
+	if Num_Haorenzheng >= 1 then
+		DelBagItem ( DEFER, 5721, 1) --É¾³ýºÃÈËÖ¤
+		CALCULATE_SKILLEFFECT_LUA_000122 = GetResString("CALCULATE_SKILLEFFECT_LUA_000122")
+		CALCULATE_EXP_AND_LEVEL_LUA_000040 = GetResString("CALCULATE_EXP_AND_LEVEL_LUA_000040")
+		SystemNotice( DEFER, CALCULATE_EXP_AND_LEVEL_LUA_000040..atker_name..CALCULATE_SKILLEFFECT_LUA_000122)
+		CALCULATE_SKILLEFFECT_LUA_000123 = GetResString("CALCULATE_SKILLEFFECT_LUA_000123")
+		Notice ( defer_name..CALCULATE_SKILLEFFECT_LUA_000123)
+	else
+		if Num_Liangminzheng >= 1 then
+			DelBagItem ( DEFER, 5722, 1) --É¾³ýÁ¼ÃñÖ¤
+			CALCULATE_SKILLEFFECT_LUA_000124 = GetResString("CALCULATE_SKILLEFFECT_LUA_000124")
+			CALCULATE_SKILLEFFECT_LUA_000125 = GetResString("CALCULATE_SKILLEFFECT_LUA_000125")
+			SystemNotice( ATKER, CALCULATE_SKILLEFFECT_LUA_000125..defer_name..CALCULATE_SKILLEFFECT_LUA_000124)
+			CALCULATE_SKILLEFFECT_LUA_000124 = GetResString("CALCULATE_SKILLEFFECT_LUA_000124")
+			CALCULATE_SKILLEFFECT_LUA_000126 = GetResString("CALCULATE_SKILLEFFECT_LUA_000126")
+			Notice ( atker_name..CALCULATE_SKILLEFFECT_LUA_000126..defer_name..CALCULATE_SKILLEFFECT_LUA_000124)
+			BIRTH_BIRTH_CONF_LUA_000052 = GetResString("BIRTH_BIRTH_CONF_LUA_000052")
+			SetSpawnPos ( ATKER , BIRTH_BIRTH_CONF_LUA_000052 )
+			BIRTH_BIRTH_CONF_LUA_000052 = GetResString("BIRTH_BIRTH_CONF_LUA_000052")
+			MoveCity( ATKER , BIRTH_BIRTH_CONF_LUA_000052)
+		else
+			CALCULATE_SKILLEFFECT_LUA_000127 = GetResString("CALCULATE_SKILLEFFECT_LUA_000127")
+			CALCULATE_SKILLEFFECT_LUA_000128 = GetResString("CALCULATE_SKILLEFFECT_LUA_000128")
+			Notice ( defer_name..CALCULATE_SKILLEFFECT_LUA_000128..atker_name..CALCULATE_SKILLEFFECT_LUA_000127)
+			BIRTH_BIRTH_CONF_LUA_000052 = GetResString("BIRTH_BIRTH_CONF_LUA_000052")
+			SetSpawnPos ( DEFER , BIRTH_BIRTH_CONF_LUA_000052 )
+			BIRTH_BIRTH_CONF_LUA_000052 = GetResString("BIRTH_BIRTH_CONF_LUA_000052")
+			MoveCity( DEFER , BIRTH_BIRTH_CONF_LUA_000052)
+		end
+	end
+end
+
+------------------3¼¶´þ²¶Ö¤
+function SkillCooldown_Daibuzheng3( sklv )
+	local Cooldown = 5000
+	return Cooldown
+end
+
+function Skill_Daibuzheng3_End ( ATKER , DEFER , sklv )
+	local atker_name = GetChaDefaultName ( ATKER )
+	local defer_name = GetChaDefaultName ( DEFER )
+	local NocLock =	KitbagLock( ATKER, 0 )
+	local re_type = IsPlayer ( DEFER )
+	local State_baitan = GetChaStateLv ( DEFER, STATE_BAT )
+	local State_jiaoyi = GetChaStateLv ( DEFER, STATE_JY )
+	if re_type == 0 then
+		CALCULATE_SKILLEFFECT_LUA_000116 = GetResString("CALCULATE_SKILLEFFECT_LUA_000116")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000116)
+		return
+	end
+	if State_baitan >= 1 then
+		CALCULATE_SKILLEFFECT_LUA_000117 = GetResString("CALCULATE_SKILLEFFECT_LUA_000117")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000117)
+		return
+	end
+	if State_jiaoyi >= 1 then
+		CALCULATE_SKILLEFFECT_LUA_000118 = GetResString("CALCULATE_SKILLEFFECT_LUA_000118")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000118)
+		return
+	end
+	if atker_name == defer_name then					-------------------kokora080328
+		CALCULATE_SKILLEFFECT_LUA_000119 = GetResString("CALCULATE_SKILLEFFECT_LUA_000119")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000119)   
+		return
+	end
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local item_count = CheckBagItem ( ATKER , 5719 ) --´þ²¶Ö¤
+	if item_count <= 0 then  
+		
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000044 ) 
+		return
+	end
+	local statelv_bkdb = GetChaStateLv ( DEFER , STATE_BKDB )		--È¡²»¿É´þ²¶×´Ì¬µÈ¼¶
+	if statelv_bkdb >=1 then
+		
+		CALCULATE_SKILLEFFECT_LUA_000120 = GetResString("CALCULATE_SKILLEFFECT_LUA_000120")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000120)
+		return
+	end
+	local Lv_defer = Lv ( DEFER )
+	if Lv_defer > 80 then
+		
+		CALCULATE_SKILLEFFECT_LUA_000121 = GetResString("CALCULATE_SKILLEFFECT_LUA_000121")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000121)
+		return
+	end		
+	local a = DelBagItem ( ATKER , 5719 , 1 ) --É¾³ý´þ²¶Ö¤
+	local Num_Haorenzheng = CheckBagItem(  DEFER , 5721 ) --ºÃÈËÖ¤
+	local Num_Liangminzheng = CheckBagItem(  DEFER , 5722 ) --Á¼ÃñÖ¤
+	if Num_Haorenzheng >= 1 then
+		DelBagItem ( DEFER, 5721, 1) --É¾³ýºÃÈËÖ¤
+		CALCULATE_SKILLEFFECT_LUA_000122 = GetResString("CALCULATE_SKILLEFFECT_LUA_000122")
+		CALCULATE_EXP_AND_LEVEL_LUA_000040 = GetResString("CALCULATE_EXP_AND_LEVEL_LUA_000040")
+		SystemNotice( DEFER, CALCULATE_EXP_AND_LEVEL_LUA_000040..atker_name..CALCULATE_SKILLEFFECT_LUA_000122)
+		CALCULATE_SKILLEFFECT_LUA_000123 = GetResString("CALCULATE_SKILLEFFECT_LUA_000123")
+		Notice ( defer_name..CALCULATE_SKILLEFFECT_LUA_000123)
+	else
+		if Num_Liangminzheng >= 1 then
+			DelBagItem ( DEFER, 5722, 1) --É¾³ýÁ¼ÃñÖ¤
+			CALCULATE_SKILLEFFECT_LUA_000124 = GetResString("CALCULATE_SKILLEFFECT_LUA_000124")
+			CALCULATE_SKILLEFFECT_LUA_000125 = GetResString("CALCULATE_SKILLEFFECT_LUA_000125")
+			SystemNotice( ATKER, CALCULATE_SKILLEFFECT_LUA_000125..defer_name..CALCULATE_SKILLEFFECT_LUA_000124)
+			CALCULATE_SKILLEFFECT_LUA_000124 = GetResString("CALCULATE_SKILLEFFECT_LUA_000124")
+			CALCULATE_SKILLEFFECT_LUA_000126 = GetResString("CALCULATE_SKILLEFFECT_LUA_000126")
+			Notice ( atker_name..CALCULATE_SKILLEFFECT_LUA_000126..defer_name..CALCULATE_SKILLEFFECT_LUA_000124)
+			BIRTH_BIRTH_CONF_LUA_000052 = GetResString("BIRTH_BIRTH_CONF_LUA_000052")
+			SetSpawnPos ( ATKER , BIRTH_BIRTH_CONF_LUA_000052 )
+			BIRTH_BIRTH_CONF_LUA_000052 = GetResString("BIRTH_BIRTH_CONF_LUA_000052")
+			MoveCity( ATKER , BIRTH_BIRTH_CONF_LUA_000052)
+		else
+			CALCULATE_SKILLEFFECT_LUA_000127 = GetResString("CALCULATE_SKILLEFFECT_LUA_000127")
+			CALCULATE_SKILLEFFECT_LUA_000128 = GetResString("CALCULATE_SKILLEFFECT_LUA_000128")
+			Notice ( defer_name..CALCULATE_SKILLEFFECT_LUA_000128..atker_name..CALCULATE_SKILLEFFECT_LUA_000127)
+			BIRTH_BIRTH_CONF_LUA_000052 = GetResString("BIRTH_BIRTH_CONF_LUA_000052")
+			SetSpawnPos ( DEFER , BIRTH_BIRTH_CONF_LUA_000052 )
+			BIRTH_BIRTH_CONF_LUA_000052 = GetResString("BIRTH_BIRTH_CONF_LUA_000052")
+			MoveCity( DEFER , BIRTH_BIRTH_CONF_LUA_000052)
+		end
+	end
+end
+
+------------------4¼¶´þ²¶Ö¤
+function SkillCooldown_Daibuzheng4( sklv )
+	local Cooldown = 5000
+	return Cooldown
+end
+
+function Skill_Daibuzheng4_End ( ATKER , DEFER , sklv )
+	local atker_name = GetChaDefaultName ( ATKER )
+	local defer_name = GetChaDefaultName ( DEFER )
+	local NocLock =	KitbagLock( ATKER, 0 )
+	local re_type = IsPlayer ( DEFER )
+	local State_baitan = GetChaStateLv ( DEFER, STATE_BAT )
+	local State_jiaoyi = GetChaStateLv ( DEFER, STATE_JY )
+	if re_type == 0 then
+		CALCULATE_SKILLEFFECT_LUA_000116 = GetResString("CALCULATE_SKILLEFFECT_LUA_000116")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000116)
+		return
+	end
+	if State_baitan >= 1 then
+		CALCULATE_SKILLEFFECT_LUA_000117 = GetResString("CALCULATE_SKILLEFFECT_LUA_000117")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000117)
+		return
+	end
+	if State_jiaoyi >= 1 then
+		CALCULATE_SKILLEFFECT_LUA_000118 = GetResString("CALCULATE_SKILLEFFECT_LUA_000118")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000118)
+		return
+	end
+	if atker_name == defer_name then					-------------------kokora080328
+		CALCULATE_SKILLEFFECT_LUA_000119 = GetResString("CALCULATE_SKILLEFFECT_LUA_000119")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000119)   
+		return
+	end
+	if NocLock == LUA_FALSE then
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
+		return 0
+	end
+	local item_count = CheckBagItem ( ATKER , 5720 ) --´þ²¶Ö¤
+	if item_count <= 0 then  
+		
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000044 ) 
+		return
+	end
+	local statelv_bkdb = GetChaStateLv ( DEFER , STATE_BKDB )		--È¡²»¿É´þ²¶×´Ì¬µÈ¼¶
+	if statelv_bkdb >=1 then
+		
+		CALCULATE_SKILLEFFECT_LUA_000120 = GetResString("CALCULATE_SKILLEFFECT_LUA_000120")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000120)
+		return
+	end
+	local Lv_defer = Lv ( DEFER )
+	if Lv_defer > 100 then
+		
+		CALCULATE_SKILLEFFECT_LUA_000121 = GetResString("CALCULATE_SKILLEFFECT_LUA_000121")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000121)
+		return
+	end		
+	local a = DelBagItem ( ATKER , 5720 , 1 ) --É¾³ý´þ²¶Ö¤
+	local Num_Haorenzheng = CheckBagItem(  DEFER , 5721 ) --ºÃÈËÖ¤
+	local Num_Liangminzheng = CheckBagItem(  DEFER , 5722 ) --Á¼ÃñÖ¤
+	if Num_Haorenzheng >= 1 then
+		DelBagItem ( DEFER, 5721, 1) --É¾³ýºÃÈËÖ¤
+		CALCULATE_SKILLEFFECT_LUA_000122 = GetResString("CALCULATE_SKILLEFFECT_LUA_000122")
+		CALCULATE_EXP_AND_LEVEL_LUA_000040 = GetResString("CALCULATE_EXP_AND_LEVEL_LUA_000040")
+		SystemNotice( DEFER, CALCULATE_EXP_AND_LEVEL_LUA_000040..atker_name..CALCULATE_SKILLEFFECT_LUA_000122)
+		CALCULATE_SKILLEFFECT_LUA_000123 = GetResString("CALCULATE_SKILLEFFECT_LUA_000123")
+		Notice ( defer_name..CALCULATE_SKILLEFFECT_LUA_000123)
+	else
+		if Num_Liangminzheng >= 1 then
+			DelBagItem ( DEFER, 5722, 1) --É¾³ýÁ¼ÃñÖ¤
+			CALCULATE_SKILLEFFECT_LUA_000124 = GetResString("CALCULATE_SKILLEFFECT_LUA_000124")
+			CALCULATE_SKILLEFFECT_LUA_000125 = GetResString("CALCULATE_SKILLEFFECT_LUA_000125")
+			SystemNotice( ATKER, CALCULATE_SKILLEFFECT_LUA_000125..defer_name..CALCULATE_SKILLEFFECT_LUA_000124)
+			CALCULATE_SKILLEFFECT_LUA_000124 = GetResString("CALCULATE_SKILLEFFECT_LUA_000124")
+			CALCULATE_SKILLEFFECT_LUA_000126 = GetResString("CALCULATE_SKILLEFFECT_LUA_000126")
+			Notice ( atker_name..CALCULATE_SKILLEFFECT_LUA_000126..defer_name..CALCULATE_SKILLEFFECT_LUA_000124)
+			BIRTH_BIRTH_CONF_LUA_000052 = GetResString("BIRTH_BIRTH_CONF_LUA_000052")
+			SetSpawnPos ( ATKER , BIRTH_BIRTH_CONF_LUA_000052 )
+			BIRTH_BIRTH_CONF_LUA_000052 = GetResString("BIRTH_BIRTH_CONF_LUA_000052")
+			MoveCity( ATKER , BIRTH_BIRTH_CONF_LUA_000052)
+		else
+			CALCULATE_SKILLEFFECT_LUA_000127 = GetResString("CALCULATE_SKILLEFFECT_LUA_000127")
+			CALCULATE_SKILLEFFECT_LUA_000128 = GetResString("CALCULATE_SKILLEFFECT_LUA_000128")
+			Notice ( defer_name..CALCULATE_SKILLEFFECT_LUA_000128..atker_name..CALCULATE_SKILLEFFECT_LUA_000127)
+			BIRTH_BIRTH_CONF_LUA_000052 = GetResString("BIRTH_BIRTH_CONF_LUA_000052")
+			SetSpawnPos ( DEFER , BIRTH_BIRTH_CONF_LUA_000052 )
+			BIRTH_BIRTH_CONF_LUA_000052 = GetResString("BIRTH_BIRTH_CONF_LUA_000052")
+			MoveCity( DEFER , BIRTH_BIRTH_CONF_LUA_000052)
+		end
+	end
+end
+
+----------------------------------------------»Æ½ðÍòÁ½
 function Skill_HJWL_Begin ( role , sklv ) 
 	local NocLock =	KitbagLock( role, 0 )
 	if NocLock == LUA_FALSE then
-		SystemNotice( role , "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( role , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
-	local item_count = CheckBagItem ( role , 5843 ) --ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½
+	local item_count = CheckBagItem ( role , 5843 ) --»Æ½ðÍòÁ½
 	if item_count <= 0 then  
 		SkillUnable(role)   
-		SystemNotice( role , "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ê¹ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·" ) 
+		CALCULATE_SKILLEFFECT_LUA_000044 = GetResString("CALCULATE_SKILLEFFECT_LUA_000044")
+		SystemNotice( role , CALCULATE_SKILLEFFECT_LUA_000044 ) 
 	end 
 	local a = DelBagItem ( role , 5843 , 1 ) 
 end 
@@ -16299,19 +17547,11 @@ function STATE_XLTX_Rem ( role , statelv)
 
 end
 
-function STATE_NSTX_Add ( role , statelv)
-
-end
-function STATE_NSTX_Rem ( role , statelv)
-
-
-end
-
---ï¿½ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½        by peter 2008.7.1----------------------------------
+--ÏÄÌìµÄÄ§·¨Êé        by peter 2008.7.1----------------------------------
 function State_XTMFS_Add ( role , statelv )
 	local str = GetChaAttr( role , ATTR_STA )
 		SetCharaAttr(str ,role , ATTR_STATEV_STA)
---	SystemNotice( role ,"ATTR_STATEV_STAï¿½ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½")
+--	SystemNotice( role ,"ATTR_STATEV_STAÏÄÌìµÄÄ§·¨Êé")
 	ALLExAttrSet(role)
 end
 function State_XTMFS_Rem ( role , statelv )
@@ -16320,36 +17560,36 @@ function State_XTMFS_Rem ( role , statelv )
 	local str_add = math.floor(str*0.5)-str
 --		SystemNotice( role ,"strstr_add=   " ..str_add )
 	SetCharaAttr(0 ,role , ATTR_STATEV_STA)
---		SystemNotice(ATKER,"ï¿½ï¿½ï¿½ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½")
+--		SystemNotice(ATKER,"ÏÄÌìµÄÄ§·¨Êé")
 	ALLExAttrSet(role)
 end
---ï¿½ß³ï¿½ï¿½ï¿½ÄªÐ°ï¿½ï¿½        by peter 2008.7.1-------------------------------------
+--¸ß³¬µÄÄªÐ°½£        by peter 2008.7.1-------------------------------------
 function State_MWMXJ_Add ( role , statelv )
 	local con = GetChaAttr( role , ATTR_STR ) 
 	SetCharaAttr( con , role , ATTR_STATEV_STR )
---		SystemNotice(ATKER,"ATTR_STATEV_STRï¿½ß³ï¿½ï¿½ï¿½ÄªÐ°ï¿½ï¿½")
+--		SystemNotice(ATKER,"ATTR_STATEV_STR¸ß³¬µÄÄªÐ°½£")
 	ALLExAttrSet(role)
 end
 function State_MWMXJ_Rem ( role , statelv )
 	SetCharaAttr(0 ,role , ATTR_STATEV_STR)
---			SystemNotice(ATKER,"ï¿½ß³ï¿½ï¿½ï¿½ÄªÐ°ï¿½ï¿½")
+--			SystemNotice(ATKER,"¸ß³¬µÄÄªÐ°½£")
 	ALLExAttrSet(role)
 end
 
---ï¿½ï¿½ï¿½Ä½ï¿½Õ¶ï¿½        by peter 2008.7.1----------------------------------
+--·á·áµÄ½ð¸Õ¶Ü        by peter 2008.7.1----------------------------------
 function State_FFJGD_Add ( role , statelv )
 	local MHP = GetChaAttr( role , ATTR_MXHP )
 	SetCharaAttr(MHP ,role , ATTR_STATEV_MXHP)
---				SystemNotice(ATKER,"ATTR_STATEV_MXHPï¿½ï¿½ï¿½Ä½ï¿½Õ¶ï¿½")
+--				SystemNotice(ATKER,"ATTR_STATEV_MXHP·á·áµÄ½ð¸Õ¶Ü")
 	ALLExAttrSet(role)
 end
 function State_FFJGD_Rem ( role , statelv )
 	SetCharaAttr(0 ,role , ATTR_STATEV_MXHP)
---					SystemNotice(ATKER,"ï¿½ï¿½ï¿½Ä½ï¿½Õ¶ï¿½")
+--					SystemNotice(ATKER,"·á·áµÄ½ð¸Õ¶Ü")
 	ALLExAttrSet(role)
 end
 
---Æ¤ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½Ò©Ë®              by peter 2008.7.1-------------------------------------
+--Æ¤ÌØµÄÒþÉíÒ©Ë®              by peter 2008.7.1-------------------------------------
 function State_YSYS_Add ( role , statelv ) 
 	local map_name_DEFER = GetChaMapName ( role )
 	local agi_atker = Agi(role)
@@ -16373,7 +17613,7 @@ function State_CD_Rem ( role , statelv )
 
 end 
 
---------------------ï¿½ï¿½Ë¹ï¿½Ô±ï¿½--------------------------------
+--------------------ÖæË¹×Ô±¬--------------------------------
 
 --function SkillArea_Circle_ZSZB( sklv )							
 --	local side = 1000 
@@ -16386,7 +17626,7 @@ end
 --end 
 
 --function Skill_ZSZB_End ( ATKER , DEFER , sklv )
---	SystemNotice(ATKER,"ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½")
+--	SystemNotice(ATKER,"×Ô±¬À´¿©")
 --		local dmg = math.random ( 10000 , 10000)
 --		local statetime = 10
 --		Hp_Endure_Dmg ( DEFER , dmg )
@@ -16395,7 +17635,7 @@ end
 		--AddState ( ATKER , DEFER , STATE_ZSZB , statelv , statetime )
 --end 
 
---------------------ï¿½ï¿½Ë¹ï¿½Ô±ï¿½--------------------------------
+--------------------ÖæË¹×Ô±¬--------------------------------
 
 function SkillArea_Circle_ZSZB( sklv )									
 	local side = 1000 
@@ -16441,14 +17681,14 @@ end
 
 ----------------------------------------------------------
 --							--
---			ï¿½Â¼ï¿½ï¿½ï¿½				--
+--			ÐÂ¼¼ÄÜ				--
 --							--
 ----------------------------------------------------------
 
 
--------ï¿½ï¿½Í¼ï¿½ï¿½ï¿½Ù»ï¿½
+-------ÉñÍ¼ÌÚÕÙ»½
  function SkillCooldown_TTzh1( sklv )
-	local Cooldown = 360
+	local Cooldown = 3600000
 	return Cooldown
 end
 
@@ -16468,9 +17708,9 @@ function Skill_TTZh1_End( ATKER , DEFER , sklv )
 end
 
 
--------Ê¥Í¼ï¿½ï¿½ï¿½Ù»ï¿½
+-------Ê¥Í¼ÌÚÕÙ»½
  function SkillCooldown_TTzh2( sklv )
-	local Cooldown = 360
+	local Cooldown = 3600000
 	return Cooldown
 end
 
@@ -16490,7 +17730,7 @@ function Skill_TTZh2_End( ATKER , DEFER , sklv )
 end
 
 	
------------Í¼ï¿½Ú±ï¿½ï¿½ï¿½
+-----------Í¼ÌÚ±ùÎÇ
 
 function Skill_TTbw_End ( ATKER , DEFER , sklv ) 
 	
@@ -16499,7 +17739,7 @@ function Skill_TTbw_End ( ATKER , DEFER , sklv )
 	AddState ( ATKER , DEFER , STATE_BIW , statelv , statetime )
 end 
 
---------ï¿½ï¿½ï¿½Ç¹
+--------´ó±ùÇ¹
 
 function Skill_DBQ_End ( ATKER , DEFER , sklv ) 
 	local statelv = 10 
@@ -16511,7 +17751,7 @@ end
 
 
 
---------Ð¡ï¿½ï¿½Ç¹
+--------Ð¡±ùÇ¹
 
 function Skill_XBQ_End ( ATKER , DEFER , sklv ) 
 	local statelv = 10 
@@ -16521,7 +17761,7 @@ function Skill_XBQ_End ( ATKER , DEFER , sklv )
 	
 end
 
--------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+-------ËÀÍö¼â½Ð
 
 
 function Skill_Swjj_End ( ATKER , DEFER , sklv ) 
@@ -16532,7 +17772,7 @@ function Skill_Swjj_End ( ATKER , DEFER , sklv )
 	AddState ( ATKER , DEFER , STATE_SWCX , statelv , statetime )
 end 
 
---------ï¿½ï¿½ï¿½×»ï¿½
+--------´óÀ×»÷
 
 function Skill_DLJ_End ( ATKER , DEFER , sklv ) 
 	local statelv = 10 
@@ -16543,19 +17783,19 @@ function Skill_DLJ_End ( ATKER , DEFER , sklv )
 end
 
 
---------Ð¡ï¿½×»ï¿½
+--------Ð¡À×»÷
 
 function Skill_XLJ_End ( ATKER , DEFER , sklv ) 
 	local statelv = 10 
 	AddState ( ATKER , DEFER , STATE_BDJ , statelv , statetime )
-	local hpdmg = 100000 
+	local hpdmg = 550 
 	Hp_Endure_Dmg ( DEFER , hpdmg )
 	
 end
 
 
 
---------ï¿½ï¿½Ä§ï¿½ï¿½ï¿½ï¿½
+--------¶ñÄ§·çÈÐ
 
 function Skill_EMFR_End ( ATKER , DEFER , sklv ) 
 	local statelv = 10 
@@ -16567,7 +17807,7 @@ end
 
 
 
--------ï¿½Ø»ï¿½ï¿½ï¿½ï¿½Ù»ï¿½
+-------ÊØ»¤ÕßÕÙ»½
 
 function Skill_Shzzh_End( ATKER , DEFER , sklv )
 	local x, y = GetChaPos(ATKER)
@@ -16579,10 +17819,10 @@ function Skill_Shzzh_End( ATKER , DEFER , sklv )
 		local y2 = y -600
 		local y3 = y -600
 		local y4 = y -400
-		local new1 = CreateCha(561, x1, y1, 145, 50)
-		local new2 = CreateCha(561, x2, y2, 145, 50)
-		local new3 = CreateCha(561, x3, y3, 145, 50)
-		local new4 = CreateCha(561, x4, y4, 145, 50)
+		local new1 = CreateCha(1122, x1, y1, 145, 50)
+		local new2 = CreateCha(1123, x2, y2, 145, 50)
+		local new3 = CreateCha(1124, x3, y3, 145, 50)
+		local new4 = CreateCha(1125, x4, y4, 145, 50)
 		SetChaLifeTime(new1, 900000)
 		SetChaLifeTime(new2, 900000)
 		SetChaLifeTime(new3, 900000)
@@ -16592,7 +17832,7 @@ function Skill_Shzzh_End( ATKER , DEFER , sklv )
 end
 
 
------ï¿½ï¿½ï¿½ï¿½ï¿½Ø»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+-----ÐÂÊÖÖØ»÷¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
 function SkillCooldown_Xs( sklv )
 	local Cooldown = 5000
@@ -16600,24 +17840,24 @@ function SkillCooldown_Xs( sklv )
 end
 
 function Skill_Xs_Begin ( role , sklv ) 
-	local sp = Sp(role) 
-	local sp_reduce = 7
-	if sp - sp_reduce < 0 then 
-		SkillUnable(role)   
-		return 
-	end 
-	Sp_Red (role , sp_reduce ) 
+	-- local sp = Sp(role) 
+	-- local sp_reduce = 7
+	-- if sp - sp_reduce < 0 then 
+		-- SkillUnable(role)   
+		-- return 
+	-- end 
+	-- Sp_Red (role , sp_reduce ) 
 end 
 
 function Skill_Xs_End ( ATKER , DEFER , sklv ) 
 	hpdmg = 75	
 	Hp_Endure_Dmg ( DEFER , hpdmg )  
-	--Notice ( "Xs", "ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ÜµÈ¼ï¿½ = " , sklv , "ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½ = " , dmg , '\n" ) 
-	Check_Ys_Rem ( ATKER ,DEFER )						--ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+	--Notice ( "Xs", "ÐÂÊÖ¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
+	Check_Ys_Rem ( ATKER ,DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí
 end 
 
 
----------------------Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½
+---------------------Õ¼²·±ù¹×²Ä
 function State_BINGGC_Add ( role , sklv ) 
 	local statelv = sklv
 	local statetime = 5 + sklv * 2 
@@ -16629,12 +17869,13 @@ end
 
 
 function State_BINGGC_Rem ( role , statelv ) 
+	--LG("state_Bshd" , "function State_Bshd_Rem : " , "role =  " , role , "statelv = " , statelv, "\n" ) 
 	local defsb_dif = 5 + statelv * 2 
 	local defsb = DefSb(role) - defsb_dif 
 	SetCharaAttr( defsb , role , ATTR_STATEV_DEF ) 
 	ALLExAttrSet(role)  
 end 
----------------ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+---------------¸ÐÃ°±»»ðÉÕ
 function State_GANMAO_Add ( role , statelv ) 
 	local roleHp=GetChaAttr( role , ATTR_HP )
 	if roleHp<5 then
@@ -16644,20 +17885,24 @@ function State_GANMAO_Add ( role , statelv )
 	end
 end 
 
----------------ï¿½ï¿½ï¿½
+---------------â§ËÀ
 function State_CUSI_Rem ( role , sklv )
 	SetChaAttr (role , ATTR_HP , 0)
 	if sklv~=10 then 
-	SystemNotice (role,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¾ï¿½Ï°ï¿½ï¿½ï¿½Ë£ï¿½")
+	CALCULATE_SKILLEFFECT_LUA_000129 = GetResString("CALCULATE_SKILLEFFECT_LUA_000129")
+	SystemNotice (role,CALCULATE_SKILLEFFECT_LUA_000129)
 		GiveItemX(role,0,6375,1,4)
 	end
 end
 function State_LEIPI_Add ( role , sklv ) 								
+	if sklv == 2 then
+		return
+	end
 	local role_mxhp = GetChaAttr(role, ATTR_HP)
 	Hp_Endure_Dmg ( role , role_mxhp*0.70 )
 end 
 
---------------Å®ï¿½ï¿½ï¿½ï¿½ï¿½
+--------------Å®Éñ¶ÜÅÆ
 function STATE_ZBMAXHP_Add ( role ,statelv )
 	local MxhpSb_dif = 100000
 	local per=GetChaPerHp(role)
@@ -16676,7 +17921,7 @@ function STATE_ZBMAXHP_Rem ( role , statelv )
 	SetChaPerHp(role,per)
 end
 
-------------------Õ¼ï¿½ï¿½HP
+------------------Õ¼²·HP
 function STATE_ZBHP_Add (role ,sklv )
 	
 	local role_mxhp = GetChaAttr (role , ATTR_STATEV_MXHP)
@@ -16697,7 +17942,7 @@ function STATE_ZBHP_Rem (role ,sklv )
 end
 
 
-----------------Õ¼ï¿½ï¿½SP
+----------------Õ¼²·SP
 function STATE_ZBSP_Add (role ,sklv )
 	local role_mxSp = GetChaAttr (role , ATTR_STATEV_MXSP)
 		local per=GetChaPerSp(role)
@@ -16717,7 +17962,7 @@ function STATE_ZBSP_Rem (role ,sklv )
 end
 
 
----------------Õ¼ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Ù¶ï¿½
+---------------Õ¼²·ÒÆ¶¯ËÙ¶È
 function STATE_ZBMOVE_Add (role ,sklv )
 	local role_MOVE = GetChaAttr (role , ATTR_STATEV_MSPD)
 	role_MOVE = math.floor(sklv*4.8 + role_MOVE)
@@ -16749,34 +17994,41 @@ function Skill_zhanbuwawa_End ( ATKER , DEFER , sklv )
 	local State_jiaoyi = GetChaStateLv ( DEFER, STATE_JY )
 	
 	if re_type == 0 then
-		SystemNotice ( ATKER, "ï¿½ë²»Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò½ï¿½É«ï¿½Ä»ï¿½ï¿½ï¿½ï¿½Ý²ï¿½")
+		CALCULATE_SKILLEFFECT_LUA_000130 = GetResString("CALCULATE_SKILLEFFECT_LUA_000130")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000130)
 		return
 	end
 	if State_baitan >= 1 then
-		SystemNotice ( ATKER, "ï¿½Ô·ï¿½ï¿½ï¿½ï¿½Ú°ï¿½Ì¯×´Ì¬,ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½")
+		CALCULATE_SKILLEFFECT_LUA_000131 = GetResString("CALCULATE_SKILLEFFECT_LUA_000131")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000131)
 		return
 	end
 	if State_jiaoyi >= 1 then
-		SystemNotice ( ATKER, "ï¿½Ô·ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½×´Ì¬,ï¿½ï¿½ï¿½ï¿½Ê§ï¿½ï¿½")
+		CALCULATE_SKILLEFFECT_LUA_000132 = GetResString("CALCULATE_SKILLEFFECT_LUA_000132")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000132)
 		return
 	end
 	if atker_name == defer_name then					-------------------kokora080328
-		SystemNotice ( ATKER, "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½")    
+		CALCULATE_SKILLEFFECT_LUA_000133 = GetResString("CALCULATE_SKILLEFFECT_LUA_000133")
+		SystemNotice ( ATKER, CALCULATE_SKILLEFFECT_LUA_000133)    
 		return
 	end
 	if NocLock == LUA_FALSE then
-		SystemNotice( ATKER , "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000217 = GetResString("CALCULATE_FUNCTIONS_LUA_000217")
+		SystemNotice( ATKER , CALCULATE_FUNCTIONS_LUA_000217)
 		return 0
 	end
 	local item_count = CheckBagItem ( ATKER , 6377 )
 	if item_count <= 0 then  
 		
-		SystemNotice ( ATKER , "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" ) 
+		CALCULATE_SKILLEFFECT_LUA_000134 = GetResString("CALCULATE_SKILLEFFECT_LUA_000134")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000134 ) 
 		return
 	end
 	local map_name = GetChaMapName ( role )
 	if map_name == "starena1" or map_name == "starena2" or map_name == "starena3" or map_name == "garner2" or map_name == "guildwar" or map_name == "guildwar2" then
-		SystemNotice ( ATKER , "ï¿½ï¿½Ç°ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½" )
+		CALCULATE_SKILLEFFECT_LUA_000135 = GetResString("CALCULATE_SKILLEFFECT_LUA_000135")
+		SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000135 )
 		return
 	end
 	
@@ -16786,23 +18038,29 @@ function Skill_zhanbuwawa_End ( ATKER , DEFER , sklv )
 	DBtype,wawaTime=GetWaWaAttr(Item)
 	local defHp=GetChaAttr(DEFER,ATTR_HP)
 	if defHp<1 then 
-		SystemNotice(ATKER,defer_name.." ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ã²»ï¿½Ü¶ï¿½ "..defer_name.." Ê¹ï¿½Ã¡ï¿½")
+		CALCULATE_SKILLEFFECT_LUA_000136 = GetResString("CALCULATE_SKILLEFFECT_LUA_000136")
+		CALCULATE_SKILLEFFECT_LUA_000137 = GetResString("CALCULATE_SKILLEFFECT_LUA_000137")
+		SystemNotice(ATKER,defer_name..CALCULATE_SKILLEFFECT_LUA_000137..defer_name..CALCULATE_SKILLEFFECT_LUA_000136)
 		return
 	end
-	SystemNotice(DEFER,atker_name.." ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ£ï¿½ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½")
+	CALCULATE_SKILLEFFECT_LUA_000138 = GetResString("CALCULATE_SKILLEFFECT_LUA_000138")
+	SystemNotice(DEFER,atker_name..CALCULATE_SKILLEFFECT_LUA_000138)
 	RemoveChaItem(ATKER,6377,1,0,-1,2,1)
 	if DBtype==1 then 
 		AddState ( ATKER , DEFER , STATE_GANMAO , 1 , 1800 )
-		SystemNotice(DEFER,"ï¿½ï¿½ï¿½Åµï¿½Ò»ï¿½É¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¶ï¿½ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000370 = GetResString("CALCULATE_FUNCTIONS_LUA_000370")
+		SystemNotice(DEFER,CALCULATE_FUNCTIONS_LUA_000370)
 		return
 	end	
 	if DBtype==2 then 
-		SystemNotice(DEFER,"ï¿½ï¿½ï¿½Ðµï¿½Æ¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000371 = GetResString("CALCULATE_FUNCTIONS_LUA_000371")
+		SystemNotice(DEFER,CALCULATE_FUNCTIONS_LUA_000371)
 			AddState ( ATKER , DEFER , STATE_LST , 1 ,30 )
 		return
 	end	
 	if DBtype==3 then 
-		SystemNotice(DEFER,"ï¿½ï¿½ï¿½ï¿½ÄºÜµï¿½Ã¹ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½Ò»Èºï¿½ï¿½Ë¹ï¿½ï¿½ï¿½ÝºÝµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Í¨ï¿½ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000372 = GetResString("CALCULATE_FUNCTIONS_LUA_000372")
+		SystemNotice(DEFER,CALCULATE_FUNCTIONS_LUA_000372)
 		local statelv = 1
 		local statetime = 25
 		AddState ( ATKER , DEFER , STATE_XIANRENJIAO , statelv , statetime )
@@ -16810,14 +18068,16 @@ function Skill_zhanbuwawa_End ( ATKER , DEFER , sklv )
 		return
 	end	
 	if DBtype==4 then 
-		SystemNotice(DEFER,"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000373 = GetResString("CALCULATE_FUNCTIONS_LUA_000373")
+		SystemNotice(DEFER,CALCULATE_FUNCTIONS_LUA_000373)
 		local statelv = 1
 		local statetime = 20
 		AddState ( ATKER , DEFER , STATE_JF , statelv , statetime )
 		return
 	end	
 	if DBtype==5 then 
-		SystemNotice(DEFER,"Ò»ï¿½ï¿½ñº®´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¾ï¿½ï¿½Ö½Å¶ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½Ë¡ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000374 = GetResString("CALCULATE_FUNCTIONS_LUA_000374")
+		SystemNotice(DEFER,CALCULATE_FUNCTIONS_LUA_000374)
 		local statelv = 1
 		local statetime = 30
 		AddState ( ATKER , DEFER , STATE_BIW , statelv , statetime )
@@ -16827,31 +18087,36 @@ function Skill_zhanbuwawa_End ( ATKER , DEFER , sklv )
 		local statelv = 1
 		local statetime = 2			
 		AddState ( ATKER , DEFER , STATE_LEIPI , statelv , statetime )
-		SystemNotice(DEFER,"Ò»ï¿½ï¿½Õ¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½Ï£ï¿½ï¿½ï¿½Õ´ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Í³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½Ò´ï¿½Æ«ï¿½Ë¡ï¿½ï¿½ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000375 = GetResString("CALCULATE_FUNCTIONS_LUA_000375")
+		SystemNotice(DEFER,CALCULATE_FUNCTIONS_LUA_000375)
 		return
 	end	
 	if DBtype==7 then 
 		AddState ( ATKER , DEFER , STATE_CUSI , 1 , 1 )
-		SystemNotice(DEFER,"ï¿½ï¿½ï¿½ï¿½ï¿½Æºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÄµï¿½Ã¹ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ó¡ï¿½ï¿½ã±»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½")
+		CALCULATE_FUNCTIONS_LUA_000376 = GetResString("CALCULATE_FUNCTIONS_LUA_000376")
+		SystemNotice(DEFER,CALCULATE_FUNCTIONS_LUA_000376)
 		return
 	end	
 end 
 function Skill_WB_Begin ( atk )
-	local Item_Use = GetChaItem ( atk , 1 , 9 )			----È¡ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½
+	local Item_Use = GetChaItem ( atk , 1 , 9 )			----È¡ÊÖÉÏ×°±¸µÄµÀ¾ß
 	if Item_Use == nil then
-		SystemNotice( atk , "ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½Í¨ï¿½Ä¿ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ß´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½Ð¿ï¿½ï¿½ï¿½Å¶ï¿½ï¿½")
+		CALCULATE_SKILLEFFECT_LUA_000139 = GetResString("CALCULATE_SKILLEFFECT_LUA_000139")
+		SystemNotice( atk , CALCULATE_SKILLEFFECT_LUA_000139)
 		UseItemFailed ( atk )
 		return
 	end
 	local ItemID_Use = GetItemID ( Item_Use )			----È¡ID
 	if ItemID_Use ~= 6538 and ItemID_Use~= 6539 and ItemID_Use~= 6585 then
-		SystemNotice( atk , "ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½Í¨ï¿½Ä¿ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ß´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½Ð¿ï¿½ï¿½ï¿½Å¶ï¿½ï¿½")
+		CALCULATE_SKILLEFFECT_LUA_000139 = GetResString("CALCULATE_SKILLEFFECT_LUA_000139")
+		SystemNotice( atk , CALCULATE_SKILLEFFECT_LUA_000139)
 		return
 	end
 
 	local Item_URE = GetItemAttr ( Item_Use , ITEMATTR_URE )
 	if Item_URE == 0 then
-		SystemNotice ( atk , "ï¿½Í¾ï¿½Îª0,ï¿½Þ·ï¿½ï¿½ï¿½Ê¹ï¿½Ã¡ï¿½" )
+		CALCULATE_SKILLEFFECT_LUA_000140 = GetResString("CALCULATE_SKILLEFFECT_LUA_000140")
+		SystemNotice ( atk , CALCULATE_SKILLEFFECT_LUA_000140 )
 		return
 	end
 	local JL = CheckJLUre ( atk )
@@ -16869,7 +18134,8 @@ function Skill_WB_Begin ( atk )
 	if ItemID_Use == 6538  then
 		local lv = Lv ( atk ) 
 		if lv > 86 then
-			SystemNotice ( atk , "ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½86ï¿½ï¿½Ê±Ê¹ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½Ã¾ï¿½ï¿½é¡£")
+			CALCULATE_SKILLEFFECT_LUA_000141 = GetResString("CALCULATE_SKILLEFFECT_LUA_000141")
+			SystemNotice ( atk , CALCULATE_SKILLEFFECT_LUA_000141)
 			return
 		end
 		local Item_URE = Item_URE - 5
@@ -16882,7 +18148,8 @@ function Skill_WB_Begin ( atk )
 	elseif ItemID_Use == 6539 then
 		local lv = Lv ( atk ) 
 		if lv > 86 then
-			SystemNotice ( atk , "ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½86ï¿½ï¿½Ê±Ê¹ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½Þ·ï¿½ï¿½ï¿½Ã¾ï¿½ï¿½é¡£")
+			CALCULATE_SKILLEFFECT_LUA_000141 = GetResString("CALCULATE_SKILLEFFECT_LUA_000141")
+			SystemNotice ( atk , CALCULATE_SKILLEFFECT_LUA_000141)
 			return
 		end
 		local Item_URE = Item_URE - 5
@@ -16903,7 +18170,7 @@ function Skill_WB_Begin ( atk )
 	end
 end 
 
-function GetExpRand ( role ,value,p1,p2)  ------valueÎªï¿½Ó³ï¿½Ïµï¿½ï¿½,p1ÎªË«ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½Ó³ï¿½,p2Îªï¿½ï¿½Ó¾ï¿½ï¿½ï¿½Ó³ï¿½
+function GetExpRand ( role ,value,p1,p2)  ------valueÎª¼Ó³ËÏµÊý,p1ÎªË«±¶µÄ¾­Ñé¼Ó³É,p2Îª×é¶Ó¾­Ñé¼Ó³É
 	local exprandmin = {}
 	exprandmin[1] = 1200 
 	exprandmin[2] = 2400 
@@ -16964,7 +18231,7 @@ end
 
 
 function CheckJLUre ( role )
-	local Item_bg = GetChaItem ( role , 2 , 1  ) --È¡ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
+	local Item_bg = GetChaItem ( role , 2 , 1  ) --È¡½ÇÉ«±³°üµÚ¶þÀ¸µÄÖ¸Õë
 	if Item_bg == nil then 
 		return 0 
 	end
@@ -16984,19 +18251,22 @@ function Skill_YJWB_Begin ( role )
 	local el = 0
 	el =IsChaInRegion( role, 2 )
 	if el == 1 then
-		SystemNotice( role , "ï¿½ï¿½É«ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ú°ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½ï¿½" )
+		CALCULATE_SKILLEFFECT_LUA_000142 = GetResString("CALCULATE_SKILLEFFECT_LUA_000142")
+		SystemNotice( role , CALCULATE_SKILLEFFECT_LUA_000142 )
 		UseItemFailed ( role )
 		return
 	end
-	local Item_Use = GetChaItem ( role , 1 , 9 )			----È¡ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½
+	local Item_Use = GetChaItem ( role , 1 , 9 )			----È¡ÊÖÉÏ×°±¸µÄµÀ¾ß
 	if Item_Use == nil then
-		SystemNotice( role , "ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½Å¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½Ê¹ï¿½Ã¡ï¿½")
+		CALCULATE_SKILLEFFECT_LUA_000143 = GetResString("CALCULATE_SKILLEFFECT_LUA_000143")
+		SystemNotice( role , CALCULATE_SKILLEFFECT_LUA_000143)
 		UseItemFailed ( role )
 		return
 	end
 	local ItemID_Use = GetItemID ( Item_Use )			----È¡ID
 	if ItemID_Use ~= 6613 then
-		SystemNotice( role , "ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½Å¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½Ê¹ï¿½Ã¡ï¿½")
+		CALCULATE_SKILLEFFECT_LUA_000143 = GetResString("CALCULATE_SKILLEFFECT_LUA_000143")
+		SystemNotice( role , CALCULATE_SKILLEFFECT_LUA_000143)
 		UseItemFailed ( role )
 		return
 	end
@@ -17006,7 +18276,8 @@ function Skill_YJWB_Begin ( role )
 	end 
 	local Item_URE = GetItemAttr ( Item_Use , ITEMATTR_URE )
 	if Item_URE == 0 then
-		SystemNotice ( role , "ï¿½Å¼ï¿½ï¿½ï¿½ï¿½ï¿½Í¾ï¿½Îª0,ï¿½Þ·ï¿½ï¿½ï¿½Ê¹ï¿½Ã¡ï¿½" )
+		CALCULATE_SKILLEFFECT_LUA_000144 = GetResString("CALCULATE_SKILLEFFECT_LUA_000144")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000144 )
 		return
 	end
 	if ItemID_Use == 6613 then
@@ -17027,7 +18298,8 @@ function ItemUse_YJBT ( role )
 	local item_id = 1
 	local Item_CanGet = GetChaFreeBagGridNum ( role )	
 	if Item_CanGet <= 0 then
-		SystemNotice( role , "ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ã¹»ï¿½Ä¿Õ¼ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ú¾ï¿½ï¿½Å¼ï¿½")
+		CALCULATE_SKILLEFFECT_LUA_000145 = GetResString("CALCULATE_SKILLEFFECT_LUA_000145")
+		SystemNotice( role , CALCULATE_SKILLEFFECT_LUA_000145)
 		UseItemFailed ( role )
 		return
 	end
@@ -17037,14 +18309,16 @@ function ItemUse_YJBT ( role )
 	SetItemAttr ( Item_Use , ITEMATTR_URE , Item_URE )
 
 	local getrandom = math.random ( 1 , 1000 )
-	if getrandom <= 200 then               ----------------------------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç®
+	if getrandom <= 200 then               ----------------------------------------------------ÉÙÁ¿½ðÇ®
 		local GiveMoney = 50000 * math.random ( 1, 6 )
-		SystemNotice ( role , "ï¿½Úµï¿½Ò»ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½Ø£ï¿½ï¿½ï¿½ï¿½"..GiveMoney.."ï¿½ï¿½Ç®" )
+		CALCULATE_FUNCTIONS_LUA_000095 = GetResString("CALCULATE_FUNCTIONS_LUA_000095")
+		CALCULATE_ITEMEFFECT_LUA_000842 = GetResString("CALCULATE_ITEMEFFECT_LUA_000842")
+		SystemNotice ( role , CALCULATE_ITEMEFFECT_LUA_000842..GiveMoney..CALCULATE_FUNCTIONS_LUA_000095 )
 		AddMoney ( role , 0 , GiveMoney )
 		return
 	elseif getrandom <= 400 then   
 		charLv = Lv ( role )		
-		exp_now = GetChaAttr (  role , ATTR_CEXP )----------ï¿½ï¿½Ç°ï¿½È¼ï¿½ï¿½ï¿½ï¿½ï¿½
+		exp_now = GetChaAttr (  role , ATTR_CEXP )----------µ±Ç°µÈ¼¶¾­Ñé
 		if charLv < 10 then
 			exp_new = exp_now + 100
 			SetChaAttrI( role , ATTR_CEXP , exp_new )
@@ -17064,1321 +18338,1059 @@ function ItemUse_YJBT ( role )
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 411 then  
 		item_id = 865
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 416 then  
 		item_id = 864
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 466 then  
 		item_id = 333
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 472 then  
 		item_id = 5845
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 478 then  
 		item_id = 5846
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 485 then  
 		item_id = 5847
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 500 then  
 		item_id = 5848
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 510 then  
 		item_id = 5849
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 530 then  
 		item_id = 2941
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 560 then  
 		item_id = 945
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 590 then  
 		item_id = 946
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 620 then  
 		item_id = 947
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 650 then  
 		item_id = 950
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 680 then  
 		item_id = 951
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 710 then  
 		item_id = 952
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 740 then  
 		item_id = 322
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 770 then  
 		item_id = 525
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 800 then  
 		item_id = 613
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 830 then  
 		item_id = 614
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 860 then  
 		item_id = 615
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 890 then  
 		item_id = 616
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 910 then  
 		item_id = 6614
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 940 then  
 		item_id = 6615
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	elseif getrandom <= 970 then  
 		item_id = 6616
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	else 
 		item_id = 6617
 		GiveItem ( role , 0 , item_id , 1 , 4 ) 
 		local itemname = GetItemName ( item_id ) 
 		local cha_name = GetChaDefaultName ( role ) 
-		local message = cha_name.."ï¿½Ú¾ï¿½ï¿½Å¼ï¿½ï¿½Ø±ï¿½Í¼ï¿½ï¿½Ï²ï¿½Ø»ï¿½ï¿½"..itemname  
+		CALCULATE_SKILLEFFECT_LUA_000146 = GetResString("CALCULATE_SKILLEFFECT_LUA_000146")
+		local message = cha_name..CALCULATE_SKILLEFFECT_LUA_000146..itemname  
 		Notice ( message )
 	end
 end
 
 
-
-
-
-
-
----------ï¿½ï¿½ï¿½ï¿½Ö½ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë½«ï¿½ï¿½ï¿½Ý¸ï¿½ï¿½Æµï¿½skilleffect.luaï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ¡£
------
-------------------------------ï¿½ï¿½×¢ï¿½â£ºï¿½ï¿½Òªï¿½ï¿½Ê¯ï¿½Ü´ï¿½ï¿½Ú±ï¿½ï¿½ï¿½ï¿½Ï£ï¿½ï¿½ï¿½ï¿½Þ¸Ä±ï¿½Ê¯ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ó±ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½29
-Item_CanJinglian_Num =999
-Item_CanJinglian_ID [88] =		29	--ï¿½ï¿½ï¿½ï¿½
-
-
----------------ï¿½ï¿½Ä¥Í¨ï¿½Ã½Å±ï¿½ï¿½ï¿½Ê¼OK------------------------------------------
-function Item_zbdamo(role,caoshu,wz,xx)-----caoshu:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿,wz:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã¼ï¿½Ò»,xx:ï¿½É²ï¿½Ð´ï¿½ï¿½Îª1ï¿½Ç½ï¿½ï¿½Ê¹ï¿½Ã²ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ï¢
-------------------ï¿½ï¿½Ï¢ï¿½ï¿½Ê¼ï¿½ï¿½
-local Item_damo = GetChaItem ( role , 2 , wz ) ----ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
-local Num = GetItemForgeParam ( Item_damo , 1 )--ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
-Num = TansferNum ( Num )
-local Hole_Num = GetNum_Part1 ( Num )----------ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½ï¿½ï¿½
-local zb_id = GetItemID ( Item_damo )		----ï¿½ï¿½È¡ï¿½ï¿½Æ·ï¿½ï¿½ID
-local zb_name = "ï¿½ï¿½"..GetItemName ( zb_id ).."ï¿½ï¿½"----ï¿½ï¿½È¡ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
--------------ï¿½Ü·ï¿½ï¿½Ä¥ï¿½ï¿½ï¿½Ð¶ï¿½
-local Checkjl = CheckItem_CanJinglian ( Item_damo )
-if Checkjl == 0 then--------ï¿½ï¿½ï¿½Ü´ï¿½Ä¥ï¿½ï¿½ï¿½ï¿½0
-	if zb_id~=0 then
-		SystemNotice ( role , zb_name.."ï¿½ï¿½ï¿½Ü´ï¿½Ä¥!")
+function CheckRoleIsInJJCBS ( role ) 
+	local posIn = 0
+	local teamNum,teamlv = IsPlayerInJJCMap(role)   -- IsPlayerInJJCMap(role) £ºÅÐ¶Ï½ÇÉ«ÊÇ·ñÔÚ¾º¼¼³¡µØÍ¼£¬Èç¹ûÔÚÔò·µ»Ø2¸öÊý×Ö´ú±íÔÚ¼¸ºÅ¾º¼¼³¡£¬Èç¹û²»ÔÚÔò·µ»Ø0£¬0
+	if teamNum == 1 or teamNum == 3 then
+		posIn= CheckPlayerIsInJJC(role,teamNum,teamlv ) -- IsPlayerInJJCMap(role) £ºÅÐ¶Ï½ÇÉ«ÊÇ·ñÔÚ¾º¼¼³¡µØÍ¼µÄ¾º¼¼ÇøÓò£¬Èç¹û²»ÔÚÔò·µ»Ø0£¬ÔÚÔò·µ»Ø1		
+	elseif  teamNum == 2 then 
+		local PosX= 0
+		local PosY= 0 
+		PosX, PosY = GetChaPos(role)
+		PosX = math.floor(PosX/100)
+		PosY = math.floor(PosY/100)
+		if PosX < 55 or PosY < 55 or PosX>71 or PosY>71 then
+			posIn = 0
+		else
+			posIn = 1
+		end
 	end
-SystemNotice ( role , "ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½"..(wz+1).."Î»ï¿½Ã·ï¿½ï¿½Ï¿É´ï¿½Ä¥ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½")
-return 0
-end
-------------------------ï¿½ï¿½ï¿½ï¿½ï¿½Ä¥------------100%ï¿½É¹ï¿½
-------------ï¿½É¹ï¿½ï¿½ï¿½Ä¥ï¿½ï¿½ï¿½ï¿½1
-if Hole_Num <= 2 then
-	addh=3-Hole_Num
-	if addh>caoshu then
-	addh=caoshu
+	return posIn
+end 
+--------À×Ö®¾«Áé×´Ì¬
+function State_Lbhl_Add ( role , statelv )
+	if statelv >=1 and statelv <4 then
+		local atksb_dif = 10*statelv
+		mnatksb = MnatkSb(role) + atksb_dif  
+		mxatksb = MxatkSb(role ) + atksb_dif 
+	elseif statelv >=4 and statelv < 7 then
+		local atksb_dif = 20*statelv
+		mnatksb = MnatkSb(role) + atksb_dif  
+		mxatksb = MxatkSb(role ) + atksb_dif 
+	elseif statelv >= 7 and statelv <= 10 then
+		local atksb_dif = 30*statelv	
+		mnatksb = MnatkSb(role) + atksb_dif  
+		mxatksb = MxatkSb(role ) + atksb_dif 
 	end
-
-	Hole_Num = Hole_Num + caoshu
-
-	if Hole_Num>3 then
-	Hole_Num=3
+	SetCharaAttr( mnatksb , role , ATTR_STATEV_MNATK ) 
+	SetCharaAttr( mxatksb , role , ATTR_STATEV_MXATK ) 
+	ALLExAttrSet( role )  
+ 
+end
+function State_Lbhl_Rem( role , statelv )
+	if statelv >=1 and statelv <4 then
+		local atksb_dif = 10*statelv
+		mnatksb = MnatkSb(role) - atksb_dif  
+		mxatksb = MxatkSb(role ) - atksb_dif 
+	elseif statelv >=4 and statelv < 7 then
+		local atksb_dif = 20*statelv
+		mnatksb = MnatkSb(role) - atksb_dif  
+		mxatksb = MxatkSb(role ) - atksb_dif 
+	elseif statelv >= 7 and statelv <= 10 then
+		local atksb_dif = 30*statelv
+		mnatksb = MnatkSb(role) - atksb_dif  
+		mxatksb = MxatkSb(role ) - atksb_dif 
 	end
-
-        Num = SetNum_Part1 ( Num , Hole_Num )
-	SetItemForgeParam ( Item_damo , 1 , Num ) 
-	SystemNotice ( role , "ï¿½ï¿½Ä¥ï¿½É¹ï¿½,"..zb_name.."ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"..addh.."ï¿½ï¿½ï¿½ÂµÄ¿ï¿½!")
-	return 1
-else
-------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó£¬´ï¿½Ä¥Ê§ï¿½ï¿½
-if xx~=1 then
-SystemNotice ( role , "ï¿½ï¿½Ä¥Ê§ï¿½ï¿½,"..zb_name.."ï¿½Ä¿×²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½!")
+	SetCharaAttr( mnatksb , role , ATTR_STATEV_MNATK ) 
+	SetCharaAttr( mxatksb , role , ATTR_STATEV_MXATK ) 
+	ALLExAttrSet( role )  
+end 
+--------¹âÖ®Áé¾«×´Ì¬
+function State_Gbhl_Add ( role , statelv )
+	if statelv >=1 and statelv <4 then
+		Def_dif = DefSb(role) + statelv*5
+	elseif statelv >=4 and statelv < 7 then
+		Def_dif = DefSb(role) + statelv*10
+	elseif statelv >= 7 and statelv <= 10 then
+		Def_dif = DefSb(role) + statelv*15
+	end
+	SetCharaAttr( Def_dif , role , ATTR_STATEV_DEF )
+	ALLExAttrSet( role )  
 end
-return 0
+function State_Gbhl_Rem( role , statelv )
+	if statelv >=1 and statelv <4 then
+		Def_dif = DefSb(role) - statelv*5
+	elseif statelv >=4 and statelv < 7 then
+		Def_dif = DefSb(role) - statelv*10
+	elseif statelv >= 7 and statelv <= 10 then
+		Def_dif = DefSb(role) - statelv*15
+	end
+	SetCharaAttr( Def_dif , role , ATTR_STATEV_DEF )
+	ALLExAttrSet( role )  
+end 
+---°µÖ®¾«Áé×´Ì¬
+function State_Abhl_Add (role,statelv )
+	local pdef = GetChaAttr( role , ATTR_PDEF ) ----È¡½ÇÉ«ÎïÀíµÖ¿¹
+	if statelv >=1 and statelv <4 then
+		Def_dif = DefSb(role) - statelv*5
+		Pdef_dif = -6
+	elseif statelv >=4 and statelv < 7 then
+		Def_dif = DefSb(role) - statelv*10
+		Pdef_dif = -18
+	elseif statelv >= 7 and statelv <= 10 then
+		Def_dif = DefSb(role) - statelv*15
+		Pdef_dif = -40
+	end
+	Pdef_dif2 = Pdef_dif + pdef
+	if Pdef_dif2 < 0 then
+		Pdef_dif = 0-pdef
+	end
+	SetCharaAttr( Def_dif , role , ATTR_STATEV_DEF )
+	SetCharaAttr(Pdef_dif ,role , ATTR_STATEV_PDEF)
+	ALLExAttrSet( role ) 
+end 
+function State_Abhl_Rem( role , statelv )
+	if statelv >=1 and statelv <4 then
+		Def_dif = DefSb(role) + statelv*5
+	elseif statelv >=4 and statelv < 7 then
+		Def_dif = DefSb(role) + statelv*10
+	elseif statelv >= 7 and statelv <= 10 then
+		Def_dif = DefSb(role) + statelv*15
+	end
+	SetCharaAttr( Def_dif , role , ATTR_STATEV_DEF )
+	SetCharaAttr(0 ,role , ATTR_STATEV_PDEF)
+	ALLExAttrSet( role ) 
+end 
+function CheckAttackState( ATKER , DEFER )
+	local Cha_Boat = GetCtrlBoat ( ATKER )
+	if Cha_Boat ~=  nil then
+		return
+	end
+	local Item_Bag = GetChaItem(ATKER, 2 , 3 )
+	if Item_Bag == nil then
+		return
+	end
+	local Item_ID = GetItemID ( Item_Bag )
+	statetime = 30
+	local JV = GetPetJV ( ATKER )	
+	a = math.random ( 1, 100)
+	if JV >= a then
+		local statelv = GetPetUre( ATKER )
+		if statelv == 3 then
+			CALCULATE_SKILLEFFECT_LUA_000147 = GetResString("CALCULATE_SKILLEFFECT_LUA_000147")
+			c = CALCULATE_SKILLEFFECT_LUA_000147
+		elseif statelv == 6 then
+			CALCULATE_SKILLEFFECT_LUA_000148 = GetResString("CALCULATE_SKILLEFFECT_LUA_000148")
+			c = CALCULATE_SKILLEFFECT_LUA_000148
+		elseif statelv == 10 then
+			CALCULATE_SKILLEFFECT_LUA_000149 = GetResString("CALCULATE_SKILLEFFECT_LUA_000149")
+			c = CALCULATE_SKILLEFFECT_LUA_000149
+		end
+		local atk_name = GetChaDefaultName ( ATKER )
+		local def_name = GetChaDefaultName ( DEFER )
+		local PetLV = GetPetUreLV (ATKER)
+		local State_Gbhl = GetChaStateLv ( ATKER, STATE_Gbhl )
+		local State_Abhl = GetChaStateLv ( DEFER, STATE_Abhl )
+		local State_Lbhl = GetChaStateLv ( ATKER, STATE_Lbhl )
+		if Item_ID == 6847 or Item_ID == 6848 or Item_ID == 6849 then
+			if State_Gbhl == 0 and State_Lbhl == 0 then
+				AddState( ATKER , ATKER , STATE_Gbhl , statelv , statetime )	----¹âÖ®Áé
+				TakePetEndure50 (ATKER)
+				CALCULATE_SKILLEFFECT_LUA_000150 = GetResString("CALCULATE_SKILLEFFECT_LUA_000150")
+				CALCULATE_SKILLEFFECT_LUA_000151 = GetResString("CALCULATE_SKILLEFFECT_LUA_000151")
+				SystemNotice (ATKER, CALCULATE_SKILLEFFECT_LUA_000151..c..CALCULATE_SKILLEFFECT_LUA_000150)
+				if PetLV == 1 then
+					AddState( ATKER , ATKER , STATE_BHLHP , PetLV , 5 )	
+				elseif PetLV == 2 then
+					AddState( ATKER , ATKER , STATE_BHLHP , PetLV , 10 )	
+				elseif PetLV == 3 then
+					AddState( ATKER , ATKER , STATE_BHLHP , PetLV , 15 )	
+				end
+			else
+				return
+			end
+		elseif Item_ID == 6850 or Item_ID == 6851 or Item_ID == 6852 then
+			if State_Gbhl == 0 and State_Abhl == 0 and State_Lbhl == 0 then
+				AddState( ATKER , DEFER , STATE_Abhl , statelv , statetime )	----°µÖ®Áé
+				AddState( ATKER , ATKER , STATE_BHLHP , 10 , statetime )	
+				TakePetEndure50 (ATKER)
+				CALCULATE_SKILLEFFECT_LUA_000152 = GetResString("CALCULATE_SKILLEFFECT_LUA_000152")
+				CALCULATE_SKILLEFFECT_LUA_000153 = GetResString("CALCULATE_SKILLEFFECT_LUA_000153")
+				CALCULATE_SKILLEFFECT_LUA_000154 = GetResString("CALCULATE_SKILLEFFECT_LUA_000154")
+				SystemNotice (ATKER, CALCULATE_SKILLEFFECT_LUA_000154..def_name..CALCULATE_SKILLEFFECT_LUA_000153..c..CALCULATE_SKILLEFFECT_LUA_000152)
+				CALCULATE_SKILLEFFECT_LUA_000152 = GetResString("CALCULATE_SKILLEFFECT_LUA_000152")
+				CALCULATE_SKILLEFFECT_LUA_000155 = GetResString("CALCULATE_SKILLEFFECT_LUA_000155")
+				SystemNotice (DEFER, atk_name..CALCULATE_SKILLEFFECT_LUA_000155..c..CALCULATE_SKILLEFFECT_LUA_000152)
+				if PetLV == 1 then
+					AddState( ATKER , DEFER , STATE_BHLZD , PetLV , 5 )	
+				elseif PetLV == 2 then
+					AddState( ATKER , DEFER , STATE_BHLZD , PetLV , 10 )	
+				elseif PetLV == 3 then
+					AddState( ATKER , DEFER , STATE_BHLZD , PetLV , 15 )	
+				end
+			else
+				return
+			end
+		elseif Item_ID == 6853 or Item_ID == 6854 or Item_ID == 6855 then
+			if State_Gbhl == 0 and State_Lbhl == 0 then
+				AddState( ATKER , ATKER , STATE_Lbhl , statelv , statetime )	----À×Ö®Áé
+				TakePetEndure50 (ATKER)
+				CALCULATE_SKILLEFFECT_LUA_000156 = GetResString("CALCULATE_SKILLEFFECT_LUA_000156")
+				CALCULATE_SKILLEFFECT_LUA_000157 = GetResString("CALCULATE_SKILLEFFECT_LUA_000157")
+				SystemNotice (ATKER, CALCULATE_SKILLEFFECT_LUA_000157..c..CALCULATE_SKILLEFFECT_LUA_000156)
+				if PetLV == 1 then
+					AddState( ATKER , DEFER , STATE_BHLXY , PetLV , 1 )	
+				elseif PetLV == 2 then
+					AddState( ATKER , DEFER , STATE_BHLXY , PetLV , 2 )	
+				elseif PetLV == 3 then
+					AddState( ATKER , DEFER , STATE_BHLXY , PetLV , 3 )	
+				end
+				HP_BHLXY(ATKER,DEFER,PetLV) 
+			else
+				return
+			end
+		else
+			return 
+		end
+	else
+		return
+	end
+end 
+function CheckAttackState1( ATKER , DEFER )
+	local Cha_Boat = GetCtrlBoat ( ATKER )
+	if Cha_Boat ~=  nil then
+		return
+	end
+	local Item_Bag = GetChaItem(ATKER, 2 , 3 )
+	if Item_Bag == nil then
+		return
+	end
+	local Item_ID = GetItemID ( Item_Bag )
+	statetime = 30
+	local JV = GetPetJV ( ATKER )	
+	a = math.random ( 1, 100)
+	if JV >= a then
+		local statelv = GetPetUre( ATKER )
+		if statelv == 3 then
+			CALCULATE_SKILLEFFECT_LUA_000147 = GetResString("CALCULATE_SKILLEFFECT_LUA_000147")
+			c = CALCULATE_SKILLEFFECT_LUA_000147
+		elseif statelv == 6 then
+			CALCULATE_SKILLEFFECT_LUA_000148 = GetResString("CALCULATE_SKILLEFFECT_LUA_000148")
+			c = CALCULATE_SKILLEFFECT_LUA_000148
+		elseif statelv == 10 then
+			CALCULATE_SKILLEFFECT_LUA_000149 = GetResString("CALCULATE_SKILLEFFECT_LUA_000149")
+			c = CALCULATE_SKILLEFFECT_LUA_000149
+		end
+		local atk_name = GetChaDefaultName ( ATKER )
+		local def_name = GetChaDefaultName ( DEFER )
+		local PetLV = GetPetUreLV (ATKER)
+		local State_Gbhl = GetChaStateLv ( ATKER, STATE_Gbhl )
+		local State_Abhl = GetChaStateLv ( DEFER, STATE_Abhl )
+		local State_Lbhl = GetChaStateLv ( ATKER, STATE_Lbhl )
+		if Item_ID == 6847 or Item_ID == 6848 or Item_ID == 6849 then
+			if State_Gbhl == 0 and State_Lbhl == 0 then
+				AddState( ATKER , ATKER , STATE_Gbhl , statelv , statetime )	----¹âÖ®Áé
+				TakePetEndure50 (ATKER)
+				CALCULATE_SKILLEFFECT_LUA_000150 = GetResString("CALCULATE_SKILLEFFECT_LUA_000150")
+				CALCULATE_SKILLEFFECT_LUA_000151 = GetResString("CALCULATE_SKILLEFFECT_LUA_000151")
+				SystemNotice (ATKER, CALCULATE_SKILLEFFECT_LUA_000151..c..CALCULATE_SKILLEFFECT_LUA_000150)
+				if PetLV == 1 then
+					AddState( ATKER , ATKER , STATE_BHLHP , PetLV , 5 )	
+				elseif PetLV == 2 then
+					AddState( ATKER , ATKER , STATE_BHLHP , PetLV , 10 )	
+				elseif PetLV == 3 then
+					AddState( ATKER , ATKER , STATE_BHLHP , PetLV , 15 )	
+				end
+			else
+				return
+			end
+		elseif Item_ID == 6853 or Item_ID == 6854 or Item_ID == 6855 then
+			if State_Gbhl == 0 and State_Lbhl == 0 then
+				AddState( ATKER , ATKER , STATE_Lbhl , statelv , statetime )	----À×Ö®Áé
+				TakePetEndure50 (ATKER)
+				CALCULATE_SKILLEFFECT_LUA_000156 = GetResString("CALCULATE_SKILLEFFECT_LUA_000156")
+				CALCULATE_SKILLEFFECT_LUA_000157 = GetResString("CALCULATE_SKILLEFFECT_LUA_000157")
+				SystemNotice (ATKER, CALCULATE_SKILLEFFECT_LUA_000157..c..CALCULATE_SKILLEFFECT_LUA_000156)
+			else
+				return
+			end
+		else
+			return 
+		end
+	else
+		return
+	end
+end 
+function GetPetUre( role )		----- ¸ù¾ÝÄÍ¾Ã¾ö¶¨×´Ì¬µÈ¼¶
+	local Item_Bag = GetChaItem( role, 2 , 3 )
+	local Item_type = GetItemType(Item_Bag)
+	if Item_type == 77 then
+		local Item_ID = GetItemID ( Item_Bag )
+		statelv = 0
+		if Item_ID == 6847 or Item_ID == 6850 or Item_ID == 6853 then
+				statelv = 3
+		elseif Item_ID == 6848 or Item_ID == 6851 or Item_ID == 6854 then
+				statelv = 6
+		elseif Item_ID == 6849 or Item_ID == 6852 or Item_ID == 6855 then
+				statelv = 10
+		end
+	else
+		statelv = 0
+	end
+	return statelv
+end 
+function GetPetUreLV( role )		----- ¸ù¾ÝÄÍ¾Ã¾ö¶¨×´Ì¬µÈ¼¶
+	local Item_Bag = GetChaItem( role, 2 , 3 )
+	local Item_type = GetItemType(Item_Bag)
+	if Item_type == 77 then
+		local Item_ID = GetItemID ( Item_Bag )
+		statelv = 0
+		if Item_ID == 6847 or Item_ID == 6850 or Item_ID == 6853 then
+				statelv = 1
+		elseif Item_ID == 6848 or Item_ID == 6851 or Item_ID == 6854 then
+				statelv = 2
+		elseif Item_ID == 6849 or Item_ID == 6852 or Item_ID == 6855 then
+				statelv = 3
+		end
+	else
+		statelv = 0
+	end
+	return statelv
+end 
+
+
+function GetPetJV ( ATKER)
+	JV = 0
+	local PetLv = GetPetUreLV (ATKER)
+	JV = 2*PetLv*10
+	return JV 
+end 
+function GivePetState( ATKER , DEFER )
+	local PetLv = GetPetUreLV (ATKER)
+	local State_Lbhl = GetChaStateLv ( ATKER, STATE_Lbhl )
+	if State_Lbhl >= 1 then
+		AddState( ATKER , DEFER , STATE_LEIPI , 2 , 2 )	
+	end
+end 
+
+
+function State_BHLHP_Add ( role , statelv ) 
+	if statelv <= 3 then
+	local sta = GetChaAttr ( role , ATTR_STA )
+	if statelv == 1 then
+		hp = math.floor (sta*statelv/5*10)
+	elseif statelv == 2 then
+		hp = math.floor (sta*statelv/10*10)
+		elseif statelv == 3 then
+			hp = math.floor (sta*statelv/15*10)
+		end
+		local hp_now = GetChaAttr( role , ATTR_HP )
+		local  hp_now = hp_now + hp
+		SetCharaAttr(hp_now, role, ATTR_HP)
+	else
+	end
+end 
+
+
+function State_BHLZD_Add ( role , statelv )
+	local hp_now = GetChaAttr( role , ATTR_MXHP )
+	local sta = GetChaAttr ( role , ATTR_STA )
+	Skill_time = 5
+	if statelv == 1 then
+		skltime = Skill_time*1
+		dmg = math.floor ((hp_now*0.1*statelv + hp_now*0.01*100/sta*statelv)/skltime)
+	elseif statelv == 2 then
+		skltime = Skill_time*2
+		dmg = math.floor ((hp_now*0.1*statelv + hp_now*0.01*100/sta*statelv)/skltime)
+	elseif statelv == 3 then
+		skltime = Skill_time*3
+		dmg = math.floor ((hp_now*0.1*statelv + hp_now*0.01*100/sta*statelv)/skltime)
+	end
+	if dmg > 1000 then
+		dmg = 1000
+	end
+-----ÉËº¦×î´ó50%´¦Àí	
+	all_dmg = dmg*skltime
+	MAX_HP = hp_now/2
+	if all_dmg > MAX_HP then
+		all_dmg = MAX_HP
+	end
+	dmg = math.floor ( all_dmg/skltime )
+	Hp_Dmg ( role , dmg )  
+end 
+
+
+function State_BHLXY_Add ( role , statelv )
+
+end 
+
+function HP_BHLXY ( ATKER , DEFER ,statelv)
+	local 	sta = GetChaAttr (ATKER , ATTR_STA ) 
+	dmg = sta * statelv
+	Hp_Dmg ( DEFER , dmg )  
+end 
+--ÀÍ¶¯½ÚÇÚÀÍ¿ó¸ä\ÀÍ¶¯½Ú»î¶¯¿ó¸ä--20090421bylochbai
+function Skill_XunBao_Begin ( role )
+	local el = 0
+	el =IsChaInRegion( role, 2 )
+	if el == 1 then
+		CALCULATE_SKILLEFFECT_LUA_000158 = GetResString("CALCULATE_SKILLEFFECT_LUA_000158")
+		SystemNotice( role , CALCULATE_SKILLEFFECT_LUA_000158 )
+		UseItemFailed ( role )
+		return
+	end
+	local Item_Use = GetChaItem ( role , 1 , 9 )			----È¡ÊÖÉÏ×°±¸µÄµÀ¾ß
+	if Item_Use == nil then
+		CALCULATE_SKILLEFFECT_LUA_000159 = GetResString("CALCULATE_SKILLEFFECT_LUA_000159")
+		SystemNotice( role , CALCULATE_SKILLEFFECT_LUA_000159)
+		UseItemFailed ( role )
+		return
+	end
+	local ItemID_Use = GetItemID ( Item_Use )			----È¡ID
+	if ItemID_Use ~= 6917 and ItemID_Use ~= 6944 then
+		CALCULATE_SKILLEFFECT_LUA_000159 = GetResString("CALCULATE_SKILLEFFECT_LUA_000159")
+		SystemNotice( role , CALCULATE_SKILLEFFECT_LUA_000159)
+		UseItemFailed ( role )
+		return
+	end
+	
+	local Item_URE = GetItemAttr ( Item_Use , ITEMATTR_URE )
+	if Item_URE <= 0 then
+		CALCULATE_SKILLEFFECT_LUA_000140 = GetResString("CALCULATE_SKILLEFFECT_LUA_000140")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000140 )
+		UseItemFailed ( role )
+		return
+	end
+	if ItemID_Use == 6917 then
+		ItemUse_WYQLKG ( role )
+	elseif ItemID_Use == 6944 then
+		ItemUse_WYHDKG ( role )
+	end
+end 
+
+
+function Skill_XunBao_End ( role )
 end
 
-end ----------ï¿½ï¿½Ä¥Í¨ï¿½Ã½Å±ï¿½ï¿½ï¿½ï¿½ï¿½
-------------------------------------------------------------------------------------------
 
----------------------------ï¿½ï¿½ï¿½ï¿½Í¨ï¿½Ã½Å±ï¿½ï¿½ï¿½Ê¼OK----------------------
-function Item_zbjl(role,zbxz,stwz,wqwz,Jlanlv,ykc,djjc,bkjc)---xzzb:Îª1ï¿½ï¿½ï¿½Æ£ï¿½0Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,stwz:ï¿½ï¿½ï¿½ï¿½Ê¯Í·Î»ï¿½ï¿½,wqwz×°ï¿½ï¿½Î»ï¿½Ã£ï¿½JlanlvÒ»ï¿½Î¾ï¿½ï¿½ï¿½ï¿½ÄµÈ¼ï¿½ï¿½ï¿½,ykcï¿½ï¿½1Îªï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ð¿ï¿½ï¿½ï¿½
------------ï¿½ï¿½Ï¢ï¿½ï¿½Ê¼ï¿½ï¿½
---------Ô¤ï¿½ï¿½ï¿½ï¿½Öªï¿½ï¿½ï¿½Â²ï¿½ï¿½ï¿½0ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
-if Jlanlv>9 then
-Jlanlv=9
-end
----------------------ï¿½ï¿½Ãµï¿½ï¿½ï¿½Î»ï¿½Ãµï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½
-local Item_baoshi = GetChaItem ( role , 2 , stwz ) --ï¿½ï¿½È¡Ê¯Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-local zb_id1 = GetItemID ( Item_baoshi )  --Ê¯Í·ID
-local jlanname = "ï¿½ï¿½"..GetItemName ( zb_id1 ).."ï¿½ï¿½"  --Ê¯Í·ï¿½ï¿½ï¿½ï¿½
-local BaoshiType = GetStone_TypeID ( Item_baoshi )--Ê¯Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
----------------------------------------------ï¿½ï¿½Ê¼ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
-local Item_damo = GetChaItem ( role , 2 , wqwz ) --ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
-local zb_id = GetItemID ( Item_damo )  --×°ï¿½ï¿½ID
-local zb_name ="ï¿½ï¿½"..GetItemName ( zb_id ).."ï¿½ï¿½"----×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-local zb_type =GetItemType ( Item_damo )-----×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-if zb_type~=29 then
-SystemNotice( role , "ï¿½ï¿½Í¼Ö½Ö»ï¿½Ô±ï¿½ï¿½ÇµÄ¾ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½")
-SystemNotice( role , "ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"..(wqwz+1).."Î»ï¿½Ã·ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½!")
-return 0
-end
-
------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¯Í·
---if BaoshiType == -1 then
---SystemNotice( role , "ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"..(stwz+1).."Î»ï¿½Ã·ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¯Í·!")
---return 0
---end
-------------------------ï¿½ï¿½ï¿½ï¿½Ç·ï¿½Îªï¿½ï¿½È·ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½ï¿½È·ï¿½ï¿½Ê¯Í·-----------------------
---if zb_id == 0 then
-local zbkjlck=CheckItem_CanJinglian ( Item_damo )
-if zbkjlck==0 then
-if zb_id~=0 then
-SystemNotice( role , zb_name.."ï¿½Ç²ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½!")
-end
-SystemNotice( role , "ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"..(wqwz+1).."Î»ï¿½Ã·ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½!")
-if BaoshiType == -1 then
-SystemNotice( role , "ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"..(stwz+1).."Î»ï¿½Ã·ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¯Í·!")
-end
-return 0
-else
-if BaoshiType == -1 then
-SystemNotice( role , "ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"..(stwz+1).."Î»ï¿½Ã·ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¯Í·!")
-return 0
+function ItemUse_WYQLKG ( role )	-----------------------------ÀÍ¶¯½ÚÇÚÀÍ¿ó¸ä
+	local Item_CanGet = GetChaFreeBagGridNum ( role )	--------------------------------ÅÐ¶Ï±³°ü¸ñ×ÓÊý
+	if Item_CanGet <= 0 then
+		CALCULATE_SKILLEFFECT_LUA_000160 = GetResString("CALCULATE_SKILLEFFECT_LUA_000160")
+		SystemNotice( role , CALCULATE_SKILLEFFECT_LUA_000160)
+		UseItemFailed ( role )
+		return
+	end
+	
+	local Item_Use = GetChaItem ( role , 1 , 9 )	----------------------------------¿Û³ýÄÍ¾Ã
+	local Item_URE = GetItemAttr ( Item_Use , ITEMATTR_URE )
+	local Item_URE = Item_URE - 5
+	SetItemAttr ( Item_Use , ITEMATTR_URE , Item_URE )
+	
+	if math.mod ( Item_URE , 2000 ) == 0 and Item_URE > 0 and Item_URE < 30000 then
+		GiveItem ( role , 0 , 6900 , 1 , 4 ) 
+		CALCULATE_SKILLEFFECT_LUA_000161 = GetResString("CALCULATE_SKILLEFFECT_LUA_000161")
+		SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000161 )
+	end
+	if math.mod ( Item_URE , 100 ) == 0 and Item_URE > 0 and math.mod ( Item_URE , 2000 ) ~= 0 then	
+		local getrandom = math.random ( 1 , 1000 )
+		if getrandom <= 200 then               ----------------------------------------------------20%Îªºº±¤
+			GiveItem ( role , 0 , 6203 , 1 , 4 ) 
+			CALCULATE_SKILLEFFECT_LUA_000162 = GetResString("CALCULATE_SKILLEFFECT_LUA_000162")
+			SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000162 )
+		elseif getrandom > 200 and getrandom <= 400 then  ----------------------------------20%Îªµ°¸â  
+			GiveItem ( role , 0 , 1849 , 1 , 4 ) 
+			CALCULATE_SKILLEFFECT_LUA_000163 = GetResString("CALCULATE_SKILLEFFECT_LUA_000163")
+			SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000163 )
+		elseif getrandom > 400 and getrandom <= 700 then 	----------------------------------30%ÎªÃæ°ü   
+			GiveItem ( role , 0 , 1848 , 1 , 4 ) 
+			CALCULATE_SKILLEFFECT_LUA_000164 = GetResString("CALCULATE_SKILLEFFECT_LUA_000164")
+			SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000164 )
+		elseif getrandom > 700 and getrandom <= 999 then ----------------------------------30%ÎªÆ»¹û 
+			GiveItem ( role , 0 , 1847 , 1 , 4 ) 
+			CALCULATE_SKILLEFFECT_LUA_000165 = GetResString("CALCULATE_SKILLEFFECT_LUA_000165")
+			SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000165 )
+		elseif getrandom > 999 and getrandom <= 1000 then  -----------------------------------0.1%ÎªÇÚÀÍ¼ø¶¨¿¨
+			GiveItem ( role , 0 , 6931 , 1 , 4 ) 
+			CALCULATE_SKILLEFFECT_LUA_000166 = GetResString("CALCULATE_SKILLEFFECT_LUA_000166")
+			SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000166 )
+		end
+	end
 end
 
+
+function ItemUse_WYHDKG ( role )	-------------------------ÀÍ¶¯½Ú»î¶¯¿ó¸ä
+	local Item_CanGet = GetChaFreeBagGridNum ( role )	--------------------------------ÅÐ¶Ï±³°ü¸ñ×ÓÊý
+	if Item_CanGet <= 0 then
+		CALCULATE_SKILLEFFECT_LUA_000160 = GetResString("CALCULATE_SKILLEFFECT_LUA_000160")
+		SystemNotice( role , CALCULATE_SKILLEFFECT_LUA_000160)
+		UseItemFailed ( role )
+		return
+	end
+	
+	local Item_Use = GetChaItem ( role , 1 , 9 )	----------------------------------¿Û³ýÄÍ¾Ã
+	local Item_URE = GetItemAttr ( Item_Use , ITEMATTR_URE )
+	local Item_URE = Item_URE - 5
+	SetItemAttr ( Item_Use , ITEMATTR_URE , Item_URE )
+	
+	if Item_URE == 1500 then
+	GiveItem ( role , 0 , 6900 , 1 , 4 ) 
+	CALCULATE_SKILLEFFECT_LUA_000161 = GetResString("CALCULATE_SKILLEFFECT_LUA_000161")
+	SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000161 )
+	end
+	if math.mod ( Item_URE , 100 ) == 0 and Item_URE > 0 and Item_URE ~= 1500 then	
+		local getrandom = math.random ( 1 , 1000 )
+		if getrandom <= 200 then               ----------------------------------------------------20%Îªºº±¤
+			GiveItem ( role , 0 , 6203 , 1 , 4 ) 
+			CALCULATE_SKILLEFFECT_LUA_000162 = GetResString("CALCULATE_SKILLEFFECT_LUA_000162")
+			SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000162 )
+		elseif getrandom > 200 and getrandom <= 400 then	----------------------------------20%Îªµ°¸â  
+			GiveItem ( role , 0 , 1849 , 1 , 4 ) 
+			CALCULATE_SKILLEFFECT_LUA_000163 = GetResString("CALCULATE_SKILLEFFECT_LUA_000163")
+			SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000163 )
+		elseif getrandom > 400 and getrandom <= 700 then	----------------------------------30%ÎªÃæ°ü   
+			GiveItem ( role , 0 , 1848 , 1 , 4 ) 
+			CALCULATE_SKILLEFFECT_LUA_000164 = GetResString("CALCULATE_SKILLEFFECT_LUA_000164")
+			SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000164 )
+		elseif getrandom > 700 and getrandom <= 999 then	----------------------------------30%ÎªÆ»¹û
+			GiveItem ( role , 0 , 1847 , 1 , 4 ) 
+			CALCULATE_SKILLEFFECT_LUA_000165 = GetResString("CALCULATE_SKILLEFFECT_LUA_000165")
+			SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000165 )
+		elseif getrandom > 999 and getrandom <= 1000 then  -----------------------------------0.1%ÎªÇÚÀÍ¼ø¶¨¿¨
+			GiveItem ( role , 0 , 6931 , 1 , 4 ) 
+			CALCULATE_SKILLEFFECT_LUA_000166 = GetResString("CALCULATE_SKILLEFFECT_LUA_000166")
+			SystemNotice ( role , CALCULATE_SKILLEFFECT_LUA_000166 )
+		end
+	end
+end
+function TakePetEndure50 (role)
+	local Item = GetChaItem ( role , 2 , 3 )
+	local Item_type = GetItemType(Item)
+	local Item_ID = GetItemID ( Item )
+	if Item_type == 77 then
+		local Item_ure = GetItemAttr( Item ,ITEMATTR_URE )       --ÌåÁ¦
+		if Item_ure > 25 then
+			Num = Item_ure - 25
+			SetItemAttr ( Item , ITEMATTR_URE , Num )
+		elseif Item_ure <= 25 then
+			local ItemName = GetItemName ( Item_ID ) 
+			RemoveChaItem( role , Item_ID , 0 , 2 , 3 , 2 , 1 )	
+			CALCULATE_FUNCTIONS_LUA_000722 = GetResString("CALCULATE_FUNCTIONS_LUA_000722")
+			SystemNotice (role,ItemName..CALCULATE_FUNCTIONS_LUA_000722)	
+		end
+	else
+		return
+	end
+end 
+function SkillSp_XLZD ( sklv )										
+	local sp_reduce = 100 
+	return sp_reduce 
+end 
+
+function Skill_XLZD_End (ATKER , DEFER , sklv )
+	local hp_defer = Hp ( DEFER ) 
+	if hp_defer >= 100000 then 
+		local a = Percentage_Random (0.8)
+		if a == 1 then
+			statetime = 5 + math.floor ( sklv * 0.3 ) 
+		else
+			SetSus( DEFER , 0 ) 
+			CALCULATE_SKILLEFFECT_LUA_000167 = GetResString("CALCULATE_SKILLEFFECT_LUA_000167")
+			SystemNotice ( ATKER , CALCULATE_SKILLEFFECT_LUA_000167) 
+			return
+		end
+	end 
+
+	if GetChaAIType( DEFER ) >= 21 then    --21ÒÔÉÏÎªBossAI£¬Èç¹ûÊÇBoss¸ù¾Ýboss²»Í¬£¬Éè¶¨¿ÉÒÔ±»¼Ó×´Ì¬µÄ´ÎÊý
+		if BOSSXZSJ[GetChaTypeID( DEFER )] == 0 then
+			CALCULATE_SKILLEFFECT_LUA_000028 = GetResString("CALCULATE_SKILLEFFECT_LUA_000028")
+			Notice (CALCULATE_SKILLEFFECT_LUA_000028)
+			return
+		else
+			BOSSXZSJ[GetChaTypeID( DEFER )] = BOSSXZSJ[GetChaTypeID( DEFER )] -1
+		end
+	end
+	local statetime = 9
+	AddState( ATKER , DEFER , STATE_XLZD , 1 , statetime )
 end
 
-----------------------------------------ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð²Û£ï¿½ï¿½ï¿½ï¿½Ü½ï¿½ï¿½Ð¾ï¿½ï¿½ï¿½
-if ykc==1 then
-Item_zbdamo(role,3,0,1)
+function SkillCooldown_XLZD (sklv)
+	local Cooldown = 30000
+	return Cooldown
+end 
+
+
+
+function New_Xlcz ( ATKER , DEFER) 
+	local lv_atker = Lv ( TurnToCha ( ATKER ) ) 
+	local lv_defer = Lv ( TurnToCha ( DEFER ) ) 
+	local sta_atker = Sta(ATKER) 
+	local sta_defer = Sta(DEFER) 
+	local lv_dif = math.max(1,lv_atker-lv_defer)
+	local sta_dif = math.max(1,math.floor ((sta_atker-sta_defer)/5))
+	local dif = math.min (lv_dif+sta_dif,20)
+	return dif
+end 
+
+
+function State_TK_Add (role , statelv) 
+	hpdmg = math.floor (statelv *100/5 )
+	Hp_Endure_Dmg ( role, hpdmg )  
+end 
+
+
+function State_XX_Add ( role, statelv )
+
+end 
+
+function STATE_HFHP_Add ( role, statelv )
+	hp = math.floor(statelv*100/10/2)
+	local hp_now = GetChaAttr( role , ATTR_HP )
+	local  hp_now = hp_now + hp
+	SetCharaAttr(hp_now, role, ATTR_HP)
+end 
+
+
+function State_XLZD_Add ( role, statelv )
+	AddState( role, role , STATE_XY , 10 , 2 ) 	
+end 
+
+
+function SkillCooldown_shenmixueqiu( sklv )
+	local Cooldown = 3000
+	return Cooldown
 end
 
-local Num = GetItemForgeParam ( Item_damo , 1 )  --ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÄ¾ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
-Num = TansferNum ( Num )----×ªï¿½ï¿½ï¿½ï¿½Öµ
-local Hole_Num = GetNum_Part1 ( Num )-----ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
-
-if  Hole_Num==0 then    
-SystemNotice( role , ""..zb_name.."Ã»ï¿½Ð¿×£ï¿½ï¿½ï¿½ï¿½Ü½ï¿½ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½ï¿½" )
-return 0
-end
----------ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Æ±ï¿½Ê¯ï¿½Ôµï¿½ï¿½ßµÄ¾ï¿½ï¿½ï¿½
-local ckzbxz=Check_StoneItemType ( Item_damo , Item_baoshi , Item_baoshi )------ï¿½ï¿½é±¦Ê¯ï¿½Ç·ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½
-if ckzbxz==0 and zbxz==1 then
-SystemNotice ( role , jlanname.."ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"..zb_name )
-return 0
-end
----------------------------------------------ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ê¯ï¿½ï¿½Ï¢----------------------------
-	local Item_Stone = {}
-	local Item_StoneLv = {}
-
-	Item_Stone[0] = GetNum_Part2 ( Num )   --È¡ï¿½ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½
-	Item_Stone[1] = GetNum_Part4 ( Num )
-	Item_Stone[2] = GetNum_Part6 ( Num )
-
-
-	Item_StoneLv[0] = GetNum_Part3 ( Num )  --È¡ï¿½ï¿½Ê¯ï¿½È¼ï¿½
-	Item_StoneLv[1] = GetNum_Part5 ( Num )
-	Item_StoneLv[2] = GetNum_Part7 ( Num )
-
-
----------------------------------------------×°ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½Ð±ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-----------------
-
--------------------------ï¿½ï¿½é±¦Ê¯ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½----------
-local i=0                                                   
-local chk_stone = 0
-local chk_stoneadd=0
-local chk_stcaowu=0
-
-for i = 2 , 0 , -1 do
-
-       if Item_Stone[i] == BaoshiType then
-          chk_stone = i + 1
-       end
-	if Item_Stone[i] ~=0 then
-          chk_stcaowu = chk_stcaowu + 1
-       end
-end
-
----------ï¿½Ð²Û£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¯Í·
-if chk_stcaowu == Hole_Num and chk_stone==0 then   
-	SystemNotice( role , ""..zb_name.."ï¿½ï¿½Ã»ï¿½Ð¶ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"..jlanname )
---	UseItemFailed ( role )
-	return 0
-end
-
------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½--------------ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ê¯ï¿½ï¿½Ï¢----------------------------
-	local Item_Stone = {}
-	local Item_StoneLv = {}
-
-	Item_Stone[0] = GetNum_Part2 ( Num )   --È¡ï¿½ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½
-	Item_Stone[1] = GetNum_Part4 ( Num )
-	Item_Stone[2] = GetNum_Part6 ( Num )
-
-	Item_StoneLv[0] = GetNum_Part3 ( Num )  --È¡ï¿½ï¿½Ê¯ï¿½È¼ï¿½
-	Item_StoneLv[1] = GetNum_Part5 ( Num )
-	Item_StoneLv[2] = GetNum_Part7 ( Num )
-
-----------------------------×°ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½Ð±ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-----------------
-----------------------------ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½Ê¯ï¿½Ç·ï¿½Îªï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ð¿Õ²ï¿½
-local chk_stonemax = 0
-local i = 0
-
-for i = 2 , 0 , -1 do
-     if Item_StoneLv[i] == 9 then
-        chk_stonemax =chk_stonemax + 1
-     end      
-end
-
----------------------------------------------ï¿½ï¿½ï¿½ï¿½Ê¯Í·ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0        
-if  chk_stonemax == Hole_Num then
-          if   chk_stone ~= 0    then
-               SystemNotice( role , ""..zb_name.."ï¿½Ïµï¿½"..jlanname.."ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµÈ¼ï¿½ï¿½ï¿½Ò²Ã»ï¿½Ð¶ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¯Í·ï¿½ï¿½")
+function Skill_shenmixueqiu_Begin ( role , sklv ) 
+	local NocLock =	KitbagLock( role, 0 )
+	if NocLock == LUA_FALSE then
+		SystemNotice( role , "The inventory is locked.")
 		return 0
-          end
-          SystemNotice( role , ""..zb_name.."ï¿½ï¿½Ç°ï¿½Ñ¾ï¿½Ã»ï¿½Ð¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²Û£ï¿½")
-          return 0
-end
-
----------------------------------------------ï¿½Ð±ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½ï¿½Ù¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-if  chk_stone ~= 0 then
-local jlz=0
------ï¿½È¼ï¿½Ö½
-
---------------------------------ï¿½ï¿½Ê¯1---------------
-if  chk_stone ==1 and Item_StoneLv[0] ~=9 then  --ï¿½ï¿½Ê¯1 
-if djjc==1 then
-if Jlanlv-1>=Item_StoneLv[0] then
-Jlanlv=1
-jlz=1
-end
-
-
-if jlz==0 then
-SystemNotice( role ,  "ï¿½ï¿½Ê¹ï¿½ï¿½"..(Item_StoneLv[0]+1).."ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½Ä±ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½ï¿½")
-return jlz
-end
-
-end
-        Item_StoneLv[0] =Item_StoneLv[0] + Jlanlv    --ï¿½ï¿½ï¿½Ã¾ï¿½ï¿½ï¿½ï¿½ï¿½Ê¯Í·ï¿½È¼ï¿½
-
-        if  Item_StoneLv[0] >=10 then
-            Item_StoneLv[0] =9
-        end
-      Jlanlv=Item_StoneLv[0] 
-        chk_stoneadd = 1
-
-        Num = SetNum_Part3 ( Num , Item_StoneLv[0] )  --ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½
-        SetItemForgeParam ( Item_damo , 1 , Num )
-
-end  --1
-
----------------------------------ï¿½ï¿½Ê¯2----------------
-if chk_stone ==2  and Item_StoneLv[1] ~=9 then  --ï¿½ï¿½Ê¯2
-if djjc==1 then
-if Jlanlv-1>=Item_StoneLv[1] then
-Jlanlv=1
-jlz=1
-end
-if jlz==0 then
-SystemNotice( role ,  "ï¿½ï¿½Ê¹ï¿½ï¿½"..(Item_StoneLv[1]+1).."ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½Ä±ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½ï¿½")
-return jlz
-end
-
-end
-         Item_StoneLv[1] =Item_StoneLv[1] + Jlanlv
-
-        if  Item_StoneLv[1] >=10 then
-            Item_StoneLv[1] =9
-        end
-Jlanlv=Item_StoneLv[1] 
-        chk_stoneadd = 2
-
-        Num = SetNum_Part5 ( Num , Item_StoneLv[1] )
-        SetItemForgeParam ( Item_damo , 1 , Num )
-
-end  --2
-
-----------------------------------ï¿½ï¿½Ê¯3---------------
-if chk_stone ==3  and Item_StoneLv[2] ~=9 then  --ï¿½ï¿½Ê¯3
-if djjc==1 then
-if Jlanlv-1>=Item_StoneLv[2] then
-Jlanlv=1
-jlz=1
-end
-if jlz==0 then
-SystemNotice( role ,  "ï¿½ï¿½Ê¹ï¿½ï¿½"..(Item_StoneLv[2]+1).."ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½ï¿½Ä±ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½Ö½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½ï¿½")
-return jlz
-end
-
-end
-         Item_StoneLv[2] =Item_StoneLv[2] + Jlanlv
-
-        if  Item_StoneLv[2] >=10 then
-            Item_StoneLv[2] =9
-        end
-Jlanlv=Item_StoneLv[2] 
-        chk_stoneadd = 3
-
-        Num = SetNum_Part7 ( Num , Item_StoneLv[2] )
-        SetItemForgeParam ( Item_damo , 1 , Num )
-
-end  --3
-------------------------------ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½----Ã»ï¿½ï¿½ï¿½Ð¶Ï½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Õ²ï¿½ï¿½ï¿½ï¿½--------------------------------
-        if chk_stoneadd~=0 then  --ï¿½ï¿½ï¿½ï¿½ï¿½Ë¾ï¿½ï¿½ï¿½
-           check_item_final_data(  Item_damo )  --Ë¢ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-           SystemNotice( role ,  ""..zb_name.."ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"..Jlanlv.."ï¿½ï¿½ï¿½ï¿½"..jlanname.."")
-           return chk_stoneadd
-        end
-        SystemNotice( role ,  ""..zb_name.."ï¿½Ïµï¿½"..jlanname.."ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµÈ¼ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½Ê¯ï¿½ï¿½ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½ï¿½")  ----ï¿½ï¿½ï¿½Ú±ï¿½Ê¯ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ß¼ï¿½
-        return 0
-end    --------------if chk_stone ~= 0 ï¿½ï¿½ï¿½ï¿½
--------------------------------------------------ï¿½ï¿½ï¿½Ð±ï¿½Ê¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-------------------------------------------------
-if djjc==1 then
-Jlanlv=1
-end
--------------------------------------------------ï¿½ï¿½ï¿½Ú¿Õ²ÛµÄ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-------------------------------------------------
-local Check_empty = 0                          --ï¿½ï¿½ï¿½Õ²Ûµï¿½ï¿½ï¿½ï¿½
-for i = 2 , 0 , -1 do
-	if Item_Stone[i] == 0 then
-		Check_empty = i + 1
 	end
-end
-------------------------------------------------ï¿½Õ²ï¿½1------------------------------------------------
-if Check_empty == 1 then                       --ï¿½ï¿½ï¿½Ã±ï¿½Ê¯1
-	Num = SetNum_Part2 ( Num , BaoshiType )	SetItemForgeParam ( Item_damo , 1 , Num )
-
-	Num = SetNum_Part3 ( Num , Jlanlv )
-	SetItemForgeParam ( Item_damo , 1 , Num )
-
-end
-
-------------------------------------------------ï¿½Õ²ï¿½2------------------------------------------------if Check_empty == 2 then
-if Check_empty == 2 then   
-	Num = SetNum_Part4 ( Num , BaoshiType )                     --ï¿½ï¿½Ê¯2
-	SetItemForgeParam ( Item_damo , 1 , Num )
-
-	Num = SetNum_Part5 ( Num , Jlanlv )
-	SetItemForgeParam ( Item_damo , 1 , Num )
+	local atk_role = TurnToCha ( role ) 
+	local item_count = CheckBagItem ( atk_role , 7713 ) --´¬Ö»ÅçÉäÆ÷1
+	if item_count <= 0 then  
+		SkillUnable(atk_role)   
+		SystemNotice ( atk_role , "There is no required item to use the skill." ) 
+	end 
+	local a = DelBagItem ( atk_role , 7713 , 1 ) 
 end
 
-------------------------------------------------ï¿½Õ²ï¿½3------------------------------------------------
 
-if Check_empty == 3 then
-	Num = SetNum_Part6 ( Num , BaoshiType )                     --ï¿½ï¿½Ê¯3	SetItemForgeParam ( Item_damo , 1 , Num )
-
-	Num = SetNum_Part7 ( Num , Jlanlv )
-	SetItemForgeParam ( Item_damo , 1 , Num )
-end
----------------------------------------------ï¿½Õ²Û½ï¿½ï¿½Ð¾ï¿½ï¿½ï¿½---------------------------------------------
-if  Check_empty~=0 then
-        check_item_final_data(Item_damo)  --Ë¢ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-        SystemNotice( role ,""..zb_name.."ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"..Jlanlv.."ï¿½ï¿½ï¿½ï¿½"..jlanname.."")
-        return Check_empty
+function Skill_shenmixueqiu_End ( ATKER , DEFER , sklv ) 
+	local NocLock =	KitbagLock( ATKER, 0 )
+	if NocLock == LUA_FALSE then
+		SystemNotice( ATKER , "The inventory is locked.")
+		return 0
+	end	
+	local dmg = 2500
+	Hp_Endure_Dmg ( DEFER , dmg) 
+	Check_Ys_Rem ( ATKER , DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí 
 end
 
-SystemNotice( role ,""..zb_name.."ï¿½Ñ¾ï¿½ï¿½ïµ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¼ï¿½ï¿½Ë£ï¿½")
-return 0
+-----¸½ÄÜÕ¶¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-end
-
----------------------------ï¿½ï¿½ï¿½ï¿½Í¨ï¿½Ã½Å±ï¿½ï¿½ï¿½ï¿½ï¿½----------------------
-
-
--------ï¿½ï¿½Ä¥Ö½ï¿½ï¿½ï¿½ßµï¿½Ê¹ï¿½Ãºï¿½ï¿½ï¿½
-----Í¨ï¿½Ãºï¿½ï¿½ï¿½
----Item_zbdamo(role,caoshu,wz,xx)-----caoshu:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿,wz:ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã¼ï¿½Ò»,xx:ï¿½É²ï¿½Ð´ï¿½ï¿½Îª1ï¿½Ç½ï¿½ï¿½Ê¹ï¿½Ã²ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ï¢
-function  Item_kacao ( role )
-local dmck=Item_zbdamo(role,1,0)
-if dmck==0 then
-UseItemFailed ( role )
-end
-end
--------ï¿½ï¿½Ä¥Ö½ï¿½ï¿½ï¿½ßµï¿½Ê¹ï¿½Ãºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-
------------×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Ö½Ê¹ï¿½Ãºï¿½ï¿½ï¿½
-------Item_zbjl(role,zbxz,stwz,wqwz,Jlanlv,ykc,djjc,bkjc)---zbxz:Îª1ï¿½ï¿½ï¿½Æ£ï¿½0Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,stwz:ï¿½ï¿½ï¿½ï¿½Ê¯Í·Î»ï¿½ï¿½,wqwz×°ï¿½ï¿½Î»ï¿½Ã£ï¿½JlanlvÒ»ï¿½Î¾ï¿½ï¿½ï¿½ï¿½ÄµÈ¼ï¿½ï¿½ï¿½,ykc:ï¿½Ç·ï¿½ï¿½È½ï¿½ï¿½Ð¿ï¿½ï¿½Û£ï¿½1ÎªÒª djjc:ï¿½ï¿½ï¿½ï¿½ÐµÈ¼ï¿½ï¿½ï¿½Í¼Ö½ï¿½ï¿½1Òªï¿½ï¿½ï¿½,bkjc:ï¿½ï¿½ï¿½Ö»ï¿½Ð±ï¿½ï¿½Ç²Å¾ï¿½ï¿½ï¿½Ê±Îª1
-function Item_Jlz1(role) ----1ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½Ö½
-local ckjl=Item_zbjl(role,1,1,0,1,0,1)
-
-if ckjl==0 then
-UseItemFailed ( role )
-end
-
-end
-
-function Item_Jlz2(role)----2ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½Ö½
-local ckjl=Item_zbjl(role,1,1,0,2,0,1)
-
-if ckjl==0 then
-UseItemFailed ( role )
-end
-
-end
-
-function Item_Jlz3(role)----3ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½Ö½
-local ckjl=Item_zbjl(role,1,1,0,3,0,1)
-
-if ckjl==0 then
-UseItemFailed ( role )
-end
-
-end
-
-function Item_Jlz4(role)----4ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½Ö½
-local ckjl=Item_zbjl(role,1,1,0,4,0,1)
-
-if ckjl==0 then
-UseItemFailed ( role )
-end
-
-end
-
-function Item_Jlz5(role)----5ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½Ö½
-local ckjl=Item_zbjl(role,1,1,0,5,0,1)
-
-if ckjl==0 then
-UseItemFailed ( role )
-end
-
-end
-
-function Item_Jlz6(role)----6ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½Ö½
-local ckjl=Item_zbjl(role,1,1,0,6,0,1)
-
-if ckjl==0 then
-UseItemFailed ( role )
-end
-
-end
-
-function Item_Jlz7(role)----7ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½Ö½
-local ckjl=Item_zbjl(role,1,1,0,7,0,1)
-
-if ckjl==0 then
-UseItemFailed ( role )
-end
-
-end
-
-function Item_Jlz8(role)----8ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½Ö½
-local ckjl=Item_zbjl(role,1,1,0,8,0,1)
-
-if ckjl==0 then
-UseItemFailed ( role )
-end
-
-end
-
-function Item_Jlz9(role)----9ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½Ö½
-local ckjl=Item_zbjl(role,1,1,0,9,0,1)
-
-if ckjl==0 then
-UseItemFailed ( role )
-end
-
-end
-
-function Skill_lackart_End ( ATKER , DEFER , sklv )
-        if ValidCha(ATKER) == 0 then
-            return
-        end
-        if ValidCha(DEFER) == 0 then
-            return
-        end
-        local ChaName_ATKER = GetChaDefaultName ( ATKER )
-        local ChaName_DEFER = GetChaDefaultName ( DEFER )
-        dmg = Atk_Dmg( ATKER, DEFER )
-        Hp_Endure_Dmg( DEFER , dmg )
-        Take_Atk_ItemURE ( ATKER )
-        Take_Def_ItemURE ( DEFER )
-        Check_Ys_Rem ( ATKER , DEFER)
-end
-
---Lv1 ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½
-------------------1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤
-function SkillCooldown_Daibuzheng1( sklv )
+function SkillCooldown_FNZ( sklv )
 	local Cooldown = 5000
 	return Cooldown
 end
 
---Lv1 ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½
-function SkillCooldown_Daibuzheng1( sklv )
-   local Cooldown = 5000
-   return Cooldown
-end
- 
-function Skill_Daibuzheng1_End ( ATKER , DEFER , sklv )
-   local atker_name = GetChaDefaultName ( ATKER )
-   local defer_name = GetChaDefaultName ( DEFER )
-   local NocLock =   KitbagLock( ATKER, 0 )
-   local re_type = IsPlayer ( DEFER )
-   local State_baitan = GetChaStateLv ( DEFER, STATE_BAT )
-   local State_jiaoyi = GetChaStateLv ( DEFER, STATE_JY )
-   if re_type == 0 then
-      SystemNotice ( ATKER, "\207\238\230\224\235\243\233\241\242\224, \232\241\239\238\235\252\231\243\233\242\229 \206\240\228\229\240 \237\224 \224\240\229\241\242 \242\238\235\252\234\238 \228\235\255 \230\232\226\251\245 \232\227\240\238\234\238\226.")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½ï¿½Ø§Ñ§Ý§ï¿½Û§ï¿½ï¿½ï¿½, ï¿½Ú§ï¿½ï¿½ï¿½Ý§ï¿½Ù§ï¿½Û§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ ï¿½ï¿½ï¿½Ý§ï¿½Ü§ï¿½ ï¿½Õ§Ý§ï¿½ ï¿½Ø§Ú§Ó§ï¿½ï¿½ï¿½ ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½ï¿½.")
-      --SystemNotice ( ATKER, "Please do not just the role of non-gamers into the prison to arrest.")
-      return
-   end
-   if State_baitan >= 1 then
-      SystemNotice ( ATKER, "\205\229\226\238\231\236\238\230\237\238 \224\240\229\241\242\238\226\224\242\252 \232\227\240\238\234\224, \234\238\227\228\224 \238\237 \242\238\240\227\243\229\242 \226 \235\238\242\234\229")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½Ö§Ó§ï¿½Ù§Þ§ï¿½Ø§ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½, ï¿½Ü§ï¿½Ô§Õ§ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ô§ï¿½Ö§ï¿½ ï¿½ï¿½ ï¿½Ý§ï¿½ï¿½Ü§ï¿½")
-      --SystemNotice ( ATKER, "Each other in a stall, and failed to arrest")
-      return
-   end
-   if State_jiaoyi >= 1 then
-      SystemNotice ( ATKER, "\205\229\235\252\231\255 \224\240\229\241\242\238\226\224\242\252 \232\227\240\238\234\224 \226 \194\224\248\229\236 \238\242\240\255\228\229")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½Ö§Ý§ï¿½Ù§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½Ö§ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ§ï¿½")
-      --SystemNotice ( ATKER, "The status of the other party in the transaction, the failure to arrest")
-      return
-   end
-   if atker_name == defer_name then
-      SystemNotice ( ATKER, "\205\229\235\252\231\255 \224\240\229\241\242\238\226\224\242\252 \241\224\236\238\227\238 \241\229\225\255")    
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½Ö§Ý§ï¿½Ù§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½Ñ§Þ§ï¿½Ô§ï¿½ ï¿½ï¿½Ö§Ò§ï¿½")
-      --SystemNotice ( ATKER, "Can not arrest their own")
-      return
-   end
-   if NocLock == LUA_FALSE then
-      SystemNotice( ATKER , "\200\237\226\229\237\242\224\240\252 \231\224\225\235\238\234\232\240\238\226\224\237")
-      --SystemNotice( ATKER , "ï¿½ï¿½ï¿½ß§Ó§Ö§ß§ï¿½Ñ§ï¿½ï¿½ ï¿½Ù§Ñ§Ò§Ý§ï¿½Ü§Ú§ï¿½ï¿½Ó§Ñ§ï¿½")
-      --SystemNotice( ATKER , "Inventory is Locked")
-      return 0
-   end
-   local item_count = CheckBagItem ( ATKER , 5717 )
-   if item_count <= 0 then  
-      return
-      SystemNotice ( ATKER , "\211 \194\224\241 \237\229\242 \206\240\228\229\240\224 \237\224 \224\240\229\241\242" )
-      --SystemNotice ( ATKER , "ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ ï¿½ß§Ö§ï¿½ ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½" )
-      --SystemNotice ( ATKER , "Backpack does not use the special skills required for items" )
-   end
-   local statelv_bkdb = GetChaStateLv ( DEFER , STATE_BKDB )
-   if statelv_bkdb >=1 then
-      return
-      SystemNotice ( ATKER, "\196\240\243\227\224\255 \241\242\238\240\238\237\224 \237\229 \236\238\230\229\242 \225\251\242\252 \224\240\229\241\242\238\226\224\237\224 \226 \241\238\241\242\238\255\237\232\232 \231\224\249\232\242\251")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½ï¿½ï¿½Ô§Ñ§ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß§ï¿½ ï¿½ß§ï¿½ ï¿½Þ§ï¿½Ø§Ö§ï¿½ ï¿½Ò§ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ß§ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß§Ú§ï¿½ ï¿½Ù§Ñ§ï¿½Ú§ï¿½ï¿½")
-      --SystemNotice ( ATKER, "The other side can not be arrested in a state of props to use the failure of")
-   end
-   local Lv_defer = Lv ( DEFER )
-   if Lv_defer > 40 then
-      return
-      SystemNotice ( ATKER, "\211\240\238\226\229\237\252 \232\227\240\238\234\224 \234\238\242\238\240\227\238 \194\251 \245\238\242\229\235\232 \224\240\229\241\242\238\226\224\242\252 \241\235\232\248\234\238\236 \226\251\241\238\234, \247\242\238\225\251 \232\241\239\238\235\252\231\238\226\224\242\252 \253\242\238\242 \206\240\228\229\240 \237\224 \224\240\229\241\242")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½ï¿½ï¿½Ó§Ö§ß§ï¿½ ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½ ï¿½Ü§ï¿½ï¿½ï¿½ï¿½Ô§ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö§Ý§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½Ý§Ú§ï¿½Ü§ï¿½ï¿½ ï¿½Ó§ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½Ò§ï¿½ ï¿½Ú§ï¿½ï¿½ï¿½Ý§ï¿½Ù§ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½")
-      --SystemNotice ( ATKER, "The other levels too high, the current arrest warrant can not be arrested")
-   end      
-   local a = DelBagItem ( ATKER , 5717 , 1 )
-   local Num_Haorenzheng = CheckBagItem(  DEFER , 5721 )
-   local Num_Liangminzheng = CheckBagItem(  DEFER , 5722 )
-   if Num_Haorenzheng >= 1 then
-      DelBagItem ( DEFER, 5721, 1)
-      SystemNotice( DEFER, "\200\227\240\238\234"..atker_name.."   \232\241\239\238\235\252\231\238\226\224\235 \206\240\228\229\240 \237\224 \224\240\229\241\242, \247\242\238\225\251 \224\240\229\241\242\238\226\224\242\252 \194\224\241, \237\238 \194\224\248\224 \202\224\240\242\224 \213\238\240\238\248\229\227\238 \207\224\240\237\255 \239\238\236\238\227\235\224 \232\231\225\229\230\224\242\252 \226\224\236 \237\224\234\224\231\224\237\232\255!")
-      --SystemNotice( DEFER, "ï¿½ï¿½ï¿½Ô§ï¿½ï¿½ï¿½"..atker_name.."   ï¿½Ú§ï¿½ï¿½ï¿½Ý§ï¿½Ù§ï¿½Ó§Ñ§ï¿½ ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½Ò§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½, ï¿½ß§ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§Ô§ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ß§ï¿½ ï¿½ï¿½ï¿½Þ§ï¿½Ô§Ý§ï¿½ ï¿½Ú§Ù§Ò§Ö§Ø§Ñ§ï¿½ï¿½ ï¿½Ó§Ñ§ï¿½ ï¿½ß§Ñ§Ü§Ñ§Ù§Ñ§ß§Ú§ï¿½!")
-      --SystemNotice( DEFER, "Players"..atker_name.."   The use of an arrest warrant for you, your card by the midst of a good man, an arrest warrant is invalid!")
-      Notice ( defer_name.."\225\235\224\227\238\228\224\240\255 \202\224\240\242\229 \213\238\240\238\248\229\227\238 \207\224\240\237\255 \232\231\225\229\227\224\229\242 \237\224\234\224\231\224\237\232\255!")
-      --Notice ( defer_name.."ï¿½Ò§Ý§Ñ§Ô§ï¿½Õ§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§Ô§ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ß§ï¿½ ï¿½Ú§Ù§Ò§Ö§Ô§Ñ§Ö§ï¿½ ï¿½ß§Ñ§Ü§Ñ§Ù§Ñ§ß§Ú§ï¿½!")
-      --Notice ( defer_name.."By the midst of good cards, to escape from prison, is indeed gratifying to see!")
-   else
-      if Num_Liangminzheng >= 1 then
-         DelBagItem ( DEFER, 5722, 1)
-         SystemNotice( ATKER, "\194\251 \239\251\242\224\235\232\241\252 \224\240\229\241\242\238\226\224\242\252 \245\238\240\238\248\229\227\238 \247\229\235\238\226\229\234\224"..defer_name..", \231\224 \253\242\238 \194\251 \238\242\239\240\224\226\235\255\229\242\229\241\252 \226 \242\254\240\252\236\243 \237\224 1 \247\224\241!")
-         --SystemNotice( ATKER, "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ý§Ú§ï¿½ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§Ô§ï¿½ ï¿½ï¿½Ö§Ý§ï¿½Ó§Ö§Ü§ï¿½"..defer_name..", ï¿½Ù§ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ó§Ý§ï¿½Ö§ï¿½Ö§ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Þ§ï¿½ ï¿½ß§ï¿½ 1 ï¿½ï¿½Ñ§ï¿½!")
-         --SystemNotice( ATKER, "Good people you're trying to frame-up"..defer_name..",Found guilty, sentenced to prison 1 hour!")
-         Notice ( atker_name.."\194\251 \239\251\242\224\235\232\241\252 \224\240\229\241\242\238\226\224\242\252 \245\238\240\238\248\229\227\238 \247\229\235\238\226\229\234\224"..defer_name..", \231\224 \253\242\238 \194\251 \238\242\239\240\224\226\235\255\229\242\229\241\252 \226 \242\254\240\252\236\243 \237\224 1 \247\224\241!")
-         --Notice ( atker_name.."ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ý§Ú§ï¿½ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§Ô§ï¿½ ï¿½ï¿½Ö§Ý§ï¿½Ó§Ö§Ü§ï¿½"..defer_name..", ï¿½Ù§ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ó§Ý§ï¿½Ö§ï¿½Ö§ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Þ§ï¿½ ï¿½ß§ï¿½ 1 ï¿½ï¿½Ñ§ï¿½!")
-         --Notice ( atker_name.."Good people trying to frame-up"..defer_name..",Found guilty, sentenced to prison 1 hour!")
-         SetSpawnPos ( ATKER , "Pkteam" )
-         MoveCity( ATKER , "Pkteam")
-      else
-         Notice ( defer_name.." \225\251\235(\224) \224\240\229\241\242\238\226\224\237(\224) \232\227\240\238\234\238\236 "..atker_name..", \232 \238\242\239\240\224\226\235\229\237(\224) \226 \242\254\240\252\236\243 \237\224 1 \247\224\241!")
-         --Notice ( defer_name.." ï¿½Ò§ï¿½ï¿½ï¿½(ï¿½ï¿½) ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½(ï¿½ï¿½) ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½ï¿½ "..atker_name..", ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ó§Ý§Ö§ï¿½(ï¿½ï¿½) ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Þ§ï¿½ ï¿½ß§ï¿½ 1 ï¿½ï¿½Ñ§ï¿½!")
-         --Notice ( defer_name.." was arrested by "..atker_name..", and sentenced in prison for 1 hour!")
-         SetSpawnPos ( DEFER , "Pkteam" )
-         MoveCity( DEFER , "Pkteam")
-      end
-   end
-end
- 
---Lv2 ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½
-function SkillCooldown_Daibuzheng2( sklv )
-   local Cooldown = 5000
-   return Cooldown
-end
- 
-function Skill_Daibuzheng2_End ( ATKER , DEFER , sklv )
-   local atker_name = GetChaDefaultName ( ATKER )
-   local defer_name = GetChaDefaultName ( DEFER )
-   local NocLock =   KitbagLock( ATKER, 0 )
-   local re_type = IsPlayer ( DEFER )
-   local State_baitan = GetChaStateLv ( DEFER, STATE_BAT )
-   local State_jiaoyi = GetChaStateLv ( DEFER, STATE_JY )
-   if re_type == 0 then
-      SystemNotice ( ATKER, "\207\238\230\224\235\243\233\241\242\224, \232\241\239\238\235\252\231\243\233\242\229 \206\240\228\229\240 \237\224 \224\240\229\241\242 \242\238\235\252\234\238 \228\235\255 \230\232\226\251\245 \232\227\240\238\234\238\226.")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½ï¿½Ø§Ñ§Ý§ï¿½Û§ï¿½ï¿½ï¿½, ï¿½Ú§ï¿½ï¿½ï¿½Ý§ï¿½Ù§ï¿½Û§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ ï¿½ï¿½ï¿½Ý§ï¿½Ü§ï¿½ ï¿½Õ§Ý§ï¿½ ï¿½Ø§Ú§Ó§ï¿½ï¿½ï¿½ ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½ï¿½.")
-      --SystemNotice ( ATKER, "Please do not just the role of non-gamers into the prison to arrest.")
-      return
-   end
-   if State_baitan >= 1 then
-      SystemNotice ( ATKER, "\205\229\226\238\231\236\238\230\237\238 \224\240\229\241\242\238\226\224\242\252 \232\227\240\238\234\224, \234\238\227\228\224 \238\237 \242\238\240\227\243\229\242 \226 \235\238\242\234\229")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½Ö§Ó§ï¿½Ù§Þ§ï¿½Ø§ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½, ï¿½Ü§ï¿½Ô§Õ§ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ô§ï¿½Ö§ï¿½ ï¿½ï¿½ ï¿½Ý§ï¿½ï¿½Ü§ï¿½")
-      --SystemNotice ( ATKER, "Each other in a stall, and failed to arrest")
-      return
-   end
-   if State_jiaoyi >= 1 then
-      SystemNotice ( ATKER, "\205\229\235\252\231\255 \224\240\229\241\242\238\226\224\242\252 \232\227\240\238\234\224 \226 \194\224\248\229\236 \238\242\240\255\228\229")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½Ö§Ý§ï¿½Ù§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½Ö§ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ§ï¿½")
-      --SystemNotice ( ATKER, "The status of the other party in the transaction, the failure to arrest")
-      return
-   end
-   if atker_name == defer_name then
-      SystemNotice ( ATKER, "\205\229\235\252\231\255 \224\240\229\241\242\238\226\224\242\252 \241\224\236\238\227\238 \241\229\225\255")    
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½Ö§Ý§ï¿½Ù§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½Ñ§Þ§ï¿½Ô§ï¿½ ï¿½ï¿½Ö§Ò§ï¿½")
-      --SystemNotice ( ATKER, "Can not arrest their own")
-      return
-   end
-   if NocLock == LUA_FALSE then
-      SystemNotice( ATKER , "\200\237\226\229\237\242\224\240\252 \231\224\225\235\238\234\232\240\238\226\224\237")
-      --SystemNotice( ATKER , "ï¿½ï¿½ï¿½ß§Ó§Ö§ß§ï¿½Ñ§ï¿½ï¿½ ï¿½Ù§Ñ§Ò§Ý§ï¿½Ü§Ú§ï¿½ï¿½Ó§Ñ§ï¿½")
-      --SystemNotice( ATKER , "Inventory is Locked")
-      return 0  
-   end
-   local item_count = CheckBagItem ( ATKER , 5718 )
-   if item_count <= 0 then  
-      return
-      SystemNotice ( ATKER , "\211 \194\224\241 \237\229\242 \206\240\228\229\240\224 \237\224 \224\240\229\241\242" )
-      --SystemNotice ( ATKER , "ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ ï¿½ß§Ö§ï¿½ ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½" )
-      --SystemNotice ( ATKER , "Backpack does not use the special skills required for items" )
-   end
-   local statelv_bkdb = GetChaStateLv ( DEFER , STATE_BKDB )
-   if statelv_bkdb >=1 then
-      return
-      SystemNotice ( ATKER, "\196\240\243\227\224\255 \241\242\238\240\238\237\224 \237\229 \236\238\230\229\242 \225\251\242\252 \224\240\229\241\242\238\226\224\237\224 \226 \241\238\241\242\238\255\237\232\232 \231\224\249\232\242\251")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½ï¿½ï¿½Ô§Ñ§ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß§ï¿½ ï¿½ß§ï¿½ ï¿½Þ§ï¿½Ø§Ö§ï¿½ ï¿½Ò§ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ß§ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß§Ú§ï¿½ ï¿½Ù§Ñ§ï¿½Ú§ï¿½ï¿½")
-      --SystemNotice ( ATKER, "The other side can not be arrested in a state of props to use the failure of")
-   end
-   local Lv_defer = Lv ( DEFER )
-   if Lv_defer > 60 then
-      return
-      SystemNotice ( ATKER, "\211\240\238\226\229\237\252 \232\227\240\238\234\224 \234\238\242\238\240\227\238 \194\251 \245\238\242\229\235\232 \224\240\229\241\242\238\226\224\242\252 \241\235\232\248\234\238\236 \226\251\241\238\234, \247\242\238\225\251 \232\241\239\238\235\252\231\238\226\224\242\252 \253\242\238\242 \206\240\228\229\240 \237\224 \224\240\229\241\242")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½ï¿½ï¿½Ó§Ö§ß§ï¿½ ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½ ï¿½Ü§ï¿½ï¿½ï¿½ï¿½Ô§ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö§Ý§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½Ý§Ú§ï¿½Ü§ï¿½ï¿½ ï¿½Ó§ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½Ò§ï¿½ ï¿½Ú§ï¿½ï¿½ï¿½Ý§ï¿½Ù§ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½")
-      --SystemNotice ( ATKER, "The other levels too high, the current arrest warrant can not be arrested")
-   end      
-   local a = DelBagItem ( ATKER , 5718 , 1 )
-   local Num_Haorenzheng = CheckBagItem(  DEFER , 5721 )
-   local Num_Liangminzheng = CheckBagItem(  DEFER , 5722 )
-   if Num_Haorenzheng >= 1 then
-      DelBagItem ( DEFER, 5721, 1)
-      SystemNotice( DEFER, "\200\227\240\238\234"..atker_name.."   \232\241\239\238\235\252\231\238\226\224\235 \206\240\228\229\240 \237\224 \224\240\229\241\242, \247\242\238\225\251 \224\240\229\241\242\238\226\224\242\252 \194\224\241, \237\238 \194\224\248\224 \202\224\240\242\224 \213\238\240\238\248\229\227\238 \207\224\240\237\255 \239\238\236\238\227\235\224 \232\231\225\229\230\224\242\252 \226\224\236 \237\224\234\224\231\224\237\232\255!")
-      --SystemNotice( DEFER, "ï¿½ï¿½ï¿½Ô§ï¿½ï¿½ï¿½"..atker_name.."   ï¿½Ú§ï¿½ï¿½ï¿½Ý§ï¿½Ù§ï¿½Ó§Ñ§ï¿½ ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½Ò§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½, ï¿½ß§ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§Ô§ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ß§ï¿½ ï¿½ï¿½ï¿½Þ§ï¿½Ô§Ý§ï¿½ ï¿½Ú§Ù§Ò§Ö§Ø§Ñ§ï¿½ï¿½ ï¿½Ó§Ñ§ï¿½ ï¿½ß§Ñ§Ü§Ñ§Ù§Ñ§ß§Ú§ï¿½!")
-      --SystemNotice( DEFER, "Players"..atker_name.."   The use of an arrest warrant for you, your card by the midst of a good man, an arrest warrant is invalid!")
-      Notice ( defer_name.."\225\235\224\227\238\228\224\240\255 \202\224\240\242\229 \213\238\240\238\248\229\227\238 \207\224\240\237\255 \232\231\225\229\227\224\229\242 \237\224\234\224\231\224\237\232\255!")
-      --Notice ( defer_name.."ï¿½Ò§Ý§Ñ§Ô§ï¿½Õ§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§Ô§ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ß§ï¿½ ï¿½Ú§Ù§Ò§Ö§Ô§Ñ§Ö§ï¿½ ï¿½ß§Ñ§Ü§Ñ§Ù§Ñ§ß§Ú§ï¿½!")
-      --Notice ( defer_name.."By the midst of good cards, to escape from prison, is indeed gratifying to see!")
-   else
-      if Num_Liangminzheng >= 1 then
-         DelBagItem ( DEFER, 5722, 1)
-         SystemNotice( ATKER, "\194\251 \239\251\242\224\235\232\241\252 \224\240\229\241\242\238\226\224\242\252 \245\238\240\238\248\229\227\238 \247\229\235\238\226\229\234\224"..defer_name..", \231\224 \253\242\238 \194\251 \238\242\239\240\224\226\235\255\229\242\229\241\252 \226 \242\254\240\252\236\243 \237\224 1 \247\224\241!")
-         --SystemNotice( ATKER, "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ý§Ú§ï¿½ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§Ô§ï¿½ ï¿½ï¿½Ö§Ý§ï¿½Ó§Ö§Ü§ï¿½"..defer_name..", ï¿½Ù§ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ó§Ý§ï¿½Ö§ï¿½Ö§ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Þ§ï¿½ ï¿½ß§ï¿½ 1 ï¿½ï¿½Ñ§ï¿½!")
-         --SystemNotice( ATKER, "Good people you're trying to frame-up"..defer_name..",Found guilty, sentenced to prison 1 hour!")
-         Notice ( atker_name.."\194\251 \239\251\242\224\235\232\241\252 \224\240\229\241\242\238\226\224\242\252 \245\238\240\238\248\229\227\238 \247\229\235\238\226\229\234\224"..defer_name..", \231\224 \253\242\238 \194\251 \238\242\239\240\224\226\235\255\229\242\229\241\252 \226 \242\254\240\252\236\243 \237\224 1 \247\224\241!")
-         --Notice ( atker_name.."ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ý§Ú§ï¿½ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§Ô§ï¿½ ï¿½ï¿½Ö§Ý§ï¿½Ó§Ö§Ü§ï¿½"..defer_name..", ï¿½Ù§ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ó§Ý§ï¿½Ö§ï¿½Ö§ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Þ§ï¿½ ï¿½ß§ï¿½ 1 ï¿½ï¿½Ñ§ï¿½!")
-         --Notice ( atker_name.."Good people trying to frame-up"..defer_name..",Found guilty, sentenced to prison 1 hour!")
-         SetSpawnPos ( ATKER , "Pkteam" )
-         MoveCity( ATKER , "Pkteam")
-      else
-         Notice ( defer_name.." \225\251\235(\224) \224\240\229\241\242\238\226\224\237(\224) \232\227\240\238\234\238\236 "..atker_name..", \232 \238\242\239\240\224\226\235\229\237(\224) \226 \242\254\240\252\236\243 \237\224 1 \247\224\241!")
-         --Notice ( defer_name.." ï¿½Ò§ï¿½ï¿½ï¿½(ï¿½ï¿½) ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½(ï¿½ï¿½) ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½ï¿½ "..atker_name..", ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ó§Ý§Ö§ï¿½(ï¿½ï¿½) ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Þ§ï¿½ ï¿½ß§ï¿½ 1 ï¿½ï¿½Ñ§ï¿½!")
-         --Notice ( defer_name.." was arrested by "..atker_name..", and sentenced in prison for 1 hour!")
-         SetSpawnPos ( DEFER , "Pkteam" )
-         MoveCity( DEFER , "Pkteam")
-      end
-   end
-end
- 
---Lv3 ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½
-function SkillCooldown_Daibuzheng3( sklv )
-   local Cooldown = 5000
-   return Cooldown
-end
- 
-function Skill_Daibuzheng3_End ( ATKER , DEFER , sklv )
-   local atker_name = GetChaDefaultName ( ATKER )
-   local defer_name = GetChaDefaultName ( DEFER )
-   local NocLock =   KitbagLock( ATKER, 0 )
-   local re_type = IsPlayer ( DEFER )
-   local State_baitan = GetChaStateLv ( DEFER, STATE_BAT )
-   local State_jiaoyi = GetChaStateLv ( DEFER, STATE_JY )
-   if re_type == 0 then
-      SystemNotice ( ATKER, "\207\238\230\224\235\243\233\241\242\224, \232\241\239\238\235\252\231\243\233\242\229 \206\240\228\229\240 \237\224 \224\240\229\241\242 \242\238\235\252\234\238 \228\235\255 \230\232\226\251\245 \232\227\240\238\234\238\226.")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½ï¿½Ø§Ñ§Ý§ï¿½Û§ï¿½ï¿½ï¿½, ï¿½Ú§ï¿½ï¿½ï¿½Ý§ï¿½Ù§ï¿½Û§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ ï¿½ï¿½ï¿½Ý§ï¿½Ü§ï¿½ ï¿½Õ§Ý§ï¿½ ï¿½Ø§Ú§Ó§ï¿½ï¿½ï¿½ ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½ï¿½.")
-      --SystemNotice ( ATKER, "Please do not just the role of non-gamers into the prison to arrest.")
-      return
-   end
-   if State_baitan >= 1 then
-      SystemNotice ( ATKER, "\205\229\226\238\231\236\238\230\237\238 \224\240\229\241\242\238\226\224\242\252 \232\227\240\238\234\224, \234\238\227\228\224 \238\237 \242\238\240\227\243\229\242 \226 \235\238\242\234\229")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½Ö§Ó§ï¿½Ù§Þ§ï¿½Ø§ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½, ï¿½Ü§ï¿½Ô§Õ§ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ô§ï¿½Ö§ï¿½ ï¿½ï¿½ ï¿½Ý§ï¿½ï¿½Ü§ï¿½")
-      --SystemNotice ( ATKER, "Each other in a stall, and failed to arrest")
-      return
-   end
-   if State_jiaoyi >= 1 then
-      SystemNotice ( ATKER, "\205\229\235\252\231\255 \224\240\229\241\242\238\226\224\242\252 \232\227\240\238\234\224 \226 \194\224\248\229\236 \238\242\240\255\228\229")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½Ö§Ý§ï¿½Ù§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½Ö§ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ§ï¿½")
-      --SystemNotice ( ATKER, "The status of the other party in the transaction, the failure to arrest")
-      return
-   end
-   if atker_name == defer_name then  
-      SystemNotice ( ATKER, "\205\229\235\252\231\255 \224\240\229\241\242\238\226\224\242\252 \241\224\236\238\227\238 \241\229\225\255")    
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½Ö§Ý§ï¿½Ù§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½Ñ§Þ§ï¿½Ô§ï¿½ ï¿½ï¿½Ö§Ò§ï¿½")
-      --SystemNotice ( ATKER, "Can not arrest their own")
-      return
-   end
-   if NocLock == LUA_FALSE then
-      SystemNotice( ATKER , "\200\237\226\229\237\242\224\240\252 \231\224\225\235\238\234\232\240\238\226\224\237")
-      --SystemNotice( ATKER , "ï¿½ï¿½ï¿½ß§Ó§Ö§ß§ï¿½Ñ§ï¿½ï¿½ ï¿½Ù§Ñ§Ò§Ý§ï¿½Ü§Ú§ï¿½ï¿½Ó§Ñ§ï¿½")
-      --SystemNotice( ATKER , "Inventory is Locked")
-      return 0
-   end
-   local item_count = CheckBagItem ( ATKER , 5719 )
-   if item_count <= 0 then  
-      return
-      SystemNotice ( ATKER , "\211 \194\224\241 \237\229\242 \206\240\228\229\240\224 \237\224 \224\240\229\241\242" )
-      --SystemNotice ( ATKER , "ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ ï¿½ß§Ö§ï¿½ ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½" )
-      --SystemNotice ( ATKER , "Backpack does not use the special skills required for items" )
-   end
-   local statelv_bkdb = GetChaStateLv ( DEFER , STATE_BKDB )
-   if statelv_bkdb >=1 then
-      return
-      SystemNotice ( ATKER, "\196\240\243\227\224\255 \241\242\238\240\238\237\224 \237\229 \236\238\230\229\242 \225\251\242\252 \224\240\229\241\242\238\226\224\237\224 \226 \241\238\241\242\238\255\237\232\232 \231\224\249\232\242\251")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½ï¿½ï¿½Ô§Ñ§ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß§ï¿½ ï¿½ß§ï¿½ ï¿½Þ§ï¿½Ø§Ö§ï¿½ ï¿½Ò§ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ß§ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß§Ú§ï¿½ ï¿½Ù§Ñ§ï¿½Ú§ï¿½ï¿½")
-      --SystemNotice ( ATKER, "The other side can not be arrested in a state of props to use the failure of")
-   end
-   local Lv_defer = Lv ( DEFER )
-   if Lv_defer > 80 then
-      return
-      SystemNotice ( ATKER, "\211\240\238\226\229\237\252 \232\227\240\238\234\224 \234\238\242\238\240\227\238 \194\251 \245\238\242\229\235\232 \224\240\229\241\242\238\226\224\242\252 \241\235\232\248\234\238\236 \226\251\241\238\234, \247\242\238\225\251 \232\241\239\238\235\252\231\238\226\224\242\252 \253\242\238\242 \206\240\228\229\240 \237\224 \224\240\229\241\242")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½ï¿½ï¿½Ó§Ö§ß§ï¿½ ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½ ï¿½Ü§ï¿½ï¿½ï¿½ï¿½Ô§ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö§Ý§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½Ý§Ú§ï¿½Ü§ï¿½ï¿½ ï¿½Ó§ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½Ò§ï¿½ ï¿½Ú§ï¿½ï¿½ï¿½Ý§ï¿½Ù§ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½")
-      --SystemNotice ( ATKER, "The other levels too high, the current arrest warrant can not be arrested")
-   end      
-   local a = DelBagItem ( ATKER , 5719 , 1 )
-   local Num_Haorenzheng = CheckBagItem(  DEFER , 5721 )
-   local Num_Liangminzheng = CheckBagItem(  DEFER , 5722 )
-   if Num_Haorenzheng >= 1 then
-      DelBagItem ( DEFER, 5721, 1)
-      SystemNotice( DEFER, "\200\227\240\238\234"..atker_name.."   \232\241\239\238\235\252\231\238\226\224\235 \206\240\228\229\240 \237\224 \224\240\229\241\242, \247\242\238\225\251 \224\240\229\241\242\238\226\224\242\252 \194\224\241, \237\238 \194\224\248\224 \202\224\240\242\224 \213\238\240\238\248\229\227\238 \207\224\240\237\255 \239\238\236\238\227\235\224 \232\231\225\229\230\224\242\252 \226\224\236 \237\224\234\224\231\224\237\232\255!")
-      --SystemNotice( DEFER, "ï¿½ï¿½ï¿½Ô§ï¿½ï¿½ï¿½"..atker_name.."   ï¿½Ú§ï¿½ï¿½ï¿½Ý§ï¿½Ù§ï¿½Ó§Ñ§ï¿½ ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½Ò§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½, ï¿½ß§ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§Ô§ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ß§ï¿½ ï¿½ï¿½ï¿½Þ§ï¿½Ô§Ý§ï¿½ ï¿½Ú§Ù§Ò§Ö§Ø§Ñ§ï¿½ï¿½ ï¿½Ó§Ñ§ï¿½ ï¿½ß§Ñ§Ü§Ñ§Ù§Ñ§ß§Ú§ï¿½!")
-      --SystemNotice( DEFER, "Players"..atker_name.."   The use of an arrest warrant for you, your card by the midst of a good man, an arrest warrant is invalid!")
-      Notice ( defer_name.."\225\235\224\227\238\228\224\240\255 \202\224\240\242\229 \213\238\240\238\248\229\227\238 \207\224\240\237\255 \232\231\225\229\227\224\229\242 \237\224\234\224\231\224\237\232\255!")
-      --Notice ( defer_name.."ï¿½Ò§Ý§Ñ§Ô§ï¿½Õ§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§Ô§ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ß§ï¿½ ï¿½Ú§Ù§Ò§Ö§Ô§Ñ§Ö§ï¿½ ï¿½ß§Ñ§Ü§Ñ§Ù§Ñ§ß§Ú§ï¿½!")
-      --Notice ( defer_name.."By the midst of good cards, to escape from prison, is indeed gratifying to see!")
-   else
-      if Num_Liangminzheng >= 1 then
-         DelBagItem ( DEFER, 5722, 1)
-         SystemNotice( ATKER, "\194\251 \239\251\242\224\235\232\241\252 \224\240\229\241\242\238\226\224\242\252 \245\238\240\238\248\229\227\238 \247\229\235\238\226\229\234\224"..defer_name..", \231\224 \253\242\238 \194\251 \238\242\239\240\224\226\235\255\229\242\229\241\252 \226 \242\254\240\252\236\243 \237\224 1 \247\224\241!")
-         --SystemNotice( ATKER, "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ý§Ú§ï¿½ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§Ô§ï¿½ ï¿½ï¿½Ö§Ý§ï¿½Ó§Ö§Ü§ï¿½"..defer_name..", ï¿½Ù§ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ó§Ý§ï¿½Ö§ï¿½Ö§ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Þ§ï¿½ ï¿½ß§ï¿½ 1 ï¿½ï¿½Ñ§ï¿½!")
-         --SystemNotice( ATKER, "Good people you're trying to frame-up"..defer_name..",Found guilty, sentenced to prison 1 hour!")
-         Notice ( atker_name.."\194\251 \239\251\242\224\235\232\241\252 \224\240\229\241\242\238\226\224\242\252 \245\238\240\238\248\229\227\238 \247\229\235\238\226\229\234\224"..defer_name..", \231\224 \253\242\238 \194\251 \238\242\239\240\224\226\235\255\229\242\229\241\252 \226 \242\254\240\252\236\243 \237\224 1 \247\224\241!")
-         --Notice ( atker_name.."ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ý§Ú§ï¿½ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§Ô§ï¿½ ï¿½ï¿½Ö§Ý§ï¿½Ó§Ö§Ü§ï¿½"..defer_name..", ï¿½Ù§ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ó§Ý§ï¿½Ö§ï¿½Ö§ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Þ§ï¿½ ï¿½ß§ï¿½ 1 ï¿½ï¿½Ñ§ï¿½!")
-         --Notice ( atker_name.."Good people trying to frame-up"..defer_name..",Found guilty, sentenced to prison 1 hour!")
-         SetSpawnPos ( ATKER , "Pkteam" )
-         MoveCity( ATKER , "Pkteam")
-      else
-         Notice ( defer_name.." \225\251\235(\224) \224\240\229\241\242\238\226\224\237(\224) \232\227\240\238\234\238\236 "..atker_name..", \232 \238\242\239\240\224\226\235\229\237(\224) \226 \242\254\240\252\236\243 \237\224 1 \247\224\241!")
-         --Notice ( defer_name.." ï¿½Ò§ï¿½ï¿½ï¿½(ï¿½ï¿½) ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½(ï¿½ï¿½) ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½ï¿½ "..atker_name..", ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ó§Ý§Ö§ï¿½(ï¿½ï¿½) ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Þ§ï¿½ ï¿½ß§ï¿½ 1 ï¿½ï¿½Ñ§ï¿½!")
-         --Notice ( defer_name.." was arrested by "..atker_name..", and sentenced in prison for 1 hour!")
-         SetSpawnPos ( DEFER , "Pkteam" )
-         MoveCity( DEFER , "Pkteam")
-      end
-   end
-end
- 
---Lv4 ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½
-function SkillCooldown_Daibuzheng4( sklv )
-   local Cooldown = 5000
-   return Cooldown
-end
- 
-function Skill_Daibuzheng4_End ( ATKER , DEFER , sklv )
-   local atker_name = GetChaDefaultName ( ATKER )
-   local defer_name = GetChaDefaultName ( DEFER )
-   local NocLock =   KitbagLock( ATKER, 0 )
-   local re_type = IsPlayer ( DEFER )
-   local State_baitan = GetChaStateLv ( DEFER, STATE_BAT )
-   local State_jiaoyi = GetChaStateLv ( DEFER, STATE_JY )
-   if re_type == 0 then
-      SystemNotice ( ATKER, "\207\238\230\224\235\243\233\241\242\224, \232\241\239\238\235\252\231\243\233\242\229 \206\240\228\229\240 \237\224 \224\240\229\241\242 \242\238\235\252\234\238 \228\235\255 \230\232\226\251\245 \232\227\240\238\234\238\226.")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½ï¿½Ø§Ñ§Ý§ï¿½Û§ï¿½ï¿½ï¿½, ï¿½Ú§ï¿½ï¿½ï¿½Ý§ï¿½Ù§ï¿½Û§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ ï¿½ï¿½ï¿½Ý§ï¿½Ü§ï¿½ ï¿½Õ§Ý§ï¿½ ï¿½Ø§Ú§Ó§ï¿½ï¿½ï¿½ ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½ï¿½.")
-      --SystemNotice ( ATKER, "Please do not just the role of non-gamers into the prison to arrest.")
-      return
-   end
-   if State_baitan >= 1 then
-      SystemNotice ( ATKER, "\205\229\226\238\231\236\238\230\237\238 \224\240\229\241\242\238\226\224\242\252 \232\227\240\238\234\224, \234\238\227\228\224 \238\237 \242\238\240\227\243\229\242 \226 \235\238\242\234\229")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½Ö§Ó§ï¿½Ù§Þ§ï¿½Ø§ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½, ï¿½Ü§ï¿½Ô§Õ§ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ô§ï¿½Ö§ï¿½ ï¿½ï¿½ ï¿½Ý§ï¿½ï¿½Ü§ï¿½")
-      --SystemNotice ( ATKER, "Each other in a stall, and failed to arrest")
-      return
-   end
-   if State_jiaoyi >= 1 then
-      SystemNotice ( ATKER, "\205\229\235\252\231\255 \224\240\229\241\242\238\226\224\242\252 \232\227\240\238\234\224 \226 \194\224\248\229\236 \238\242\240\255\228\229")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½Ö§Ý§ï¿½Ù§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½Ö§ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ§ï¿½")
-      --SystemNotice ( ATKER, "The status of the other party in the transaction, the failure to arrest")
-      return
-   end
-   if atker_name == defer_name then
-      SystemNotice ( ATKER, "\205\229\235\252\231\255 \224\240\229\241\242\238\226\224\242\252 \241\224\236\238\227\238 \241\229\225\255")    
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½Ö§Ý§ï¿½Ù§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½Ñ§Þ§ï¿½Ô§ï¿½ ï¿½ï¿½Ö§Ò§ï¿½")
-      --SystemNotice ( ATKER, "Can not arrest their own")  
-      return
-   end
-   if NocLock == LUA_FALSE then
-      SystemNotice( ATKER , "\200\237\226\229\237\242\224\240\252 \231\224\225\235\238\234\232\240\238\226\224\237")
-      --SystemNotice( ATKER , "ï¿½ï¿½ï¿½ß§Ó§Ö§ß§ï¿½Ñ§ï¿½ï¿½ ï¿½Ù§Ñ§Ò§Ý§ï¿½Ü§Ú§ï¿½ï¿½Ó§Ñ§ï¿½")
-      --SystemNotice( ATKER , "Inventory is Locked")
-      return 0
-   end
-   local item_count = CheckBagItem ( ATKER , 5720 )
-   if item_count <= 0 then  
-      return
-      SystemNotice ( ATKER , "\211 \194\224\241 \237\229\242 \206\240\228\229\240\224 \237\224 \224\240\229\241\242" )
-      --SystemNotice ( ATKER , "ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ ï¿½ß§Ö§ï¿½ ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½" )
-      --SystemNotice ( ATKER , "Backpack does not use the special skills required for items" )
-   end
-   local statelv_bkdb = GetChaStateLv ( DEFER , STATE_BKDB )
-   if statelv_bkdb >=1 then
-      return
-      SystemNotice ( ATKER, "\196\240\243\227\224\255 \241\242\238\240\238\237\224 \237\229 \236\238\230\229\242 \225\251\242\252 \224\240\229\241\242\238\226\224\237\224 \226 \241\238\241\242\238\255\237\232\232 \231\224\249\232\242\251")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½ï¿½ï¿½Ô§Ñ§ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß§ï¿½ ï¿½ß§ï¿½ ï¿½Þ§ï¿½Ø§Ö§ï¿½ ï¿½Ò§ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ß§ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß§Ú§ï¿½ ï¿½Ù§Ñ§ï¿½Ú§ï¿½ï¿½")
-      --SystemNotice ( ATKER, "The other side can not be arrested in a state of props to use the failure of")
-   end
-   local Lv_defer = Lv ( DEFER )
-   if Lv_defer > 9000 then
-      return
-      SystemNotice ( ATKER, "\211\240\238\226\229\237\252 \232\227\240\238\234\224 \234\238\242\238\240\227\238 \194\251 \245\238\242\229\235\232 \224\240\229\241\242\238\226\224\242\252 \241\235\232\248\234\238\236 \226\251\241\238\234, \247\242\238\225\251 \232\241\239\238\235\252\231\238\226\224\242\252 \253\242\238\242 \206\240\228\229\240 \237\224 \224\240\229\241\242")
-      --SystemNotice ( ATKER, "ï¿½ï¿½ï¿½ï¿½ï¿½Ó§Ö§ß§ï¿½ ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½ ï¿½Ü§ï¿½ï¿½ï¿½ï¿½Ô§ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö§Ý§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½Ý§Ú§ï¿½Ü§ï¿½ï¿½ ï¿½Ó§ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½Ò§ï¿½ ï¿½Ú§ï¿½ï¿½ï¿½Ý§ï¿½Ù§ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½")
-      --SystemNotice ( ATKER, "The other levels too high, the current arrest warrant can not be arrested")
-   end      
-   local a = DelBagItem ( ATKER , 5720 , 1 )
-   local Num_Haorenzheng = CheckBagItem(  DEFER , 5721 )
-   local Num_Liangminzheng = CheckBagItem(  DEFER , 5722 )
-   if Num_Haorenzheng >= 1 then
-      DelBagItem ( DEFER, 5721, 1)
-      SystemNotice( DEFER, ""..atker_name.."  \232\241\239\238\235\252\231\238\226\224\235 \206\240\228\229\240 \237\224 \192\240\229\241\242,\247\242\238\225\251 \224\240\229\241\242\238\226\224\242\252 \226\224\241,\237\238 \226\224\248\224 \202\224\240\242\224 \213\238\240\238\248\229\227\238 \207\224\240\237\255 \241\239\224\241\235\224 \226\224\241 ")
-      --SystemNotice( DEFER, "ï¿½ï¿½ï¿½Ô§ï¿½ï¿½ï¿½"..atker_name.."   ï¿½Ú§ï¿½ï¿½ï¿½Ý§ï¿½Ù§ï¿½Ó§Ñ§ï¿½ ï¿½ï¿½ï¿½ï¿½Õ§Ö§ï¿½ ï¿½ß§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½Ò§ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½, ï¿½ß§ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§Ô§ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ß§ï¿½ ï¿½ï¿½ï¿½Þ§ï¿½Ô§Ý§ï¿½ ï¿½Ú§Ù§Ò§Ö§Ø§Ñ§ï¿½ï¿½ ï¿½Ó§Ñ§ï¿½ ï¿½ß§Ñ§Ü§Ñ§Ù§Ñ§ß§Ú§ï¿½!")
-      --SystemNotice( DEFER, "Players"..atker_name.."   The use of an arrest warrant for you, your card by the midst of a good man, an arrest warrant is invalid!")
-      Notice ( defer_name.."\225\235\224\227\238\228\224\240\255 \202\224\240\242\229 \213\238\240\238\248\229\227\238 \207\224\240\237\255 \232\231\225\229\227\224\229\242 \237\224\234\224\231\224\237\232\255!")
-      --Notice ( defer_name.."ï¿½Ò§Ý§Ñ§Ô§ï¿½Õ§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§Ô§ï¿½ ï¿½ï¿½ï¿½Ñ§ï¿½ß§ï¿½ ï¿½Ú§Ù§Ò§Ö§Ô§Ñ§Ö§ï¿½ ï¿½ß§Ñ§Ü§Ñ§Ù§Ñ§ß§Ú§ï¿½!")
-      --Notice ( defer_name.."By the midst of good cards, to escape from prison, is indeed gratifying to see!")
-   else
-      if Num_Liangminzheng >= 1 then
-         DelBagItem ( DEFER, 5722, 1)
-         SystemNotice( ATKER, "\194\251 \239\251\242\224\235\232\241\252 \224\240\229\241\242\238\226\224\242\252 \245\238\240\238\248\229\227\238 \247\229\235\238\226\229\234\224 "..defer_name..", \231\224 \253\242\238 \226\251 \238\242\239\240\224\226\235\255\229\242\229\241\252 \226 \210\254\240\252\236\243! ")
-         --SystemNotice( ATKER, "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ý§Ú§ï¿½ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§Ô§ï¿½ ï¿½ï¿½Ö§Ý§ï¿½Ó§Ö§Ü§ï¿½"..defer_name..", ï¿½Ù§ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ó§Ý§ï¿½Ö§ï¿½Ö§ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Þ§ï¿½ ï¿½ß§ï¿½ 1 ï¿½ï¿½Ñ§ï¿½!")
-         --SystemNotice( ATKER, "Good people you're trying to frame-up"..defer_name..",Found guilty, sentenced to prison 1 hour!")
-         Notice ( atker_name.."\194\251 \239\251\242\224\235\232\241\252 \224\240\229\241\242\238\226\224\242\252 \245\238\240\238\248\229\227\238 \247\229\235\238\226\229\234\224"..defer_name..", \231\224 \253\242\238 \226\251 \238\242\239\240\224\226\235\255\229\242\229\241\252 \226 \210\254\240\252\236\243! ")
-         --Notice ( atker_name.."ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ý§Ú§ï¿½ï¿½ ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö§Ô§ï¿½ ï¿½ï¿½Ö§Ý§ï¿½Ó§Ö§Ü§ï¿½"..defer_name..", ï¿½Ù§ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ó§Ý§ï¿½Ö§ï¿½Ö§ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Þ§ï¿½ ï¿½ß§ï¿½ 1 ï¿½ï¿½Ñ§ï¿½!")
-         --Notice ( atker_name.."Good people trying to frame-up"..defer_name..",Found guilty, sentenced to prison 1 hour!")
-         SetSpawnPos ( ATKER , "Pkteam" )
-         MoveCity( ATKER , "Pkteam")
-      else
-         GMNotice ( defer_name.." \225\251\235(\224) \224\240\229\241\242\238\226\224\237(\224) \232\227\240\238\234\238\236 "..atker_name..", \232 \238\242\239\240\224\226\235\229\237(\224) \226 \210\254\240\252\236\243! ")
-         --Notice ( defer_name.." ï¿½Ò§ï¿½ï¿½ï¿½(ï¿½ï¿½) ï¿½Ñ§ï¿½Ö§ï¿½ï¿½ï¿½Ó§Ñ§ï¿½(ï¿½ï¿½) ï¿½Ú§Ô§ï¿½ï¿½Ü§ï¿½ï¿½ "..atker_name..", ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ§Ó§Ý§Ö§ï¿½(ï¿½ï¿½) ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Þ§ï¿½ ï¿½ß§ï¿½ 1 ï¿½ï¿½Ñ§ï¿½!")
-         --Notice ( defer_name.." was arrested by "..atker_name..", and sentenced in prison for 1 hour!")
-         SetSpawnPos ( DEFER , "Pkteam" )
-         MoveCity( DEFER , "Pkteam")
-      end
-   end
-end
-
-
-function STATE_Riven_Add(role, statelv)
-	local pdef_dif = 5 * statelv
-	local pdef = ResistSb(role) - pdef_dif 
-	SetCharaAttr( pdef , role , ATTR_STATEV_PDEF )
-	ALLExAttrSet(role)  
-end
-
-function STATE_Riven_Rem(role, statelv)
-	local pdef_dif = 5 * statelv
-	local pdef = ResistSb(role) + pdef_dif 
-	SetCharaAttr( pdef , role , ATTR_STATEV_PDEF )
-	ALLExAttrSet(role)  
-end
-
-function STATE_Pierc_Add(role, statelv)
-	local defsb_dif = 50 * statelv
-	local defsb = DefSb(role) - defsb_dif
-	SetCharaAttr( defsb , role , ATTR_STATEV_DEF ) 
-	ALLExAttrSet(role)
-end
-
-function STATE_Pierc_Rem(role, statelv)
-	local defsb_dif = 50 * statelv
-	local defsb = DefSb(role) + defsb_dif
-	SetCharaAttr( defsb , role , ATTR_STATEV_DEF ) 
-	ALLExAttrSet(role)
-end
-
-function STATE_Illus_Add(role, statelv)
-	local fleesb_dif = 10 * statelv
-	local fleesb = FleeSb(role) - fleesb_dif 
-	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE )
-	ALLExAttrSet(role)  
-end
-
-function STATE_Illus_Rem(role, statelv)
-	local fleesb_dif = 10 * statelv
-	local fleesb = FleeSb(role) + fleesb_dif 
-	SetCharaAttr( fleesb , role , ATTR_STATEV_FLEE )
-	ALLExAttrSet(role)  
-end
-
-function STATE_Curse_Add(role, statelv)
-	local hitsb_dif = 10 * statelv
-	local hitsb = HitSb(role) - hitsb_dif
-	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT ) 
-	ALLExAttrSet(role) 
-end
-
-function STATE_Curse_Rem(role, statelv)
-	local hitsb_dif = 10 * statelv
-	local hitsb = HitSb(role) + hitsb_dif
-	SetCharaAttr( hitsb , role , ATTR_STATEV_HIT ) 
-	ALLExAttrSet(role) 
-end
-
-function SkillSp_Lf ( sklv )
-    return 0
-end
-
-function SkillCooldown_Lf( sklv )
-    local Cooldown = 1500
-    return Cooldown
-end
-
-function Skill_Lf_Begin  ( role , sklv )
-
-end
-
-function Skill_Lf_End ( ATKER , DEFER , sklv )
-    local defer_lv = Lv ( DEFER )
-    if sklv < defer_lv then
-        SystemNotice ( ATKER , "Skill level is too low " )
-        return
-    end
-
-    SystemNotice ( ATKER , "\208\251\225\224\247\243... " )
-	local chance = Percentage_Random (0.9)
-	local chance2 = Percentage_Random (0.9)
-	local chance3 = Percentage_Random (0.3)
-	local rad = math.random ( 1,41 )	
-    local hpdmg = 1
-    local hp = Hp(DEFER) - hpdmg
-    SetCharaAttr(hp , DEFER , ATTR_HP )
-	-- if rad == 2 and chance == 1 and chance2 == 1 and chance3 == 1 then
-		-- GiveItemX( ATKER, 0, 7720, 1, 4) -- Shark ID
-		-- BickerNotice(ATKER,"\207\238\233\236\224\237 \204\229\248\238\234 \211\235\243\247\248\229\237\232\255 \207\235\224\249\224!")	
-	if rad == 6 and chance == 1 and chance2 == 1 then
-		GiveItemX( ATKER, 0, 5702, 1, 4) -- Shark ID
-		BickerNotice(ATKER,"\207\238\233\236\224\237 \202\235\254\247 \207\243\240\239\243\240\237\238\227\238 \202\240\232\241\242\224\235\235\224 ")		
-	elseif rad == 11 and chance == 1 and chance2 == 1 then
-		GiveItemX( ATKER, 0, 5710, 1, 4) -- Shark ID
-		BickerNotice(ATKER,"\207\238\233\236\224\237 \209\243\237\228\243\234 \207\243\240\239\243\240\237\238\227\238 \202\240\232\241\242\224\235\235\224 ")
-	elseif rad == 16 and chance == 1 then
-		GiveItemX( ATKER, 0, 7727, 1, 4) -- Gold Fish ID
-		BickerNotice(ATKER,"\207\238\233\236\224\237\224 \199\238\235\238\242\224\255 \208\251\225\234\224! ")
-	elseif rad == 21 and chance == 1 and chance2 == 1 then
-		GiveItemX( ATKER, 0, 7728, 1, 4) -- Lobster
-		BickerNotice(ATKER,"\207\238\233\236\224\237 \203\238\225\241\242\229\240! ")
-	elseif rad == 26 and chance == 1 then
-		GiveItemX( ATKER, 0, 7729, 1, 4) -- Butterfly fish ID
-		BickerNotice(ATKER,"\207\238\233\236\224\237\224 \203\229\242\224\254\249\224\255 \208\251\225\224! ")	
-	elseif rad == 31 and chance == 1 then
-		GiveItemX( ATKER, 0, 7731, 1, 4) -- Flaming Crawfish ID
-		BickerNotice(ATKER,"\207\238\233\236\224\237\224 \206\227\237\229\237\237\224\255 \208\251\225\224! ") 
-	elseif rad == 36 and chance == 1 then
-		GiveItemX( ATKER, 0, 7732, 1, 4) -- Rainbow Fish ID
-		BickerNotice(ATKER,"\207\238\233\236\224\237\224 \208\224\228\243\230\237\224\255 \208\251\225\224! ")	
-	elseif rad == 41 and chance == 1 then
-		GiveItemX( ATKER, 0, 7730, 1, 4) -- Shark ID
-		BickerNotice(ATKER,"\207\238\233\236\224\237\224 \192\234\243\235\224! ")		
+function Skill_FNZ_Begin ( role , sklv ) 
+	local NocLock =	KitbagLock( role, 0 )
+	if NocLock == LUA_FALSE then
+		SystemNotice( role , "Inventory locked")
+		return 0
 	end
-end		
-
---ï¿½ï¿½ï¿½ï¿½Ö§ï¿½ ï¿½Ù§Ñ§Ø§Ú§Ô§Ñ§Ý§Ü§ï¿½ 1200 ï¿½Ò§ï¿½ï¿½ï¿½ï¿½
-function SkillPre_CJRsd ( sklv )														--ï¿½ï¿½ï¿½ï¿½"Magma Bullet"ï¿½Ä¼ï¿½ï¿½ï¿½Ç°ï¿½ï¿½×¼ï¿½ï¿½
-end 
-
-function SkillArea_Square_CJRsd ( sklv )												--ï¿½ï¿½ï¿½Ü¡ï¿½È¼ï¿½Õµï¿½"ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
-	local side = 1800
-	SetSkillRange ( 4 , side )   
-end 
-
-function SkillCooldown_CJRsd( sklv )
-	local Cooldown = 15000
-	return Cooldown
-end
-
-function SkillArea_State_CJRsd ( sklv )										
-	local statetime = 10 
-	local statelv = sklv 
-	SetRangeState ( STATE_RS , statelv  , statetime ) 									--ï¿½ï¿½ï¿½Óµï¿½ï¿½æ¡°È¼ï¿½Õ¡ï¿½×´Ì¬
-end 
-
-function SkillSp_CJRsd ( sklv )														--ï¿½ï¿½ï¿½Ü¡ï¿½È¼ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½spï¿½ï¿½ï¿½Ä¹ï¿½Ê½
-	local sp_reduce = sklv * 2 + 15   
-	return sp_reduce 
-end 
-
-function Skill_CJRsd_Begin ( role , sklv )												--ï¿½ï¿½ï¿½ï¿½"Magma Bullet"ï¿½Ä¼ï¿½ï¿½ï¿½Ê©ï¿½Å¹ï¿½Ê½
-	local sp = Sp(role) 
-	local sp_reduce = SkillSp_CJRsd ( sklv ) 
-	if sp - sp_reduce < 0 then 
+	local item_count = CheckBagItem ( role , 7518 ) --F¼¶Á¿²úÐÍ¿¨Ðµ
+	if item_count <= 0 then  
 		SkillUnable(role)   
-		return 
+		SystemNotice ( role , "There is no card in inventory to activate" ) 
 	end 
-	Sp_Red ( role , sp_reduce ) 
-end 
-
-function State_CJRsd_Add ( role , statelv ) 
-	local arealv = GetAreaStateLevel ( role , STATE_RS ) 
-	local hp = GetChaAttr( role , ATTR_HP ) 
-	local hpdmg = 1000000 
-	if arealv >= 1 then 
-		hpdmg = 500000  
+	local item_count = CheckBagItem ( role , 7519 ) --F¼¶ÄÜÁ¿¿¨
+	if item_count <= 1 then  
+		SkillUnable(role)   
+		SystemNotice ( role , "There is not enough card to use the skill" ) 
 	end 
-	Hp_Endure_Dmg ( role , hpdmg ) 
+	local a = DelBagItem ( role , 7519 , 2 ) 
 end 
 
-function State_CJRsd_Rem ( role , statelv ) 
+function Skill_FNZ_End ( ATKER , DEFER , sklv ) 
+	hpdmg = 3000	
+	Hp_Endure_Dmg ( DEFER , hpdmg )  
+	--Notice ( "Xs", "ÐÂÊÖ¼¼ÄÜµÈ¼¶ = " , sklv , "¼¼ÄÜÉËº¦ = " , dmg , '\n" ) 
+	Check_Ys_Rem ( ATKER ,DEFER )						--ÅÐ¶ÏÊÇ·ñÒþÉí
 end 
+--»¯Îí¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
 
-
-function SkillArea_Circle_TXSCT( sklv )									
-	local side = 1000 
-	SetSkillRange ( 4 , side  )  
-end
-
-function Skill_TXSCT_End( ATKER , DEFER , sklv )
-	local x, y = GetChaPos(ATKER)
-		local x1 = x
-		local y1 = y + 500
-		local new1 = CreateCha(1668, x1, y1, 145, 50)
-		SetChaLifeTime(new1, 900000)
-			
-end
-------------------
--- Fire bolt BK --
-------------------
-function SkillSP_BlackYqc ( sklv)
-	local sp_reduce = 50 + sklv * 5   
+function SkillSp_HW ( sklv ) 
+	local sp_reduce = 0  
 	return sp_reduce 
 end 
 
-function SkillCooldown_BlackYqc( sklv)
-	local Cooldown = 13500 - sklv * 400
-	return Cooldown
-end
+function SkillCooldown_HW( sklv ) 
+	local Cooldown = 30000 
+	return Cooldown 
+end 
 
-function Skill_BlackYqc_End ( ATKER, DEFER, sklv )
-    local lv_atker = Lv( TurnToCha( ATKER )) 
-	local lv_defer = Lv( TurnToCha( DEFER )) 
-	local sta_atker = Sta( ATKER ) 
-	local sta_defer = Sta( DEFER ) 
-	local lv_dif = math.max(( -1 ) * 5, math.min( 5, lv_atker - lv_defer )) 
-	local AddStateLv = 0 
-	AddStateLv = GetChaStateLv ( ATKER , STATE_MLCH )
-	--hpdmg = math.floor(( 10 + sta_atker * 65 ) * ( 1 + sklv * 0.30 ) * ( 1 + 0 * 0.09 )) 
-	hpdmg = 10 + (sta_atker * 20)
-	local dmg_fin = Cuihua_Mofa( hpdmg, AddStateLv ) 
-	local dmg_ElfSkill = ElfSkill_MagicAtk( hpdmg, ATKER ) 
+function Skill_HW_Begin ( role , sklv ) 
+	local NocLock =	KitbagLock( role, 0 )
+	if NocLock == LUA_FALSE then
+		SystemNotice( role , "Inventory locked")
+		return 0
+	end
+	local item_count = CheckBagItem ( role , 7518 ) --F¼¶Á¿²úÐÍ¿¨Ðµ
+	if item_count <= 0 then  
+		SkillUnable(role)   
+		SystemNotice ( role , "There is no card in inventory to activate" ) 
+	end 
+	local item_count = CheckBagItem ( role , 7519 ) --F¼¶ÄÜÁ¿¿¨
+	if item_count <= 1 then  
+		SkillUnable(role)   
+		SystemNotice ( role , "There is not enough card to use the skill" ) 
+	end 
+	local a = DelBagItem ( role , 7519 , 2 ) 
+end 
 
+function Skill_HW_End ( ATKER , DEFER , sklv ) 
+	--LG( "skill_ys", "enter function Skill_Def_Ys : " , "\n" ) 
+	local statelv = sklv 
+	local statetime = 20 + sklv * 10
 	local map_name_ATKER = GetChaMapName ( ATKER )
 	local map_name_DEFER = GetChaMapName ( DEFER )
-
-	if IsPlayer( DEFER ) == 0 then 
-	dmg_fin = dmg_fin * 2
-			local ChaStateLv = GetChaStateLv ( ATKER , 192 )
-			if ChaStateLv == 1 then
-			dmg_fin = dmg_fin * 1.5
-			elseif ChaStateLv == 2 then
-			dmg_fin = dmg_fin * 2
-			elseif ChaStateLv == 3 then
-			dmg_fin = dmg_fin * 2.5
-			elseif ChaStateLv == 4 then
-			dmg_fin = dmg_fin * 3
-			elseif ChaStateLv == 5 then
-			dmg_fin = dmg_fin * 3.5
-			end
-	elseif IsPlayer( DEFER ) == 1 then 
-	dmg_fin = dmg_fin * 0.5
-	end 
-	local dmg_for_mob = dmg_fin * 2 -- ï¿½ï¿½ï¿½ ï¿½Ò§ï¿½ï¿½ï¿½ï¿½
-	local dmg_for_BM = dmg_fin * 3 -- ï¿½ï¿½ï¿½ ï¿½Þ§Ö§Ô§Ñ§Ò§ï¿½ï¿½ï¿½ï¿½
-	if GetChaID( DEFER ) == 673 then
-	dmg_fin = dmg_for_mob
+	local agi_atker = Agi(ATKER)
+	local Can_Pk_Garner2 = Is_NormalMonster (DEFER)
+	if map_name_ATKER == "garner2" or map_name_DEFER == "garner2" or map_name_ATKER == "starena1" or map_name_DEFER == "starena1"or map_name_ATKER == "starena2" or map_name_DEFER == "starena2" or map_name_ATKER == "starena3" or map_name_DEFER == "starena3"then
+		if Can_Pk_Garner2 == 0 then
+			statetime = 20 + agi_atker/4 + sklv*5
+	--		Notice ( "statetime="..statetime)
+		end
 	end
-	if GetChaID( DEFER ) == 1493 then
-	dmg_fin = dmg_for_mob
-	end
-	if GetChaID( DEFER ) == 967 then
-	dmg_fin = dmg_for_mob
-	end
-	if GetChaID( DEFER ) == 959 then
-	dmg_fin = dmg_for_mob
-	end
-	if GetChaID( DEFER ) == 807 then
-	dmg_fin = dmg_for_mob
-	end
-	if GetChaID( DEFER ) == 933 then
-	dmg_fin = dmg_for_mob
-	end
-	if GetChaID( DEFER ) == 1113 then
-	dmg_fin = dmg_for_mob
-	end
-	if GetChaID( DEFER ) == 1468 then
-	dmg_fin = dmg_for_BM
-	end
-	if GetChaID( DEFER ) == 1473 then
-	dmg_fin = dmg_for_BM
-	end
-	if GetChaID( DEFER ) == 1503 then
-	dmg_fin = dmg_for_BM
-	end
-	if GetChaID( DEFER ) == 1507 then
-	dmg_fin = dmg_for_BM
-	end
-	if GetChaID( DEFER ) == 1511 then
-	dmg_fin = dmg_for_BM
-	end
-	if GetChaID( DEFER ) == 1515 then
-	dmg_fin = dmg_for_BM
-	end
-	if GetChaID( DEFER ) == 1522 then
-	dmg_fin = dmg_for_BM
-	end
+	AddState ( ATKER , DEFER , STATE_YS , statelv , statetime ) 
 	
-	dmg_fin = ( dmg_fin + dmg_ElfSkill )
-	Hp_Endure_Dmg( DEFER, dmg_fin*2 ) 
-end
-
-------------
--- ÐœÐµÐ´Ð°Ð»Ð¸ --
-------------
-function State_Medal_Add ( role , statelv )
-	local get_medal_slot = GetChaItem ( role , 2 , 5 )
-	local get_medal_id = GetItemID ( get_medal_slot )
-	if get_medal_id == 8154 then
-		local MaxHP = GetChaAttr(role, ATTR_MXHP)
-		local NewMaxHP = MaxHP * 0.02
-		SetCharaStatev(NewMaxHP, role, ATTR_STATEV_MXHP, "STATE_MEDAL")			
-		ALLExAttrSet(role)	
-	else 
-		
-	end
+	--LG("skill_ys", "function Skill_Def_Ys : " , "role = " , role , "sklv =  " , sklv , "\n" ) 
+-----±³ºóÁé×´Ì¬
+	CheckAttackState1( ATKER , DEFER )
 end 
 
-function State_Medal_Rem ( role , statelv )
-	RemCharaStatev(0, role, ATTR_STATEV_MXHP, "STATE_MEDAL")
-	ALLExAttrSet(role)
+
+
+
+
+--ÄÜÁ¿¶Ü¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+function SkillSp_NLD ( sklv )										
+	local sp_reduce = 0  
+	return sp_reduce 
 end
+
+function SkillCooldown_NLD( sklv )
+	local Cooldown = 1000
+	return Cooldown
+end
+
+function Skill_NLD_Begin ( role , sklv ) 
+	local NocLock =	KitbagLock( role, 0 )
+	if NocLock == LUA_FALSE then
+		SystemNotice( role , "Inventory locked")
+		return 0
+	end
+	local item_count = CheckBagItem ( role , 7518 ) --F¼¶Á¿²úÐÍ¿¨Ðµ
+	if item_count <= 0 then  
+		SkillUnable(role)   
+		SystemNotice ( role , "There is no card in inventory to activate" ) 
+	end 
+	local item_count = CheckBagItem ( role , 7519 ) --F¼¶ÄÜÁ¿¿¨
+	if item_count <= 2 then  
+		SkillUnable(role)   
+		SystemNotice ( role , "There is not enough card to use the skill" ) 
+	end 
+	local a = DelBagItem ( role , 7519 , 3 ) 
+end 
+function Skill_NLD_End ( ATKER , DEFER , sklv )  
+	local statelv = sklv 
+	local statetime = -1  
+	----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí
+	if GetChaTypeID( ATKER ) == 984 then
+		statelv = 10
+	end
+	----bossÊ¹ÓÃ¼¼ÄÜ´¦Àí½áÊø
+        AddState( ATKER , DEFER , STATE_MFD, statelv , statetime )
+	--LG("skill_Xlpz", "function Skill_Oper_Xlpz: " , "add state xlpz " , "\n" ) 
+---------------±³ºóÁé×´Ì¬
+	CheckAttackState1( ATKER , DEFER )		
+		
+end 
+
+-------------------------------------ÄÜÁ¿Êø¸¿Íø-----------------------------------------------------------------------
+
+function SkillSp_NLSFW ( sklv )										--¼¼ÄÜ"ºüÀê÷È»ó"µÄspÏûºÄ¹«Ê½
+	local sp_reduce = 50 + sklv * 2   
+	return sp_reduce 
+end 
+
+function SkillCooldown_NLSFW( sklv ) 
+	local Cooldown = 2000
+	return Cooldown
+end
+
+function Skill_NLSFW_Begin ( role , sklv ) 
+	local NocLock =	KitbagLock( role, 0 )
+	if NocLock == LUA_FALSE then
+		SystemNotice( role , "Inventory locked")
+		return 0
+	end
+	local item_count = CheckBagItem ( role , 7518 ) --F¼¶Á¿²úÐÍ¿¨Ðµ
+	if item_count <= 0 then  
+		SkillUnable(role)   
+		SystemNotice ( role , "There is no card in inventory to activate" ) 
+	end 
+	local item_count = CheckBagItem ( role , 7519 ) --F¼¶ÄÜÁ¿¿¨
+	if item_count <= 4 then  
+		SkillUnable(role)   
+		SystemNotice ( role , "There is not enough card to use the skill" ) 
+	end 
+	local a = DelBagItem ( role , 7519 , 5 ) 
+end 
+
+function Skill_NLSFW_End ( ATKER , DEFER , sklv ) 
+	local statelv = sklv 
+	local statetime = 15 
+	local StateLv = GetChaStateLv ( DEFER , STATE_TTISW )
+	if StateLv ~= 3 then
+		AddState ( ATKER , DEFER , STATE_CRXSF , statelv , statetime ) 
+	end
+
+	Check_Ys_Rem ( ATKER , DEFER )					--ÅÐ¶ÏÊÇ·ñÒþÉí
+end 
+
+function State_CRXSF_Add ( role , statelv ) 
+
+end 
+
+function State_CRXSF_Rem ( role , statelv ) 
+
+end
+
+
+---------Ê¥¹â¾ÈÊê--------------------------------------------------------------------------
+function Skill_MLCJ_Begin ( role , sklv ) 
+	local NocLock =	KitbagLock( role, 0 )
+	if NocLock == LUA_FALSE then
+		SystemNotice( role , "Inventory locked")
+		return 0
+	end
+	local item_count = CheckBagItem ( role , 7518 ) --F¼¶Á¿²úÐÍ¿¨Ðµ
+	if item_count <= 0 then  
+		SkillUnable(role)   
+		SystemNotice ( role , "There is no card in inventory to activate" ) 
+	end 
+	local item_count = CheckBagItem ( role , 7519 ) --F¼¶ÄÜÁ¿¿¨
+	if item_count <= 9 then  
+		SkillUnable(role)   
+		SystemNotice ( role , "There is not enough card to use the skill" ) 
+	end 
+	local a = DelBagItem ( role , 7519 , 10 ) 
+end 
+function Skill_MLCJ_End ( ATKER , DEFER , sklv ) 
+	
+	local hpdmg = -10000
+	Hp_Endure_Dmg ( DEFER , hpdmg ) 
+
+end 
+

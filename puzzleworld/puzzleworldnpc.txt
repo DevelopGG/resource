@@ -1,4 +1,1 @@
-//Serial	NPC Name	NPC Type	Chrindex ID	Show Mini-map	Coordinates starting point	Coordination Goal	NPC placement	Region	Region ID	NPC Script	info manage	Test Status
-//1	爱德华	1	425	0	26600,23000	26600,23000	230	魔方世界一层	94	0	el_talk13	0
-
-
+1	#PUZZLEWORLD_PUZZLEWORLDNPC_TXT_000001#	1	425	0	26600,23000	26600,23000	230	#RESOURCE_AREASET_TXT_000061#	94	0	el_talk13	0

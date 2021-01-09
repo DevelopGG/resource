@@ -21,17 +21,22 @@ function after_create_entry(entry)
     local RedSideName = GetGuildName( RedSide_GuildID ) 
     local BlueSideName = GetGuildName( BlueSide_GuildID ) 
 
-    local EntryName = "Guild War: ["..RedSideName.."]  VS  ["..BlueSideName.."]"
+    SECRETGARDEN_ENTRY_LUA_000001 = GetResString("SECRETGARDEN_ENTRY_LUA_000001")
+    local EntryName = SECRETGARDEN_ENTRY_LUA_000001..RedSideName.."]  VS  ["..BlueSideName.."]"
     SetMapEntryEventName( entry, EntryName )
     
     map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --取地图入口的位置信息（地图名，坐标，目标地图名）
-    Notice("Announcement: Guild War challenge has started! Red defending champion: ["..RedSideName.."]. Blue challenger: ["..BlueSideName.."]. Members from both guild can go through the portal in Magical Ocean at ("..posx..","..posy..") to enter Garden of Edel for Guild War challenge.") --通知本组服务器的所有玩家
+    SECRETGARDEN_ENTRY_LUA_000002 = GetResString("SECRETGARDEN_ENTRY_LUA_000002")
+    SECRETGARDEN_ENTRY_LUA_000003 = GetResString("SECRETGARDEN_ENTRY_LUA_000003")
+    SECRETGARDEN_ENTRY_LUA_000004 = GetResString("SECRETGARDEN_ENTRY_LUA_000004")
+    SECRETGARDEN_ENTRY_LUA_000005 = GetResString("SECRETGARDEN_ENTRY_LUA_000005")
+    Notice(SECRETGARDEN_ENTRY_LUA_000005..RedSideName..SECRETGARDEN_ENTRY_LUA_000004..BlueSideName..SECRETGARDEN_ENTRY_LUA_000003..posx..","..posy..SECRETGARDEN_ENTRY_LUA_000002) --通知本组服务器的所有玩家
 
 end
 
 function after_destroy_entry_secretgarden(entry)
     map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
-    --Notice("Announcement: Challenge for today has ended.") 
+    --Notice("海盗广播：今天的公会挑战赛已经结束了") 
 
 end
 
@@ -43,7 +48,11 @@ function after_player_login_secretgarden(entry, player_name)
     local BlueSideName = GetGuildName( BlueSide_GuildID ) 
 
     map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --取地图入口的位置信息（地图名，坐标，目标地图名）
-    ChaNotice(player_name, "Announcement: Guild War challenge has started! Red defending champion: ["..RedSideName.."]. Blue challenger: ["..BlueSideName.."]. Members from both guild can go through the portal in Magical Ocean at ("..posx..","..posy..") to enter Garden of Edel for Guild War challenge.") --通知本组服务器的所有玩家
+    SECRETGARDEN_ENTRY_LUA_000002 = GetResString("SECRETGARDEN_ENTRY_LUA_000002")
+    SECRETGARDEN_ENTRY_LUA_000003 = GetResString("SECRETGARDEN_ENTRY_LUA_000003")
+    SECRETGARDEN_ENTRY_LUA_000004 = GetResString("SECRETGARDEN_ENTRY_LUA_000004")
+    SECRETGARDEN_ENTRY_LUA_000005 = GetResString("SECRETGARDEN_ENTRY_LUA_000005")
+    ChaNotice(player_name, SECRETGARDEN_ENTRY_LUA_000005..RedSideName..SECRETGARDEN_ENTRY_LUA_000004..BlueSideName..SECRETGARDEN_ENTRY_LUA_000003..posx..","..posy..SECRETGARDEN_ENTRY_LUA_000002) --通知本组服务器的所有玩家
 
 end
 
@@ -57,7 +66,8 @@ function check_can_enter_secretgarden( role, copy_mgr )
 
 
 	if RedSide_GuildID == 0 or BlueSide_GuildID == 0 then
-		SystemNotice ( role , "Sorry, the battle cannot begin without any challenging guild" )
+		SECRETGARDEN_ENTRY_LUA_000006 = GetResString("SECRETGARDEN_ENTRY_LUA_000006")
+		SystemNotice ( role , SECRETGARDEN_ENTRY_LUA_000006 )
 		return 0
 	end
 
@@ -71,7 +81,8 @@ function check_can_enter_secretgarden( role, copy_mgr )
 			return 1
 
 		else
-			SystemNotice(role,"Sorry, you do not belong to either guild which are involved in the war.")
+			SECRETGARDEN_ENTRY_LUA_000007 = GetResString("SECRETGARDEN_ENTRY_LUA_000007")
+			SystemNotice(role,SECRETGARDEN_ENTRY_LUA_000007)
 			return 0
 
 		end
@@ -89,14 +100,18 @@ function begin_enter_secretgarden(role, copy_mgr)
 
 	if RedSide_GuildID == GetChaGuildID(Cha) then
 
-		SystemNotice(role,"Entering [Garden of Edel]")
-		MoveCity(role, "Red Camp")
+		SECRETGARDEN_ENTRY_LUA_000008 = GetResString("SECRETGARDEN_ENTRY_LUA_000008")
+		SystemNotice(role,SECRETGARDEN_ENTRY_LUA_000008)
+		BIRTH_BIRTH_CONF_LUA_000026 = GetResString("BIRTH_BIRTH_CONF_LUA_000026")
+		MoveCity(role, BIRTH_BIRTH_CONF_LUA_000026)
 	
 	else
 		if BlueSide_GuildID == GetChaGuildID(Cha) then
 
-			SystemNotice(role,"Entering [Garden of Edel]")
-			MoveCity(role, "Blue Camp")
+			SECRETGARDEN_ENTRY_LUA_000008 = GetResString("SECRETGARDEN_ENTRY_LUA_000008")
+			SystemNotice(role,SECRETGARDEN_ENTRY_LUA_000008)
+			BIRTH_BIRTH_CONF_LUA_000025 = GetResString("BIRTH_BIRTH_CONF_LUA_000025")
+			MoveCity(role, BIRTH_BIRTH_CONF_LUA_000025)
                 end
 	end
 

@@ -18,12 +18,12 @@ SetChaAttrMax( ATTR_GD		,	2000000000		)	-- Макс. золота
 SetChaAttrMax( ATTR_CLEXP	,	2000000000		)	
 SetChaAttrMax( ATTR_MXHP	,	2000000000		)	
 SetChaAttrMax( ATTR_MXSP	,	2000000000		)	
-SetChaAttrMax( ATTR_BSTR	,	2000000000		)	-- Max STR Possible
-SetChaAttrMax( ATTR_BDEX	,	2000000000		)	-- Max ACC Possible
-SetChaAttrMax( ATTR_BAGI	,	2000000000		)	-- Max AGI Possible
-SetChaAttrMax( ATTR_BCON	,	2000000000		)	-- Max CON Possible
-SetChaAttrMax( ATTR_BSTA	,	2000000000		)	-- Max SPR Possible
-SetChaAttrMax( ATTR_BLUK	,	150				)	-- Max LUK Possible
+SetChaAttrMax( ATTR_BSTR	,	3000		)	-- Макс. Сила
+SetChaAttrMax( ATTR_BDEX	,	3000		)	-- Макс. Точность
+SetChaAttrMax( ATTR_BAGI	,	3000		)	-- Макс. Ловкость
+SetChaAttrMax( ATTR_BCON	,	3000		)	-- Макс. Телосложение
+SetChaAttrMax( ATTR_BSTA	,	3000		)	-- Макс. Дух
+SetChaAttrMax( ATTR_BLUK	,	150				)	-- Макс. Удача
 SetChaAttrMax( ATTR_BMXHP	,	2000000000		)	--        
 SetChaAttrMax( ATTR_BMXSP	,	2000000000		)	--        
 SetChaAttrMax( ATTR_BMNATK	,	2000000000		)	--    

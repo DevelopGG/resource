@@ -6,9 +6,8 @@ print( "loading EventEntity.lua" )
 -------------------------------------------------------------
 
 --初始化加纳大陆的事件实体信息
-function InitGarnerEntity()
-
+function InitPKmapEntity()
 
 end
 
-InitGarnerEntity()
+InitPKmapEntity()

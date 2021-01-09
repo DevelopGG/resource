@@ -1,6 +1,0 @@
-
-function InitGarnerEntity()
-
-end
-
-InitGarnerEntity()

@@ -10,7 +10,10 @@ function after_create_entry(entry)
     local copy_mgr = GetMapEntryCopyObj(entry, 0) --创建副本管理对象，此函数在有显式入口的地图中必须调用，对于隐式入口的地图（如队伍挑战）无要调用该接口
 
     map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --取地图入口的位置信息（地图名，坐标，目标地图名）
-    Notice("Announcement: According to reports, near Shaitan City at [" .. posx ..",".. posy .. "] appears a portal to Sacred War. Please check it out.") --通知本组服务器的所有玩家
+    GUILDWAR_ENTRY_LUA_000001 = GetResString("GUILDWAR_ENTRY_LUA_000001")
+    GUILDWAR_ENTRY_LUA_000002 = GetResString("GUILDWAR_ENTRY_LUA_000002")
+    Notice(GUILDWAR_ENTRY_LUA_000002..posx..","..posy..GUILDWAR_ENTRY_LUA_000001)
+	--通知本组服务器的所有玩家
 
 
     
@@ -25,7 +28,8 @@ function after_create_entry(entry)
     --local RedSideName = GetGuildName( RedSide_GuildID ) 
     --local BlueSideName = GetGuildName( BlueSide_GuildID ) 
 
-    local EntryName = "Sacred War Portal: [Navy Faction]  VS  [Pirate Faction] (Level 65 and up)"
+    GUILDWAR_ENTRY_LUA_000003 = GetResString("GUILDWAR_ENTRY_LUA_000003")
+    local EntryName = GUILDWAR_ENTRY_LUA_000003
     SetMapEntryEventName( entry, EntryName )
     
     --map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --取地图入口的位置信息（地图名，坐标，目标地图名）
@@ -35,7 +39,8 @@ end
 
 function after_destroy_entry_guildwar(entry)
     map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) 
-    Notice("Announcement: According to reports, portal to [Sacred War] has vanished. Check announcement for more details. Enjoy!") 
+    GUILDWAR_ENTRY_LUA_000004 = GetResString("GUILDWAR_ENTRY_LUA_000004")
+    Notice(GUILDWAR_ENTRY_LUA_000004) 
 
 end
 
@@ -47,7 +52,9 @@ function after_player_login_guildwar(entry, player_name)
 --    local BlueSideName = GetGuildName( BlueSide_GuildID ) 
 
     map_name, posx, posy, tmap_name = GetMapEntryPosInfo(entry) --取地图入口的位置信息（地图名，坐标，目标地图名）
-   ChaNotice(player_name, "Announcement: According to reports, near Shaitan City at [" .. posx ..",".. posy .. "] appears a portal to Sacred War. Please check it out.") --通知本组服务器的所有玩家
+   GUILDWAR_ENTRY_LUA_000001 = GetResString("GUILDWAR_ENTRY_LUA_000001")
+   GUILDWAR_ENTRY_LUA_000002 = GetResString("GUILDWAR_ENTRY_LUA_000002")
+   ChaNotice(player_name, GUILDWAR_ENTRY_LUA_000002..posx..","..posy..GUILDWAR_ENTRY_LUA_000001) --通知本组服务器的所有玩家
 
 end
 
@@ -62,18 +69,21 @@ local FightingBook_Num = 0
       FightingBook_Num = CheckBagItem( role,3849 )
 
 if FightingBook_Num <= 0 then
-		SystemNotice(role,"You need Medal of Valor to join Sacred War!")
+		GUILDWAR_ENTRY_LUA_000005 = GetResString("GUILDWAR_ENTRY_LUA_000005")
+		SystemNotice(role,GUILDWAR_ENTRY_LUA_000005)
 		--Notice("您身上没有勇者之证,不能进入圣战,请到竞技管理员处领取勇者之证")
 		return 0
 	elseif FightingBook_Num > 1 then
-		--LG("RYZ_PK","more than one Medal of Valor")
+		GARNER2_ENTRY_LUA_000006 = GetResString("GARNER2_ENTRY_LUA_000006")
+		LG("RYZ_PK",GARNER2_ENTRY_LUA_000006)
 		return 0
 	end
 
 
 local Team_In = IsInTeam(role)
 	if Team_In == 1 then
-		SystemNotice ( role , "You must leave your party to join Sacred War!" )
+		GUILDWAR_ENTRY_LUA_000006 = GetResString("GUILDWAR_ENTRY_LUA_000006")
+		SystemNotice ( role , GUILDWAR_ENTRY_LUA_000006 )
 		return 0
 		
 	end
@@ -88,80 +98,93 @@ local Team_In = IsInTeam(role)
  if  GetChaGuildID(role) == 0 then
 	
 
-     SystemNotice(role,"Sorry, only members of a Navy Guild or a Pirate Guild may join Sacred War!")
+     GUILDWAR_ENTRY_LUA_000007 = GetResString("GUILDWAR_ENTRY_LUA_000007")
+     SystemNotice(role,GUILDWAR_ENTRY_LUA_000007)
      return 0
 		
 	
 elseif Lv(role) < 65  then
 
-	SystemNotice(role, "Only players Lv 65 and above may enter")
+	GUILDWAR_ENTRY_LUA_000008 = GetResString("GUILDWAR_ENTRY_LUA_000008")
+	SystemNotice(role, GUILDWAR_ENTRY_LUA_000008)
 	     return 0    
 	end
 
 
         local Num_1= CheckBagItem(role,4661)
 	if Num_1 >= 1 then
-		SystemNotice(role, "Please, remove [Repair Wood] from your inventory!")	
+		GUILDWAR_ENTRY_LUA_000009 = GetResString("GUILDWAR_ENTRY_LUA_000009")
+		SystemNotice(role, GUILDWAR_ENTRY_LUA_000009)	
 		return 0
 	end
 
 	local Num_2= CheckBagItem(role,4546)
 	if Num_2 >= 1 then
-		SystemNotice(role, "Please, remove [Crystal Ore] from your inventory!")	
+		GUILDWAR_ENTRY_LUA_000010 = GetResString("GUILDWAR_ENTRY_LUA_000010")
+		SystemNotice(role, GUILDWAR_ENTRY_LUA_000010)	
 		return 0
 	end
 
 	local Num_3= CheckBagItem(role,1684)
 	if Num_3 >= 1 then
-		SystemNotice(role, "Please, remove [Hard Tortoise Shell] from your inventory!")	
+		GUILDWAR_ENTRY_LUA_000011 = GetResString("GUILDWAR_ENTRY_LUA_000011")
+		SystemNotice(role, GUILDWAR_ENTRY_LUA_000011)	
 		return 0
 	end
 
 	local Num_4= CheckBagItem(role,1683)
 	if Num_4 >= 1 then
-		SystemNotice(role, "Please, remove [Tortoise Shell Fragment] from your inventory!")	
+		GUILDWAR_ENTRY_LUA_000012 = GetResString("GUILDWAR_ENTRY_LUA_000012")
+		SystemNotice(role, GUILDWAR_ENTRY_LUA_000012)	
 		return 0
 	end
 
 	local Num_5= CheckBagItem(role,4012)
 	if Num_5 >= 1 then
-		SystemNotice(role, "Please, remove [Moon Tail Eel] from your inventory!")	
+		GUILDWAR_ENTRY_LUA_000013 = GetResString("GUILDWAR_ENTRY_LUA_000013")
+		SystemNotice(role, GUILDWAR_ENTRY_LUA_000013)	
 		return 0
 	end
 
 	local Num_6= CheckBagItem(role,4013)
 	if Num_6 >= 1 then
-		SystemNotice(role, "Please, remove [Diving Clam] from your inventory!")	
+		GUILDWAR_ENTRY_LUA_000014 = GetResString("GUILDWAR_ENTRY_LUA_000014")
+		SystemNotice(role, GUILDWAR_ENTRY_LUA_000014)	
 		return 0
 	end
 
         local Num_7= CheckBagItem(role,2964)
 	if Num_7 >= 1 then
-		SystemNotice(role, "Please, remove [Navy Token] from your inventory!")	
+		GUILDWAR_ENTRY_LUA_000015 = GetResString("GUILDWAR_ENTRY_LUA_000015")
+		SystemNotice(role, GUILDWAR_ENTRY_LUA_000015)	
 		return 0
 	end
 
 	local Num_8= CheckBagItem(role,3001)
 	if Num_8 >= 1 then
-		SystemNotice(role, "Please, remove [Pirate Token] from your inventory!")	
+		GUILDWAR_ENTRY_LUA_000016 = GetResString("GUILDWAR_ENTRY_LUA_000016")
+		SystemNotice(role, GUILDWAR_ENTRY_LUA_000016)	
 		return 0
 	end
 
 	local Num_9= CheckBagItem(role,4011)
 	if Num_9 >= 1 then
-		SystemNotice(role, "Please, remove [Squirting Fish] from your inventory!")	
+		GUILDWAR_ENTRY_LUA_000017 = GetResString("GUILDWAR_ENTRY_LUA_000017")
+		SystemNotice(role, GUILDWAR_ENTRY_LUA_000017)	
 		return 0
 	end
 
 	local Num_10= CheckBagItem(role,1720)
 	if Num_10 >= 1 then
-		SystemNotice(role, "Please, remove [Fish Bone] from your inventory!")	
+		GUILDWAR_ENTRY_LUA_000018 = GetResString("GUILDWAR_ENTRY_LUA_000018")
+		SystemNotice(role, GUILDWAR_ENTRY_LUA_000018)	
 		return 0
 	end
 
 	local Num_11= CheckBagItem(role,2382)
 	if Num_11 < 1 then
-		SystemNotice(role, "Please, talk to Sacred War Administrator to obtain [Token of Life & Death]!")	
+		GUILDWAR_ENTRY_LUA_000019 = GetResString("GUILDWAR_ENTRY_LUA_000019")
+		SystemNotice(role, GUILDWAR_ENTRY_LUA_000019)	
 		return 0
 	end
 
@@ -189,23 +212,28 @@ function begin_enter_guildwar(role, copy_mgr)
      local Cha = TurnToCha(role)
      if  GetChaGuildID(Cha) <= 100 and GetChaGuildID(Cha) > 0 then
 	     if count_haijun < 45 then
-	        
-	        SystemNotice(role,"[A Navy member joined Sacred War]")
+	       GUILDWAR_ENTRY_LUA_000020 = GetResString("GUILDWAR_ENTRY_LUA_000020")
+	       SystemNotice(role,GUILDWAR_ENTRY_LUA_000020)
 		MoveCity(role, "guildwarnavyside")
+	       
                 count_haijun = count_haijun + 1
 	      else 
-	        SystemNotice(role,"Navy Faction has already 45 members")
+	        GUILDWAR_ENTRY_LUA_000021 = GetResString("GUILDWAR_ENTRY_LUA_000021")
+	        SystemNotice(role,GUILDWAR_ENTRY_LUA_000021)
 	      end
 	
      end	        
 		
      if GetChaGuildID(Cha) > 100 and GetChaGuildID(Cha) <= 200 then
              if count_haidao < 45 then
-	        SystemNotice(role,"[A Pirate member joined Sacred War]")
+	        GUILDWAR_ENTRY_LUA_000020 = GetResString("GUILDWAR_ENTRY_LUA_000020")
+	        SystemNotice(role,GUILDWAR_ENTRY_LUA_000020)
+			
 		MoveCity(role, "guildwarpirateside")
 		count_haidao=count_haidao + 1
 	     else
-	        SystemNotice(role,"Pirate Faction has already 45 members")
+	        GUILDWAR_ENTRY_LUA_000022 = GetResString("GUILDWAR_ENTRY_LUA_000022")
+	        SystemNotice(role,GUILDWAR_ENTRY_LUA_000022)
 	     end
 
      end 

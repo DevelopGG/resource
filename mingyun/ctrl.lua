@@ -9,5 +9,12 @@ function config(map)
 end
 
 function init_entry(map)
+end
 
+function map_run_mingyun(map)
+end
+function get_map_entry_pos_mingyun()   --设置入口的位置的坐标（坐标（米））
+	local POS_X=0
+	local POS_Y=0
+	return POS_X , POS_Y
 end

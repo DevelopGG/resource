@@ -1,116 +1,116 @@
---------------------------------------------------------------------------
---									--
---									--
---				MissionSdk.lua				--
---									--
---任务系统函数接口定义							--
---------------------------------------------------------------------------
-print( "Loading MissionSdk.lua" )
+------------------------------------------------------------
+--MissionSdk.lua Created by knight 2004.12.10.
+--
+--任务系统函数接口定义
+print( "loading missionsdk.lua" )
+------------------------------------------------------------
 
 
---竲セ╰参﹚竡
+--脚本系统返回值定义
 LUA_TRUE 			= 1
 LUA_FALSE			= 0
 LUA_ERROR			= -1
 LUA_NULL			= 0
 
---ヴ叭╰参竲セ
-TE_MAPINIT		= 0			--ネ
-TE_NPC				= 1			--npc拟盿
-TE_KILL				= 2			--篟反ン
-TE_GAMETIME		= 3			--笴栏丁
-TE_CHAT			= 4			--册ぱ闽龄
-TE_GETITEM		= 5			--珺珇
-TE_EQUIPITEM	= 6			--杆称珇
-TE_GOTO_MAP    = 7			--笷ヘ夹翴	à︹牟祇竟纗把计1瓜ID 把计2瓜笷radom 瞯把计3瓜Г夹x把计4, 瓜Г夹y
-TE_LEVELUP      	= 8			--ど			à︹牟祇竟纗把计1琌笆闽超牟祇竟笆闽超把计2琌–单常牟祇把计3﹚单牟祇
+--任务系统脚本
+TE_MAPINIT		= 0			--出生
+TE_NPC				= 1			--npc携带
+TE_KILL				= 2			--摧毁物件
+TE_GAMETIME		= 3			--游戏时间
+TE_CHAT			= 4			--聊天关键字
+TE_GETITEM		= 5			--拾取物品
+TE_EQUIPITEM	= 6			--装备物品
+TE_GOTO_MAP    = 7			--到达目标点	（角色触发器存储）参数1，地图ID， 参数2，地图到达随机率，参数3，地图坐标x，参数4, 地图坐标y
+TE_LEVELUP      	= 8			--升级			（角色触发器存储）参数1，是否主动关闭（触发器动作后关闭），参数2，是否每个等级都触发，参数3，指定等级触发
 
---牟祇竟丁摸
-TT_CYCLETIME	= 0			--丁碻吏
-TT_MULTITIME	= 1			--碻吏笲︽nΩ
+--触发器时间类型
+TT_CYCLETIME	= 0			--时间循环
+TT_MULTITIME	= 1			--循环运行n次
 		
---牟祇竟程拟盿兵ン计秖
+--触发器最大携带条件数量
 TR_MAXNUM_CONDITIONS		= 12
 TR_MAXNUM_ACTIONS			= 12
 
---npcヴ叭篈獺﹚竡
-MIS_ACCEPT       = 1			--Τ才兵ン钡ヴ叭
-MIS_DELIVERY     = 2			--ЧΘユヴ叭
-MIS_PENDING		= 4			--ЧΘユヴ叭
-MIS_IGNORE		= 8			--ぃ才兵ン钡ヴ叭
+--npc任务状态信息定义
+MIS_ACCEPT       = 1			--有符合条件可以接的任务
+MIS_DELIVERY     = 2			--已完成可交付的任务
+MIS_PENDING		= 4			--已完成可交付的任务
+MIS_IGNORE		= 8			--不符合条件可以接的任务
 
---ヴ叭巨㏑
-MIS_PREV			= 0			--叫―祇癳ヴ叭獺
-MIS_NEXT			= 1			--叫―祇癳ヴ叭獺
-MIS_PREV_END	= 2			--ヴ叭⊿Τ獺
-MIS_NEXT_END	= 3			--ヴ叭⊿Τ獺
-MIS_SEL				= 4			--叫―匡拒ヴ叭兜ヘ
-MIS_TALK			= 5			--叫―ヴ叭癸杠獺
-MIS_BTNACCEPT	= 6			--叫―钡ヴ叭
-MIS_BTNDELIVERY= 7			--叫―ユヴ叭
-MIS_BTNPENDING	= 8			--ゼ∕ヴ叭叫―め狠窽ゎ秙
-MIS_LOG			= 9			--叫―ヴ叭ら粁獺
+--任务列表页操作命令
+MIS_PREV			= 0			--请求发送任务列表的上一页信息
+MIS_NEXT			= 1			--请求发送任务列表的下一页信息
+MIS_PREV_END	= 2			--任务列表没有上一页信息
+MIS_NEXT_END	= 3			--任务列表没有下一页信息
+MIS_SEL				= 4			--请求选择任务列表项目
+MIS_TALK			= 5			--请求任务对话信息
+MIS_BTNACCEPT	= 6			--请求接受任务
+MIS_BTNDELIVERY= 7			--请求交付任务
+MIS_BTNPENDING	= 8			--未决任务请求（客户端禁止按钮）
+MIS_LOG			= 9			--请求任务日志信息
 
---ヴ叭獺﹚竡
---ЧΘ ヴ叭惠―摸﹚竡
-MIS_NEED_ITEM		= 0		--惠璶莉珇
-MIS_NEED_KILL		= 1		--惠璶篟反ン
-MIS_NEED_SEND		= 2        --惠璶癳倒琘
-MIS_NEED_CONVOY	= 3 		--惠璶臔癳琘
-MIS_NEED_EXPLORE = 4		--惠璶贝琘
-MIS_NEED_DESP		= 5		--ゅ瓃ヴ叭ヘ夹
+--任务信息定义
+--完成 任务需求类型定义
+MIS_NEED_ITEM		= 0		--需要获取物品
+MIS_NEED_KILL		= 1		--需要摧毁物件
+MIS_NEED_SEND		= 2        --需要送给某人
+MIS_NEED_CONVOY	= 3 		--需要护送到某的
+MIS_NEED_EXPLORE = 4		--需要探索某的
+MIS_NEED_DESP		= 5		--文字表述的任务目标
 
---ЧΘヴ叭贱纘摸﹚竡
-MIS_PRIZE_ITEM		= 0		--贱纘珇
-MIS_PRIZE_MONEY	= 1		--贱纘窥
-MIS_PRIZE_FAME		= 2		--贱纘羘辨
-MIS_PRIZE_CESS		= 3		--贱纘禩祙瞯
-MIS_PRIZE_PETEXP  = 4		--贱纘胐竒喷
+--完成任务奖励类型定义
+MIS_PRIZE_ITEM		= 0		--奖励物品
+MIS_PRIZE_MONEY	= 1		--奖励金钱
+MIS_PRIZE_FAME		= 2		--奖励声望
+MIS_PRIZE_CESS		= 3		--奖励贸易税率
+MIS_PRIZE_PETEXP  = 4		--奖励宠物经验值
 
---à︹戮穨摸
-MIS_NOVICE			= 0		--穝も
-MIS_FENCER			= 1		--糃
-MIS_HUNTER			= 2		--聐
-MIS_EXPERIENCED	= 2		--も
-MIS_RISKER			= 4		--玙繧
-MIS_DOCTOR			= 5		--洛ネ(腀ㄏ)
-MIS_TECHNICIAN		= 6		--м畍
-MIS_TRADER			= 7		--坝
-MIS_LARGE_FENCER  = 8		--エ糃
-MIS_TWO_FENCER    = 9		--蛮糃
-MIS_SHIELD_FENCER = 10		--糃
-MIS_WILD_ANIMAL_TRAINER = 11 --攻脋畍
-MIS_GUNMAN			= 12      --阑も
-MIS_CLERGY			= 13		--竧戮
-MIS_SEALER			= 14		--畍
-MIS_SHIPMASTER	= 15		--差
-MIS_VOYAGE			= 16		--
-MIS_ARRIVISTE		= 17		--忌祇め
-MIS_ENGINEER			= 18		--祘畍
+--角色职业类型
+MIS_NOVICE			= 0		--新手
+MIS_FENCER			= 1		--剑士
+MIS_HUNTER			= 2		--猎人
+MIS_EXPERIENCED	= 2		--水手
+MIS_RISKER			= 4		--冒险者
+MIS_DOCTOR			= 5		--医生(祈愿使)
+MIS_TECHNICIAN		= 6		--技师
+MIS_TRADER			= 7		--商人
+MIS_LARGE_FENCER  = 8		--巨剑士
+MIS_TWO_FENCER    = 9		--双剑士
+MIS_SHIELD_FENCER = 10		--剑盾士
+MIS_WILD_ANIMAL_TRAINER = 11 --驯兽师
+MIS_GUNMAN			= 12      --狙击手
+MIS_CLERGY			= 13		--圣职者
+MIS_SEALER			= 14		--封印师
+MIS_SHIPMASTER	= 15		--船长
+MIS_VOYAGE			= 16		--航海士
+MIS_ARRIVISTE		= 17		--暴发户
+MIS_ENGINEER			= 18		--工程师
 
---そ穦摸
-MIS_GUILD_NAVY		= 0		--瓁そ穦
-MIS_GUILD_PIRATE   = 1		--祍そ穦
+--公会类型
+MIS_GUILD_NAVY		= 0		--海军公会
+MIS_GUILD_PIRATE   = 1		--海盗公会
 
---ッ环安
+--永远为假
 function AlwaysFailure()
 	return LUA_FALSE
 end
 
---ッ痷
+--永久为真
 function AlwaysTrue()
 	return LUA_TRUE
 end
 
---⊿Τ菌夹乓
+--没有历史标签
 function NoRecord( character, record )
 	if record == nil then
-		SystemNotice( character, "NoRecord:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000001 = GetResString("MISSDK_MISSIONSDK_LUA_000001")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000001 )
 		return LUA_ERROR
 	end
 	local ret = IsValidRecord( character, record )
 	if ret == LUA_FALSE then
-		SystemNotice( character, "NoRecord:Invalid story record index error or character index error!" )
+		MISSDK_MISSIONSDK_LUA_000002 = GetResString("MISSDK_MISSIONSDK_LUA_000002")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000002 )
 		return LUA_ERROR
 	end
 	
@@ -121,10 +121,11 @@ function NoRecord( character, record )
 	return LUA_FALSE
 end
 
---浪代м篈
+--检测技能状态
 function HasState( character, state_id )
 	if state_id == nil then
-		SystemNotice( character, "HasState:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000003 = GetResString("MISSDK_MISSIONSDK_LUA_000003")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000003 )
 		return LUA_ERROR
 	end
 	
@@ -137,10 +138,11 @@ function HasState( character, state_id )
 	return LUA_FALSE
 end
 
---浪代à︹砰
+--检测角色体型
 function IsChaType( character, type_id )
 	if type_id == nil then
-		SystemNotice( character, "IsChaType:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000004 = GetResString("MISSDK_MISSIONSDK_LUA_000004")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000004 )
 		return LUA_ERROR
 	end
 	
@@ -151,10 +153,11 @@ function IsChaType( character, type_id )
 	return LUA_FALSE
 end
 
---浪代ぃ琌à︹砰
+--检测不是角色体型
 function NoChaType( character, type_id )
 	if type_id == nil then
-		SystemNotice( character, "NoChaType:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000005 = GetResString("MISSDK_MISSIONSDK_LUA_000005")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000005 )
 		return LUA_ERROR
 	end
 	
@@ -164,12 +167,14 @@ function NoChaType( character, type_id )
 	end
 	return LUA_FALSE
 end
---冀疭
+--播放特效
 function Starteffect( character, npc, tp )
 		
 	if tp == nil then
-		PRINT( "Starteffect:Function parameter error!" )
-		SystemNotice( character, "Starteffect:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000006 = GetResString("MISSDK_MISSIONSDK_LUA_000006")
+		PRINT( MISSDK_MISSIONSDK_LUA_000006 )
+		MISSDK_MISSIONSDK_LUA_000006 = GetResString("MISSDK_MISSIONSDK_LUA_000006")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000006 )
 		return LUA_ERROR	
 	end
 	
@@ -177,29 +182,33 @@ function Starteffect( character, npc, tp )
 	PlayEffect( npc, tp )
 	return LUA_TRUE
 end
---琌Τ菌夹乓
+--是否有历史标签
 function HasRecord( character, record )
 	if record == nil then
-		SystemNotice( character, "HasRecord:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000007 = GetResString("MISSDK_MISSIONSDK_LUA_000007")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000007 )
 		return LUA_ERROR
 	end
 	local ret = IsValidRecord( character, record )
 	if ret == LUA_FALSE then
-		SystemNotice( character, "HasRecord:Invalid story record index error or character index error!" )
+		MISSDK_MISSIONSDK_LUA_000008 = GetResString("MISSDK_MISSIONSDK_LUA_000008")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000008 )
 		return LUA_ERROR
 	end
 	return IsRecord( character, record )
 end
 
---⊿Τヴ叭癘魁夹乓
+--没有任务记录标签
 function NoFlag( character, id, flag )
 	if id == nil or flag == nil then
-		SystemNotice( character, "NoFlag:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000009 = GetResString("MISSDK_MISSIONSDK_LUA_000009")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000009 )
 		return LUA_ERROR
 	end	
 	local ret = IsValidFlag( character, flag )
 	if ret == LUA_FALSE then
-		SystemNotice( character, "NoFlag:Invalid quest record index error or character index error!" )
+		MISSDK_MISSIONSDK_LUA_000010 = GetResString("MISSDK_MISSIONSDK_LUA_000010")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000010 )
 		return LUA_ERROR
 	end
 	ret = IsFlag( character, id, flag )
@@ -209,10 +218,11 @@ function NoFlag( character, id, flag )
 	return LUA_TRUE
 end
 
---ぃΤ赣ヴ叭臔癳NPC
+--不能有该任务护送NPC
 function NoConvoyNpc( character, misid )
 	if misid == nil then
-		SystemNotice( character, "NoConvoyNpc:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000011 = GetResString("MISSDK_MISSIONSDK_LUA_000011")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000011 )
 		return LUA_ERROR
 	end
 	
@@ -224,10 +234,10 @@ function NoConvoyNpc( character, misid )
 	return LUA_TRUE
 end
 
---radom ヴ叭癳ン倒npc耞琌npc竒钡筁赣珇
+--随机任务送物件给npc时，判断是否npc已经接受过该物品
 --function NoRandNpcItemFlag( character, misid, npcid )
 --	if misid == nil or npcid == nil then
---		SystemNotice( character, "NoRandNpcItemFlag:Function parameter error!" )
+--		SystemNotice( character, "NoRandNpcItemFlag:函数参数错误！" )
 --		return LUA_ERROR
 --	end
 --	
@@ -238,10 +248,11 @@ end
 --	return LUA_TRUE
 --end
 
---⊿Τヴ叭夹乓
+--没有任务标签
 function NoMission( character, id )
 	if id == nil then
-		SystemNotice( character, "NoMission:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000012 = GetResString("MISSDK_MISSIONSDK_LUA_000012")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000012 )
 		return LUA_ERROR
 	end
 	local ret = HasMission( character, id )
@@ -251,10 +262,11 @@ function NoMission( character, id )
 	return LUA_TRUE
 end
 
---⊿Τ﹚眔radom ヴ叭
+--没有指定得随机任务
 function NoRandMission( character, id )
 	if id == nil then
-		SystemNotice( character, "NoRandMission:function parameter error" )
+		MISSDK_MISSIONSDK_LUA_000013 = GetResString("MISSDK_MISSIONSDK_LUA_000013")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000013 )
 		return LUA_ERROR
 	end
 	
@@ -265,10 +277,11 @@ function NoRandMission( character, id )
 	return LUA_TRUE
 end
 
---ヴ叭⊿Τア毖
+--任务没有失败
 function NoMisssionFailure( character, id )
 	if id == nil then
-		SystemNotice( character, "NoMisssionFailure:function parameter error" )
+		MISSDK_MISSIONSDK_LUA_000014 = GetResString("MISSDK_MISSIONSDK_LUA_000014")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000014 )
 		return LUA_ERROR
 	end
 	
@@ -281,7 +294,8 @@ end
 
 function IsMission( character, id )
 	if id == nil then
-		SystemNotice( character, "IsMission:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000015 = GetResString("MISSDK_MISSIONSDK_LUA_000015")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000015 )
 		return LUA_ERROR
 	end
 	return HasMission( character, id )
@@ -303,10 +317,11 @@ function NoPfEqual( character, pf )
 	return LUA_TRUE
 end
 
---睰﹚ヴ叭癘魁夹乓
+--添加指定的下一个任务记录标签
 function AddNextFlag( character, id, startflag, count )
 	if id == nil or startflag == nil or count == nil then
-		SystemNotice( character, "AddNextFlag:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000016 = GetResString("MISSDK_MISSIONSDK_LUA_000016")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000016 )
 	end
 	local num = 0
 	for i = 1, count, 1 do
@@ -314,8 +329,10 @@ function AddNextFlag( character, id, startflag, count )
 		if ret == LUA_FALSE then
 			PRINT( "AddNextFlag: flag = ", startflag + num )
 			ret = SetFlag( character, id, startflag + num )
+			RefreshCompleteFlag(character,MissionSid[id])
 			if ret ~= LUA_TRUE then
-				SystemNotice( character, "AddNextFlag:Unable to set quest record label notice error!" )
+				MISSDK_MISSIONSDK_LUA_000017 = GetResString("MISSDK_MISSIONSDK_LUA_000017")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000017 )
 				return LUA_ERROR
 			end
 			return LUA_TRUE
@@ -325,10 +342,11 @@ function AddNextFlag( character, id, startflag, count )
 	return LUA_TRUE
 end
 
---砞竚radom ヴ叭癘魁夹乓
+--设置下一个随机任务记录标签
 function AddRMNextFlag( character, id, startflag, count )
 	if id == nil or startflag == nil or count == nil then
-		SystemNotice( character, "AddRMNextFlag:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000018 = GetResString("MISSDK_MISSIONSDK_LUA_000018")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000018 )
 	end
 	local num = 0
 	for i = 1, count, 1 do
@@ -337,7 +355,8 @@ function AddRMNextFlag( character, id, startflag, count )
 			PRINT( "AddRMNextFlag: flag = ", startflag + num )
 			ret = SetFlag( character, id, startflag + num )
 			if ret ~= LUA_TRUE then
-				SystemNotice( character, "AddRMNextFlag:Unable to set quest record label notice error!" )
+				MISSDK_MISSIONSDK_LUA_000019 = GetResString("MISSDK_MISSIONSDK_LUA_000019")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000019 )
 				return LUA_ERROR
 			end
 			return LUA_TRUE
@@ -346,7 +365,7 @@ function AddRMNextFlag( character, id, startflag, count )
 	end
 	return LUA_TRUE
 end
------------差┪硂翠┪ê翠
+-----------船或者在这个港口或者在那个港口
 -- function HasAllBoatInBerth_eitheror( character, p1, p2 )
 -- 	local ret1 = HasAllBoatInBerth( character, p1 )
 --	local ret2 = HasAllBoatInBerth( character, p2 )
@@ -361,25 +380,28 @@ end
 --		return LUA_TRUE
 --	end
 -- end
---浪代ヴ叭癘魁夹乓獺
+--检测任务记录标签信息
 function HasFlag( character, id, flag )
 	if id == nil or flag == nil then
-		SystemNotice( character, "HasFlag:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000020 = GetResString("MISSDK_MISSIONSDK_LUA_000020")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000020 )
 		return LUA_ERROR
 	end
 	local ret = IsValidFlag( character, flag )
 	if ret ~= LUA_TRUE then
-		SystemNotice( character, "HasFlag:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000021 = GetResString("MISSDK_MISSIONSDK_LUA_000021")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000021 )
 		return LUA_ERROR
 	end
 	ret = IsFlag( character, id, flag )
 	return ret
 end
 
---浪代ヴ叭癘魁夹乓獺
+--检测一个序列的任务记录标签信息
 function HasAllFlag( character, id, startflag, count )
 	if id == nil or startflag == nil or count then
-		SystemNotice( character, "HasAllFlag:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000022 = GetResString("MISSDK_MISSIONSDK_LUA_000022")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000022 )
 		return LUA_ERROR
 	end
 	local num = 0
@@ -393,10 +415,11 @@ function HasAllFlag( character, id, startflag, count )
 	return LUA_TRUE
 end
 
---莉ヴ叭夹乓癘魁计秖獺
+--获取一个序列的任务标签记录数量信息
 function GetNumFlag( character, id, startflag, count )
 	if id == nil or startflag == nil or count == nil then
-		SystemNotice( character, "GetNumFlag:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000023 = GetResString("MISSDK_MISSIONSDK_LUA_000023")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000023 )
 		return 0
 	end
 	local num = 0
@@ -410,10 +433,13 @@ function GetNumFlag( character, id, startflag, count )
 	return num
 end
 
---浪喷
+--检验值
 function IsValue( id1, id2 )
 	if id1 == nil or id2 == nil then
-		PRINT( "IsValue:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000024 = GetResString("MISSDK_MISSIONSDK_LUA_000024")
+		PRINT( MISSDK_MISSIONSDK_LUA_000024 )
+		MISSDK_MISSIONSDK_LUA_000024 = GetResString("MISSDK_MISSIONSDK_LUA_000024")
+		LG( "mission_error", MISSDK_MISSIONSDK_LUA_000024 )
 		return LUA_ERROR
 	end
 	if id1 == id2 then
@@ -422,19 +448,20 @@ function IsValue( id1, id2 )
 	return LUA_FALSE
 end
 
---浪代琌琌﹚┣摸
+--检测是否是指定的怪物类型
 function IsMonster( id1, id2 )
 	return IsValue( id1, id2 )
 end
 
---浪代琌﹚珇摸
+--检测是否指定的物品类型
 function IsItem( id1, id2 )
 	return IsValue( id1, id2 )
 end
 
 function NoItem( character, itemid, count )
 	if itemid == nil or count == nil then
-		PRINT( "NoItem:parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000025 = GetResString("MISSDK_MISSIONSDK_LUA_000025")
+		PRINT( MISSDK_MISSIONSDK_LUA_000025 )
 		return LUA_ERROR
 	end
 	
@@ -448,7 +475,8 @@ end
 
 function BankNoItem( character, itemid, count )
 	if itemid == nil or count == nil then
-		PRINT( "BankNoItem:parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000026 = GetResString("MISSDK_MISSIONSDK_LUA_000026")
+		PRINT( MISSDK_MISSIONSDK_LUA_000026 )
 		return LUA_ERROR
 	end
 	
@@ -462,7 +490,8 @@ end
 
 function EquipNoItem( character, itemid, count )
 	if itemid == nil or count == nil then
-		PRINT( "EquipNoItem:parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000027 = GetResString("MISSDK_MISSIONSDK_LUA_000027")
+		PRINT( MISSDK_MISSIONSDK_LUA_000027 )
 		return LUA_ERROR
 	end
 	
@@ -474,7 +503,7 @@ function EquipNoItem( character, itemid, count )
 	return LUA_TRUE
 end
 
-----Leo羘辨ㄧ计耞耞à︹羘琌Τ㏕﹚狵羘辨
+----Leo的声望函数判断，判断角色声上是否有固定枝的声望
 function HasCredit(character,value)
 	local Role_Credit = GetCredit(character)
 	if value > Role_Credit then
@@ -487,7 +516,7 @@ end
 
 --Leo end
 
-----Leo羘辨Ι埃Ι埃à︹羘羘辨
+----Leo的声望扣除，扣除角色声上的声望
 function DelRoleCredit(character,npc,value)
 	DelCredit(character,value)
 	return LUA_TRUE
@@ -495,72 +524,95 @@ end
 --Leo end
 
 
--------------------靡----------missdk
+------------------死亡证明&无谓之证----------missdk
 function CheckPoint (character,value)
 		--SystemNotice( character , "value=="..value)
 	local i= CheckBagItem( character, value )
-	if i~=1 then
-		SystemNotice( character , "Please ensure you have at least 1 Proof of Death on you")
+	if i~=1 and value == 2954 then
+		MISSDK_MISSIONSDK_LUA_000028 = GetResString("MISSDK_MISSIONSDK_LUA_000028")
+		SystemNotice( character , MISSDK_MISSIONSDK_LUA_000028)
+	return LUA_FALSE
+	end
+	if i~=1 and value == 5803 then
+		MISSDK_MISSIONSDK_LUA_000029 = GetResString("MISSDK_MISSIONSDK_LUA_000029")
+		SystemNotice( character , MISSDK_MISSIONSDK_LUA_000029)
 	return LUA_FALSE
 	end
 	local Point_dead = GetChaItem2 ( character , 2 , value )
 	local Point = GetItemAttr(Point_dead, ITEMATTR_VAL_STR)
-		--SystemNotice( character , "眤"..Point.."Ω")
-	if Point<41 then
-		SystemNotice( character , "Please ensure that you have died enough times")
-		return LUA_FALSE
-		
+	local Point_Kill = GetItemAttr(Point_dead , ITEMATTR_VAL_AGI)
+		--SystemNotice( character , "您死了"..Point.."次")
+	if Point < 41 and value == 2954 then
+		MISSDK_MISSIONSDK_LUA_000030 = GetResString("MISSDK_MISSIONSDK_LUA_000030")
+		SystemNotice( character , MISSDK_MISSIONSDK_LUA_000030)
+		return LUA_FALSE		
+	end
+	if Point_Kill < 10 and value == 5803 then
+		MISSDK_MISSIONSDK_LUA_000031 = GetResString("MISSDK_MISSIONSDK_LUA_000031")
+		SystemNotice( character , MISSDK_MISSIONSDK_LUA_000031)
+		return LUA_FALSE		
 	end
 	return LUA_TRUE
 end
+
+
 		
---------------------耞璉ず礚琘贺笵ㄣ
+--------------------判断背包内无某种道具
 function HaveNoItem (character,value)
 		--SystemNotice( character , "value=="..value)
 	local i= CheckBagItem( character, value )
 	--SystemNotice( character , "i=="..i)
-	if i~=0 then
-		SystemNotice( character , "Please ensure that you do not have any Proof of Death")
+	if i~=0 and value == 2954 then
+		MISSDK_MISSIONSDK_LUA_000032 = GetResString("MISSDK_MISSIONSDK_LUA_000032")
+		SystemNotice( character , MISSDK_MISSIONSDK_LUA_000032)
+		return LUA_FALSE
+	end
+	if i~=0 and value == 5803 then
+		MISSDK_MISSIONSDK_LUA_000033 = GetResString("MISSDK_MISSIONSDK_LUA_000033")
+		SystemNotice( character , MISSDK_MISSIONSDK_LUA_000033)
 		return LUA_FALSE
 	end
 	return LUA_TRUE
 end
-----倒à︹璉㏕﹚竚睰笵ㄣ
+		
+
+----给角色背包固定位置添加道具
 function AddChaItem1(character,npc,value)
 	--SystemNotice( character ,"value=="..value)		
 	local item_number = CheckBagItem( character, value )			
 	if item_number >=1 then
-		SystemNotice( character ,"You already possess a Challenge Letter")
+		MISSDK_MISSIONSDK_LUA_000034 = GetResString("MISSDK_MISSIONSDK_LUA_000034")
+		SystemNotice( character ,MISSDK_MISSIONSDK_LUA_000034)
 		return LUA_FALSE 
 	end
-	------------耞璉材逆琌
+	------------判断背包第一栏是否为空
 	--local item1=GetItemP(character,0)
 	--local itemid1=GetItemID( item1 )
 	--if itemid1==0 or itemid1==nil then
-	--	SystemNotice( character, "叫р璉材逆珇簿秨" )
+	--	SystemNotice( character, "请把背包第一栏的物品移开" )
 	--	return LUA_FALSE
 	--end
 
-	------------珼驹皐
+	------------取挑战书的指针
 	local r1=0
 	local r2=0
 		--SystemNotice( character ,"r1=="..r1)
 	r1,r2 =MakeItem ( character , value  , 1 , 4 )
 	local Item_new = GetChaItem ( character , 2 , r2 )
 
-	----------癘魁丁
-	local now_yes = os.date("%y")		-------------
-	local now_month= os.date("%m")		-------------る
-	local now_day= os.date("%d")		-------------ら
-	local now_hour= os.date("%H")		-------------
-	local now_miniute= os.date("%M")	-------------だ
-	local now_scend=  os.date("%S")		-------------
-	now_yes = tonumber(now_yes)			-------------     
-	now_month= tonumber(now_month)		-------------る     
-	now_day= tonumber(now_day)			-------------ら     
-	now_hour= tonumber(now_hour)			-------------     
-	now_miniute= tonumber(now_miniute)	 	-------------だ     
-	now_scend= tonumber(now_scend)		-------------     
+	----------记录时间
+	local now_yes = os.date("%y")		-------------年
+	local now_month= os.date("%m")		-------------月
+	local now_day= os.date("%d")		-------------日
+	local now_hour= os.date("%H")		-------------时
+	local now_miniute= os.date("%M")	-------------分
+	local now_scend=  os.date("%S")		-------------秒
+	now_yes = tonumber(now_yes)			-------------年     
+	now_month= tonumber(now_month)		-------------月     
+	now_day= tonumber(now_day)			-------------日     
+	now_hour= tonumber(now_hour)			-------------时     
+	now_miniute= tonumber(now_miniute)	 	-------------分     
+	now_scend= tonumber(now_scend)		-------------秒     
 	--local CheckDateNum = NowMonthNum * 10000 + NowDayNum * 100 + NowTimeNum
 	--SystemNotice ( character , "now_yes=="..now_yes )
 	--SystemNotice ( character , "now_month=="..now_month )
@@ -568,40 +620,42 @@ function AddChaItem1(character,npc,value)
 	--SystemNotice ( character , "now_hour=="..now_hour )
 	--SystemNotice ( character , "now_miniute=="..now_miniute )
 	--SystemNotice ( character , "now_scend=="..now_scend )
-	SetItemAttr(Item_new, ITEMATTR_VAL_STA, now_month )		-------------る 	
-	SetItemAttr(Item_new, ITEMATTR_VAL_STR, now_day )		-------------ら  
-	SetItemAttr(Item_new, ITEMATTR_VAL_CON, now_hour )		-------------   
-	SetItemAttr(Item_new, ITEMATTR_VAL_DEX, now_miniute )		-------------だ   
-	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, now_scend )		------------- 
+	SetItemAttr(Item_new, ITEMATTR_VAL_STA, now_month )		-------------月 	
+	SetItemAttr(Item_new, ITEMATTR_VAL_STR, now_day )		-------------日  
+	SetItemAttr(Item_new, ITEMATTR_VAL_CON, now_hour )		-------------时   
+	SetItemAttr(Item_new, ITEMATTR_VAL_DEX, now_miniute )		-------------分   
+	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, now_scend )		-------------秒 
 	SynChaKitbag(character,13)
 	return LUA_TRUE
 end
 function AddChaItem2(character,npc,value)
 	local cha = ChaIsBoat ( character ) 
 	if cha ==1 then
-		SystemNotice( character ,"You need to land to complete Genesis quest")
+		MISSDK_MISSIONSDK_LUA_000035 = GetResString("MISSDK_MISSIONSDK_LUA_000035")
+		SystemNotice( character ,MISSDK_MISSIONSDK_LUA_000035)
 		return LUA_FALSE 
 	end	
-	------------珼驹皐
+	------------取挑战书的指针
 	local item1=GetItemP(character,0)
 	local itemid1=GetItemID( item1 )
 	if itemid1~=2911 then
-		SystemNotice( character, "Please place the Challenge Letter in the 1st slot of your inventory." )
+		MISSDK_MISSIONSDK_LUA_000036 = GetResString("MISSDK_MISSIONSDK_LUA_000036")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000036 )
 		return LUA_FALSE
 	end
-	----------癘魁丁
-	local now_yes = os.date("%y")			-------------
-	local now_month= os.date("%m")			-------------る
-	local now_day= os.date("%d")			-------------ら
-	local now_hour= os.date("%H")			-------------
-	local now_miniute= os.date("%M")		-------------だ
-	local now_scend=  os.date("%S")			-------------
-	now_yes = tonumber(now_yes)			-------------     
-	now_month= tonumber(now_month)		-------------る     
-	now_day= tonumber(now_day)			-------------ら     
-	now_hour= tonumber(now_hour)			-------------     
-	now_miniute= tonumber(now_miniute)	 	-------------だ     
-	now_scend= tonumber(now_scend)		-------------     
+	----------记录时间
+	local now_yes = os.date("%y")			-------------年
+	local now_month= os.date("%m")			-------------月
+	local now_day= os.date("%d")			-------------日
+	local now_hour= os.date("%H")			-------------时
+	local now_miniute= os.date("%M")		-------------分
+	local now_scend=  os.date("%S")			-------------秒
+	now_yes = tonumber(now_yes)			-------------年     
+	now_month= tonumber(now_month)		-------------月     
+	now_day= tonumber(now_day)			-------------日     
+	now_hour= tonumber(now_hour)			-------------时     
+	now_miniute= tonumber(now_miniute)	 	-------------分     
+	now_scend= tonumber(now_scend)		-------------秒     
 	--SystemNotice ( character , "now_yes=="..now_yes )
 	--SystemNotice ( character , "now_month=="..now_month )
 	--SystemNotice ( character , "now_day=="..now_day )
@@ -610,22 +664,23 @@ function AddChaItem2(character,npc,value)
 	--SystemNotice ( character , "now_scend=="..now_scend )
 
 	local item_old=GetItemP(character,0)
-	---------簙丁	
-	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)		-------------る 	
-	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			-------------ら  
-	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			-------------   
-	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)		-------------だ   
-	local old_scend = GetItemAttr(item_old, ITEMATTR_VAL_AGI)			------------- 
+	---------去好汉书的时间	
+	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)		-------------月 	
+	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			-------------日  
+	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			-------------时   
+	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)		-------------分   
+	local old_scend = GetItemAttr(item_old, ITEMATTR_VAL_AGI)			-------------秒 
 	--SystemNotice ( character , "old_month=="..old_month )
 	--SystemNotice ( character , "old_day=="..old_day )       
 	--SystemNotice ( character , "old_hour=="..old_hour )    
 	--SystemNotice ( character , "old_miniute=="..old_miniute)
 	--SystemNotice ( character , "old_scend=="..old_scend ) 
 
-	---------埃珼驹
+	---------删除挑战书
 	local del_item =TakeItem( character, 0,2911, 1 )			                   
 	if del_item==0  then
-		SystemNotice ( character ,"Deletion of Challenge Letter failed")
+		MISSDK_MISSIONSDK_LUA_000037 = GetResString("MISSDK_MISSIONSDK_LUA_000037")
+		SystemNotice ( character ,MISSDK_MISSIONSDK_LUA_000037)
 		return LUA_FALSE
 	end
 
@@ -634,32 +689,41 @@ function AddChaItem2(character,npc,value)
 	local cha_name = GetChaDefaultName ( character )
 
 	if used_time>28800 or used_time<0 then
-		SystemNotice ( character ,"You took too long to complete Genesis's quest and will not receive any reward. Please try again!")
+		MISSDK_MISSIONSDK_LUA_000038 = GetResString("MISSDK_MISSIONSDK_LUA_000038")
+		SystemNotice ( character ,MISSDK_MISSIONSDK_LUA_000038)
 		return LUA_TRUE
 	elseif used_time < 2400 and used_time>0 then
-		Notice("Congratulations to "..cha_name.." for completing Genesis Challenge in "..used_time.." sec(s)!")
+		MISSDK_MISSIONSDK_LUA_000039 = GetResString("MISSDK_MISSIONSDK_LUA_000039")
+		MISSDK_MISSIONSDK_LUA_000040 = GetResString("MISSDK_MISSIONSDK_LUA_000040")
+		CALCULATE_FORGE_LUA_000186 = GetResString("CALCULATE_FORGE_LUA_000186")
+		Notice(CALCULATE_FORGE_LUA_000186..cha_name..MISSDK_MISSIONSDK_LUA_000040..used_time..MISSDK_MISSIONSDK_LUA_000039)
 	end
 	if used_time < JINISI_TIME then
 		JINISI_TIME=used_time
+		MISSDK_MISSIONSDK_LUA_000041 = GetResString("MISSDK_MISSIONSDK_LUA_000041")
+		MISSDK_MISSIONSDK_LUA_000042 = GetResString("MISSDK_MISSIONSDK_LUA_000042")
+		CALCULATE_EXP_AND_LEVEL_LUA_000040 = GetResString("CALCULATE_EXP_AND_LEVEL_LUA_000040")
+		LG( "JiNiSiJiLu_XinXi" , CALCULATE_EXP_AND_LEVEL_LUA_000040..cha_name..MISSDK_MISSIONSDK_LUA_000042..used_time..MISSDK_MISSIONSDK_LUA_000041 )
 	end
-	------------簙皐
+	------------取好汉书的指针
 	local r1=0
 	local r2=0
 	r1,r2 =MakeItem ( character , value  , 1 , 4 )
 	local Item_new = GetChaItem ( character , 2 , r2 )
 	GiveItem ( character , 0 , 3094  , 1 , 4 )	
-	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, used_time )		-------------  
+	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, used_time )		-------------秒  
 	SynChaKitbag(character,13)
 	return LUA_TRUE
 end
 
 
-----倒à︹璉睰笵ㄣ
+----给角色背包添加道具
 function AddChaItem3(character,npc,value)
 
 	local item_number = CheckBagItem( character, value )			
 	if item_number >=1 then
-		SystemNotice( character ,"You already possess a Special Operation Card")
+		MISSDK_MISSIONSDK_LUA_000043 = GetResString("MISSDK_MISSIONSDK_LUA_000043")
+		SystemNotice( character ,MISSDK_MISSIONSDK_LUA_000043)
 		return LUA_FALSE 
 	end
 	
@@ -671,19 +735,19 @@ function AddChaItem3(character,npc,value)
 	
 
 
-	----------癘魁丁
-	local now_yes = os.date("%y")		-------------
-	local now_month= os.date("%m")		-------------る
-	local now_day= os.date("%d")		-------------ら
-	local now_hour= os.date("%H")		-------------
-	local now_miniute= os.date("%M")	-------------だ
-	local now_scend=  os.date("%S")		-------------
-	now_yes = tonumber(now_yes)			-------------     
-	now_month= tonumber(now_month)		-------------る     
-	now_day= tonumber(now_day)			-------------ら     
-	now_hour= tonumber(now_hour)			-------------     
-	now_miniute= tonumber(now_miniute)	 	-------------だ     
-	now_scend= tonumber(now_scend)		-------------     
+	----------记录时间
+	local now_yes = os.date("%y")		-------------年
+	local now_month= os.date("%m")		-------------月
+	local now_day= os.date("%d")		-------------日
+	local now_hour= os.date("%H")		-------------时
+	local now_miniute= os.date("%M")	-------------分
+	local now_scend=  os.date("%S")		-------------秒
+	now_yes = tonumber(now_yes)			-------------年     
+	now_month= tonumber(now_month)		-------------月     
+	now_day= tonumber(now_day)			-------------日     
+	now_hour= tonumber(now_hour)			-------------时     
+	now_miniute= tonumber(now_miniute)	 	-------------分     
+	now_scend= tonumber(now_scend)		-------------秒     
 	--local CheckDateNum = NowMonthNum * 10000 + NowDayNum * 100 + NowTimeNum
 	--SystemNotice ( character , "now_yes=="..now_yes )
 	--SystemNotice ( character , "now_month=="..now_month )
@@ -691,11 +755,11 @@ function AddChaItem3(character,npc,value)
 	--SystemNotice ( character , "now_hour=="..now_hour )
 	--SystemNotice ( character , "now_miniute=="..now_miniute )
 	--SystemNotice ( character , "now_scend=="..now_scend )
-	SetItemAttr(Item_new, ITEMATTR_VAL_STA, now_month )		-------------る 	
-	SetItemAttr(Item_new, ITEMATTR_VAL_STR, now_day )		-------------ら  
-	SetItemAttr(Item_new, ITEMATTR_VAL_CON, now_hour )		-------------   
-	SetItemAttr(Item_new, ITEMATTR_VAL_DEX, now_miniute )		-------------だ   
-	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, now_scend )		------------- 
+	SetItemAttr(Item_new, ITEMATTR_VAL_STA, now_month )		-------------月 	
+	SetItemAttr(Item_new, ITEMATTR_VAL_STR, now_day )		-------------日  
+	SetItemAttr(Item_new, ITEMATTR_VAL_CON, now_hour )		-------------时   
+	SetItemAttr(Item_new, ITEMATTR_VAL_DEX, now_miniute )		-------------分   
+	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, now_scend )		-------------秒 
 	SynChaKitbag(character,13)
 	return LUA_TRUE
 end
@@ -705,24 +769,25 @@ function AddChaItem4(character,npc,value)
 	local i= CheckBagItem( character, value )
 		--SystemNotice( character , "i=="..i)
 	if i~=1 then
-		SystemNotice( character , "Please ensure that you have only 1 Special Operation Card")
+		MISSDK_MISSIONSDK_LUA_000044 = GetResString("MISSDK_MISSIONSDK_LUA_000044")
+		SystemNotice( character , MISSDK_MISSIONSDK_LUA_000044)
 		return LUA_FALSE
 	end
 	
 	
-	----------癘魁丁
-	local now_yes = os.date("%y")			-------------
-	local now_month= os.date("%m")			-------------る
-	local now_day= os.date("%d")			-------------ら
-	local now_hour= os.date("%H")			-------------
-	local now_miniute= os.date("%M")		-------------だ
-	local now_scend=  os.date("%S")			-------------
-	now_yes = tonumber(now_yes)			-------------     
-	now_month= tonumber(now_month)		-------------る     
-	now_day= tonumber(now_day)			-------------ら     
-	now_hour= tonumber(now_hour)			-------------     
-	now_miniute= tonumber(now_miniute)	 	-------------だ     
-	now_scend= tonumber(now_scend)		-------------     
+	----------记录时间
+	local now_yes = os.date("%y")			-------------年
+	local now_month= os.date("%m")			-------------月
+	local now_day= os.date("%d")			-------------日
+	local now_hour= os.date("%H")			-------------时
+	local now_miniute= os.date("%M")		-------------分
+	local now_scend=  os.date("%S")			-------------秒
+	now_yes = tonumber(now_yes)			-------------年     
+	now_month= tonumber(now_month)		-------------月     
+	now_day= tonumber(now_day)			-------------日     
+	now_hour= tonumber(now_hour)			-------------时     
+	now_miniute= tonumber(now_miniute)	 	-------------分     
+	now_scend= tonumber(now_scend)		-------------秒     
 	--SystemNotice ( character , "now_yes=="..now_yes )
 	--SystemNotice ( character , "now_month=="..now_month )
 	--SystemNotice ( character , "now_day=="..now_day )
@@ -730,23 +795,24 @@ function AddChaItem4(character,npc,value)
 	--SystemNotice ( character , "now_miniute=="..now_miniute )
 	--SystemNotice ( character , "now_scend=="..now_scend )
 
-	local item_old = GetChaItem2 ( character , 2 , value )--------疭︽笆
-	---------疭︽笆丁	
-	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)		-------------る 	
-	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			-------------ら  
-	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			-------------   
-	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)		-------------だ   
-	local old_scend = GetItemAttr(item_old, ITEMATTR_VAL_AGI)			------------- 
+	local item_old = GetChaItem2 ( character , 2 , value )--------特别行动卡
+	---------取特别行动卡的时间	
+	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)		-------------月 	
+	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			-------------日  
+	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			-------------时   
+	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)		-------------分   
+	local old_scend = GetItemAttr(item_old, ITEMATTR_VAL_AGI)			-------------秒 
 	--SystemNotice ( character , "old_month=="..old_month )
 	--SystemNotice ( character , "old_day=="..old_day )       
 	--SystemNotice ( character , "old_hour=="..old_hour )    
 	--SystemNotice ( character , "old_miniute=="..old_miniute)
 	--SystemNotice ( character , "old_scend=="..old_scend ) 
 
-	---------埃疭︽笆
+	---------删除特别行动卡
 	local del_item =TakeItem( character, 0,value, 1 )--------------			                   
 	if del_item==0  then
-		SystemNotice ( character ,"Deletion of Special Operation Card failed")
+		MISSDK_MISSIONSDK_LUA_000045 = GetResString("MISSDK_MISSIONSDK_LUA_000045")
+		SystemNotice ( character ,MISSDK_MISSIONSDK_LUA_000045)
 		return LUA_FALSE
 	end
 
@@ -755,10 +821,13 @@ function AddChaItem4(character,npc,value)
 	local cha_name = GetChaDefaultName ( character )
 
 	if used_time>900 or used_time<0 then
-		SystemNotice ( character ,"You took too long to complete this special quest. Please abandon the quest and try again!")
+		MISSDK_MISSIONSDK_LUA_000046 = GetResString("MISSDK_MISSIONSDK_LUA_000046")
+		SystemNotice ( character ,MISSDK_MISSIONSDK_LUA_000046)
 		return LUA_FALSE
 	elseif used_time <= 900 and used_time>0 then
-		SystemNotice(character ,"Congratulations! You have completed the Special quest! You took "..used_time.." sec(s).")
+		MISSDK_MISSIONSDK_LUA_000047 = GetResString("MISSDK_MISSIONSDK_LUA_000047")
+		MISSDK_MISSIONSDK_LUA_000048 = GetResString("MISSDK_MISSIONSDK_LUA_000048")
+		SystemNotice(character ,MISSDK_MISSIONSDK_LUA_000048..used_time..MISSDK_MISSIONSDK_LUA_000047)
 	end
 	
 	SynChaKitbag(character,13)
@@ -766,13 +835,14 @@ function AddChaItem4(character,npc,value)
 end
 
 
----------------耞à︹琌Τ琘睹ゆ翴计
+---------------判断角色是否有某乱斗点数
 function HasFightingPoint(character,value)
 		--SystemNotice( character , "HasFightingPoint" )
 		local i= CheckBagItem( character, 3849 )
 		--SystemNotice( character , "i=="..i)
 		if i~=1 then
-			SystemNotice( character , "Please ensure that you have a Medal of Honor")
+			CALCULATE_ITEMEFFECT_LUA_000391 = GetResString("CALCULATE_ITEMEFFECT_LUA_000391")
+			SystemNotice( character , CALCULATE_ITEMEFFECT_LUA_000391)
 			return LUA_FALSE
 		end
 		local ATKER_LD = GetChaItem2 ( character , 2 , 3849 )
@@ -785,13 +855,14 @@ function HasFightingPoint(character,value)
 	end
 end
 
----------------耞à︹琌Τ琘篴臕翴计
+---------------判断角色是否有某荣誉点数
 function HasHonorPoint(character,value)
 		--SystemNotice( character , "HasHonorPoint" )
 		local i= CheckBagItem( character, 3849 )
 		--SystemNotice( character , "i=="..i)
 		if i~=1 then
-			SystemNotice( character , "Please ensure that you have a Medal of Honor")
+			CALCULATE_ITEMEFFECT_LUA_000391 = GetResString("CALCULATE_ITEMEFFECT_LUA_000391")
+			SystemNotice( character , CALCULATE_ITEMEFFECT_LUA_000391)
 			return LUA_FALSE
 		end
 		local DEFER_RYZ1 = GetChaItem2 ( character , 2 , 3849 )
@@ -803,13 +874,14 @@ function HasHonorPoint(character,value)
 	end
 end
 
---耞簙丁琌琘
+--判断好汉书时间是否小于某个值
 function LessTime( character, value)
 	local HHS_Num = 0
 	HHS_Num = CheckBagItem( character, 2912 )
 	---SystemNotice(character,""..HHS_Num)
 	if HHS_Num ~= 1 then
-		SystemNotice( character, "Please make sure your inventory has only one copy of Bawcock Letter")
+		MISSDK_MISSIONSDK_LUA_000049 = GetResString("MISSDK_MISSIONSDK_LUA_000049")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000049)
 		return 0
 	end
 	local role_HHS = GetChaItem2 ( character , 2 , 2912 )	
@@ -821,75 +893,103 @@ function LessTime( character, value)
 
 	return LUA_FALSE
 end
-----LOG---------も贱纘 
+----LOG---------金牛水手奖励 
 function JINNiuSS(character)
 
 	local cha_name = GetChaDefaultName ( character )
 	
+	MISSDK_MISSIONSDK_LUA_000050 = GetResString("MISSDK_MISSIONSDK_LUA_000050")
+	CALCULATE_EXP_AND_LEVEL_LUA_000040 = GetResString("CALCULATE_EXP_AND_LEVEL_LUA_000040")
+	LG( "JINNiuSS" , CALCULATE_EXP_AND_LEVEL_LUA_000040..cha_name..MISSDK_MISSIONSDK_LUA_000050 )
 	end
 
-	------------------------------------祍贱纘
+	------------------------------------金牛海盗奖励
 function JINNiuHD ( character,npc )
 
 	local cha_name = GetChaDefaultName ( character )
 	
+	MISSDK_MISSIONSDK_LUA_000051 = GetResString("MISSDK_MISSIONSDK_LUA_000051")
+	CALCULATE_EXP_AND_LEVEL_LUA_000040 = GetResString("CALCULATE_EXP_AND_LEVEL_LUA_000040")
+	LG( "JINNiuHD" , CALCULATE_EXP_AND_LEVEL_LUA_000040..cha_name..MISSDK_MISSIONSDK_LUA_000051 )
 end
 
-------------------------------------差贱纘
+------------------------------------金牛船长奖励
 function JINNiuCZ ( character,npc )
 
 	local cha_name = GetChaDefaultName ( character )
 	
+	MISSDK_MISSIONSDK_LUA_000052 = GetResString("MISSDK_MISSIONSDK_LUA_000052")
+	CALCULATE_EXP_AND_LEVEL_LUA_000040 = GetResString("CALCULATE_EXP_AND_LEVEL_LUA_000040")
+	LG( "JINNiuCZ" , CALCULATE_EXP_AND_LEVEL_LUA_000040..cha_name..MISSDK_MISSIONSDK_LUA_000052 )
 end
-----LOG---------蛮も贱纘 
+----LOG---------双子水手奖励 
 function ShuangZiSS (character,npc)
 
 	local cha_name = GetChaDefaultName ( character )
 	
+	MISSDK_MISSIONSDK_LUA_000050 = GetResString("MISSDK_MISSIONSDK_LUA_000050")
+	CALCULATE_EXP_AND_LEVEL_LUA_000040 = GetResString("CALCULATE_EXP_AND_LEVEL_LUA_000040")
+	LG( "ShuangZiSS" , CALCULATE_EXP_AND_LEVEL_LUA_000040..cha_name..MISSDK_MISSIONSDK_LUA_000050 )
 	end
 
-	------------------------------------蛮祍贱纘
+	------------------------------------双子海盗奖励
 function ShuangZiHD ( character,npc )
 
 	local cha_name = GetChaDefaultName ( character )
 	
+	MISSDK_MISSIONSDK_LUA_000051 = GetResString("MISSDK_MISSIONSDK_LUA_000051")
+	CALCULATE_EXP_AND_LEVEL_LUA_000040 = GetResString("CALCULATE_EXP_AND_LEVEL_LUA_000040")
+	LG( "ShuangZiHD" , CALCULATE_EXP_AND_LEVEL_LUA_000040..cha_name..MISSDK_MISSIONSDK_LUA_000051 )
 end
 
-------------------------------------蛮差贱纘
+------------------------------------双子船长奖励
 function ShuangZiCZ ( character,npc )
 
 	local cha_name = GetChaDefaultName ( character )
 	
+	MISSDK_MISSIONSDK_LUA_000052 = GetResString("MISSDK_MISSIONSDK_LUA_000052")
+	CALCULATE_EXP_AND_LEVEL_LUA_000040 = GetResString("CALCULATE_EXP_AND_LEVEL_LUA_000040")
+	LG( "ShuangZiCZ" , CALCULATE_EXP_AND_LEVEL_LUA_000040..cha_name..MISSDK_MISSIONSDK_LUA_000052 )
 end
 
------------------------------------秨﹍锣ネ
+-----------------------------------开始转生
 function ZSSTART ( character,npc )
 
 	local cha_name = GetChaDefaultName ( character )
 	
+	MISSDK_MISSIONSDK_LUA_000053 = GetResString("MISSDK_MISSIONSDK_LUA_000053")
+	CALCULATE_EXP_AND_LEVEL_LUA_000040 = GetResString("CALCULATE_EXP_AND_LEVEL_LUA_000040")
+	LG( "ZSSTART" , CALCULATE_EXP_AND_LEVEL_LUA_000040..cha_name..MISSDK_MISSIONSDK_LUA_000053 )
 end
 
-------------------------------------挡锣ネ
+------------------------------------结束转生
 function ZSSTOP ( character,npc )
 
 	local cha_name = GetChaDefaultName ( character )
 	
+	MISSDK_MISSIONSDK_LUA_000054 = GetResString("MISSDK_MISSIONSDK_LUA_000054")
+	CALCULATE_EXP_AND_LEVEL_LUA_000040 = GetResString("CALCULATE_EXP_AND_LEVEL_LUA_000040")
+	LG( "ZSSTOP" , CALCULATE_EXP_AND_LEVEL_LUA_000040..cha_name..MISSDK_MISSIONSDK_LUA_000054 )
 end
 
-------------------------------------挡Ω锣ネ----dina
+------------------------------------结束二次转生----dina
 function ZSSTOP2 ( character,npc )
 
 	local cha_name = GetChaDefaultName ( character )
 	
+	MISSDK_MISSIONSDK_LUA_000055 = GetResString("MISSDK_MISSIONSDK_LUA_000055")
+	CALCULATE_EXP_AND_LEVEL_LUA_000040 = GetResString("CALCULATE_EXP_AND_LEVEL_LUA_000040")
+	LG( "ZSSTOP2" , CALCULATE_EXP_AND_LEVEL_LUA_000040..cha_name..MISSDK_MISSIONSDK_LUA_000055 )
 end
 
---耞簙丁琌琘
+--判断好汉书时间是否大于某个值
 function MoreTime( character, value)
 	local HHS_Num = 0
 	HHS_Num = CheckBagItem( character, 2912 )
 	---SystemNotice(character,""..HHS_Num)
 	if HHS_Num ~= 1 then
-		SystemNotice( character, "Please make sure your inventory has only one copy of Bawcock Letter")
+		MISSDK_MISSIONSDK_LUA_000049 = GetResString("MISSDK_MISSIONSDK_LUA_000049")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000049)
 		return 0
 	end
 	local role_HHS = GetChaItem2 ( character , 2 , 2912 )	
@@ -902,7 +1002,7 @@ function MoreTime( character, value)
 	return LUA_FALSE
 end
 
---耞琌曝フο甅杆
+--判断是否穿着白羊套装
 function BaiyangOn( character )
 	local head = GetChaItem ( character , 1 , 0 )
 	local body = GetChaItem ( character , 1 , 2 )
@@ -933,13 +1033,14 @@ function BaiyangOn( character )
 	return LUA_TRUE
 end
 
----------------Ι埃à︹ō睹ゆ翴计
+---------------扣除角色身上的乱斗点数
 function TakeFightingPoint(character,value)
 		--SystemNotice( character , "TakeFightingPoint" )
 		local i= CheckBagItem( character, 3849 )
 		--SystemNotice( character , "i=="..i)
 		if i~=1 then
-			SystemNotice( character , "Please ensure that you have a Medal of Honor")
+			CALCULATE_FORGE_LUA_000259 = GetResString("CALCULATE_FORGE_LUA_000259")
+			SystemNotice( character , CALCULATE_FORGE_LUA_000259)
 			return LUA_FALSE
 		end
 		local ATKER_LD = GetChaItem2 ( character , 2 , 3849 )
@@ -954,13 +1055,14 @@ function TakeFightingPoint(character,value)
 	end
 end
 
----------------Ι埃à︹ō篴臕翴计
+---------------扣除角色身上的荣誉点数
 function TakeHonorPoint(character,value)
 		--SystemNotice( character , "TakeHonorPoint" )
 		local i= CheckBagItem( character, 3849 )
 		--SystemNotice( character , "i=="..i)
 		if i~=1 then
-			SystemNotice( character , "Please ensure that you have a Medal of Honor")
+			CALCULATE_FORGE_LUA_000259 = GetResString("CALCULATE_FORGE_LUA_000259")
+			SystemNotice( character , CALCULATE_FORGE_LUA_000259)
 			return LUA_FALSE
 		end
 		local DEFER_RYZ1 = GetChaItem2 ( character , 2 , 3849 )
@@ -974,7 +1076,7 @@ function TakeHonorPoint(character,value)
 		end
 end
 
---耞舱钉癪膍
+--判断组队贡献度
 function HasOffer( character, value )
 	local ret = HasZuDuiGongXianDu( character, value )
 	if ret == LUA_TRUE then
@@ -984,7 +1086,7 @@ function HasOffer( character, value )
 	return LUA_FALSE
 end
 
---Ι埃舱钉癪膍
+--扣除组队贡献度
 function TakeOffer( character, value )
 	local ret = TakeZuDuiGongXianDu( character, value )
 	if ret == LUA_TRUE then
@@ -994,7 +1096,7 @@ function TakeOffer( character, value )
 	return LUA_FALSE
 end
 
--------耞à︹簿笆硉琌笷琘
+-------判断角色移动速度是否达到某值
 function CheckSpeed( character, value)
 	local Role_Speed = GetChaAttr( character, ATTR_MSPD )
 	if Role_Speed < value then
@@ -1005,31 +1107,32 @@ function CheckSpeed( character, value)
 
 end
 	
----------------------------------------------------------------疭︽笆---------missionsdk
+---------------------------------------------------------------金牛特别行动卡---------missionsdk
 
 function AddChaItem5(character,npc,value)
 	
 	local i= CheckBagItem( character, value )
 		--SystemNotice( character , "i=="..i)
 	if i~=1 then
-		SystemNotice( character , "Please make sure you have 1 Taurus Special Operation Card on you")
+		MISSDK_MISSIONSDK_LUA_000056 = GetResString("MISSDK_MISSIONSDK_LUA_000056")
+		SystemNotice( character , MISSDK_MISSIONSDK_LUA_000056)
 		return LUA_FALSE
 	end
 	
 	
-	----------癘魁丁
-	local now_yes = os.date("%y")			-------------
-	local now_month= os.date("%m")			-------------る
-	local now_day= os.date("%d")			-------------ら
-	local now_hour= os.date("%H")			-------------
-	local now_miniute= os.date("%M")		-------------だ
-	local now_scend=  os.date("%S")			-------------
-	now_yes = tonumber(now_yes)			-------------     
-	now_month= tonumber(now_month)		-------------る     
-	now_day= tonumber(now_day)			-------------ら     
-	now_hour= tonumber(now_hour)			-------------     
-	now_miniute= tonumber(now_miniute)	 	-------------だ     
-	now_scend= tonumber(now_scend)		-------------     
+	----------记录时间
+	local now_yes = os.date("%y")			-------------年
+	local now_month= os.date("%m")			-------------月
+	local now_day= os.date("%d")			-------------日
+	local now_hour= os.date("%H")			-------------时
+	local now_miniute= os.date("%M")		-------------分
+	local now_scend=  os.date("%S")			-------------秒
+	now_yes = tonumber(now_yes)			-------------年     
+	now_month= tonumber(now_month)		-------------月     
+	now_day= tonumber(now_day)			-------------日     
+	now_hour= tonumber(now_hour)			-------------时     
+	now_miniute= tonumber(now_miniute)	 	-------------分     
+	now_scend= tonumber(now_scend)		-------------秒     
 	--SystemNotice ( character , "now_yes=="..now_yes )
 	--SystemNotice ( character , "now_month=="..now_month )
 	--SystemNotice ( character , "now_day=="..now_day )
@@ -1037,23 +1140,24 @@ function AddChaItem5(character,npc,value)
 	--SystemNotice ( character , "now_miniute=="..now_miniute )
 	--SystemNotice ( character , "now_scend=="..now_scend )
 
-	local item_old = GetChaItem2 ( character , 2 , value )--------疭︽笆
-	---------疭︽笆丁	
-	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)		-------------る 	
-	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			-------------ら  
-	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			-------------   
-	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)		-------------だ   
-	local old_scend = GetItemAttr(item_old, ITEMATTR_VAL_AGI)			------------- 
+	local item_old = GetChaItem2 ( character , 2 , value )--------金牛特别行动卡
+	---------取特别行动卡的时间	
+	local old_month = GetItemAttr(item_old, ITEMATTR_VAL_STA)		-------------月 	
+	local old_day = GetItemAttr(item_old, ITEMATTR_VAL_STR)			-------------日  
+	local old_hour = GetItemAttr(item_old, ITEMATTR_VAL_CON)			-------------时   
+	local old_miniute = GetItemAttr(item_old, ITEMATTR_VAL_DEX)		-------------分   
+	local old_scend = GetItemAttr(item_old, ITEMATTR_VAL_AGI)			-------------秒 
 	--SystemNotice ( character , "old_month=="..old_month )
 	--SystemNotice ( character , "old_day=="..old_day )       
 	--SystemNotice ( character , "old_hour=="..old_hour )    
 	--SystemNotice ( character , "old_miniute=="..old_miniute)
 	--SystemNotice ( character , "old_scend=="..old_scend ) 
 
-	---------埃疭︽笆
+	---------删除特别行动卡
 	local del_item =TakeItem( character, 0,value, 1 )--------------			                   
 	if del_item==0  then
-		SystemNotice ( character ,"Deletion of Taurus special quest card failed")
+		MISSDK_MISSIONSDK_LUA_000057 = GetResString("MISSDK_MISSIONSDK_LUA_000057")
+		SystemNotice ( character ,MISSDK_MISSIONSDK_LUA_000057)
 		return LUA_FALSE
 	end
 
@@ -1062,17 +1166,20 @@ function AddChaItem5(character,npc,value)
 	local cha_name = GetChaDefaultName ( character )
 
 	if used_time>420 or used_time<0 then
-		SystemNotice ( character ,"You took too long to complete this special quest. Please abandon the quest and try again!")
+		MISSDK_MISSIONSDK_LUA_000046 = GetResString("MISSDK_MISSIONSDK_LUA_000046")
+		SystemNotice ( character ,MISSDK_MISSIONSDK_LUA_000046)
 		return LUA_FALSE
 	elseif used_time <= 420 and used_time>0 then
-		SystemNotice(character ,"Congratulations! You have completed the Special quest! You took "..used_time.." sec(s).")
+		MISSDK_MISSIONSDK_LUA_000047 = GetResString("MISSDK_MISSIONSDK_LUA_000047")
+		MISSDK_MISSIONSDK_LUA_000048 = GetResString("MISSDK_MISSIONSDK_LUA_000048")
+		SystemNotice(character ,MISSDK_MISSIONSDK_LUA_000048..used_time..MISSDK_MISSIONSDK_LUA_000047)
 	end
 	
 	SynChaKitbag(character,13)
 	return LUA_TRUE
 end
 
-------------------耞琌锣ネ筁
+------------------判断是否转生过
 function CheckZS( character )
 	local Zs_Exp = GetChaAttr ( character , ATTR_CSAILEXP )
 	if Zs_Exp < 1 then
@@ -1083,7 +1190,7 @@ function CheckZS( character )
 
 end
 
---耞篴臕琌琘
+--判断荣誉值是否小于某个值
 function LessCredit( character, p1, value )
 	local ret = LessYongYuZhi( character, p1, value )
 	if ret == LUA_TRUE then
@@ -1092,10 +1199,11 @@ function LessCredit( character, p1, value )
 	
 	return LUA_FALSE
 end
-------------------浪代笵ㄣ絪腹琌
+------------------检测道具上编号是否相同
 function CheckItem( character, itemid1, itemid2 )
 	if itemid1 == nil or itemid2 == nil then
-		PRINT( "CheckItem:parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000058 = GetResString("MISSDK_MISSIONSDK_LUA_000058")
+		PRINT( MISSDK_MISSIONSDK_LUA_000058 )
 		return LUA_ERROR
 	end
 	local item1=GetItemP(character,2)
@@ -1107,37 +1215,43 @@ function CheckItem( character, itemid1, itemid2 )
 		
 		
 	if itemid1_number~=itemid2_number or itemida~=2902  or itemidb~=2903 then
-	SystemNotice( character, "Love number does not match or is not placed at correct inventory position" )
+	MISSDK_MISSIONSDK_LUA_000059 = GetResString("MISSDK_MISSIONSDK_LUA_000059")
+	SystemNotice( character, MISSDK_MISSIONSDK_LUA_000059 )
 		return LUA_FALSE	
 	end
 	return LUA_TRUE
 end
 
-function CheckBag( character, itemid, value1, value2)-----------value1===竚value2===计秖
+function CheckBag( character, itemid, value1, value2)-----------value1===位置，value2===数量
 	local cha = ChaIsBoat ( character ) 
 	if cha ==1 then
-		--SystemNotice( character ,"叫眤─钡ヴ叭")
+		--SystemNotice( character ,"请您上岸接任务")
 		return LUA_TRUE 
 	end	
 	if itemid== nil or value1== nil or value2== nil then
-		PRINT( "CheckBag:parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000060 = GetResString("MISSDK_MISSIONSDK_LUA_000060")
+		PRINT( MISSDK_MISSIONSDK_LUA_000060 )
 		return LUA_ERROR
 	end
 	local item=GetItemP(character,value1)
 	local itemida=GetItemID( item )
-	local i = CheckBagItem( character, itemid )			---计秖
+	local i = CheckBagItem( character, itemid )			---取数量
 	local item_name=GetItemName ( itemid )
 	local item_pos=value1+1
 	if itemid~=itemida or i~=value2 then
-		SystemNotice( character, "Please ensure that inventory "..item_pos.." position still have "..value2.." "..item_name )
+		CALCULATE_FORGE_LUA_000190 = GetResString("CALCULATE_FORGE_LUA_000190")
+		MISSDK_MISSIONSDK_LUA_000061 = GetResString("MISSDK_MISSIONSDK_LUA_000061")
+		MISSDK_MISSIONSDK_LUA_000062 = GetResString("MISSDK_MISSIONSDK_LUA_000062")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000062..item_pos..MISSDK_MISSIONSDK_LUA_000061..value2..CALCULATE_FORGE_LUA_000190..item_name )
 		return LUA_FALSE	
 	end
 	return LUA_TRUE
 end
 
-function CheckBagEmp( character,value)-----------value===竚
+function CheckBagEmp( character,value)-----------value===位置
 	if value==nil then
-		PRINT( "CheckBagEmp:parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000063 = GetResString("MISSDK_MISSIONSDK_LUA_000063")
+		PRINT( MISSDK_MISSIONSDK_LUA_000063 )
 		return LUA_ERROR
 	end
 	local item=GetItemP(character,value)
@@ -1145,16 +1259,20 @@ function CheckBagEmp( character,value)-----------value===竚
 	local item_pos=value+1
 	local cha = ChaIsBoat ( character ) 
 	if cha ==1 then
-		SystemNotice( character, "To challenge Genesis, player can go to (2217, 2911) and look for Coddy. Also remove your inventory "..item_pos.."move inventory off this space. All players at sea please land")
+		MISSDK_MISSIONSDK_LUA_000064 = GetResString("MISSDK_MISSIONSDK_LUA_000064")
+		MISSDK_MISSIONSDK_LUA_000065 = GetResString("MISSDK_MISSIONSDK_LUA_000065")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000065..item_pos..MISSDK_MISSIONSDK_LUA_000064)
 		return LUA_FALSE 
 	end	
 	if itemid~=0 then
-		SystemNotice( character, "To challenge Genesis, player can go to (2217, 2911) and look for Coddy. Also remove your inventory "..item_pos.."move inventory off this space. All players at sea please land")
+		MISSDK_MISSIONSDK_LUA_000064 = GetResString("MISSDK_MISSIONSDK_LUA_000064")
+		MISSDK_MISSIONSDK_LUA_000065 = GetResString("MISSDK_MISSIONSDK_LUA_000065")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000065..item_pos..MISSDK_MISSIONSDK_LUA_000064)
 		return LUA_FALSE	
 	end
 	return LUA_TRUE
 end
---睲埃PK篴臕
+--清除PK荣誉值
 function AddCredit( character, value )
 	local ret = AddYongYuZhi( character, value )
 	if ret == LUA_TRUE then
@@ -1164,7 +1282,7 @@ function AddCredit( character, value )
 	return LUA_FALSE
 end
 
---浪代窥ぃì
+--检测钱不足
 function NoMoney( character, money )
 	PRINT( "NoMoney:HasMoney" )
 	local ret = HasMoney( character, money )
@@ -1175,33 +1293,35 @@ function NoMoney( character, money )
 	return LUA_FALSE
 end
 
---浪琩琌才锣戮兵ン
+--检查是否符合转职条件
 function CheckConvertProfession( character, newpf )
 	if newpf == nil then
-		PRINT( "CheckConvertProfession:Function parameter error!" )
-		SystemNotice( character, "CheckConvertProfession:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000066 = GetResString("MISSDK_MISSIONSDK_LUA_000066")
+		PRINT( MISSDK_MISSIONSDK_LUA_000066 )
+		MISSDK_MISSIONSDK_LUA_000066 = GetResString("MISSDK_MISSIONSDK_LUA_000066")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000066 )
 		return LUA_ERROR
 	end
 	
-	--眔à︹戮穨㎝摸
+	--取得角色职业和类型
 	local ret, cat, pf = GetCatAndPf( character )
 	PRINT( "CheckConvertProfession: GetCatAndPf: ret =, pf = , newpf = , cat = , Profession = ", ret, pf, newpf, cat, Profession )
-	--耞琌穝も穝も⊿Τ锣戮
+	--判断是否新手，新手没有转职限制
 	if pf ~= 0 then	
-		--浪代琌Τ锣戮
+		--检测是否有转职限制
 		if Profession ~= nil and Profession[pf] ~= nil then
 			local flag = 0
 			PRINT( "CheckConvertProfession: pf count = ", Profession[pf].count )
 			for n = 1, Profession[pf].count, 1 do
 				PRINT( "CheckConvertProfession: n =, newpf = , pf = ", n, newpf, Profession[pf][n] )
 				if Profession[pf][n] == newpf then
-					--赣戮穨す砛锣戮
+					--该职业允许转职
 					flag = 1
 					break
 				end
 			end
 			
-			--耞琌锣戮
+			--判断是否可以转职
 			if flag ~= 1 then
 				PRINT( "CheckConvertProfession: return false" )
 				return LUA_FALSE
@@ -1213,7 +1333,7 @@ function CheckConvertProfession( character, newpf )
 	end
 	
 	PRINT( "CheckConvertProfession: Category check cat =, newpf = ", cat, newpf )
-	--浪代琌Τ砰
+	--检测是否有体形限制
 	if Category ~= nil and Category[cat] ~= nil then
 		local flag = 0
 		for n = 1, Category[cat].count, 1 do
@@ -1237,16 +1357,25 @@ function CheckConvertProfession( character, newpf )
 	return LUA_TRUE
 end
 
---い耞ヴ叭
+--中断任务
 function CancelMission( character, id, sid )
 	PRINT( "CancelMission, sid = ", sid )
 	if sid == nil or Mission[sid] == nil then
-		PRINT( "CancelMission: abandoned quest function parameter cannot be as null!sid = "..sid )
-		SystemNotice( character, "CancelMission: abandoned quest function parameter cannot be as null!sid = "..sid )
+		MISSDK_MISSIONSDK_LUA_000067 = GetResString("MISSDK_MISSIONSDK_LUA_000067")
+		PRINT( MISSDK_MISSIONSDK_LUA_000067..sid )
+		MISSDK_MISSIONSDK_LUA_000067 = GetResString("MISSDK_MISSIONSDK_LUA_000067")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000067..sid )
+		MISSDK_MISSIONSDK_LUA_000067 = GetResString("MISSDK_MISSIONSDK_LUA_000067")
+		LG( "mission_error", MISSDK_MISSIONSDK_LUA_000067..sid )
 		local ret = ClearMission( character, id )
 		if ret ~= LUA_TRUE then
+			MISSDK_MISSIONSDK_LUA_000068 = GetResString("MISSDK_MISSIONSDK_LUA_000068")
+			LG( "mission_error", MISSDK_MISSIONSDK_LUA_000068, GetCharName( character ), id, sid )
 		else
-			SystemNotice( character, "has cleared invalid quest notice !ID = "..sid )
+			MISSDK_MISSIONSDK_LUA_000069 = GetResString("MISSDK_MISSIONSDK_LUA_000069")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000069..sid )
+			MISSDK_MISSIONSDK_LUA_000070 = GetResString("MISSDK_MISSIONSDK_LUA_000070")
+			LG( "mission_error", MISSDK_MISSIONSDK_LUA_000070, GetCharName( character ), id, sid )
 		end
 		
 		return LUA_FALSE
@@ -1257,22 +1386,25 @@ function CancelMission( character, id, sid )
 	PRINT( "CancelMission:mission.cancel", mission.cancel )
 	if mission.tp == NOMAL_MISSION or mission.tp == WORLD_MISSION then
 		if mission.cancel == nil then
-			PRINT( "CancelMission:Target quest has not cancel operation. Return true" )
+			MISSDK_MISSIONSDK_LUA_000071 = GetResString("MISSDK_MISSIONSDK_LUA_000071")
+			PRINT( MISSDK_MISSIONSDK_LUA_000071 )
 			return LUA_TRUE
 		end
 	
 		local ret = NpcCancelTrigger( character,  mission.cancel, mission.id, mission.sid )
 		if ret ~= LUA_TRUE then
-			PRINT( "CancelMission:NpcCancelTrigger accept deliver quest trigger failed!" )
-			SystemNotice( character, "CancelMission:NpcCancelTrigger accept deliver quest trigger failed!" )
+			MISSDK_MISSIONSDK_LUA_000072 = GetResString("MISSDK_MISSIONSDK_LUA_000072")
+			PRINT( MISSDK_MISSIONSDK_LUA_000072 )
+			MISSDK_MISSIONSDK_LUA_000072 = GetResString("MISSDK_MISSIONSDK_LUA_000072")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000072 )
 			return LUA_FALSE
 		end
 		PRINT( "CancelMission: NpcTrigger, return true" ) 
 	elseif mission.tp == RAND_MISSION then
-		--﹍てЫradom ヴ叭把计
+		--初始化全局随机任务参数
 		InitRandParam()
 		
-		--莉à︹radom ヴ叭皌竚獺
+		--获取角色的随机任务配置信息
 		PRINT( "CancelMission:GetRandMission, id = ", id  )
 		local ret
 		RandParam.id = id
@@ -1287,126 +1419,171 @@ function CancelMission( character, id, sid )
 		local index = GetRandMissionTypeIndex( mission, RandParam.tp )
 		PRINT( "CancelMission:GetRandMissionTypeIndex index = ", index )
 		if index == 0  then
-			PRINT( "CancelMission:obtain random quest matching type notice failed!" )
-			SystemNotice( character, "CancelMission:obtain random quest matching type notice failed!" )
+			MISSDK_MISSIONSDK_LUA_000073 = GetResString("MISSDK_MISSIONSDK_LUA_000073")
+			PRINT( MISSDK_MISSIONSDK_LUA_000073 )
+			MISSDK_MISSIONSDK_LUA_000073 = GetResString("MISSDK_MISSIONSDK_LUA_000073")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000073 )
 			return LUA_FALSE
 		end
 	
 		if mission.missionlist == nil or mission.missionlist[index] == nil then
-			PRINT( "CancelMission:random quest: quest notice error!mission.missionlist = , tpindex = ", mission.missionlist, index )
-			SystemNotice( character, "CancelMission:random quest: quest notice error!mission.missionlist = , tpindex = ", mission.missionlist, index )
+			MISSDK_MISSIONSDK_LUA_000074 = GetResString("MISSDK_MISSIONSDK_LUA_000074")
+			PRINT( MISSDK_MISSIONSDK_LUA_000074, mission.missionlist, index )
+			MISSDK_MISSIONSDK_LUA_000074 = GetResString("MISSDK_MISSIONSDK_LUA_000074")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000074, mission.missionlist, index )
 			return LUA_FALSE
 		end
 		
 		if mission.missionlist[index].cancel == nil then
-			PRINT( "CancelMission:Target quest has not cancel operation. Return true" )
+			MISSDK_MISSIONSDK_LUA_000071 = GetResString("MISSDK_MISSIONSDK_LUA_000071")
+			PRINT( MISSDK_MISSIONSDK_LUA_000071 )
 			return LUA_TRUE
 		end
 	
 		ret = NpcCancelTrigger( character, mission.missionlist[index].cancel, mission.id, mission.sid )
 		if ret ~= LUA_TRUE then
-			PRINT( "CancelMission:NpcCancelTrigger accept deliver quest trigger failed!" )
-			SystemNotice( character, "CancelMission:NpcCancelTrigger accept deliver quest trigger failed!" )
+			MISSDK_MISSIONSDK_LUA_000072 = GetResString("MISSDK_MISSIONSDK_LUA_000072")
+			PRINT( MISSDK_MISSIONSDK_LUA_000072 )
+			MISSDK_MISSIONSDK_LUA_000072 = GetResString("MISSDK_MISSIONSDK_LUA_000072")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000072 )
 			return LUA_FALSE
 		end
-		PRINT( "CancelMission: random quest: NpcCancelTrigger, return true" )
+		MISSDK_MISSIONSDK_LUA_000075 = GetResString("MISSDK_MISSIONSDK_LUA_000075")
+		PRINT( MISSDK_MISSIONSDK_LUA_000075 )
 	else
-		PRINT( "CancelMission:incorrect quest type notice.ID = "..mission.sid )
-		SystemNotice( character, "CancelMission:incorrect quest type notice.ID = "..mission.sid )
+		MISSDK_MISSIONSDK_LUA_000076 = GetResString("MISSDK_MISSIONSDK_LUA_000076")
+		PRINT( MISSDK_MISSIONSDK_LUA_000076..mission.sid )
+		MISSDK_MISSIONSDK_LUA_000076 = GetResString("MISSDK_MISSIONSDK_LUA_000076")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000076..mission.sid )
 		return LUA_FALSE
 	end
 	
 	return LUA_TRUE
 end
 
---钡ヴ叭
+--接受任务
 function AcceptMission( character, npc, missionlist, tpindex )
 	PRINT( "AcceptMission" )
 	local npcid = GetCharID( npc )
 	local ret, id, state, tp = GetMissionTempInfo( character, npcid )
 	if ret ~= LUA_TRUE then 
-		SystemNotice( character, "AcceptMission:obtain character dialogue temporary quest notice error!" )
+		MISSDK_MISSIONSDK_LUA_000077 = GetResString("MISSDK_MISSIONSDK_LUA_000077")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000077 )
 		return LUA_FALSE
 	end
 	
 	local mission
 	if tp == WORLD_MISSION then
 		if Mission[id] == nil then
-			SystemNotice( character, "AcceptMission:Obtain character incorrect world quest index notice!ID = "..id )
+			MISSDK_MISSIONSDK_LUA_000078 = GetResString("MISSDK_MISSIONSDK_LUA_000078")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000078..id )
+			MISSDK_MISSIONSDK_LUA_000078 = GetResString("MISSDK_MISSIONSDK_LUA_000078")
+			LG( "mission_error", MISSDK_MISSIONSDK_LUA_000078..id )
 			return LUA_FALSE
 		end
 		mission = Mission[id]
 	else
 		if missionlist[id] == nil then
-			PRINT( "AcceptMission:obtain character incorrect common quest index notice!ID = "..id )
-			SystemNotice( character, "AcceptMission:obtain character incorrect common quest index notice!ID = "..id )
+			MISSDK_MISSIONSDK_LUA_000079 = GetResString("MISSDK_MISSIONSDK_LUA_000079")
+			PRINT( MISSDK_MISSIONSDK_LUA_000079..id )
+			MISSDK_MISSIONSDK_LUA_000079 = GetResString("MISSDK_MISSIONSDK_LUA_000079")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000079..id )
+			MISSDK_MISSIONSDK_LUA_000079 = GetResString("MISSDK_MISSIONSDK_LUA_000079")
+			LG( "mission_error", MISSDK_MISSIONSDK_LUA_000079..id )
 			return LUA_FALSE
 		end
 		if missionlist == nil then
-			PRINT( "AcceptMission:Function parameter error!missionlist = "..missionlist )
-			SystemNotice( character, "AcceptMission:Function parameter error!missionlist = "..missionlist )
+			MISSDK_MISSIONSDK_LUA_000080 = GetResString("MISSDK_MISSIONSDK_LUA_000080")
+			PRINT( MISSDK_MISSIONSDK_LUA_000080..missionlist )
+			MISSDK_MISSIONSDK_LUA_000080 = GetResString("MISSDK_MISSIONSDK_LUA_000080")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000080..missionlist )
+			MISSDK_MISSIONSDK_LUA_000080 = GetResString("MISSDK_MISSIONSDK_LUA_000080")
+			LG( "mission_error", MISSDK_MISSIONSDK_LUA_000080..missionlist )
 			return LUA_ERROR
 		end
 		mission = missionlist[id]
 	end
 	
 	if mission.begin == nil then
-		PRINT( "AcceptMission:obtain character incorrect quest start trigger notice!ID = "..id )
-		SystemNotice( character, "AcceptMission:obtain character incorrect quest start trigger notice!" )
+		MISSDK_MISSIONSDK_LUA_000081 = GetResString("MISSDK_MISSIONSDK_LUA_000081")
+		PRINT( MISSDK_MISSIONSDK_LUA_000081..id )
+		MISSDK_MISSIONSDK_LUA_000082 = GetResString("MISSDK_MISSIONSDK_LUA_000082")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000082 )
+		MISSDK_MISSIONSDK_LUA_000081 = GetResString("MISSDK_MISSIONSDK_LUA_000081")
+		LG( "mission_error", MISSDK_MISSIONSDK_LUA_000081..id )
 		return LUA_FALSE
 	end
 	
 	PRINT( "AcceptMission:npcid = %d ", npcid )
 	if mission.tp == NOMAL_MISSION or mission.tp == WORLD_MISSION then
-		PRINT( "AcceptMission:Required number of empty slots in inventory:numgrid = ", mission.begin.baggrid )
+		MISSDK_MISSIONSDK_LUA_000083 = GetResString("MISSDK_MISSIONSDK_LUA_000083")
+		PRINT( MISSDK_MISSIONSDK_LUA_000083, mission.begin.baggrid )
 		local ret = HasLeaveBagGrid( character, mission.begin.baggrid )
 		if ret ~= LUA_TRUE then
-			PRINT( "AcceptMission:insufficient inventory slot when character accept quest! num = ", mission.begin.baggrid )
-			BickerNotice( character, "Inventory space insufficient, requires "..mission.begin.baggrid.." space. Activation of quest failed!" )
+			MISSDK_MISSIONSDK_LUA_000084 = GetResString("MISSDK_MISSIONSDK_LUA_000084")
+			PRINT( MISSDK_MISSIONSDK_LUA_000084, mission.begin.baggrid )
+			MISSDK_MISSIONSDK_LUA_000085 = GetResString("MISSDK_MISSIONSDK_LUA_000085")
+			MISSDK_MISSIONSDK_LUA_000086 = GetResString("MISSDK_MISSIONSDK_LUA_000086")
+			BickerNotice( character, MISSDK_MISSIONSDK_LUA_000086..mission.begin.baggrid..MISSDK_MISSIONSDK_LUA_000085 )
 			return LUA_FALSE
 		end
 		
 		local ret = NpcTrigger( character,  npc, mission.begin, mission.id, mission.sid )
 		if ret ~= LUA_TRUE then
-			PRINT( "AcceptMission:NpcTrigger accept quest trigger management failed!" )
-			SystemNotice( character, "AcceptMission:NpcTrigger accept quest trigger management failed!" )
+			MISSDK_MISSIONSDK_LUA_000087 = GetResString("MISSDK_MISSIONSDK_LUA_000087")
+			PRINT( MISSDK_MISSIONSDK_LUA_000087 )
+			MISSDK_MISSIONSDK_LUA_000087 = GetResString("MISSDK_MISSIONSDK_LUA_000087")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000087 )
 			return LUA_FALSE
 		end		
 		PRINT( "AcceptMission: NpcTrigger, return true" ) 
 	elseif mission.tp == RAND_MISSION then
 		if mission.missionlist == nil or mission.missionlist[tpindex] == nil or mission.missionlist[tpindex].begin.baggrid == nil then
-			PRINT( "AcceptMission:random quest: quest notice error!mission.missionlist = , tpindex = ", mission.missionlist, tpindex )
-			SystemNotice( character, "AcceptMission:random quest: quest notice error!mission.missionlist = , tpindex = ", mission.missionlist, tpindex )
+			MISSDK_MISSIONSDK_LUA_000088 = GetResString("MISSDK_MISSIONSDK_LUA_000088")
+			PRINT( MISSDK_MISSIONSDK_LUA_000088, mission.missionlist, tpindex )
+			MISSDK_MISSIONSDK_LUA_000088 = GetResString("MISSDK_MISSIONSDK_LUA_000088")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000088, mission.missionlist, tpindex )
 			return LUA_FALSE
 		end
 		
-		PRINT( "AcceptMission:Required number of empty slots in inventory:numgrid = ", mission.missionlist[tpindex].begin.baggrid )
+		MISSDK_MISSIONSDK_LUA_000083 = GetResString("MISSDK_MISSIONSDK_LUA_000083")
+		PRINT( MISSDK_MISSIONSDK_LUA_000083, mission.missionlist[tpindex].begin.baggrid )
 		local numgrid = mission.missionlist[tpindex].begin.baggrid
 		local ret = HasLeaveBagGrid( character, numgrid )
 		if ret ~= LUA_TRUE then
-			PRINT( "AcceptMission:insufficient inventory slot when character accept quest! num = ", numgrid )
-			BickerNotice( character, "Inventory space insufficient, requires "..numgrid.." space. Activation of quest failed!" )
+			MISSDK_MISSIONSDK_LUA_000084 = GetResString("MISSDK_MISSIONSDK_LUA_000084")
+			PRINT( MISSDK_MISSIONSDK_LUA_000084, numgrid )
+			MISSDK_MISSIONSDK_LUA_000085 = GetResString("MISSDK_MISSIONSDK_LUA_000085")
+			MISSDK_MISSIONSDK_LUA_000086 = GetResString("MISSDK_MISSIONSDK_LUA_000086")
+			BickerNotice( character, MISSDK_MISSIONSDK_LUA_000086..numgrid..MISSDK_MISSIONSDK_LUA_000085 )
 			return LUA_FALSE
 		end
 		
 		ret = NpcTrigger( character,  npc, mission.missionlist[tpindex].begin, mission.id, mission.sid )
 		if ret ~= LUA_TRUE then
-			PRINT( "AcceptMission:NpcTrigger accept quest trigger management failed!" )
-			SystemNotice( character, "AcceptMission:NpcTrigger accept quest trigger management failed!" )
+			MISSDK_MISSIONSDK_LUA_000087 = GetResString("MISSDK_MISSIONSDK_LUA_000087")
+			PRINT( MISSDK_MISSIONSDK_LUA_000087 )
+			MISSDK_MISSIONSDK_LUA_000087 = GetResString("MISSDK_MISSIONSDK_LUA_000087")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000087 )
 			return LUA_FALSE
 		end
-		PRINT( "AcceptMission: random quest: NpcTrigger, return true" )
+		MISSDK_MISSIONSDK_LUA_000089 = GetResString("MISSDK_MISSIONSDK_LUA_000089")
+		PRINT( MISSDK_MISSIONSDK_LUA_000089 )
 	else
-		PRINT( "AcceptMission:incorrect quest type notice.ID = "..mission.sid )
-		SystemNotice( character, "AcceptMission:incorrect quest type notice.ID = "..mission.sid )
+		MISSDK_MISSIONSDK_LUA_000090 = GetResString("MISSDK_MISSIONSDK_LUA_000090")
+		PRINT( MISSDK_MISSIONSDK_LUA_000090..mission.sid )
+		MISSDK_MISSIONSDK_LUA_000090 = GetResString("MISSDK_MISSIONSDK_LUA_000090")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000090..mission.sid )
 		return LUA_FALSE
 	end
 
 	if tp ~= WORLD_MISSION then
 		ret = RefreshMissionState( character, npc )
 		if ret ~= LUA_TRUE then
-			PRINT( "AcceptMission:random quest: RefreshMissionState accept quest reset npc quest status failed!" )
-			SystemNotice( character, "AcceptMission:random quest:RefreshMissionState accept quest change npc quest status failed!" )
+			MISSDK_MISSIONSDK_LUA_000091 = GetResString("MISSDK_MISSIONSDK_LUA_000091")
+			PRINT( MISSDK_MISSIONSDK_LUA_000091 )
+			MISSDK_MISSIONSDK_LUA_000092 = GetResString("MISSDK_MISSIONSDK_LUA_000092")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000092 )
 			return LUA_FALSE
 		end
 	end
@@ -1414,31 +1591,39 @@ function AcceptMission( character, npc, missionlist, tpindex )
 	return LUA_TRUE
 end
 
---ЧΘヴ叭
+--完成任务
 function CompleteMission( character, npc, missionlist, selitem, param )
 	PRINT( "CompleteMission" )
 	if missionlist == nil then
-		SystemNotice( character, "CompleteMission:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000093 = GetResString("MISSDK_MISSIONSDK_LUA_000093")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000093 )
 		return LUA_ERROR
 	end
 	
 	local npcid = GetCharID( npc )
 	local ret, id, state, tp = GetMissionTempInfo( character, npcid )
 	if ret ~= LUA_TRUE then 
-		SystemNotice( character, "CompleteMission:obtain character dialogue temporary quest notice error!" )
+		MISSDK_MISSIONSDK_LUA_000094 = GetResString("MISSDK_MISSIONSDK_LUA_000094")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000094 )
 		return LUA_FALSE
 	end
 
 	local mission	
 	if tp == WORLD_MISSION then
 		if Mission[id] == nil then
-			SystemNotice( character, "CompleteMission:Obtain character incorrect world quest index notice!ID = "..id )
+			MISSDK_MISSIONSDK_LUA_000095 = GetResString("MISSDK_MISSIONSDK_LUA_000095")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000095..id )
+			MISSDK_MISSIONSDK_LUA_000095 = GetResString("MISSDK_MISSIONSDK_LUA_000095")
+			LG( "mission_error", MISSDK_MISSIONSDK_LUA_000095..id )
 			return LUA_FALSE
 		end
 		mission = Mission[id]
 	else		
 		if missionlist[id] == nil then
-			SystemNotice( character, "CompleteMission:obtain character incorrect common quest index notice!ID = "..id )
+			MISSDK_MISSIONSDK_LUA_000096 = GetResString("MISSDK_MISSIONSDK_LUA_000096")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000096..id )
+			MISSDK_MISSIONSDK_LUA_000096 = GetResString("MISSDK_MISSIONSDK_LUA_000096")
+			LG( "mission_error", MISSDK_MISSIONSDK_LUA_000096..id )
 			return LUA_FALSE
 		end
 		mission = missionlist[id]
@@ -1446,23 +1631,31 @@ function CompleteMission( character, npc, missionlist, selitem, param )
 	
 	local ret = HasMisssionFailure( character, mission.id )
 	if ret == LUA_TRUE then
-		BickerNotice( character, "Quest["..mission.name.."]has failed, please select to abandon to clear quest log!" )
+		MISSDK_MISSIONSDK_LUA_000097 = GetResString("MISSDK_MISSIONSDK_LUA_000097")
+		MISSDK_MISSIONSDK_LUA_000098 = GetResString("MISSDK_MISSIONSDK_LUA_000098")
+		BickerNotice( character, MISSDK_MISSIONSDK_LUA_000098..mission.name..MISSDK_MISSIONSDK_LUA_000097 )
 		return LUA_TRUE
 	end
 	
 	if mission.tp == NOMAL_MISSION or mission.tp == WORLD_MISSION then
-		PRINT( "CompleteMission:Required number of empty slots in inventory:numgrid = ", mission.result.baggrid )
+		MISSDK_MISSIONSDK_LUA_000099 = GetResString("MISSDK_MISSIONSDK_LUA_000099")
+		PRINT( MISSDK_MISSIONSDK_LUA_000099, mission.result.baggrid )
 		local ret = HasLeaveBagGrid( character, mission.result.baggrid )
 		if ret ~= LUA_TRUE then
-			PRINT( "CompleteMission:insufficient inventory slot when character completes quest!num = ", mission.result.baggrid )
-			BickerNotice( character, "Inventory space insufficient, requires "..mission.result.baggrid.."1 slot. Completion of quest failed!" )
+			MISSDK_MISSIONSDK_LUA_000100 = GetResString("MISSDK_MISSIONSDK_LUA_000100")
+			PRINT( MISSDK_MISSIONSDK_LUA_000100, mission.result.baggrid )
+			MISSDK_MISSIONSDK_LUA_000101 = GetResString("MISSDK_MISSIONSDK_LUA_000101")
+			MISSDK_MISSIONSDK_LUA_000086 = GetResString("MISSDK_MISSIONSDK_LUA_000086")
+			BickerNotice( character, MISSDK_MISSIONSDK_LUA_000086..mission.result.baggrid..MISSDK_MISSIONSDK_LUA_000101 )
 			return LUA_FALSE
 		end
 		
 		local ret = NpcTrigger( character,  npc, mission.result, mission.id, mission.sid )
 		if ret ~= LUA_TRUE then
-			PRINT( "CompleteMission:NpcTrigger function manage delievery trigger failed!" )
-			SystemNotice( character, "CompleteMission:NpcTrigger function manage delievery trigger failed!" )
+			MISSDK_MISSIONSDK_LUA_000102 = GetResString("MISSDK_MISSIONSDK_LUA_000102")
+			PRINT( MISSDK_MISSIONSDK_LUA_000102 )
+			MISSDK_MISSIONSDK_LUA_000102 = GetResString("MISSDK_MISSIONSDK_LUA_000102")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000102 )
 			return LUA_FALSE
 		end
 		
@@ -1470,32 +1663,42 @@ function CompleteMission( character, npc, missionlist, selitem, param )
 		if mission.prize.count > 0 then
 			local ret = MisPrizeProc( character, npc, mission, selitem, param )
 			if ret ~= LUA_TRUE then
-				PRINT( "CompleteMission:MisPrizeProc function manage quest reward failed!" )
-				SystemNotice( character, "CompleteMission:MisPrizeProc function manage quest reward failed!" )
+				MISSDK_MISSIONSDK_LUA_000103 = GetResString("MISSDK_MISSIONSDK_LUA_000103")
+				PRINT( MISSDK_MISSIONSDK_LUA_000103 )
+				MISSDK_MISSIONSDK_LUA_000103 = GetResString("MISSDK_MISSIONSDK_LUA_000103")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000103 )
 			end
 		end
 	elseif mission.tp == RAND_MISSION then
 		local ret, index, loopdata = GetCharRandMission( character, mission.id, mission )
 		if ret ~= LUA_TRUE or index == 0 then
-			--沮radom ヴ叭把计ネΘradom ヴ叭獺岿粇
-			PRINT( "CompleteMission:GetcharRandMission, according to random quest parameter generate random quest notice error!" )
-			SystemNotice( character, "CompleteMission:GetcharRandMission, according to random quest parameter generate random quest notice error!" )
+			--根据随机任务参数生成随机任务信息错误
+			MISSDK_MISSIONSDK_LUA_000104 = GetResString("MISSDK_MISSIONSDK_LUA_000104")
+			PRINT( MISSDK_MISSIONSDK_LUA_000104 )
+			MISSDK_MISSIONSDK_LUA_000104 = GetResString("MISSDK_MISSIONSDK_LUA_000104")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000104 )
 			return LUA_FALSE
 		end
 		
-		PRINT( "CompleteMission:Required number of empty slots in inventory:numgrid = ", mission.missionlist[index].result.baggrid )
+		MISSDK_MISSIONSDK_LUA_000099 = GetResString("MISSDK_MISSIONSDK_LUA_000099")
+		PRINT( MISSDK_MISSIONSDK_LUA_000099, mission.missionlist[index].result.baggrid )
 		local numgrid = mission.missionlist[index].result.baggrid
 		local ret = HasLeaveBagGrid( character, numgrid )
 		if ret ~= LUA_TRUE then
-			PRINT( "CompleteMission:insufficient inventory slot when character accept quest! num = ", numgrid )
-			BickerNotice( character, "Inventory space insufficient, requires "..numgrid.."1 slot. Completion of quest failed!" )
+			MISSDK_MISSIONSDK_LUA_000105 = GetResString("MISSDK_MISSIONSDK_LUA_000105")
+			PRINT( MISSDK_MISSIONSDK_LUA_000105, numgrid )
+			MISSDK_MISSIONSDK_LUA_000101 = GetResString("MISSDK_MISSIONSDK_LUA_000101")
+			MISSDK_MISSIONSDK_LUA_000086 = GetResString("MISSDK_MISSIONSDK_LUA_000086")
+			BickerNotice( character, MISSDK_MISSIONSDK_LUA_000086..numgrid..MISSDK_MISSIONSDK_LUA_000101 )
 			return LUA_FALSE
 		end
 		
 		local ret = NpcTrigger( character,  npc, mission.missionlist[index].result, mission.id, mission.sid )
 		if ret ~= LUA_TRUE then
-			PRINT( "CompleteMission:random quest: NpcTrigger function manage delievery trigger failed!" )
-			SystemNotice( character, "CompleteMission:random quest: NpcTrigger function manage delievery trigger failed!" )
+			MISSDK_MISSIONSDK_LUA_000106 = GetResString("MISSDK_MISSIONSDK_LUA_000106")
+			PRINT( MISSDK_MISSIONSDK_LUA_000106 )
+			MISSDK_MISSIONSDK_LUA_000106 = GetResString("MISSDK_MISSIONSDK_LUA_000106")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000106 )
 			return LUA_FALSE
 		end
 		
@@ -1503,56 +1706,77 @@ function CompleteMission( character, npc, missionlist, selitem, param )
 		if mission.missionlist[index].prize.count > 0 then
 			local ret = MisPrizeProc( character, npc, mission.missionlist[index], selitem, param )
 			if ret ~= LUA_TRUE then
-				PRINT( "CompleteMission:MisPrizeProc function manage quest reward failed!" )
-				SystemNotice( character, "CompleteMission:MisPrizeProc function manage quest reward failed!" )
+				MISSDK_MISSIONSDK_LUA_000103 = GetResString("MISSDK_MISSIONSDK_LUA_000103")
+				PRINT( MISSDK_MISSIONSDK_LUA_000103 )
+				MISSDK_MISSIONSDK_LUA_000103 = GetResString("MISSDK_MISSIONSDK_LUA_000103")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000103 )
 			end
 		end
 		
 		PRINT( "CompleteMission:CompleteRandMission, id = ", mission.id )
 		ret = CompleteRandMissionCount( character, mission.id )
 		if ret ~= LUA_TRUE then
-			PRINT( "CompleteRandMission:random quest completion completes calculation function transfer failed:misid = ", mission.id )
+			MISSDK_MISSIONSDK_LUA_000107 = GetResString("MISSDK_MISSIONSDK_LUA_000107")
+			PRINT( MISSDK_MISSIONSDK_LUA_000107, mission.id )
+			MISSDK_MISSIONSDK_LUA_000107 = GetResString("MISSDK_MISSIONSDK_LUA_000107")
+			LG( "randmission_error", MISSDK_MISSIONSDK_LUA_000107, mission.id )
 		end
 		
-		--耞琌禲吏挡
+		--判断是否跑环结束
 		local ret, loopnum = GetRandMissionNum( character, mission.id )
 		if ret ~= LUA_TRUE then
-			PRINT( "CompleteRandMission:GetRandMissionNum function transfer failed. Unable to obtain character random quest loop count!id = ", id )
-			SystemNotice( character, "CompleteRandMission:GetRandMissionNum function transfer failed. Unable to obtain character random quest loop count!id = "..id )
-			--睲埃赣à︹赣radom ヴ叭璸计
+			MISSDK_MISSIONSDK_LUA_000108 = GetResString("MISSDK_MISSIONSDK_LUA_000108")
+			PRINT( MISSDK_MISSIONSDK_LUA_000108, id )
+			MISSDK_MISSIONSDK_LUA_000108 = GetResString("MISSDK_MISSIONSDK_LUA_000108")
+			LG( "randmission_error", MISSDK_MISSIONSDK_LUA_000108, id )
+			MISSDK_MISSIONSDK_LUA_000108 = GetResString("MISSDK_MISSIONSDK_LUA_000108")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000108..id )
+			--清除该角色该随机任务计数
 			ResetRandMissionNum( character, mission.id )
 		else
-			loopnum = loopnum + 1 --锣传lua计舱ま
+			loopnum = loopnum + 1 --转换为lua数组索引
 			PRINT( "CompleteRandMission:loopnum, loopinfo", loopnum, mission.loopinfo[loopnum] )
 			
 			if loopdata == nil or mission.loopinfo[loopnum] == nil then
-				PRINT( "CompleteRandMission:quest cycle data error!loopnum = "..loopnum.." id = "..mission.id.." loopdata = "..loopdata )
-				SystemNotice( character, "CompleteRandMission:quest cycle data error!loopnum = "..loopnum.." id = "..mission.id.." loopdata = "..loopdata )
+				MISSDK_MISSIONSDK_LUA_000109 = GetResString("MISSDK_MISSIONSDK_LUA_000109")
+				PRINT( MISSDK_MISSIONSDK_LUA_000109..loopnum.." id = "..mission.id.." loopdata = "..loopdata )
+				MISSDK_MISSIONSDK_LUA_000109 = GetResString("MISSDK_MISSIONSDK_LUA_000109")
+				LG( "randmission_error", MISSDK_MISSIONSDK_LUA_000109..loopnum.." id = "..mission.id.." loopdata = "..loopdata )
+				MISSDK_MISSIONSDK_LUA_000109 = GetResString("MISSDK_MISSIONSDK_LUA_000109")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000109..loopnum.." id = "..mission.id.." loopdata = "..loopdata )
 				ResetRandMissionNum( character, mission.id )
 				return LUA_FALSE
 			end
 			
 			local ret = HasRandMissionCount( character, mission.id, mission.loopinfo[loopnum].num )
 			if ret == LUA_TRUE then
-				--睲埃赣吏ヴ叭璸计吏璸计糤
+				--清除该环任务计数，同时环计数增加
 				ret = AddRandMissionNum( character, mission.id )
 				if ret ~= LUA_TRUE then
-					PRINT( "CompleteRandMission:AddRandMissionNum reset quest cycle calculation failed!id = ", mission.id  )
-					SystemNotice( character, "CompleteRandMission:AddRandMissionNum reset quest cycle calculation failed!id = "..mission.id )
+					MISSDK_MISSIONSDK_LUA_000110 = GetResString("MISSDK_MISSIONSDK_LUA_000110")
+					PRINT( MISSDK_MISSIONSDK_LUA_000110, mission.id  )
+					MISSDK_MISSIONSDK_LUA_000111 = GetResString("MISSDK_MISSIONSDK_LUA_000111")
+					LG( "randmission_error", MISSDK_MISSIONSDK_LUA_000111, mission.id )
+					MISSDK_MISSIONSDK_LUA_000110 = GetResString("MISSDK_MISSIONSDK_LUA_000110")
+					SystemNotice( character, MISSDK_MISSIONSDK_LUA_000110..mission.id )
 					return LUA_FALSE
 				end
 				if loopdata[loopnum + 1] == nil then
-					--睲埃赣radom ヴ叭璸计竒禲吏Ч拨,ヴ叭璸计眖繷秨﹍
-					PRINT( "CompleteRandMission:ResetRandMissionNum:quest cycle completed!" )
+					--清除该随机任务计数因为已经跑环完毕,任务计数从头开始
+					MISSDK_MISSIONSDK_LUA_000112 = GetResString("MISSDK_MISSIONSDK_LUA_000112")
+					PRINT( MISSDK_MISSIONSDK_LUA_000112 )
 					ResetRandMissionNum( character, mission.id )
-					SystemNotice( character, "quest cycle completed!" )
+					MISSDK_MISSIONSDK_LUA_000113 = GetResString("MISSDK_MISSIONSDK_LUA_000113")
+					SystemNotice( character, MISSDK_MISSIONSDK_LUA_000113 )
 				end
 			end
 		end
 		
 	else
-		PRINT( "CompleteMission:Parameter quest type unknown. Invalid!" )
-		SystemNotice( character, "CompleteMission:Parameter quest type unknown. Invalid!" )
+		MISSDK_MISSIONSDK_LUA_000114 = GetResString("MISSDK_MISSIONSDK_LUA_000114")
+		PRINT( MISSDK_MISSIONSDK_LUA_000114 )
+		MISSDK_MISSIONSDK_LUA_000114 = GetResString("MISSDK_MISSIONSDK_LUA_000114")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000114 )
 		return LUA_FALSE
 	end
 	
@@ -1560,8 +1784,10 @@ function CompleteMission( character, npc, missionlist, selitem, param )
 		PRINT( "CompleteMission:ResetMissionState" )
 		ret = RefreshMissionState( character, npc )
 		if ret ~= LUA_TRUE then
-			PRINT( "CompleteMission:RefreshMissionState deliver quest reset npc quest status failed!" )
-			SystemNotice( character, "CompleteMission:RefreshMissionState deliver quest change npc quest status failed!" )
+			MISSDK_MISSIONSDK_LUA_000115 = GetResString("MISSDK_MISSIONSDK_LUA_000115")
+			PRINT( MISSDK_MISSIONSDK_LUA_000115 )
+			MISSDK_MISSIONSDK_LUA_000116 = GetResString("MISSDK_MISSIONSDK_LUA_000116")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000116 )
 			return LUA_FALSE
 		end
 	end
@@ -1570,30 +1796,36 @@ function CompleteMission( character, npc, missionlist, selitem, param )
 	return LUA_TRUE
 end
 
---匡拒ヴ叭
+--选择任务列表
 function SelMissionList( character, npc, selindex, missionlist )
 	local npcid = GetCharID( npc )
 	local ret, id, state = GetMissionInfo( character, npcid, selindex )
 	if ret ~= LUA_TRUE then
-		PRINT( "SelMissionList:obtain quest notice failed!" )
-		return SystemNotice( character, "MissionProc:obtain quest notice failed!" )
+		MISSDK_MISSIONSDK_LUA_000117 = GetResString("MISSDK_MISSIONSDK_LUA_000117")
+		PRINT( MISSDK_MISSIONSDK_LUA_000117 )
+		MISSDK_MISSIONSDK_LUA_000118 = GetResString("MISSDK_MISSIONSDK_LUA_000118")
+		return SystemNotice( character, MISSDK_MISSIONSDK_LUA_000118 )
 	end
 	
 	PRINT( "SelMissionList:id = %d, state = %d", id, state )
 	if missionlist[id] == nil then
-		PRINT( "SelMissionList:Server does not have requested quest notice error!" )
-		return SystemNotice( character, "MissionProc:Server does not have requested quest notice error!" )
+		MISSDK_MISSIONSDK_LUA_000119 = GetResString("MISSDK_MISSIONSDK_LUA_000119")
+		PRINT( MISSDK_MISSIONSDK_LUA_000119 )
+		MISSDK_MISSIONSDK_LUA_000120 = GetResString("MISSDK_MISSIONSDK_LUA_000120")
+		return SystemNotice( character, MISSDK_MISSIONSDK_LUA_000120 )
 	end
 	
 	ret = SetMissionTempInfo( character, npcid, id, state, missionlist[id].tp )
 	if ret ~= LUA_TRUE then
-		PRINT( "SelMissionList:set quest temporary data notice failed!" )
-		return SystemNotice( character, "MissionProc:set quest temporary data notice failed!" )
+		MISSDK_MISSIONSDK_LUA_000121 = GetResString("MISSDK_MISSIONSDK_LUA_000121")
+		PRINT( MISSDK_MISSIONSDK_LUA_000121 )
+		MISSDK_MISSIONSDK_LUA_000122 = GetResString("MISSDK_MISSIONSDK_LUA_000122")
+		return SystemNotice( character, MISSDK_MISSIONSDK_LUA_000122 )
 	end
 	
 	if missionlist[id].tp == NOMAL_MISSION then
 		PRINT( "SelMissioinList:NomalMission type" )
-		--沮ヴ叭篈祇癳ヴ叭ぃ獺
+		--根据任务状态发送任务的不同信息
 		if state == MIS_DELIVERY then
 			return SendDeliveryPage( character, npcid, missionlist[id], missionlist[id].id )
 		elseif state == MIS_ACCEPT then
@@ -1601,24 +1833,29 @@ function SelMissionList( character, npc, selindex, missionlist )
 		elseif state == MIS_PENDING then
 			return SendPendingPage( character, npcid, missionlist[id], missionlist[id].id )
 		else
-			PRINT( "SelMissionList:incorrect type of quest status notice!" )
-			return SystemNotice( character, "SelMissionList:incorrect type of quest status notice!" )
+			MISSDK_MISSIONSDK_LUA_000123 = GetResString("MISSDK_MISSIONSDK_LUA_000123")
+			PRINT( MISSDK_MISSIONSDK_LUA_000123 )
+			MISSDK_MISSIONSDK_LUA_000123 = GetResString("MISSDK_MISSIONSDK_LUA_000123")
+			return SystemNotice( character, MISSDK_MISSIONSDK_LUA_000123 )
 		end
 	elseif missionlist[id].tp == RAND_MISSION then
 		PRINT( "SelMissioinList:RandMission type" )
-		--耞琌竒钡赣radom ヴ叭狦钡玥琌ㄓ临ヴ叭眔
+		--判断是否已经接受了该随机任务，如果接受了则是来还任务得
 		ret = HasRandMission( character, missionlist[id].id )
 		if ret ~= LUA_TRUE then			
-			--radom ヴ叭匡拒碞竒玻ネPlayer钡ヴ叭
+			--随机任务在选择时就已经产生并且玩家接受任务
 			local ret = IsMissionFull( character )
 			if ret == LUA_TRUE then
-				return SystemNotice( character, "You quest log is full. Please abandon an existing quest before activating another!" )
+				MISSDK_MISSIONSDK_LUA_000124 = GetResString("MISSDK_MISSIONSDK_LUA_000124")
+				return SystemNotice( character, MISSDK_MISSIONSDK_LUA_000124 )
 			end
 			
 			local ret = NpcTriggerCheck( character, missionlist[id].begin )
 			if ret ~= LUA_TRUE then
-				PRINT( "SelMissionList:NpcTriggerCheck accept random quest condition trigger management failed!" )
-				SystemNotice( character, "SelMissionList:NpcTriggerCheck accept random quest condition trigger management failed!" )
+				MISSDK_MISSIONSDK_LUA_000125 = GetResString("MISSDK_MISSIONSDK_LUA_000125")
+				PRINT( MISSDK_MISSIONSDK_LUA_000125 )
+				MISSDK_MISSIONSDK_LUA_000125 = GetResString("MISSDK_MISSIONSDK_LUA_000125")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000125 )
 				return LUA_FALSE
 			end
 		
@@ -1626,28 +1863,33 @@ function SelMissionList( character, npc, selindex, missionlist )
 			local ret, index = CreateRandMission( character, npc, missionlist[id] )
 			if ret ~= LUA_TRUE then
 				if index ~= nil then
-					-- 璉甧秖ぃì
+					-- 表明背包容量不足
 					return LUA_TRUE
 				end
 				
-				PRINT( "SelMissionList:CreateRandMission, generate random quest failed!" )
+				MISSDK_MISSIONSDK_LUA_000126 = GetResString("MISSDK_MISSIONSDK_LUA_000126")
+				PRINT( MISSDK_MISSIONSDK_LUA_000126 )
 				return LUA_FALSE
 			end
 			
 			ret = AcceptMission( character, npc, missionlist, index )
 			if ret ~= LUA_TRUE then
-				PRINT( "SelMissionList:AcceptMission: accept quest failed!" )
-				SystemNotice( character, "SelMissionList:AcceptMission: accept quest failed!" )
+				MISSDK_MISSIONSDK_LUA_000127 = GetResString("MISSDK_MISSIONSDK_LUA_000127")
+				PRINT( MISSDK_MISSIONSDK_LUA_000127 )
+				MISSDK_MISSIONSDK_LUA_000127 = GetResString("MISSDK_MISSIONSDK_LUA_000127")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000127 )
 				return LUA_FALSE
 			end
 			
-			--祇癳radom ヴ叭ユ獺
+			--发送随机任务的交付页面信息
 			local ret, randid, state = GetMissionInfo( character, npcid, selindex )
 			if ret ~= LUA_TRUE or id ~= randid then
 				ret, state = GetCharMission( character, npcid, id )
 				if ret ~= LUA_TRUE then
-					PRINT( "SelMissionList:GetCharMissionobtain quest notice failed!" )
-					return SystemNotice( character, "MissionProc:GetCharMissionobtain quest notice failed!" )
+					MISSDK_MISSIONSDK_LUA_000128 = GetResString("MISSDK_MISSIONSDK_LUA_000128")
+					PRINT( MISSDK_MISSIONSDK_LUA_000128 )
+					MISSDK_MISSIONSDK_LUA_000129 = GetResString("MISSDK_MISSIONSDK_LUA_000129")
+					return SystemNotice( character, MISSDK_MISSIONSDK_LUA_000129 )
 				end
 			end
 			
@@ -1658,15 +1900,17 @@ function SelMissionList( character, npc, selindex, missionlist )
 				--PRINT( "SelMissionList:SendDeliveryPage, index = , mission = ", index, missionlist[id].missionlist[index] )
 				--return SendDeliveryPage( character, npcid, missionlist[id].missionlist[index], missionlist[id].id )
 			--else
-				--PRINT( "SelMissionList:radom ヴ叭钡莱PENDING or DELIVERY篈琌浪代篈ぃ癸state = "..state )
-				--return SystemNotice( character, "SelMissionList:radom ヴ叭钡莱PENDING or DELIVERY篈琌浪代篈ぃ癸state = "..state )
+				--PRINT( "SelMissionList:随机任务接受时应为PENDING or DELIVERY状态，但是检测出状态不对。state = "..state )
+				--return SystemNotice( character, "SelMissionList:随机任务接受时应为PENDING or DELIVERY状态，但是检测出状态不对。state = "..state )
 			--end
 		else
 			local ret, index = GetCharRandMission( character, missionlist[id].id, missionlist[id] )
 			if ret ~= LUA_TRUE or index == 0 then
-				--沮radom ヴ叭把计ネΘradom ヴ叭獺岿粇
-				PRINT( "SelMissionList:GetcharRandMission, according to random quest parameter generate random quest notice error!" )
-				return SystemNotice( character, "SelMissionList:GetcharRandMission, according to random quest parameter generate random quest notice error!" )
+				--根据随机任务参数生成随机任务信息错误
+				MISSDK_MISSIONSDK_LUA_000130 = GetResString("MISSDK_MISSIONSDK_LUA_000130")
+				PRINT( MISSDK_MISSIONSDK_LUA_000130 )
+				MISSDK_MISSIONSDK_LUA_000130 = GetResString("MISSDK_MISSIONSDK_LUA_000130")
+				return SystemNotice( character, MISSDK_MISSIONSDK_LUA_000130 )
 			end
 			
 			if state ~= MIS_DELIVERY then
@@ -1679,17 +1923,20 @@ function SelMissionList( character, npc, selindex, missionlist )
 		end
 		
 	else
-		PRINT( "SelMissionList:Parameter quest type unknown. Invalid!" )
-		SystemNotice( character, "SelMissionList:Parameter quest type unknown. Invalid!" )
+		MISSDK_MISSIONSDK_LUA_000131 = GetResString("MISSDK_MISSIONSDK_LUA_000131")
+		PRINT( MISSDK_MISSIONSDK_LUA_000131 )
+		MISSDK_MISSIONSDK_LUA_000131 = GetResString("MISSDK_MISSIONSDK_LUA_000131")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000131 )
 		return LUA_FALSE
 	end
 	
 end
 
---ヴ叭矪瞶
+--任务处理
 function MissionProc( character, npc, rpk, missionlist )
 	if missionlist == nil then
-		SystemNotice( character, "MissionProc:parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000132 = GetResString("MISSDK_MISSIONSDK_LUA_000132")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000132 )
 		return LUA_FALSE
 	end
 	
@@ -1700,7 +1947,8 @@ function MissionProc( character, npc, rpk, missionlist )
 	elseif byCmd == MIS_BTNACCEPT then
 		local ret = IsMissionFull( character )
 		if ret == LUA_TRUE then
-			return BickerNotice( character, "Quest slots are all taken. accept quest failed!" )
+			MISSDK_MISSIONSDK_LUA_000133 = GetResString("MISSDK_MISSIONSDK_LUA_000133")
+			return BickerNotice( character, MISSDK_MISSIONSDK_LUA_000133 )
 		end
 		return AcceptMission( character, npc, missionlist )
 	elseif byCmd == MIS_BTNDELIVERY then
@@ -1708,7 +1956,7 @@ function MissionProc( character, npc, rpk, missionlist )
 		local byParam2 = ReadByte( rpk )
 		local ret = CompleteMission( character, npc, missionlist, byParam1, byParam2 )
 		--if ret == LUA_TRUE then
-			--ЧΘヴ叭膥尿ヴ叭
+			--完成任务后继续下一个任务
 			--local npcid = GetCharID( npc )
 			--local ret, index, id, state = GetNextMission( character, npcid )
 			--PRINT( "MissionProc:GetNextMission: ret, index, id, state", ret, index, id, state )
@@ -1720,17 +1968,23 @@ function MissionProc( character, npc, rpk, missionlist )
 	--elseif byCmd == MIS_BTNPENDING then
 	--elseif byCmd == MIS_TALK then
 	else
-		PRINT( "MissionProc:incorrect quest page command type!" )
-		return SystemNotice( character, "MissionProc:incorrect quest page command type!" )
+		MISSDK_MISSIONSDK_LUA_000134 = GetResString("MISSDK_MISSIONSDK_LUA_000134")
+		PRINT( MISSDK_MISSIONSDK_LUA_000134 )
+		MISSDK_MISSIONSDK_LUA_000134 = GetResString("MISSDK_MISSIONSDK_LUA_000134")
+		return SystemNotice( character, MISSDK_MISSIONSDK_LUA_000134 )
 	end
 end
 
---琩高ヴ叭ら粁獺
+--查询任务日志信息
 function MissionLog( character, sid )
 	PRINT( "MissionLog" )
 	if sid == nil  or Mission[sid] == nil then
-		PRINT( "MissionLog: cannot locate quest script noticesid = "..sid )		
-		SystemNotice( character, "MissionLog: cannot locate quest script noticesid = "..sid )
+		MISSDK_MISSIONSDK_LUA_000135 = GetResString("MISSDK_MISSIONSDK_LUA_000135")
+		PRINT( MISSDK_MISSIONSDK_LUA_000135..sid )		
+		MISSDK_MISSIONSDK_LUA_000135 = GetResString("MISSDK_MISSIONSDK_LUA_000135")
+		LG( "mission_error", MISSDK_MISSIONSDK_LUA_000135..sid )
+		MISSDK_MISSIONSDK_LUA_000135 = GetResString("MISSDK_MISSIONSDK_LUA_000135")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000135..sid )
 		return
 	end
 	
@@ -1739,32 +1993,37 @@ function MissionLog( character, sid )
 	elseif Mission[sid].tp == RAND_MISSION then
 		local ret, index, loopdata = GetCharRandMission( character, Mission[sid].id, Mission[sid] )
 		if ret ~= LUA_TRUE or index == 0 then
-			--沮radom ヴ叭把计ネΘradom ヴ叭獺岿粇
-			PRINT( "MissionLog:GetcharRandMission, according to random quest parameter generate random quest notice error!" )
-			SystemNotice( character, "MissionLog:GetcharRandMission, according to random quest parameter generate random quest notice error!" )
+			--根据随机任务参数生成随机任务信息错误
+			MISSDK_MISSIONSDK_LUA_000136 = GetResString("MISSDK_MISSIONSDK_LUA_000136")
+			PRINT( MISSDK_MISSIONSDK_LUA_000136 )
+			MISSDK_MISSIONSDK_LUA_000136 = GetResString("MISSDK_MISSIONSDK_LUA_000136")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000136 )
 			return
 		end
 		
 		PRINT( "MissionLog:SendMissionLog, index = , mission = ", index, Mission[sid].missionlist[index] )
 		SendMissionLog( character, Mission[sid].missionlist[index], Mission[sid].id, Mission[sid].name )
 	else
-		PRINT( "MissionLog:Parameter quest type unknown. Invalid!ID = "..sid )
-		SystemNotice( character, "SelMissionList:Parameter quest type unknown. Invalid!ID = "..sid )		
+		MISSDK_MISSIONSDK_LUA_000137 = GetResString("MISSDK_MISSIONSDK_LUA_000137")
+		PRINT( MISSDK_MISSIONSDK_LUA_000137..sid )
+		MISSDK_MISSIONSDK_LUA_000138 = GetResString("MISSDK_MISSIONSDK_LUA_000138")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000138..sid )		
 	end
 end
 
---祇癳ヴ叭ら粁獺
+--发送任务日志信息
 function SendMissionLog( character, mission, id, name )
 	PRINT( "SendMissionLog" )
 	if id == nil or mission == nil then
-		return SystemNotice( character, "Have not found target quest log notice,ID = "..id )		
+		MISSDK_MISSIONSDK_LUA_000139 = GetResString("MISSDK_MISSIONSDK_LUA_000139")
+		return SystemNotice( character, MISSDK_MISSIONSDK_LUA_000139..id )		
 	end
 	
 	local packet = GetPacket()
 	WriteCmd( packet, CMD_MC_MISLOGINFO )
 	WriteWord( packet, id )
 	
-	--祇癳ヴ叭惠―獺
+	--发送任务需求信息
 	WriteString( packet, name )
 	PRINT( "SendMissionLog:misname = ", name )
 	WriteByte( packet, mission.need.count )
@@ -1775,30 +2034,37 @@ function SendMissionLog( character, mission, id, name )
 		if mission.need[n].tp == MIS_NEED_ITEM then
 			WriteWord( packet, mission.need[n].p1 )
 			WriteWord( packet, mission.need[n].p2 )
-			--莉ヴ叭惠―ЧΘ璸计
+			--获取任务需求完成计数
 			local ret, num = GetNeedItemCount( character, id, mission.need[n].p1 )
 			PRINT( "SendMissionLog:GetNeedItemCount, num = ", num )
 			if ret ~= LUA_TRUE then
-				PRINT( "SendMissionLog:GetNeedItemCount,errormisid = , itemid = , num = ", id, mission.need[n].p1, mission.need[n].p2 )
-				SystemNotice( character, "SendMissionLog:GetNeedItemCount,error" )
+				MISSDK_MISSIONSDK_LUA_000140 = GetResString("MISSDK_MISSIONSDK_LUA_000140")
+				PRINT( MISSDK_MISSIONSDK_LUA_000140, id, mission.need[n].p1, mission.need[n].p2 )
+				MISSDK_MISSIONSDK_LUA_000141 = GetResString("MISSDK_MISSIONSDK_LUA_000141")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000141 )
+				MISSDK_MISSIONSDK_LUA_000140 = GetResString("MISSDK_MISSIONSDK_LUA_000140")
+				LG( "mislog_error", MISSDK_MISSIONSDK_LUA_000140, id, mission.need[n].p1, mission.need[n].p2 )
 				num = 0
 			end
 			WriteByte( packet, num )
 		elseif mission.need[n].tp == MIS_NEED_KILL then
 			WriteWord( packet, mission.need[n].p1 )
 			WriteWord( packet, mission.need[n].p2 )
-			--莉ヴ叭惠―ЧΘ璸计
+			--获取任务需求完成计数
+			PRINT( "SendMissionLog:GetNumFlag:GetNumFalg, id, p1, p2", id, mission.need[n].p3, mission.need[n].p2 )
 			WriteByte( packet, GetNumFlag( character, id, mission.need[n].p3, mission.need[n].p2 ) )	
 		elseif mission.need[n].tp == MIS_NEED_DESP then
 			WriteString( packet, mission.need[n].p1 )
 		else
-			PRINT( "SendMissionLog:unknown quest required type!mission id = ", id )
-			SystemNotice( character, "SendMissionLog:unknown quest required type!mission id = ", id )
+			MISSDK_MISSIONSDK_LUA_000142 = GetResString("MISSDK_MISSIONSDK_LUA_000142")
+			PRINT( MISSDK_MISSIONSDK_LUA_000142, id )
+			MISSDK_MISSIONSDK_LUA_000142 = GetResString("MISSDK_MISSIONSDK_LUA_000142")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000142, id )
 			return
 		end
 	end
 	
-	--祇癳ヴ叭贱纘獺
+	--发送任务奖励信息
 	WriteByte( packet, mission.prize.seltp )
 	WriteByte( packet, mission.prize.count )
 	PRINT( "SendMissionLog:prize count = , seltype =", mission.prize.count, mission.prize.seltp )
@@ -1809,17 +2075,17 @@ function SendMissionLog( character, mission, id, name )
 		WriteWord( packet, mission.prize[i].p2 )
 	end
 	
-	--祇癳ヴ叭磞瓃獺
+	--发送任务描述信息
 	PRINT( "SendMissionLog:begin talk = "..mission.begin.talk )
 	WriteString( packet, mission.begin.talk )
 	SendPacket( character, packet )
 end
 
---祇癳ヴ叭ユ獺
+--发送任务交付页信息
 function SendDeliveryPage( character, npcid, mission, id )
 	PRINT( "SendDeliveryPage" )
 
-	--祇癳厨ゅ獺
+	--发送报文信息
 	local packet = GetPacket()
 	WriteCmd( packet, CMD_MC_MISPAGE )
 	WriteByte( packet, MIS_BTNDELIVERY )
@@ -1828,8 +2094,8 @@ function SendDeliveryPage( character, npcid, mission, id )
 	PRINT( "SenddeliveryPage:missionname = ", mission.name )
 	PRINT( "SendDeliveryPage:need = ", mission.need )
 	
-	--祇癳ヴ叭惠―獺
-	--ЧΘヴ叭ぃ祇癳ヴ叭惠―
+	--发送任务需求信息
+	--完成任务页不发送任务需求消息
 	WriteByte( packet, 0 )
 	--WriteByte( packet, mission.need.count )
 	--PRINT( "SendDeliveryPage:need count = "..mission.need.count )
@@ -1839,30 +2105,32 @@ function SendDeliveryPage( character, npcid, mission, id )
 		--if mission.need[n].tp == MIS_NEED_ITEM then
 			--WriteWord( packet, mission.need[n].p1 )
 			--WriteWord( packet, mission.need[n].p2 )
-			----莉ヴ叭惠―ЧΘ璸计
+			----获取任务需求完成计数
 			--local ret, num = GetNeedItemCount( character, id, mission.need[n].p1 )
 			--PRINT( "SendDeliveryPage:GetNeedItemCount, num = ", num )
 			--if ret ~= LUA_TRUE then
-				--PRINT( "SendDeliveryPage:GetNeedItemCount,erroritemid = , num = ", mission.need[n].p1, mission.need[n].p2 )
-				--SystemNotice( character, "SendDeliveryPage:GetNeedItemCount,error" )
+				--PRINT( "SendDeliveryPage:GetNeedItemCount,error。itemid = , num = ", mission.need[n].p1, mission.need[n].p2 )
+				--SystemNotice( character, "SendDeliveryPage:GetNeedItemCount,error。" )
+				--LG( "mislog_error", "SendDeliveryPage:GetNeedItemCount,error。itemid = , num = ", mission.need[n].p1, mission.need[n].p2 )
 				--num = 0
 			--end
 			--WriteByte( packet, num )
 		--elseif mission.need[n].tp == MIS_NEED_KILL then
 			--WriteWord( packet, mission.need[n].p1 )
 			--WriteWord( packet, mission.need[n].p2 )
-			----莉ヴ叭惠―ЧΘ璸计
+			----获取任务需求完成计数
+			--PRINT( "SendDeliveryPage:GetNumFlag:GetNumFalg, id, p1, p2", id, mission.need[n].p3, mission.need[n].p2 )
 			--WriteByte( packet, GetNumFlag( character, id, mission.need[n].p3, mission.need[n].p2 ) )	
 		--elseif mission.need[n].tp == MIS_NEED_DESP then
 			--WriteString( packet, mission.need[n].p1 )
 		--else
-			--PRINT( "SendDeliveryPage:unknown quest required type!mission id = ", id )
-			--SystemNotice( character, "SendDeliveryPage:unknown quest required type!mission id = ", id )
+			--PRINT( "SendDeliveryPage:未知的任务需求类型！mission id = ", id )
+			--SystemNotice( character, "SendDeliveryPage:未知的任务需求类型！mission id = ", id )
 			--return
 		--end
 	--end
 	
-	--祇癳ヴ叭贱纘獺
+	--发送任务奖励信息
 	WriteByte( packet, mission.prize.seltp )
 	WriteByte( packet, mission.prize.count )
 	PRINT( "SendDeliveryPage:prize count = , seltype =", mission.prize.count, mission.prize.seltp )
@@ -1875,24 +2143,30 @@ function SendDeliveryPage( character, npcid, mission, id )
 		--WriteWord( packet, mission.prize[i].p4 )
 	end
 	
-	--祇癳ヴ叭磞瓃獺
+	--发送任务描述信息
 	PRINT( "SendDeliveryPage:result talk = "..mission.result.talk )
 	WriteString( packet, mission.result.talk )
 	SendPacket( character, packet )
 end
 
---祇癳ヴ叭倒à︹
+--发送一个任务给角色
 function GiveMission( character, id )
 	if id == nil or Mission[id] == nil then
-		PRINT( "GiveMission:Invalid quest! ID = "..id )
-		SystemNotice( character, "GiveMission:Invalid quest! ID = "..id )
+		MISSDK_MISSIONSDK_LUA_000143 = GetResString("MISSDK_MISSIONSDK_LUA_000143")
+		PRINT( MISSDK_MISSIONSDK_LUA_000143..id )
+		MISSDK_MISSIONSDK_LUA_000143 = GetResString("MISSDK_MISSIONSDK_LUA_000143")
+		LG( "mission_error", MISSDK_MISSIONSDK_LUA_000143..id )
+		MISSDK_MISSIONSDK_LUA_000143 = GetResString("MISSDK_MISSIONSDK_LUA_000143")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000143..id )
 		return LUA_FALSE
 	end
 	
 	local ret, npc = GetEudemon()
 	if ret ~= LUA_TRUE then
-		PRINT( "GetEudemon:functiontransfer failed!" )
-		SystemNotice( character, "GetEudemon:functiontransfer failed!" )
+		MISSDK_MISSIONSDK_LUA_000144 = GetResString("MISSDK_MISSIONSDK_LUA_000144")
+		PRINT( MISSDK_MISSIONSDK_LUA_000144 )
+		MISSDK_MISSIONSDK_LUA_000144 = GetResString("MISSDK_MISSIONSDK_LUA_000144")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000144 )
 		return LUA_FALSE
 	end
 	
@@ -1900,8 +2174,10 @@ function GiveMission( character, id )
 	PRINT( "GiveMission: npcid, id, mistp", npcid, id, Mission[id].tp )
 	ret = SetMissionTempInfo( character, npcid, id, MIS_ACCEPT, Mission[id].tp )
 	if ret ~= LUA_TRUE then 
-		PRINT( "SelMissionList:set quest temporary data notice failed!" )
-		SystemNotice( character, "MissionProc:set quest temporary data notice failed!" )
+		MISSDK_MISSIONSDK_LUA_000121 = GetResString("MISSDK_MISSIONSDK_LUA_000121")
+		PRINT( MISSDK_MISSIONSDK_LUA_000121 )
+		MISSDK_MISSIONSDK_LUA_000122 = GetResString("MISSDK_MISSIONSDK_LUA_000122")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000122 )
 		return LUA_FALSE
 	end
 	
@@ -1909,18 +2185,24 @@ function GiveMission( character, id )
 	return LUA_TRUE
 end
 
---眏ユヴ叭
+--强制交付一个任务
 function ObligeCompleteMission( character, id )
 	if id == nil or Mission[id] == nil then
-		PRINT( "ObligeCompleteMission:Invalid quest! ID = "..id )
-		SystemNotice( character, "ObligeCompleteMission:Invalid quest! ID = "..id )
+		MISSDK_MISSIONSDK_LUA_000145 = GetResString("MISSDK_MISSIONSDK_LUA_000145")
+		PRINT( MISSDK_MISSIONSDK_LUA_000145..id )
+		MISSDK_MISSIONSDK_LUA_000145 = GetResString("MISSDK_MISSIONSDK_LUA_000145")
+		LG( "mission_error", MISSDK_MISSIONSDK_LUA_000145..id )
+		MISSDK_MISSIONSDK_LUA_000145 = GetResString("MISSDK_MISSIONSDK_LUA_000145")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000145..id )
 		return LUA_FALSE
 	end
 	
 	local ret, npc = GetEudemon()
 	if ret ~= LUA_TRUE then
-		PRINT( "ObligeCompleteMission:GetEudemon:functiontransfer failed!" )
-		SystemNotice( character, "ObligeCompleteMission:GetEudemon:functiontransfer failed!" )
+		MISSDK_MISSIONSDK_LUA_000146 = GetResString("MISSDK_MISSIONSDK_LUA_000146")
+		PRINT( MISSDK_MISSIONSDK_LUA_000146 )
+		MISSDK_MISSIONSDK_LUA_000146 = GetResString("MISSDK_MISSIONSDK_LUA_000146")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000146 )
 		return LUA_FALSE
 	end
 	
@@ -1928,40 +2210,54 @@ function ObligeCompleteMission( character, id )
 	PRINT( "ObligeCompleteMission: npcid, id, mistp", npcid, id, Mission[id].tp )
 	ret = SetMissionTempInfo( character, npcid, id, MIS_ACCEPT, Mission[id].tp )
 	if ret ~= LUA_TRUE then
-		PRINT( "ObligeCompleteMission:SetMissionTempInfo:set quest temporary data notice failed!" )
-		SystemNotice( character, "ObligeCompleteMission:SetMissionTempInfo:set quest temporary data notice failed!" )
+		MISSDK_MISSIONSDK_LUA_000147 = GetResString("MISSDK_MISSIONSDK_LUA_000147")
+		PRINT( MISSDK_MISSIONSDK_LUA_000147 )
+		MISSDK_MISSIONSDK_LUA_000147 = GetResString("MISSDK_MISSIONSDK_LUA_000147")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000147 )
 		return LUA_FALSE
 	end
 	
 	ret = CompleteMission( character, npc )
 	if ret ~= LUA_TRUE then
-		SystemNotice( "ObligeCompleteMission:CompleteMission: force character accept completion failed!" )
+		MISSDK_MISSIONSDK_LUA_000148 = GetResString("MISSDK_MISSIONSDK_LUA_000148")
+		SystemNotice( MISSDK_MISSIONSDK_LUA_000148 )
+		MISSDK_MISSIONSDK_LUA_000149 = GetResString("MISSDK_MISSIONSDK_LUA_000149")
+		LG( "mission_error", MISSDK_MISSIONSDK_LUA_000149 )
 		return LUA_FALSE
 	end
 	
 	--SendPendingPage( character, npcid, Mission[id], Mission[id].id )
-	BickerNotice( character, "Quest["..Mission[id].name.."]Successfully completed delivery!" )
+	MISSDK_MISSIONSDK_LUA_000150 = GetResString("MISSDK_MISSIONSDK_LUA_000150")
+	MISSDK_MISSIONSDK_LUA_000098 = GetResString("MISSDK_MISSIONSDK_LUA_000098")
+	BickerNotice( character, MISSDK_MISSIONSDK_LUA_000098..Mission[id].name..MISSDK_MISSIONSDK_LUA_000150 )
 	return LUA_TRUE
 end
 
---眏钡ヴ叭
+--强制接受一个任务
 function ObligeAcceptMission( character, id )
 	if id == nil or Mission[id] == nil then
-		PRINT( "ObligeMission:Invalid quest! ID = "..id )
-		SystemNotice( character, "ObligeMission:Invalid quest! ID = "..id )
+		MISSDK_MISSIONSDK_LUA_000151 = GetResString("MISSDK_MISSIONSDK_LUA_000151")
+		PRINT( MISSDK_MISSIONSDK_LUA_000151..id )
+		MISSDK_MISSIONSDK_LUA_000151 = GetResString("MISSDK_MISSIONSDK_LUA_000151")
+		LG( "mission_error", MISSDK_MISSIONSDK_LUA_000151..id )
+		MISSDK_MISSIONSDK_LUA_000151 = GetResString("MISSDK_MISSIONSDK_LUA_000151")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000151..id )
 		return LUA_FALSE
 	end
 	
 	local ret, npc = GetEudemon()
 	if ret ~= LUA_TRUE then
-		PRINT( "ObligeMission:GetEudemon:functiontransfer failed!" )
-		SystemNotice( character, "ObligeMission:GetEudemon:functiontransfer failed!" )
+		MISSDK_MISSIONSDK_LUA_000152 = GetResString("MISSDK_MISSIONSDK_LUA_000152")
+		PRINT( MISSDK_MISSIONSDK_LUA_000152 )
+		MISSDK_MISSIONSDK_LUA_000152 = GetResString("MISSDK_MISSIONSDK_LUA_000152")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000152 )
 		return LUA_FALSE
 	end
 	
 	ret = IsMissionFull( character )
 	if ret == LUA_TRUE then
-		SystemNotice( character, "Your quest log is full. Please make space before activating a new quest!" )
+		MISSDK_MISSIONSDK_LUA_000153 = GetResString("MISSDK_MISSIONSDK_LUA_000153")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000153 )
 		return LUA_TRUE
 	end
 
@@ -1969,14 +2265,19 @@ function ObligeAcceptMission( character, id )
 	PRINT( "ObligeMission: npcid, id, mistp", npcid, id, Mission[id].tp )
 	ret = SetMissionTempInfo( character, npcid, id, MIS_ACCEPT, Mission[id].tp )
 	if ret ~= LUA_TRUE then
-		PRINT( "ObligeMission:set quest temporary data notice failed!" )
-		SystemNotice( character, "ObligeMission:set quest temporary data notice failed!" )
+		MISSDK_MISSIONSDK_LUA_000154 = GetResString("MISSDK_MISSIONSDK_LUA_000154")
+		PRINT( MISSDK_MISSIONSDK_LUA_000154 )
+		MISSDK_MISSIONSDK_LUA_000154 = GetResString("MISSDK_MISSIONSDK_LUA_000154")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000154 )
 		return LUA_FALSE
 	end
 	
 	ret = AcceptMission( character, npc )
 	if ret ~= LUA_TRUE then
-		SystemNotice( "ObligeMission:AcceptMission: forced character accept quest failed!" )
+		MISSDK_MISSIONSDK_LUA_000155 = GetResString("MISSDK_MISSIONSDK_LUA_000155")
+		SystemNotice( MISSDK_MISSIONSDK_LUA_000155 )
+		MISSDK_MISSIONSDK_LUA_000155 = GetResString("MISSDK_MISSIONSDK_LUA_000155")
+		LG( "mission_error", MISSDK_MISSIONSDK_LUA_000155 )
 		return LUA_FALSE
 	end
 	
@@ -1984,11 +2285,11 @@ function ObligeAcceptMission( character, id )
 	return LUA_TRUE
 end
 
---祇癳ヴ叭钡獺
+--发送任务接受页信息
 function SendAcceptPage( character, npcid, mission, id )	
 	PRINT( "SendAcceptPage" )
 
-	--祇癳厨ゅ獺
+	--发送报文信息
 	local packet = GetPacket()
 	WriteCmd( packet, CMD_MC_MISPAGE )
 	WriteByte( packet, MIS_BTNACCEPT )
@@ -1996,7 +2297,7 @@ function SendAcceptPage( character, npcid, mission, id )
 	WriteString( packet, mission.name )
 	PRINT( "SendAcceptPage: name = ", mission.name )
 	
-	--祇癳ヴ叭惠―獺
+	--发送任务需求信息
 	WriteByte( packet, mission.need.count )
 	PRINT( "SendAcceptPage:need count = "..mission.need.count )
 	for n = 1, mission.need.count, 1 do
@@ -2005,18 +2306,20 @@ function SendAcceptPage( character, npcid, mission, id )
 		if mission.need[n].tp == MIS_NEED_ITEM or mission.need[n].tp == MIS_NEED_KILL then
 			WriteWord( packet, mission.need[n].p1 )
 			WriteWord( packet, mission.need[n].p2 )
-			--莉ヴ叭惠―ЧΘ璸计
+			--获取任务需求完成计数
 			WriteByte( packet, 0 )
 		elseif mission.need[n].tp == MIS_NEED_DESP then
 			WriteString( packet, mission.need[n].p1 )
 		else
-			PRINT( "SendAcceptPage:unknown quest required type!mission id = ", id )
-			SystemNotice( character, "SendAcceptPage:unknown quest required type!mission id = ", id )
+			MISSDK_MISSIONSDK_LUA_000156 = GetResString("MISSDK_MISSIONSDK_LUA_000156")
+			PRINT( MISSDK_MISSIONSDK_LUA_000156, id )
+			MISSDK_MISSIONSDK_LUA_000156 = GetResString("MISSDK_MISSIONSDK_LUA_000156")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000156, id )
 			return
 		end
 	end
 	
-	--祇癳ヴ叭贱纘獺
+	--发送任务奖励信息
 	WriteByte( packet, mission.prize.seltp )
 	WriteByte( packet, mission.prize.count )
 	PRINT( "SendAcceptPage:prize count = , seltype =", mission.prize.count, mission.prize.seltp )
@@ -2029,17 +2332,17 @@ function SendAcceptPage( character, npcid, mission, id )
 		--WriteWord( packet, mission.prize[i].p4 )
 	end
 	
-	--祇癳ヴ叭磞瓃獺
+	--发送任务描述信息
 	PRINT( "SendAcceptPage:begin talk = "..mission.begin.talk )
 	WriteString( packet, mission.begin.talk )
 	SendPacket( character, packet )
 end
 
---祇癳ヴ叭ゼ∕獺
+--发送任务未决页信息
 function SendPendingPage( character, npcid, mission, id )
 	PRINT( "SendPendingPage" )
 	
-	--祇癳厨ゅ獺
+	--发送报文信息
 	local packet = GetPacket()
 	WriteCmd( packet, CMD_MC_MISPAGE )
 	WriteByte( packet, MIS_BTNPENDING )
@@ -2047,7 +2350,7 @@ function SendPendingPage( character, npcid, mission, id )
 	WriteString( packet, mission.name )
 	PRINT( "SendPendingPage: name = ", mission.name )
 	
-	--祇癳ヴ叭惠―獺
+	--发送任务需求信息
 	WriteByte( packet, mission.need.count )
 	PRINT( "SendPendingPage:need count = "..mission.need.count )
 	for n = 1, mission.need.count, 1 do
@@ -2056,32 +2359,36 @@ function SendPendingPage( character, npcid, mission, id )
 		if mission.need[n].tp == MIS_NEED_ITEM then
 			WriteWord( packet, mission.need[n].p1 )
 			WriteWord( packet, mission.need[n].p2 )
-			--莉ヴ叭惠―ЧΘ璸计
+			--获取任务需求完成计数
 			local ret, num = GetNeedItemCount( character, id, mission.need[n].p1 )
 			PRINT( "SendPendingPage:GetNeedItemCount, num = ", num )
 			if ret ~= LUA_TRUE then
-				PRINT( "SendPendingPage:GetNeedItemCount,erroritemid = , num = ", mission.need[n].p1, mission.need[n].p2 )
-				SystemNotice( character, "SendPendingPage:GetNeedItemCount,error" )
+				MISSDK_MISSIONSDK_LUA_000157 = GetResString("MISSDK_MISSIONSDK_LUA_000157")
+				PRINT( MISSDK_MISSIONSDK_LUA_000157, mission.need[n].p1, mission.need[n].p2 )
+				MISSDK_MISSIONSDK_LUA_000158 = GetResString("MISSDK_MISSIONSDK_LUA_000158")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000158 )
 				num = 0
 			end
 			WriteByte( packet, num )
 		elseif mission.need[n].tp == MIS_NEED_KILL then
 			WriteWord( packet, mission.need[n].p1 )
 			WriteWord( packet, mission.need[n].p2 )
-			--莉ヴ叭惠―ЧΘ璸计
+			--获取任务需求完成计数
 			local numflag  = GetNumFlag( character, id, mission.need[n].p3, mission.need[n].p2 )
 			PRINT( "SendPendingPage:GetNumFlag, numflag = ", numflag )
 			WriteByte( packet, numflag )		
 		elseif mission.need[n].tp == MIS_NEED_DESP then
 			WriteString( packet, mission.need[n].p1 )
 		else
-			PRINT( "SendPendingPage:unknown quest required type!mission id = ", id )
-			SystemNotice( character, "SendPendingPage:unknown quest required type!mission id = "..id )
+			MISSDK_MISSIONSDK_LUA_000159 = GetResString("MISSDK_MISSIONSDK_LUA_000159")
+			PRINT( MISSDK_MISSIONSDK_LUA_000159, id )
+			MISSDK_MISSIONSDK_LUA_000159 = GetResString("MISSDK_MISSIONSDK_LUA_000159")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000159..id )
 			return
 		end
 	end
 	
-	--祇癳ヴ叭贱纘獺
+	--发送任务奖励信息
 	WriteByte( packet, mission.prize.seltp )
 	WriteByte( packet, mission.prize.count )
 	PRINT( "SendPendingPage:prize count = , seltype =", mission.prize.count, mission.prize.seltp )
@@ -2094,41 +2401,46 @@ function SendPendingPage( character, npcid, mission, id )
 		--WriteWord( packet, mission.prize[i].p4 )
 	end
 	
-	--祇癳ヴ叭磞瓃獺
+	--发送任务描述信息
 	PRINT( "SendPendingPage:help = ", mission.result.help )
 	WriteString( packet, mission.result.help )
 	SendPacket( character, packet )
 end
 
---ヴ叭贱纘巨
+--任务奖励操作
 function MisPrizeProc( character, npc, mission, selitem, param )
 	if mission == nil then
-		SystemNotice( character, "MisPrizeProc:parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000160 = GetResString("MISSDK_MISSIONSDK_LUA_000160")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000160 )
 		return LUA_FALSE
 	end
 	PRINT( "MisPrizeProc:prize count =, sel type = , selitem = ", mission.prize.count, mission.prize.seltp, selitem )
 	if mission.prize.seltp == PRIZE_SELONE then
-	--虫匡
+	--单选
 		if selitem == nil then
-			SystemNotice( character, "MisPrizeProc: select parameter invalid!" )
+			MISSDK_MISSIONSDK_LUA_000161 = GetResString("MISSDK_MISSIONSDK_LUA_000161")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000161 )
 			return LUA_FALSE
 		end
 		selitem = selitem + 1
 		if selitem > mission.prize.count or mission.prize == nil or mission.prize[selitem] == nil then
-			SystemNotice( character, "MisPrizeProc: select an invalid reward notice index !" )
+			MISSDK_MISSIONSDK_LUA_000162 = GetResString("MISSDK_MISSIONSDK_LUA_000162")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000162 )
 			return LUA_FALSE
 		end
 		if mission.prize[selitem].tp == nil or mission.prize[selitem].p1 == nil or mission.prize[selitem].p2 == nil  then
-			SystemNotice( character, "MisPrizeProc:selected reward notice invalid! Please check!" )
+			MISSDK_MISSIONSDK_LUA_000163 = GetResString("MISSDK_MISSIONSDK_LUA_000163")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000163 )
 			return LUA_FALSE
 		end
 		return MisPrizeAction( character, npc, mission.prize[selitem].tp, mission.prize[selitem].p1, mission.prize[selitem].p2, mission.prize[selitem].p3, mission.prize[selitem].p4 )
 	elseif mission.prize.seltp == PRIZE_SELALL then 
-	--匡
+	--全选
 		for n = 1, mission.prize.count, 1 do
 			PRINT( "MisPrizeProc: prize n = "..n )
 			if mission.prize[n].tp == nil or mission.prize[n].p1 == nil or mission.prize[n].p2 == nil  then
-				SystemNotice( character, "MisPrizeProc:selected reward notice invalid! Please check!" )
+				MISSDK_MISSIONSDK_LUA_000163 = GetResString("MISSDK_MISSIONSDK_LUA_000163")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000163 )
 				return LUA_FALSE
 			end
 			local ret = MisPrizeAction( character, npc, mission.prize[n].tp, mission.prize[n].p1, mission.prize[n].p2, mission.prize[n].p3, mission.prize[n].p4 )
@@ -2137,8 +2449,10 @@ function MisPrizeProc( character, npc, mission, selitem, param )
 			end
 		end
 	else
-		PRINT( "MisPrizeProc: Invalid reward notice selection data type!" )
-		SystemNotice( character, "MisPrizeProc: Invalid reward notice selection data type!" )
+		MISSDK_MISSIONSDK_LUA_000164 = GetResString("MISSDK_MISSIONSDK_LUA_000164")
+		PRINT( MISSDK_MISSIONSDK_LUA_000164 )
+		MISSDK_MISSIONSDK_LUA_000164 = GetResString("MISSDK_MISSIONSDK_LUA_000164")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000164 )
 		return LUA_FALSE
 	end
 	return LUA_TRUE
@@ -2147,88 +2461,106 @@ end
 function AddPetExp( character, p1, p2 )
 	PRINTF( "AddPetExp: p1 = , p2 = ", p1, p2 )
 	if p1 == nil or p2 == nil then
-		SystemNotice( character, "AddRMNextFlag:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000018 = GetResString("MISSDK_MISSIONSDK_LUA_000018")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000018 )
 		return LUA_FALSE
 	end
 	
 	return Give_ElfEXP_MISSION ( character , p1 + Rand( p2 ) )
 end
 
---ヴ叭贱纘巨
+--任务奖励操作
 function MisPrizeAction( character, npc, tp, p1, p2, p3, p4 )
 	PRINT( "MisPrizeAction:tp, p1, p2, p3, p4", tp, p1, p2, p3, p4 )
 	if tp == MIS_PRIZE_ITEM then
 		PRINT( "MisPrizeAction:GiveItem, p1 = , p2 = ", p1, p2, p3 )
 		local ret = GiveItem( character, npc, p1, p2, p3 )
 		if ret ~= LUA_TRUE then
-			SystemNotice( character, "MisPrizeAction:GiveItem:functiontransfer failed!" )
+			MISSDK_MISSIONSDK_LUA_000165 = GetResString("MISSDK_MISSIONSDK_LUA_000165")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000165 )
+			MISSDK_MISSIONSDK_LUA_000166 = GetResString("MISSDK_MISSIONSDK_LUA_000166")
+			LG( "mission_error", MISSDK_MISSIONSDK_LUA_000166, GetCharName( npc ), tp, p1, p2, p3 )
 			return LUA_FALSE
 		end
 	elseif tp == MIS_PRIZE_MONEY then
 		PRINT( "MisPrizeAction:AddMoney, p1 = "..p1 )
 		local ret = AddMoney( character, npc, p1 )
 		if ret ~= LUA_TRUE then
-			SystemNotice( character, "MisPrizeAction:AddMoney:functiontransfer failed!" )
+			MISSDK_MISSIONSDK_LUA_000167 = GetResString("MISSDK_MISSIONSDK_LUA_000167")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000167 )
+			MISSDK_MISSIONSDK_LUA_000168 = GetResString("MISSDK_MISSIONSDK_LUA_000168")
+			LG( "mission_error", MISSDK_MISSIONSDK_LUA_000168, GetCharName( npc ), tp, p1, p2 )
 			return LUA_FALSE
 		end		
 	elseif tp == MIS_PRIZE_FAME then
 		PRINT( "MisPrizeAction:AddFame, p1 = "..p1 )
 		--local ret = AddFame( character, npc, p1 )
 		--if ret ~= LUA_TRUE then
-			--SystemNotice( character, "MisPrizeAction:AddFame:functiontransfer failed!" )
+			--SystemNotice( character, "MisPrizeAction:AddFame:函数调用失败！" )
+			--LG( "mission_error", "MisPrizeAction:AddFame:函数调用失败！npcname = , tp = , p1 = , p2  ", GetCharName( npc ), tp, p1, p2 )
 			--return LUA_FALSE
 		--end
 	elseif tp == MIS_PRIZE_CESS then
 		PRINT( "MisPrizeAction:AdjustTradeCess" )
 		local ret = AdjustTradeCess( character, p1, p2 )
 		if ret ~= LUA_TRUE then
-			SystemNotice( character, "MisPrizeAction:AdjustTradeCess:functiontransfer failed!" )
+			MISSDK_MISSIONSDK_LUA_000169 = GetResString("MISSDK_MISSIONSDK_LUA_000169")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000169 )
+			MISSDK_MISSIONSDK_LUA_000170 = GetResString("MISSDK_MISSIONSDK_LUA_000170")
+			LG( "mission_error", MISSDK_MISSIONSDK_LUA_000170, GetCharName( npc ), tp, p1, p2 )
 			return LUA_FALSE
 		end
 	elseif tp == MIS_PRIZE_PETEXP then
 		PRINT( "MisPrizeAction:AddPetExp" )
 		local ret = AddPetExp( character, p1, p2 )
 		if ret ~= LUA_TRUE then
-			SystemNotice( character, "MisPrizeAction:AddPetExp:functiontransfer failed!" )
+			MISSDK_MISSIONSDK_LUA_000171 = GetResString("MISSDK_MISSIONSDK_LUA_000171")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000171 )
+			MISSDK_MISSIONSDK_LUA_000172 = GetResString("MISSDK_MISSIONSDK_LUA_000172")
+			LG( "mission_error", MISSDK_MISSIONSDK_LUA_000172, GetCharName( npc ), tp, p1, p2 )
 			return LUA_FALSE
 		end
 	else
-		SystemNotice( character, "MisPrizeAction: Invalid reward type notice!" )
+		MISSDK_MISSIONSDK_LUA_000173 = GetResString("MISSDK_MISSIONSDK_LUA_000173")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000173 )
 		return LUA_FALSE
 	end
 	return LUA_TRUE
 end
 
---ヴ叭NPC篈浪代
+--任务NPC状态检测
 function MissionState( character, npcid, missionlist )
 	PRINT( "MissionState" )
 	if missionlist == nil then
-		SystemNotice( character, "MissionState:Npc quest notice as null!" )
+		MISSDK_MISSIONSDK_LUA_000174 = GetResString("MISSDK_MISSIONSDK_LUA_000174")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000174 )
 		return LUA_FALSE
 	end
-	--浪代ヴ叭篈
+	--检测任务状态
 	for i = 1, 32, 1 do
 		if missionlist[i] == nil then
 			break
 		end
 		local mission = missionlist[i]
 		if mission.name == nil or mission.id == nil then
-			SystemNotice( character, "MissionState:NPC quest list name ord id value cannot be as null!" )
+			MISSDK_MISSIONSDK_LUA_000175 = GetResString("MISSDK_MISSIONSDK_LUA_000175")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000175 )
 			return LUA_FALSE
 		end
 		if mission.tp == NOMAL_MISSION then
 			PRINT( "MissionState:nomal mission" )
-			--耞à︹琌Τ赣ヴ叭		
+			--判断角色是否有该任务		
 			PRINT( "MissionState:2, ID =", mission.id )		
 			local ret = HasMission( character, mission.id )
 			PRINT( "MissionState:5" )
 			if ret == LUA_TRUE then
 				if mission.result == nil then
-					SystemNotice( character, "MissionState:quest completion trigger cannot be as null!" )
+					MISSDK_MISSIONSDK_LUA_000176 = GetResString("MISSDK_MISSIONSDK_LUA_000176")
+					SystemNotice( character, MISSDK_MISSIONSDK_LUA_000176 )
 				else
 					local ret = NpcTriggerCheck( character, mission.result )
 					if ret == LUA_TRUE then
-						--浪代临ヴ叭铬碻吏浪代癘魁计沮獺
+						--检测到可以还任务跳出循环检测并记录数据信息
 						PRINT( "MissionState:Add state = %d delivery, i = %d", MIS_DELIVERY, i )
 						AddMissionState( character, npcid, i, MIS_DELIVERY )
 					elseif mission.show ~= COMPLETE_SHOW then
@@ -2239,11 +2571,12 @@ function MissionState( character, npcid, missionlist )
 			else
 				PRINT( "MissionState:3" )
 				if mission.begin == nil then
-					SystemNotice( character, "MissionState: quest start trigger cannot be as null!" )
+					MISSDK_MISSIONSDK_LUA_000177 = GetResString("MISSDK_MISSIONSDK_LUA_000177")
+					SystemNotice( character, MISSDK_MISSIONSDK_LUA_000177 )
 				else
 					local ret = NpcTriggerCheck( character, mission.begin )
 					if ret == LUA_TRUE then
-						--浪代钡ヴ叭癘魁计沮獺
+						--检测到可以接任务记录数据信息
 						PRINT( "MissionState:Add state = %d accept, i = %d", MIS_ACCEPT, i )
 						AddMissionState( character, npcid, i, MIS_ACCEPT )
 					end
@@ -2253,34 +2586,38 @@ function MissionState( character, npcid, missionlist )
 			PRINT( "MissionState:rand mission, mission.id", mission.id )
 			local ret = HasRandMission( character, mission.id )
 			if ret == LUA_TRUE then
-				--竒钡radom ヴ叭琩琌ユ
+				--已经接了随机任务，查看他是否可以交付
 				PRINT( "MissionState, GetCharRandMission" )
 				local ret, index = GetCharRandMission( character, mission.id, mission )
 				PRINT( "MissionState:GetCharRandMission, ret =, index =  ", ret, index )
 				if ret == LUA_TRUE and index ~= 0 then
 					PRINT( "MissionState: proc rand mission" )
 					if mission.missionlist[index] == nil or mission.missionlist[index].result == nil then
-						SystemNotice( character, "MissionState:radom quest completion trigger cannot be as null!" )
+						MISSDK_MISSIONSDK_LUA_000178 = GetResString("MISSDK_MISSIONSDK_LUA_000178")
+						SystemNotice( character, MISSDK_MISSIONSDK_LUA_000178 )
 					else
 						PRINT( "MissionState: RandMission, NpcTriggerCheck" )
 						ret = NpcTriggerCheck( character, mission.missionlist[index].result )
 						if ret == LUA_TRUE then
-							--浪代临ヴ叭铬碻吏浪代癘魁计沮獺		
-							PRINT( "MissionState:random quest: Add state = %d delivery, i = %d", MIS_DELIVERY, i )
+							--检测到可以还任务跳出循环检测并记录数据信息		
+							MISSDK_MISSIONSDK_LUA_000179 = GetResString("MISSDK_MISSIONSDK_LUA_000179")
+							PRINT( MISSDK_MISSIONSDK_LUA_000179, MIS_DELIVERY, i )
 							AddMissionState( character, npcid, i, MIS_DELIVERY )
 						else
-							PRINT( "MissionState:random quest: Add state = %d pending, i = %d", MIS_PENDING, i )
+							MISSDK_MISSIONSDK_LUA_000180 = GetResString("MISSDK_MISSIONSDK_LUA_000180")
+							PRINT( MISSDK_MISSIONSDK_LUA_000180, MIS_PENDING, i )
 							AddMissionState( character, npcid, i, MIS_PENDING )
 						end
 					end
 				end
 			else
-				--ゼ钡radom ヴ叭琌钡
+				--未接随机任务，看是否可以接
 				local ret = IsRandMissionAccept( character, mission )
 				if ret == LUA_TRUE then
 					ret = NpcTriggerCheck( character, mission.begin )
 					if ret == LUA_TRUE then
-						PRINT( "MissionState:random quest: Add state = %d accept, i = %d", MIS_ACCEPT, i )
+						MISSDK_MISSIONSDK_LUA_000181 = GetResString("MISSDK_MISSIONSDK_LUA_000181")
+						PRINT( MISSDK_MISSIONSDK_LUA_000181, MIS_ACCEPT, i )
 						AddMissionState( character, npcid, i, MIS_ACCEPT )					
 					end
 				end
@@ -2295,40 +2632,45 @@ function MissionState( character, npcid, missionlist )
 	return LUA_TRUE
 end
 
---穝npcヴ叭篈夹粁獺
+--刷新npc任务状态标志信息
 function RefreshMissionState( character, npc )
 	if character == nil or npc == nil then
-		PRINT( "RefreshMissionState: parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000182 = GetResString("MISSDK_MISSIONSDK_LUA_000182")
+		PRINT( MISSDK_MISSIONSDK_LUA_000182 )
 	end
 	return ResetMissionState( character, npc )
 end
 
---穝ヴ叭ЧΘ篈
+--刷新任务完成状态
 function RefreshCompleteFlag( character, sid )
 	PRINT( "RefreshCompleteFlag" )
 	if sid == nil or Mission[sid] == nil then
-		PRINT( "RefreshCompleteFlag:incorrect quest script ID number,sid = "..sid )
-		SystemNotice( character, "RefreshCompleteFlag:incorrect quest script ID number,sid = "..sid )
+		MISSDK_MISSIONSDK_LUA_000183 = GetResString("MISSDK_MISSIONSDK_LUA_000183")
+		PRINT( MISSDK_MISSIONSDK_LUA_000183..sid )
+		MISSDK_MISSIONSDK_LUA_000183 = GetResString("MISSDK_MISSIONSDK_LUA_000183")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000183..sid )
 		return LUA_FALSE
 	end
 
-	local mission
+	local mission = Mission[sid]
 	if Mission[sid].tp == NOMAL_MISSION then
 		mission = Mission[sid]
 	elseif Mission[sid].tp == RAND_MISSION then
-		--竒钡radom ヴ叭琩琌ユ
+		--已经接了随机任务，查看他是否可以交付
 		PRINT( "RefreshCompleteFlag, GetCharRandMission" )
 		local ret, index = GetCharRandMission( character, Mission[sid].id, Mission[sid] )
 		PRINT( "RefreshCompleteFlag:GetCharRandMission, ret =, index =  ", ret, index )
 		if ret == LUA_TRUE and index ~= 0 then
 			PRINT( "RefreshCompleteFlag: proc rand mission" )
 			if Mission[sid].missionlist[index] == nil or Mission[sid].missionlist[index].result == nil then
-				SystemNotice( character, "MissionState:radom quest completion trigger cannot be as null!" )
+				MISSDK_MISSIONSDK_LUA_000178 = GetResString("MISSDK_MISSIONSDK_LUA_000178")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000178 )
 				return LUA_FALSE
 			end
 			mission = Mission[sid].missionlist[index]
 		else
-			PRINT( "RefreshCompleteFlag:GetCharRandMission: Function transfer error!" )
+			MISSDK_MISSIONSDK_LUA_000184 = GetResString("MISSDK_MISSIONSDK_LUA_000184")
+			PRINT( MISSDK_MISSIONSDK_LUA_000184 )
 			return LUA_FALSE
 		end
 	end
@@ -2336,13 +2678,16 @@ function RefreshCompleteFlag( character, sid )
 	PRINT( "RefreshCompleteFlag:NpcTriggerCheck" )
 	local ret = NpcTriggerCheck( character, mission.result )
 	if ret == LUA_TRUE then
-		--浪代ヴ叭ЧΘ
-		PRINT( "RefreshCompleteFlag:quest has completed!" )
-		--SystemNotice( character, "RefreshCompleteFlag:quest has completed!" )
+		--检测到任务完成
+		MISSDK_MISSIONSDK_LUA_000185 = GetResString("MISSDK_MISSIONSDK_LUA_000185")
+		PRINT( MISSDK_MISSIONSDK_LUA_000185 )
+		--SystemNotice( character, "RefreshCompleteFlag:任务已经完成！" )
 		ret = SetMissionComplete( character, Mission[sid].id )
 		if ret ~= LUA_TRUE then
-			PRINT( "RefreshCompleteFlag:SetMissionComplete set quest completion label failed!" )
-			SystemNotice( character, "RefreshCompleteFlag:SetMissionComplete set quest completion label failed!" )
+			MISSDK_MISSIONSDK_LUA_000186 = GetResString("MISSDK_MISSIONSDK_LUA_000186")
+			PRINT( MISSDK_MISSIONSDK_LUA_000186 )
+			MISSDK_MISSIONSDK_LUA_000186 = GetResString("MISSDK_MISSIONSDK_LUA_000186")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000186 )
 		end
 	end
 	
@@ -2350,26 +2695,29 @@ function RefreshCompleteFlag( character, sid )
 	return LUA_TRUE
 end
 
---ヴ叭兵ン耞矪瞶ㄧ计
+--任务条件判断处理函数
 function ConditionsTest( character, conditions, param1, param2, npc )
 	if conditions == nil then
-		SystemNotice( character, "ConditionsTest: condition test function conditions parameter cannot be as null!" )
+		MISSDK_MISSIONSDK_LUA_000187 = GetResString("MISSDK_MISSIONSDK_LUA_000187")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000187 )
 		return LUA_FALSE
 	end
 
 	if conditions[1] == nil then
-		PRINT( "ConditionsTest: condition as null return real!" )
+		MISSDK_MISSIONSDK_LUA_000188 = GetResString("MISSDK_MISSIONSDK_LUA_000188")
+		PRINT( MISSDK_MISSIONSDK_LUA_000188 )
 	else
 		local num = TR_MAXNUM_CONDITIONS
 		if conditions.count ~= nil then
 			num = conditions.count
 		end
-		for i = 1, num, 1 do --浪代牟祇竟兵ン程12兵ン
+		for i = 1, num, 1 do --检测触发器限制条件最多12个条件
 			if conditions[i] == nil then			
 				break;
 			end
 			if conditions[i].func == nil then
-				--SystemNotice( character, "ConditionsTest: condition management function cannot be as null!" )			
+				MISSDK_MISSIONSDK_LUA_000189 = GetResString("MISSDK_MISSIONSDK_LUA_000189")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000189 )			
 			end
 			if conditions[i].func == NoMission then
 				PRINT( "ConditionsTest:NoMission, p1 = ", conditions[i].p1 )
@@ -2378,15 +2726,16 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 					PRINT( "ConditionsTest: NoMission = false" )
 					return LUA_FALSE
 				end
-			-----------------------
-			-- ?????????? ?????? --
-			-----------------------
-			elseif conditions[i].func == IsGiveQuest then
-				local ret = IsGiveQuest(character, conditions[i].p1)
-				if ret ~= LUA_TRUE then
-					PRINT( "ConditionsTest:IsGiveQuest = false" )
+				
+					-------------------------------------------------------------------------------------------------------------------------------
+		elseif conditions[i].func == Sdhd_check then-------------------------找相关行添加
+				local ret = Sdhd_check(character) 
+				if ret ~= LUA_TRUE then	
 					return LUA_FALSE
 				end
+		
+									
+				
 			elseif conditions[i].func == HasMission then
 				PRINT( "ConditionsTest:HasMission, p1 = ", conditions[i].p1 )
 				local ret = HasMission( character, conditions[i].p1 )
@@ -2475,10 +2824,9 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 				PRINT( "ConditionsTest: HasItem, p1 =, p2 =", conditions[i].p1, conditions[i].p2 )
 				local ret = HasItem( character, conditions[i].p1, conditions[i].p2 )
 				if ret ~= LUA_TRUE then
-					PRINT( "ConditionsTest:HasItem = false" )
+					PRINT( "ConditionsTest:HasItem= false" )
 					return LUA_FALSE
 				end
-			
 			elseif conditions[i].func == NoItem then
 				PRINT( "ConditionsTest: NoItem, p1 =, p2 =", conditions[i].p1, conditions[i].p2 )
 				local ret = NoItem( character, conditions[i].p1, conditions[i].p2 )
@@ -2514,6 +2862,20 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 					PRINT( "ConditionsTest:CheckPoint = false" )
 					return LUA_FALSE
 				end
+			elseif conditions[i].func == ItemAttrNum then
+				PRINT( "ConditionsTest: ItemAttrNum, p1 = ", conditions[i].p1,conditions[i].p2,conditions[i].p3,conditions[i].p4)
+				local ret = ItemAttrNum( character,conditions[i].p1,conditions[i].p2,conditions[i].p3,conditions[i].p4)
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:ItemAttrNum = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == CheckItemAttr then
+				PRINT( "ConditionsTest: CheckItemAttr, p1 = ", conditions[i].p1,conditions[i].p2)
+				local ret = CheckItemAttr( character,conditions[i].p1,conditions[i].p2)
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CheckItemAttr = false" )
+					return LUA_FALSE
+				end
 			elseif conditions[i].func == HaveNoItem then
 				PRINT( "ConditionsTest: HaveNoItem, p1 = ", conditions[i].p1)
 				local ret = HaveNoItem( character,conditions[i].p1)
@@ -2528,17 +2890,25 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 					PRINT( "ConditionsTest:BankNoItem = false" )
 					return LUA_FALSE
 				end
+			elseif conditions[i].func == BankHasItem then
+					PRINT( "ConditionsTest: BankHasItem, p1 =, p2 =", conditions[i].p1, conditions[i].p2 )
+				local ret = BankHasItem( character, conditions[i].p1, conditions[i].p2 )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:BankHasItem = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == CheckZBNowState then
+					PRINT( "ConditionsTest: CheckZBNowState")
+				local ret = CheckZBNowState( character)
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CheckZBNowState = false" )
+					return LUA_FALSE
+				end
 			elseif conditions[i].func == EquipNoItem then
 				PRINT( "ConditionsTest: EquipNoItem, p1 =, p2 =", conditions[i].p1, conditions[i].p2 )
 				local ret = EquipNoItem( character, conditions[i].p1, conditions[i].p2 )
 				if ret ~= LUA_TRUE then
 					PRINT( "ConditionsTest:EquipNoItem = false" )
-					return LUA_FALSE
-				end
-			elseif conditions[i].func == CheckTeam then
-				local ret = CheckTeam( character)
-				if ret ~= LUA_TRUE then
-					PRINT( "ConditionsTest:CheckTeam = false" )
 					return LUA_FALSE
 				end
 			elseif conditions[i].func == CheckTeam1 then
@@ -2562,7 +2932,7 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 					PRINT( "ConditionsTest:CheckErroNum = false" )
 					return LUA_FALSE
 				end
-			elseif conditions[i].func == HasReadExp then		--代喷ゲ斗Τ竒喷
+			elseif conditions[i].func == HasReadExp then		--小测验时必须有经验
 				local ret = HasReadExp( character )
 				if ret ~= LUA_TRUE then
 					return LUA_FALSE
@@ -2623,52 +2993,18 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 					PRINT( "ConditionsTest:HasMoney = false" )
 					return LUA_FALSE
 				end
-			-----------------
-			-- Check Reset --
-			-----------------
-			elseif conditions[i].func == Check_Reset then
-				PRINT( "ConditionsTest: Check_Reset, p1 = ", conditions[i].p1 )
-				local ret = Check_Reset( character, conditions[i].p1 )
-				if ret ~= LUA_TRUE then
-					PRINT( "ConditionsTest:Check_Reset = false" )
-					return LUA_FALSE
-				end
-			-----------------
-			-- Check Forge --
-			-----------------
-			elseif conditions[i].func == CheckForge then
-				PRINT( "ConditionsTest: CheckForge, p1 = ", conditions[i].p1 )
-				local ret = CheckForge( character, conditions[i].p1 )
-				if ret ~= LUA_TRUE then
-					PRINT( "ConditionsTest:CheckForge = false" )
-					return LUA_FALSE
-				end
-			--------------
-			-- Check GM --
-			--------------
-			elseif conditions[i].func == CheckGM then
-				PRINT( "ConditionsTest: CheckGM, p1 = ", conditions[i].p1 )
-				local ret = CheckGM( character, conditions[i].p1 )
-				if ret ~= LUA_TRUE then
-					PRINT( "ConditionsTest:CheckGM = false" )
-					return LUA_FALSE
-				end
-			elseif conditions[i].func == Beach.NotActive then
-				local ret = Beach.NotActive(character)
-				if ret ~= LUA_TRUE then
-					return LUA_FALSE
-				end	
 			elseif conditions[i].func == HasCancelMissionMoney then
-				PRINT( "ConditionsTest: HasCancelMissionMoney" )
-				local ret = HasCancelMissionMoney( character )
-				if ret ~= LUA_TRUE then
-					PRINT( "ConditionsTest:HasCancelMissionMoney = false" )
-					return LUA_FALSE
-				end				
+				-- PRINT( "ConditionsTest: HasCancelMissionMoney" )
+				-- local ret = HasCancelMissionMoney( character )
+				-- if ret ~= LUA_TRUE then
+					-- PRINT( "ConditionsTest:HasCancelMissionMoney = false" )
+					-- return LUA_FALSE
+				-- end				
 			elseif conditions[i].func == IsMonster then
 				PRINT( "ConditionsTest:IsMonster, p1 =, p2 =", conditions[i].p1, param1 )
 				if param1 == nil then
-					SystemNotice( "ConditionsTest: determine destroy item type function, parameter invalid!param1 = nil" )
+					MISSDK_MISSIONSDK_LUA_000190 = GetResString("MISSDK_MISSIONSDK_LUA_000190")
+					SystemNotice( MISSDK_MISSIONSDK_LUA_000190 )
 					return LUA_FALSE
 				end
 				local ret = IsMonster( conditions[i].p1, param1 )
@@ -2679,7 +3015,8 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 			elseif conditions[i].func == IsItem then
 				PRINT( "ConditionsTest:IsItem, p1 =, p2 =", conditions[i].p1, param1 )
 				if param1 == nil then
-					SystemNotice( "ConditionsTest:determine obtain item type function, parameter invalid!param1 = nil" )
+					MISSDK_MISSIONSDK_LUA_000191 = GetResString("MISSDK_MISSIONSDK_LUA_000191")
+					SystemNotice( MISSDK_MISSIONSDK_LUA_000191 )
 					return LUA_FALSE
 				end
 				local ret = IsItem( conditions[i].p1, param1 )
@@ -2706,6 +3043,20 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 				local ret = LvCheck( character, conditions[i].p1, conditions[i].p2 )
 				if ret ~= LUA_TRUE then
 					PRINT( "ConditionsTest:LvCheck = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == check_yourjob then
+				PRINT( "ConditionsTest:LvCheck, p1 =, p2 =")
+				local ret = check_yourjob( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:check_yourjob" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == TurnToJob then
+				PRINT( "ConditionsTest:TurnToJob,p1 = ", conditions[i].p1 )
+				local ret = TurnToJob( character, conditions[i].p1 )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:TurnToJob = false" )
 					return LUA_FALSE
 				end
 			elseif conditions[i].func == HpCheck then
@@ -2932,6 +3283,13 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 					PRINT( "ConditionsTest:HasAllBoatInBerth = false" )
 					return LUA_FALSE
 				end
+			--elseif conditions[i].func == HasAllBoatInBerth_eitheror then
+			--	PRINT( "ConditionsTest:HasAllBoatInBerth , p1 = , p2 = ", conditions[i].p1, conditions[i].p2 )
+			--	local ret = HasAllBoatInBerth_eitheror( character, conditions[i].p1, conditions[i].p2 )
+			--	if ret ~= LUA_TRUE then
+			--		PRINT( "ConditionsTest:HasAllBoatInBerth_eitheror = false" )
+			--		return LUA_FALSE
+			--	end
 			elseif conditions[i].func == HasLuanchOut then
 				PRINT( "ConditionsTest:HasLuanchOut" )
 				local ret = HasLuanchOut( character )
@@ -3044,6 +3402,13 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 					PRINT( "ConditionsTest:CheckEnergy = false" )
 					return LUA_FALSE
 				end
+			elseif conditions[i].func == CheckChaItem then
+				PRINT( "ConditionsTest: CheckChaItem, p1 = ")
+				local ret = CheckChaItem( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CheckChaItem = false" )
+					return LUA_FALSE
+				end			
 			elseif conditions[i].func == HasXmasYB then
 				PRINT( "ConditionsTest:HasXmasYB,p1, p2", conditions[i].p1, conditions[i].p2 )
 				local ret = HasXmasYB( character, conditions[i].p1, conditions[i].p2 )
@@ -3093,6 +3458,43 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 					PRINT( "ConditionsTest:ValentinesRing = false" )
 					return LUA_FALSE
 				end	
+			--[[ 彩票系统下线
+ 			elseif conditions[i].func ==DuiHhuan1 then
+				PRINT( "ConditionsTest: DuiHhuan1")
+				local ret = DuiHhuan1( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:DuiHhuan1 = false" )
+					return LUA_FALSE
+				end	
+			elseif conditions[i].func ==DuiHhuan2 then
+				PRINT( "ConditionsTest: DuiHhuan2")
+				local ret = DuiHhuan2( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:DuiHhuan2 = false" )
+					return LUA_FALSE
+				end	
+			elseif conditions[i].func ==DuiHhuan3 then
+				PRINT( "ConditionsTest: DuiHhuan3")
+				local ret = DuiHhuan3( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:DuiHhuan3 = false" )
+					return LUA_FALSE
+				end	
+				elseif conditions[i].func ==DuiHhuan4 then
+				PRINT( "ConditionsTest: DuiHhuan4")
+				local ret = DuiHhuan4( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:DuiHhuan4 = false" )
+					return LUA_FALSE
+				end	
+				elseif conditions[i].func ==DuiHhuan5 then
+				PRINT( "ConditionsTest: DuiHhuan5")
+				local ret = DuiHhuan5( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:DuiHhuan5 = false" )
+					return LUA_FALSE
+				end	
+			]]
 			elseif conditions[i].func == ValentinesRingJudge then
 				PRINT( "ConditionsTest:ValentinesRingJudge, p1 = ", conditions[i].p1 )
 				local ret = ValentinesRingJudge( character, conditions[i].p1 )
@@ -3100,16 +3502,654 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 					PRINT( "ConditionsTest:ValentinesRingJudge = false" )
 					return LUA_FALSE
 				end
-			elseif conditions[i].func ==CheckTime then
-				PRINT( "ConditionsTest: CheckTime, p1 =, p2 =", conditions[i].p1)
-				local ret = CheckTime( character, conditions[i].p1 )
+			elseif conditions[i].func == Winterland_MisTime then
+				PRINT( "ConditionsTest:Winterland_MisTime" )
+				local ret = Winterland_MisTime( character )
 				if ret ~= LUA_TRUE then
-					PRINT( "ConditionsTest:CheckTime = false" )
+					PRINT( "ConditionsTest:Winterland_MisTime = false" )
+					return LUA_FALSE
+				end	
+			elseif conditions[i].func == Get_Day_Mission1 then
+				PRINT( "ConditionsTest:Get_Day_Mission1" )
+				local ret = Get_Day_Mission1( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Get_Day_Mission1 = false" )
+					return LUA_FALSE
+				end	
+			elseif conditions[i].func == Get_Day_Mission2 then
+				PRINT( "ConditionsTest:Get_Day_Mission2" )
+				local ret = Get_Day_Mission2( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Get_Day_Mission2 = false" )
+					return LUA_FALSE
+				end	
+			elseif conditions[i].func == Get_Day_Mission3 then
+				PRINT( "ConditionsTest:Get_Day_Mission3" )
+				local ret = Get_Day_Mission3( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Get_Day_Mission3 = false" )
+					return LUA_FALSE
+				end	
+			elseif conditions[i].func == Get_Day_Mission4 then
+				PRINT( "ConditionsTest:Get_Day_Mission4" )
+				local ret = Get_Day_Mission4( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Get_Day_Mission4 = false" )
+					return LUA_FALSE
+				end	
+			elseif conditions[i].func == Get_Day_Mission5 then
+				PRINT( "ConditionsTest:Get_Day_Mission5" )
+				local ret = Get_Day_Mission5( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Get_Day_Mission5 = false" )
+					return LUA_FALSE
+				end	
+			elseif conditions[i].func == Get_Day_Mission6 then
+				PRINT( "ConditionsTest:Get_Day_Mission6" )
+				local ret = Get_Day_Mission6( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Get_Day_Mission6 = false" )
+					return LUA_FALSE
+				end		
+			elseif conditions[i].func == Get_Day_Mission7 then
+				PRINT( "ConditionsTest:Get_Day_Mission7" )
+				local ret = Get_Day_Mission7( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Get_Day_Mission7 = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == Get_Day_Mission8 then
+				PRINT( "ConditionsTest:Get_Day_Mission8" )
+				local ret = Get_Day_Mission8( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Get_Day_Mission8 = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == Get_Day_Mission9 then
+				PRINT( "ConditionsTest:Get_Day_Mission9" )
+				local ret = Get_Day_Mission9( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Get_Day_Mission9 = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == Get_Day_Mission10 then
+				PRINT( "ConditionsTest:Get_Day_Mission10" )
+				local ret = Get_Day_Mission10( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Get_Day_Mission10 = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == Get_Day_Mission11 then
+				PRINT( "ConditionsTest:Get_Day_Mission11" )
+				local ret = Get_Day_Mission11( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Get_Day_Mission11 = false" )
+					return LUA_FALSE
+				end
+			----------------------------------------zhangliang---------------------万圣节真正的危机--------------------
+			elseif conditions[i].func == Get_Day_Mission12 then
+				PRINT( "ConditionsTest:Get_Day_Mission12" )
+				local ret = Get_Day_Mission12( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Get_Day_Mission12 = false" )
+					return LUA_FALSE
+				end
+			----------------------------------------zhangliang---------------------偷吃鸡的狐狸--------------------
+			elseif conditions[i].func == Get_Day_Mission13 then
+				PRINT( "ConditionsTest:Get_Day_Mission13" )
+				local ret = Get_Day_Mission13( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Get_Day_Mission13 = false" )
+					return LUA_FALSE
+				end
+			
+			----------------------------------------zhangliang---------------------抓捕王小虎--------------------
+			elseif conditions[i].func == Get_Day_Mission14 then
+				PRINT( "ConditionsTest:Get_Day_Mission14" )
+				local ret = Get_Day_Mission14( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Get_Day_Mission14 = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == checkWXHtime then
+				PRINT( "conditions: checkWXHtime ")
+				local ret = checkWXHtime( character)
+				if ret ~= LUA_TRUE then
+					PRINT( "conditions:checkWXHtime = false" )
+					return LUA_FALSE
+				end		
+			----------------------------------------zhangliang---------------------抓捕王小虎--------------------				
+			elseif conditions[i].func == JL_lv then
+				PRINT( "ConditionsTest: JL_lv, p1 = ")
+				local ret = JL_lv( character)
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:JL_lv = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == HasDiamondId then
+				PRINT( "ConditionsTest:HasDiamondId")
+				local ret = HasDiamondId( character)
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:HasDiamondId = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == Get_ItemAttr_Join1 then
+				PRINT( "ConditionsTest:Get_ItemAttr_Join1")
+				local ret = Get_ItemAttr_Join1( character)
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Get_ItemAttr_Join1 = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == Get_ItemAttr_Join20 then
+				PRINT( "ConditionsTest:Get_ItemAttr_Join20")
+				local ret = Get_ItemAttr_Join20( character)
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Get_ItemAttr_Join20 = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == JLTLZM then
+				PRINT( "ConditionsTest:JLTLZM")
+				local ret = JLTLZM( character)
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:JLTLZM = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == TeamZd then
+				PRINT( "ConditionsTest:TeamZd")			
+				local ret = TeamZd( character)
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:TeamZd = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == GHPD then
+				PRINT( "ConditionsTest:GHPD")			
+				local ret = GHPD( character)
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:GHPD = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == ShuangBei_Time then
+				PRINT( "ConditionsTest:ShuangBei_Time, p1 =, p2 = ", conditions[i].p1, conditions[i].p2 ) 
+				local ret = ShuangBei_Time( character, conditions[i].p1, conditions[i].p2 ) 
+				if ret ~= LUA_TRUE then 
+					PRINT( "ConditionsTest: ShuangBei_Time = false" )
+						return LUA_FALSE
+				end
+			elseif conditions[i].func == Judge_Mission_Times then
+				PRINT( "ConditionsTest:Judge_Mission_Times")			
+				local ret = Judge_Mission_Times( character)
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Judge_Mission_Times = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CheckIsValidTeam then
+				PRINT( "ConditionsTest: CheckIsValidTeam")
+				local ret = CheckIsValidTeam( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CheckIsValidTeam = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==Get_Can_Match then
+				PRINT( "ConditionsTest: Get_Can_Match")
+				local ret = Get_Can_Match( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Get_Can_Match = false" )
+					return LUA_FALSE
+				end	
+			elseif conditions[i].func ==Get_Can_Rebirth then
+				PRINT( "ConditionsTest: Get_Can_Rebirth")
+				local ret = Get_Can_Rebirth( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Get_Can_Rebirth = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CheckStateNumCanGo then
+				PRINT( "ConditionsTest: CheckStateNumCanGo")
+				local ret = CheckStateNumCanGo( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CheckStateNumCanGo = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==GetWinnerOfArena then
+				PRINT( "ConditionsTest: GetWinnerOfArena")
+				local ret = GetWinnerOfArena( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:GetWinnerOfArena = false" )
+					return LUA_FALSE
+				end	
+			elseif conditions[i].func ==InXZJT then
+				PRINT( "ConditionsTest: InXZJT")
+				local ret = InXZJT( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:InXZJT = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==IsGiveXZItem then
+				PRINT( "ConditionsTest: IsGiveXZItem")
+				local ret = IsGiveXZItem( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:IsGiveXZItem = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==HasYiZuHua then
+				PRINT( "ConditionsTest: HasYiZuHua")
+				local ret = HasYiZuHua( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:HasYiZuHua = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==Ismm then
+				PRINT( "ConditionsTest: Ismm")
+				local ret = Ismm( character )
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Ismm = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==XingZuoKaHuoDong then
+				PRINT( "ConditionsTest: XingZuoKaHuoDong")
+				local ret = XingZuoKaHuoDong(character, conditions[i].p1, conditions[i].p2 ) 
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:XingZuoKaHuoDong = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==NSDXIsFull then
+				PRINT( "ConditionsTest: NSDXIsFull")
+				local ret = NSDXIsFull(character ) 
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:NSDXIsFull = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==goto_mj1_time then
+				PRINT( "ConditionsTest: goto_mj1_time")
+				local ret = goto_mj1_time(character ) 
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:goto_mj1_time = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==goto_mj2_time then
+				PRINT( "ConditionsTest: goto_mj2_time")
+				local ret = goto_mj2_time(character ) 
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:goto_mj2_time = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CheckZsExp then
+				PRINT( "ConditionsTest: CheckZsExp")
+				local ret = CheckZsExp(character ) 
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CheckZsExp = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==buling then
+				PRINT( "ConditionsTest: buling")
+				local ret = buling(character ) 
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:buling = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CanbulingSB then
+				PRINT( "ConditionsTest: CanbulingSB")
+				local ret = CanbulingSB(character ) 
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CanbulingSB = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CanbulingBL then
+				PRINT( "ConditionsTest: CanbulingBL")
+				local ret = CanbulingBL(character ) 
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CanbulingBL = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==Check_KSS then
+				PRINT( "ConditionsTest: Check_KSS")
+				local ret = Check_KSS(character ) 
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Check_KSS = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CanChargeQiByOne then
+				PRINT( "ConditionsTest: CanChargeQiByOne")
+				local ret = CanChargeQiByOne(character ) 
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CanChargeQiByOne = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CanChargeQiByAll then
+				local ret = CanChargeQiByAll(character ) 
+				if ret ~= LUA_TRUE then
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CanZhanBubyRole then
+				local ret = CanZhanBubyRole(character ) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CanZhanBu then
+				local ret = CanZhanBu(character,conditions[i].p1 ) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == XZKcheck then
+				local ret = XZKcheck( character )
+				if ret ~= LUA_TRUE then
+				return LUA_FALSE
+				end
+			elseif conditions[i].func == JZcheck1 then
+				local ret = JZcheck1( character )
+				if ret ~= LUA_TRUE then
+					return LUA_FALSE
+				end	
+			elseif conditions[i].func == JZcheck2 then
+				local ret = JZcheck2( character )
+				if ret ~= LUA_TRUE then
+					return LUA_FALSE
+				end		
+			elseif conditions[i].func == JZcheck3 then
+				local ret = JZcheck3( character )
+				if ret ~= LUA_TRUE then
+					return LUA_FALSE
+				end		
+			elseif conditions[i].func == JZcheck4 then
+				local ret = JZcheck4( character )
+				if ret ~= LUA_TRUE then
+					return LUA_FALSE
+				end			
+			elseif conditions[i].func == Jiu_Check then
+				local ret = Jiu_Check( character )
+				if ret ~= LUA_TRUE then
+				return LUA_FALSE
+			end					
+			elseif conditions[i].func ==CheckSports then
+				PRINT( "ConditionsTest: CheckSports")
+				local ret = CheckSports(character ) 
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CheckSports = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==HasSportsCount then
+				PRINT( "ConditionsTest: HasSportsCount")
+				local ret = HasSportsCount(character, conditions[i].p1) 
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:HasSportsCount = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CheckTeamSports then
+				PRINT( "ConditionsTest: CheckTeamSports")
+				local ret = CheckTeamSports(character ) 
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CheckTeamSports = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == CheckTeam then
+				local ret = CheckTeam( character)
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CheckTeam = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == CanChargeJJCXianglian then
+				local ret = CanChargeJJCXianglian( character)
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CanChargeJJCXianglian = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CheckCanGetJJCZB then
+				PRINT( "ConditionsTest: CheckCanGetJJCZB")
+				local ret = CheckCanGetJJCZB(character, conditions[i].p1,conditions[i].p2) 
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CheckCanGetJJCZB = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == CanReturnJJCXianglian then
+				local ret = CanReturnJJCXianglian( character)
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CanReturnJJCXianglian = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==Check_KSS then
+				PRINT( "ConditionsTest: Check_KSS")
+				local ret = Check_KSS(character ) 
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:Check_KSS = false" )
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CanZhanBubyRole then
+				local ret = CanZhanBubyRole(character ) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CanZhanBu then
+				local ret = CanZhanBu(character,conditions[i].p1 ) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CanChargeZHZZ then
+				local ret = CanChargeZHZZ(character ) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end	
+			elseif conditions[i].func ==CheckJobIsNew then
+				local ret = CheckJobIsNew(character ) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end	
+			elseif conditions[i].func ==CheckSHSkill then
+				local ret = CheckSHSkill(character ) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end	
+			elseif conditions[i].func ==CheckAttrRole then
+				local ret = CheckAttrRole(character ) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end	
+			elseif conditions[i].func ==CheckFirstSkill then
+				local ret = CheckFirstSkill(character ) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CheckChaTypeID then
+				local ret = CheckChaTypeID(character, conditions[i].p1) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==HasItemShouTao then
+				local ret = HasItemShouTao(character, conditions[i].p1) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==HasBagJieZhi then
+				local ret = HasBagJieZhi(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end	
+			elseif conditions[i].func ==CheckZXBYPoint then
+				local ret = CheckZXBYPoint(character,conditions[i].p1,conditions[i].p2) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CheckXXBYPoint then
+				local ret = CheckXXBYPoint(character,conditions[i].p1,conditions[i].p2) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==PfEqual1 then
+				local ret = PfEqual1(character,conditions[i].p1) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CheckRoleLearnedForge then
+				local ret = CheckRoleLearnedForge(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==HasCleckLevel then
+				local ret = HasCleckLevel(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==HasCleckSupply then
+				local ret = HasCleckSupply(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CheckRecordRand then
+				local ret = CheckRecordRand(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CheckBaoShiLV then
+				local ret = CheckBaoShiLV(character,conditions[i].p1) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CheckBankItemOrLv then
+				local ret = CheckBankItemOrLv(character,conditions[i].p1,conditions[i].p2) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CheckKZRH then
+				local ret = CheckKZRH(character,conditions[i].p1) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CanBuyZTL then
+				local ret = CanBuyZTL(character,npc) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CanZTLCharge then
+				local ret = CanZTLCharge(character,npc) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CheckCZCL then
+				local ret = CheckCZCL(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CheckBoatSkill then
+				local ret = CheckBoatSkill(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==Box_choose1 then
+				local ret = Box_choose1(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CheckBagJL then
+				local ret = CheckBagJL(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==JL_lv3 then
+				local ret = JL_lv3(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==Box_choose2 then
+				local ret = Box_choose2(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CheckBaoShiLV2 then
+				local ret = CheckBaoShiLV2(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==HasCleckFusion then
+				local ret = HasCleckFusion(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==HasCleckUnite then
+				local ret = HasCleckUnite(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CheckEquipPurify then
+				local ret = CheckEquipPurify(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end			
+			elseif conditions[i].func ==CheckNoNewJob then
+				local ret = CheckNoNewJob(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==Box_choose3 then
+				local ret = Box_choose3(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==Box_choose4 then
+				local ret = Box_choose4(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==Box_choose5 then
+				local ret = Box_choose5(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==Box_choose6 then
+				local ret = Box_choose6(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==Box_choose7 then
+				local ret = Box_choose7(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CanChargeTZXZ then
+				local ret = CanChargeTZXZ(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==CanChargeAllTZXZ then
+				local ret = CanChargeAllTZXZ(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==BBXLcheck then
+				local ret = BBXLcheck(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end	
+			elseif conditions[i].func == CheckBookTo then
+				PRINT( "ConditionsTest: CheckBookTo, p1 = ", conditions[i].p1)
+				local ret = CheckBookTo( character, conditions[i].p1)
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:CheckBookTo = false" )
+					return LUA_FALSE
+				end					
+			elseif conditions[i].func == IsGiveXZNewItem then
+				local ret = IsGiveXZNewItem(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == CanEnterXLZD then
+				local ret = CanEnterXLZD(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func == CanSpEnterXLZD then
+				local ret = CanSpEnterXLZD(character) 
+				if ret ~= LUA_TRUE then	
+					return LUA_FALSE
+				end
+			elseif conditions[i].func ==SQMooncake_Count_Minus then
+				local ret = SQMooncake_Count_Minus(character,conditions[i].p1 ) 
+				if ret ~= LUA_TRUE then	
 					return LUA_FALSE
 				end
 			else
-				PRINT( "ConditionsTest: unknown condition function!i = %d", i )
-				--SystemNotice( character, "ConditionsTest:unknown condition function error!" )
+				MISSDK_MISSIONSDK_LUA_000192 = GetResString("MISSDK_MISSIONSDK_LUA_000192")
+				PRINT( MISSDK_MISSIONSDK_LUA_000192, i )
+				MISSDK_MISSIONSDK_LUA_000193 = GetResString("MISSDK_MISSIONSDK_LUA_000193")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000193 )
 				return LUA_ERROR
 			end
 		end
@@ -3119,16 +4159,18 @@ function ConditionsTest( character, conditions, param1, param2, npc )
 	return LUA_TRUE
 end
 
---ヴ叭笆矪瞶ㄧ计
+--任务动作处理函数
 function ActionsProc( character, actions, npc, page, misid, scriptid, param1, param2 )
 	PRINT( "ActionProc: actions proc" )
 	if actions == nil then
-		PRINT( "ActionProc:quest action management function parameter actions cannot be as null!" )
-		SystemNotice( character, "ActionProc:quest action management function parameter actions cannot be as null!" )
+		MISSDK_MISSIONSDK_LUA_000194 = GetResString("MISSDK_MISSIONSDK_LUA_000194")
+		PRINT( MISSDK_MISSIONSDK_LUA_000194 )
+		MISSDK_MISSIONSDK_LUA_000194 = GetResString("MISSDK_MISSIONSDK_LUA_000194")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000194 )
 		return LUA_ERROR
 	end
-	
-	--牟祇竟才兵ン笆
+	CurNpc=npc
+	--触发器符合条件动作
 	local num = TR_MAXNUM_ACTIONS
 	if actions.count ~= nil then
 		num = actions.count
@@ -3147,62 +4189,89 @@ function ActionsProc( character, actions, npc, page, misid, scriptid, param1, pa
 		elseif actions[i].func == CloseTalk then
 			PRINT( "ActionProc:CloseTalk" )
 			CloseTalk( character, npc )
-		--?????????? ??????
-		elseif actions[i].func == SaveQuest then
-			SaveQuest( character, actions[i].p1 )
+		----------------------------------------------------------------------------圣诞活动添加注册	
+	   elseif actions[i].func == jsq then
+			local ret = jsq(character )
+			if ret ~= LUA_TRUE then
+				--SystemNotice( character, "ActionsProc:EnterXLZD 失败！" )
+				return LUA_FALSE
+			end
+			
+		elseif actions[i].func == wcjsq then
+			local ret = wcjsq(character )
+			if ret ~= LUA_TRUE then
+				--SystemNotice( character, "ActionsProc:EnterXLZD 失败！" )
+				return LUA_FALSE
+			end
+			---------------------------------------------------------------------------------------------
 		elseif actions[i].func == AddMission then
 			PRINT( "ActionProc: AddMission actions[i].p1 = , scriptid = ", actions[i].p1, scriptid )
 			local ret = AddMission( character, actions[i].p1, scriptid )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: AddMission failed!" )
-				SystemNotice( character, "ActionProc: Adds quest failed!" )
+				MISSDK_MISSIONSDK_LUA_000195 = GetResString("MISSDK_MISSIONSDK_LUA_000195")
+				PRINT( MISSDK_MISSIONSDK_LUA_000195 )
+				MISSDK_MISSIONSDK_LUA_000196 = GetResString("MISSDK_MISSIONSDK_LUA_000196")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000196 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddTrigger then
 			PRINT( "ActionProc: AddTrigger, misid, p1 = , p2 = , p3 = , p4 = , p5 = , p6 = , p7 = , p8 = ", misid, actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4, actions[i].p5, actions[i].p6, actions[i].p7, actions[i].p8 )
 			local ret = AddTrigger( character, misid, actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4, actions[i].p5, actions[i].p6, actions[i].p7, actions[i].p8 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: AddTrigger failed!" )
-				SystemNotice( character, "ActionProc:  adds trigger failed!" )
+				MISSDK_MISSIONSDK_LUA_000197 = GetResString("MISSDK_MISSIONSDK_LUA_000197")
+				PRINT( MISSDK_MISSIONSDK_LUA_000197 )
+				MISSDK_MISSIONSDK_LUA_000198 = GetResString("MISSDK_MISSIONSDK_LUA_000198")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000198 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddNpcTrigger then
 			PRINT( "ActionProc: AddNpcTrigger, p1 = , p2 = , p3 = , p4 = , p5 = , p6 = ", actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4, actions[i].p5, actions[i].p6 )
 			local ret = AddNpcTrigger( character, actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4, actions[i].p5, actions[i].p6 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: AddNpcTrigger failed!" )
+				MISSDK_MISSIONSDK_LUA_000199 = GetResString("MISSDK_MISSIONSDK_LUA_000199")
+				PRINT( MISSDK_MISSIONSDK_LUA_000199 )
+				MISSDK_MISSIONSDK_LUA_000200 = GetResString("MISSDK_MISSIONSDK_LUA_000200")
+				LG( "trigger_error", MISSDK_MISSIONSDK_LUA_000200..GetCharName( character ) )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddNextFlag then
 			PRINT( "ActionProc:AddNextFlag, p1, p2, p3", actions[i].p1, actions[i].p2, actions[i].p3 )
 			local ret = AddNextFlag( character, actions[i].p1, actions[i].p2, actions[i].p3 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: AddNextFlag failed!" )
-				SystemNotice( character, "ActionProc: adds list quest record label failed!" )
+				MISSDK_MISSIONSDK_LUA_000201 = GetResString("MISSDK_MISSIONSDK_LUA_000201")
+				PRINT( MISSDK_MISSIONSDK_LUA_000201 )
+				MISSDK_MISSIONSDK_LUA_000202 = GetResString("MISSDK_MISSIONSDK_LUA_000202")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000202 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddRMNextFlag then
 			PRINT( "ActionProc:AddRMNextFlag, p1, p2, p3", actions[i].p1, actions[i].p2, actions[i].p3 )
 			local ret = AddRMNextFlag( character, actions[i].p1, actions[i].p2, actions[i].p3 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: AddRMNextFlag failed!" )
-				SystemNotice( character, "ActionProc: AddRMNextFlag adds list to quest record label failed!" )
+				MISSDK_MISSIONSDK_LUA_000203 = GetResString("MISSDK_MISSIONSDK_LUA_000203")
+				PRINT( MISSDK_MISSIONSDK_LUA_000203 )
+				MISSDK_MISSIONSDK_LUA_000204 = GetResString("MISSDK_MISSIONSDK_LUA_000204")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000204 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == SetFlag then
 			PRINT( "ActionProc:SetFlag, p1, p2 ", actions[i].p1, actions[i].p2 )
 			local ret = SetFlag( character, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:SetFlag failed!" )
-				SystemNotice( character, "ActionProc: Set quest record label failed!" )
+				MISSDK_MISSIONSDK_LUA_000205 = GetResString("MISSDK_MISSIONSDK_LUA_000205")
+				PRINT( MISSDK_MISSIONSDK_LUA_000205 )
+				MISSDK_MISSIONSDK_LUA_000206 = GetResString("MISSDK_MISSIONSDK_LUA_000206")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000206 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == SetRecord then
 			PRINT( "ActionProc:SetRecord, p1 = ", actions[i].p1 )
 			local ret = SetRecord( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:SetRecord failed!" )
-				SystemNotice( character, "ActionProc:Set story record label failed!" )
+				MISSDK_MISSIONSDK_LUA_000207 = GetResString("MISSDK_MISSIONSDK_LUA_000207")
+				PRINT( MISSDK_MISSIONSDK_LUA_000207 )
+				MISSDK_MISSIONSDK_LUA_000208 = GetResString("MISSDK_MISSIONSDK_LUA_000208")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000208 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == GiveNSDX then
@@ -3216,24 +4285,27 @@ function ActionsProc( character, actions, npc, page, misid, scriptid, param1, pa
 			PRINT( "ActionProc:JINNiuSS, p1 = " )
 			local ret = JINNiuSS( character)
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:JINNiuSS failed!" )
-				--SystemNotice( character, "ActionProc:Set story record label failed!" )
+				MISSDK_MISSIONSDK_LUA_000209 = GetResString("MISSDK_MISSIONSDK_LUA_000209")
+				PRINT( MISSDK_MISSIONSDK_LUA_000209 )
+				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == JINNiuHD then
 			PRINT( "ActionProc:JINNiuHD, p1 = " )
 			local ret = JINNiuHD( character)
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:JINNiuHD failed!" )
-				--SystemNotice( character, "ActionProc:Set story record label failed!" )
+				MISSDK_MISSIONSDK_LUA_000210 = GetResString("MISSDK_MISSIONSDK_LUA_000210")
+				PRINT( MISSDK_MISSIONSDK_LUA_000210 )
+				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == JINNiuCZ then
 			PRINT( "ActionProc:JINNiuCZ, p1 = " )
 			local ret = JINNiuCZ( character)
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:JINNiuCZ failed!" )
-				--SystemNotice( character, "ActionProc:Set story record label failed!" )
+				MISSDK_MISSIONSDK_LUA_000211 = GetResString("MISSDK_MISSIONSDK_LUA_000211")
+				PRINT( MISSDK_MISSIONSDK_LUA_000211 )
+				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
 				return LUA_FALSE
 			end
 
@@ -3241,48 +4313,56 @@ function ActionsProc( character, actions, npc, page, misid, scriptid, param1, pa
 			PRINT( "ActionProc:ShuangZiSS, p1 = " )
 			local ret = ShuangZiSS( character)
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:ShuangZiSS failed!" )
-				--SystemNotice( character, "ActionProc:Set story record label failed!" )
+				MISSDK_MISSIONSDK_LUA_000212 = GetResString("MISSDK_MISSIONSDK_LUA_000212")
+				PRINT( MISSDK_MISSIONSDK_LUA_000212 )
+				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ShuangZiHD then
 			PRINT( "ActionProc:ShuangZiHD, p1 = " )
 			local ret = ShuangZiHD( character)
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:ShuangZiHD failed!" )
-				--SystemNotice( character, "ActionProc:Set story record label failed!" )
+				MISSDK_MISSIONSDK_LUA_000213 = GetResString("MISSDK_MISSIONSDK_LUA_000213")
+				PRINT( MISSDK_MISSIONSDK_LUA_000213 )
+				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ShuangZiCZ then
 			PRINT( "ActionProc:ShuangZiCZ, p1 = " )
 			local ret = ShuangZiCZ( character)
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:ShuangZiCZ failed!" )
-				--SystemNotice( character, "ActionProc:Set story record label failed!" )
+				MISSDK_MISSIONSDK_LUA_000214 = GetResString("MISSDK_MISSIONSDK_LUA_000214")
+				PRINT( MISSDK_MISSIONSDK_LUA_000214 )
+				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddReadingBook then
 			PRINT( "ActionProc:AddReadingBook, p1 = ", actions[i].p1 )
 			local ret = AddReadingBook( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:AddReadingBook failed!" )
-				SystemNotice( character, "ActionProc:睰セfailed!" )
+				MISSDK_MISSIONSDK_LUA_000215 = GetResString("MISSDK_MISSIONSDK_LUA_000215")
+				PRINT( MISSDK_MISSIONSDK_LUA_000215 )
+				MISSDK_MISSIONSDK_LUA_000216 = GetResString("MISSDK_MISSIONSDK_LUA_000216")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000216 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddExpPer then
 			PRINT( "ActionProc:AddExpPer, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = AddExpPer( character, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: AddExpPer failed!" )
-				SystemNotice( character, "ActionProc: 倒ぉ竒喷failed!" )
+				MISSDK_MISSIONSDK_LUA_000217 = GetResString("MISSDK_MISSIONSDK_LUA_000217")
+				PRINT( MISSDK_MISSIONSDK_LUA_000217 )
+				MISSDK_MISSIONSDK_LUA_000218 = GetResString("MISSDK_MISSIONSDK_LUA_000218")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000218 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ZSSTART then
 			PRINT( "ActionProc:ZSSTART, p1 = " )
 			local ret = ZSSTART( character)
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:ZSSTART failed!" )
-				--SystemNotice( character, "ActionProc:Set story record label failed!" )
+				MISSDK_MISSIONSDK_LUA_000219 = GetResString("MISSDK_MISSIONSDK_LUA_000219")
+				PRINT( MISSDK_MISSIONSDK_LUA_000219 )
+				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
 				return LUA_FALSE
 			end
 
@@ -3298,8 +4378,10 @@ function ActionsProc( character, actions, npc, page, misid, scriptid, param1, pa
 			PRINT( "ActionProc:AddExpNextLv1, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = AddExpNextLv1( character, npc, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: AddExpNextLv1 failed!" )
-				SystemNotice( character, "ActionProc: AddExpNextLv1 Add Exp failed!" )
+				MISSDK_MISSIONSDK_LUA_000220 = GetResString("MISSDK_MISSIONSDK_LUA_000220")
+				PRINT( MISSDK_MISSIONSDK_LUA_000220 )
+				MISSDK_MISSIONSDK_LUA_000221 = GetResString("MISSDK_MISSIONSDK_LUA_000221")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000221 )
 				return LUA_FALSE
 			end
 
@@ -3307,97 +4389,131 @@ function ActionsProc( character, actions, npc, page, misid, scriptid, param1, pa
 			PRINT( "ActionProc:AddExpNextLv2, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = AddExpNextLv2( character, npc, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: AddExpNextLv2 failed!" )
-				SystemNotice( character, "ActionProc:AddExpNextLv2 Add Exp failed!" )
+				MISSDK_MISSIONSDK_LUA_000222 = GetResString("MISSDK_MISSIONSDK_LUA_000222")
+				PRINT( MISSDK_MISSIONSDK_LUA_000222 )
+				MISSDK_MISSIONSDK_LUA_000223 = GetResString("MISSDK_MISSIONSDK_LUA_000223")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000223 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ZSSTOP then
 			PRINT( "ActionProc:ZSSTOP, p1 = " )
 			local ret = ZSSTOP( character)
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:ZSSTOP failed!" )
-				--SystemNotice( character, "ActionProc:Set story record label failed!" )
+				MISSDK_MISSIONSDK_LUA_000224 = GetResString("MISSDK_MISSIONSDK_LUA_000224")
+				PRINT( MISSDK_MISSIONSDK_LUA_000224 )
+				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ZSSTOP2 then
 			PRINT( "ActionProc:ZSSTOP2, p1 = " )
 			local ret = ZSSTOP2( character)
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:ZSSTOP2 failed!" )
-				--SystemNotice( character, "ActionProc:Set story record label failed!" )
+				MISSDK_MISSIONSDK_LUA_000225 = GetResString("MISSDK_MISSIONSDK_LUA_000225")
+				PRINT( MISSDK_MISSIONSDK_LUA_000225 )
+				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddExp then
-PRINT( "ActionProc:AddExp, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
-local ret = AddExp( character, npc, actions[i].p1, actions[i].p2 )
-if ret ~= LUA_TRUE then
-PRINT( "ActionProc: AddExp Failed!" )
-SystemNotice( character, "ActionProc: AddExp add experience failed!" )
-return LUA_FALSE
-end
-
+			PRINT( "ActionProc:AddExp, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
+			local retExpState = GetExpState(character)
+--			Notice("做任务奖励经验的防沉迷返还系数为"..retExpState)
+			
+			actions[i].p1 = actions[i].p1  *GetExpState(character) /100
+			actions[i].p2 = actions[i].p2  *GetExpState(character) /100
+			local ret = AddExp( character, npc, actions[i].p1, actions[i].p2 )
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000226 = GetResString("MISSDK_MISSIONSDK_LUA_000226")
+				PRINT( MISSDK_MISSIONSDK_LUA_000226 )
+				MISSDK_MISSIONSDK_LUA_000227 = GetResString("MISSDK_MISSIONSDK_LUA_000227")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000227 )
+				return LUA_FALSE
+			end
 		elseif actions[i].func == AddSailExp then
 			PRINT( "ActionProc:AddSailExp, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = AddSailExp( character, npc, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: AddSailExp failed!" )
-				SystemNotice( character, "ActionProc: AddSailExp Add Exp failed!" )
+				MISSDK_MISSIONSDK_LUA_000228 = GetResString("MISSDK_MISSIONSDK_LUA_000228")
+				PRINT( MISSDK_MISSIONSDK_LUA_000228 )
+				MISSDK_MISSIONSDK_LUA_000229 = GetResString("MISSDK_MISSIONSDK_LUA_000229")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000229 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddLifeExp then
 			PRINT( "ActionProc:AddLifeExp, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = AddLifeExp( character, npc, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: AddLifeExp failed!" )
-				SystemNotice( character, "ActionProc: AddLifeExp Add Exp failed!" )
+				MISSDK_MISSIONSDK_LUA_000230 = GetResString("MISSDK_MISSIONSDK_LUA_000230")
+				PRINT( MISSDK_MISSIONSDK_LUA_000230 )
+				MISSDK_MISSIONSDK_LUA_000231 = GetResString("MISSDK_MISSIONSDK_LUA_000231")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000231 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddChaItem7 then
 			PRINT( "ActionsProc:AddChaItem7, p1 = ", actions[i].p1 )
 			local ret = AddChaItem7( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:AddChaItem7 failed!" )
-				SystemNotice( character, "ActionsProc:AddChaItem7 failed!" )
+				MISSDK_MISSIONSDK_LUA_000232 = GetResString("MISSDK_MISSIONSDK_LUA_000232")
+				PRINT( MISSDK_MISSIONSDK_LUA_000232 )
+				MISSDK_MISSIONSDK_LUA_000232 = GetResString("MISSDK_MISSIONSDK_LUA_000232")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000232 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddChaItem8 then
 			PRINT( "ActionsProc:AddChaItem8, p1 = ", actions[i].p1 )
 			local ret = AddChaItem8( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:AddChaItem8 failed!" )
-				SystemNotice( character, "ActionsProc:AddChaItem8 failed!" )
+				MISSDK_MISSIONSDK_LUA_000233 = GetResString("MISSDK_MISSIONSDK_LUA_000233")
+				PRINT( MISSDK_MISSIONSDK_LUA_000233 )
+				MISSDK_MISSIONSDK_LUA_000233 = GetResString("MISSDK_MISSIONSDK_LUA_000233")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000233 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == checkcytime then
 			PRINT( "ActionsProc:checkcytime, p1 = ", actions[i].p1 )
 			local ret = checkcytime( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:checkcytime failed!" )
-				SystemNotice( character, "ActionsProc:checkcytime failed!" )
+				MISSDK_MISSIONSDK_LUA_000234 = GetResString("MISSDK_MISSIONSDK_LUA_000234")
+				PRINT( MISSDK_MISSIONSDK_LUA_000234 )
+				MISSDK_MISSIONSDK_LUA_000234 = GetResString("MISSDK_MISSIONSDK_LUA_000234")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000234 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == checksjtime then
 			PRINT( "ActionsProc:checksjtime, p1 = ", actions[i].p1 )
 			local ret = checksjtime( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:checksjtime failed!" )
-				SystemNotice( character, "ActionsProc:checksjtime failed!" )
+				MISSDK_MISSIONSDK_LUA_000235 = GetResString("MISSDK_MISSIONSDK_LUA_000235")
+				PRINT( MISSDK_MISSIONSDK_LUA_000235 )
+				MISSDK_MISSIONSDK_LUA_000235 = GetResString("MISSDK_MISSIONSDK_LUA_000235")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000235 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddExpAndType then
 			PRINT( "ActionProc:AddExpAndType, p1 = , p2 = , p3 = ", actions[i].p1, actions[i].p2, actions[i].p3 )
 			local ret = AddExpAndType( character, npc, actions[i].p1, actions[i].p2, actions[i].p3 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: AddExpAndType failed!" )
-				SystemNotice( character, "ActionProc: AddExpAndType Add Exp failed!" )
+				MISSDK_MISSIONSDK_LUA_000236 = GetResString("MISSDK_MISSIONSDK_LUA_000236")
+				PRINT( MISSDK_MISSIONSDK_LUA_000236 )
+				MISSDK_MISSIONSDK_LUA_000237 = GetResString("MISSDK_MISSIONSDK_LUA_000237")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000237 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddMoney then
 			PRINT( "ActionProc:AddMoney, p1 =", actions[i].p1 )
 			local ret = AddMoney( character, npc, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: AddMoney failed!param1 = %d", actions[i].p1 )
-				SystemNotice( character, "ActionProc: AddMoney failed!" )
+				MISSDK_MISSIONSDK_LUA_000238 = GetResString("MISSDK_MISSIONSDK_LUA_000238")
+				PRINT( MISSDK_MISSIONSDK_LUA_000238, actions[i].p1 )
+				MISSDK_MISSIONSDK_LUA_000239 = GetResString("MISSDK_MISSIONSDK_LUA_000239")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000239 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == Addsafe_exp then
+			PRINT( "ActionProc:AddMoney, p1 =", actions[i].p1 )
+			local ret = Addsafe_exp( character, actions[i].p1,actions[i].p2,actions[i].p3 )
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc: Addsafe_exp failed！param1 = %d", actions[i].p1 )
+				SystemNotice( character, "ActionProc: Addsafe_exp failed！" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == TakeCredit then
@@ -3489,113 +4605,134 @@ end
 			PRINT( "ActionProc:TakeMoney, p1 = ", actions[i].p1 )
 			local ret = TakeMoney( character, npc, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: TakeMoney failed!param1 = %d", actions[i].p1 )
-				SystemNotice( character, "ActionProc: TakeMoney failed!" )
+				MISSDK_MISSIONSDK_LUA_000240 = GetResString("MISSDK_MISSIONSDK_LUA_000240")
+				PRINT( MISSDK_MISSIONSDK_LUA_000240, actions[i].p1 )
+				MISSDK_MISSIONSDK_LUA_000241 = GetResString("MISSDK_MISSIONSDK_LUA_000241")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000241 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == TakeCancelMissionMoney then
-			PRINT( "ActionProc:TakeMoney" )
-			local ret = TakeCancelMissionMoney( character, npc )
-			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: TakeCancelMissionMoney failed!param1 = %d", actions[i].p1 )
-				SystemNotice( character, "ActionProc: TakeCancelMissionMoney failed!" )
-				return LUA_FALSE
-			end
+			-- PRINT( "ActionProc:TakeMoney" )
+			-- local ret = TakeCancelMissionMoney( character, npc )
+			-- if ret ~= LUA_TRUE then
+				-- PRINT( "ActionProc: TakeCancelMissionMoney 失败！param1 = %d", actions[i].p1 )
+				-- SystemNotice( character, "ActionProc: TakeCancelMissionMoney 失败！" )
+				-- return LUA_FALSE
+			-- end
 		elseif actions[i].func == GiveItem then
 			PRINT( "ActionProc:GiveItem, p1 = , p2 = , p3 = ", actions[i].p1, actions[i].p2, actions[i].p3 )
 			local ret = GiveItem( character, npc, actions[i].p1, actions[i].p2, actions[i].p3 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: GiveItem failed!" )
-				SystemNotice( character, "ActionProc: give character item failed!" )
+				MISSDK_MISSIONSDK_LUA_000242 = GetResString("MISSDK_MISSIONSDK_LUA_000242")
+				PRINT( MISSDK_MISSIONSDK_LUA_000242 )
+				MISSDK_MISSIONSDK_LUA_000243 = GetResString("MISSDK_MISSIONSDK_LUA_000243")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000243 )
 				return LUA_FALSE
-			end
+			end		
 		elseif actions[i].func == TakeItem then
 			PRINT( "ActionProc:TakeItem, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = TakeItem( character, npc, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: TakeItem failed!" )
-				SystemNotice( character, "ActionProc: obtain character item failed!" )
+				MISSDK_MISSIONSDK_LUA_000244 = GetResString("MISSDK_MISSIONSDK_LUA_000244")
+				PRINT( MISSDK_MISSIONSDK_LUA_000244 )
+				MISSDK_MISSIONSDK_LUA_000245 = GetResString("MISSDK_MISSIONSDK_LUA_000245")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000245 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == GiveXinZhuangBei then
+			PRINT( "ActionProc:TakeItem, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
+			local ret = GiveXinZhuangBei( character, actions[i].p1)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc: GiveXinZhuangBei failed！" )
+				SystemNotice( character, "ActionProc: GiveXinZhuangBei failed！" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == TakeRandNpcItem then
 			PRINT( "ActionProc:TakeRandNpcItem, p1 = , p2 = , p3 = ", actions[i].p1, actions[i].p2, actions[i].p3 )
 			local ret = TakeRandNpcItem( character, actions[i].p1, actions[i].p2, actions[i].p3 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: TakeRandNpcItem failed!" )
-				SystemNotice( character, "ActionProc: TakeRandNpcItem obtain NPC item failed!" )
+				MISSDK_MISSIONSDK_LUA_000246 = GetResString("MISSDK_MISSIONSDK_LUA_000246")
+				PRINT( MISSDK_MISSIONSDK_LUA_000246 )
+				MISSDK_MISSIONSDK_LUA_000247 = GetResString("MISSDK_MISSIONSDK_LUA_000247")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000247 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == TakeAllRandItem then
 			PRINT( "ActionProc:TakeAllRandItem, p1 = ", actions[i].p1 )
 			local ret = TakeAllRandItem( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: TakeAllRandItem failed!" )
-				SystemNotice( character, "ActionProc: TakeAllRandItem: obtain NPC item failed!" )
+				MISSDK_MISSIONSDK_LUA_000248 = GetResString("MISSDK_MISSIONSDK_LUA_000248")
+				PRINT( MISSDK_MISSIONSDK_LUA_000248 )
+				MISSDK_MISSIONSDK_LUA_000249 = GetResString("MISSDK_MISSIONSDK_LUA_000249")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000249 )
 				return LUA_FALSE
 			end			
 		elseif actions[i].func == ClearMission then
 			PRINT( "ActionProc:ClearMission, p1 = ", actions[i].p1 )
 			local ret = ClearMission( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: ClearMission failed!" )
-				SystemNotice( character, "ActionProc: clear quest ID failed!" )
+				MISSDK_MISSIONSDK_LUA_000250 = GetResString("MISSDK_MISSIONSDK_LUA_000250")
+				PRINT( MISSDK_MISSIONSDK_LUA_000250 )
+				MISSDK_MISSIONSDK_LUA_000251 = GetResString("MISSDK_MISSIONSDK_LUA_000251")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000251 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ClearTrigger then
 			PRINT( "ActionProc:ClearTrigger, p1 = ", actions[i].p1 )
 			local ret = ClearTrigger( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: ClearTrigger failed!" )
-				SystemNotice( character, "ActionProc: clear trigger ID failed!" )
+				MISSDK_MISSIONSDK_LUA_000252 = GetResString("MISSDK_MISSIONSDK_LUA_000252")
+				PRINT( MISSDK_MISSIONSDK_LUA_000252 )
+				MISSDK_MISSIONSDK_LUA_000253 = GetResString("MISSDK_MISSIONSDK_LUA_000253")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000253 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == DeleteTrigger then
 			PRINT( "ActionProc:DeleteTrigger, p1 = ", actions[i].p1 )
 			local ret = DeleteTrigger( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: DeleteTrigger failed!" )
-				SystemNotice( character, "ActionProc:delete trigger ID failed!" )
+				MISSDK_MISSIONSDK_LUA_000254 = GetResString("MISSDK_MISSIONSDK_LUA_000254")
+				PRINT( MISSDK_MISSIONSDK_LUA_000254 )
+				MISSDK_MISSIONSDK_LUA_000255 = GetResString("MISSDK_MISSIONSDK_LUA_000255")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000255 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ClearFlag then
 			PRINT( "ActionProc:ClearFlag, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = ClearFlag( character, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: ClearFlag failed!" )
-				SystemNotice( character, "ActionProc: Clear quest label failed!" )
+				MISSDK_MISSIONSDK_LUA_000256 = GetResString("MISSDK_MISSIONSDK_LUA_000256")
+				PRINT( MISSDK_MISSIONSDK_LUA_000256 )
+				MISSDK_MISSIONSDK_LUA_000257 = GetResString("MISSDK_MISSIONSDK_LUA_000257")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000257 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ClearRecord then
 			PRINT( "ActionProc:ClearRecord, p1 = ", actions[i].p1 )
 			local ret = ClearRecord( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:ClearRecord failed!" )
-				SystemNotice( character, "ActionProc: clearn history record label failed!" )
+				MISSDK_MISSIONSDK_LUA_000258 = GetResString("MISSDK_MISSIONSDK_LUA_000258")
+				PRINT( MISSDK_MISSIONSDK_LUA_000258 )
+				MISSDK_MISSIONSDK_LUA_000259 = GetResString("MISSDK_MISSIONSDK_LUA_000259")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000259 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == RefreshCompleteFlag then
 			PRINT( "ActionProc:RefreshCompleteFlag, p1 = ", actions[i].p1 )
 			local ret = RefreshCompleteFlag( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:RefreshCompleteFlag failed!" )
-				SystemNotice( character, "ActionProc:RefreshCompleteFlag, refresh quest completion status error!" )
+				MISSDK_MISSIONSDK_LUA_000260 = GetResString("MISSDK_MISSIONSDK_LUA_000260")
+				PRINT( MISSDK_MISSIONSDK_LUA_000260 )
+				MISSDK_MISSIONSDK_LUA_000261 = GetResString("MISSDK_MISSIONSDK_LUA_000261")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000261 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == MegaBuff then
 			PRINT( "ActionProc:MegaBuff" ) 
 			MegaBuff( character, npc )
-		----------------------------
-		-- ?????? ?????? ?? ????? --
-		----------------------------
-		elseif actions[i].func == Spawn_MiniBoss then
-			PRINT( "ActionProc:Spawn_MiniBoss, p1 = , p2 = , p3 =  , p4 = ", actions[i].p1 , actions[i].p2 , actions[i].p3 , actions[i].p4)
-			Spawn_MiniBoss( character, actions[i].p1 , actions[i].p2 , actions[i].p3 , actions[i].p4)
-		elseif actions[i].func == PK_points then
+		elseif actions[i].func == CheskStats then
 			PRINT( "ActionProc:PK_points" ) 
-			PK_points( character, npc )
-		elseif actions[i].func == PVP_points then
-			PRINT( "ActionProc:PVP_points" ) 
-			PVP_points( character, npc )
+			CheskStats( character, npc )
 		elseif actions[i].func == ReAll then
 			PRINT( "ActionProc:ReAll" )
 			ReAll( character )
@@ -3636,152 +4773,209 @@ end
 			PRINT( "ActionsProc:GiveMission, p1 = ", actions[i].p1 )
 			local ret = GiveMission( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:GiveMission failed!" )
-				SystemNotice( character, "ActionProc:GiveMissionfailed!" )
+				MISSDK_MISSIONSDK_LUA_000262 = GetResString("MISSDK_MISSIONSDK_LUA_000262")
+				PRINT( MISSDK_MISSIONSDK_LUA_000262 )
+				MISSDK_MISSIONSDK_LUA_000263 = GetResString("MISSDK_MISSIONSDK_LUA_000263")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000263 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ObligeAcceptMission then
 			PRINT( "ActionsProc:ObligeAcceptMission, p1 = ", actions[i].p1 )
 			local ret = ObligeAcceptMission( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:ObligeAcceptMission failed!" )
-				SystemNotice( character, "ActionProc:ObligeAcceptMissionfailed!" )
+				MISSDK_MISSIONSDK_LUA_000264 = GetResString("MISSDK_MISSIONSDK_LUA_000264")
+				PRINT( MISSDK_MISSIONSDK_LUA_000264 )
+				MISSDK_MISSIONSDK_LUA_000265 = GetResString("MISSDK_MISSIONSDK_LUA_000265")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000265 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ObligeCompleteMission then
 			PRINT( "ActionsProc:ObligeCompleteMission, p1 = ", actions[i].p1 )
 			local ret = ObligeCompleteMission( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc:ObligeCompleteMission failed!" )
-				SystemNotice( character, "ActionProc:ObligeCompleteMissionfailed!" )
+				MISSDK_MISSIONSDK_LUA_000266 = GetResString("MISSDK_MISSIONSDK_LUA_000266")
+				PRINT( MISSDK_MISSIONSDK_LUA_000266 )
+				MISSDK_MISSIONSDK_LUA_000267 = GetResString("MISSDK_MISSIONSDK_LUA_000267")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000267 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == SummonNpc then
 			PRINT( "ActionsProc:SummonNpc, p1, p2, p3, p4", actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4 )
 			local ret = SummonNpc( actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:SummonNpc failed!" )
-				SystemNotice( character, "ActionsProc:SummonNpc failed!" )
+				MISSDK_MISSIONSDK_LUA_000268 = GetResString("MISSDK_MISSIONSDK_LUA_000268")
+				PRINT( MISSDK_MISSIONSDK_LUA_000268 )
+				MISSDK_MISSIONSDK_LUA_000268 = GetResString("MISSDK_MISSIONSDK_LUA_000268")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000268 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ConvoyNpc then
 			PRINT( "ActionsProc:ConvoyNpc, p1, p2, p3, p4", actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4 )
 			local ret = ConvoyNpc( character, actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:ConvoyNpc failed!" )
-				SystemNotice( character, "ActionsProc:ConvoyNpc failed!" )
+				MISSDK_MISSIONSDK_LUA_000269 = GetResString("MISSDK_MISSIONSDK_LUA_000269")
+				PRINT( MISSDK_MISSIONSDK_LUA_000269 )
+				MISSDK_MISSIONSDK_LUA_000269 = GetResString("MISSDK_MISSIONSDK_LUA_000269")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000269 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ClearConvoyNpc then
 			PRINT( "ActionsProc:ClearConvoyNpc, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = ClearConvoyNpc( character, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:ClearConvoyNpc failed!" )
-				SystemNotice( character, "ActionsProc:ClearConvoyNpc failed!" )
+				MISSDK_MISSIONSDK_LUA_000270 = GetResString("MISSDK_MISSIONSDK_LUA_000270")
+				PRINT( MISSDK_MISSIONSDK_LUA_000270 )
+				MISSDK_MISSIONSDK_LUA_000270 = GetResString("MISSDK_MISSIONSDK_LUA_000270")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000270 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == TakeXmasYB then
 			PRINT( "ActionProc:TakeXmasYB, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = TakeXmasYB( character, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: TakeXmasYB failed!" )
-				SystemNotice( character, "ActionProc: 矗祑刽failed!" )
+				MISSDK_MISSIONSDK_LUA_000271 = GetResString("MISSDK_MISSIONSDK_LUA_000271")
+				PRINT( MISSDK_MISSIONSDK_LUA_000271 )
+				MISSDK_MISSIONSDK_LUA_000272 = GetResString("MISSDK_MISSIONSDK_LUA_000272")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000272 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == CpHuojiNum then
 			PRINT( "ActionsProc:CpHuojiNum, p1 = ", actions[i].p1 )
 			local ret = CpHuojiNum( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:CpHuojiNum failed!" )
-				SystemNotice( character, "ActionsProc:CpHuojiNum failed!" )
+				MISSDK_MISSIONSDK_LUA_000273 = GetResString("MISSDK_MISSIONSDK_LUA_000273")
+				PRINT( MISSDK_MISSIONSDK_LUA_000273 )
+				MISSDK_MISSIONSDK_LUA_000273 = GetResString("MISSDK_MISSIONSDK_LUA_000273")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000273 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == CpMiluNum then
 			PRINT( "ActionsProc:CpMiluNum, p1 = ", actions[i].p1 )
 			local ret = CpMiluNum( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:CpMiluNum failed!" )
-				SystemNotice( character, "ActionsProc:CpMiluNum failed!" )
+				MISSDK_MISSIONSDK_LUA_000274 = GetResString("MISSDK_MISSIONSDK_LUA_000274")
+				PRINT( MISSDK_MISSIONSDK_LUA_000274 )
+				MISSDK_MISSIONSDK_LUA_000274 = GetResString("MISSDK_MISSIONSDK_LUA_000274")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000274 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == CpXuerenNum then
 			PRINT( "ActionsProc:CpXuerenNum, p1 = ", actions[i].p1 )
 			local ret = CpXuerenNum( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:CpXuerenNum failed!" )
-				SystemNotice( character, "ActionsProc:CpXuerenNum failed!" )
+				MISSDK_MISSIONSDK_LUA_000275 = GetResString("MISSDK_MISSIONSDK_LUA_000275")
+				PRINT( MISSDK_MISSIONSDK_LUA_000275 )
+				MISSDK_MISSIONSDK_LUA_000275 = GetResString("MISSDK_MISSIONSDK_LUA_000275")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000275 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ClearAllConvoyNpc then
 			PRINT( "ActionsProc:ClearAllConvoyNpc, p1 = ", actions[i].p1 )
 			local ret = ClearAllConvoyNpc( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:ClearAllConvoyNpc failed!" )
-				SystemNotice( character, "ActionsProc:ClearAllConvoyNpc failed!" )
+				MISSDK_MISSIONSDK_LUA_000276 = GetResString("MISSDK_MISSIONSDK_LUA_000276")
+				PRINT( MISSDK_MISSIONSDK_LUA_000276 )
+				MISSDK_MISSIONSDK_LUA_000276 = GetResString("MISSDK_MISSIONSDK_LUA_000276")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000276 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == SetMissionFailure then
 			PRINT( "ActionsProc:SetMissionFailure, p1 = ", actions[i].p1 )
 			local ret = SetMissionFailure( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:SetMissionFailure failed!" )
-				SystemNotice( character, "ActionsProc:SetMissionFailure failed!" )
+				MISSDK_MISSIONSDK_LUA_000277 = GetResString("MISSDK_MISSIONSDK_LUA_000277")
+				PRINT( MISSDK_MISSIONSDK_LUA_000277 )
+				MISSDK_MISSIONSDK_LUA_000277 = GetResString("MISSDK_MISSIONSDK_LUA_000277")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000277 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == SetMissionComplete then
 			PRINT( "ActionsProc:SetMissionComplete, p1 = ", actions[i].p1 )
 			local ret = SetMissionComplete( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:SetMissionComplete failed!" )
-				SystemNotice( character, "ActionsProc:SetMissionComplete failed!" )
+				MISSDK_MISSIONSDK_LUA_000278 = GetResString("MISSDK_MISSIONSDK_LUA_000278")
+				PRINT( MISSDK_MISSIONSDK_LUA_000278 )
+				MISSDK_MISSIONSDK_LUA_000278 = GetResString("MISSDK_MISSIONSDK_LUA_000278")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000278 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == SetTestTime then
 			PRINT( "ActionProc:SetTestTime, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = SetTestTime( character, npc, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: SetTestTime failed!" )
-				SystemNotice( character, "ActionProc: SetTestTime砞竚﹍丁failed!" )
+				MISSDK_MISSIONSDK_LUA_000279 = GetResString("MISSDK_MISSIONSDK_LUA_000279")
+				PRINT( MISSDK_MISSIONSDK_LUA_000279 )
+				MISSDK_MISSIONSDK_LUA_000280 = GetResString("MISSDK_MISSIONSDK_LUA_000280")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000280 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == RenewTestTime1 then
 			PRINT( "ActionProc:RenewTestTime1, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = RenewTestTime1( character, npc, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: RenewTestTime1 failed!" )
-				SystemNotice( character, "ActionProc: RenewTestTime1浪代穝丁failed!" )
+				MISSDK_MISSIONSDK_LUA_000281 = GetResString("MISSDK_MISSIONSDK_LUA_000281")
+				PRINT( MISSDK_MISSIONSDK_LUA_000281 )
+				MISSDK_MISSIONSDK_LUA_000282 = GetResString("MISSDK_MISSIONSDK_LUA_000282")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000282 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == RenewTestTime2 then
 			PRINT( "ActionProc:RenewTestTime2, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = RenewTestTime2( character, npc, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionProc: RenewTestTime2 failed!" )
-				SystemNotice( character, "ActionProc: RenewTestTime2浪代穝丁failed!" )
+				MISSDK_MISSIONSDK_LUA_000283 = GetResString("MISSDK_MISSIONSDK_LUA_000283")
+				PRINT( MISSDK_MISSIONSDK_LUA_000283 )
+				MISSDK_MISSIONSDK_LUA_000284 = GetResString("MISSDK_MISSIONSDK_LUA_000284")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000284 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == FailureRandMissionCount then
 			PRINT( "ActionsProc:FailureRandMissionCount, p1 = ", actions[i].p1 )
 			local ret = FailureRandMissionCount( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:FailureRandMissionCount failed!" )
-				SystemNotice( character, "ActionsProc:FailureRandMissionCount failed!" )
+				MISSDK_MISSIONSDK_LUA_000285 = GetResString("MISSDK_MISSIONSDK_LUA_000285")
+				PRINT( MISSDK_MISSIONSDK_LUA_000285 )
+				MISSDK_MISSIONSDK_LUA_000285 = GetResString("MISSDK_MISSIONSDK_LUA_000285")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000285 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == SetSpawnPos then
 			PRINT( "ActionsProc:SetSpawnPos, p1 = ", actions[i].p1 )
 			local ret = SetSpawnPos( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:SetSpawnPos failed!" )
-				SystemNotice( character, "ActionsProc:SetSpawnPos failed!" )
+				MISSDK_MISSIONSDK_LUA_000286 = GetResString("MISSDK_MISSIONSDK_LUA_000286")
+				PRINT( MISSDK_MISSIONSDK_LUA_000286 )
+				MISSDK_MISSIONSDK_LUA_000286 = GetResString("MISSDK_MISSIONSDK_LUA_000286")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000286 )
 				return LUA_FALSE
 			end
+			-------------------------------------------------------------------------
+		elseif actions[i].func == GiveSDItem_SetAttr then-------------------------圣诞相关行添加
+			PRINT( "ActionProc:GiveSDItem_SetAttr " )
+			local ret = GiveSDItem_SetAttr( character)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc:GiveSDItem_SetAttr" )
+				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == GiveSDSMLW then-------------------------圣诞相关行添加
+			PRINT( "ActionProc:GiveSDItem_SetAttr " )
+			local ret = GiveSDSMLW( character)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc:GiveSDSMLW" )
+				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
+				return LUA_FALSE
+			end
+
+			--------------------------------------------------------------------------------
 		elseif actions[i].func == SetProfession then
 			PRINT( "ActionsProc:SetProfession, p1 = ", actions[i].p1 )
 			local ret = SetProfession( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:SetProfession failed!" )
-				SystemNotice( character, "ActionsProc:SetProfession failed!" )
+				MISSDK_MISSIONSDK_LUA_000287 = GetResString("MISSDK_MISSIONSDK_LUA_000287")
+				PRINT( MISSDK_MISSIONSDK_LUA_000287 )
+				MISSDK_MISSIONSDK_LUA_000287 = GetResString("MISSDK_MISSIONSDK_LUA_000287")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000287 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == GoTo then
@@ -3789,109 +4983,143 @@ end
 			local ret = GoTo( character, actions[i].p1, actions[i].p2, actions[i].p3 )
 			PRINT( "Goto: ret = ", ret )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:GoTo failed!" )
-				SystemNotice( character, "ActionsProc:GoTo failed!" )
+				MISSDK_MISSIONSDK_LUA_000288 = GetResString("MISSDK_MISSIONSDK_LUA_000288")
+				PRINT( MISSDK_MISSIONSDK_LUA_000288 )
+				MISSDK_MISSIONSDK_LUA_000288 = GetResString("MISSDK_MISSIONSDK_LUA_000288")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000288 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == GoToDream then
+			local ret = GoToDream( character, actions[i].p1)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionsProc:GoToDream failed！" )
+				SystemNotice( character, "ActionsProc:GoToDream failed！" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == MultiTrigger then
 			PRINT( "ActionsProc:MultiTrigger, p1, p2 ", actions[i].p1, actions[i].p2 )
 			local ret = MultiTrigger( character, npc, page, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:MultiTrigger failed!" )
-				SystemNotice( character, "ActionsProc:MultiTrigger failed!" )
+				MISSDK_MISSIONSDK_LUA_000289 = GetResString("MISSDK_MISSIONSDK_LUA_000289")
+				PRINT( MISSDK_MISSIONSDK_LUA_000289 )
+				MISSDK_MISSIONSDK_LUA_000289 = GetResString("MISSDK_MISSIONSDK_LUA_000289")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000289 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == SaveMissionData then
 			PRINT( "ActionsProc:SaveMissionData" )
 			local ret = SaveMissionData( character )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:SaveMissionData failed!" )
-				SystemNotice( character, "ActionsProc:SaveMissionData failed!" )
+				MISSDK_MISSIONSDK_LUA_000290 = GetResString("MISSDK_MISSIONSDK_LUA_000290")
+				PRINT( MISSDK_MISSIONSDK_LUA_000290 )
+				MISSDK_MISSIONSDK_LUA_000290 = GetResString("MISSDK_MISSIONSDK_LUA_000290")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000290 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == SetPkState then
 			PRINT( "ActionsProc:SetPkState, p1 = ", actions[i].p1 )
 			local ret = SetPkState( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:SetPkState failed!" )
-				SystemNotice( character, "ActionsProc:SetPkState failed!" )
+				MISSDK_MISSIONSDK_LUA_000291 = GetResString("MISSDK_MISSIONSDK_LUA_000291")
+				PRINT( MISSDK_MISSIONSDK_LUA_000291 )
+				MISSDK_MISSIONSDK_LUA_000291 = GetResString("MISSDK_MISSIONSDK_LUA_000291")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000291 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == MoveCity then
 			PRINT( "ActionsProc:MoveCity, p1 = ", actions[i].p1 )
 			local ret = MoveCity( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:MoveCity failed!" )
-				SystemNotice( character, "ActionsProc:MoveCity failed!" )
+				MISSDK_MISSIONSDK_LUA_000292 = GetResString("MISSDK_MISSIONSDK_LUA_000292")
+				PRINT( MISSDK_MISSIONSDK_LUA_000292 )
+				MISSDK_MISSIONSDK_LUA_000292 = GetResString("MISSDK_MISSIONSDK_LUA_000292")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000292 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == CreateGuild then
 			PRINT( "ActionsProc:CreateGuild, p1 = ", actions[i].p1 )
 			local ret = CreateGuild( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:CreateGuild failed!" )
-				SystemNotice( character, "ActionsProc:CreateGuild failed!" )
-				return LUA_FALSE
-			end
-			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000293 = GetResString("MISSDK_MISSIONSDK_LUA_000293")
+				PRINT( MISSDK_MISSIONSDK_LUA_000293 )
+				MISSDK_MISSIONSDK_LUA_000293 = GetResString("MISSDK_MISSIONSDK_LUA_000293")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000293 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ListAllGuild then
 			PRINT( "ActionsProc:ListAllGuild, p1 = ", actions[i].p1 )
 			local ret = ListAllGuild( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:ListAllGuild ?? ???????!" )
-				SystemNotice( character, "ActionsProc:ListAllGuild ?? ???????!" )
+				MISSDK_MISSIONSDK_LUA_000294 = GetResString("MISSDK_MISSIONSDK_LUA_000294")
+				PRINT( MISSDK_MISSIONSDK_LUA_000294 )
+				MISSDK_MISSIONSDK_LUA_000294 = GetResString("MISSDK_MISSIONSDK_LUA_000294")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000294 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == RepairBoat then
 			PRINT( "ActionsProc:RepairBoat" )
 			local ret = RepairBoat( character )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:RepairBoat failed!" )
-				SystemNotice( character, "ActionsProc:RepairBoat failed!" )
+				MISSDK_MISSIONSDK_LUA_000295 = GetResString("MISSDK_MISSIONSDK_LUA_000295")
+				PRINT( MISSDK_MISSIONSDK_LUA_000295 )
+				MISSDK_MISSIONSDK_LUA_000295 = GetResString("MISSDK_MISSIONSDK_LUA_000295")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000295 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == SupplyBoat then
 			PRINT( "ActionsProc:SupplyBoat" )
 			local ret = SupplyBoat( character )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:SupplyBoat failed!" )
-				SystemNotice( character, "ActionsProc:SupplyBoat failed!" )
+				MISSDK_MISSIONSDK_LUA_000296 = GetResString("MISSDK_MISSIONSDK_LUA_000296")
+				PRINT( MISSDK_MISSIONSDK_LUA_000296 )
+				MISSDK_MISSIONSDK_LUA_000296 = GetResString("MISSDK_MISSIONSDK_LUA_000296")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000296 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == CreateBoat then
 			PRINT( "ActionsProc:CreateBoat, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = CreateBoat( character, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:CreateBoat failed!" )
-				--SystemNotice( character, "ActionsProc:CreateBoat failed!" )
+				MISSDK_MISSIONSDK_LUA_000297 = GetResString("MISSDK_MISSIONSDK_LUA_000297")
+				PRINT( MISSDK_MISSIONSDK_LUA_000297 )
+				--SystemNotice( character, "ActionsProc:CreateBoat 失败！" )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == BoatLuanchOut then
 			PRINT( "ActionsProc:BoatLuanchOut, p1 = , p2 = , p3 = , p4 = , p5 = ", actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4, actions[i].p5 )
 			local ret = BoatLuanchOut( character, actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4, actions[i].p5 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:BoatLuanchOut failed!" )
-				SystemNotice( character, "ActionsProc:BoatLuanchOut failed!" )
+				MISSDK_MISSIONSDK_LUA_000298 = GetResString("MISSDK_MISSIONSDK_LUA_000298")
+				PRINT( MISSDK_MISSIONSDK_LUA_000298 )
+				MISSDK_MISSIONSDK_LUA_000298 = GetResString("MISSDK_MISSIONSDK_LUA_000298")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000298 )
 				return LUA_FALSE
 			end			
 		elseif actions[i].func == LuanchBerthList then
-			
+			--PRINT( "ActionsProc:RemoveYS" )
 			PRINT( "ActionsProc:BoatBerthList, p1 = , p2 = , p3 = , p4 = ", actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4 )
 			local ret = LuanchBerthList( character, npc, actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4 )
-			
+			--local ret1 = RemoveYS( character )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:LuanchBerthList ?? ???????!" )
-				SystemNotice( character, "ActionsProc:LuanchBerthList ?? ???????!" )
+				MISSDK_MISSIONSDK_LUA_000299 = GetResString("MISSDK_MISSIONSDK_LUA_000299")
+				PRINT( MISSDK_MISSIONSDK_LUA_000299 )
+				MISSDK_MISSIONSDK_LUA_000299 = GetResString("MISSDK_MISSIONSDK_LUA_000299")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000299 )
 				return LUA_FALSE
 			end
+			--if ret1 ~= 1 then
+			--	PRINT( "ActionsProc:RemoveYS 失败！" )
+			--	SystemNotice( character, "ActionsProc:RemoveYS 失败！" )
+			--	return LUA_FALSE
+			--end
 		elseif actions[i].func == TradeBerthList then
 			PRINT( "ActionsProc:TradeBerthList, p1 = ", actions[i].p1 )
 			local ret = TradeBerthList( character, npc, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:TradeBerthList failed!" )
-				SystemNotice( character, "ActionsProc:TradeBerthList failed!" )
+				MISSDK_MISSIONSDK_LUA_000300 = GetResString("MISSDK_MISSIONSDK_LUA_000300")
+				PRINT( MISSDK_MISSIONSDK_LUA_000300 )
+				MISSDK_MISSIONSDK_LUA_000300 = GetResString("MISSDK_MISSIONSDK_LUA_000300")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000300 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == CreatBBBB then
@@ -3904,110 +5132,146 @@ end
 			if ret ~= LUA_TRUE then
 				return LUA_FALSE
 			end	
+		elseif actions[i].func == killBBBB then
+			local ret = killBBBB( character )
+			if ret ~= LUA_TRUE then
+				return LUA_FALSE
+			end	
 		elseif actions[i].func == RepairBerthList then
 			PRINT( "ActionsProc:RepairBerthList, p1 = ", actions[i].p1 )
 			local ret = RepairBerthList( character, npc, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:RepairBerthList failed!" )
-				SystemNotice( character, "ActionsProc:RepairBerthList failed!" )
+				MISSDK_MISSIONSDK_LUA_000301 = GetResString("MISSDK_MISSIONSDK_LUA_000301")
+				PRINT( MISSDK_MISSIONSDK_LUA_000301 )
+				MISSDK_MISSIONSDK_LUA_000301 = GetResString("MISSDK_MISSIONSDK_LUA_000301")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000301 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == SalvageBerthList then
 			PRINT( "ActionsProc:SalvageBerthList, p1 = ", actions[i].p1 )
 			local ret = SalvageBerthList( character, npc, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:SalvageBerthList failed!" )
-				SystemNotice( character, "ActionsProc:SalvageBerthList failed!" )
+				MISSDK_MISSIONSDK_LUA_000302 = GetResString("MISSDK_MISSIONSDK_LUA_000302")
+				PRINT( MISSDK_MISSIONSDK_LUA_000302 )
+				MISSDK_MISSIONSDK_LUA_000302 = GetResString("MISSDK_MISSIONSDK_LUA_000302")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000302 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == SupplyBerthList then
 			PRINT( "ActionsProc:SupplyBerthList, p1 = ", actions[i].p1 )
 			local ret = SupplyBerthList( character, npc, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:SupplyBerthList failed!" )
-				SystemNotice( character, "ActionsProc:SupplyBerthList failed!" )
+				MISSDK_MISSIONSDK_LUA_000303 = GetResString("MISSDK_MISSIONSDK_LUA_000303")
+				PRINT( MISSDK_MISSIONSDK_LUA_000303 )
+				MISSDK_MISSIONSDK_LUA_000303 = GetResString("MISSDK_MISSIONSDK_LUA_000303")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000303 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == BoatLevelBerthList then
 			PRINT( "ActionsProc:BoatLevelBerthList, p1 = ", actions[i].p1 )
 			local ret = BoatLevelBerthList( character, npc, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:BoatLevelBerthList failed!" )
-				SystemNotice( character, "ActionsProc:BoatLevelBerthList failed!" )
+				MISSDK_MISSIONSDK_LUA_000304 = GetResString("MISSDK_MISSIONSDK_LUA_000304")
+				PRINT( MISSDK_MISSIONSDK_LUA_000304 )
+				MISSDK_MISSIONSDK_LUA_000304 = GetResString("MISSDK_MISSIONSDK_LUA_000304")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000304 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == BoatBerth then
 			PRINT( "ActionsProc:BoatBerth, p1 = , p2 = , p3 = , p4 = ", actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4 )
 			local ret = BoatBerth( character, actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:BoatBerth failed!" )
-				SystemNotice( character, "ActionsProc:BoatBerth failed!" )
+				MISSDK_MISSIONSDK_LUA_000305 = GetResString("MISSDK_MISSIONSDK_LUA_000305")
+				PRINT( MISSDK_MISSIONSDK_LUA_000305 )
+				MISSDK_MISSIONSDK_LUA_000305 = GetResString("MISSDK_MISSIONSDK_LUA_000305")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000305 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == PackBagList then
 			PRINT( "ActionsProc:PackBagList, p1 = , p2 = , p3 = ", actions[i].p1, actions[i].p2, actions[i].p3 )
 			local ret = PackBagList( character, actions[i].p1, actions[i].p2, actions[i].p3 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:PackBagList failed!" )
-				SystemNotice( character, "ActionsProc:PackBagList failed!" )
+				MISSDK_MISSIONSDK_LUA_000306 = GetResString("MISSDK_MISSIONSDK_LUA_000306")
+				PRINT( MISSDK_MISSIONSDK_LUA_000306 )
+				MISSDK_MISSIONSDK_LUA_000306 = GetResString("MISSDK_MISSIONSDK_LUA_000306")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000306 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == SetTradeItemLevel then
 			PRINT( "ActionsProc:SetTradeItemLevel, p1 = ", actions[i].p1 )
 			local ret = SetTradeItemLevel( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:SetTradeItemLevel failed!" )
-				SystemNotice( character, "ActionsProc:SetTradeItemLevel failed!" )
+				MISSDK_MISSIONSDK_LUA_000307 = GetResString("MISSDK_MISSIONSDK_LUA_000307")
+				PRINT( MISSDK_MISSIONSDK_LUA_000307 )
+				MISSDK_MISSIONSDK_LUA_000307 = GetResString("MISSDK_MISSIONSDK_LUA_000307")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000307 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AdjustTradeCess then
 			PRINT( "ActionsProc:AdjustTradeCess, p1 = , p2 = ", actions[i].p1, actions[i].p2 )
 			local ret = AdjustTradeCess( character, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:AdjustTradeCess failed!" )
-				SystemNotice( character, "ActionsProc:AdjustTradeCess failed!" )
+				MISSDK_MISSIONSDK_LUA_000308 = GetResString("MISSDK_MISSIONSDK_LUA_000308")
+				PRINT( MISSDK_MISSIONSDK_LUA_000308 )
+				MISSDK_MISSIONSDK_LUA_000308 = GetResString("MISSDK_MISSIONSDK_LUA_000308")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000308 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == OpenBank then
 			PRINT( "ActionsProc:OpenBank" )
 			local ret = OpenBank( character, npc )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:OpenBank failed!" )
-				SystemNotice( character, "ActionsProc:OpenBank failed!" )
+				MISSDK_MISSIONSDK_LUA_000309 = GetResString("MISSDK_MISSIONSDK_LUA_000309")
+				PRINT( MISSDK_MISSIONSDK_LUA_000309 )
+				MISSDK_MISSIONSDK_LUA_000309 = GetResString("MISSDK_MISSIONSDK_LUA_000309")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000309 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == OpenHair then
 			PRINT( "ActionsProc:OpenHair" )
 			local ret = OpenHair( character, npc )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:OpenHair failed!" )
-				SystemNotice( character, "ActionsProc:OpenHair failed!" )
+				MISSDK_MISSIONSDK_LUA_000310 = GetResString("MISSDK_MISSIONSDK_LUA_000310")
+				PRINT( MISSDK_MISSIONSDK_LUA_000310 )
+				MISSDK_MISSIONSDK_LUA_000310 = GetResString("MISSDK_MISSIONSDK_LUA_000310")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000310 )
 				return LUA_FALSE
 			end
+		elseif actions[i].func == CheckChaItem then
+				PRINT( "ActionProc: CheckChaItem, p1 = ", actions[i].p1)
+				local ret = CheckChaItem( character)
+				if ret ~= LUA_TRUE then
+					PRINT( "ActionProc:CheckChaItem = false" )
+					return LUA_FALSE
+				end
 		elseif actions[i].func == OpenRepair then
 			PRINT( "ActionsProc:OpenRepair" )
 			local ret = OpenRepair( character, npc )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:OpenRepair failed!" )
-				SystemNotice( character, "ActionsProc:OpenRepair failed!" )
+				MISSDK_MISSIONSDK_LUA_000311 = GetResString("MISSDK_MISSIONSDK_LUA_000311")
+				PRINT( MISSDK_MISSIONSDK_LUA_000311 )
+				MISSDK_MISSIONSDK_LUA_000311 = GetResString("MISSDK_MISSIONSDK_LUA_000311")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000311 )
 				return LUA_FALSE
 			end
-		elseif actions[i].func == Beach.Activate then
-			Beach.Activate(character)
 		elseif actions[i].func == RandFunction then
 			PRINT( "ActionsProc:RandFunction, page = , p1 = , p2 = ", page, actions[i].p1, actions[i].p2 )
 			local ret = RandFunction( character, npc, page, actions[i].p1, actions[i].p2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:RandFunction failed!" )
-				SystemNotice( character, "ActionsProc:RandFunction failed!" )
+				MISSDK_MISSIONSDK_LUA_000312 = GetResString("MISSDK_MISSIONSDK_LUA_000312")
+				PRINT( MISSDK_MISSIONSDK_LUA_000312 )
+				MISSDK_MISSIONSDK_LUA_000312 = GetResString("MISSDK_MISSIONSDK_LUA_000312")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000312 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == AddCredit then
 			PRINT( "ActionsProc:AddCredit, p1 = ", actions[i].p1 )
 			local ret = AddCredit( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:AddCredit failed!" )
-				SystemNotice( character, "ActionsProc:AddCredit failed!" )
+				MISSDK_MISSIONSDK_LUA_000313 = GetResString("MISSDK_MISSIONSDK_LUA_000313")
+				PRINT( MISSDK_MISSIONSDK_LUA_000313 )
+				MISSDK_MISSIONSDK_LUA_000313 = GetResString("MISSDK_MISSIONSDK_LUA_000313")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000313 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == Givecrab then
@@ -4021,94 +5285,774 @@ end
 			PRINT( "ActionsProc:TakeOffer, p1 = ", actions[i].p1 )
 			local ret = TakeOffer( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:TakeOffer failed!" )
-				SystemNotice( character, "ActionsProc:TakeOffer failed!" )
+				MISSDK_MISSIONSDK_LUA_000314 = GetResString("MISSDK_MISSIONSDK_LUA_000314")
+				PRINT( MISSDK_MISSIONSDK_LUA_000314 )
+				MISSDK_MISSIONSDK_LUA_000314 = GetResString("MISSDK_MISSIONSDK_LUA_000314")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000314 )
 				return LUA_FALSE
 			end
 		elseif actions[i].func == ValentinesRing then
 			PRINT( "ActionsProc:ValentinesRing, p1 = ", actions[i].p1 )
 			local ret = ValentinesRing( character, actions[i].p1 )
 			if ret ~= LUA_TRUE then
-				PRINT( "ActionsProc:ValentinesRing failed!" )
-				SystemNotice( character, "ActionsProc:ValentinesRing failed!" )
+				MISSDK_MISSIONSDK_LUA_000315 = GetResString("MISSDK_MISSIONSDK_LUA_000315")
+				PRINT( MISSDK_MISSIONSDK_LUA_000315 )
+				MISSDK_MISSIONSDK_LUA_000315 = GetResString("MISSDK_MISSIONSDK_LUA_000315")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000315 )
 				return LUA_FALSE
 			end
-		elseif actions[i].func == AddExp_1 then
-				PRINT( "ActionProc: AddExp_1, p1 = ", actions[i].p1)
-				local ret = AddExp_1( character,npc, actions[i].p1)
-				if ret ~= LUA_TRUE then
-					PRINT( "ActionProc:AddExp_1 = false" )
-					return LUA_FALSE
-				end
-		elseif actions[i].func == AddExp_2 then
-				PRINT( "ActionProc: AddExp_2, p1 = ", actions[i].p1)
-				local ret = AddExp_2( character,npc, actions[i].p1)
-				if ret ~= LUA_TRUE then
-					PRINT( "ActionProc:AddExp_2 = false" )
-					return LUA_FALSE
-				end
-		elseif actions[i].func == AddExp_3 then
-				PRINT( "ActionProc: AddExp_3, p1 = ", actions[i].p1)
-				local ret = AddExp_3( character,npc, actions[i].p1)
-				if ret ~= LUA_TRUE then
-					PRINT( "ActionProc:AddExp_3 = false" )
-					return LUA_FALSE
-				end
-		elseif actions[i].func == AddExp_4 then
-				PRINT( "ActionProc: AddExp_4, p1 = ", actions[i].p1)
-				local ret = AddExp_4( character,npc, actions[i].p1)
-				if ret ~= LUA_TRUE then
-					PRINT( "ActionProc:AddExp_4 = false" )
-					return LUA_FALSE
-				end
-
-		elseif actions[i].func == AddExp_5 then
-				PRINT( "ActionProc: AddExp_5, p1 = ", actions[i].p1)
-				local ret = AddExp_5( character,npc, actions[i].p1)
-				if ret ~= LUA_TRUE then
-					PRINT( "ActionProc:AddExp_5 = false" )
-					return LUA_FALSE
-				end
-		elseif actions[i].func == AddExp_6 then
-				PRINT( "ActionProc: AddExp_6, p1 = ", actions[i].p1)
-				local ret = AddExp_6( character,npc, actions[i].p1)
-				if ret ~= LUA_TRUE then
-					PRINT( "ActionProc:AddExp_6 = false" )
-					return LUA_FALSE
-				end
-		else
-			PRINT( "ActionProc:unknown operation error function notice!" )
-			SystemNotice( character, "ActionProc:unknown operation error function!" )
-			return LUA_FALSE
+		elseif actions[i].func == Take_THSJ_Record then     ---清除任务记录
+			local ret = Take_THSJ_Record( character )
+			if ret ~= LUA_TRUE then
+				return LUA_FALSE
+			end
+		elseif actions[i].func == ClearItemNum2 then
+			PRINT( "ActionProc:ClearItemNum2, p1, p2, p3", actions[i].p1, actions[i].p2, actions[i].p3 )
+			local ret = ClearItemNum2( character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000316 = GetResString("MISSDK_MISSIONSDK_LUA_000316")
+				PRINT( MISSDK_MISSIONSDK_LUA_000316 )
+				SystemNotice( character, "ActionProc: ClearItemNum2" )
+				return LUA_FALSE
+		end		
+		elseif actions[i].func == Winterland_SetMisTime then
+			PRINT( "ActionProc: Winterland_SetMisTime ")
+			local ret = Winterland_SetMisTime( character)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc:Winterland_SetMisTime = false" )
+				return LUA_FALSE
 		end
+		elseif actions[i].func == AddItem_Mission1 then
+			PRINT( "ActionProc: AddItem_Mission1 ")
+			local ret = AddItem_Mission1( character)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc:AddItem_Mission1 = false" )
+				return LUA_FALSE
+		end
+		elseif actions[i].func == AddItem_Mission2 then
+			PRINT( "ActionProc: AddItem_Mission2 ")
+			local ret = AddItem_Mission2( character)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc:AddItem_Mission2 = false" )
+				return LUA_FALSE
+		end
+		elseif actions[i].func == AddItem_Mission3 then
+			PRINT( "ActionProc: AddItem_Mission3 ")
+			local ret = AddItem_Mission3( character)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc:AddItem_Mission3 = false" )
+				return LUA_FALSE
+		end
+		elseif actions[i].func == AddItem_Mission4 then
+			PRINT( "ActionProc: AddItem_Mission4 ")
+			local ret = AddItem_Mission4( character)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc:AddItem_Mission4 = false" )
+				return LUA_FALSE
+		end
+		elseif actions[i].func == AddItem_Mission5 then
+			PRINT( "ActionProc: AddItem_Mission5 ")
+			local ret = AddItem_Mission5( character)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc:AddItem_Mission5 = false" )
+				return LUA_FALSE
+		end
+		elseif actions[i].func == AddItem_Mission6 then
+			PRINT( "ActionProc: AddItem_Mission6 ")
+			local ret = AddItem_Mission6( character)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc:AddItem_Mission6 = false" )
+				return LUA_FALSE
+		end
+		elseif actions[i].func == AddItem_Mission7 then
+			PRINT( "ActionProc: AddItem_Mission7 ")
+			local ret = AddItem_Mission7( character)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc:AddItem_Mission7 = false" )
+				return LUA_FALSE
+		end
+		elseif actions[i].func == AddItem_Mission8 then
+			PRINT( "ActionProc: AddItem_Mission8 ")
+			local ret = AddItem_Mission8( character)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc:AddItem_Mission8 = false" )
+				return LUA_FALSE
+		end
+		elseif actions[i].func == AddItem_Mission9 then
+			PRINT( "ActionProc: AddItem_Mission9 ")
+			local ret = AddItem_Mission9( character)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc:AddItem_Mission9 = false" )
+				return LUA_FALSE
+		end
+		elseif actions[i].func == AddItem_Mission10 then
+			PRINT( "ActionProc: AddItem_Mission10 ")
+			local ret = AddItem_Mission10( character)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc:AddItem_Mission10 = false" )
+				return LUA_FALSE
+		end
+		elseif actions[i].func == AddItem_Mission11 then
+			PRINT( "ActionProc: AddItem_Mission11 ")
+			local ret = AddItem_Mission11( character)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc:AddItem_Mission11 = false" )
+				return LUA_FALSE
+		end
+		-----------------------------zhangliang-----------------万圣节真正的危机-------
+		elseif actions[i].func == AddItem_Mission12 then
+			PRINT( "ActionProc: AddItem_Mission12 ")
+			local ret = AddItem_Mission12( character)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc:AddItem_Mission12 = false" )
+				return LUA_FALSE
+		end
+		-----------------------------zhangliang-----------------偷吃鸡的狐狸-------
+		elseif actions[i].func == AddItem_Mission13 then
+			PRINT( "ActionProc: AddItem_Mission13 ")
+			local ret = AddItem_Mission13( character)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc:AddItem_Mission13 = false" )
+				return LUA_FALSE
+		end		
+			
+		-----------------------------zhangliang-----------------抓捕王小虎-------
+		elseif actions[i].func == AddItem_Mission14 then
+			PRINT( "ActionProc: AddItem_Mission14 ")
+			local ret = AddItem_Mission14( character)
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc:AddItem_Mission14 = false" )
+				return LUA_FALSE
+		end	
+			
+		elseif actions[i].func == AddExp_10persent then   
+			local  ret = AddExp_10persent (character)
+			if ret ~= LUA_TRUE then
+					return LUA_FALSE
+			end		
+		elseif actions[i].func == AddExp_5persent then   
+			local  ret = AddExp_5persent (character)
+			if ret ~= LUA_TRUE then
+					return LUA_FALSE
+			end
+		elseif actions[i].func == AddExp_3persent then   
+			local  ret = AddExp_3persent (character)
+			if ret ~= LUA_TRUE then
+					return LUA_FALSE
+			end
+		elseif actions[i].func == AddExp_05persent then   
+			local  ret = AddExp_05persent (character)
+			if ret ~= LUA_TRUE then
+					return LUA_FALSE
+			end			
+		elseif actions[i].func == AddExp1 then   
+			local  ret = AddExp1 (character)
+			if ret ~= LUA_TRUE then
+					return LUA_FALSE
+			end	
+		elseif actions[i].func == TeamZdJl then     ---清除任务记录
+			local ret = TeamZdJl( character )
+			if ret ~= LUA_TRUE then
+				return LUA_FALSE
+			end
+		elseif actions[i].func == Give_Box then
+			PRINT( "ActionProc:Give_Box, p1 = " )
+			local ret = Give_Box( character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000317 = GetResString("MISSDK_MISSIONSDK_LUA_000317")
+				PRINT( MISSDK_MISSIONSDK_LUA_000317 )
+				--SystemNotice( character, "ActionProc:设置历史记录标签失败！" )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == GiveItem_SetAttr then     ---清除任务记录
+			local ret = GiveItem_SetAttr( character ,actions[i].p1, actions[i].p2, actions[i].p3, actions[i].p4, actions[i].p5, actions[i].p6 )
+			if ret ~= LUA_TRUE then
+				return LUA_FALSE
+			end
+		elseif actions[i].func == ShuangBei_ChunChu then
+				PRINT( "actionsTest:ShuangBei_ChunChu ", actions[i].p1 ) 
+				local ret = ShuangBei_ChunChu( character, actions[i].p1 ) 
+				if ret ~= LUA_TRUE then 
+					PRINT( "actionsTest: ShuangBei_ChunChu = false" )
+					return LUA_FALSE
+				end
+		elseif actions[i].func == ShuangBei_TimeChaxun then
+			local  ret = ShuangBei_TimeChaxun (character)
+			if ret ~= LUA_TRUE then
+					return LUA_FALSE
+			end	
+		elseif actions[i].func == GiveSB then
+			local  ret = GiveSB (character)
+			if ret ~= LUA_TRUE then
+					return LUA_FALSE
+			end	
+		elseif actions[i].func == ZhanBu then
+			PRINT( "actionsTest:ZhanBu ", actions[i].p1 ) 
+			local ret = ZhanBu( character, actions[i].p1 ) 
+			if ret ~= LUA_TRUE then 
+				PRINT( "actionsTest: ZhanBu = false" )
+				return LUA_FALSE
+			end	
+		elseif actions[i].func == GiveNpcMission then
+			PRINT( "ActionsProc:GiveNpcMission, p1 = ", actions[i].p1 )
+			local ret = GiveNpcMission( character, actions[i].p1, actions[i].p2, actions[i].p3 )
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000318 = GetResString("MISSDK_MISSIONSDK_LUA_000318")
+				PRINT( MISSDK_MISSIONSDK_LUA_000318 )
+				MISSDK_MISSIONSDK_LUA_000319 = GetResString("MISSDK_MISSIONSDK_LUA_000319")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000319 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == ArenaTeamSignUP then
+			PRINT( "ActionProc:ArenaTeamSignUP")
+			local ret = ArenaTeamSignUP( character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000320 = GetResString("MISSDK_MISSIONSDK_LUA_000320")
+				PRINT( MISSDK_MISSIONSDK_LUA_000320 )
+				SystemNotice( character, "ActionProc: ArenaTeamSignUP" )
+				return LUA_FALSE
+		end
+		elseif actions[i].func == ArenaTeamCancel then
+			PRINT( "ActionProc:ArenaTeamCancel")
+			local ret = ArenaTeamCancel( character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000321 = GetResString("MISSDK_MISSIONSDK_LUA_000321")
+				PRINT( MISSDK_MISSIONSDK_LUA_000321 )
+				--SystemNotice( character, "ActionProc: ArenaTeamCancel" )
+				return LUA_FALSE
+		end
+		elseif actions[i].func == CheckTeamCanGo then
+			PRINT( "ActionProc:CheckTeamCanGo")
+			local ret = CheckTeamCanGo( character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000322 = GetResString("MISSDK_MISSIONSDK_LUA_000322")
+				PRINT( MISSDK_MISSIONSDK_LUA_000322 )
+				SystemNotice( character, "ActionProc: CheckTeamCanGo" )
+				return LUA_FALSE
+		end
+		elseif actions[i].func == CheckIsAmphitheaterLogin then
+			PRINT( "ActionProc:CheckIsAmphitheaterLogin")
+			local ret = CheckIsAmphitheaterLogin( character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000323 = GetResString("MISSDK_MISSIONSDK_LUA_000323")
+				PRINT( MISSDK_MISSIONSDK_LUA_000323 )
+				SystemNotice( character, "ActionProc: CheckIsAmphitheaterLogin" )
+				return LUA_FALSE
+		end
+		elseif actions[i].func == CheckIsMapFull then
+			PRINT( "ActionProc:CheckIsMapFull")
+			local ret = CheckIsMapFull( character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000324 = GetResString("MISSDK_MISSIONSDK_LUA_000324")
+				PRINT( MISSDK_MISSIONSDK_LUA_000324 )
+				SystemNotice( character, "ActionProc: CheckIsMapFull" )
+				return LUA_FALSE
+		end
+		elseif actions[i].func == CheckIsTeamor then
+			PRINT( "ActionProc:CheckIsTeamor")
+			local ret = CheckIsTeamor( character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000325 = GetResString("MISSDK_MISSIONSDK_LUA_000325")
+				PRINT( MISSDK_MISSIONSDK_LUA_000325 )
+				SystemNotice( character, "ActionProc: CheckIsTeamor" )
+				return LUA_FALSE
+		end	
+		elseif actions[i].func == GiveXZItem then
+			PRINT( "ActionsProc:GiveXZItem" )
+			local ret = GiveXZItem( character )
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000326 = GetResString("MISSDK_MISSIONSDK_LUA_000326")
+				PRINT( MISSDK_MISSIONSDK_LUA_000326 )
+				MISSDK_MISSIONSDK_LUA_000326 = GetResString("MISSDK_MISSIONSDK_LUA_000326")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000326 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == YBHS then   
+			local  ret = YBHS (character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000327 = GetResString("MISSDK_MISSIONSDK_LUA_000327")
+				PRINT( MISSDK_MISSIONSDK_LUA_000327 )
+				MISSDK_MISSIONSDK_LUA_000327 = GetResString("MISSDK_MISSIONSDK_LUA_000327")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000327 )
+					return LUA_FALSE
+			end	
+		elseif actions[i].func == GiveMGHZ then
+			PRINT( "ActionsProc:GiveMGHZ" )
+			local ret = GiveMGHZ( character, actions[i].p1, actions[i].p2, actions[i].p3 )
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000328 = GetResString("MISSDK_MISSIONSDK_LUA_000328")
+				PRINT( MISSDK_MISSIONSDK_LUA_000328 )
+				MISSDK_MISSIONSDK_LUA_000328 = GetResString("MISSDK_MISSIONSDK_LUA_000328")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000328 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == RemoveHua then
+			PRINT( "ActionsProc:RemoveHua" )
+			local ret = RemoveHua( character , actions[i].p1)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000329 = GetResString("MISSDK_MISSIONSDK_LUA_000329")
+				PRINT( MISSDK_MISSIONSDK_LUA_000329 )
+				MISSDK_MISSIONSDK_LUA_000329 = GetResString("MISSDK_MISSIONSDK_LUA_000329")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000329 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == TakeAndGiveItem then
+			PRINT( "ActionsProc:TakeAndGiveItem" )
+			local ret = TakeAndGiveItem( character , actions[i].p1,actions[i].p2,actions[i].p3,actions[i].p4)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000330 = GetResString("MISSDK_MISSIONSDK_LUA_000330")
+				PRINT( MISSDK_MISSIONSDK_LUA_000330 )
+				MISSDK_MISSIONSDK_LUA_000330 = GetResString("MISSDK_MISSIONSDK_LUA_000330")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000330 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == XZKHDJianLiN then
+			PRINT( "ActionsProc:XZKHDJianLiN" )
+			local ret = XZKHDJianLiN( character )
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000331 = GetResString("MISSDK_MISSIONSDK_LUA_000331")
+				PRINT( MISSDK_MISSIONSDK_LUA_000331 )
+				MISSDK_MISSIONSDK_LUA_000331 = GetResString("MISSDK_MISSIONSDK_LUA_000331")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000331 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == XZKHDBuZhou then
+			PRINT( "ActionsProc:XZKHDBuZhou" )
+			local ret = XZKHDBuZhou( character )
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000332 = GetResString("MISSDK_MISSIONSDK_LUA_000332")
+				PRINT( MISSDK_MISSIONSDK_LUA_000332 )
+				MISSDK_MISSIONSDK_LUA_000332 = GetResString("MISSDK_MISSIONSDK_LUA_000332")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000332 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == zhuanzts then
+			PRINT( "ActionsProc:zhuanzts" )
+			local ret = zhuanzts( character )
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000333 = GetResString("MISSDK_MISSIONSDK_LUA_000333")
+				PRINT( MISSDK_MISSIONSDK_LUA_000333 )
+				MISSDK_MISSIONSDK_LUA_000333 = GetResString("MISSDK_MISSIONSDK_LUA_000333")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000333 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func ==mj3sjc then
+				PRINT( "mj3sjc: mj3sjc")
+				local ret = mj3sjc(character ) 
+				if ret ~= LUA_TRUE then
+					PRINT( "ConditionsTest:mj3sjc = false" )
+					return LUA_FALSE
+				end
+		elseif actions[i].func ==DuiHuanJQHMG then
+			DuiHuanJQHMG(character )
+		elseif actions[i].func == bulingSB then
+			PRINT( "ActionsProc:bulingSB" )
+			local ret = bulingSB( character )				
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000334 = GetResString("MISSDK_MISSIONSDK_LUA_000334")
+				PRINT( MISSDK_MISSIONSDK_LUA_000334 )
+				MISSDK_MISSIONSDK_LUA_000334 = GetResString("MISSDK_MISSIONSDK_LUA_000334")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000334 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == bulingBL then
+			PRINT( "ActionsProc:bulingBL" )
+			local ret = bulingBL( character )
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000335 = GetResString("MISSDK_MISSIONSDK_LUA_000335")
+				PRINT( MISSDK_MISSIONSDK_LUA_000335 )
+				MISSDK_MISSIONSDK_LUA_000335 = GetResString("MISSDK_MISSIONSDK_LUA_000335")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000335 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == ChargeQiByAll then
+			PRINT( "ActionsProc:ChargeQiByAll" )
+			local ret = ChargeQiByAll(character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000336 = GetResString("MISSDK_MISSIONSDK_LUA_000336")
+				PRINT( MISSDK_MISSIONSDK_LUA_000336 )
+				MISSDK_MISSIONSDK_LUA_000336 = GetResString("MISSDK_MISSIONSDK_LUA_000336")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000336 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == ChargeQiByOne then
+			local ret = ChargeQiByOne(character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000337 = GetResString("MISSDK_MISSIONSDK_LUA_000337")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000337 )
+				return LUA_FALSE
+			end	
+		elseif actions[i].func == InitFalse then
+			PRINT( "ActionsProc:InitFalse" )
+			local ret = InitFalse()
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000338 = GetResString("MISSDK_MISSIONSDK_LUA_000338")
+				PRINT( MISSDK_MISSIONSDK_LUA_000338 )
+				MISSDK_MISSIONSDK_LUA_000338 = GetResString("MISSDK_MISSIONSDK_LUA_000338")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000338 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == TakeSportsCount then
+			PRINT( "ActionsProc:TakeSportsCount, p1 = ", actions[i].p1 )
+			local ret = TakeSportsCount( character, actions[i].p1)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000339 = GetResString("MISSDK_MISSIONSDK_LUA_000339")
+				PRINT( MISSDK_MISSIONSDK_LUA_000339 )
+				MISSDK_MISSIONSDK_LUA_000340 = GetResString("MISSDK_MISSIONSDK_LUA_000340")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000340 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == JJCiSReady then
+			local ret = JJCiSReady( character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000341 = GetResString("MISSDK_MISSIONSDK_LUA_000341")
+				PRINT( MISSDK_MISSIONSDK_LUA_000341 )
+				MISSDK_MISSIONSDK_LUA_000341 = GetResString("MISSDK_MISSIONSDK_LUA_000341")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000341 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == NoticeSportsCount then
+			-- PRINT( "ActionsProc:NoticeSportsCount, p1 = ", actions[i].p1 )
+			local ret = NoticeSportsCount( character, actions[i].p1)
+			-- if ret ~= LUA_TRUE then
+				-- PRINT( "ActionProc:NoticeSportsCount 失败！" )
+				-- SystemNotice( character, "ActionProc:NoticeSportsCount失败！" )
+				-- return LUA_FALSE
+			-- end
+		elseif actions[i].func == ChargeJJCXianglian then
+			PRINT( "ActionsProc:ChargeJJCXianglian, p1 = ", actions[i].p1 )
+			local ret = ChargeJJCXianglian( character, actions[i].p1)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000342 = GetResString("MISSDK_MISSIONSDK_LUA_000342")
+				PRINT( MISSDK_MISSIONSDK_LUA_000342 )
+				MISSDK_MISSIONSDK_LUA_000342 = GetResString("MISSDK_MISSIONSDK_LUA_000342")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000342 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == ChargeJJCXianglian then
+			PRINT( "ActionsProc:ChargeJJCXianglian, p1 = ", actions[i].p1 )
+			local ret = ChargeJJCXianglian( character, actions[i].p1)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000342 = GetResString("MISSDK_MISSIONSDK_LUA_000342")
+				PRINT( MISSDK_MISSIONSDK_LUA_000342 )
+				MISSDK_MISSIONSDK_LUA_000342 = GetResString("MISSDK_MISSIONSDK_LUA_000342")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000342 )
+				return LUA_FALSE
+			end
+			elseif actions[i].func == JJC_ZB then
+			PRINT( "ActionsProc:JJC_ZB, p1 = ", actions[i].p1 )
+			local ret = JJC_ZB( character, actions[i].p1,actions[i].p2)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000343 = GetResString("MISSDK_MISSIONSDK_LUA_000343")
+				PRINT( MISSDK_MISSIONSDK_LUA_000343 )
+				MISSDK_MISSIONSDK_LUA_000343 = GetResString("MISSDK_MISSIONSDK_LUA_000343")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000343 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == ReturnJJCXianglian then
+			PRINT( "ActionsProc:ReturnJJCXianglian, p1 = ", actions[i].p1 )
+			local ret = ReturnJJCXianglian( character, actions[i].p1)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000344 = GetResString("MISSDK_MISSIONSDK_LUA_000344")
+				PRINT( MISSDK_MISSIONSDK_LUA_000344 )
+				MISSDK_MISSIONSDK_LUA_000344 = GetResString("MISSDK_MISSIONSDK_LUA_000344")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000344 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == ZhanBubyRole then
+			local ret = ZhanBubyRole(character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000345 = GetResString("MISSDK_MISSIONSDK_LUA_000345")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000345 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == GiveItem95BBZB then
+			PRINT( "ActionsProc:GiveItem95BBZB" )
+			local ret = GiveItem95BBZB( character, actions[i].p1, actions[i].p2 )
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000346 = GetResString("MISSDK_MISSIONSDK_LUA_000346")
+				PRINT( MISSDK_MISSIONSDK_LUA_000346 )
+				MISSDK_MISSIONSDK_LUA_000346 = GetResString("MISSDK_MISSIONSDK_LUA_000346")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000346 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == JZAction1 then
+			local ret = JZAction1(character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000347 = GetResString("MISSDK_MISSIONSDK_LUA_000347")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000347 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == JZAction2 then
+			local ret = JZAction2(character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000348 = GetResString("MISSDK_MISSIONSDK_LUA_000348")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000348 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == JZAction3 then
+			local ret = JZAction3(character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000349 = GetResString("MISSDK_MISSIONSDK_LUA_000349")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000349 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == JZAction4 then
+			local ret = JZAction4(character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000350 = GetResString("MISSDK_MISSIONSDK_LUA_000350")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000350 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == Jiu_Action then
+			local ret = Jiu_Action(character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000351 = GetResString("MISSDK_MISSIONSDK_LUA_000351")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000351 )
+				return LUA_FALSE
+			end		
+		elseif actions[i].func == GiveNpcMissionbyFunc then
+			local ret = GiveNpcMissionbyFunc (character, npc,actions[i].p1, actions[i].p2, actions[i].p3,actions[i].p4,actions[i].p5)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000352 = GetResString("MISSDK_MISSIONSDK_LUA_000352")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000352 )
+				return LUA_FALSE
+			end	
+		elseif actions[i].func == GiveNpcMission1 then
+			local ret = GiveNpcMission1( character, npc,actions[i].p1 )
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000352 = GetResString("MISSDK_MISSIONSDK_LUA_000352")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000352 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == AddExpRealPer2 then
+			local ret = AddExpRealPer2(character,actions[i].p1, actions[i].p2)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000353 = GetResString("MISSDK_MISSIONSDK_LUA_000353")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000353 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == AddExpRealPer then
+			local ret = AddExpRealPer(character,actions[i].p1, actions[i].p2)
+			if ret ~= LUA_TRUE then
+				SystemNotice( character, "ActionsProc:AddExpRealPer2 failed！" )
+				return LUA_FALSE
+			end	
+		elseif actions[i].func == GiveXXBYRewards then
+			local ret = GiveXXBYRewards(character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000354 = GetResString("MISSDK_MISSIONSDK_LUA_000354")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000354 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == BaBuPrize then
+			local ret = BaBuPrize(character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000355 = GetResString("MISSDK_MISSIONSDK_LUA_000355")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000355 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == ALBSPrize then
+			local ret = ALBSPrize(character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000356 = GetResString("MISSDK_MISSIONSDK_LUA_000356")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000356 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == BLGLPrize then
+			local ret = BLGLPrize(character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000357 = GetResString("MISSDK_MISSIONSDK_LUA_000357")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000357 )
+				return LUA_FALSE
+			end	
+		elseif actions[i].func == GiveZXBYRewards then
+			local ret = GiveZXBYRewards(character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000358 = GetResString("MISSDK_MISSIONSDK_LUA_000358")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000358 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == ZTLCharge then
+			local ret = ZTLCharge(character,npc)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000359 = GetResString("MISSDK_MISSIONSDK_LUA_000359")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000359 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == BuyZTL then
+			local ret = BuyZTL(character,npc)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000360 = GetResString("MISSDK_MISSIONSDK_LUA_000360")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000360 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == TakeCZCL then
+			local ret = TakeCZCL(character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000361 = GetResString("MISSDK_MISSIONSDK_LUA_000361")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000361 )
+				return LUA_FALSE
+			end	
+		elseif actions[i].func == GiveFHItem then
+			local ret = GiveFHItem(character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000362 = GetResString("MISSDK_MISSIONSDK_LUA_000362")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000362 )
+				return LUA_FALSE
+			end	
+		elseif actions[i].func == BBXLChangeColor then
+			local ret = BBXLChangeColor(character)
+			if ret ~= LUA_TRUE then
+				--SystemNotice( character, "ActionsProc:BBXLChangeColor 失败！" )
+				return LUA_FALSE
+			end		
+		elseif actions[i].func == BBXLChangeName then
+			local ret = BBXLChangeName(character)
+			if ret ~= LUA_TRUE then
+				--SystemNotice( character, "ActionsProc:BBXLChangeName 失败！" )
+				return LUA_FALSE
+			end	
+		elseif actions[i].func == yanhuaGive then
+			local ret = yanhuaGive(character)
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000363 = GetResString("MISSDK_MISSIONSDK_LUA_000363")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000363 )
+				return LUA_FALSE
+			end	
+		elseif actions[i].func == LoveRingTo then
+			PRINT( "ActionProc:LoveRingTo, p1 = ", actions[i].p1 )
+			local ret = LoveRingTo( character, actions[i].p1 )
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000364 = GetResString("MISSDK_MISSIONSDK_LUA_000364")
+				PRINT( MISSDK_MISSIONSDK_LUA_000364 )
+				MISSDK_MISSIONSDK_LUA_000365 = GetResString("MISSDK_MISSIONSDK_LUA_000365")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000365 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == AddLovePoint then
+			PRINT( "ActionProc:AddLovePoint, p1 = ", actions[i].p1 )
+			local ret = AddLovePoint( character, actions[i].p1 )
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000366 = GetResString("MISSDK_MISSIONSDK_LUA_000366")
+				PRINT( MISSDK_MISSIONSDK_LUA_000366 )
+				MISSDK_MISSIONSDK_LUA_000367 = GetResString("MISSDK_MISSIONSDK_LUA_000367")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000367 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == Nangua then
+			PRINT( "ActionProc:Nangua, p1 = ", actions[i].p1 )
+			local ret = Nangua( character, actions[i].p1 )
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc: Nangua failed！" )
+				SystemNotice( character, "ActionProc: Nangua:万圣南瓜计数失败！" )
+				return LUA_FALSE
+			end			
+		elseif actions[i].func == GiveXZNewItem then
+			local ret = GiveXZNewItem(character )
+			if ret ~= LUA_TRUE then
+				MISSDK_MISSIONSDK_LUA_000368 = GetResString("MISSDK_MISSIONSDK_LUA_000368")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000368 )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == XiqueNum_99 then
+			local ret = XiqueNum_99(character )
+			if ret ~= LUA_TRUE then
+				SystemNotice( character, "ActionsProc:XiqueNum_99 failed！" )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == SpEnterXLZD then
+			local ret = SpEnterXLZD(character )
+			if ret ~= LUA_TRUE then
+				SystemNotice( character, "ActionsProc:SpEnterXLZD failed！" )
+				return LUA_FALSE
+			end
+		elseif actions[i].func == EnterXLZD then
+			local ret = EnterXLZD(character )
+			if ret ~= LUA_TRUE then
+				SystemNotice( character, "ActionsProc:EnterXLZD failed！" )
+				return LUA_FALSE
+			end
+		elseif actions[i].func ==  ShuangErMMAddExp then
+			local ret =  ShuangErMMAddExp(character,actions[i].p1 )
+			if ret ~= LUA_TRUE then
+				SystemNotice( character, "ActionsProc: ShuangErMMAddExp failed！" )
+				return LUA_FALSE
+			end
+		elseif actions[i].func ==  WanShengDaLi then
+			local ret =  WanShengDaLi(character )
+			if ret ~= LUA_TRUE then
+				SystemNotice( character, "ActionsProc: WanShengDaLi failed！" )
+				return LUA_FALSE
+			end
+		
+		-------------------------------------------------------------zhangliang----------------------------------------------------------
+		elseif actions[i].func == CheckFuShenItem then
+			PRINT( "ActionProc:CheckFuShenItem, p1 = ", actions[i].p1 )
+			local ret = CheckFuShenItem( character, actions[i].p1 )
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc: AddLovePoint failed！" )
+				SystemNotice( character, "ActionProc: AddLovePoint:添加爱情积分失败！" )
+				return LUA_FALSE
+			end				
+		elseif actions[i].func == GivePointsAndMoney then
+			PRINT( "ActionProc:GivePointsAndMoney, p1 = ", actions[i].p1 )
+			local ret = GivePointsAndMoney( character, actions[i].p1 )
+			if ret ~= LUA_TRUE then
+				PRINT( "ActionProc: GivePointsAndMoney 失败！" )
+				SystemNotice( character, "ActionProc: GivePointsAndMoney:添加爱情积分失败！" )
+				return LUA_FALSE
+			end	
+		-------------------------------------------------------------zhangliang----------------------------------------------------------
+		else
+			MISSDK_MISSIONSDK_LUA_000369 = GetResString("MISSDK_MISSIONSDK_LUA_000369")
+			PRINT( MISSDK_MISSIONSDK_LUA_000369 )
+			MISSDK_MISSIONSDK_LUA_000370 = GetResString("MISSDK_MISSIONSDK_LUA_000370")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000370 )
+			return LUA_FALSE
+		end		
 	end
 	
 	PRINT( "ActionProc: return true" )
 	return LUA_TRUE
 end
 
---NPC牟祇竟兵ン浪琩ㄧ计
+--NPC触发器条件检查函数
 function NpcTriggerCheck( character, trigger )
 	PRINT( "NpcTriggerCheck" )
 	if trigger == nil or trigger.conditions == nil then
-		SystemNotice( character, "NpcTriggerCheck:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000371 = GetResString("MISSDK_MISSIONSDK_LUA_000371")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000371 )
 		return LUA_ERROR
 	end
 	PRINT( "NpcTriggerCheck: ConditionsTest" )
 	return ConditionsTest( character, trigger.conditions )
 end
 
---琌ヴ叭竒ЧΘ
+function Take_THSJ_Record(role)     --清除任务记录
+	for checknum = 1 , 7 , 1 do
+		local value = 1280 + checknum
+		local Ishave = HasRecord( role , value )
+		if Ishave == LUA_TRUE then
+			ClearRecord( role , value )
+		end
+	end
+	return LUA_TRUE
+end
+
+--是否任务已经完成
 function NpcTriggerResult( character, trigger )
 	PRINT( "NpcTriggerResult" )
 	if trigger == nil then
-		SystemNotice( character, "NpcTriggerResult:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000372 = GetResString("MISSDK_MISSIONSDK_LUA_000372")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000372 )
 		return LUA_ERROR
 	end
 	
-	--纐粄狦牟祇竟⊿Τ挡狦兵ン玥ッ环ぃ才兵ン
+	--默认如果触发器没有结果条件则为永远不符合条件
 	if trigger.restul == nil or trigger.result[1] == nil then
-		PRINT( "NpcTriggerResult: condition as null, consent return FALSE, denote does not match requirement permanently!" )
+		MISSDK_MISSIONSDK_LUA_000373 = GetResString("MISSDK_MISSIONSDK_LUA_000373")
+		PRINT( MISSDK_MISSIONSDK_LUA_000373 )
 		return LUA_FALSE
 	end
 	
@@ -4116,15 +6060,16 @@ function NpcTriggerResult( character, trigger )
 	return ConditionsTest( character, trigger.result )
 end
 
---ヴ叭
+--取消一个任务
 function NpcCancelTrigger( character, trigger, misid, scriptid )
 	PRINT( "NpcCancelTrigger" )
 	if trigger == nil or trigger.actions == nil then
-		SystemNotice( character, "NpcCancelTrigger:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000374 = GetResString("MISSDK_MISSIONSDK_LUA_000374")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000374 )
 		return LUA_ERROR
 	end
 	
-	--浪代牟祇竟兵ン
+	--检测触发器限制条件
 	PRINT( "NpcCancelTrigger:conditions test" )
 	if trigger.conditions ~= nil and trigger.conditions[1] ~= nil then
 		local ret = ConditionsTest( character, trigger.conditions )
@@ -4164,11 +6109,12 @@ end
 function NpcTrigger( character, npc, trigger, misid, scriptid )
 	PRINT( "NpcTrigger" )
 	if trigger == nil or trigger.actions == nil then
-		SystemNotice( character, "NpcTrigger:Function parameter error!" )
+		MISSDK_MISSIONSDK_LUA_000375 = GetResString("MISSDK_MISSIONSDK_LUA_000375")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000375 )
 		return LUA_ERROR
 	end
 	
-	--浪代牟祇竟兵ン
+	--检测触发器限制条件
 	PRINT( "NpcTrigger:conditions test" )
 	if trigger.conditions ~= nil and trigger.conditions[1] ~= nil then
 		local ret = ConditionsTest( character, trigger.conditions )
@@ -4193,14 +6139,15 @@ end
 function TriggerProc( character, id, param1, param2, param3, param4 )
 	PRINT( "TriggerProc:2 ID = , Trigger = , p1 = , p2 = , p3 = , p4 = ", id, TriggerList[id], param1, param2, param3, param4 )	
 	if id == nil or TriggerList[id] == nil or TriggerList[id].actions == nil or param1 == nil or param2 == nil then
-		SystemNotice( character, "TriggerProc:incorrect function notice or trigger does not have action notice!ID = "..id )
+		MISSDK_MISSIONSDK_LUA_000376 = GetResString("MISSDK_MISSIONSDK_LUA_000376")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000376..id )
 		return LUA_ERROR
 	end
 	
 	PRINT( "TriggerProc: conditions proc!" )
 	local trigger = TriggerList[id]
 	if trigger.tp == MIS_TRIGGER_NOMAL then
-		--浪代牟祇竟兵ン
+		--检测触发器限制条件
 		if trigger.conditions ~= nil and trigger.conditions[1] ~= nil then
 			local ret = ConditionsTest( character, trigger.conditions, param1, param2 )
 			if ret ~= LUA_TRUE then
@@ -4209,7 +6156,7 @@ function TriggerProc( character, id, param1, param2, param3, param4 )
 			end
 		end
 		
-		--矪瞶牟祇竟笆
+		--处理触发器动作
 		PRINT( "TriggerProc:actions proc" )
 		if trigger.actions ~= nil and trigger.actions[1] ~= nil then
 			local ret = ActionsProc( character, trigger.actions, nil, nil, 0, 0, param1, param2 )
@@ -4221,11 +6168,16 @@ function TriggerProc( character, id, param1, param2, param3, param4 )
 		end
 	
 	elseif trigger.tp == MIS_TRIGGER_RAND then
-		PRINT( "TriggerProc:random quest: param3, param4", param3, param4 )
+		MISSDK_MISSIONSDK_LUA_000377 = GetResString("MISSDK_MISSIONSDK_LUA_000377")
+		PRINT( MISSDK_MISSIONSDK_LUA_000377, param3, param4 )
 		if trigger.actions[1].func == AddRMNextFlag then
 			if param3 == nil or param4 == nil then
-				PRINT( "TriggerProc:random quest:while reseting AddRMNextFlagfunction parameter, param3, param4 cannot be nil" )
-				SystemNotice( character, "TriggerProc:random quest:while reseting AddRMNextFlagfunction parameter, param3, param4 cannot be nil" )
+				MISSDK_MISSIONSDK_LUA_000378 = GetResString("MISSDK_MISSIONSDK_LUA_000378")
+				PRINT( MISSDK_MISSIONSDK_LUA_000378 )
+				MISSDK_MISSIONSDK_LUA_000378 = GetResString("MISSDK_MISSIONSDK_LUA_000378")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000378 )
+				MISSDK_MISSIONSDK_LUA_000379 = GetResString("MISSDK_MISSIONSDK_LUA_000379")
+				LG( "randmission_error", MISSDK_MISSIONSDK_LUA_000379, id )
 				return LUA_FALSE
 			end
 			
@@ -4233,22 +6185,26 @@ function TriggerProc( character, id, param1, param2, param3, param4 )
 			trigger.actions[1].p3 = param4
 		end
 		
-		--浪代牟祇竟兵ン
+		--检测触发器限制条件
 		if trigger.conditions ~= nil and trigger.conditions[1] ~= nil then
 			local ret = ConditionsTest( character, trigger.conditions, param1, param2 )
 			if ret ~= LUA_TRUE then
-				PRINT( "TriggerProc: random quest: conditions return false, return false" )
+				MISSDK_MISSIONSDK_LUA_000380 = GetResString("MISSDK_MISSIONSDK_LUA_000380")
+				PRINT( MISSDK_MISSIONSDK_LUA_000380 )
 				return LUA_FALSE
 			end
 		end
 		
-		--矪瞶牟祇竟笆
-		PRINT( "TriggerProc:random quest: actions proc" )
+		--处理触发器动作
+		MISSDK_MISSIONSDK_LUA_000381 = GetResString("MISSDK_MISSIONSDK_LUA_000381")
+		PRINT( MISSDK_MISSIONSDK_LUA_000381 )
 		if trigger.actions ~= nil and trigger.actions[1] ~= nil then
 			local ret = ActionsProc( character, trigger.actions )
 			if ret ~= LUA_TRUE then
-				PRINT( "TriggerProc: random quest: actions return false, return false" )
-				SystemNotice( character, "TriggerProc: random quest: actions return false, return false" )
+				MISSDK_MISSIONSDK_LUA_000382 = GetResString("MISSDK_MISSIONSDK_LUA_000382")
+				PRINT( MISSDK_MISSIONSDK_LUA_000382 )
+				MISSDK_MISSIONSDK_LUA_000382 = GetResString("MISSDK_MISSIONSDK_LUA_000382")
+				SystemNotice( character, MISSDK_MISSIONSDK_LUA_000382 )
 				return LUA_FALSE
 			end
 		end
@@ -4256,8 +6212,10 @@ function TriggerProc( character, id, param1, param2, param3, param4 )
 		trigger.actions[1].p2 = 0
 		trigger.actions[1].p3 = 0
 	else
-		PRINT( "TriggerProc:incorrect trigger type notice.id = ", id )
-		SystemNotice( character, "TriggerProc:incorrect trigger type notice.id = "..id )
+		MISSDK_MISSIONSDK_LUA_000383 = GetResString("MISSDK_MISSIONSDK_LUA_000383")
+		PRINT( MISSDK_MISSIONSDK_LUA_000383, id )
+		MISSDK_MISSIONSDK_LUA_000383 = GetResString("MISSDK_MISSIONSDK_LUA_000383")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000383..id )
 		return LUA_FALSE
 	end
 	
@@ -4268,14 +6226,15 @@ end
 function TriggerResult( character, id, param1, param2 )
 	PRINT( "TriggerResult" )	
 	if id == nil or TriggerList[id] == nil or param1 == nil or param2 == nil then
-		SystemNotice( character, "TriggerResult:incorrect function notice!" )
+		MISSDK_MISSIONSDK_LUA_000384 = GetResString("MISSDK_MISSIONSDK_LUA_000384")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000384 )
 		return LUA_ERROR
 	end
 	
 	PRINT( "TriggerResult: conditions proc!" )
 	local trigger = TriggerList[id]
 	
-	--矪瞶牟祇竟挡笆
+	--处理触发器结束动作
 	PRINT( "TriggerProc:failures proc" )
 	if trigger.failures ~= nil and trigger.failures[1] ~= nil then
 		local ret = ActionsProc( character, trigger.failures )
@@ -4288,25 +6247,28 @@ function TriggerResult( character, id, param1, param2 )
 	return LUA_TRUE
 end 
 
---莉à︹続radom ヴ叭ネΘ獺琿
+--获取角色的适合的随机任务生成信息段
 function GetRandMissionLevel( character, sid, leveltp )
-	if leveltp == MIS_LEVEL_CHAR then	    --à︹radom ヴ叭单摸
+	if leveltp == MIS_LEVEL_CHAR then	    --角色随机任务等级类型
 		local level = GetCharMissionLevel( character )
 		if level == nil then
 			return 10000
 		end
 		return level --1 + GetSection( level, 5 )
-	elseif leveltp == MIS_LEVEL_GANG then	--そ穦radom ヴ叭单摸
+	elseif leveltp == MIS_LEVEL_GANG then	--公会随机任务等级类型
 		local level = GetCharGangLevel( character )
 		return level
 	else
-		SystemNotice( character, "GetRandMissionLevel:incorrect random quest level type!missid = "..sid )
+		MISSDK_MISSIONSDK_LUA_000385 = GetResString("MISSDK_MISSIONSDK_LUA_000385")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000385..sid )
+		MISSDK_MISSIONSDK_LUA_000385 = GetResString("MISSDK_MISSIONSDK_LUA_000385")
+		LG( "randmission_error", MISSDK_MISSIONSDK_LUA_000385..sid )
 		return 10000
 	end
 	return 10000
 end
 
---沮radom ヴ叭癳ン畐いradom ネΘン倒Player癳NPC矪
+--根据随机任务送物件库中随机生成一个物件，给玩家送到NPC处
 function GetRandMissionSendItem( itemlist )
 	PRINT( "GetRandMissionSendItem:itemlist = , itemlist.count = ", itemlist, itemlist.count )
 	local id = Rand( itemlist.count ) + 1
@@ -4314,51 +6276,64 @@ function GetRandMissionSendItem( itemlist )
 	return itemlist[id]
 end
 
---沮à︹ЧΘradom ヴ叭Ω计radom 玻ネ蔼珇ヴ叭贱纘
+--根据角色完成的随机任务次数随机产生一个高级物品，作为任务奖励
 function GetRandMissionPrize( character, misname, id, loopinfo, loopdata )
 	PRINT( "GetRandMissionPrize" )
 	if loopinfo == nil or loopdata == nil or id == nil or misname == nil then
 		PRINT( "GetRandMissionPrize: id = , loopdata = ", id, loopdata )
-		SystemNotice( character, "GetRandMissionPrize:function parameter errorreward failed!" )
+		MISSDK_MISSIONSDK_LUA_000386 = GetResString("MISSDK_MISSIONSDK_LUA_000386")
+		LG( "randmission_error", MISSDK_MISSIONSDK_LUA_000386..id )
+		MISSDK_MISSIONSDK_LUA_000387 = GetResString("MISSDK_MISSIONSDK_LUA_000387")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000387 )
 		return 0, 0
 	end
 	
 	local ret, loopnum = GetRandMissionNum( character, id )
 	if ret ~= LUA_TRUE then
-		PRINT( "GetRandMissionPrize:GetRandMissionNum function transfer failed. Unable to obtain character random quest loop count!id = ", id )
-		SystemNotice( character, "GetRandMissionPrize:GetRandMissionNum function transfer failed. Unable to obtain character random quest loop count!id = "..id )
-		--睲埃赣à︹赣radom ヴ叭璸计
+		MISSDK_MISSIONSDK_LUA_000388 = GetResString("MISSDK_MISSIONSDK_LUA_000388")
+		PRINT( MISSDK_MISSIONSDK_LUA_000388, id )
+		MISSDK_MISSIONSDK_LUA_000388 = GetResString("MISSDK_MISSIONSDK_LUA_000388")
+		LG( "randmission_error", MISSDK_MISSIONSDK_LUA_000388, id )
+		MISSDK_MISSIONSDK_LUA_000388 = GetResString("MISSDK_MISSIONSDK_LUA_000388")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000388..id )
+		--清除该角色该随机任务计数
 		ResetRandMissionNum( character, id )
 		return 0, 0
 	else		
-		loopnum = loopnum + 1 --锣传lua计舱ま
+		loopnum = loopnum + 1 --转换为lua数组索引
 		PRINT( "GetRandMissionPrize:GetRandMissionNum: return loopnum = ", loopnum )
 		PRINT( "loopdata, loopdata", loopdata, loopdata[loopnum] )
 		if loopinfo[loopnum] == nil or loopdata[loopnum] == nil or loopdata[loopnum].Prize == nil then
-			PRINT( "GetRandMissionPrize: invalid random quest cycle data notice or reward item notice,id = , loopnum = ", id, loopnum )
-			SystemNotice( character, "GetRandMissionPrize: invalid random quest cycle data notice or reward item notice,id = "..id.." loopnum = "..loopnum )
-			--睲埃赣à︹赣radom ヴ叭璸计
+			MISSDK_MISSIONSDK_LUA_000389 = GetResString("MISSDK_MISSIONSDK_LUA_000389")
+			PRINT( MISSDK_MISSIONSDK_LUA_000389, id, loopnum )
+			MISSDK_MISSIONSDK_LUA_000390 = GetResString("MISSDK_MISSIONSDK_LUA_000390")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000390..id.." loopnum = "..loopnum )
+			--清除该角色该随机任务计数
 			ResetRandMissionNum( character, id )
 			return 0, 0
 		end
 		
 		local ret, miscount = GetRandMissionCount( character, id )
 		miscount = miscount + 1
-		SystemNotice( character, "You have accepted quest ["..misname.."] No."..miscount.."!" )
+		MISSDK_MISSIONSDK_LUA_000391 = GetResString("MISSDK_MISSIONSDK_LUA_000391")
+		MISSDK_MISSIONSDK_LUA_000392 = GetResString("MISSDK_MISSIONSDK_LUA_000392")
+		MISSDK_MISSIONSDK_LUA_000393 = GetResString("MISSDK_MISSIONSDK_LUA_000393")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000393..misname..MISSDK_MISSIONSDK_LUA_000392..miscount..MISSDK_MISSIONSDK_LUA_000391 )
 		
 		PRINT( "GetRandMissionPrize:HasRandMissionCount, id = , num = ", loopinfo[loopnum].num )
 		local ret = HasRandMissionCount( character, id, loopinfo[loopnum].num - 1 )
 		if ret == LUA_TRUE then
-			--睲埃赣吏ヴ叭璸计吏璸计糤
+			--清除该环任务计数，同时环计数增加
 			--ret = AddRandMissionNum( character, id )
 			--if ret ~= LUA_TRUE then
-				--PRINT( "GetRandMissionPrizeItem:AddRandMissionNum reset quest cycle calculation failed!id = ", id  )
-				--SystemNotice( character, "GetRandMissionPrizeItem:AddRandMissionNum reset quest cycle calculation failed!id = "..id )
+				--PRINT( "GetRandMissionPrizeItem:AddRandMissionNum重设任务环计数失败！id = ", id  )
+				--LG( "randmission_error", "GetRandMissionPrizeItem:AddRandMissionNum重设任务环计数失败！id ", id )
+				--SystemNotice( character, "GetRandMissionPrizeItem:AddRandMissionNum重设任务环计数失败！id = "..id )
 				--return 0, 0
 			--end
 			
 			PRINT( "GetRandMissionPrize:Prize", loopdata[loopnum].Prize )
-			--à︹ぃ琿radom ヴ叭莉眔蔼珇碭瞯盢穦繦琿糤τ
+			--角色不同段位作随机任务获得高级物品的几率将会随段位增加而下降
 			local prizelist = loopdata[loopnum].Prize
 			local value = Rand( 100 )
 			PRINT( "GetRandMissionPrize: prize rand value = , odds = ", value, loopinfo[loopnum].odds )
@@ -4367,7 +6342,7 @@ function GetRandMissionPrize( character, misname, id, loopinfo, loopdata )
 			end
 			
 			if prizelist.tp == MIS_PRIZE_ITEM then
-				--璸衡蔼珇贱纘radom 瞯
+				--计算高级物品奖励随机率
 				local randdata = 0
 				for n = 1, prizelist.count, 1 do
 					randdata = randdata + prizelist[n].p2
@@ -4386,13 +6361,17 @@ function GetRandMissionPrize( character, misname, id, loopinfo, loopdata )
 				local index = Rand( prizelist.count ) + 1
 				PRINT( "GetRandMissionPrize:prizetp = , p1 = , p2 = index = ", prizelist[index].tp, prizelist[index].p1, prizelist[index].p2, index )		
 				if prizelist[index] == nil then
-					SystemNotice( character, "Error: cannot locate random quest high level equipment reward notice!id = "..id.."prize index = "..index )
+					MISSDK_MISSIONSDK_LUA_000394 = GetResString("MISSDK_MISSIONSDK_LUA_000394")
+					SystemNotice( character, MISSDK_MISSIONSDK_LUA_000394..id.."prize index = "..index )
+					MISSDK_MISSIONSDK_LUA_000394 = GetResString("MISSDK_MISSIONSDK_LUA_000394")
+					LG( "randmission_error", MISSDK_MISSIONSDK_LUA_000394..id.." prize index = "..index )
 					return 0
 				end
 				
 				--local charname = GetCharName( character )
-				--local str = "GetRandMissionPrizeItem, だ皌倒à︹蔼单radom ヴ叭杆称name = "
-				--str = str..charname.." item id = "..prizelist[index].."misid = "..id.."loopnum = "..loopnum
+				--local str = "GetRandMissionPrizeItem, 分配给了角色一个高等级随机任务装备！name = 《"
+				--str = str..charname.."》 item id = "..prizelist[index].."misid = "..id.."loopnum = "..loopnum
+				--LG( "randmission_info", str )
 				
 				PRINT( "GetRandMissionPrize: return prizetp = , p1 = ", prizelist[index].tp, prizelist[index].p1 )
 				return prizelist[index].tp, prizelist[index].p1
@@ -4404,16 +6383,18 @@ function GetRandMissionPrize( character, misname, id, loopinfo, loopdata )
 	return 0, 0
 end
 
---耞赣radom ヴ叭琌砆赣à︹钡
+--判断该随机任务是否可以被该角色接受
 function IsRandMissionAccept( character, mission )
 	PRINT( "IsRandMissionAccept:character, mission", character, mission )
 	if mission == nil or mission.tp ~= RAND_MISSION then
-		PRINT( "IsRandMissionAccept:parameter error or non random quest type data notice!" )
-		SystemNotice( character, "IsRandMissionAccept:parameter error or non random quest type data notice!" )		
+		MISSDK_MISSIONSDK_LUA_000395 = GetResString("MISSDK_MISSIONSDK_LUA_000395")
+		PRINT( MISSDK_MISSIONSDK_LUA_000395 )
+		MISSDK_MISSIONSDK_LUA_000395 = GetResString("MISSDK_MISSIONSDK_LUA_000395")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000395 )		
 		return LUA_FALSE
 	end
 	
-	--莉赣à︹radom ヴ叭计沮琿
+	--获取该角色随机任务数据段值
 	local level = GetRandMissionLevel( character, mission.sid, mission.leveltp )
 	PRINT( "IsRandMissionAccept:GetRandMissionLevel : level = ", level )
 	if mission.RandInfo == nil or mission.RandInfo[level] == nil then
@@ -4425,22 +6406,38 @@ function IsRandMissionAccept( character, mission )
 	return LUA_TRUE
 end
 	
---代刚璸衡radom ヴ叭そΑ
+--测试计算随机任务公式
 function GetRandMissionExp( loopnum, miscount, exp )
 	--X*(350+Z*550)*0.0001*((10+Y*15)*0.001+INT(Y*0.1)*0.075)
-	--x=羆竒喷
-	--y=吏计
-	--z=吏计 
+	--x=总经验
+	--y=小环数
+	--z=大环数 
 	
 	if loopnum == nil or miscount == nil or exp == nil then
-		PRINT( "GetRandMissionExp:Function parameter error!loopnum, miscount, exp", loopnum, miscount, exp )
+		MISSDK_MISSIONSDK_LUA_000396 = GetResString("MISSDK_MISSIONSDK_LUA_000396")
+		PRINT( MISSDK_MISSIONSDK_LUA_000396, loopnum, miscount, exp )
+		MISSDK_MISSIONSDK_LUA_000397 = GetResString("MISSDK_MISSIONSDK_LUA_000397")
+		LG( "randmission_error", MISSDK_MISSIONSDK_LUA_000397 )
 		return 0
 	end
 	
-	--local value = exp*(350 + loopnum*550)*0.0001*((10 + miscount*15)*0.001 + (miscount*0.1)*0.075)
-	local value = exp*((20 + miscount*5)*0.002 + ToDword(miscount*0.1)*0.05)
-	local newexp = ToDword( value )
+	local newexp=0
+	
+	local value = 0
+	if miscount <= 30 then
+		value = exp*((20 + miscount)*0.002 + ToDword(miscount*0.1)*0.05)
+	
+	elseif miscount > 30 and miscount <= 40 then
+		value = exp*(0.25 + math.pow(miscount - 30,2)/400)
+
+	elseif miscount > 40 and miscount <= 50 then
+		value = exp*(0.5 + math.pow(miscount - 40,2)/200)
+	
+	end
+	newexp = ToDword( value )
 	PRINT( "GetRandMissionExp:newexp = ", newexp )
+	--local value = exp*(350 + loopnum*550)*0.0001*((10 + miscount*15)*0.001 + (miscount*0.1)*0.075)
+	
 	if newexp == nil then
 		return 0
 	end
@@ -4450,7 +6447,10 @@ end
 
 function GetRandMissionMoney( loopnum, miscount, money )
 	if loopnum == nil or miscount == nil or money == nil then
-		PRINT( "GetRandMissionExp:Function parameter error!loopnu, miscount, money", loopnum, miscount, money )
+		MISSDK_MISSIONSDK_LUA_000398 = GetResString("MISSDK_MISSIONSDK_LUA_000398")
+		PRINT( MISSDK_MISSIONSDK_LUA_000398, loopnum, miscount, money )
+		MISSDK_MISSIONSDK_LUA_000399 = GetResString("MISSDK_MISSIONSDK_LUA_000399")
+		LG( "randmission_error", MISSDK_MISSIONSDK_LUA_000399 )
 		return 0
 	end
 	
@@ -4465,16 +6465,18 @@ function GetRandMissionMoney( loopnum, miscount, money )
 	return newmoney
 end
 
---沮à︹獺ネΘradom ヴ叭
+--根据角色的信息生成一个随机任务
 function CreateRandMission( character, npc, mission )
 	PRINT( "CreateRandMission:character, npc, mission", character, npc, mission )
 	if mission == nil or mission.tp ~= RAND_MISSION then
-		PRINT( "CreateRandMission:parameter error or non random quest type data notice!" )
-		SystemNotice( character, "CreateRandMission:parameter error or non random quest type data notice!" )		
+		MISSDK_MISSIONSDK_LUA_000400 = GetResString("MISSDK_MISSIONSDK_LUA_000400")
+		PRINT( MISSDK_MISSIONSDK_LUA_000400 )
+		MISSDK_MISSIONSDK_LUA_000400 = GetResString("MISSDK_MISSIONSDK_LUA_000400")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000400 )		
 		return LUA_FALSE
 	end
 				
-	--﹍てЫradom ヴ叭把计
+	--初始化全局随机任务参数
 	InitRandParam()
 	RandParam.id = mission.id
 	RandParam.sid = mission.sid
@@ -4483,48 +6485,61 @@ function CreateRandMission( character, npc, mission )
 	RandParam.npcarea  = mission.npcarea	
 	PRINT( "CreateRandMission:RandParam.id = , RandParam.sid = ,  bounty = , name = , area = ", RandParam.id, RandParam.sid, RandParam.bounty, RandParam.npcname, RandParam.npcarea )
 	
-	--莉赣à︹radom ヴ叭计沮琿
+	--获取该角色随机任务数据段值
 	RandParam.level = GetRandMissionLevel( character, mission.sid, mission.leveltp )
 	PRINT( "CreateRandMission:RandParam.level =, mission.RandInfo =, mission.RandInfo[level] = ", RandParam.level, mission.RandInfo, mission.RandInfo[RandParam.level] )
 	if mission.RandInfo == nil or mission.RandInfo[RandParam.level] == nil then
-		PRINT( "CreateRandMission:mission notice does not exist random quest data generated notice, please checl.llevel = "..RandParam.level )
+		MISSDK_MISSIONSDK_LUA_000401 = GetResString("MISSDK_MISSIONSDK_LUA_000401")
+		PRINT( MISSDK_MISSIONSDK_LUA_000401..RandParam.level )
 		local desp = GetCharName( npc )
-		desp = desp..": Sorry, I do not have any quest suitable for your level. Please look elsewhere."
+		MISSDK_MISSIONSDK_LUA_000402 = GetResString("MISSDK_MISSIONSDK_LUA_000402")
+		desp = desp..MISSDK_MISSIONSDK_LUA_000402
 		HelpInfo( character, MIS_HELP_DESP, desp )
 		return LUA_FALSE
 	end
 	
 	PRINT( "CreateRandMission: rand type count = ", mission.RandInfo[RandParam.level].tpinfo.count )
-	--radom ヴ叭摸
+	--随机一个任务类型
 	--local tpinfoid = Rand( mission.RandInfo[RandParam.level].tpinfo.count ) + 1
 	local tpinfoid = GetRandTpinfoIndex( mission.RandInfo[RandParam.level].tpinfo )
 	
 	PRINT( "CreateRandMission:Rand mission info, tpinfoid =, type = ", tpinfoid, mission.RandInfo[RandParam.level].tpinfo[tpinfoid].tp )
 	if mission.RandInfo[RandParam.level].tpinfo[tpinfoid] == nil or mission.RandInfo[RandParam.level].tpinfo[tpinfoid].tp == nil then
-		PRINT( "CreateRandMission:Random quest type shortcut notice as nil.level, tpinfoid", RandParam.level, tpinfoid )
-		SystemNotice( character, "CreateRandMission:Random quest type shortcut notice as nil.level = , tpinfoid = "..RandParam.level..tpinfoid )
+		MISSDK_MISSIONSDK_LUA_000403 = GetResString("MISSDK_MISSIONSDK_LUA_000403")
+		PRINT( MISSDK_MISSIONSDK_LUA_000403, RandParam.level, tpinfoid )
+		MISSDK_MISSIONSDK_LUA_000404 = GetResString("MISSDK_MISSIONSDK_LUA_000404")
+		LG( "randmission_error", MISSDK_MISSIONSDK_LUA_000404, RandParam.level, tpinfoid )
+		MISSDK_MISSIONSDK_LUA_000404 = GetResString("MISSDK_MISSIONSDK_LUA_000404")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000404..RandParam.level..tpinfoid )
 		return LUA_FALSE
 	end
 	
-	--radom ヴ叭计沮
+	--随机取一个任务数据
 	RandParam.tp = mission.RandInfo[RandParam.level].tpinfo[tpinfoid].tp
 	local tpindex = GetRandMissionTypeIndex( mission, RandParam.tp )
 	PRINT( "CreateRandMission:tpindex = ", tpindex )
 	if tpindex == 0 then
-		PRINT( "CreateRandMission:GetRandMission:GetRandMissionTypeIndex has not found any quest mission that matches with random question type initialization date notice" )
-		SystemNotice( character, "CreateRandMission:GetRandMissionGetRandMissionTypeIndex has not found any quest mission that matches with random question type initialization date notice" )
+		LG( "randmission_error", "CreateRandMission:GetRandMissionTypeIndex:id, tp, level, exp, money, item, numdata", RandParam.id, RandParam.tp, RandParam.level, RandParam.exp, RandParam.money, RandParam.prizedata, RandParam.prizetp, RandParam.numdata )
+		MISSDK_MISSIONSDK_LUA_000405 = GetResString("MISSDK_MISSIONSDK_LUA_000405")
+		PRINT( MISSDK_MISSIONSDK_LUA_000405 )
+		MISSDK_MISSIONSDK_LUA_000405 = GetResString("MISSDK_MISSIONSDK_LUA_000405")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000405 )
 		return LUA_FALSE
 	end
 	
 	local randnum = mission.missionlist[tpindex].randnum
 	if randnum == nil or randnum < 1 or randnum > 4 then
-		PRINT( "CreateRandMission:random quest highest random value type cannot be less than 1 or greater than 4! num = "..randnum )
-		SystemNotice( character, "CreateRandMission:random quest highest random value type cannot be less than 1 or greater than 4! num = "..randnum )
+		MISSDK_MISSIONSDK_LUA_000406 = GetResString("MISSDK_MISSIONSDK_LUA_000406")
+		LG( "randmission_error", MISSDK_MISSIONSDK_LUA_000406..randnum )
+		MISSDK_MISSIONSDK_LUA_000406 = GetResString("MISSDK_MISSIONSDK_LUA_000406")
+		PRINT( MISSDK_MISSIONSDK_LUA_000406..randnum )
+		MISSDK_MISSIONSDK_LUA_000406 = GetResString("MISSDK_MISSIONSDK_LUA_000406")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000406..randnum )
 		return LUA_FALSE
 	end
 	PRINT( "CreateRandMission:randnum = , val = ", mission.missionlist[tpindex].randnum, randnum )
 	
-	--莉radom ヴ叭璸计
+	--获取随机任务的计数
 	local ret, miscount = GetRandMissionCount( character, mission.id )
 	--if miscount == 0 then
 		--miscount = 1
@@ -4538,12 +6553,12 @@ function CreateRandMission( character, npc, mission )
 	misloopnum = misloopnum + 1
 	
 	--X*(350+Z*550)*0.0001*((10+Y*15)*0.001+INT(Y*0.1)*0.075)
-	--x=羆竒喷
-	--y=吏计
-	--z=吏计 
+	--x=总经验
+	--y=小环数
+	--z=大环数 
 
-	if RandParam.tp == MIS_RAND_KILL then					--聐炳┣
-		--radom 程4┣摸
+	if RandParam.tp == MIS_RAND_KILL then					--猎杀怪物
+		--随机最大4个怪物类型
 		RandParam.numdata = Rand( randnum ) + 1
 		PRINT( "CreateRandMission:rand numdata = ", RandParam.numdata )
 		if RandParam.numdata > mission.RandInfo[RandParam.level].KillInfo.count then
@@ -4551,8 +6566,10 @@ function CreateRandMission( character, npc, mission )
 		end
 		PRINT( "CreateRandMission:rand numdata = ", RandParam.numdata )
 		if RandParam.numdata <= 0 then
-			PRINT( "CreateRandMission, hunt monster quest random value cannot be less than zero. Please check if level of monster item matches! Level = ", RandParam.level )
-			SystemNotice( character, "CreateRandMission, hunt monster quest random value cannot be less than zero. Please check if level of monster item matches!Level = "..RandParam.level )
+			MISSDK_MISSIONSDK_LUA_000407 = GetResString("MISSDK_MISSIONSDK_LUA_000407")
+			PRINT( MISSDK_MISSIONSDK_LUA_000407, RandParam.level )
+			MISSDK_MISSIONSDK_LUA_000407 = GetResString("MISSDK_MISSIONSDK_LUA_000407")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000407..RandParam.level )
 			return LUA_FALSE
 		end
 		
@@ -4560,7 +6577,7 @@ function CreateRandMission( character, npc, mission )
 			local flag = 1
 			local infoid = Rand( mission.RandInfo[RandParam.level].KillInfo.count ) + 1
 			PRINT( "CreateRandMission:rand infoid = ", infoid )
-			--浪琩琌Τ狡计沮ま獺
+			--检查是否有重复的数据索引信息
 			for i = 1, n - 1, 1 do
 				if RandParam.data[i].id == infoid then
 					PRINT( "CreateRandMission:3" )
@@ -4572,7 +6589,7 @@ function CreateRandMission( character, npc, mission )
 			end
 			PRINT( "CreateRandMission:4" )
 			if flag == 1 then
-				--玂计沮
+				--保存数据
 				PRINT( "CreateRandMission:5" )
 				RandParam.data[n].id = infoid
 				RandParam.data[n].p1 = mission.RandInfo[RandParam.level].KillInfo[infoid].p1
@@ -4593,15 +6610,17 @@ function CreateRandMission( character, npc, mission )
 			end
 		end
 		
-	elseif RandParam.tp == MIS_RAND_GET then			--莉珇
-		--radom 程4┣摸
+	elseif RandParam.tp == MIS_RAND_GET then			--获取物品
+		--随机最大4个怪物类型
 		RandParam.numdata = Rand( randnum ) + 1
 		if RandParam.numdata > mission.RandInfo[RandParam.level].GetInfo.count then
 			RandParam.numdata = mission.RandInfo[RandParam.level].GetInfo.count
 		end
 		if RandParam.numdata <= 0 then
-			PRINT( "CreateRandMission, Obtain item random quest quantity must be greater than zero, please check if target's level quest notice is correct! Level = ", RandParam.level )
-			SystemNotice( character, "CreateRandMission, Obtain item random quest quantity must be greater than zero, please check if target's level quest notice is correct! Level = "..RandParam.level )
+			MISSDK_MISSIONSDK_LUA_000408 = GetResString("MISSDK_MISSIONSDK_LUA_000408")
+			PRINT( MISSDK_MISSIONSDK_LUA_000408, RandParam.level )
+			MISSDK_MISSIONSDK_LUA_000408 = GetResString("MISSDK_MISSIONSDK_LUA_000408")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000408..RandParam.level )
 			return LUA_FALSE
 		end
 		
@@ -4609,7 +6628,7 @@ function CreateRandMission( character, npc, mission )
 			local flag = 1
 			local infoid = Rand( mission.RandInfo[RandParam.level].GetInfo.count ) + 1
 			PRINT( "CreateRandMission:rand infoid = ", infoid )
-			--浪琩琌Τ狡计沮ま獺
+			--检查是否有重复的数据索引信息
 			for i = 1, n - 1, 1 do
 				if RandParam.data[i].id == infoid then
 					n = n - 1
@@ -4619,7 +6638,7 @@ function CreateRandMission( character, npc, mission )
 			end
 			
 			if flag == 1 then
-			--玂计沮
+			--保存数据
 				RandParam.data[n].id = infoid
 				RandParam.data[n].p1 = mission.RandInfo[RandParam.level].GetInfo[infoid].p1
 				RandParam.data[n].p2 = mission.RandInfo[RandParam.level].GetInfo[infoid].p2 + Rand(mission.RandInfo[RandParam.level].GetInfo[infoid].p3)
@@ -4637,10 +6656,10 @@ function CreateRandMission( character, npc, mission )
 			end
 		end
 		
-	elseif RandParam.tp == MIS_RAND_SEND then			--癳倒珇
-		--radom 匡拒﹚摸计秖NPC
+	elseif RandParam.tp == MIS_RAND_SEND then			--送给物品
+		--随机选择一定类型数量的NPC
 		PRINT( "Rand send" )
-		local npcinfoid = nil --GetNpcInfoID( npc ) --莉讽玡NPCinfoid磷Τ祇獺Μ獺薄猵瞷
+		local npcinfoid = nil --GetNpcInfoID( npc ) --获取当前NPC的infoid，避免有自己发信自己收信的情况出现
 		RandParam.numdata = Rand( randnum ) + 1
 		PRINT( "CreateRandMission1: numdata = , randnum = , RandParam.level = , infocount = , itemcount = ", RandParam.numdata, randnum, RandParam.level, mission.RandInfo[RandParam.level].SendInfo.count, mission.RandInfo[RandParam.level].SendItem.count )
 		if RandParam.numdata > mission.RandInfo[RandParam.level].SendInfo.count then
@@ -4650,8 +6669,10 @@ function CreateRandMission( character, npc, mission )
 			RandParam.numdata = mission.RandInfo[RandParam.level].SendItem.count
 		end
 		if RandParam.numdata <= 0 then
-			PRINT( "CreateRandMission, send letter quest random value cannot be greater than zero. Please check target level of send letter notice is correct!Level = ", RandParam.level )
-			SystemNotice( character, "CreateRandMission, send letter quest random value cannot be greater than zero. Please check target level of send letter notice is correct!Level = "..RandParam.level )
+			MISSDK_MISSIONSDK_LUA_000409 = GetResString("MISSDK_MISSIONSDK_LUA_000409")
+			PRINT( MISSDK_MISSIONSDK_LUA_000409, RandParam.level )
+			MISSDK_MISSIONSDK_LUA_000409 = GetResString("MISSDK_MISSIONSDK_LUA_000409")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000409..RandParam.level )
 			return LUA_FALSE
 		end
 		
@@ -4661,7 +6682,7 @@ function CreateRandMission( character, npc, mission )
 			local infoid = Rand( mission.RandInfo[RandParam.level].SendInfo.count ) + 1
 			local itemid = GetRandMissionSendItem( mission.RandInfo[RandParam.level].SendItem )
 			PRINT( "CreateRandMission:rand infoid = , itemid = ", infoid, itemid )
-			--浪琩琌Τ狡计沮ま獺
+			--检查是否有重复的数据索引信息
 			if mission.RandInfo[RandParam.level].SendInfo[infoid].p1 == npcinfoid then
 				n = n - 1
 				flag = 0
@@ -4677,7 +6698,7 @@ function CreateRandMission( character, npc, mission )
 			end
 			
 			if flag == 1 then
-				--玂计沮
+				--保存数据
 				RandParam.data[n].id = infoid
 				RandParam.data[n].p1 = mission.RandInfo[RandParam.level].SendInfo[infoid].p1 --npc info id
 				RandParam.data[n].p2 = itemid --item id
@@ -4693,23 +6714,25 @@ function CreateRandMission( character, npc, mission )
 			end
 		end
 		
-	elseif RandParam.tp == MIS_RAND_CONVOY then		--臔癳NPC
+	elseif RandParam.tp == MIS_RAND_CONVOY then		--护送NPC
 		PRINT( "Convoy npc" )
-		--radom 匡拒臔癳NPCヘ夹		
-		RandParam.numdata = 1 --臔癳ヴ叭既や臔癳NPC琌祘や臔癳NPC
+		--随机选择一个护送NPC目标		
+		RandParam.numdata = 1 --护送任务暂时只支持护送一个NPC，但是程序支持护送多个NPC
 		if RandParam.numdata > mission.RandInfo[RandParam.level].ConvoyInfo.count then
 			RandParam.numdata = mission.RandInfo[RandParam.level].ConvoyInfo.count
 		end
 		if RandParam.numdata <= 0 then
-			PRINT( "CreateRandMission, escort NPC quest quantity must be greater than zero, please check if target's level escort notice is correct!Level = ", RandParam.level )
-			SystemNotice( character, "CreateRandMission, escort NPC quest quantity must be greater than zero, please check if target's level escort notice is correct! Level = "..RandParam.level )
+			MISSDK_MISSIONSDK_LUA_000410 = GetResString("MISSDK_MISSIONSDK_LUA_000410")
+			PRINT( MISSDK_MISSIONSDK_LUA_000410, RandParam.level )
+			MISSDK_MISSIONSDK_LUA_000410 = GetResString("MISSDK_MISSIONSDK_LUA_000410")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000410..RandParam.level )
 			return LUA_FALSE
 		end
 		
 		for n = 1, RandParam.numdata, 1 do
 			local flag = 1
 			local infoid = Rand( mission.RandInfo[RandParam.level].ConvoyInfo.count ) + 1
-			--浪琩琌Τ狡计沮ま獺
+			--检查是否有重复的数据索引信息
 			for i = 1, n - 1, 1 do
 				if RandParam.data[i].id == infoid then
 					PRINT( "CreateRandMission:convoy npc ,rand value repeat" )
@@ -4720,7 +6743,7 @@ function CreateRandMission( character, npc, mission )
 			end
 			
 			if flag == 1 then
-				--玂计沮
+				--保存数据
 				RandParam.data[n].id = infoid
 				RandParam.data[n].p1 = mission.RandInfo[RandParam.level].ConvoyInfo[infoid].p1 --char info id
 				RandParam.data[n].p2 = mission.RandInfo[RandParam.level].ConvoyInfo[infoid].p2 --map id
@@ -4736,50 +6759,68 @@ function CreateRandMission( character, npc, mission )
 			end
 		end
 		
-	elseif RandParam.tp == MIS_RAND_EXPLORE then		--贝瓜
+	elseif RandParam.tp == MIS_RAND_EXPLORE then		--探索地图
 		
 	else
-		PRINT( "CreateRandMission: invalid random quest type!tp = "..RandParam.tp )
-		SystemNotice( character, "CreateRandMission: invalid random quest type!tp = "..RandParam.tp )
+		MISSDK_MISSIONSDK_LUA_000411 = GetResString("MISSDK_MISSIONSDK_LUA_000411")
+		PRINT( MISSDK_MISSIONSDK_LUA_000411..RandParam.tp )
+		MISSDK_MISSIONSDK_LUA_000411 = GetResString("MISSDK_MISSIONSDK_LUA_000411")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000411..RandParam.tp )
+		MISSDK_MISSIONSDK_LUA_000411 = GetResString("MISSDK_MISSIONSDK_LUA_000411")
+		LG( "randmission_error", MISSDK_MISSIONSDK_LUA_000411..RandParam.tp )
 		return LUA_FALSE
 	end
 	
 	PRINT( "CreateRandMission: name, id, level, loopinfo, loopdata", mission.name, RandParam.id, mission.loopinfo, mission.RandInfo[RandParam.level].LoopData )
 	RandParam.prizetp, RandParam.prizedata = GetRandMissionPrize( character, mission.name, RandParam.id, mission.loopinfo, mission.RandInfo[RandParam.level].LoopData )
 
-	--砞竚radom ヴ叭竒喷摸
+	--设置随机任务的经验类型
 	if mission.missionlist[tpindex].exptp == nil then
-		PRINT( "Invalid random quest experience type!exptp = ", mission.missionlist[tpindex].exptp )
-		SystemNotice( character, "Invalid random quest experience type!exptp = ", mission.missionlist[tpindex].exptp )
+		MISSDK_MISSIONSDK_LUA_000412 = GetResString("MISSDK_MISSIONSDK_LUA_000412")
+		LG( "randmission_error", MISSDK_MISSIONSDK_LUA_000412, mission.missionlist[tpindex].exptp ) 
+		MISSDK_MISSIONSDK_LUA_000412 = GetResString("MISSDK_MISSIONSDK_LUA_000412")
+		PRINT( MISSDK_MISSIONSDK_LUA_000412, mission.missionlist[tpindex].exptp )
+		MISSDK_MISSIONSDK_LUA_000412 = GetResString("MISSDK_MISSIONSDK_LUA_000412")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000412, mission.missionlist[tpindex].exptp )
 		return LUA_FALSE
 	end
 	RandParam.exptp = mission.missionlist[tpindex].exptp
 	PRINT( "CreateRandMission:exptp = ", RandParam.exptp )
 	
-	--沮把计ネΘradom ヴ叭獺
+	--根据参数生成随机任务信息
 	local ret = RandMission( mission.missionlist[tpindex], RandParam )
 	if ret ~= LUA_TRUE then
-		PRINT( "CreateRandMission:RandMission generate random quest notice error!" )
-		SystemNotice( character, "CreateRandMission:RandMission generate random quest notice error!" )
+		LG( "randmission_error", "CreateRandMission:RandMission:id, sid, tp, level, exp, money, item, numdata", RandParam.id, RandParam.sid, RandParam.tp, RandParam.level, RandParam.exp, RandParam.money, RandParam.prizedata, RandParam.prizetp, RandParam.numdata )
+		MISSDK_MISSIONSDK_LUA_000413 = GetResString("MISSDK_MISSIONSDK_LUA_000413")
+		PRINT( MISSDK_MISSIONSDK_LUA_000413 )
+		MISSDK_MISSIONSDK_LUA_000413 = GetResString("MISSDK_MISSIONSDK_LUA_000413")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000413 )
 		return LUA_FALSE
 	end
 	
-	--浪代radom ヴ叭璉惠―
-	PRINT( "CreateRandMission:Required number of empty slots in inventory:numgrid = ", mission.missionlist[tpindex].begin.baggrid )
+	--检测随机任务背包需求
+	MISSDK_MISSIONSDK_LUA_000414 = GetResString("MISSDK_MISSIONSDK_LUA_000414")
+	PRINT( MISSDK_MISSIONSDK_LUA_000414, mission.missionlist[tpindex].begin.baggrid )
 	local numgrid = mission.missionlist[tpindex].begin.baggrid
 	local ret = HasLeaveBagGrid( character, numgrid )
 	if ret ~= LUA_TRUE then
-		PRINT( "CreateRandMission:insufficient inventory slot when character accept quest! num = ", numgrid )
-		BickerNotice( character, "Inventory space insufficient, requires "..numgrid.." space. Activation of quest failed!" )
+		MISSDK_MISSIONSDK_LUA_000415 = GetResString("MISSDK_MISSIONSDK_LUA_000415")
+		PRINT( MISSDK_MISSIONSDK_LUA_000415, numgrid )
+		MISSDK_MISSIONSDK_LUA_000085 = GetResString("MISSDK_MISSIONSDK_LUA_000085")
+		MISSDK_MISSIONSDK_LUA_000086 = GetResString("MISSDK_MISSIONSDK_LUA_000086")
+		BickerNotice( character, MISSDK_MISSIONSDK_LUA_000086..numgrid..MISSDK_MISSIONSDK_LUA_000085 )
 		return LUA_FALSE, 0
 	end
 		
-	--纗ネΘ计沮à︹い	
+	--存储生成的数据到角色中	
 	PRINT( "CreateRandMission:AddRandMission:id, sid, tp, level, exp, money, prizedata, prizetp, numdata", RandParam.id, RandParam.sid, RandParam.tp, RandParam.level, RandParam.exp, RandParam.money, RandParam.prizedata, RandParam.prizetp, RandParam.numdata )
 	local ret = AddRandMission( character, RandParam.id, RandParam.sid, RandParam.tp, RandParam.level, RandParam.exp, RandParam.money, RandParam.prizedata, RandParam.prizetp, RandParam.numdata )
 	if ret ~= LUA_TRUE then 
-		PRINT( "CreateRandMission:AddRandMission add character random quest notice failed!" )
-		SystemNotice( character, "CreateRandMission:AddRandMission add character random quest notice failed!" )
+		LG( "randmission_error", "AddRandMission:id, sid, tp, level, exp, money, prizedata, prizetp, numdata", RandParam.id, RandParam.sid, RandParam.tp, RandParam.level, RandParam.exp, RandParam.money, RandParam.prizedata, RandParam.prizetp, RandParam.numdata )
+		MISSDK_MISSIONSDK_LUA_000416 = GetResString("MISSDK_MISSIONSDK_LUA_000416")
+		PRINT( MISSDK_MISSIONSDK_LUA_000416 )
+		MISSDK_MISSIONSDK_LUA_000416 = GetResString("MISSDK_MISSIONSDK_LUA_000416")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000416 )
 		return LUA_FALSE
 	end
 	
@@ -4787,23 +6828,30 @@ function CreateRandMission( character, npc, mission )
 		PRINT( "CreateRandMission:SetRandMissionData:id, index, p1, p2, p3, p4, p5, p6", RandParam.id, n - 1, RandParam.data[n].p1, RandParam.data[n].p2, RandParam.data[n].p3, RandParam.data[n].p4, RandParam.data[n].p5, RandParam.data[n].p6 )
 		ret = SetRandMissionData( character, RandParam.id, n - 1, RandParam.data[n].p1, RandParam.data[n].p2, RandParam.data[n].p3, RandParam.data[n].p4, RandParam.data[n].p5, RandParam.data[n].p6 )
 		if ret ~= LUA_TRUE then
-			PRINT( "CreateRandMission:SetRandMissionData adds character random quest notice failed!, n = ", n )
-			SystemNotice( character, "CreateRandMission:SetRandMissionData adds character random quest notice failed!n = "..n )
+			MISSDK_MISSIONSDK_LUA_000417 = GetResString("MISSDK_MISSIONSDK_LUA_000417")
+			PRINT( MISSDK_MISSIONSDK_LUA_000417, n )
+			MISSDK_MISSIONSDK_LUA_000418 = GetResString("MISSDK_MISSIONSDK_LUA_000418")
+			SystemNotice( character, MISSDK_MISSIONSDK_LUA_000418..n )
 			return LUA_FALSE
 		end
 	end
-	local str = "["
+	MISSDK_MISSIONSDK_LUA_000419 = GetResString("MISSDK_MISSIONSDK_LUA_000419")
+	local str = MISSDK_MISSIONSDK_LUA_000419
 	local name = GetCharName( npc )
-	str = str..name.."] has given you a random quest. Complete it!"
+	MISSDK_MISSIONSDK_LUA_000420 = GetResString("MISSDK_MISSIONSDK_LUA_000420")
+	str = str..name..MISSDK_MISSIONSDK_LUA_000420
 	SystemNotice( character, str )
 	
 	return LUA_TRUE, tpindex
 end
 
---莉radom ヴ叭で皌摸ま
+--获取随机任务的匹配类型索引
 function GetRandMissionTypeIndex( mission, tp )
 	if mission == nil or tp == nil then
-		PRINT( "GetRandMissionTypeIndex:parameter cannot be equal to nil. mission = nil or tp = nil" )
+		MISSDK_MISSIONSDK_LUA_000421 = GetResString("MISSDK_MISSIONSDK_LUA_000421")
+		PRINT( MISSDK_MISSIONSDK_LUA_000421 )
+		MISSDK_MISSIONSDK_LUA_000421 = GetResString("MISSDK_MISSIONSDK_LUA_000421")
+		LG( "randmission_error", MISSDK_MISSIONSDK_LUA_000421 )
 		return 0
 	end
 	PRINT( "GetRandMissionTypeIndex:mission, tp, mission.missionlist.count", mission, tp, mission.missionlist.count )
@@ -4817,7 +6865,7 @@ function GetRandMissionTypeIndex( mission, tp )
 	return 0
 end
 
---莉radom ヴ叭獺radom 计
+--获取随机任务信息随机数
 function GetRandTpinfoIndex( tpinfo )
 	local randdata = 0
 	for n = 1, tpinfo.count, 1 do					
@@ -4836,21 +6884,23 @@ function GetRandTpinfoIndex( tpinfo )
 	return 0
 end
 
---沮à︹玂radom ネΘヴ叭皌竚獺篶ヴ叭
+--根据角色的保存的随机生成任务配置信息重构任务
 function GetCharRandMission( character, id, mission )
 	PRINT( "GetRandMission:character", character )
 	
-	--耞à︹琌Τradom ヴ叭皌竚獺
+	--判断角色是否有随机任务配置信息
 	if HasRandMission( character, id ) ~= LUA_TRUE then
-		PRINT( "GetRandMission:HasRandMission does not detect random quest notice on target,ID = "..id )
-		SystemNotice( character, "GetRandMission: does not detect random quest notice on target,ID = "..id )
+		MISSDK_MISSIONSDK_LUA_000422 = GetResString("MISSDK_MISSIONSDK_LUA_000422")
+		PRINT( MISSDK_MISSIONSDK_LUA_000422..id )
+		MISSDK_MISSIONSDK_LUA_000423 = GetResString("MISSDK_MISSIONSDK_LUA_000423")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000423..id )
 		return LUA_TRUE, 0
 	end
 	
-	--﹍てЫradom ヴ叭把计
+	--初始化全局随机任务参数
 	InitRandParam()
 	
-	--莉à︹radom ヴ叭皌竚獺
+	--获取角色的随机任务配置信息
 	PRINT( "GetCharRandMission:GetRandMission, id = ", id  )
 	local ret
 	RandParam.id = id
@@ -4866,7 +6916,7 @@ function GetCharRandMission( character, id, mission )
 		return LUA_FALSE
 	end
 	PRINT( "GetCharRandMission:tp, level, exp, money, prizedata, prizetp, numdata",  RandParam.tp, RandParam.level, RandParam.exp, RandParam.money, RandParam.prizedata, RandParam.prizetp, RandParam.numdata )
-	--莉皌竚獺
+	--获取配置信息列表
 	for n = 1, RandParam.numdata, 1 do
 		ret, RandParam.data[n].p1, RandParam.data[n].p2, RandParam.data[n].p3, RandParam.data[n].p4, RandParam.data[n].p5, RandParam.data[n].p6 = GetRandMissionData( character, id, n - 1 )
 		PRINT( "GetRandMissionData: p1, p2, p3, p4, p5, p6 ", RandParam.data[n].p1, RandParam.data[n].p2, RandParam.data[n].p3, RandParam.data[n].p4, RandParam.data[n].p5, RandParam.data[n].p6 )
@@ -4880,15 +6930,21 @@ function GetCharRandMission( character, id, mission )
 	local index = GetRandMissionTypeIndex( mission, RandParam.tp )
 	PRINT( "GetCharRandMission:GetRandMissionTypeIndex index = ", index )
 	if index == 0  then
-		PRINT( "GetRandMission:obtain random quest matching type notice failed!" )
-		SystemNotice( character, "GetRandMission:obtain random quest matching type notice failed!" )
+		MISSDK_MISSIONSDK_LUA_000424 = GetResString("MISSDK_MISSIONSDK_LUA_000424")
+		PRINT( MISSDK_MISSIONSDK_LUA_000424 )
+		MISSDK_MISSIONSDK_LUA_000424 = GetResString("MISSDK_MISSIONSDK_LUA_000424")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000424 )
 		return LUA_FALSE
 	end
 
-	--砞竚radom ヴ叭竒喷摸
+	--设置随机任务的经验类型
 	if mission.missionlist[index].exptp == nil then
-		PRINT( "Invalid random quest experience type!exptp = ", mission.missionlist[index].exptp )
-		SystemNotice( character, "Invalid random quest experience type!exptp = ", mission.missionlist[index].exptp )
+		MISSDK_MISSIONSDK_LUA_000412 = GetResString("MISSDK_MISSIONSDK_LUA_000412")
+		LG( "randmission_error", MISSDK_MISSIONSDK_LUA_000412, mission.missionlist[index].exptp ) 
+		MISSDK_MISSIONSDK_LUA_000412 = GetResString("MISSDK_MISSIONSDK_LUA_000412")
+		PRINT( MISSDK_MISSIONSDK_LUA_000412, mission.missionlist[index].exptp )
+		MISSDK_MISSIONSDK_LUA_000412 = GetResString("MISSDK_MISSIONSDK_LUA_000412")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000412, mission.missionlist[index].exptp )
 		return LUA_FALSE
 	end
 	RandParam.exptp = mission.missionlist[index].exptp
@@ -4896,8 +6952,10 @@ function GetCharRandMission( character, id, mission )
 	
 	local ret = RandMission( mission.missionlist[index], RandParam )
 	if ret ~= LUA_TRUE then
-		PRINT( "GetRandMission: according to random quest setting notice resulted in random quest failed!" )
-		SystemNotice( character, "GetRandMission: according to random quest setting notice resulted in random quest failed!" )
+		MISSDK_MISSIONSDK_LUA_000425 = GetResString("MISSDK_MISSIONSDK_LUA_000425")
+		PRINT( MISSDK_MISSIONSDK_LUA_000425 )
+		MISSDK_MISSIONSDK_LUA_000425 = GetResString("MISSDK_MISSIONSDK_LUA_000425")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000425 )
 		return LUA_FALSE
 	end
 	
@@ -4905,7 +6963,7 @@ function GetCharRandMission( character, id, mission )
 	return LUA_TRUE, index, mission.RandInfo[RandParam.level].LoopData
 end
 
---radom ネΘヴ叭
+--随机生成一个任务
 function RandMission( mission, param )
 	PRINT( "RandMission" )
 	if mission == nil or param == nil or param.tp ~= mission.tp then
@@ -4913,22 +6971,24 @@ function RandMission( mission, param )
 		return LUA_FALSE
 	end
 	
-	--﹍てà︹ヴ叭璉甧秖惠―
+	--初始化角色任务背包容量需求
 	mission.begin.baggrid = 0
 	mission.result.baggrid = 0
 	
 	PRINT( "RandMission, mission.tp = , param.tp", mission.tp, param.tp )	
-	--沮繦诀ヴ叭摸㎝把计ネΘ穝ヴ叭
-	if mission.tp == MIS_RAND_KILL then				--篟反ン
-		--聐炳┣摸计秖
+	--根据随机任务的类型和参数生成一个新任务
+	if mission.tp == MIS_RAND_KILL then				--摧毁物件
+		--猎杀的怪物类型数量
 		local num = 0
 		mission.begin.actions.count = param.numdata
 		mission.result.conditions.count = param.numdata
 		mission.need.count = param.numdata + 1
-		mission.need[1].p1 = "  <b"..param.npcarea..">'s<y"..param.npcname.."> needs you to hunt"
+		MISSDK_MISSIONSDK_LUA_000426 = GetResString("MISSDK_MISSIONSDK_LUA_000426")
+		MISSDK_MISSIONSDK_LUA_000427 = GetResString("MISSDK_MISSIONSDK_LUA_000427")
+		mission.need[1].p1 = "  <b"..param.npcarea..MISSDK_MISSIONSDK_LUA_000427..param.npcname..MISSDK_MISSIONSDK_LUA_000426
 
-		--mission.begin.talk = "<t>顿狟ねΤ砍届泵窥盾и硂柑Τ聐ヴ叭璶"
-		--mission.result.help = "<t>顿狟ね璶ㄨ癘眔氮莱иㄆ薄瓳璶"
+		--mission.begin.talk = "<t>嗨，朋友。有兴趣挣个小钱吗？我这里刚好有个捕猎任务，只要捕到"
+		--mission.result.help = "<t>嗨，朋友，你要时刻记得答应我的事情哦，只要捕到"
 		
 		PRINT( mission.begin.talkstart, mission.result.talkstart, mission.result.helpstart )
 		PRINT( mission.begin.talkend, mission.result.talkend, mission.result.helpend )
@@ -4937,22 +6997,22 @@ function RandMission( mission, param )
 		mission.result.help = mission.result.helpstart
 		PRINT( "RandMission,1" )
 		for n = 1, param.numdata, 1 do
-			--穝ヴ叭惠―
-			mission.need[n+1].p1 = param.data[n].p1 	--┣摸ID
-			mission.need[n+1].p2 = param.data[n].p2 	--┣计秖
-			mission.need[n+1].p3 = num						--秨﹍癘魁夹乓竚
+			--更新任务需求
+			mission.need[n+1].p1 = param.data[n].p1 	--怪物类型ID
+			mission.need[n+1].p2 = param.data[n].p2 	--怪物数量
+			mission.need[n+1].p3 = num						--开始记录标签位置
 			
-			--穝ヴ叭秨﹍牟祇竟笆獺(AddTrigger)
-			mission.begin.actions[n].p3 = param.data[n].p1 --┣摸ID
-			mission.begin.actions[n].p4 = param.data[n].p2 --┣计秖
-			mission.begin.actions[n].p5 = num --秨﹍癘魁夹乓竚
+			--更新任务开始触发器动作信息(AddTrigger)
+			mission.begin.actions[n].p3 = param.data[n].p1 --怪物类型ID
+			mission.begin.actions[n].p4 = param.data[n].p2 --怪物数量
+			mission.begin.actions[n].p5 = num --开始记录标签位置
 			mission.begin.actions[n].p6 = 0
 			
-			--穝ヴ叭ЧΘ兵ン獺
+			--更新任务完成条件信息
 			num = num + param.data[n].p2
-			mission.result.conditions[n].p2 = num - 1 --炳┣牟祇竟癘魁夹癘
+			mission.result.conditions[n].p2 = num - 1 --杀死怪物触发器记录的标记
 			
-			--ヴ叭秨﹍磞瓃獺
+			--任务开始描述信息
 			PRINT( "RandMission, 2" )
 		    local monstername = GetMonsterName( param.data[n].p1 )
 			PRINT( "RandMission, 3, count, talk, need[count].p2, monstername", n, mission.begin.talk, mission.need[n].p2, monstername )			
@@ -4960,34 +7020,44 @@ function RandMission( mission, param )
 			if mission.need[n+1].p2 ~= nil then
 				nummonster = mission.need[n+1].p2
 			end
-			mission.begin.talk = mission.begin.talk.."<r"..nummonster.."> <r\""..monstername.."\">"
-			mission.result.help = mission.result.help.."<r"..nummonster.."> <r\""..monstername.."\">"
-			mission.need[1].p1 = mission.need[1].p1.."<r"..nummonster.."> <r\""..monstername.."\">"
+			MISSDK_MISSIONSDK_LUA_000428 = GetResString("MISSDK_MISSIONSDK_LUA_000428")
+			MISSDK_MISSIONSDK_LUA_000429 = GetResString("MISSDK_MISSIONSDK_LUA_000429")
+			mission.begin.talk = mission.begin.talk.."<r"..nummonster..MISSDK_MISSIONSDK_LUA_000429..monstername..MISSDK_MISSIONSDK_LUA_000428
+			MISSDK_MISSIONSDK_LUA_000428 = GetResString("MISSDK_MISSIONSDK_LUA_000428")
+			MISSDK_MISSIONSDK_LUA_000429 = GetResString("MISSDK_MISSIONSDK_LUA_000429")
+			mission.result.help = mission.result.help.."<r"..nummonster..MISSDK_MISSIONSDK_LUA_000429..monstername..MISSDK_MISSIONSDK_LUA_000428
+			MISSDK_MISSIONSDK_LUA_000428 = GetResString("MISSDK_MISSIONSDK_LUA_000428")
+			MISSDK_MISSIONSDK_LUA_000429 = GetResString("MISSDK_MISSIONSDK_LUA_000429")
+			mission.need[1].p1 = mission.need[1].p1.."<r"..nummonster..MISSDK_MISSIONSDK_LUA_000429..monstername..MISSDK_MISSIONSDK_LUA_000428
 			if n < param.numdata then
-				mission.begin.talk = mission.begin.talk..""
-				mission.result.help = mission.result.help..""
-				mission.need[1].p1 = mission.need[1].p1..""
+				MISSDK_MISSIONSDK_LUA_000430 = GetResString("MISSDK_MISSIONSDK_LUA_000430")
+				mission.begin.talk = mission.begin.talk..MISSDK_MISSIONSDK_LUA_000430
+				MISSDK_MISSIONSDK_LUA_000430 = GetResString("MISSDK_MISSIONSDK_LUA_000430")
+				mission.result.help = mission.result.help..MISSDK_MISSIONSDK_LUA_000430
+				MISSDK_MISSIONSDK_LUA_000430 = GetResString("MISSDK_MISSIONSDK_LUA_000430")
+				mission.need[1].p1 = mission.need[1].p1..MISSDK_MISSIONSDK_LUA_000430
 			end
 		end
 
-		--ヴ叭挡笆(AddExpAndType)	
+		--任务结束动作(AddExpAndType)	
 		mission.result.actions[2].p1 = param.exptp
 		mission.result.actions[2].p2 = param.exp
 		mission.result.actions[2].p3 = param.exp
 		PRINT( "RandMission:AddExpAndType, exp = ", mission.result.actions[2].p1 )
 		
-		--ヴ叭磞瓃獺
-		--mission.begin.talk = mission.begin.talk..""
-		--mission.result.talk = "<t>垛癬ㄓ芞ㄣ称洁聐估豲硂琌倒贱纘辨иΩ"
-		--mission.result.help = mission.result.help..""
+		--任务描述信息
+		--mission.begin.talk = mission.begin.talk.."。"
+		--mission.result.talk = "<t>嗯，看起来你蛮具备赏金猎人的能力的嘛，喏，这是给你奖励，希望我们下次再合作。"
+		--mission.result.help = mission.result.help.."。"
 
 		mission.begin.talk = mission.begin.talk..mission.begin.talkend
 		mission.result.talk = mission.result.talk..mission.result.talkend
 		mission.result.help = mission.result.help..mission.result.helpend
-		mission.need[1].p1 = mission.need[1].p1..""
+		CALCULATE_FORGE_LUA_000290 = GetResString("CALCULATE_FORGE_LUA_000290")
+		mission.need[1].p1 = mission.need[1].p1..CALCULATE_FORGE_LUA_000290
 		
 		PRINT( "RandMission,4 " )
-		--繦诀ヴ叭贱纘
+		--随机任务奖励
 		mission.prize[1].p1 = param.money
 		if param.prizedata ~= 0 then
 			PRINT( "RandMission,5, prizetp, prizedata", param.prizetp, param.prizedata )
@@ -5003,7 +7073,10 @@ function RandMission( mission, param )
 			elseif param.prizetp == MIS_PRIZE_FAME then
 				mission.prize[2].p2 = 0
 			else
-				PRINT( "RandMission:Invalid reward type notice!misid = , tp = , p1 = ", param.id, param.prizetp, param.prizedata )
+				MISSDK_MISSIONSDK_LUA_000431 = GetResString("MISSDK_MISSIONSDK_LUA_000431")
+				PRINT( MISSDK_MISSIONSDK_LUA_000431, param.id, param.prizetp, param.prizedata )
+				MISSDK_MISSIONSDK_LUA_000431 = GetResString("MISSDK_MISSIONSDK_LUA_000431")
+				LG( "mission_error", MISSDK_MISSIONSDK_LUA_000431, param.id, param.prizetp, param.prizedata )
 				mission.prize[2].tp = 0
 				mission.prize[2].p1 = 0
 				mission.prize.count = 1
@@ -5013,21 +7086,24 @@ function RandMission( mission, param )
 			mission.prize.count = 1
 		end
 		PRINT( "RandMission,7" )
-	elseif mission.tp == MIS_RAND_GET then		--莉珇
-		--莉珇摸计秖
+	elseif mission.tp == MIS_RAND_GET then		--获取物品
+		--获取的物品类型数量
 		PRINT( "RandMission:tp = MIS_RAND_GET:param.numdata = ", param.numdata ) 
 		local num = 0
 		mission.begin.actions.count = param.numdata
 		mission.result.conditions.count = param.numdata * 2
 		mission.result.actions.count = 2 + param.numdata
 		mission.need.count = param.numdata + 1
-		mission.need[1].p1 = "  <b"..param.npcarea..">'s<y"..param.npcname..">requires your help to collect"
-		mission.need[1].p1 = mission.need[1].p1.."<r"..param.numdata.."> items,"
+		MISSDK_MISSIONSDK_LUA_000432 = GetResString("MISSDK_MISSIONSDK_LUA_000432")
+		MISSDK_MISSIONSDK_LUA_000427 = GetResString("MISSDK_MISSIONSDK_LUA_000427")
+		mission.need[1].p1 = "  <b"..param.npcarea..MISSDK_MISSIONSDK_LUA_000427..param.npcname..MISSDK_MISSIONSDK_LUA_000432
+		MISSDK_MISSIONSDK_LUA_000433 = GetResString("MISSDK_MISSIONSDK_LUA_000433")
+		mission.need[1].p1 = mission.need[1].p1..param.numdata..MISSDK_MISSIONSDK_LUA_000433
 		
-		--mission.begin.talk = "<t>狟ねи硂柑惠"
-		--mission.begin.talk = mission.begin.talk.."<r"..param.numdata..">妓狥﹁叫腊иΜ栋"
-		--mission.result.help = "hmmΤ腊иΜ栋и璶狥﹁或ぃ穦а癘и惠璶"
-		--mission.result.help = mission.result.help.."<r"..param.numdata..">妓狥﹁"
+		--mission.begin.talk = "<t>你好，朋友。我这里急需"
+		--mission.begin.talk = mission.begin.talk.."<r"..param.numdata..">样东西，请你帮我收集到："
+		--mission.result.help = "hmm，你有帮我收集我要的东西么？你不会忘记了吧？我需要"
+		--mission.result.help = mission.result.help.."<r"..param.numdata..">样东西，"
 		PRINT( mission.begin.talkstart, mission.result.talkstart, mission.result.helpstart )
 		PRINT( mission.begin.talkend, mission.result.talkend, mission.result.helpend )
 		mission.begin.talk = mission.begin.talkstart
@@ -5035,59 +7111,66 @@ function RandMission( mission, param )
 		mission.result.help = mission.result.helpstart
 		
 		for n = 1, param.numdata, 1 do
-			--穝ヴ叭惠―
-			mission.need[n+1].p1 = param.data[n].p1   	--珇摸ID
-			mission.need[n+1].p2 = param.data[n].p2 	--珇计秖
-			mission.need[n+1].p3 = num						--秨﹍癘魁夹乓竚
+			--更新任务需求
+			mission.need[n+1].p1 = param.data[n].p1   	--物品类型ID
+			mission.need[n+1].p2 = param.data[n].p2 	--物品数量
+			mission.need[n+1].p3 = num						--开始记录标签位置
 			
-			--穝ヴ叭秨﹍牟祇竟笆獺(AddTrigger)
-			mission.begin.actions[n].p3 = param.data[n].p1	 --珇摸ID
-			mission.begin.actions[n].p4 = param.data[n].p2  --珇计秖
-			mission.begin.actions[n].p5 = num --秨﹍癘魁夹乓竚
+			--更新任务开始触发器动作信息(AddTrigger)
+			mission.begin.actions[n].p3 = param.data[n].p1	 --物品类型ID
+			mission.begin.actions[n].p4 = param.data[n].p2  --物品数量
+			mission.begin.actions[n].p5 = num --开始记录标签位置
 			mission.begin.actions[n].p6 = 0
 			
-			--ヴ叭挡笆(TakeItem)
+			--任务结束动作(TakeItem)
 			mission.result.actions[n+2].p1 = param.data[n].p1
 			mission.result.actions[n+2].p2 = param.data[n].p2
 			PRINT( "RandMission:TakeItem, item = , num = ", mission.result.actions[n+2].p1, mission.result.actions[n+2].p2 )
 			
-			--穝ヴ叭ЧΘ兵ン獺
+			--更新任务完成条件信息
 			num = num + param.data[n].p2
-			--砞竚HasFlag ㄧ计把计
-			mission.result.conditions[1 + (n - 1)*2].p2 = num - 1 --莉珇牟祇竟癘魁夹癘
-			--砞竚HasItem ㄧ计把计
-			mission.result.conditions[2 + (n - 1)*2].p1 = param.data[n].p1 --莉珇摸ID
-			mission.result.conditions[2 + (n - 1)*2].p2 = param.data[n].p2 --莉珇计秖
+			--设置HasFlag 函数参数
+			mission.result.conditions[1 + (n - 1)*2].p2 = num - 1 --获取物品触发器记录的标记
+			--设置HasItem 函数参数
+			mission.result.conditions[2 + (n - 1)*2].p1 = param.data[n].p1 --获取物品类型ID
+			mission.result.conditions[2 + (n - 1)*2].p2 = param.data[n].p2 --获取物品数量
 			
-			--ヴ叭秨﹍磞瓃獺
+			--任务开始描述信息
 			local itemname = GetItemName( param.data[n].p1 )
-			mission.begin.talk = mission.begin.talk.."<r"..mission.need[n+1].p2.."> <r"..itemname..">"
-			mission.result.help = mission.result.help.."<r"..mission.need[n+1].p2.."> <r"..itemname..">"
-			mission.need[1].p1 = mission.need[1].p1.."<r"..mission.need[n+1].p2.."> <r"..itemname..">"
+			CALCULATE_FORGE_LUA_000190 = GetResString("CALCULATE_FORGE_LUA_000190")
+			mission.begin.talk = mission.begin.talk..mission.need[n+1].p2..CALCULATE_FORGE_LUA_000190..itemname
+			CALCULATE_FORGE_LUA_000190 = GetResString("CALCULATE_FORGE_LUA_000190")
+			mission.result.help = mission.result.help..mission.need[n+1].p2..CALCULATE_FORGE_LUA_000190..itemname
+			CALCULATE_FORGE_LUA_000190 = GetResString("CALCULATE_FORGE_LUA_000190")
+			mission.need[1].p1 = mission.need[1].p1..mission.need[n+1].p2..CALCULATE_FORGE_LUA_000190..itemname
 			if n < param.numdata then
-				mission.begin.talk = mission.begin.talk..""
-				mission.result.help = mission.result.help..""
-				mission.need[1].p1 = mission.need[1].p1..""
+				MISSDK_MISSIONSDK_LUA_000430 = GetResString("MISSDK_MISSIONSDK_LUA_000430")
+				mission.begin.talk = mission.begin.talk..MISSDK_MISSIONSDK_LUA_000430
+				MISSDK_MISSIONSDK_LUA_000430 = GetResString("MISSDK_MISSIONSDK_LUA_000430")
+				mission.result.help = mission.result.help..MISSDK_MISSIONSDK_LUA_000430
+				MISSDK_MISSIONSDK_LUA_000430 = GetResString("MISSDK_MISSIONSDK_LUA_000430")
+				mission.need[1].p1 = mission.need[1].p1..MISSDK_MISSIONSDK_LUA_000430
 			end
 		end
 		
-		--ヴ叭挡笆(AddExpAndType)	
+		--任务结束动作(AddExpAndType)	
 		mission.result.actions[2].p1 = param.exptp
 		mission.result.actions[2].p2 = param.exp
 		mission.result.actions[2].p3 = param.exp
 		PRINT( "RandMission:AddExpAndType, exp = ", mission.result.actions[2].p1 )
 		
-		--ヴ叭磞瓃獺
-		--mission.begin.talk = mission.begin.talk..""
-		--mission.result.help = mission.begin.talk.."癘ぶ常ぃ︽"
-		--mission.result.talk = "<t>摆┋Τ腊Γ硂ΩиΜ旅珇伦碔硂琌倒贱纘狦Τ砍届ㄓти"
-		mission.need[1].p1 = mission.need[1].p1..""
+		--任务描述信息
+		--mission.begin.talk = mission.begin.talk.."。"
+		--mission.result.help = mission.begin.talk.."记好了，少一个都不行！"
+		--mission.result.talk = "<t>啊哈，幸好有你帮忙，这次我的收藏品更加丰富了，这是给你的奖励，如果你有兴趣再来找我。"
+		CALCULATE_FORGE_LUA_000290 = GetResString("CALCULATE_FORGE_LUA_000290")
+		mission.need[1].p1 = mission.need[1].p1..CALCULATE_FORGE_LUA_000290
 
 		mission.begin.talk = mission.begin.talk..mission.begin.talkend
 		mission.result.talk = mission.result.talk..mission.result.talkend
 		mission.result.help = mission.result.help..mission.result.helpend
 		
-		--繦诀ヴ叭贱纘
+		--随机任务奖励
 		mission.prize[1].p1 = param.money
 		if param.prizedata ~= 0 then
 			PRINT( "RandMission,5, prizetp, prizedata", param.prizetp, param.prizedata )
@@ -5103,7 +7186,10 @@ function RandMission( mission, param )
 			elseif param.prizetp == MIS_PRIZE_FAME then
 				mission.prize[2].p2 = 0
 			else
-				PRINT( "RandMission:Invalid reward type notice!misid = , tp = , p1 = ", param.id, param.prizetp, param.prizedata )
+				MISSDK_MISSIONSDK_LUA_000431 = GetResString("MISSDK_MISSIONSDK_LUA_000431")
+				PRINT( MISSDK_MISSIONSDK_LUA_000431, param.id, param.prizetp, param.prizedata )
+				MISSDK_MISSIONSDK_LUA_000431 = GetResString("MISSDK_MISSIONSDK_LUA_000431")
+				LG( "mission_error", MISSDK_MISSIONSDK_LUA_000431, param.id, param.prizetp, param.prizedata )
 				mission.prize[2].tp = 0
 				mission.prize[2].p1 = 0
 				mission.prize.count = 1
@@ -5113,18 +7199,20 @@ function RandMission( mission, param )
 			mission.prize.count = 1
 		end
 		
-	elseif mission.tp == MIS_RAND_SEND then			--癳珇
-		--癳珇摸计秖
+	elseif mission.tp == MIS_RAND_SEND then			--送物品
+		--送的物品类型数量
 		local num = 0
 		mission.begin.actions.count = param.numdata
 		mission.result.conditions.count = param.numdata
-		mission.need.count = param.numdata + 1 --惠璶睰穝ヴ叭ヘ夹摸
-		mission.need[1].p1 = "  <b"..param.npcarea..">'s<y"..param.npcname..">needs you to help him on an errand. He will reward you after you return."
+		mission.need.count = param.numdata + 1 --需要以后添加新的任务目标类型
+		MISSDK_MISSIONSDK_LUA_000434 = GetResString("MISSDK_MISSIONSDK_LUA_000434")
+		MISSDK_MISSIONSDK_LUA_000427 = GetResString("MISSDK_MISSIONSDK_LUA_000427")
+		mission.need[1].p1 = "  <b"..param.npcarea..MISSDK_MISSIONSDK_LUA_000427..param.npcname..MISSDK_MISSIONSDK_LUA_000434
 
-		--mission.begin.talk = "<t>狟ねи硂柑Τ"
-		--mission.begin.talk = mission.begin.talk.."<r"..param.numdata..">妓狥﹁叫р"
-		--mission.result.help = "<t>顿狟ねиΛ癳"
-		--mission.result.help = mission.result.help.."<r"..param.numdata..">妓狥﹁常癳⊿Τ瓳р"
+		--mission.begin.talk = "<t>你好，朋友。我这里有"
+		--mission.begin.talk = mission.begin.talk.."<r"..param.numdata..">样东西，请把"
+		--mission.result.help = "<t>嗨，朋友，我托你送的"
+		--mission.result.help = mission.result.help.."<r"..param.numdata..">样东西都送到了没有哦？把"
 				
 		PRINT( mission.begin.talkstart, mission.result.talkstart, mission.result.helpstart )
 		PRINT( mission.begin.talkend, mission.result.talkend, mission.result.helpend )
@@ -5133,50 +7221,64 @@ function RandMission( mission, param )
 		mission.result.help = mission.result.helpstart
 		
 		for n = 1, param.numdata, 1 do
-			--穝ヴ叭秨﹍牟祇竟笆獺(GiveItem)
-			mission.begin.actions[n].p1 = param.data[n].p2	 --珇ID
+			--更新任务开始触发器动作信息(GiveItem)
+			mission.begin.actions[n].p1 = param.data[n].p2	 --物品ID
 			mission.begin.actions[n].p2 = 1
 			PRINT( "RandMission: GiveItem item = , count = ", mission.begin.actions[n].p2, 1 )
 			
-			--穝ヴ叭ЧΘ兵ン獺(HasRandItemFlag)
-			mission.result.conditions[n].p2 = param.data[n].p1 --浪代琌ΤNPCΜン夹癘
+			--更新任务完成条件信息(HasRandItemFlag)
+			mission.result.conditions[n].p2 = param.data[n].p1 --检测是否有NPC收到物件的标记
 			
-			--ヴ叭秨﹍磞瓃獺
+			--任务开始描述信息
 			local npcname = GetNpcName( param.data[n].p1 )
 			PRINT( "RandMission, npcname = ", npcname )
 			local areaname = GetAreaName( param.data[n].p3 )
 			PRINT( "RandMission, areaname = ", areaname )
 			local itemname = GetItemName( param.data[n].p2 )
-			mission.begin.talk = mission.begin.talk.."<r["..itemname.."]> to give <p"..areaname..">'s <b\""..npcname.."\">"
-			mission.result.help = mission.result.help.."<r["..itemname.."]> to give <p"..areaname..">'s <b\""..npcname.."\">"
+			MISSDK_MISSIONSDK_LUA_000428 = GetResString("MISSDK_MISSIONSDK_LUA_000428")
+			MISSDK_MISSIONSDK_LUA_000435 = GetResString("MISSDK_MISSIONSDK_LUA_000435")
+			MISSDK_MISSIONSDK_LUA_000436 = GetResString("MISSDK_MISSIONSDK_LUA_000436")
+			MISSDK_MISSIONSDK_LUA_000437 = GetResString("MISSDK_MISSIONSDK_LUA_000437")
+			mission.begin.talk = mission.begin.talk..MISSDK_MISSIONSDK_LUA_000437..itemname..MISSDK_MISSIONSDK_LUA_000436..areaname..MISSDK_MISSIONSDK_LUA_000435..npcname..MISSDK_MISSIONSDK_LUA_000428
+			MISSDK_MISSIONSDK_LUA_000428 = GetResString("MISSDK_MISSIONSDK_LUA_000428")
+			MISSDK_MISSIONSDK_LUA_000435 = GetResString("MISSDK_MISSIONSDK_LUA_000435")
+			MISSDK_MISSIONSDK_LUA_000436 = GetResString("MISSDK_MISSIONSDK_LUA_000436")
+			MISSDK_MISSIONSDK_LUA_000437 = GetResString("MISSDK_MISSIONSDK_LUA_000437")
+			mission.result.help = mission.result.help..MISSDK_MISSIONSDK_LUA_000437..itemname..MISSDK_MISSIONSDK_LUA_000436..areaname..MISSDK_MISSIONSDK_LUA_000435..npcname..MISSDK_MISSIONSDK_LUA_000428
 			if n < param.numdata then				
-				mission.begin.talk = mission.begin.talk..""
-				mission.result.help = mission.result.help..""
+				MISSDK_MISSIONSDK_LUA_000430 = GetResString("MISSDK_MISSIONSDK_LUA_000430")
+				mission.begin.talk = mission.begin.talk..MISSDK_MISSIONSDK_LUA_000430
+				MISSDK_MISSIONSDK_LUA_000430 = GetResString("MISSDK_MISSIONSDK_LUA_000430")
+				mission.result.help = mission.result.help..MISSDK_MISSIONSDK_LUA_000430
 			end
 			PRINT( "RandMission, talk = ", mission.begin.talk )
 			
-			--穝ヴ叭惠―
-			mission.need[n+1].p1 = n..") hold <r["..itemname.."]> pass to <p"..areaname..">'s <b\""..npcname.."\">"   --ヴ叭ヘ夹			
+			--更新任务需求
+			MISSDK_MISSIONSDK_LUA_000428 = GetResString("MISSDK_MISSIONSDK_LUA_000428")
+			MISSDK_MISSIONSDK_LUA_000435 = GetResString("MISSDK_MISSIONSDK_LUA_000435")
+			MISSDK_MISSIONSDK_LUA_000438 = GetResString("MISSDK_MISSIONSDK_LUA_000438")
+			MISSDK_MISSIONSDK_LUA_000439 = GetResString("MISSDK_MISSIONSDK_LUA_000439")
+			mission.need[n+1].p1 = n..MISSDK_MISSIONSDK_LUA_000439..itemname..MISSDK_MISSIONSDK_LUA_000438..areaname..MISSDK_MISSIONSDK_LUA_000435..npcname..MISSDK_MISSIONSDK_LUA_000428   --任务目标			
 			PRINT( "RandMission: need.p1 = ", mission.need[n+1].p1 )
 		end
 		
-		--ヴ叭挡笆(AddExpAndType)	
+		--任务结束动作(AddExpAndType)	
 		mission.result.actions[2].p1 = param.exptp
 		mission.result.actions[2].p2 = param.exp
 		mission.result.actions[2].p3 = param.exp
 		PRINT( "RandMission:AddExpAndType, exp = ", mission.result.actions[2].p1 )		
 		
-		--ヴ叭磞瓃獺
+		--任务描述信息
 		mission.begin.baggrid = param.numdata
-		--mission.begin.talk = mission.begin.talk..""		
-		--mission.result.help = mission.result.help..""
-		--mission.result.talk = "<t>珃硉е估碞竒р狥﹁癳瓳谅谅狟ね硂琌骋笆┮眔ΩΤㄓ瓳"
+		--mission.begin.talk = mission.begin.talk.."。"		
+		--mission.result.help = mission.result.help.."。"
+		--mission.result.talk = "<t>哇，你的速度好快嘛，就已经把东西送到了哦，谢谢你朋友，这是你的劳动所得，下次有空再来哦。"
 		
 		mission.begin.talk = mission.begin.talk..mission.begin.talkend
 		mission.result.talk = mission.result.talk..mission.result.talkend
 		mission.result.help = mission.result.help..mission.result.helpend
 		
-		--繦诀ヴ叭贱纘
+		--随机任务奖励
 		mission.prize[1].p1 = param.money
 		if param.prizedata ~= 0 then
 			PRINT( "RandMission,5, prizetp, prizedata", param.prizetp, param.prizedata )
@@ -5192,7 +7294,10 @@ function RandMission( mission, param )
 			elseif param.prizetp == MIS_PRIZE_FAME then
 				mission.prize[2].p2 = 0
 			else
-				PRINT( "RandMission:Invalid reward type notice!misid = , tp = , p1 = ", param.id, param.prizetp, param.prizedata )
+				MISSDK_MISSIONSDK_LUA_000431 = GetResString("MISSDK_MISSIONSDK_LUA_000431")
+				PRINT( MISSDK_MISSIONSDK_LUA_000431, param.id, param.prizetp, param.prizedata )
+				MISSDK_MISSIONSDK_LUA_000431 = GetResString("MISSDK_MISSIONSDK_LUA_000431")
+				LG( "mission_error", MISSDK_MISSIONSDK_LUA_000431, param.id, param.prizetp, param.prizedata )
 				mission.prize[2].tp = 0
 				mission.prize[2].p1 = 0
 				mission.prize.count = 1
@@ -5202,15 +7307,17 @@ function RandMission( mission, param )
 			mission.prize.count = 1
 		end
 		
-	elseif mission.tp == MIS_RAND_CONVOY then		--臔癳NPC
-		--臔癳NPC
+	elseif mission.tp == MIS_RAND_CONVOY then		--护送NPC
+		--护送的NPC
 		local num = 0
 		mission.begin.actions.count = 1 + param.numdata*2
 		mission.result.conditions.count = param.numdata
-		mission.need.count = param.numdata + 1 --惠璶睰穝ヴ叭ヘ夹摸
-		mission.need[1].p1 = "  <b"..param.npcarea..">'s <y"..param.npcname..">needs your help to escort some people to another place. You can get your reward from him after you return."
+		mission.need.count = param.numdata + 1 --需要以后添加新的任务目标类型
+		MISSDK_MISSIONSDK_LUA_000440 = GetResString("MISSDK_MISSIONSDK_LUA_000440")
+		MISSDK_MISSIONSDK_LUA_000427 = GetResString("MISSDK_MISSIONSDK_LUA_000427")
+		mission.need[1].p1 = "  <b"..param.npcarea..MISSDK_MISSIONSDK_LUA_000427..param.npcname..MISSDK_MISSIONSDK_LUA_000440
 		
-		--mission.begin.talk = "<t>狟ね腀種"
+		--mission.begin.talk = "<t>你好，朋友。你愿意"
 		
 		PRINT( mission.begin.talkstart, mission.result.talkstart, mission.result.helpstart )
 		PRINT( mission.begin.talkend, mission.result.talkend, mission.result.helpend )		
@@ -5219,7 +7326,7 @@ function RandMission( mission, param )
 		mission.result.help = mission.result.helpstart
 		
 		for n = 1, param.numdata, 1 do
-			--穝ヴ叭秨﹍牟祇竟笆獺(AddTrigger)
+			--更新任务开始触发器动作信息(AddTrigger)
 			mission.begin.actions[2 + (n - 1)*2].p3 = param.data[n].p2	 --map ID
 			mission.begin.actions[2 + (n - 1)*2].p4 = param.data[n].p4  --x
 			mission.begin.actions[2 + (n - 1)*2].p5 = param.data[n].p5  --y
@@ -5231,30 +7338,37 @@ function RandMission( mission, param )
 			
 			PRINT( "RandMission: Convoy npcid =  to map = , x = , y = , scope = ", mission.begin.actions[3 + (n - 1)*2].p3, mission.begin.actions[2 + (n - 1)*2].p3, mission.begin.actions[2 + (n - 1)*2].p4, mission.begin.actions[2 + (n - 1)*2].p5, mission.begin.actions[2 + (n - 1)*2].p6 )
 
-			--穝ヴ叭ЧΘ兵ン獺(HasFlag)
+			--更新任务完成条件信息(HasFlag)
 			
-			--ヴ叭秨﹍磞瓃獺
+			--任务开始描述信息
 			local npcname = GetMonsterName( param.data[n].p1 ) --charinfo name
 			PRINT( "RandMission, npcname = ", npcname )
 			local areaname = GetAreaName( param.data[n].p3 )
 			PRINT( "RandMission, areaname = ", areaname )
 			
-			mission.begin.talk = mission.begin.talk.."escort <b\""..npcname.."\"> reached <p"..areaname..">'s <b"..param.data[n].p4..""..param.data[n].p5.."> nearby?"
+			MISSDK_MISSIONSDK_LUA_000441 = GetResString("MISSDK_MISSIONSDK_LUA_000441")
+			MISSDK_MISSIONSDK_LUA_000430 = GetResString("MISSDK_MISSIONSDK_LUA_000430")
+			MISSDK_MISSIONSDK_LUA_000442 = GetResString("MISSDK_MISSIONSDK_LUA_000442")
+			MISSDK_MISSIONSDK_LUA_000443 = GetResString("MISSDK_MISSIONSDK_LUA_000443")
+			MISSDK_MISSIONSDK_LUA_000444 = GetResString("MISSDK_MISSIONSDK_LUA_000444")
+			mission.begin.talk = mission.begin.talk..MISSDK_MISSIONSDK_LUA_000444..npcname..MISSDK_MISSIONSDK_LUA_000443..areaname..MISSDK_MISSIONSDK_LUA_000442..param.data[n].p4..MISSDK_MISSIONSDK_LUA_000430..param.data[n].p5..MISSDK_MISSIONSDK_LUA_000441
 			PRINT( "RandMission, talk = ", mission.begin.talk )
 			
-			--穝ヴ叭惠―
-			mission.need[n+1].p1 = n..") escort <b\""..npcname.."\"> reached <p"..areaname..">"   --ヴ叭ヘ夹
+			--更新任务需求
+			MISSDK_MISSIONSDK_LUA_000443 = GetResString("MISSDK_MISSIONSDK_LUA_000443")
+			MISSDK_MISSIONSDK_LUA_000445 = GetResString("MISSDK_MISSIONSDK_LUA_000445")
+			mission.need[n+1].p1 = n..MISSDK_MISSIONSDK_LUA_000445..npcname..MISSDK_MISSIONSDK_LUA_000443..areaname..">"   --任务目标
 			PRINT( "RandMission: need.p1 = ", mission.need[n+1].p1 )
 		end
 
-		--ヴ叭挡笆(AddExpAndType)	
+		--任务结束动作(AddExpAndType)	
 		mission.result.actions[2].p1 = param.exptp
 		mission.result.actions[2].p2 = param.exp
 		mission.result.actions[2].p3 = param.exp
 		PRINT( "RandMission:AddExpAndType, exp = ", mission.result.actions[2].p1 )
 		
-		--ヴ叭磞瓃獺
-		--mission.begin.talk = mission.begin.talk.."璶<r>ず快Т硂ンㄆ"
+		--任务描述信息
+		--mission.begin.talk = mission.begin.talk.."你要在<r一个小时>以内办妥这件事。"
 		--mission.result.talk = mission.begin.talk
 		--mission.result.help = mission.begin.talk
 		
@@ -5262,7 +7376,7 @@ function RandMission( mission, param )
 		mission.result.talk = mission.result.talk..mission.result.talkend
 		mission.result.help = mission.result.help..mission.result.helpend
 		
-		--繦诀ヴ叭贱纘
+		--随机任务奖励
 		mission.prize[1].p1 = param.money
 		if param.prizedata ~= 0 then
 			PRINT( "RandMission,5, prizetp, prizedata", param.prizetp, param.prizedata )
@@ -5278,7 +7392,10 @@ function RandMission( mission, param )
 			elseif param.prizetp == MIS_PRIZE_FAME then
 				mission.prize[2].p2 = 0
 			else
-				PRINT( "RandMission:Invalid reward type notice!misid = , tp = , p1 = ", param.id, param.prizetp, param.prizedata )
+				MISSDK_MISSIONSDK_LUA_000431 = GetResString("MISSDK_MISSIONSDK_LUA_000431")
+				PRINT( MISSDK_MISSIONSDK_LUA_000431, param.id, param.prizetp, param.prizedata )
+				MISSDK_MISSIONSDK_LUA_000431 = GetResString("MISSDK_MISSIONSDK_LUA_000431")
+				LG( "mission_error", MISSDK_MISSIONSDK_LUA_000431, param.id, param.prizetp, param.prizedata )
 				mission.prize[2].tp = 0
 				mission.prize[2].p1 = 0
 				mission.prize.count = 1
@@ -5288,14 +7405,14 @@ function RandMission( mission, param )
 			mission.prize.count = 1
 		end
 		
-	elseif mission.tp == MIS_RAND_EXPLORE then		--贝瓜
+	elseif mission.tp == MIS_RAND_EXPLORE then		--探索地图
 		
 	end
 	
 	return LUA_TRUE
 end
 
-------------倒ぉ0秖繨钩
+------------给予0能量的女神雕像
 function GiveNSDX ( character , npc , value )
 	local r1=0
 	local r2=0
@@ -5307,7 +7424,7 @@ function GiveNSDX ( character , npc , value )
 	RefreshCha( character )
 end
 
------------耞繨钩秖琌笷999
+-----------判断女神雕像能量是否达到999
 function CheckEnergy ( character )
 	local NSDX_Num = CheckBagItem( character, 3010 )
 	---SystemNotice(character,""..HHS_Num)
@@ -5323,7 +7440,7 @@ function CheckEnergy ( character )
 	return LUA_TRUE
 end
 
------------------------耞à︹⊿Τ锣ネ竒喷
+-----------------------判断角色没有转生经验
 function HasNOZSExp ( character )
 	local attr_zsexp = GetChaAttr ( character , ATTR_CSAILEXP )
 	if attr_zsexp == 0 then
@@ -5333,7 +7450,7 @@ function HasNOZSExp ( character )
 	return LUA_FALSE
 end
 
-------------------------耞ō⊿Τ琘贺笵ㄣ
+------------------------判断身上没有某种道具
 function HasNoItem( character ,value )
 	local item_number = CheckBagItem( character, value )			
 	if item_number >= 1 then
@@ -5342,30 +7459,30 @@ function HasNoItem( character ,value )
 	return LUA_TRUE
 end
 function AddChaItem7(character)        
-	------------どσ皐
+	------------取升级考卷的指针
 	local r1=0
 	local r2=0
 	r1,r2 =MakeItem ( character , 3280  , 1 , 4 )
 	local Item_new = GetChaItem ( character , 2 , r2 )
 
-	----------癘魁丁
-	local now_yes = os.date("%y")		-------------
-	local now_month= os.date("%m")		-------------る
-	local now_day= os.date("%d")		-------------ら
-	local now_hour= os.date("%H")		-------------
-	local now_miniute= os.date("%M")	-------------だ
-	local now_scend=  os.date("%S")		-------------
-	now_yes = tonumber(now_yes)			-------------     
-	now_month= tonumber(now_month)		-------------る     
-	now_day= tonumber(now_day)			-------------ら     
-	now_hour= tonumber(now_hour)			-------------     
-	now_miniute= tonumber(now_miniute)	 	-------------だ     
-	now_scend= tonumber(now_scend)		-------------     
-	SetItemAttr(Item_new, ITEMATTR_VAL_STA, now_month )		-------------る 	
-	SetItemAttr(Item_new, ITEMATTR_VAL_STR, now_day )		-------------ら  
-	SetItemAttr(Item_new, ITEMATTR_VAL_CON, now_hour )		-------------   
-	SetItemAttr(Item_new, ITEMATTR_VAL_DEX, now_miniute )		-------------だ   
-	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, now_scend )		------------- 
+	----------记录时间
+	local now_yes = os.date("%y")		-------------年
+	local now_month= os.date("%m")		-------------月
+	local now_day= os.date("%d")		-------------日
+	local now_hour= os.date("%H")		-------------时
+	local now_miniute= os.date("%M")	-------------分
+	local now_scend=  os.date("%S")		-------------秒
+	now_yes = tonumber(now_yes)			-------------年     
+	now_month= tonumber(now_month)		-------------月     
+	now_day= tonumber(now_day)			-------------日     
+	now_hour= tonumber(now_hour)			-------------时     
+	now_miniute= tonumber(now_miniute)	 	-------------分     
+	now_scend= tonumber(now_scend)		-------------秒     
+	SetItemAttr(Item_new, ITEMATTR_VAL_STA, now_month )		-------------月 	
+	SetItemAttr(Item_new, ITEMATTR_VAL_STR, now_day )		-------------日  
+	SetItemAttr(Item_new, ITEMATTR_VAL_CON, now_hour )		-------------时   
+	SetItemAttr(Item_new, ITEMATTR_VAL_DEX, now_miniute )		-------------分   
+	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, now_scend )		-------------秒 
 	SynChaKitbag(character,13)
 	return LUA_TRUE
 end
@@ -5377,102 +7494,113 @@ function CheckKJNum ( character )
 	end
 end	
 function AddChaItem8(character)
-	------------どσ皐
+	------------取升级考卷的指针
 	local role_kj=GetChaItem2( character , 2 , 3280 )
-	----------癘魁丁
-	local now_yes = os.date("%y")			-------------
-	local now_month= os.date("%m")			-------------る
-	local now_day= os.date("%d")			-------------ら
-	local now_hour= os.date("%H")			-------------
-	local now_miniute= os.date("%M")		-------------だ
-	local now_scend=  os.date("%S")			-------------
-	now_yes = tonumber(now_yes)			-------------     
-	now_month= tonumber(now_month)		-------------る     
-	now_day= tonumber(now_day)			-------------ら     
-	now_hour= tonumber(now_hour)			-------------     
-	now_miniute= tonumber(now_miniute)	 	-------------だ     
-	now_scend= tonumber(now_scend)		-------------     
+	----------记录时间
+	local now_yes = os.date("%y")			-------------年
+	local now_month= os.date("%m")			-------------月
+	local now_day= os.date("%d")			-------------日
+	local now_hour= os.date("%H")			-------------时
+	local now_miniute= os.date("%M")		-------------分
+	local now_scend=  os.date("%S")			-------------秒
+	now_yes = tonumber(now_yes)			-------------年     
+	now_month= tonumber(now_month)		-------------月     
+	now_day= tonumber(now_day)			-------------日     
+	now_hour= tonumber(now_hour)			-------------时     
+	now_miniute= tonumber(now_miniute)	 	-------------分     
+	now_scend= tonumber(now_scend)		-------------秒     
 
-	---------どσ丁	
-	local old_month = GetItemAttr(role_kj, ITEMATTR_VAL_STA)		-------------る 	
-	local old_day = GetItemAttr(role_kj, ITEMATTR_VAL_STR)			-------------ら  
-	local old_hour = GetItemAttr(role_kj, ITEMATTR_VAL_CON)			-------------   
-	local old_miniute = GetItemAttr(role_kj, ITEMATTR_VAL_DEX)		-------------だ   
-	local old_scend = GetItemAttr(role_kj, ITEMATTR_VAL_AGI)			------------- 
-	---------埃どσ
+	---------取升级考卷的时间	
+	local old_month = GetItemAttr(role_kj, ITEMATTR_VAL_STA)		-------------月 	
+	local old_day = GetItemAttr(role_kj, ITEMATTR_VAL_STR)			-------------日  
+	local old_hour = GetItemAttr(role_kj, ITEMATTR_VAL_CON)			-------------时   
+	local old_miniute = GetItemAttr(role_kj, ITEMATTR_VAL_DEX)		-------------分   
+	local old_scend = GetItemAttr(role_kj, ITEMATTR_VAL_AGI)			-------------秒 
+	---------删除升级考卷
 	local del_item =TakeItem( character, 0,3280, 1 )			                   
 	if del_item==0  then
-		SystemNotice ( character ,"埃どσア毖")
+		MISSDK_MISSIONSDK_LUA_000446 = GetResString("MISSDK_MISSIONSDK_LUA_000446")
+		SystemNotice ( character ,MISSDK_MISSIONSDK_LUA_000446)
 	end
 
 	local used_time=(now_scend - old_scend)+(now_miniute - old_miniute)*60+(now_hour - old_hour)*3600+(now_day - old_day)*86400+(JNSTime_Flag[now_month] - JNSTime_Flag[old_month] )*86400
-	------------どΘ罿虫皐
+	------------取升级成绩单的指针
 	local r1=0
 	local r2=0
 	r1,r2 =MakeItem ( character , 3281  , 1 , 4 )
 	local Item_new = GetChaItem ( character , 2 , r2 )
-	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, used_time )		-------------  
+	SetItemAttr(Item_new, ITEMATTR_VAL_AGI, used_time )		-------------秒  
 	SynChaKitbag(character,13)
 	return LUA_TRUE
 end
 
 
-----------代喷耞Θ罿虫丁               
+----------测验判断成绩单时间               
 function checkcytime( character , npc )
 	local role_xsz = GetChaItem2 ( character , 2 , 3289 )
-	local exp_xsz = GetItemAttr ( role_xsz , ITEMATTR_ENERGY )		-----厩ネ靡讽玡竒喷
-	local mexp_xsz = GetItemAttr ( role_xsz , ITEMATTR_MAXENERGY )		-----厩ネ靡程竒喷
+	local exp_xsz = GetItemAttr ( role_xsz , ITEMATTR_ENERGY )		-----取学生证当前经验
+	local mexp_xsz = GetItemAttr ( role_xsz , ITEMATTR_MAXENERGY )		-----取学生证最大经验
 	local newexp_xsz = exp_xsz * 1000
-	local ch_xsz = GetItemAttr ( role_xsz , ITEMATTR_URE )		-----厩ネ靡讽玡厩だ
-	local mch_xsz = GetItemAttr ( role_xsz, ITEMATTR_MAXURE )	-----厩ネ靡程厩だ
+	local ch_xsz = GetItemAttr ( role_xsz , ITEMATTR_URE )		-----取学生证当前学分
+	local mch_xsz = GetItemAttr ( role_xsz, ITEMATTR_MAXURE )	-----取学生证最大学分
 	local role_cjd = GetChaItem2 ( character , 2 , 3279 )
 	local cha_name = GetChaDefaultName ( character )
 	local newch_xsz = ch_xsz + math.floor(50*(exp_xsz/mexp_xsz))
 	if newch_xsz <= mch_xsz then
-		SystemNotice ( character , "尺硄筁σ刚厩だ糤")
-		SetItemAttr ( role_xsz , ITEMATTR_URE , newch_xsz )	------砞竚厩ネ靡穝厩だ
+		MISSDK_MISSIONSDK_LUA_000447 = GetResString("MISSDK_MISSIONSDK_LUA_000447")
+		SystemNotice ( character , MISSDK_MISSIONSDK_LUA_000447)
+		SetItemAttr ( role_xsz , ITEMATTR_URE , newch_xsz )	------设置学生证新的学分
 		AddExp ( character , npc , newexp_xsz , newexp_xsz )
 		SetItemAttr ( role_xsz, ITEMATTR_ENERGY, 0 )
 		RefreshCha( character )
 	else
-		SystemNotice( character , "尺硄筁σ刚厩だ笷ぃ糤")
+		MISSDK_MISSIONSDK_LUA_000448 = GetResString("MISSDK_MISSIONSDK_LUA_000448")
+		SystemNotice( character , MISSDK_MISSIONSDK_LUA_000448)
 		AddExp ( character , npc, newexp_xsz , newexp_xsz )
-		SetItemAttr ( role_xsz , ITEMATTR_URE , mch_xsz )	------砞竚厩ネ靡穝厩だ
+		SetItemAttr ( role_xsz , ITEMATTR_URE , mch_xsz )	------设置学生证新的学分
 		SetItemAttr ( role_xsz, ITEMATTR_ENERGY, 0 )
 		RefreshCha( character )
 	end
 	local del_item =TakeItem( character, 0,3279, 1 )
 	if del_item == 0 then
-		SystemNotice( character, "埃代喷Θ罿虫ア毖")
+		MISSDK_MISSIONSDK_LUA_000449 = GetResString("MISSDK_MISSIONSDK_LUA_000449")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000449)
 	end
 	return LUA_TRUE
 end
 
-----------どσ刚耞Θ罿虫丁
+----------升级考试判断成绩单时间
 function checksjtime( character ,npc )
 	local role_xsz = GetChaItem2 ( character , 2 , 3289 )
-	local lv_ch = GetItemAttr ( role_xsz , ITEMATTR_FORGE )		----厩ネ靡讽玡厩菌
+	local lv_ch = GetItemAttr ( role_xsz , ITEMATTR_FORGE )		----取学生证当前学历
 	local role_cjd = GetChaItem2 ( character , 2 , 3281 )
 	local time_cjd = GetItemAttr ( role_cjd , ITEMATTR_VAL_AGI )
 	local cha_name = GetChaDefaultName ( character )
 	if time_cjd > 0 and time_cjd <= 1800 then
+		MISSDK_MISSIONSDK_LUA_000450 = GetResString("MISSDK_MISSIONSDK_LUA_000450")
+		CALCULATE_EXP_AND_LEVEL_LUA_000040 = GetResString("CALCULATE_EXP_AND_LEVEL_LUA_000040")
+		LG(CALCULATE_EXP_AND_LEVEL_LUA_000040..cha_name..MISSDK_MISSIONSDK_LUA_000450)
 		lv_ch = lv_ch + 1
-		SetItemAttr( role_xsz , ITEMATTR_FORGE , lv_ch )	----砞竚厩ネ靡穝厩菌
-		SetItemAttr( role_xsz , ITEMATTR_URE , 0 )		----厩だ睲箂
+		SetItemAttr( role_xsz , ITEMATTR_FORGE , lv_ch )	----设置学生证新的学历
+		SetItemAttr( role_xsz , ITEMATTR_URE , 0 )		----学分清零
 		local new_mch = Reading_Credit[lv_ch]
 		local new_mexp = Reading_EXP[lv_ch]
-		SetItemAttr( role_xsz , ITEMATTR_MAXURE , new_mch )	----砞竚厩ネ靡穝程厩だ
-		SetItemAttr( role_xsz , ITEMATTR_MAXENERGY , new_mexp )	----砞竚厩ネ靡穝程竒喷
+		SetItemAttr( role_xsz , ITEMATTR_MAXURE , new_mch )	----设置学生证新的最大学分
+		SetItemAttr( role_xsz , ITEMATTR_MAXENERGY , new_mexp )	----设置学生证新的最大经验
 		RefreshCha( character )
 	elseif time_cjd > 1800 then
+		MISSDK_MISSIONSDK_LUA_000451 = GetResString("MISSDK_MISSIONSDK_LUA_000451")
+		CALCULATE_EXP_AND_LEVEL_LUA_000040 = GetResString("CALCULATE_EXP_AND_LEVEL_LUA_000040")
+		LG(CALCULATE_EXP_AND_LEVEL_LUA_000040..cha_name..MISSDK_MISSIONSDK_LUA_000451)
 	end
 	local del_item =TakeItem( character, 0,3281, 1 )
 	if del_item == 0 then
-		SystemNotice( character, "埃どσ刚Θ罿虫ア毖")
+		MISSDK_MISSIONSDK_LUA_000452 = GetResString("MISSDK_MISSIONSDK_LUA_000452")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000452)
 	end
 	return LUA_TRUE
 end
-------------------addexp竒喷瞺矪瞶催
+------------------addexp经验瓶处理包壳
 --function AddExp2 ( role , npc, p1, p2 )
 --	local lv = GetChaAttr(role, ATTR_LV)
 --	if lv == 100 then
@@ -5483,7 +7611,7 @@ end
 --			local exp_add = (p1+p2)/2
 --			exp_store = exp_store+exp_add
 --			SetItemAttr ( role_jyp, ITEMATTR_VAL_PARAM1, exp_store)
---			SystemNotice( role, "竒喷瞺い縩だ糤"..exp_add)
+--			SystemNotice( role, "你的经验瓶中的积分增加了"..exp_add)
 --		else
 --			AddExp ( role , npc , p1 , p2 )
 --		end
@@ -5493,7 +7621,7 @@ end
 --	return LUA_TRUE
 --end
 
-function HasXmasYB ( role, value )				-------------耞琌Τì镑祑刽
+function HasXmasYB ( role, value )				-------------判断是否有足够硬币
 	local num_wyyb = CheckBagItem( role, 2962 )
 	local num_bwyb = CheckBagItem( role, 2963 )
 	local money = num_wyyb + num_bwyb * 100
@@ -5502,7 +7630,7 @@ function HasXmasYB ( role, value )				-------------耞琌Τì镑祑刽
 	end
 end
 
-function TakeXmasYB ( role, value )				-------------矗祑刽
+function TakeXmasYB ( role, value )				-------------提取硬币
 	local num_bwyb = math.floor( value/100 )
 	local num_wyyb = math.mod ( value , 100 )
 	local bag_bwyb = CheckBagItem( role, 2963 )
@@ -5525,33 +7653,1642 @@ function TakeXmasYB ( role, value )				-------------矗祑刽
 	return LUA_TRUE
 end
 
-function CpHuojiNum ( role )					-----------------璸衡砆炳蔓计秖
+function CpHuojiNum ( role )					-----------------计算被杀火鸡数量
 	XmasMonsterNum1 = XmasMonsterNum1 + 100
 	XmasMonsterNum4 = XmasMonsterNum4 + 100
 	XmasMonsterNum5 = XmasMonsterNum5 + 100
 	return LUA_TRUE
 end
 
-function CpMiluNum ( role )					------------------璸衡砆炳翯忱计秖			
+function CpMiluNum ( role )					------------------计算被杀麋鹿数量			
 	XmasMonsterNum2 = XmasMonsterNum2 + 100
 	XmasMonsterNum4 = XmasMonsterNum4 + 100
 	XmasMonsterNum5 = XmasMonsterNum5 + 100
 	return LUA_TRUE
 end
 
-function CpXuerenNum ( role )					------------------璸衡砆炳撤计秖
+function CpXuerenNum ( role )					------------------计算被杀雪人数量
 	XmasMonsterNum3 = XmasMonsterNum3 + 100
 	XmasMonsterNum5 = XmasMonsterNum5 + 100
 	return LUA_TRUE
 end
 
-function XmasNotice ( role, value )				------------------竧较笆矗ボ
+function XmasNotice ( role, value )				------------------圣诞村自动提示
 	local cha_name = GetChaDefaultName ( role ) 
 	local message={}
-	message[1]="Santa Claus: Welcome to the Christmas Village," .. cha_name .. ", if you are a first time here, you can find next to the Christmas Village ?mushrooms first to find out the village!"
-	message[2]="Indigenous revelers:" .. cha_name .. "~ to dance with us, dancing around the campfire together dance, prayer will be better next year!"
-	message[3]="Cohen said quietly to you:" .. cha_name .. ", Come on, I referred to you to complete the task to so that more of the BOSS comes to Christmas in the Arena!"
-	message[4]="small Tom: see ah ah ~ ~ look at that person I know that he called" .. cha_name .. ", I grow up I as he must be so strong!"
+	MISSDK_MISSIONSDK_LUA_000453 = GetResString("MISSDK_MISSIONSDK_LUA_000453")
+	MISSDK_MISSIONSDK_LUA_000454 = GetResString("MISSDK_MISSIONSDK_LUA_000454")
+	message[1]=MISSDK_MISSIONSDK_LUA_000454..cha_name..MISSDK_MISSIONSDK_LUA_000453
+	MISSDK_MISSIONSDK_LUA_000455 = GetResString("MISSDK_MISSIONSDK_LUA_000455")
+	MISSDK_MISSIONSDK_LUA_000456 = GetResString("MISSDK_MISSIONSDK_LUA_000456")
+	message[2]=MISSDK_MISSIONSDK_LUA_000456..cha_name..MISSDK_MISSIONSDK_LUA_000455
+	MISSDK_MISSIONSDK_LUA_000457 = GetResString("MISSDK_MISSIONSDK_LUA_000457")
+	MISSDK_MISSIONSDK_LUA_000458 = GetResString("MISSDK_MISSIONSDK_LUA_000458")
+	message[3]=MISSDK_MISSIONSDK_LUA_000458..cha_name..MISSDK_MISSIONSDK_LUA_000457
+	MISSDK_MISSIONSDK_LUA_000459 = GetResString("MISSDK_MISSIONSDK_LUA_000459")
+	MISSDK_MISSIONSDK_LUA_000460 = GetResString("MISSDK_MISSIONSDK_LUA_000460")
+	message[4]=MISSDK_MISSIONSDK_LUA_000460..cha_name..MISSDK_MISSIONSDK_LUA_000459
 	SystemNotice( role , message[value] )
 	return LUA_TRUE
 end
+
+
+
+--发送一个NPC任务给角色
+function GiveNpcMission( character, id, name, npcmissionid )
+	if id == nil or Mission[id] == nil then
+		MISSDK_MISSIONSDK_LUA_000143 = GetResString("MISSDK_MISSIONSDK_LUA_000143")
+		PRINT( MISSDK_MISSIONSDK_LUA_000143..id )
+		MISSDK_MISSIONSDK_LUA_000143 = GetResString("MISSDK_MISSIONSDK_LUA_000143")
+		LG( "mission_error", MISSDK_MISSIONSDK_LUA_000143..id )
+		MISSDK_MISSIONSDK_LUA_000143 = GetResString("MISSDK_MISSIONSDK_LUA_000143")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000143..id )
+		return LUA_FALSE
+	end
+	
+	local npc = GetNpc(character, name)
+	--local ret, npc = GetEudemon()
+	--SystemNotice( character, name )
+	local npcid = GetCharID( npc )
+	--SystemNotice( character, "npcid"..npcid )
+	PRINT( "GiveMission: npcid, id, mistp", npcid, id, Mission[id].tp )
+	--ret = SetMissionTempInfo( character, npcid, id, MIS_ACCEPT, Mission[id].tp )
+	ret = SetMissionTempInfo( character, npcid, npcmissionid, MIS_ACCEPT, Mission[id].tp )
+	if ret ~= LUA_TRUE then 
+		MISSDK_MISSIONSDK_LUA_000121 = GetResString("MISSDK_MISSIONSDK_LUA_000121")
+		PRINT( MISSDK_MISSIONSDK_LUA_000121 )
+		MISSDK_MISSIONSDK_LUA_000122 = GetResString("MISSDK_MISSIONSDK_LUA_000122")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000122 )
+		return LUA_FALSE
+	end
+	
+	SendAcceptPage( character, npcid, Mission[id], Mission[id].id )
+	return LUA_TRUE
+end
+
+--------------------------------------日常任务**海港指挥的聚会
+function AddItem_Mission1 ( Role )
+	MISSDK_MISSIONSDK_LUA_000461 = GetResString("MISSDK_MISSIONSDK_LUA_000461")
+	SystemNotice(Role,MISSDK_MISSIONSDK_LUA_000461)
+	MISSCRIPT_MISSIONSCRIPT06_LUA_000087 = GetResString("MISSCRIPT_MISSIONSCRIPT06_LUA_000087")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT06_LUA_000087
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--从取一次INDEX
+	if Index == 0 then			--没找到该角色信息
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息	
+		Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )
+	end
+	Player_Can_Do[Index].Value.Has_Record = true			--标识为已完成
+	return LUA_TRUE
+end
+
+function  Get_Day_Mission1 ( Role )								
+	MISSCRIPT_MISSIONSCRIPT06_LUA_000087 = GetResString("MISSCRIPT_MISSIONSCRIPT06_LUA_000087")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT06_LUA_000087
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--找寻角色档案
+	local Has_Record = false
+	local Do_Day = Day_Mission_Time()
+	if Index == 0 then			--没找到该角色信息
+		--SystemNotice (Role , "Index =======  0 ")
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+		return LUA_TRUE
+	end
+	if Index ~= 0 then 															--找到了角色信息
+		if Player_Can_Do[ Index ].Value.Has_Record ==true then			--但是已经完成过了
+			-- SystemNotice(Role , "2222222222222222")
+			return LUA_FALSE
+		-- elseif Player_Can_Do[ Index ].Value.Has_Record ==true and Player_Can_Do[ Index ].Value.Do_Day < Do_Day then
+			-- SystemNotice (Role , "TMMD")
+			-- table.remove (Event_Name,Index)
+			-- Get_Day_Mission1(Role)
+			-- return LUA_TRUE
+		end
+	end
+	
+	return LUA_TRUE
+end
+
+--------------------------------------日常任务**生化危机
+function AddItem_Mission2 ( Role )
+	MISSDK_MISSIONSDK_LUA_000461 = GetResString("MISSDK_MISSIONSDK_LUA_000461")
+	SystemNotice(Role,MISSDK_MISSIONSDK_LUA_000461)
+	MISSCRIPT_MISSIONSCRIPT06_LUA_000093 = GetResString("MISSCRIPT_MISSIONSCRIPT06_LUA_000093")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT06_LUA_000093
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--从取一次INDEX
+	if Index == 0 then			--没找到该角色信息
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息	
+		Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )
+	end
+	Player_Can_Do[Index].Value.Has_Record = true			--标识为已完成
+	return LUA_TRUE
+end
+
+function  Get_Day_Mission2 ( Role )								
+	MISSCRIPT_MISSIONSCRIPT06_LUA_000093 = GetResString("MISSCRIPT_MISSIONSCRIPT06_LUA_000093")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT06_LUA_000093
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--找寻角色档案
+	local Has_Record = false
+	local Do_Day = Day_Mission_Time()
+	if Index == 0 then			--没找到该角色信息
+		--SystemNotice (Role , "Index =======  0 ")
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+		return LUA_TRUE
+	end
+	if Index ~= 0 then 															--找到了角色信息
+		if Player_Can_Do[ Index ].Value.Has_Record ==true then			--但是已经完成过了
+			-- SystemNotice(Role , "2222222222222222")
+			return LUA_FALSE
+		-- elseif Player_Can_Do[ Index ].Value.Has_Record ==true and Player_Can_Do[ Index ].Value.Do_Day < Do_Day then
+			-- SystemNotice (Role , "TMMD")
+			-- table.remove (Event_Name,Index)
+			-- Get_Day_Mission1(Role)
+			-- return LUA_TRUE
+		end
+	end
+	
+	return LUA_TRUE
+end
+
+--------------------------------------日常任务**维尔傀儡娃娃
+function AddItem_Mission3 ( Role )
+	MISSDK_MISSIONSDK_LUA_000461 = GetResString("MISSDK_MISSIONSDK_LUA_000461")
+	SystemNotice(Role,MISSDK_MISSIONSDK_LUA_000461)
+	MISSCRIPT_MISSIONSCRIPT06_LUA_000137 = GetResString("MISSCRIPT_MISSIONSCRIPT06_LUA_000137")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT06_LUA_000137
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--从取一次INDEX
+	if Index == 0 then			--没找到该角色信息
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息	
+		Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )
+	end
+	Player_Can_Do[Index].Value.Has_Record = true			--标识为已完成
+	return LUA_TRUE
+end
+
+function  Get_Day_Mission3 ( Role )								
+	MISSCRIPT_MISSIONSCRIPT06_LUA_000137 = GetResString("MISSCRIPT_MISSIONSCRIPT06_LUA_000137")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT06_LUA_000137
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--找寻角色档案
+	local Has_Record = false
+	local Do_Day = Day_Mission_Time()
+	if Index == 0 then			--没找到该角色信息
+		--SystemNotice (Role , "Index =======  0 ")
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+		return LUA_TRUE
+	end
+	if Index ~= 0 then 															--找到了角色信息
+		if Player_Can_Do[ Index ].Value.Has_Record ==true then			--但是已经完成过了
+			-- SystemNotice(Role , "2222222222222222")
+			return LUA_FALSE
+		-- elseif Player_Can_Do[ Index ].Value.Has_Record ==true and Player_Can_Do[ Index ].Value.Do_Day < Do_Day then
+			-- SystemNotice (Role , "TMMD")
+			-- table.remove (Event_Name,Index)
+			-- Get_Day_Mission1(Role)
+			-- return LUA_TRUE
+		end
+	end
+	
+	return LUA_TRUE
+end
+
+--------------------------------------日常任务**卡拉傀儡娃娃
+function AddItem_Mission4 ( Role )
+	MISSDK_MISSIONSDK_LUA_000461 = GetResString("MISSDK_MISSIONSDK_LUA_000461")
+	SystemNotice(Role,MISSDK_MISSIONSDK_LUA_000461)
+	MISSCRIPT_MISSIONSCRIPT06_LUA_000142 = GetResString("MISSCRIPT_MISSIONSCRIPT06_LUA_000142")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT06_LUA_000142
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--从取一次INDEX
+	if Index == 0 then			--没找到该角色信息
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息	
+		Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )
+	end
+	Player_Can_Do[Index].Value.Has_Record = true			--标识为已完成
+	return LUA_TRUE
+end
+
+function  Get_Day_Mission4 ( Role )								
+	MISSCRIPT_MISSIONSCRIPT06_LUA_000142 = GetResString("MISSCRIPT_MISSIONSCRIPT06_LUA_000142")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT06_LUA_000142
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--找寻角色档案
+	local Has_Record = false
+	local Do_Day = Day_Mission_Time()
+	if Index == 0 then			--没找到该角色信息
+		--SystemNotice (Role , "Index =======  0 ")
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+		return LUA_TRUE
+	end
+	if Index ~= 0 then 															--找到了角色信息
+		if Player_Can_Do[ Index ].Value.Has_Record ==true then			--但是已经完成过了
+			-- SystemNotice(Role , "2222222222222222")
+			return LUA_FALSE
+		-- elseif Player_Can_Do[ Index ].Value.Has_Record ==true and Player_Can_Do[ Index ].Value.Do_Day < Do_Day then
+			-- SystemNotice (Role , "TMMD")
+			-- table.remove (Event_Name,Index)
+			-- Get_Day_Mission1(Role)
+			-- return LUA_TRUE
+		end
+	end
+	
+	return LUA_TRUE
+end
+
+--------------------------------------日常任务**黑龙情报员
+function AddItem_Mission5 ( Role )
+	MISSDK_MISSIONSDK_LUA_000461 = GetResString("MISSDK_MISSIONSDK_LUA_000461")
+	SystemNotice(Role,MISSDK_MISSIONSDK_LUA_000461)
+	MISSCRIPT_MISSIONSCRIPT06_LUA_000146 = GetResString("MISSCRIPT_MISSIONSCRIPT06_LUA_000146")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT06_LUA_000146
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--从取一次INDEX
+	if Index == 0 then			--没找到该角色信息
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息	
+		Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )
+	end
+	Player_Can_Do[Index].Value.Has_Record = true			--标识为已完成
+	return LUA_TRUE
+end
+
+function  Get_Day_Mission5 ( Role )								
+	MISSCRIPT_MISSIONSCRIPT06_LUA_000146 = GetResString("MISSCRIPT_MISSIONSCRIPT06_LUA_000146")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT06_LUA_000146
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--找寻角色档案
+	local Has_Record = false
+	local Do_Day = Day_Mission_Time()
+	if Index == 0 then			--没找到该角色信息
+		--SystemNotice (Role , "Index =======  0 ")
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+		return LUA_TRUE
+	end
+	if Index ~= 0 then 															--找到了角色信息
+		if Player_Can_Do[ Index ].Value.Has_Record ==true then			--但是已经完成过了
+			-- SystemNotice(Role , "2222222222222222")
+			return LUA_FALSE
+		-- elseif Player_Can_Do[ Index ].Value.Has_Record ==true and Player_Can_Do[ Index ].Value.Do_Day < Do_Day then
+			-- SystemNotice (Role , "TMMD")
+			-- table.remove (Event_Name,Index)
+			-- Get_Day_Mission1(Role)
+			-- return LUA_TRUE
+		end
+	end
+	
+	return LUA_TRUE
+end
+
+--------------------------------------日常任务**废灵日常任务
+function AddItem_Mission6 ( Role )
+
+	MISSCRIPT_MISSIONSCRIPT07_LUA_001596 = GetResString("MISSCRIPT_MISSIONSCRIPT07_LUA_001596")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT07_LUA_001596
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--从取一次INDEX
+	
+	--SystemNotice(Role,"Index"..Index)
+	if Index == 0 then			--没找到该角色信息
+
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+		Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )
+		return LUA_FALSE
+	end
+	Player_Can_Do[Index].Value.Has_Record = true			--标识为已完成
+	--SystemNotice(Role,"完成废灵日常，来个标记")
+	MISSDK_MISSIONSDK_LUA_000461 = GetResString("MISSDK_MISSIONSDK_LUA_000461")
+	SystemNotice(Role,MISSDK_MISSIONSDK_LUA_000461)
+	return LUA_TRUE
+end
+
+function  Get_Day_Mission6 ( Role )								
+	MISSCRIPT_MISSIONSCRIPT07_LUA_001596 = GetResString("MISSCRIPT_MISSIONSCRIPT07_LUA_001596")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT07_LUA_001596
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--找寻角色档案
+	local Has_Record = false
+	local Do_Day = Day_Mission_Time()
+
+	if Index == 0 then			--没找到该角色信息
+
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+
+		return LUA_TRUE
+	end
+	if Index ~= 0 then 															--找到了角色信息
+		if Player_Can_Do[ Index ].Value.Has_Record ==true then			--但是已经完成过了
+
+			return LUA_FALSE
+
+		end
+	end
+	
+	return LUA_TRUE
+end
+
+
+--------------------------------------日常任务**沼泽日常任务
+function AddItem_Mission7 ( Role )
+
+	MISSCRIPT_MISSIONSCRIPT07_LUA_001600 = GetResString("MISSCRIPT_MISSIONSCRIPT07_LUA_001600")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT07_LUA_001600
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--从取一次INDEX
+
+	if Index == 0 then			--没找到该角色信息
+
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+		Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )
+		return LUA_FALSE
+	end
+	Player_Can_Do[Index].Value.Has_Record = true			--标识为已完成
+	MISSDK_MISSIONSDK_LUA_000461 = GetResString("MISSDK_MISSIONSDK_LUA_000461")
+	SystemNotice(Role,MISSDK_MISSIONSDK_LUA_000461)
+	return LUA_TRUE
+end
+
+function  Get_Day_Mission7 ( Role )								
+	MISSCRIPT_MISSIONSCRIPT07_LUA_001600 = GetResString("MISSCRIPT_MISSIONSCRIPT07_LUA_001600")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT07_LUA_001600
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--找寻角色档案
+	local Has_Record = false
+	local Do_Day = Day_Mission_Time()
+
+	if Index == 0 then			--没找到该角色信息
+
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+
+		return LUA_TRUE
+	end
+	if Index ~= 0 then 															--找到了角色信息
+		if Player_Can_Do[ Index ].Value.Has_Record ==true then			--但是已经完成过了
+
+			return LUA_FALSE
+
+		end
+	end
+	
+	return LUA_TRUE
+end
+
+
+--------------------------------------日常任务**小圣战日常任务
+function AddItem_Mission8 ( Role )
+
+	MISSCRIPT_MISSIONSCRIPT07_LUA_001603 = GetResString("MISSCRIPT_MISSIONSCRIPT07_LUA_001603")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT07_LUA_001603
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--从取一次INDEX
+
+	if Index == 0 then			--没找到该角色信息
+
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+		Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )
+		return LUA_FALSE
+	end
+	Player_Can_Do[Index].Value.Has_Record = true			--标识为已完成
+	MISSDK_MISSIONSDK_LUA_000461 = GetResString("MISSDK_MISSIONSDK_LUA_000461")
+	SystemNotice(Role,MISSDK_MISSIONSDK_LUA_000461)
+	return LUA_TRUE
+end
+
+function  Get_Day_Mission8 ( Role )								
+	MISSCRIPT_MISSIONSCRIPT07_LUA_001603 = GetResString("MISSCRIPT_MISSIONSCRIPT07_LUA_001603")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT07_LUA_001603
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--找寻角色档案
+	local Has_Record = false
+	local Do_Day = Day_Mission_Time()
+
+	if Index == 0 then			--没找到该角色信息
+
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+
+		return LUA_TRUE
+	end
+	if Index ~= 0 then 															--找到了角色信息
+		if Player_Can_Do[ Index ].Value.Has_Record ==true then			--但是已经完成过了
+
+			return LUA_FALSE
+
+		end
+	end
+	
+	return LUA_TRUE
+end
+
+--------------------------------------日常任务**大圣战日常任务
+function AddItem_Mission9 ( Role )
+
+	MISSCRIPT_MISSIONSCRIPT07_LUA_001606 = GetResString("MISSCRIPT_MISSIONSCRIPT07_LUA_001606")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT07_LUA_001606
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--从取一次INDEX
+
+	if Index == 0 then			--没找到该角色信息
+
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+		Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )
+		return LUA_FALSE
+	end
+	Player_Can_Do[Index].Value.Has_Record = true			--标识为已完成
+	MISSDK_MISSIONSDK_LUA_000461 = GetResString("MISSDK_MISSIONSDK_LUA_000461")
+	SystemNotice(Role,MISSDK_MISSIONSDK_LUA_000461)
+	return LUA_TRUE
+end
+
+function  Get_Day_Mission9 ( Role )								
+	MISSCRIPT_MISSIONSCRIPT07_LUA_001606 = GetResString("MISSCRIPT_MISSIONSCRIPT07_LUA_001606")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT07_LUA_001606
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--找寻角色档案
+	local Has_Record = false
+	local Do_Day = Day_Mission_Time()
+
+	if Index == 0 then			--没找到该角色信息
+
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+
+		return LUA_TRUE
+	end
+	if Index ~= 0 then 															--找到了角色信息
+		if Player_Can_Do[ Index ].Value.Has_Record ==true then			--但是已经完成过了
+
+			return LUA_FALSE
+
+		end
+	end
+	
+	return LUA_TRUE
+end
+
+
+--------------------------------------日常任务**魔方日常任务
+function AddItem_Mission10 ( Role )
+
+	MISSCRIPT_MISSIONSCRIPT07_LUA_001609 = GetResString("MISSCRIPT_MISSIONSCRIPT07_LUA_001609")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT07_LUA_001609
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--从取一次INDEX
+
+	if Index == 0 then			--没找到该角色信息
+
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+		Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )
+		return LUA_FALSE
+	end
+	Player_Can_Do[Index].Value.Has_Record = true			--标识为已完成
+	MISSDK_MISSIONSDK_LUA_000461 = GetResString("MISSDK_MISSIONSDK_LUA_000461")
+	SystemNotice(Role,MISSDK_MISSIONSDK_LUA_000461)
+	return LUA_TRUE
+end
+
+function  Get_Day_Mission10 ( Role )								
+	MISSCRIPT_MISSIONSCRIPT07_LUA_001609 = GetResString("MISSCRIPT_MISSIONSCRIPT07_LUA_001609")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT07_LUA_001609
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--找寻角色档案
+	local Has_Record = false
+	local Do_Day = Day_Mission_Time()
+
+	if Index == 0 then			--没找到该角色信息
+
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+
+		return LUA_TRUE
+	end
+	if Index ~= 0 then 															--找到了角色信息
+		if Player_Can_Do[ Index ].Value.Has_Record ==true then			--但是已经完成过了
+
+			return LUA_FALSE
+
+		end
+	end
+	
+	return LUA_TRUE
+end
+
+
+--------------------------------------日常任务**地狱日常任务
+function AddItem_Mission11 ( Role )
+
+	MISSCRIPT_MISSIONSCRIPT07_LUA_001612 = GetResString("MISSCRIPT_MISSIONSCRIPT07_LUA_001612")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT07_LUA_001612
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--从取一次INDEX
+
+	if Index == 0 then			--没找到该角色信息
+
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+		Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )
+		return LUA_FALSE
+	end
+	Player_Can_Do[Index].Value.Has_Record = true			--标识为已完成
+	MISSDK_MISSIONSDK_LUA_000461 = GetResString("MISSDK_MISSIONSDK_LUA_000461")
+	SystemNotice(Role,MISSDK_MISSIONSDK_LUA_000461)
+	return LUA_TRUE
+end
+
+function  Get_Day_Mission11 ( Role )								
+	MISSCRIPT_MISSIONSCRIPT07_LUA_001612 = GetResString("MISSCRIPT_MISSIONSCRIPT07_LUA_001612")
+	local Event_Name = MISSCRIPT_MISSIONSCRIPT07_LUA_001612
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--找寻角色档案
+	local Has_Record = false
+	local Do_Day = Day_Mission_Time()
+
+	if Index == 0 then			--没找到该角色信息
+
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+
+		return LUA_TRUE
+	end
+	if Index ~= 0 then 															--找到了角色信息
+		if Player_Can_Do[ Index ].Value.Has_Record ==true then			--但是已经完成过了
+
+			return LUA_FALSE
+
+		end
+	end
+	
+	return LUA_TRUE
+end
+--------------------------------------zhangliang--------------------------万圣节真正的危机------------
+function AddItem_Mission12 ( Role )
+	
+	local Event_Name = "万圣节真正的危机"
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--从取一次INDEX
+	if Index == 0 then			--没找到该角色信息
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息	
+		Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )
+	end
+	SystemNotice(Role,"该任务已完成，不过明天还可以继续接哦~")
+	Player_Can_Do[Index].Value.Has_Record = true			--标识为已完成
+	return LUA_TRUE
+end
+
+function  Get_Day_Mission12 ( Role )								
+	local Event_Name = "万圣节真正的危机"
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--找寻角色档案
+	local Has_Record = false
+	local Do_Day = Day_Mission_Time()
+	if Index == 0 then			--没找到该角色信息
+		--SystemNotice (Role , "Index =======  0 ")
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+		return LUA_TRUE
+	end
+	if Index ~= 0 then 															--找到了角色信息
+		if Player_Can_Do[ Index ].Value.Has_Record ==true then			--但是已经完成过了
+			-- SystemNotice(Role , "2222222222222222")
+			return LUA_FALSE
+		-- elseif Player_Can_Do[ Index ].Value.Has_Record ==true and Player_Can_Do[ Index ].Value.Do_Day < Do_Day then
+			-- SystemNotice (Role , "TMMD")
+			-- table.remove (Event_Name,Index)
+			-- Get_Day_Mission1(Role)
+			-- return LUA_TRUE
+		end
+	end
+	
+	return LUA_TRUE
+end
+-----------------------------------------zhangliang--------------------------万圣节真正的危机------------------------------------
+
+--------------------------------------zhangliang--------------------------偷吃鸡的狐狸------------
+function AddItem_Mission13 ( Role )
+	
+	local Event_Name = "偷吃鸡的狐狸"
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--从取一次INDEX
+	if Index == 0 then			--没找到该角色信息
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息	
+		Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )
+	end
+	SystemNotice(Role,"该任务已完成，不过明天还可以继续接哦~")
+	Player_Can_Do[Index].Value.Has_Record = true			--标识为已完成
+	return LUA_TRUE
+end
+
+function  Get_Day_Mission13 ( Role )								
+	local Event_Name = "偷吃鸡的狐狸"
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--找寻角色档案
+	local Has_Record = false
+	local Do_Day = Day_Mission_Time()
+	if Index == 0 then			--没找到该角色信息
+		--SystemNotice (Role , "Index =======  0 ")
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+		return LUA_TRUE
+	end
+	if Index ~= 0 then 															--找到了角色信息
+		if Player_Can_Do[ Index ].Value.Has_Record ==true then			--但是已经完成过了
+			-- SystemNotice(Role , "2222222222222222")
+			return LUA_FALSE
+		-- elseif Player_Can_Do[ Index ].Value.Has_Record ==true and Player_Can_Do[ Index ].Value.Do_Day < Do_Day then
+			-- SystemNotice (Role , "TMMD")
+			-- table.remove (Event_Name,Index)
+			-- Get_Day_Mission1(Role)
+			-- return LUA_TRUE
+		end
+	end
+	
+	return LUA_TRUE
+end
+-----------------------------------------zhangliang--------------------------偷吃鸡的狐狸------------------------------------
+
+--------------------------------------zhangliang--------------------------抓捕王小虎------------
+function AddItem_Mission14 ( Role )
+	
+	local Event_Name = "Capture the fearsome Wang Xiao Hu"
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--从取一次INDEX
+	if Index == 0 then			--没找到该角色信息
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息	
+		Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )
+	end
+	SystemNotice(Role,"The quest has been completed. You can receive a new one tomorrow")
+	Player_Can_Do[Index].Value.Has_Record = true			--标识为已完成
+	return LUA_TRUE
+end
+
+function  Get_Day_Mission14 ( Role )								
+	local Event_Name = "Capture the fearsome Wang Xiao Hu"
+	local Index = Get_Index_By_Event_And_PlayerName( Event_Name , Role )		--找寻角色档案
+	local Has_Record = false
+	local Do_Day = Day_Mission_Time()
+	if Index == 0 then			--没找到该角色信息
+		--SystemNotice (Role , "Index =======  0 ")
+		Add_Player_Event_Value( Event_Name , Role , Do_Day , Has_Record )		--添加一个角色信息
+		return LUA_TRUE
+	end
+	if Index ~= 0 then 															--找到了角色信息
+		if Player_Can_Do[ Index ].Value.Has_Record ==true then			--但是已经完成过了
+			-- SystemNotice(Role , "2222222222222222")
+			return LUA_FALSE
+		-- elseif Player_Can_Do[ Index ].Value.Has_Record ==true and Player_Can_Do[ Index ].Value.Do_Day < Do_Day then
+			-- SystemNotice (Role , "TMMD")
+			-- table.remove (Event_Name,Index)
+			-- Get_Day_Mission1(Role)
+			-- return LUA_TRUE
+		end
+	end
+	
+	return LUA_TRUE
+end
+-----------------------------------------zhangliang--------------------------抓捕王小虎------------------------------------
+
+
+
+function AddExp_10persent ( role)	------------------添加10%经验
+--	SystemNotice( role , "value1="..value1.."value2="..value2.."type="..type)
+	local exp_now = GetChaAttr ( role, ATTR_CEXP )
+	--SystemNotice(role,"exp_now"..exp_now)
+	local lv = GetChaAttr ( role , ATTR_LV )
+	local lv_next = lv + 1
+	local exp_up = GetExp[lv_next] - GetExp[lv]
+	--SystemNotice(role,"exp_up"..exp_up)
+	local exp_add = math.floor( exp_up * 0.1 )
+	if exp_add >= GetExp[lv_next] - exp_now then
+		exp_add = GetExp[lv_next] - exp_now
+	end	
+	exp_new = exp_now + exp_add
+	SetChaAttrI( role , ATTR_CEXP , exp_new )
+	RefreshCha( role )
+	--SystemNotice(role,"exp_new"..exp_new)
+	return LUA_TRUE
+
+end
+
+function AddExp_5persent ( role)	------------------添加5%经验
+--	SystemNotice( role , "value1="..value1.."value2="..value2.."type="..type)
+	local exp_now = GetChaAttr ( role, ATTR_CEXP )
+	local lv = GetChaAttr ( role , ATTR_LV )
+	local lv_next = lv + 1
+	local exp_up = GetExp[lv_next] - GetExp[lv]
+	local exp_add = math.floor( exp_up * 0.05 )
+	if exp_add >= GetExp[lv_next] - exp_now then
+		exp_add = GetExp[lv_next] - exp_now
+	end	
+	exp_new = exp_now + exp_add
+	SetChaAttrI( role , ATTR_CEXP , exp_new )
+	RefreshCha( role )
+	return LUA_TRUE
+end
+
+function AddExp_3persent ( role)	------------------添加3%经验
+--	SystemNotice( role , "value1="..value1.."value2="..value2.."type="..type)
+	local exp_now = GetChaAttr ( role, ATTR_CEXP )
+	local lv = GetChaAttr ( role , ATTR_LV )
+	local lv_next = lv + 1
+	local exp_up = GetExp[lv_next] - GetExp[lv]
+	local exp_add = math.floor( exp_up * 0.03 )
+	if exp_add >= GetExp[lv_next] - exp_now then
+		exp_add = GetExp[lv_next] - exp_now
+	end	
+	exp_new = exp_now + exp_add
+	SetChaAttrI( role , ATTR_CEXP , exp_new )
+	RefreshCha( role )
+	return LUA_TRUE
+end
+
+function AddExp_05persent ( role)	------------------添加0.5%经验
+--	SystemNotice( role , "value1="..value1.."value2="..value2.."type="..type)
+	local exp_now = GetChaAttr ( role, ATTR_CEXP )
+	local lv = GetChaAttr ( role , ATTR_LV )
+	local lv_next = lv + 1
+	local exp_up = GetExp[lv_next] - GetExp[lv]
+	local exp_add = math.floor( exp_up * 0.005 )
+	if exp_add >= GetExp[lv_next] - exp_now then
+		exp_add = GetExp[lv_next] - exp_now
+	end	
+	exp_new = exp_now + exp_add
+	SetChaAttrI( role , ATTR_CEXP , exp_new )
+	RefreshCha( role )
+	return LUA_TRUE
+end
+function CheckSports (role)     ------检测背包中是否有竞技参赛卡
+	local sports = CheckBagItem( role , 6066)
+	if sports ~= 1 then
+		return LUA_FALSE
+	else
+		return LUA_TRUE
+	end
+end
+
+
+function HasSportsCount ( role ,count)    ------检查竞技参赛卡的积分值
+	local role_str = GetChaItem2(role,2,6066)
+	local attr_str = GetItemAttr ( role_str , ITEMATTR_VAL_STR )
+	if count > attr_str then
+		return LUA_FALSE
+	else
+		return LUA_TRUE
+	end
+end 
+
+
+function TakeSportsCount ( role , count ) ---------扣除竞技参赛卡的积分值
+	local JJCJiFen = GetJJCItemPoint(role)
+	JJCJiFen = JJCJiFen - count 
+	if JJCJiFen<0 then 
+		JJCJiFen = 0 
+	end
+	SetJJCItemPoint(role,JJCJiFen)
+	return 1 
+end 
+
+
+function CheckTeamSports ( role )
+	local i =0 
+	local teamrole = {}
+	teamrole[0]= role 
+	for i = 0, 4, 1 do 
+		teamrole[i] = GetTeamCha(role, i)
+		sports = CheckBagItem( teamrole[i] , 6066)
+		if sports ~= 1 then
+			MISSDK_MISSIONSDK_LUA_000462 = GetResString("MISSDK_MISSIONSDK_LUA_000462")
+			return MISSDK_MISSIONSDK_LUA_000462
+		else 
+			return LUA_TRUE
+		end
+	end
+end 
+
+function NoticeSportsCount (role,value)   -------查询队友的积分值 value为参赛卡的属性
+	if  value == nil then
+		value = JParg[1] 
+
+	end
+	JParg[1]= value
+	local notice1 = ""
+	local Notice ={}
+	local i =0 
+	local teamrole = {}
+	teamrole[0]= role 
+	local teamNum,teamlv,PeoperNum = GetJJCInfoRole(role)
+	for i = 0, PeoperNum-2, 1 do 
+		teamrole[i+1] = GetTeamCha(role, i)
+			
+			if value == 1 then
+				-- local role_str = GetChaItem2(teamrole[i+1],2,6066)
+				-- local attr_str = GetItemAttr ( role_str , ITEMATTR_VAL_STR )
+				attr_str = GetJJCItemPoint(teamrole[i+1])
+				local TeamNotice = GetChaDefaultName(teamrole[i+1])
+				MISSDK_MISSIONSDK_LUA_000463 = GetResString("MISSDK_MISSIONSDK_LUA_000463")
+				MISSDK_MISSIONSDK_LUA_000464 = GetResString("MISSDK_MISSIONSDK_LUA_000464")
+				Notice[i] =  TeamNotice..MISSDK_MISSIONSDK_LUA_000464..attr_str..MISSDK_MISSIONSDK_LUA_000463			
+			elseif value == 2 then
+				local role_str = GetChaItem2(teamrole[i+1],2,6066)
+				local attr_agi = GetItemAttr ( role_str , ITEMATTR_VAL_AGI  )
+				local TeamNotice = GetChaDefaultName(teamrole[i+1])
+				MISSDK_MISSIONSDK_LUA_000465 = GetResString("MISSDK_MISSIONSDK_LUA_000465")
+				MISSDK_MISSIONSDK_LUA_000466 = GetResString("MISSDK_MISSIONSDK_LUA_000466")
+				Notice[i] =  TeamNotice..MISSDK_MISSIONSDK_LUA_000466..attr_agi..MISSDK_MISSIONSDK_LUA_000465
+			elseif value == 3 then
+				local role_str = GetChaItem2(teamrole[i+1],2,6066)
+				local attr_dex = GetItemAttr ( role_str , ITEMATTR_VAL_DEX  )
+				local TeamNotice = GetChaDefaultName(teamrole[i+1])
+				MISSDK_MISSIONSDK_LUA_000465 = GetResString("MISSDK_MISSIONSDK_LUA_000465")
+				MISSDK_MISSIONSDK_LUA_000467 = GetResString("MISSDK_MISSIONSDK_LUA_000467")
+				Notice[i] =  TeamNotice..MISSDK_MISSIONSDK_LUA_000467..attr_dex..MISSDK_MISSIONSDK_LUA_000465
+			elseif value == 4 then
+				local attr_con,attr_sta =GetJJCMTDX(teamrole[i+1])
+				local TeamNotice = GetChaDefaultName(teamrole[i+1])
+				MISSDK_MISSIONSDK_LUA_000465 = GetResString("MISSDK_MISSIONSDK_LUA_000465")
+				MISSDK_MISSIONSDK_LUA_000468 = GetResString("MISSDK_MISSIONSDK_LUA_000468")
+				Notice[i] =  TeamNotice..MISSDK_MISSIONSDK_LUA_000468..attr_sta..MISSDK_MISSIONSDK_LUA_000465
+			elseif value == 5 then
+				local attr_con,attr_sta =GetJJCMTDX(teamrole[i+1])
+				local TeamNotice = GetChaDefaultName(teamrole[i+1])
+				MISSDK_MISSIONSDK_LUA_000465 = GetResString("MISSDK_MISSIONSDK_LUA_000465")
+				MISSDK_MISSIONSDK_LUA_000469 = GetResString("MISSDK_MISSIONSDK_LUA_000469")
+				Notice[i] =  TeamNotice..MISSDK_MISSIONSDK_LUA_000469..attr_con..MISSDK_MISSIONSDK_LUA_000465
+			elseif value == 6 then
+				local role_str = GetChaItem2(teamrole[i+1],2,6066)
+				local attr_maxure = GetItemAttr ( role_str , ITEMATTR_MAXURE )
+				local TeamNotice = GetChaDefaultName(teamrole[i+1])
+				MISSDK_MISSIONSDK_LUA_000465 = GetResString("MISSDK_MISSIONSDK_LUA_000465")
+				MISSDK_MISSIONSDK_LUA_000470 = GetResString("MISSDK_MISSIONSDK_LUA_000470")
+				Notice[i] =  TeamNotice..MISSDK_MISSIONSDK_LUA_000470..attr_maxure..MISSDK_MISSIONSDK_LUA_000465	
+			end
+			notice1 = notice1.."_"..Notice[i]
+	end
+	 return notice1
+	
+end 
+
+function CheckCanGetJJCZB(role,LV,value) --1头2手3脚4衣服
+	if LV == nil and value == nil then
+		LV = JParg[1] 
+		value = JParg[2]
+	end
+	JParg[1]= LV
+	JParg[2]= value
+	local needPoint = {}
+	needPoint[1]=JJC50ZByifu  
+	needPoint[2]=JJC70ZByifu
+	needPoint[3]=JJC90ZByifu 
+	needPoint[4]=JJC50ZBqita 
+	needPoint[5]=JJC70ZBqita
+	needPoint[6]=JJC90ZBqita 
+	local zhzz = GetChaItem2(role ,2 ,6066)
+	if ValidCha(zhzz) ==0 then
+		MISSDK_MISSIONSDK_LUA_000471 = GetResString("MISSDK_MISSIONSDK_LUA_000471")
+		return MISSDK_MISSIONSDK_LUA_000471
+	end
+	local point = GetJJCItemPoint( role)
+	local realNeedPoint = 0
+	if LV == 0  then
+		realNeedPoint = value 
+	else
+		realNeedPoint = needPoint[LV+(1-math.floor(value/4))*3]
+	end
+	if point < realNeedPoint then
+		MISSDK_MISSIONSDK_LUA_000472 = GetResString("MISSDK_MISSIONSDK_LUA_000472")
+		MISSDK_MISSIONSDK_LUA_000473 = GetResString("MISSDK_MISSIONSDK_LUA_000473")
+		return MISSDK_MISSIONSDK_LUA_000473..realNeedPoint..MISSDK_MISSIONSDK_LUA_000472
+	end
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 1 then
+		MISSDK_MISSIONSDK_LUA_000474 = GetResString("MISSDK_MISSIONSDK_LUA_000474")
+		return MISSDK_MISSIONSDK_LUA_000474
+	end
+	local rolejob = GetChaAttr( role, ATTR_JOB)
+	if LV~=0 and rolejob<8 then 
+		MISSDK_MISSIONSDK_LUA_000475 = GetResString("MISSDK_MISSIONSDK_LUA_000475")
+		return MISSDK_MISSIONSDK_LUA_000475
+	end
+	return LUA_TRUE
+end
+
+function JJC_ZB (role,LV,value)  -----LV为装备的等级,value为头手脚衣服
+	local job = {}
+	 job [1] = 8
+	 job [2] =9
+	 job [3] = 12
+	 job [4] = 13
+	 job [5] = 14
+	 job [6] = 16
+	local ID = 6263
+	local IDend = 6293
+	local ID1 = 6499
+	local head70 = 6293
+
+	local head90 = 6505
+	local rolejob = GetChaAttr( role, ATTR_JOB)
+	local i = 0
+	local jobNum = 0 
+	for i = 1,6,1 do
+		if rolejob == job[i] then 
+			jobNum = i 
+			break
+		end
+	end
+	local lvfor = 0 
+	local valuafor = 0
+	local ItemID = ID-1+(LV-1)*18+(jobNum-1)*3+math.floor(value/2)+math.mod(value,2)*2
+	if ItemID >=IDend then 
+		ItemID = ItemID+ID1-IDend
+	end
+	if ItemID >=6505 then
+		ItemID = ItemID+1
+	end
+	if value == 1 then
+		if LV == 2 then
+			ItemID = head70 
+		elseif LV == 3 then 
+			ItemID = head90
+		end
+	end
+	GiveItem(role , 0 ,ItemID ,1 ,4 )
+	local needPoint = {}
+	needPoint[1]=JJC50ZByifu  
+	needPoint[2]=JJC70ZByifu
+	needPoint[3]=JJC90ZByifu 
+	needPoint[4]=JJC50ZBqita 
+	needPoint[5]=JJC70ZBqita
+	needPoint[6]=JJC90ZBqita 
+	local point  =  GetJJCItemPoint(role)
+	local realNeedPoint = needPoint[LV+(1-math.floor(value/4))*3]
+	point = point - realNeedPoint
+	local itemName =  GetItemName ( ItemID ) 
+	CALCULATE_FORGE_LUA_000290 = GetResString("CALCULATE_FORGE_LUA_000290")
+	MISSDK_MISSIONSDK_LUA_000476 = GetResString("MISSDK_MISSIONSDK_LUA_000476")
+	MISSCRIPT_NPCSCRIPT01_LUA_002070 = GetResString("MISSCRIPT_NPCSCRIPT01_LUA_002070")
+	SystemNotice(role,MISSCRIPT_NPCSCRIPT01_LUA_002070..itemName..MISSDK_MISSIONSDK_LUA_000476..realNeedPoint..CALCULATE_FORGE_LUA_000290)
+	SetJJCItemPoint ( role , point )
+	return LUA_TRUE
+end
+
+
+function Check_KSS ( role )
+	local cha_type = GetChaTypeID ( role )
+	if cha_type == 2 then
+		return LUA_TRUE
+	else
+		return LUA_FALSE
+	end
+end 
+function CanChargeQiByOne(role)
+	local item = GetChaItem(role ,2 ,0 )
+	local bagNum = GetChaFreeBagGridNum ( role )
+	if ValidCha(item)== 0 then 
+		MISSDK_MISSIONSDK_LUA_000477 = GetResString("MISSDK_MISSIONSDK_LUA_000477")
+		return MISSDK_MISSIONSDK_LUA_000477
+	end
+	local itemID = GetItemID(item)
+	if itemID >6553 or  itemID< 6542 then
+		MISSDK_MISSIONSDK_LUA_000477 = GetResString("MISSDK_MISSIONSDK_LUA_000477")
+		return MISSDK_MISSIONSDK_LUA_000477
+	end
+	if bagNum<1 then 
+		MISSDK_MISSIONSDK_LUA_000478 = GetResString("MISSDK_MISSIONSDK_LUA_000478")
+		return MISSDK_MISSIONSDK_LUA_000478
+	end
+	return LUA_TRUE
+end 
+function ChargeQiByOne(role)
+	local item = GetChaItem(role ,2 ,0 )
+	local itemID = GetItemID(item)
+	RemoveChaItem(role , itemID, 0,2,0,2,1)
+	local r1,r2 = MakeItem(role ,  itemID+12, 1,4)
+	local itemQi = GetChaItem(role , 2, r2 )
+	SetItemHole(itemQi,3)
+	GiveItem(role , 0,itemID+26,1,4)
+	return LUA_TRUE
+end
+function CanChargeQiByAll(role)
+	local bagNum = GetChaFreeBagGridNum ( role )
+	local needBag=0
+	local i = 0 
+	for i = 6542,6553,1 do 
+		local itemNum= CheckBagItem(role,i)
+		if itemNum~= 0 then 
+			needBag= needBag+itemNum
+		end
+	end
+	if needBag == 0 then 
+		MISSDK_MISSIONSDK_LUA_000479 = GetResString("MISSDK_MISSIONSDK_LUA_000479")
+		return MISSDK_MISSIONSDK_LUA_000479
+	end
+	if needBag> bagNum then 
+		MISSDK_MISSIONSDK_LUA_000480 = GetResString("MISSDK_MISSIONSDK_LUA_000480")
+		MISSDK_MISSIONSDK_LUA_000481 = GetResString("MISSDK_MISSIONSDK_LUA_000481")
+		return MISSDK_MISSIONSDK_LUA_000481..needBag..MISSDK_MISSIONSDK_LUA_000480
+	end
+	return LUA_TRUE
+end 
+function ChargeQiByAll(role)
+	local i = 0 
+	for i = 6542,6553,1 do 
+		local itemNum= CheckBagItem(role,i)
+		if itemNum~= 0 then 
+			local j = 0 
+			for j = 1, itemNum ,1 do
+				DelBagItem(role , i , 1)
+				local r1,r2 = MakeItem(role , i+12 , 1,4)
+				local itemQi = GetChaItem(role , 2, r2 )
+				SetItemHole(itemQi,3)
+				GiveItem(role , 0,i+26,1,4)
+			end
+		end
+	end
+	return LUA_TRUE
+end
+function SetItemHole ( item, Hole_Num)
+	local Num = GetItemForgeParam ( item , 1 )
+	Num = TansferNum ( Num )
+	if Hole_Num > 4 then
+		CALCULATE_FORGE_LUA_000077 = GetResString("CALCULATE_FORGE_LUA_000077")
+		SystemNotice ( role , CALCULATE_FORGE_LUA_000077 )
+		Hole_Num = 4
+	end
+	Num = SetNum_Part1 ( Num , Hole_Num )
+	i = SetItemForgeParam ( item , 1 , Num )
+end
+
+function GiveItem95BBZB ( role , value , p1 )   -------   value为部件 p1 为职业 	
+	job = {}
+	job[1] = 8
+	job[2] = 9
+	job[3] = 12
+	job[4] = 13
+	job[5] = 14
+	job[6] = 16
+	if value == 1 then		------身体
+	i = 0
+		for i = 1,6,1 do
+			if p1 == job[i] then
+			ItemID = {}
+			ItemID[1] = 6182
+			ItemID[2] = 6178
+			ItemID[3] = 6174
+			ItemID[4] = 6190
+			ItemID[5] = 6194
+			ItemID[6] = 6186
+			GiveItem( role , 0 , ItemID[i] , 1 ,4 )
+			end
+		end
+	elseif value == 2 then		------手套
+		for i = 1,6,1 do
+			if p1 == job[i] then
+			ItemID1 = {}
+			ItemID1[1] = 6183
+			ItemID1[2] = 6179
+			ItemID1[3] = 6175
+			ItemID1[4] = 6191
+			ItemID1[5] = 6195
+			ItemID1[6] = 6187
+			GiveItem( role , 0 , ItemID1[i] , 1 ,4 )
+			end
+		end
+	elseif value == 3 then		-----靴子
+		for i = 1,6,1 do
+			if p1 == job[i] then
+			ItemID2 = {}
+			ItemID2[1] = 6184
+			ItemID2[2] = 6180
+			ItemID2[3] = 6176
+			ItemID2[4] = 6192
+			ItemID2[5] = 6196
+			ItemID2[6] = 6188
+			GiveItem( role , 0 , ItemID2[i] , 1 ,4 )
+			end
+		end
+	elseif value == 4 then		-----头部
+		for i = 1,6,1 do
+			if p1 == job[i] then
+			ItemID3 = {}
+			ItemID3[1] = 6181
+			ItemID3[2] = 6177
+			ItemID3[3] = 6173
+			ItemID3[4] = 6189
+			ItemID3[5] = 6193
+			ItemID3[6] = 6185
+			GiveItem( role , 0 , ItemID3[i] , 1 ,4 )
+			end
+		end
+	end
+	return LUA_TRUE
+end 
+function FindMissbyNPC(npc,id)	
+	local i = 0 
+	local missionID = 0
+	local j = 0
+	for j = 1 ,NpcInfoList.count ,1 do
+		if  NpcInfoList[j].Npc ==npc then 
+			missionID = j
+			break
+		end
+	end
+	for i = 1 ,NpcInfoList[missionID].missionlist.count ,1 do
+		if NpcInfoList[missionID].missionlist[i] == Mission[id] then	
+			return i
+		end
+	end
+	return 0
+end
+
+
+-- 药师：6746
+-- 冒险者：6743
+-- 猎人：6740
+-- 剑士：6737
+function ZhiYeFenZhi1(role)
+	local job = GetChaAttr(role,ATTR_JOB)
+	local cha_type = GetChaTypeID ( role ) 
+	if job == 1 or job == 8 or job == 9 then
+		return 6737
+	elseif job == 2 or job == 12 then 
+		return 6740
+	elseif job == 4 or job == 16 then 
+			return 6754
+	elseif job == 5 or job == 13 or job == 14  then 
+		return 6746
+	else
+		return 0 
+	end
+end
+
+function ZhiYeFenZhi2(role)
+	local job = GetChaAttr(role,ATTR_JOB)
+	local cha_type = GetChaTypeID ( role ) 
+	if (job == 5 or job == 14 or job == 13) and cha_type == 3 then
+		return 6748
+	elseif (job == 5 or job == 14 or job == 13 ) and cha_type == 4 then
+		return 6757
+	else
+		return 0
+	end
+end
+
+function ZhiYeFenZhi3(role)
+	local job = GetChaAttr(role,ATTR_JOB)
+	local cha_type = GetChaTypeID ( role ) 
+	if job == 1 or job == 8 or job == 9 then
+		return 6763
+	elseif job == 2 or job == 12 then 
+		return 6764
+	elseif job == 5 or job == 13 or job == 14 then 
+		return 6766
+	elseif job == 4 or job == 16 then 
+		return 6765
+	else
+		return 0 
+	end
+end
+
+function ZhiYeFenZhi4(role)
+	local Lv=GetChaAttr( role , ATTR_LV )
+	if Lv >= 30 then 
+		return 6783
+	end
+local job = GetChaAttr(role,ATTR_JOB)
+	if job == 1 or job == 8 or job == 9 then
+		return 6780
+	elseif job == 2 or job == 12 then 
+		return 6782
+	elseif job == 5 or job == 13 or job == 14 then 
+		return 6780
+	elseif job == 4 or job == 16 then 
+		return 6781
+	else
+		return 0 
+	end
+
+end
+
+function ZhiYeFenZhi5(role,p1)			------------1  古利咯里  2  巴布 	3阿兰比斯
+	local Lv=GetChaAttr( role , ATTR_LV )
+	if Lv >= 30 then 
+		return 6783
+	end
+	if p1 == 1 then
+		return 6782
+	elseif p1 == 2 then
+		return 6780
+	elseif p1 == 3 then
+		return 6781
+	else
+		return 0
+	end	
+end
+
+function TiXingFenZhi1( role )
+	local job = GetChaAttr(role,ATTR_JOB)
+	local cha_type = GetChaTypeID ( role ) 
+	if (job == 4 or job == 16 ) and cha_type == 3 then 
+		return 6756
+	elseif (job == 4 or job ==16 ) and cha_type == 1 then
+		return 6756
+	elseif (job == 4 or job == 16 ) and cha_type == 4 then
+		return 6803
+	end		
+end 
+function  GiveNpcMissionbyFunc (character, npc,func,p1,p2,p3,p4)
+	local id = 0
+	MISSCRIPT_MISSIONSCRIPT05_LUA_001049 = GetResString("MISSCRIPT_MISSIONSCRIPT05_LUA_001049")
+	if func==MISSCRIPT_MISSIONSCRIPT05_LUA_001049 then
+		id = ZhiYeFenZhi1(character)
+	MISSCRIPT_MISSIONSCRIPT05_LUA_001075 = GetResString("MISSCRIPT_MISSIONSCRIPT05_LUA_001075")
+	elseif func == MISSCRIPT_MISSIONSCRIPT05_LUA_001075 then
+		id = ZhiYeFenZhi2(character)
+	MISSCRIPT_MISSIONSCRIPT05_LUA_001108 = GetResString("MISSCRIPT_MISSIONSCRIPT05_LUA_001108")
+	elseif func == MISSCRIPT_MISSIONSCRIPT05_LUA_001108 then
+		id = ZhiYeFenZhi3(character)
+	MISSCRIPT_MISSIONSCRIPT05_LUA_001165 = GetResString("MISSCRIPT_MISSIONSCRIPT05_LUA_001165")
+	elseif func == MISSCRIPT_MISSIONSCRIPT05_LUA_001165 then
+		id = ZhiYeFenZhi4(character)
+	MISSCRIPT_MISSIONSCRIPT05_LUA_001171 = GetResString("MISSCRIPT_MISSIONSCRIPT05_LUA_001171")
+	elseif func == MISSCRIPT_MISSIONSCRIPT05_LUA_001171 then
+		id = ZhiYeFenZhi5(character,p1)
+	MISSCRIPT_MISSIONSCRIPT05_LUA_001069 = GetResString("MISSCRIPT_MISSIONSCRIPT05_LUA_001069")
+	elseif func == MISSCRIPT_MISSIONSCRIPT05_LUA_001069 then
+		id = TiXingFenZhi1(character)
+	end
+	if ValidCha(id) == 0 then
+		MISSDK_MISSIONSDK_LUA_000482 = GetResString("MISSDK_MISSIONSDK_LUA_000482")
+		SystemNotice(character,MISSDK_MISSIONSDK_LUA_000482)
+	end
+	GiveNpcMission1( character, npc,id)
+	return 1
+end
+function GiveNpcMission1( character, npc,id)
+	if id == nil or Mission[id] == nil then
+		MISSDK_MISSIONSDK_LUA_000143 = GetResString("MISSDK_MISSIONSDK_LUA_000143")
+		PRINT( MISSDK_MISSIONSDK_LUA_000143..id )
+		MISSDK_MISSIONSDK_LUA_000143 = GetResString("MISSDK_MISSIONSDK_LUA_000143")
+		LG( "mission_error", MISSDK_MISSIONSDK_LUA_000143..id )
+		MISSDK_MISSIONSDK_LUA_000143 = GetResString("MISSDK_MISSIONSDK_LUA_000143")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000143..id )
+		return LUA_FALSE
+	end
+	local npcid = GetCharID( npc )
+	local npcmissionid = FindMissbyNPC(npc,id)
+	if npcmissionid== 0 then 
+		MISSDK_MISSIONSDK_LUA_000483 = GetResString("MISSDK_MISSIONSDK_LUA_000483")
+		SystemNotice(character,id..MISSDK_MISSIONSDK_LUA_000483)
+	end
+	--SystemNotice( character, "npcid"..npcid )
+	PRINT( "GiveMission: npcid, id, mistp", npcid, id, Mission[id].tp )
+	--ret = SetMissionTempInfo( character, npcid, id, MIS_ACCEPT, Mission[id].tp )
+	ret = SetMissionTempInfo( character, npcid, npcmissionid, MIS_ACCEPT, Mission[id].tp )
+	if ret ~= LUA_TRUE then 
+		MISSDK_MISSIONSDK_LUA_000121 = GetResString("MISSDK_MISSIONSDK_LUA_000121")
+		PRINT( MISSDK_MISSIONSDK_LUA_000121 )
+		MISSDK_MISSIONSDK_LUA_000122 = GetResString("MISSDK_MISSIONSDK_LUA_000122")
+		SystemNotice( character, MISSDK_MISSIONSDK_LUA_000122 )
+		return LUA_FALSE
+	end
+	
+	SendAcceptPage( character, npcid, Mission[id], Mission[id].id )
+	return LUA_TRUE
+end
+
+
+function CheckChaTypeID(role,p1)
+	local type = GetChaTypeID ( role ) 
+	if type == p1 then
+		return 1
+	else 
+		return 0
+	end
+end 
+
+
+function HasItemShouTao( role , ItemID )
+	local ShouTao = CheckBagItem ( role , ItemID )
+	if ShouTao ~= 0 then
+		return 1
+	end
+	local Item_Use = GetChaItem ( role , 1 , 3 )			----取手上装备的道具
+	if Item_Use == nil then
+		return 0
+	end
+	local ItemID_Use = GetItemID ( Item_Use )			----取ID
+	if ItemID_Use == ItemID then
+		return 1
+	end
+	return 0
+end 
+function HasBagJieZhi ( role )
+	JieZhiID = {4611,4612,4613,4614,4615,4616,4617,4618,4619,4620}
+	i = 0
+	for i = 1,9,1 do
+	local JieZhi = CheckBagItem ( role , JieZhiID[i] )
+		if JieZhi ~= 0 then
+			return 1
+		end	
+	end
+	for i = 1,9,1 do
+	local Item_Use = GetChaItem ( role , 1 , 7 )			
+	local Item_Use1 = GetChaItem ( role , 1 , 8 )			
+		if Item_Use == nil and Item_Use1 == nil then
+			return 0
+		end
+		local ItemID_Use = GetItemID ( Item_Use )			----取ID
+		local ItemID_Use1 = GetItemID ( Item_Use1 )			----取ID
+		if ItemID_Use == JieZhiID[i] or ItemID_Use1 == JieZhiID[i] then
+			return 1
+		end
+	end
+	return 0
+end 
+
+
+function CheckZBNowState( role )
+	local ZBZT = ZBNowState( role )
+	if ZBZT ~= "no" then
+		return 1
+	else
+		return 0
+	end
+end 
+
+
+function PfEqual1 (role,p1)
+	local job = GetChaAttr(role, ATTR_JOB)
+	if p1 == 1 then
+		if job == 1 or job == 8 or job == 9 then
+			return 1
+		else
+			return 0
+		end
+	elseif p1 == 2 then 
+		if job == 2 or job == 12 then
+			return 1
+		else
+			return 0
+		end
+	elseif p1 == 4 then
+		if job == 4 or job == 16 then
+			return 1
+		else
+			return 0
+		end
+	elseif p1 == 5 then
+		if job == 5 or job == 13 or job == 14  then
+			return 1
+		else
+			return 0
+		end
+	end
+	return 0
+end 
+
+function CheckRecordRand ( role )
+	local record1 = HasRecord( role, 57 )
+	local record2 = HasRecord( role, 89 )
+	local record3 = HasRecord( role, 97 )
+	if record1 == 1 or record2 == 1 or record3 == 1 then
+		return 1
+	else
+		return 0
+	end
+end 
+
+
+function CheckBaoShiLV(role,ItemID)
+	local Diamond = 0
+	local Item_Diamond = CheckBagItem( role , ItemID)
+	if Item_Diamond == 0 then
+		return 0
+	end
+	local LV_Diamond = GetChaItem2(role,2,ItemID)
+	local forge_lv = GetItemAttr ( LV_Diamond , ITEMATTR_VAL_BaoshiLV )
+	if forge_lv >= 2 then
+		return 1
+	else
+		return 0
+	end
+end 
+
+function CheckBankItemOrLv ( role , ItemID , Count )
+	local ret = BankHasItem( role, ItemID, Count )
+	if ret == 1 or Lv( role ) >= 20 then
+		return 1
+	else
+		return 0
+	end
+end
+
+
+function CheckKZRH ( role , ItemID )
+	if ItemID == nil then
+		ItemID = JParg[1] 
+	end
+	JParg[1]= ItemID
+
+	local item = CheckBagItem( role, ItemID )	
+	if item == 0 or item ~= 1 then
+		MISSDK_MISSIONSDK_LUA_000484 = GetResString("MISSDK_MISSIONSDK_LUA_000484")
+		return MISSDK_MISSIONSDK_LUA_000484
+	else
+		local Item_bg = GetChaItem2 (role , 2, ItemID )
+		local def = GetItemAttr ( Item_bg, ITEMATTR_VAL_DEF)
+		if def == 0 then
+			return 1
+		elseif def ~= 0 then
+			MISSDK_MISSIONSDK_LUA_000485 = GetResString("MISSDK_MISSIONSDK_LUA_000485")
+			return MISSDK_MISSIONSDK_LUA_000485
+		end
+	end
+end 
+function CheckCZCL (role)
+	local ret = HasRecord(role,1983)
+	if ret == 1 then
+		MISSDK_MISSIONSDK_LUA_000486 = GetResString("MISSDK_MISSIONSDK_LUA_000486")
+		return MISSDK_MISSIONSDK_LUA_000486
+	end	
+	local Item_CanGet = GetChaFreeBagGridNum ( role )	
+	if Item_CanGet < 1 then
+		MISSDK_MISSIONSDK_LUA_000487 = GetResString("MISSDK_MISSIONSDK_LUA_000487")
+		return MISSDK_MISSIONSDK_LUA_000487
+	end		
+	local Item_ID1 = CheckBagItem( role , 1672 )		---奇异金属
+	local Item_ID2 = CheckBagItem( role , 1783 )		---地金
+	local Item_ID3 = CheckBagItem( role , 3992 )		---比比铁苏
+	local Item_ID4 = CheckBagItem( role , 3991 )		---象牙酥
+	if Item_ID1 < 20 then
+		MISSDK_MISSIONSDK_LUA_000488 = GetResString("MISSDK_MISSIONSDK_LUA_000488")
+		return MISSDK_MISSIONSDK_LUA_000488
+	end
+	if Item_ID2 < 20 then
+		MISSDK_MISSIONSDK_LUA_000488 = GetResString("MISSDK_MISSIONSDK_LUA_000488")
+		return MISSDK_MISSIONSDK_LUA_000488
+	end
+	if Item_ID3 < 10 then
+		MISSDK_MISSIONSDK_LUA_000488 = GetResString("MISSDK_MISSIONSDK_LUA_000488")
+		return MISSDK_MISSIONSDK_LUA_000488
+	end
+	if Item_ID4 < 10 then
+		MISSDK_MISSIONSDK_LUA_000488 = GetResString("MISSDK_MISSIONSDK_LUA_000488")
+		return MISSDK_MISSIONSDK_LUA_000488
+	end
+
+
+	return 1
+end
+
+function TakeCZCL ( role )
+	a = TakeItem ( role , 0 , 1672 , 20)
+	b = TakeItem ( role , 0 , 1783 , 20)
+	c = TakeItem ( role , 0 , 3992 , 10)
+	d = TakeItem ( role , 0 , 3991 , 10)
+	if a == 0 or b ==0 or c == 0 or d == 0 then
+		MISSDK_MISSIONSDK_LUA_000489 = GetResString("MISSDK_MISSIONSDK_LUA_000489")
+		SystemNotice (role , MISSDK_MISSIONSDK_LUA_000489)
+		return
+	end
+	GiveItem (role , 0 , 6897 , 1 , 4 )
+	return 1
+end 	
+
+function GiveFHItem ( role )
+	local cha_type = GetChaTypeID ( role )
+	if cha_type == 1 or cha_type == 2 then
+		GiveItem (role , 0 , 6896 , 1 , 4 )
+	else
+		GiveItem ( role , 0 , 6895 , 1 , 4 )
+	end 
+	return 1
+end 
+function CheckBoatSkill ( role)  
+	local name = GetChaDefaultName(role)
+	if CheckShipExp[name] == nil then 
+		return 0
+	end
+
+	return 1
+end 
+function CheckBagJL (role)
+	local elf = GetChaItem ( role , 2 , 1  )
+	local elf_type = GetItemType ( elf )
+	if elf_type ~= 59 then
+		return 0 
+	else
+		return 1
+	end
+end  
+
+
+function JL_lv3 (role)
+	local Item_bg = GetChaItem ( role , 2 , 1  ) --取角色背包第二栏的指针
+	local Get_Item_Type = GetItemType ( Item_bg )
+	if  Get_Item_Type ~= 59 then
+		return LUA_FALSE	
+	else
+		local str_Traget = GetItemAttr( Item_bg ,ITEMATTR_VAL_STR )		 --力量
+		local con_Traget = GetItemAttr( Item_bg ,ITEMATTR_VAL_CON )		--体质
+		local agi_Traget = GetItemAttr( Item_bg ,ITEMATTR_VAL_AGI )		--专注
+		local dex_Traget = GetItemAttr( Item_bg ,ITEMATTR_VAL_DEX )		--敏捷
+		local sta_Traget = GetItemAttr( Item_bg ,ITEMATTR_VAL_STA )		--精神
+		local lv_Traget = str_Traget + con_Traget + agi_Traget + dex_Traget + sta_Traget  ----一个精灵的等级
+		if lv_Traget >=3 then
+			return LUA_TRUE
+		else
+			return LUA_FALSE
+		end
+	end
+end
+
+
+function CheckBaoShiLV2(role)
+	local Item_Diamond = CheckBagItem( role , 6717)
+	local Item_Diamond2 = CheckBagItem( role , 6718)
+	if Item_Diamond == 0 then
+		if Item_Diamond2 == 0 then
+			return 0
+		else
+			local LV_Diamond2 = GetChaItem2(role,2,6718)
+			local forge_lv2 = GetItemAttr ( LV_Diamond2 , ITEMATTR_VAL_BaoshiLV )
+			if forge_lv2 >= 2 then
+				return 1
+			else
+				return 0
+			end
+		end
+	else
+		local LV_Diamond = GetChaItem2(role,2,6717)
+		local forge_lv = GetItemAttr ( LV_Diamond , ITEMATTR_VAL_BaoshiLV )
+		if forge_lv >= 2 then
+			return 1
+		else
+			return 0
+		end
+	end
+end 
+
+
+function HasCleckFusion(role)
+	local name = GetChaDefaultName(role)
+	if Checkfusion[name] ==nil then 
+		return 0 
+	end
+	return 1
+end 
+
+
+function HasCleckUnite(role)
+	local name = GetChaDefaultName(role)
+	if Checkunite[name] ==nil then 
+		return 0 
+	end
+	return 1
+end 
+
+
+function CheckEquipPurify ( role )
+	for i = 0,9,1 do
+		local Item = GetChaItem ( role , 1 , i)
+		local Num = GetItemForgeParam ( Item , 1 )
+		Item_Stone1 = GetNum_Part2 ( Num )
+		Item_Stone2 = GetNum_Part4 ( Num )
+		Item_Stone3 = GetNum_Part6 ( Num )
+		Item_Stone4 = Item_Stone1 + Item_Stone2 + Item_Stone3 
+		if Item_Stone4 >=3 then
+			return 1
+		end
+	end
+	return 0
+end 
+
+
+function CheckNoNewJob (role)
+	local rolejob = GetChaAttr( role, ATTR_JOB)
+	if rolejob == 0 or rolejob == 1 or rolejob == 2 or rolejob == 4 or job == 5 then
+		return 0
+	end
+	return 1
+
+end 
+
+function Sdhd_check(role)------------------------检查可以使用的次数----------------需要注册
+	local now_day= os.date("%d")		-------------日
+	local now_day_num= tonumber(now_day)
+	local sd_day=GetChaAttr(role, ATTR_EXTEND10)-----------------查询圣诞节活动的时间记录
+	if sd_day~=nil then
+		sd_day=math.floor(sd_day/10)
+	end
+	if now_day_num ~= sd_day or sd_day==nil then
+		SetChaAttr(role, ATTR_EXTEND10,now_day_num*10)
+	end
+	local sdcs = GetChaAttr(role, ATTR_EXTEND10)-------------------调用圣诞节活动当天已经进行过的次数
+	local jles=CheckBagItem ( role , 7721 )
+	local bankHasitem=BankNoItem(role,7721,1)
+	sdcs=math.mod(sdcs,10)
+	if sdcs >= 3 then
+		SystemNotice ( role , "The cycle quests you can get are used out today, please come to get it tomorrow.")
+		return LUA_FALSE
+	elseif jles > 0 then
+		SystemNotice(role ,"Please plant the Xmas Tree by the planting tool.")
+		return LUA_FALSE
+	elseif bankHasitem == 0 then
+		SystemNotice(role ,"Please discard the letter of last Xmas Quest from your warhouse and get the new chance!")
+		return LUA_FALSE
+	end
+	return LUA_TRUE
+end 
+
+function GiveSDItem_SetAttr(role)--------------------------给予圣诞活动道具并记录坐标点，这句写在NPC对话ACTION里----------NPCSDK注册
+	local sdcs=GetChaAttr(role, ATTR_EXTEND10)------------------调用圣诞节活动当天已经进行过的次数
+	SetChaAttr(role, ATTR_EXTEND10,sdcs+1)
+	return LUA_TRUE
+end 
+
+--随机Give圣诞神秘礼物
+
+function GiveSDSMLW (role)
+	local zhzbx = math.random ( 1, 6 )
+	if zhzbx==1 then
+	GiveItem ( role , 0 , 2801  , 1 , 4 )
+	elseif zhzbx==2 then
+	GiveItem ( role , 0 , 3909  , 10 , 4 )
+	elseif zhzbx==3 then
+	GiveItem ( role , 0 , 1101  , 1 , 4 )
+	elseif zhzbx==4 then
+	GiveItem ( role , 0 , 4312  , 1 , 4 )
+	elseif zhzbx==5 then
+	GiveItem ( role , 0 , 6918  , 1 , 4 )
+	else
+	GiveItem ( role , 0 , 5644 , 1 , 4 )
+	end
+	return LUA_TRUE
+end 

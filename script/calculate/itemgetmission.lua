@@ -1,5 +1,5 @@
-print( "Loading ItemGetMission.lua" )
-function CheckMisChaBoat ( role , ChaType )
+---相关判断函数
+function CheckMisChaBoat ( role , ChaType )						--船只人物检测
 	local Cha_Boat = GetCtrlBoat ( role )
 	local ChaIsBoat = 0
 	
@@ -16,7 +16,7 @@ function CheckMisChaBoat ( role , ChaType )
 	end
 end
 
-function CheckChaPos ( role , Cha_x_min , Cha_x_max , Cha_y_min , Cha_y_max , MapName )
+function CheckChaPos ( role , Cha_x_min , Cha_x_max , Cha_y_min , Cha_y_max , MapName )	--坐标检测
 
 	local Cha_Boat = GetCtrlBoat ( role )
 	local ChaIsBoat = 0
@@ -47,7 +47,7 @@ function CheckChaPos ( role , Cha_x_min , Cha_x_max , Cha_y_min , Cha_y_max , Ma
 	return 1
 end
 
-function CheckChaGuildType ( role , GuildType , CheckType )				
+function CheckChaGuildType ( role , GuildType , CheckType )				--检测公会类型
 	
 	local Cha_GuildID = GetChaGuildID( role )
 	
@@ -83,6 +83,7 @@ function CheckChaGuildType ( role , GuildType , CheckType )
 end
 
 function MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
+--	SystemNotice ( role , "MissionMsgCheck")
 	local Have_Record	= 0
 	local No_Record		= 0
 	local Have_Mission	= 0
@@ -185,17 +186,28 @@ function ItemUse_LDADYW (role) --[[鲁德安的遗物]]--
 	local CheckType		= 1			-- 判断人物公会类型的方式 ( 1 为是某种公会类型 , 2 为不是某种公会类型 )
 
 
-	local HasRecordNotice	 = "Memento of Andrew shows no responese"		--判断 HasRecord 失败提示
-	local HasRecordNotice_1  = "Memento of Andrew shows no responese"		--判断 HasRecord 失败提示
-	local NoRecordNotice	 = "Memento of Andrew shows no responese"		--判断 NoRecord 失败提示
-	local NoRecordNotice_1	 = "Memento of Andrew shows no responese"		--判断 NoRecord 失败提示
-	local HasMissionNotice	 = "Memento of Andrew shows no responese"		--判断 HasMission 失败提示
-	local HasMissionNotice_1 = "Memento of Andrew shows no responese"		--判断 HasMission 失败提示
-	local NoMissionNotice	 = "Memento of Andrew shows no responese"		--判断 NoMission 失败提示
-	local NoMissionNotice_1	 = "Memento of Andrew shows no responese"		--判断 NoMission 失败提示
-	local CheckBoatNotice	 = "Memento of Andrew shows no responese"		--判断 人或船 失败提示
-	local CheckPosNotice	 = "Memento of Andrew shows no responese"		--判断 坐标 失败提示
-	local GuildTypeNotice	 = "Memento of Andrew shows no responese"		--判断 公会类型 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000001 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000001")
+	local HasRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000001		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000001 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000001")
+	local HasRecordNotice_1  = CALCULATE_ITEMGETMISSION_LUA_000001		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000001 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000001")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000001		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000001 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000001")
+	local NoRecordNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000001		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000001 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000001")
+	local HasMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000001		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000001 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000001")
+	local HasMissionNotice_1 = CALCULATE_ITEMGETMISSION_LUA_000001		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000001 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000001")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000001		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000001 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000001")
+	local NoMissionNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000001		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000001 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000001")
+	local CheckBoatNotice	 = CALCULATE_ITEMGETMISSION_LUA_000001		--判断 人或船 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000001 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000001")
+	local CheckPosNotice	 = CALCULATE_ITEMGETMISSION_LUA_000001		--判断 坐标 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000001 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000001")
+	local GuildTypeNotice	 = CALCULATE_ITEMGETMISSION_LUA_000001		--判断 公会类型 失败提示
 
 	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
 --	Notice("CheckMissionMsg_1 = "..CheckMissionMsg_1 ) 
@@ -226,7 +238,8 @@ function ItemUse_LDADYW (role) --[[鲁德安的遗物]]--
 		local Item_CanGet = GetChaFreeBagGridNum ( role )
 		
 		if Item_CanGet < 1 then
-			SystemNotice(role ,"Inventory space insufficient. Usage of item failed")
+			CALCULATE_ITEMGETMISSION_LUA_000002 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000002")
+			SystemNotice(role ,CALCULATE_ITEMGETMISSION_LUA_000002)
 			UseItemFailed ( role )
 			return
 		end
@@ -244,7 +257,8 @@ function ItemUse_LDADYW (role) --[[鲁德安的遗物]]--
 	elseif Cha_GuildID > 100 and Cha_GuildID <= 200 then
 		ChaGuildType_Get = 2
 	else
-		SystemNotice ( role , "Illegal Guild ID" )
+		CALCULATE_ITEMGETMISSION_LUA_000003 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000003")
+		SystemNotice ( role , CALCULATE_ITEMGETMISSION_LUA_000003 )
 	end
 
 	
@@ -314,17 +328,28 @@ function ItemUse_GLDYS (role) --[[古老的钥匙]]--
 	local CheckType		= 1			-- 判断人物公会类型的方式 ( 1 为是某种公会类型 , 2 为不是某种公会类型 )
 
 
-	local HasRecordNotice	 = "This ancient key has the logo of Thundoria Bank on it"		--判断 HasRecord 失败提示
-	local HasRecordNotice_1  = "This ancient key has the logo of Thundoria Bank on it"		--判断 HasRecord 失败提示
-	local NoRecordNotice	 = "This ancient key has the logo of Thundoria Bank on it"		--判断 NoRecord 失败提示
-	local NoRecordNotice_1	 = "This ancient key has the logo of Thundoria Bank on it"		--判断 NoRecord 失败提示
-	local HasMissionNotice	 = "This ancient key has the logo of Thundoria Bank on it"		--判断 HasMission 失败提示
-	local HasMissionNotice_1 = "This ancient key has the logo of Thundoria Bank on it"		--判断 HasMission 失败提示
-	local NoMissionNotice	 = "This ancient key has the logo of Thundoria Bank on it"		--判断 NoMission 失败提示
-	local NoMissionNotice_1	 = "This ancient key has the logo of Thundoria Bank on it"		--判断 NoMission 失败提示
-	local CheckBoatNotice	 = "This ancient key has the logo of Thundoria Bank on it"		--判断 人或船 失败提示
-	local CheckPosNotice	 = "This ancient key has the logo of Thundoria Bank on it"		--判断 坐标 失败提示
-	local GuildTypeNotice	 = "This ancient key has the logo of Thundoria Bank on it"		--判断 公会类型 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000004 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000004")
+	local HasRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000004		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000004 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000004")
+	local HasRecordNotice_1  = CALCULATE_ITEMGETMISSION_LUA_000004		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000004 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000004")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000004		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000004 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000004")
+	local NoRecordNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000004		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000004 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000004")
+	local HasMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000004		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000004 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000004")
+	local HasMissionNotice_1 = CALCULATE_ITEMGETMISSION_LUA_000004		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000004 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000004")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000004		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000004 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000004")
+	local NoMissionNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000004		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000004 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000004")
+	local CheckBoatNotice	 = CALCULATE_ITEMGETMISSION_LUA_000004		--判断 人或船 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000004 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000004")
+	local CheckPosNotice	 = CALCULATE_ITEMGETMISSION_LUA_000004		--判断 坐标 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000004 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000004")
+	local GuildTypeNotice	 = CALCULATE_ITEMGETMISSION_LUA_000004		--判断 公会类型 失败提示
 
 	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
 --	Notice("CheckMissionMsg_1 = "..CheckMissionMsg_1 ) 
@@ -361,7 +386,8 @@ function ItemUse_GLDYS (role) --[[古老的钥匙]]--
 	elseif Cha_GuildID > 100 and Cha_GuildID <= 200 then
 		ChaGuildType_Get = 2
 	else
-		SystemNotice ( role , "Illegal Guild ID" )
+		CALCULATE_ITEMGETMISSION_LUA_000003 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000003")
+		SystemNotice ( role , CALCULATE_ITEMGETMISSION_LUA_000003 )
 	end
 
 	
@@ -434,17 +460,28 @@ function ItemUse_LDADYS (role) --[[鲁德安的遗书]]--
 	local CheckType		= 1			-- 判断人物公会类型的方式 ( 1 为是某种公会类型 , 2 为不是某种公会类型 )
 
 
-	local HasRecordNotice	 = "Andrew's Will has some unknown scribbling on it"		--判断 HasRecord 失败提示
-	local HasRecordNotice_1  = "Andrew's Will has some unknown scribbling on it"		--判断 HasRecord 失败提示
-	local NoRecordNotice	 = "Andrew's Will has some unknown scribbling on it"		--判断 NoRecord 失败提示
-	local NoRecordNotice_1	 = "Andrew's Will has some unknown scribbling on it"		--判断 NoRecord 失败提示
-	local HasMissionNotice	 = "Andrew's Will has some unknown scribbling on it"		--判断 HasMission 失败提示
-	local HasMissionNotice_1 = "Andrew's Will has some unknown scribbling on it"		--判断 HasMission 失败提示
-	local NoMissionNotice	 = "Andrew's Will has some unknown scribbling on it"		--判断 NoMission 失败提示
-	local NoMissionNotice_1	 = "Andrew's Will has some unknown scribbling on it"		--判断 NoMission 失败提示
-	local CheckBoatNotice	 = "Andrew's Will has some unknown scribbling on it"		--判断 人或船 失败提示
-	local CheckPosNotice	 = "Andrew's Will has some unknown scribbling on it"		--判断 坐标 失败提示
-	local GuildTypeNotice	 = "Andrew's Will has some unknown scribbling on it"		--判断 公会类型 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000005 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000005")
+	local HasRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000005		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000005 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000005")
+	local HasRecordNotice_1  = CALCULATE_ITEMGETMISSION_LUA_000005		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000005 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000005")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000005		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000005 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000005")
+	local NoRecordNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000005		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000005 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000005")
+	local HasMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000005		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000005 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000005")
+	local HasMissionNotice_1 = CALCULATE_ITEMGETMISSION_LUA_000005		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000005 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000005")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000005		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000005 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000005")
+	local NoMissionNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000005		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000005 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000005")
+	local CheckBoatNotice	 = CALCULATE_ITEMGETMISSION_LUA_000005		--判断 人或船 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000005 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000005")
+	local CheckPosNotice	 = CALCULATE_ITEMGETMISSION_LUA_000005		--判断 坐标 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000005 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000005")
+	local GuildTypeNotice	 = CALCULATE_ITEMGETMISSION_LUA_000005		--判断 公会类型 失败提示
 
 	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
 --	Notice("CheckMissionMsg_1 = "..CheckMissionMsg_1 ) 
@@ -481,7 +518,8 @@ function ItemUse_LDADYS (role) --[[鲁德安的遗书]]--
 	elseif Cha_GuildID > 100 and Cha_GuildID <= 200 then
 		ChaGuildType_Get = 2
 	else
-		SystemNotice ( role , "Illegal Guild ID" )
+		CALCULATE_ITEMGETMISSION_LUA_000003 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000003")
+		SystemNotice ( role , CALCULATE_ITEMGETMISSION_LUA_000003 )
 	end
 
 	
@@ -553,17 +591,28 @@ function ItemUse_YXYSJY (role) --[[隐形药水解药]]--
 	local CheckType		= 1			-- 判断人物公会类型的方式 ( 1 为是某种公会类型 , 2 为不是某种公会类型 )
 
 
-	local HasRecordNotice	 = "Where do you wish to apply the Invisible Ink Negator?"		--判断 HasRecord 失败提示
-	local HasRecordNotice_1  = "Where do you wish to apply the Invisible Ink Negator?"		--判断 HasRecord 失败提示
-	local NoRecordNotice	 = "Where do you wish to apply the Invisible Ink Negator?"		--判断 NoRecord 失败提示
-	local NoRecordNotice_1	 = "Where do you wish to apply the Invisible Ink Negator?"		--判断 NoRecord 失败提示
-	local HasMissionNotice	 = "Where do you wish to apply the Invisible Ink Negator?"		--判断 HasMission 失败提示
-	local HasMissionNotice_1 = "Where do you wish to apply the Invisible Ink Negator?"		--判断 HasMission 失败提示
-	local NoMissionNotice	 = "Where do you wish to apply the Invisible Ink Negator?"		--判断 NoMission 失败提示
-	local NoMissionNotice_1	 = "Where do you wish to apply the Invisible Ink Negator?"		--判断 NoMission 失败提示
-	local CheckBoatNotice	 = "Where do you wish to apply the Invisible Ink Negator?"		--判断 人或船 失败提示
-	local CheckPosNotice	 = "Where do you wish to apply the Invisible Ink Negator?"		--判断 坐标 失败提示
-	local GuildTypeNotice	 = "Where do you wish to apply the Invisible Ink Negator?"		--判断 公会类型 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000006 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000006")
+	local HasRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000006		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000006 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000006")
+	local HasRecordNotice_1  = CALCULATE_ITEMGETMISSION_LUA_000006		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000006 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000006")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000006		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000006 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000006")
+	local NoRecordNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000006		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000006 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000006")
+	local HasMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000006		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000006 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000006")
+	local HasMissionNotice_1 = CALCULATE_ITEMGETMISSION_LUA_000006		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000006 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000006")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000006		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000006 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000006")
+	local NoMissionNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000006		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000006 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000006")
+	local CheckBoatNotice	 = CALCULATE_ITEMGETMISSION_LUA_000006		--判断 人或船 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000006 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000006")
+	local CheckPosNotice	 = CALCULATE_ITEMGETMISSION_LUA_000006		--判断 坐标 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000006 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000006")
+	local GuildTypeNotice	 = CALCULATE_ITEMGETMISSION_LUA_000006		--判断 公会类型 失败提示
 
 	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
 --	Notice("CheckMissionMsg_1 = "..CheckMissionMsg_1 ) 
@@ -600,7 +649,8 @@ function ItemUse_YXYSJY (role) --[[隐形药水解药]]--
 	elseif Cha_GuildID > 100 and Cha_GuildID <= 200 then
 		ChaGuildType_Get = 2
 	else
-		SystemNotice ( role , "Illegal Guild ID" )
+		CALCULATE_ITEMGETMISSION_LUA_000003 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000003")
+		SystemNotice ( role , CALCULATE_ITEMGETMISSION_LUA_000003 )
 	end
 
 	
@@ -673,17 +723,28 @@ function ItemUse_RYDKL (role) --[[人鱼的骷髅]]--
 	local CheckType		= 1			-- 判断人物公会类型的方式 ( 1 为是某种公会类型 , 2 为不是某种公会类型 )
 
 
-	local HasRecordNotice	 = "Mermaid Carcass has an ancient word carving \"(1843, 1717)\""		--判断 HasRecord 失败提示
-	local HasRecordNotice_1  = "Mermaid Carcass has an ancient word carving \"(1843, 1717)\""		--判断 HasRecord 失败提示
-	local NoRecordNotice	 = "Mermaid Carcass has an ancient word carving \"(1843, 1717)\""		--判断 NoRecord 失败提示
-	local NoRecordNotice_1	 = "Mermaid Carcass has an ancient word carving \"(1843, 1717)\""		--判断 NoRecord 失败提示
-	local HasMissionNotice	 = "Why don't you look for Jack"		--判断 HasMission 失败提示
-	local HasMissionNotice_1 = "Mermaid Carcass has an ancient word carving \"(1843, 1717)\""		--判断 HasMission 失败提示
-	local NoMissionNotice	 = "Mermaid Carcass has an ancient word carving \"(1843, 1717)\""		--判断 NoMission 失败提示
-	local NoMissionNotice_1	 = "Mermaid Carcass has an ancient word carving \"(1843, 1717)\""		--判断 NoMission 失败提示
-	local CheckBoatNotice	 = "Mermaid Carcass has an ancient word carving \"(1843, 1717)\""		--判断 人或船 失败提示
-	local CheckPosNotice	 = "Mermaid Carcass has an ancient word carving \"(1843, 1717)\""		--判断 坐标 失败提示
-	local GuildTypeNotice	 = "Mermaid Carcass has an ancient word carving \"(1843, 1717)\""		--判断 公会类型 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000007 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000007")
+	local HasRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000007		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000007 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000007")
+	local HasRecordNotice_1  = CALCULATE_ITEMGETMISSION_LUA_000007		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000007 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000007")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000007		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000007 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000007")
+	local NoRecordNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000007		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000008 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000008")
+	local HasMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000008		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000007 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000007")
+	local HasMissionNotice_1 = CALCULATE_ITEMGETMISSION_LUA_000007		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000007 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000007")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000007		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000007 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000007")
+	local NoMissionNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000007		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000007 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000007")
+	local CheckBoatNotice	 = CALCULATE_ITEMGETMISSION_LUA_000007		--判断 人或船 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000007 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000007")
+	local CheckPosNotice	 = CALCULATE_ITEMGETMISSION_LUA_000007		--判断 坐标 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000007 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000007")
+	local GuildTypeNotice	 = CALCULATE_ITEMGETMISSION_LUA_000007		--判断 公会类型 失败提示
 
 	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
 --	Notice("CheckMissionMsg_1 = "..CheckMissionMsg_1 ) 
@@ -714,7 +775,8 @@ function ItemUse_RYDKL (role) --[[人鱼的骷髅]]--
 		local Item_CanGet = GetChaFreeBagGridNum ( role )
 		
 		if Item_CanGet < 1 then
-			SystemNotice(role ,"Inventory space insufficient. Usage of item failed")
+			CALCULATE_ITEMGETMISSION_LUA_000002 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000002")
+			SystemNotice(role ,CALCULATE_ITEMGETMISSION_LUA_000002)
 			UseItemFailed ( role )
 			return
 		end
@@ -730,7 +792,8 @@ function ItemUse_RYDKL (role) --[[人鱼的骷髅]]--
 	elseif Cha_GuildID > 100 and Cha_GuildID <= 200 then
 		ChaGuildType_Get = 2
 	else
-		SystemNotice ( role , "Illegal Guild ID" )
+		CALCULATE_ITEMGETMISSION_LUA_000003 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000003")
+		SystemNotice ( role , CALCULATE_ITEMGETMISSION_LUA_000003 )
 	end
 
 	
@@ -804,17 +867,28 @@ function ItemUse_SXTCQ (role) --[[水下探测器]]--
 	local CheckType		= 1			-- 判断人物公会类型的方式 ( 1 为是某种公会类型 , 2 为不是某种公会类型 )
 
 
-	local HasRecordNotice	 = "Detection failed"		--判断 HasRecord 失败提示
-	local HasRecordNotice_1  = "Detection failed"		--判断 HasRecord 失败提示
-	local NoRecordNotice	 = "Detection failed"		--判断 NoRecord 失败提示
-	local NoRecordNotice_1	 = "Detection failed"		--判断 NoRecord 失败提示
-	local HasMissionNotice	 = "Detection failed"		--判断 HasMission 失败提示
-	local HasMissionNotice_1 = "Detection failed"		--判断 HasMission 失败提示
-	local NoMissionNotice	 = "Detection failed"		--判断 NoMission 失败提示
-	local NoMissionNotice_1	 = "Detection failed"		--判断 NoMission 失败提示
-	local CheckBoatNotice	 = "Underwater Detector can only be used while sailing"		--判断 人或船 失败提示
-	local CheckPosNotice	 = "Detection failed"		--判断 坐标 失败提示
-	local GuildTypeNotice	 = "Detection failed"		--判断 公会类型 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000009 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000009")
+	local HasRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000009		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000009 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000009")
+	local HasRecordNotice_1  = CALCULATE_ITEMGETMISSION_LUA_000009		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000009 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000009")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000009		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000009 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000009")
+	local NoRecordNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000009		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000009 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000009")
+	local HasMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000009		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000009 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000009")
+	local HasMissionNotice_1 = CALCULATE_ITEMGETMISSION_LUA_000009		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000009 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000009")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000009		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000009 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000009")
+	local NoMissionNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000009		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000010 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000010")
+	local CheckBoatNotice	 = CALCULATE_ITEMGETMISSION_LUA_000010		--判断 人或船 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000009 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000009")
+	local CheckPosNotice	 = CALCULATE_ITEMGETMISSION_LUA_000009		--判断 坐标 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000009 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000009")
+	local GuildTypeNotice	 = CALCULATE_ITEMGETMISSION_LUA_000009		--判断 公会类型 失败提示
 
 	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
 --	Notice("CheckMissionMsg_1 = "..CheckMissionMsg_1 ) 
@@ -845,7 +919,8 @@ function ItemUse_SXTCQ (role) --[[水下探测器]]--
 		local Item_CanGet = GetChaFreeBagGridNum ( role )
 		
 		if Item_CanGet < 1 then
-			SystemNotice(role ,"Inventory space insufficient. Usage of item failed")
+			CALCULATE_ITEMGETMISSION_LUA_000002 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000002")
+			SystemNotice(role ,CALCULATE_ITEMGETMISSION_LUA_000002)
 			UseItemFailed ( role )
 			return
 		end
@@ -861,7 +936,8 @@ function ItemUse_SXTCQ (role) --[[水下探测器]]--
 	elseif Cha_GuildID > 100 and Cha_GuildID <= 200 then
 		ChaGuildType_Get = 2
 	else
-		SystemNotice ( role , "Illegal Guild ID" )
+		CALCULATE_ITEMGETMISSION_LUA_000003 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000003")
+		SystemNotice ( role , CALCULATE_ITEMGETMISSION_LUA_000003 )
 	end
 
 	
@@ -936,17 +1012,28 @@ function ItemUse_RJDYW (role) --[[日记的译文]]--
 	local CheckType		= 1			-- 判断人物公会类型的方式 ( 1 为是某种公会类型 , 2 为不是某种公会类型 )
 
 
-	local HasRecordNotice	 = "The diary records the mysterious journey of Andrew"		--判断 HasRecord 失败提示
-	local HasRecordNotice_1  = "The diary records the mysterious journey of Andrew"		--判断 HasRecord 失败提示
-	local NoRecordNotice	 = "The diary records the mysterious journey of Andrew"		--判断 NoRecord 失败提示
-	local NoRecordNotice_1	 = "The diary records the mysterious journey of Andrew"		--判断 NoRecord 失败提示
-	local HasMissionNotice	 = "The diary records the mysterious journey of Andrew"		--判断 HasMission 失败提示
-	local HasMissionNotice_1 = "The diary records the mysterious journey of Andrew"		--判断 HasMission 失败提示
-	local NoMissionNotice	 = "The diary records the mysterious journey of Andrew"		--判断 NoMission 失败提示
-	local NoMissionNotice_1	 = "The diary records the mysterious journey of Andrew"		--判断 NoMission 失败提示
-	local CheckBoatNotice	 = "The diary records the mysterious journey of Andrew"		--判断 人或船 失败提示
-	local CheckPosNotice	 = "The diary records the mysterious journey of Andrew"		--判断 坐标 失败提示
-	local GuildTypeNotice	 = "The diary records the mysterious journey of Andrew"		--判断 公会类型 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000011 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000011")
+	local HasRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000011		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000011 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000011")
+	local HasRecordNotice_1  = CALCULATE_ITEMGETMISSION_LUA_000011		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000011 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000011")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000011		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000011 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000011")
+	local NoRecordNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000011		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000011 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000011")
+	local HasMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000011		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000011 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000011")
+	local HasMissionNotice_1 = CALCULATE_ITEMGETMISSION_LUA_000011		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000011 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000011")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000011		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000011 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000011")
+	local NoMissionNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000011		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000011 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000011")
+	local CheckBoatNotice	 = CALCULATE_ITEMGETMISSION_LUA_000011		--判断 人或船 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000011 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000011")
+	local CheckPosNotice	 = CALCULATE_ITEMGETMISSION_LUA_000011		--判断 坐标 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000011 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000011")
+	local GuildTypeNotice	 = CALCULATE_ITEMGETMISSION_LUA_000011		--判断 公会类型 失败提示
 
 	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
 --	Notice("CheckMissionMsg_1 = "..CheckMissionMsg_1 ) 
@@ -983,7 +1070,8 @@ function ItemUse_RJDYW (role) --[[日记的译文]]--
 	elseif Cha_GuildID > 100 and Cha_GuildID <= 200 then
 		ChaGuildType_Get = 2
 	else
-		SystemNotice ( role , "Illegal Guild ID" )
+		CALCULATE_ITEMGETMISSION_LUA_000003 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000003")
+		SystemNotice ( role , CALCULATE_ITEMGETMISSION_LUA_000003 )
 	end
 
 	
@@ -1059,17 +1147,28 @@ function ItemUse_HL (role) --[[海轮]]--
 	local CheckType		= 1			-- 判断人物公会类型的方式 ( 1 为是某种公会类型 , 2 为不是某种公会类型 )
 
 
-	local HasRecordNotice	 = "The wheel glows and point towards the direction of Ascaron (1497, 1707)"		--判断 HasRecord 失败提示
-	local HasRecordNotice_1  = "The wheel glows and point towards the direction of Ascaron (1497, 1707)"		--判断 HasRecord 失败提示
-	local NoRecordNotice	 = "The wheel glows and point towards the direction of Ascaron (1497, 1707)"		--判断 NoRecord 失败提示
-	local NoRecordNotice_1	 = "The wheel glows and point towards the direction of Ascaron (1497, 1707)"		--判断 NoRecord 失败提示
-	local HasMissionNotice	 = "The wheel glows and point towards the direction of Ascaron (1497, 1707)"		--判断 HasMission 失败提示
-	local HasMissionNotice_1 = "The wheel glows and point towards the direction of Ascaron (1497, 1707)"		--判断 HasMission 失败提示
-	local NoMissionNotice	 = "The wheel glows and point towards the direction of Ascaron (1497, 1707)"		--判断 NoMission 失败提示
-	local NoMissionNotice_1	 = "The wheel glows and point towards the direction of Ascaron (1497, 1707)"		--判断 NoMission 失败提示
-	local CheckBoatNotice	 = "The compass gives out a light glow and point towards a certain direction on the sea of Ascaron"			--判断 人或船 失败提示
-	local CheckPosNotice	 = "The wheel glows and point towards the direction of Ascaron (1497, 1707)"		--判断 坐标 失败提示
-	local GuildTypeNotice	 = "The wheel glows and point towards the direction of Ascaron (1497, 1707)"		--判断 公会类型 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000012 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000012")
+	local HasRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000012		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000012 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000012")
+	local HasRecordNotice_1  = CALCULATE_ITEMGETMISSION_LUA_000012		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000012 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000012")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000012		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000012 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000012")
+	local NoRecordNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000012		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000012 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000012")
+	local HasMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000012		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000012 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000012")
+	local HasMissionNotice_1 = CALCULATE_ITEMGETMISSION_LUA_000012		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000012 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000012")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000012		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000012 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000012")
+	local NoMissionNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000012		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000013 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000013")
+	local CheckBoatNotice	 = CALCULATE_ITEMGETMISSION_LUA_000013			--判断 人或船 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000012 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000012")
+	local CheckPosNotice	 = CALCULATE_ITEMGETMISSION_LUA_000012		--判断 坐标 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000012 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000012")
+	local GuildTypeNotice	 = CALCULATE_ITEMGETMISSION_LUA_000012		--判断 公会类型 失败提示
 
 	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
 --	Notice("CheckMissionMsg_1 = "..CheckMissionMsg_1 ) 
@@ -1106,7 +1205,8 @@ function ItemUse_HL (role) --[[海轮]]--
 	elseif Cha_GuildID > 100 and Cha_GuildID <= 200 then
 		ChaGuildType_Get = 2
 	else
-		SystemNotice ( role , "Illegal Guild ID" )
+		CALCULATE_ITEMGETMISSION_LUA_000003 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000003")
+		SystemNotice ( role , CALCULATE_ITEMGETMISSION_LUA_000003 )
 	end
 
 	
@@ -1181,17 +1281,28 @@ function ItemUse_WNYDYF (role) --[[万能药的药方]]--
 	local CheckType		= 1			-- 判断人物公会类型的方式 ( 1 为是某种公会类型 , 2 为不是某种公会类型 )
 
 
-	local HasRecordNotice	 = "Omni-Antidote Prescription seems to be sleeping…"		--判断 HasRecord 失败提示
-	local HasRecordNotice_1  = "Omni-Antidote Prescription seems to be sleeping…"		--判断 HasRecord 失败提示
-	local NoRecordNotice	 = "Omni-Antidote Prescription seems to be sleeping…"		--判断 NoRecord 失败提示
-	local NoRecordNotice_1	 = "Omni-Antidote Prescription seems to be sleeping…"		--判断 NoRecord 失败提示
-	local HasMissionNotice	 = "Omni-Antidote Prescription seems to be sleeping…"		--判断 HasMission 失败提示
-	local HasMissionNotice_1 = "Omni-Antidote Prescription seems to be sleeping…"		--判断 HasMission 失败提示
-	local NoMissionNotice	 = "Omni-Antidote Prescription seems to be sleeping…"		--判断 NoMission 失败提示
-	local NoMissionNotice_1	 = "Omni-Antidote Prescription seems to be sleeping…"		--判断 NoMission 失败提示
-	local CheckBoatNotice	 = "Omni-Antidote Prescription seems to be sleeping…"		--判断 人或船 失败提示
-	local CheckPosNotice	 = "Omni-Antidote Prescription seems to be sleeping…"		--判断 坐标 失败提示
-	local GuildTypeNotice	 = "Omni-Antidote Prescription seems to be sleeping…"		--判断 公会类型 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000014 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000014")
+	local HasRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000014		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000014 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000014")
+	local HasRecordNotice_1  = CALCULATE_ITEMGETMISSION_LUA_000014		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000014 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000014")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000014		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000014 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000014")
+	local NoRecordNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000014		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000014 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000014")
+	local HasMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000014		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000014 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000014")
+	local HasMissionNotice_1 = CALCULATE_ITEMGETMISSION_LUA_000014		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000014 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000014")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000014		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000014 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000014")
+	local NoMissionNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000014		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000014 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000014")
+	local CheckBoatNotice	 = CALCULATE_ITEMGETMISSION_LUA_000014		--判断 人或船 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000014 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000014")
+	local CheckPosNotice	 = CALCULATE_ITEMGETMISSION_LUA_000014		--判断 坐标 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000014 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000014")
+	local GuildTypeNotice	 = CALCULATE_ITEMGETMISSION_LUA_000014		--判断 公会类型 失败提示
 
 	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
 --	Notice("CheckMissionMsg_1 = "..CheckMissionMsg_1 ) 
@@ -1228,7 +1339,8 @@ function ItemUse_WNYDYF (role) --[[万能药的药方]]--
 	elseif Cha_GuildID > 100 and Cha_GuildID <= 200 then
 		ChaGuildType_Get = 2
 	else
-		SystemNotice ( role , "Illegal Guild ID" )
+		CALCULATE_ITEMGETMISSION_LUA_000003 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000003")
+		SystemNotice ( role , CALCULATE_ITEMGETMISSION_LUA_000003 )
 	end
 
 	
@@ -1304,17 +1416,28 @@ function ItemUse_LZL (role) --[[龙之泪]]--
 	local CheckType		= 1			-- 判断人物公会类型的方式 ( 1 为是某种公会类型 , 2 为不是某种公会类型 )
 
 
-	local HasRecordNotice	 = "Tear of Dragon emanate a chilling aura"		--判断 HasRecord 失败提示
-	local HasRecordNotice_1  = "Tear of Dragon emanate a chilling aura"		--判断 HasRecord 失败提示
-	local NoRecordNotice	 = "Tear of Dragon emanate a chilling aura"		--判断 NoRecord 失败提示
-	local NoRecordNotice_1	 = "Tear of Dragon emanate a chilling aura"		--判断 NoRecord 失败提示
-	local HasMissionNotice	 = "Tear of Dragon emanate a chilling aura"		--判断 HasMission 失败提示
-	local HasMissionNotice_1 = "Tear of Dragon emanate a chilling aura"		--判断 HasMission 失败提示
-	local NoMissionNotice	 = "Tear of Dragon emanate a chilling aura"		--判断 NoMission 失败提示
-	local NoMissionNotice_1	 = "Tear of Dragon emanate a chilling aura"		--判断 NoMission 失败提示
-	local CheckBoatNotice	 = "Tear of Dragon emanate a chilling aura"		--判断 人或船 失败提示
-	local CheckPosNotice	 = "Tear of Dragon emanate a chilling aura"		--判断 坐标 失败提示
-	local GuildTypeNotice	 = "Tear of Dragon emanate a chilling aura"		--判断 公会类型 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000015 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000015")
+	local HasRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000015		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000015 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000015")
+	local HasRecordNotice_1  = CALCULATE_ITEMGETMISSION_LUA_000015		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000015 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000015")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000015		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000015 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000015")
+	local NoRecordNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000015		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000015 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000015")
+	local HasMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000015		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000015 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000015")
+	local HasMissionNotice_1 = CALCULATE_ITEMGETMISSION_LUA_000015		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000015 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000015")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000015		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000015 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000015")
+	local NoMissionNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000015		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000015 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000015")
+	local CheckBoatNotice	 = CALCULATE_ITEMGETMISSION_LUA_000015		--判断 人或船 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000015 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000015")
+	local CheckPosNotice	 = CALCULATE_ITEMGETMISSION_LUA_000015		--判断 坐标 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000015 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000015")
+	local GuildTypeNotice	 = CALCULATE_ITEMGETMISSION_LUA_000015		--判断 公会类型 失败提示
 
 	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
 --	Notice("CheckMissionMsg_1 = "..CheckMissionMsg_1 ) 
@@ -1351,7 +1474,8 @@ function ItemUse_LZL (role) --[[龙之泪]]--
 	elseif Cha_GuildID > 100 and Cha_GuildID <= 200 then
 		ChaGuildType_Get = 2
 	else
-		SystemNotice ( role , "Illegal Guild ID" )
+		CALCULATE_ITEMGETMISSION_LUA_000003 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000003")
+		SystemNotice ( role , CALCULATE_ITEMGETMISSION_LUA_000003 )
 	end
 
 	
@@ -1422,17 +1546,28 @@ function ItemUse_BLP (role) --[[玻璃瓶]]--
 	local CheckType		= 1			-- 判断人物公会类型的方式 ( 1 为是某种公会类型 , 2 为不是某种公会类型 )
 
 
-	local HasRecordNotice	 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 HasRecord 失败提示
-	local HasRecordNotice_1  = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 HasRecord 失败提示
-	local NoRecordNotice	 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 NoRecord 失败提示
-	local NoRecordNotice_1	 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 NoRecord 失败提示
-	local HasMissionNotice	 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 HasMission 失败提示
-	local HasMissionNotice_1 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 HasMission 失败提示
-	local NoMissionNotice	 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 NoMission 失败提示
-	local NoMissionNotice_1	 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 NoMission 失败提示
-	local CheckBoatNotice	 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 人或船 失败提示
-	local CheckPosNotice	 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 坐标 失败提示
-	local GuildTypeNotice	 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 公会类型 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local HasRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local HasRecordNotice_1  = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local NoRecordNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local HasMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local HasMissionNotice_1 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local NoMissionNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local CheckBoatNotice	 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 人或船 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local CheckPosNotice	 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 坐标 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local GuildTypeNotice	 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 公会类型 失败提示
 
 	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
 --	Notice("CheckMissionMsg_1 = "..CheckMissionMsg_1 ) 
@@ -1469,7 +1604,8 @@ function ItemUse_BLP (role) --[[玻璃瓶]]--
 	elseif Cha_GuildID > 100 and Cha_GuildID <= 200 then
 		ChaGuildType_Get = 2
 	else
-		SystemNotice ( role , "Illegal Guild ID" )
+		CALCULATE_ITEMGETMISSION_LUA_000003 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000003")
+		SystemNotice ( role , CALCULATE_ITEMGETMISSION_LUA_000003 )
 	end
 
 	
@@ -1541,17 +1677,28 @@ function ItemUse_SS (role) --[[圣水]]--
 	local CheckType		= 1			-- 判断人物公会类型的方式 ( 1 为是某种公会类型 , 2 为不是某种公会类型 )
 
 
-	local HasRecordNotice	 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 HasRecord 失败提示
-	local HasRecordNotice_1  = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 HasRecord 失败提示
-	local NoRecordNotice	 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 NoRecord 失败提示
-	local NoRecordNotice_1	 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 NoRecord 失败提示
-	local HasMissionNotice	 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 HasMission 失败提示
-	local HasMissionNotice_1 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 HasMission 失败提示
-	local NoMissionNotice	 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 NoMission 失败提示
-	local NoMissionNotice_1	 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 NoMission 失败提示
-	local CheckBoatNotice	 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 人或船 失败提示
-	local CheckPosNotice	 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 坐标 失败提示
-	local GuildTypeNotice	 = "The Holy Water gives out a purifying aura and cleanses all evil"		--判断 公会类型 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local HasRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local HasRecordNotice_1  = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local NoRecordNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local HasMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local HasMissionNotice_1 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local NoMissionNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local CheckBoatNotice	 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 人或船 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local CheckPosNotice	 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 坐标 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000016 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000016")
+	local GuildTypeNotice	 = CALCULATE_ITEMGETMISSION_LUA_000016		--判断 公会类型 失败提示
 
 	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
 --	Notice("CheckMissionMsg_1 = "..CheckMissionMsg_1 ) 
@@ -1588,7 +1735,8 @@ function ItemUse_SS (role) --[[圣水]]--
 	elseif Cha_GuildID > 100 and Cha_GuildID <= 200 then
 		ChaGuildType_Get = 2
 	else
-		SystemNotice ( role , "Illegal Guild ID" )
+		CALCULATE_ITEMGETMISSION_LUA_000003 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000003")
+		SystemNotice ( role , CALCULATE_ITEMGETMISSION_LUA_000003 )
 	end
 
 	
@@ -1661,17 +1809,28 @@ function ItemUse_FHSDX (role) --[[粉红色的信]]--
 	local CheckType		= 1			-- 判断人物公会类型的方式 ( 1 为是某种公会类型 , 2 为不是某种公会类型 )
 
 
-	local HasRecordNotice	 = "A normal pink colored letter"		--判断 HasRecord 失败提示
-	local HasRecordNotice_1  = "A normal pink colored letter"		--判断 HasRecord 失败提示
-	local NoRecordNotice	 = "A normal pink colored letter"		--判断 NoRecord 失败提示
-	local NoRecordNotice_1	 = "A normal pink colored letter"		--判断 NoRecord 失败提示
-	local HasMissionNotice	 = "A normal pink colored letter"		--判断 HasMission 失败提示
-	local HasMissionNotice_1 = "A normal pink colored letter"		--判断 HasMission 失败提示
-	local NoMissionNotice	 = "A normal pink colored letter"		--判断 NoMission 失败提示
-	local NoMissionNotice_1	 = "A normal pink colored letter"		--判断 NoMission 失败提示
-	local CheckBoatNotice	 = "A normal pink colored letter"		--判断 人或船 失败提示
-	local CheckPosNotice	 = "A normal pink colored letter"		--判断 坐标 失败提示
-	local GuildTypeNotice	 = "A normal pink colored letter"		--判断 公会类型 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000017 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000017")
+	local HasRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000017		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000017 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000017")
+	local HasRecordNotice_1  = CALCULATE_ITEMGETMISSION_LUA_000017		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000017 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000017")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000017		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000017 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000017")
+	local NoRecordNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000017		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000017 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000017")
+	local HasMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000017		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000017 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000017")
+	local HasMissionNotice_1 = CALCULATE_ITEMGETMISSION_LUA_000017		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000017 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000017")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000017		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000017 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000017")
+	local NoMissionNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000017		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000017 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000017")
+	local CheckBoatNotice	 = CALCULATE_ITEMGETMISSION_LUA_000017		--判断 人或船 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000017 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000017")
+	local CheckPosNotice	 = CALCULATE_ITEMGETMISSION_LUA_000017		--判断 坐标 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000017 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000017")
+	local GuildTypeNotice	 = CALCULATE_ITEMGETMISSION_LUA_000017		--判断 公会类型 失败提示
 
 	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
 --	Notice("CheckMissionMsg_1 = "..CheckMissionMsg_1 ) 
@@ -1708,7 +1867,8 @@ function ItemUse_FHSDX (role) --[[粉红色的信]]--
 	elseif Cha_GuildID > 100 and Cha_GuildID <= 200 then
 		ChaGuildType_Get = 2
 	else
-		SystemNotice ( role , "Illegal Guild ID" )
+		CALCULATE_ITEMGETMISSION_LUA_000003 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000003")
+		SystemNotice ( role , CALCULATE_ITEMGETMISSION_LUA_000003 )
 	end
 
 	
@@ -1784,17 +1944,28 @@ function ItemUse_WYJ (role) --[[望远镜]]--
 	local CheckType		= 1			-- 判断人物公会类型的方式 ( 1 为是某种公会类型 , 2 为不是某种公会类型 )
 
 
-	local HasRecordNotice	 = "Binoculars allows you to see places far away"		--判断 HasRecord 失败提示
-	local HasRecordNotice_1  = "Binoculars allows you to see places far away"		--判断 HasRecord 失败提示
-	local NoRecordNotice	 = "Binoculars allows you to see places far away"		--判断 NoRecord 失败提示
-	local NoRecordNotice_1	 = "Binoculars allows you to see places far away"		--判断 NoRecord 失败提示
-	local HasMissionNotice	 = "Binoculars allows you to see places far away"		--判断 HasMission 失败提示
-	local HasMissionNotice_1 = "Binoculars allows you to see places far away"		--判断 HasMission 失败提示
-	local NoMissionNotice	 = "Binoculars allows you to see places far away"		--判断 NoMission 失败提示
-	local NoMissionNotice_1	 = "Binoculars allows you to see places far away"		--判断 NoMission 失败提示
-	local CheckBoatNotice	 = "Binoculars allows you to see places far away"		--判断 人或船 失败提示
-	local CheckPosNotice	 = "Binoculars allows you to see places far away"		--判断 坐标 失败提示
-	local GuildTypeNotice	 = "Binoculars allows you to see places far away"		--判断 公会类型 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000018 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000018")
+	local HasRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000018		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000018 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000018")
+	local HasRecordNotice_1  = CALCULATE_ITEMGETMISSION_LUA_000018		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000018 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000018")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000018		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000018 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000018")
+	local NoRecordNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000018		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000018 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000018")
+	local HasMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000018		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000018 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000018")
+	local HasMissionNotice_1 = CALCULATE_ITEMGETMISSION_LUA_000018		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000018 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000018")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000018		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000018 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000018")
+	local NoMissionNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000018		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000018 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000018")
+	local CheckBoatNotice	 = CALCULATE_ITEMGETMISSION_LUA_000018		--判断 人或船 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000018 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000018")
+	local CheckPosNotice	 = CALCULATE_ITEMGETMISSION_LUA_000018		--判断 坐标 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000018 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000018")
+	local GuildTypeNotice	 = CALCULATE_ITEMGETMISSION_LUA_000018		--判断 公会类型 失败提示
 
 	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
 --	Notice("CheckMissionMsg_1 = "..CheckMissionMsg_1 ) 
@@ -1831,7 +2002,8 @@ function ItemUse_WYJ (role) --[[望远镜]]--
 	elseif Cha_GuildID > 100 and Cha_GuildID <= 200 then
 		ChaGuildType_Get = 2
 	else
-		SystemNotice ( role , "Illegal Guild ID" )
+		CALCULATE_ITEMGETMISSION_LUA_000003 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000003")
+		SystemNotice ( role , CALCULATE_ITEMGETMISSION_LUA_000003 )
 	end
 
 	
@@ -1906,17 +2078,28 @@ function ItemUse_LDADYW2 (role) --[[鲁德安的遗物2]]--
 	local CheckType		= 1			-- 判断人物公会类型的方式 ( 1 为是某种公会类型 , 2 为不是某种公会类型 )
 
 
-	local HasRecordNotice	 = "There are lots of scratches on Andrew's Memento"		--判断 HasRecord 失败提示
-	local HasRecordNotice_1  = "There are lots of scratches on Andrew's Memento"		--判断 HasRecord 失败提示
-	local NoRecordNotice	 = "There are lots of scratches on Andrew's Memento"		--判断 NoRecord 失败提示
-	local NoRecordNotice_1	 = "There are lots of scratches on Andrew's Memento"		--判断 NoRecord 失败提示
-	local HasMissionNotice	 = "There are lots of scratches on Andrew's Memento"		--判断 HasMission 失败提示
-	local HasMissionNotice_1 = "There are lots of scratches on Andrew's Memento"		--判断 HasMission 失败提示
-	local NoMissionNotice	 = "There are lots of scratches on Andrew's Memento"		--判断 NoMission 失败提示
-	local NoMissionNotice_1	 = "There are lots of scratches on Andrew's Memento"		--判断 NoMission 失败提示
-	local CheckBoatNotice	 = "There are lots of scratches on Andrew's Memento"		--判断 人或船 失败提示
-	local CheckPosNotice	 = "Memento of Andrew shows no responese"		--判断 坐标 失败提示
-	local GuildTypeNotice	 = "There are lots of scratches on Andrew's Memento"		--判断 公会类型 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000019 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000019")
+	local HasRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000019		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000019 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000019")
+	local HasRecordNotice_1  = CALCULATE_ITEMGETMISSION_LUA_000019		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000019 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000019")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000019		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000019 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000019")
+	local NoRecordNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000019		--判断 NoRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000019 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000019")
+	local HasMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000019		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000019 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000019")
+	local HasMissionNotice_1 = CALCULATE_ITEMGETMISSION_LUA_000019		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000019 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000019")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000019		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000019 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000019")
+	local NoMissionNotice_1	 = CALCULATE_ITEMGETMISSION_LUA_000019		--判断 NoMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000019 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000019")
+	local CheckBoatNotice	 = CALCULATE_ITEMGETMISSION_LUA_000019		--判断 人或船 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000001 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000001")
+	local CheckPosNotice	 = CALCULATE_ITEMGETMISSION_LUA_000001		--判断 坐标 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000019 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000019")
+	local GuildTypeNotice	 = CALCULATE_ITEMGETMISSION_LUA_000019		--判断 公会类型 失败提示
 
 	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
 --	Notice("CheckMissionMsg_1 = "..CheckMissionMsg_1 ) 
@@ -1953,7 +2136,8 @@ function ItemUse_LDADYW2 (role) --[[鲁德安的遗物2]]--
 	elseif Cha_GuildID > 100 and Cha_GuildID <= 200 then
 		ChaGuildType_Get = 2
 	else
-		SystemNotice ( role , "Illegal Guild ID" )
+		CALCULATE_ITEMGETMISSION_LUA_000003 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000003")
+		SystemNotice ( role , CALCULATE_ITEMGETMISSION_LUA_000003 )
 	end
 
 	
@@ -2001,4 +2185,300 @@ function ItemUse_LDADYW2 (role) --[[鲁德安的遗物2]]--
 		return
 	end
 
+end 
+
+
+
+function ItemUse_JLYANG(role)   ----精灵养成须知
+	local HasRecordID	= -1			-- 判断是否带有某记录 ( 填要判断的记录 ID , -1 为不判断 )
+	local NoRecordID	= 1820			-- 判断是否不带有某记录 ( 填要判断的记录 ID , -1为不判断 )
+	local HasMissionID	= -1			-- 判断是否带有某任务 ( 填要判断的任务 ID , -1 为不判断 )
+	local No_MissionID	= 1820			-- 判断没有带某任务 ( 填要判断的任务 ID ,-1 为不判断 )
+
+
+
+	local HasRecordNotice	 = ""		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000020 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000020")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000020		--判断 NoRecord 失败提示
+	local HasMissionNotice	 = ""		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000021 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000021")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000021		--判断 NoMission 失败提示
+
+
+	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
+	local GiveMisson_1	=	6581	
+	
+	if CheckMissionMsg_1 ~= 1  then
+		UseItemFailed ( role )
+	else
+		GiveMission (role,GiveMisson_1)
+	end
+	
+	local DelItem		=	0	--是否在使用后删除道具( 1 删, 0 不删 )
+	
+	if DelItem == 0 then
+		--UseItemGiveMission ( role )
+		UseItemFailed ( role )
+	end
+end
+
+
+function ItemUse_PYJSS(role)   -----捕鱼介绍书
+	local HasRecordID	= -1			-- 判断是否带有某记录 ( 填要判断的记录 ID , -1 为不判断 )
+	local NoRecordID	= 1824			-- 判断是否不带有某记录 ( 填要判断的记录 ID , -1为不判断 )
+	local HasMissionID	= -1			-- 判断是否带有某任务 ( 填要判断的任务 ID , -1 为不判断 )
+	local No_MissionID	= 1824			-- 判断没有带某任务 ( 填要判断的任务 ID ,-1 为不判断 )
+
+
+
+	local HasRecordNotice	 = ""		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000020 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000020")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000020		--判断 NoRecord 失败提示
+	local HasMissionNotice	 = ""		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000021 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000021")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000021		--判断 NoMission 失败提示
+	
+	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
+	local GiveMisson_1	=	6582
+	
+	if CheckMissionMsg_1 ~= 1  then
+		UseItemFailed ( role )
+		else
+		GiveMission (role,GiveMisson_1)
+	end
+
+	local DelItem		=	0	--是否在使用后删除道具( 1 删, 0 不删 )
+	
+	if DelItem == 0 then
+		--UseItemGiveMission ( role )		
+		UseItemFailed ( role )
+	end
+end
+
+
+function ItemUse_HDZN(role)   -----海盗指南针
+	local HasRecordID	= -1			-- 判断是否带有某记录 ( 填要判断的记录 ID , -1 为不判断 )
+	local NoRecordID	= 1826			-- 判断是否不带有某记录 ( 填要判断的记录 ID , -1为不判断 )
+	local HasMissionID	= -1			-- 判断是否带有某任务 ( 填要判断的任务 ID , -1 为不判断 )
+	local No_MissionID	= 1826			-- 判断没有带某任务 ( 填要判断的任务 ID ,-1 为不判断 )
+
+
+
+	local HasRecordNotice	 = ""		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000020 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000020")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000020		--判断 NoRecord 失败提示
+	local HasMissionNotice	 = ""		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000021 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000021")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000021		--判断 NoMission 失败提示
+	
+	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
+	local GiveMisson_1	=	6583
+	
+	if CheckMissionMsg_1 ~= 1  then
+		UseItemFailed ( role )
+		else
+		GiveMission (role,GiveMisson_1)
+	end
+
+	local DelItem		=	0	--是否在使用后删除道具( 1 删, 0 不删 )
+	
+	if DelItem == 0 then
+		UseItemFailed ( role )		
+		--UseItemGiveMission ( role )	
+	end
+end
+
+
+function ItemUse_PKZYZ(role)  ---------PK指引证
+	local HasRecordID	= -1			-- 判断是否带有某记录 ( 填要判断的记录 ID , -1 为不判断 )
+	local NoRecordID	= 1835			-- 判断是否不带有某记录 ( 填要判断的记录 ID , -1为不判断 )
+	local HasMissionID	= -1			-- 判断是否带有某任务 ( 填要判断的任务 ID , -1 为不判断 )
+	local No_MissionID	= 1835			-- 判断没有带某任务 ( 填要判断的任务 ID ,-1 为不判断 )
+
+
+
+	local HasRecordNotice	 = ""		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000020 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000020")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000020		--判断 NoRecord 失败提示
+	local HasMissionNotice	 = ""		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000021 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000021")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000021		--判断 NoMission 失败提示
+	
+	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
+	local GiveMisson_1	=	6584
+	
+	if CheckMissionMsg_1 ~= 1  then
+		UseItemFailed ( role )
+		else
+		GiveMission (role,GiveMisson_1)
+	end
+
+	local DelItem		=	0	--是否在使用后删除道具( 1 删, 0 不删 )
+	
+	if DelItem == 0 then
+		UseItemFailed ( role )		
+		--UseItemGiveMission ( role )	
+	end
+end
+
+
+
+function ItemUse_FLMGZY(role)  ------废灵迷宫指引
+	local HasRecordID	= -1			-- 判断是否带有某记录 ( 填要判断的记录 ID , -1 为不判断 )
+	local NoRecordID	= 1838			-- 判断是否不带有某记录 ( 填要判断的记录 ID , -1为不判断 )
+	local HasMissionID	= -1			-- 判断是否带有某任务 ( 填要判断的任务 ID , -1 为不判断 )
+	local No_MissionID	= 1838			-- 判断没有带某任务 ( 填要判断的任务 ID ,-1 为不判断 )
+
+
+
+	local HasRecordNotice	 = ""		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000020 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000020")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000020		--判断 NoRecord 失败提示
+	local HasMissionNotice	 = ""		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000021 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000021")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000021		--判断 NoMission 失败提示
+	
+	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
+	local GiveMisson_1	=	6585
+	
+	if CheckMissionMsg_1 ~= 1  then
+		UseItemFailed ( role )
+		else
+		GiveMission (role,GiveMisson_1)
+	end
+
+	local DelItem		=	0	--是否在使用后删除道具( 1 删, 0 不删 )
+	
+	if DelItem == 0 then
+		UseItemFailed ( role )	
+		--UseItemGiveMission ( role )			
+	end
+end
+
+
+function ItemUse_HDWHZZY(role)  --------海盗王混战指引
+	local HasRecordID	= -1			-- 判断是否带有某记录 ( 填要判断的记录 ID , -1 为不判断 )
+	local NoRecordID	= 1839			-- 判断是否不带有某记录 ( 填要判断的记录 ID , -1为不判断 )
+	local HasMissionID	= -1			-- 判断是否带有某任务 ( 填要判断的任务 ID , -1 为不判断 )
+	local No_MissionID	= 1839			-- 判断没有带某任务 ( 填要判断的任务 ID ,-1 为不判断 )
+
+
+
+	local HasRecordNotice	 = ""		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000020 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000020")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000020		--判断 NoRecord 失败提示
+	local HasMissionNotice	 = ""		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000021 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000021")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000021		--判断 NoMission 失败提示
+	
+	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
+	local GiveMisson_1	=	6586
+	
+	if CheckMissionMsg_1 ~= 1  then
+		UseItemFailed ( role )
+		else
+		GiveMission (role,GiveMisson_1)
+	end
+
+	local DelItem		=	0	--是否在使用后删除道具( 1 删, 0 不删 )
+	
+	if DelItem == 0 then
+		UseItemFailed ( role )
+	
+		--UseItemGiveMission ( role )			
+	end
+end
+
+
+function ItemUse_SZZYT(role) ------海盗王圣战指引
+	local HasRecordID	= -1			-- 判断是否带有某记录 ( 填要判断的记录 ID , -1 为不判断 )
+	local NoRecordID	= 1841			-- 判断是否不带有某记录 ( 填要判断的记录 ID , -1为不判断 )
+	local HasMissionID	= -1			-- 判断是否带有某任务 ( 填要判断的任务 ID , -1 为不判断 )
+	local No_MissionID	= 1841			-- 判断没有带某任务 ( 填要判断的任务 ID ,-1 为不判断 )
+
+
+
+	local HasRecordNotice	 = ""		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000020 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000020")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000020		--判断 NoRecord 失败提示
+	local HasMissionNotice	 = ""		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000021 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000021")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000021		--判断 NoMission 失败提示
+	
+	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
+	local GiveMisson_1	=	6587
+	
+	if CheckMissionMsg_1 ~= 1  then
+		UseItemFailed ( role )
+		else
+		GiveMission (role,GiveMisson_1)
+	end
+
+	local DelItem	=	0	--是否在使用后删除道具( 1 删, 0 不删 )
+	
+	if DelItem == 0 then
+		UseItemFailed ( role )
+	end
+end
+
+
+
+
+----------收徒帖--------------
+function ItemUse_TD( role , Item )
+	local Cha_Boat = 0
+	Cha_Boat = GetCtrlBoat ( role )
+	if Cha_Boat ~= nil then 
+		CALCULATE_ITEMEFFECT_LUA_000044 = GetResString("CALCULATE_ITEMEFFECT_LUA_000044")
+		SystemNotice( role , CALCULATE_ITEMEFFECT_LUA_000044 ) 
+		UseItemFailed ( role ) 
+		return 
+	end
+	local Item_CanGet = GetChaFreeBagGridNum ( role )
+	if Item_CanGet < 2 then
+		CALCULATE_ITEMGETMISSION_LUA_000022 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000022")
+		SystemNotice(role ,CALCULATE_ITEMGETMISSION_LUA_000022)
+		UseItemFailed ( role )
+		return
+	end		
+	local ret = HasMaster(role)
+	local lv = GetChaAttr(role, ATTR_LV)
+		if ret == LUA_TRUE and lv <= 40 then
+		GiveItem( role , 0 , 6049 , 1 , 4 )
+		--GiveItem(role , 0 , 6017 , 5 , 4 )
+		AddExpAll(role,10000,10000,1)
+		elseif ret == LUA_TRUE and lv > 40 then 
+			CALCULATE_ITEMGETMISSION_LUA_000023 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000023")
+			SystemNotice(role, CALCULATE_ITEMGETMISSION_LUA_000023)
+			UseItemFailed ( role)
+		elseif ret == LUA_FALSE then
+			CALCULATE_ITEMGETMISSION_LUA_000023 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000023")
+			SystemNotice(role, CALCULATE_ITEMGETMISSION_LUA_000023)
+			UseItemFailed ( role)
+		end
+
+end
+
+
+function ItemUse_STJSHAO (role)   ---海盗拜师说明书
+	local HasRecordID	= -1			-- 判断是否带有某记录 ( 填要判断的记录 ID , -1 为不判断 )
+	local NoRecordID	= 1825			-- 判断是否不带有某记录 ( 填要判断的记录 ID , -1为不判断 )
+	local HasMissionID	= -1			-- 判断是否带有某任务 ( 填要判断的任务 ID , -1 为不判断 )
+	local No_MissionID	= 1825			-- 判断没有带某任务 ( 填要判断的任务 ID ,-1 为不判断 )
+
+	local HasRecordNotice	 = ""		--判断 HasRecord 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000024 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000024")
+	local NoRecordNotice	 = CALCULATE_ITEMGETMISSION_LUA_000024		--判断 NoRecord 失败提示
+	local HasMissionNotice	 = ""		--判断 HasMission 失败提示
+	CALCULATE_ITEMGETMISSION_LUA_000025 = GetResString("CALCULATE_ITEMGETMISSION_LUA_000025")
+	local NoMissionNotice	 = CALCULATE_ITEMGETMISSION_LUA_000025		--判断 NoMission 失败提示
+	
+	local CheckMissionMsg_1  = MissionMsgCheck ( role , HasRecordID , NoRecordID , HasMissionID , No_MissionID , HasRecordNotice , NoRecordNotice , HasMissionNotice , NoMissionNotice )
+	if CheckMissionMsg_1 ~= 1  then
+		UseItemFailed ( role )
+		else
+		GiveMission (role,6589)
+		--UseItemGiveMission ( role )	
+		UseItemFailed ( role)
+	end
 end 

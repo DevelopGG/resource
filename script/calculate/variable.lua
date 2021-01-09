@@ -1,141 +1,408 @@
-print( "Loading Variable.lua" )
----------------------------------------
--- Переменная для ежедневных квестов --
----------------------------------------
-EveryDayQuest = {}
-EveryDayQuest.patch = "script/Quests/"
+-----????
+NOZB=-2
+ZBEXP=1
+ZBFORGE=2
+ZBWABAO=3
+ZBMOVE=4
+ZBHP=5
+ZBSP=6
+ZBMOREEXP=7
+ZBXIULI=8
+ZBJXXH=9
+ZBDEAD=0
+ZBNSDHAS=11
+ZBNSDREM=12
+ZBFORGEREM=13
+----??BOSS??
+XmasMonsterNum1 = 0
+XmasMonsterNum2 = 0
+XmasMonsterNum3 = 0
+XmasMonsterNum4 = 0
+XmasMonsterNum5 = 0
+CheckBossLifeTime1 = 0
+CheckBossLifeTime2 = 0
+CheckBossLifeTime3 = 0
+CheckBossLifeTime4 = 0
+CheckBossLifeTime5 = 0
+CheckBoss1Dead = 1
+CheckBoss2Dead = 1
+CheckBoss3Dead = 1
+CheckBoss4Dead = 1
+CheckBoss5Dead = 1
+monster1 = 0
+monster2 = 0
+monster3 = 0
+monster4 = 0
+monster5 = 0
 
------------
--- Если систему миников отключаем, то ставим тут 0 и миники появляются на карте по координатам
------------
-Mini_Boss_System_OFF = 1
-----------
+PlayUseBox1 = {}
+PlayUseBox2 = {}
+PlayUseBox3 = {}
+TimeNum=0
+BBBB = {}
 
-OnlineEvent = false --Хз, что это
+MFRADIX=100 
+CRTRADIX=100 
 
-For_start = 0 --Переменная для первых двух недель со старта сервера.
-
-BBBB = {}								-- Используется в функции Dead_Punish (exp_and_level.lua)
-MFRADIX=100 							-- Используется в function.lua. Меняет прирост многих характеристик
-CRTRADIX=100 							-- Используется в function.lua. Меняет прирост многих характеристик
-TestGuildLv = 0							-- Неизвестно
-ReadyToFight = 0						-- Используется в Снежной Войне, но код был закомментирован
-ATTR_RADIX = 1000						-- Используется в function.lua. Меняет прирост многих характеристик
-AREA_SAFE				= 2				-- Используется в функции CheckExpShare
-EXP_RAID				= 30			-- Рейты на опыт
-MF_RAID					= 1				-- Рейты на выпадение предметов
-GOLD_RAID 				= 10			-- Золото ( Изначально = 1 )
-Resource_RAID_ADJUST	= 1				-- Рейты на ресурсы
-TeamExp_RAID			= 40			-- Рейты в отряде
-ELEEXP_GETRAD 			= 324			-- Рейты на рост феи
-
-LV_LIMIT				= 50			-- Используется в функции Shengji_Shuxingchengzhang (AttrCalculate.lua)
-A_B_C					= 8				-- Неизвестно
-Money_Moscow			= 1000000		-- Переменная количества золота выдаваемое в Хаосе Москвы
-How_Many_Active			= 0				-- Сколько человек на карте (К примеру в Хаосе Москвы)
-
-STATE_zhongshen	=	229	
-Every_5_minute = 0      
-Every_5_minute1 = 0
-Every_5_minute2 = 0
-Every_5_minute3 = 0
+TestGuildLv = 0
+ReadyToFight = 0
+ATTR_RADIX = 1000			--??????
+AREA_SAFE = 2				--??????? 
+EXP_RAID = 1				--���� � ����
+MF_RAID = 1					--���� �� ���
+GOLD_RAID = 5				--���� �� ������
+Resource_RAID_ADJUST=1  --??????
+TeamExp_RAID = 2			--���� � ������
+ELEEXP_GETRAD = 1	--???????
+LV_LIMIT = 50		--?????????
+A_B_C = 8	         --??????
+Money_all = 1000000		--????????????
+How_Many_Active = 0	--????????????
+Every_5_minute = 0      --?5????????
 NOWTIME_TE=0
 NOWTIME_YI=0
 NOWTIME_HEI=0
 JINISI_TIME=2100
+CHURCHSTAR_FLAG=0
 
-COOL_DOWNS = {}
-
---------------------------------------------
---					Шансы				  --
---------------------------------------------
--- Массив шансов
-ForgeChanse = {}
-	
--- Шанс комбинирования самоцветов
-ForgeChanse["Combine Gem"] = {}
-ForgeChanse["Combine Gem"][1] = 1 	-- 100%
-ForgeChanse["Combine Gem"][2] = 1 	-- 100%
-ForgeChanse["Combine Gem"][3] = 1 	-- 100%
-ForgeChanse["Combine Gem"][4] = 0.8 -- 80%
-ForgeChanse["Combine Gem"][5] = 0.7 -- 70%
-ForgeChanse["Combine Gem"][6] = 0.6 -- 60%
-ForgeChanse["Combine Gem"][7] = 0.5 -- 50%
-ForgeChanse["Combine Gem"][8] = 0.4 -- 40%
-ForgeChanse["Combine Gem"][9] = 0.3 -- 30%
--- Шанс комбинирования рефов
-ForgeChanse["Combine Ref"] = {}
-ForgeChanse["Combine Ref"][1] = 1 	-- 100%
-ForgeChanse["Combine Ref"][2] = 1 	-- 100%
-ForgeChanse["Combine Ref"][3] = 1 	-- 100%
-ForgeChanse["Combine Ref"][4] = 0.8 -- 80%
-ForgeChanse["Combine Ref"][5] = 0.7 -- 70%
-ForgeChanse["Combine Ref"][6] = 0.6 -- 60%
-ForgeChanse["Combine Ref"][7] = 0.5 -- 50%
-ForgeChanse["Combine Ref"][8] = 0.4 -- 40%
-ForgeChanse["Combine Ref"][9] = 0.3 -- 30%
--- Шанс вставки самоцветов
-ForgeChanse["Insert Gem"] = {}
-ForgeChanse["Insert Gem"][1] = 1 	-- 100%
-ForgeChanse["Insert Gem"][2] = 1 	-- 100%
-ForgeChanse["Insert Gem"][3] = 1 	-- 100%
-ForgeChanse["Insert Gem"][4] = 0.8 	-- 80%
-ForgeChanse["Insert Gem"][5] = 0.7 	-- 70%
-ForgeChanse["Insert Gem"][6] = 0.6 	-- 60%
-ForgeChanse["Insert Gem"][7] = 0.5 	-- 50%
-ForgeChanse["Insert Gem"][8] = 0.4 	-- 40%
-ForgeChanse["Insert Gem"][9] = 0.3 	-- 30%
---------------------------------------------------
---				Конец шансов					--
---------------------------------------------------
-
----------------------------------------------------------------------
--- Массив с предметами обменников (ЧР, Торговец древесиной и т.д.) --
----------------------------------------------------------------------
---                         Структура:                              --
--- 1 - ID предмета, который необходимо продавцу отдать             --
--- 2 - Кол-во предметов, которые необходимо отдать продавцу        --
--- 3 - ID предмета, который вы получите                            --
--- 4 - Кол-во предметов, которые вы получаете                      --
----------------------------------------------------------------------
 ChangeItemList = {}
-ChangeItemList[	1	]=	{	8041	,	1	,	3603	,	1	}
-ChangeItemList[	2	]=	{	8042	,	1	,	3604	,	1	}
-ChangeItemList[	3	]=	{	4837	,	1	,	5012	,	1	}
-ChangeItemList[	4	]=	{	1000	,	50	,	2679	,	1	}
-ChangeItemList[	5	]=	{	0855	,	50	,	1055	,	1	}
-	
+ChangeItemList[	1	]=	{	2608	,	100	,	2682	,	1	}
+ChangeItemList[	2	]=	{	2609	,	100	,	2683	,	1	}
+ChangeItemList[	3	]=	{	2609	,	1000	,	2684	,	1	}
+ChangeItemList[	4	]=	{	2608	,	100	,	2692	,	1	}
+ChangeItemList[	5	]=	{	2609	,	100	,	2693	,	1	}
+ChangeItemList[	6	]=	{	2609	,	1000	,	2694	,	1	}
+ChangeItemList[	7	]=	{	2608	,	100	,	2702	,	1	}
+ChangeItemList[	8	]=	{	2609	,	100	,	2703	,	1	}
+ChangeItemList[	9	]=	{	2609	,	1000	,	2704	,	1	}
+ChangeItemList[	10	]=	{	2608	,	100	,	2712	,	1	}
+ChangeItemList[	11	]=	{	2609	,	100	,	2713	,	1	}
+ChangeItemList[	12	]=	{	2609	,	1000	,	2714	,	1	}
+ChangeItemList[	13	]=	{	3989	,	99	,	3999	,	20	}
+ChangeItemList[	14	]=	{	3990	,	99	,	4000	,	20	}
+ChangeItemList[	15	]=	{	3991	,	99	,	4001	,	20	}
+ChangeItemList[	16	]=	{	3992	,	99	,	4002	,	20	}
+ChangeItemList[	17	]=	{	3993	,	99	,	4003	,	20	}
+ChangeItemList[	18	]=	{	3994	,	99	,	4004	,	20	}
+ChangeItemList[	19	]=	{	3995	,	99	,	4005	,	20	}
+ChangeItemList[	20	]=	{	3996	,	99	,	4006	,	20	}
+ChangeItemList[	21	]=	{	3997	,	99	,	4007	,	20	}
+ChangeItemList[	22	]=	{	3998	,	99	,	4008	,	20	}
+ChangeItemList[	23	]=	{	4029	,	99	,	4039	,	20	}
+ChangeItemList[	24	]=	{	4030	,	99	,	4040	,	20	}
+ChangeItemList[	25	]=	{	4031	,	99	,	4041	,	20	}
+ChangeItemList[	26	]=	{	4032	,	99	,	4042	,	20	}
+ChangeItemList[	27	]=	{	4033	,	99	,	4043	,	20	}
+ChangeItemList[	28	]=	{	4034	,	99	,	4044	,	20	}
+ChangeItemList[	29	]=	{	4035	,	99	,	4045	,	20	}
+ChangeItemList[	30	]=	{	4036	,	99	,	4046	,	20	}
+ChangeItemList[	31	]=	{	4037	,	99	,	4047	,	20	}
+ChangeItemList[	32	]=	{	4038	,	99	,	4048	,	20	}
+ChangeItemList[	33	]=	{	1670	,	99	,	1671	,	20	}
+ChangeItemList[	34	]=	{	1668	,	99	,	3368	,	20	}
+ChangeItemList[	35	]=	{	1667	,	99	,	3360	,	20	}
+ChangeItemList[	36	]=	{	1642	,	99	,	1643	,	20	}
+ChangeItemList[	37	]=	{	4825	,	99	,	1638	,	20	}
+ChangeItemList[	38	]=	{	1633	,	99	,	1641	,	20	}
+ChangeItemList[	39	]=	{	1782	,	99	,	1769	,	20	}
+ChangeItemList[	40	]=	{	2815	,	99	,	1775	,	20	}
+ChangeItemList[	41	]=	{	1674	,	99	,	1767	,	20	}
+ChangeItemList[	42	]=	{	4832	,	99	,	2901	,	20	}
+ChangeItemList[	43	]=	{	855	,	60	,	2617	,	1	}
+ChangeItemList[	44	]=	{	2588	,	3	,	2619	,	1	}
+ChangeItemList[	45	]=	{	2588	,	20	,	2622	,	1	}
+ChangeItemList[	46	]=	{	2589	,	5	,	2624	,	1	}
+ChangeItemList[	47	]=	{	2588	,	3	,	2640	,	1	}
+ChangeItemList[	48	]=	{	855	,	60	,	2641	,	1	}
+ChangeItemList[	49	]=	{	2588	,	20	,	2642	,	1	}
+ChangeItemList[	50	]=	{	2588	,	20	,	2643	,	1	}
+ChangeItemList[	51	]=	{	2588	,	50	,	2644	,	1	}
+ChangeItemList[	52	]=	{	2588	,	50	,	2649	,	1	}
+ChangeItemList[	53	]=	{	855	,	100	,	1055	,	1	}
+ChangeItemList[	54	]=	{	2588	,	100	,	1056	,	1	}
+ChangeItemList[	55	]=	{	855	,	100	,	1058	,	1	}
+ChangeItemList[	56	]=	{	2588	,	100	,	1059	,	1	}
+ChangeItemList[	57	]=	{	855	,	100	,	1061	,	1	}
+ChangeItemList[	58	]=	{	2588	,	100	,	1062	,	1	}
+ChangeItemList[	59	]=	{	855	,	100	,	1064	,	1	}
+ChangeItemList[	60	]=	{	2588	,	100	,	1065	,	1	}
+ChangeItemList[	61	]=	{	855	,	10	,	2680	,	1	}
+ChangeItemList[	62	]=	{	855	,	50	,	2681	,	1	}
+ChangeItemList[	63	]=	{	855	,	300	,	2682	,	1	}
+ChangeItemList[	64	]=	{	2588	,	10	,	2683	,	1	}
+ChangeItemList[	65	]=	{	2588	,	50	,	2684	,	1	}
+ChangeItemList[	66	]=	{	2588	,	300	,	2685	,	1	}
+ChangeItemList[	67	]=	{	855	,	10	,	2690	,	1	}
+ChangeItemList[	68	]=	{	855	,	50	,	2691	,	1	}
+ChangeItemList[	69	]=	{	855	,	300	,	2692	,	1	}
+ChangeItemList[	70	]=	{	2588	,	10	,	2693	,	1	}
+ChangeItemList[	71	]=	{	2588	,	50	,	2694	,	1	}
+ChangeItemList[	72	]=	{	2588	,	300	,	2695	,	1	}
+ChangeItemList[	73	]=	{	855	,	10	,	2700	,	1	}
+ChangeItemList[	74	]=	{	855	,	50	,	2701	,	1	}
+ChangeItemList[	75	]=	{	855	,	300	,	2702	,	1	}
+ChangeItemList[	76	]=	{	2588	,	10	,	2703	,	1	}
+ChangeItemList[	77	]=	{	2588	,	50	,	2704	,	1	}
+ChangeItemList[	78	]=	{	2588	,	300	,	2705	,	1	}
+ChangeItemList[	79	]=	{	855	,	10	,	2710	,	1	}
+ChangeItemList[	80	]=	{	855	,	50	,	2711	,	1	}
+ChangeItemList[	81	]=	{	855	,	300	,	2712	,	1	}
+ChangeItemList[	82	]=	{	2588	,	10	,	2713	,	1	}
+ChangeItemList[	83	]=	{	2588	,	50	,	2714	,	1	}
+ChangeItemList[	84	]=	{	2588	,	300	,	2715	,	1	}
+ChangeItemList[	85	]=	{	4215	,	5	,	3655	,	1	}
+ChangeItemList[	86	]=	{	4215	,	20	,	3656	,	1	}
+ChangeItemList[	87	]=	{	4215	,	50	,	3657	,	1	}
+ChangeItemList[	88	]=	{	4215	,	5	,	3658	,	1	}
+ChangeItemList[	89	]=	{	4215	,	20	,	3659	,	1	}
+ChangeItemList[	90	]=	{	4215	,	30	,	3660	,	1	}
+ChangeItemList[	91	]=	{	4215	,	100	,	5781	,	1	}
+ChangeItemList[	92	]=	{	3272	,	100	,	5782	,	1	}
+ChangeItemList[	93	]=	{	4215	,	100	,	5784	,	1	}
+ChangeItemList[	94	]=	{	3272	,	100	,	5785	,	1	}
+ChangeItemList[	95	]=	{	4215	,	100	,	5787	,	1	}
+ChangeItemList[	96	]=	{	3272	,	100	,	5788	,	1	}
+ChangeItemList[	97	]=	{	4215	,	100	,	5790	,	1	}
+ChangeItemList[	98	]=	{	3272	,	100	,	5791	,	1	}
+ChangeItemList[	99	]=	{	4215	,	10	,	3915	,	1	}
+ChangeItemList[	100	]=	{	4215	,	50	,	3916	,	1	}
+ChangeItemList[	101	]=	{	4215	,	300	,	3917	,	1	}
+ChangeItemList[	102	]=	{	3272	,	10	,	3918	,	1	}
+ChangeItemList[	103	]=	{	3272	,	50	,	3919	,	1	}
+ChangeItemList[	104	]=	{	3272	,	300	,	3920	,	1	}
+ChangeItemList[	105	]=	{	4215	,	10	,	3925	,	1	}
+ChangeItemList[	106	]=	{	4215	,	50	,	3926	,	1	}
+ChangeItemList[	107	]=	{	4215	,	300	,	3927	,	1	}
+ChangeItemList[	108	]=	{	3272	,	10	,	3928	,	1	}
+ChangeItemList[	109	]=	{	3272	,	50	,	3929	,	1	}
+ChangeItemList[	110	]=	{	3272	,	300	,	3930	,	1	}
+ChangeItemList[	111	]=	{	4215	,	10	,	3935	,	1	}
+ChangeItemList[	112	]=	{	4215	,	50	,	3936	,	1	}
+ChangeItemList[	113	]=	{	4215	,	300	,	3937	,	1	}
+ChangeItemList[	114	]=	{	3272	,	10	,	3938	,	1	}
+ChangeItemList[	115	]=	{	3272	,	50	,	3939	,	1	}
+ChangeItemList[	116	]=	{	3272	,	300	,	3940	,	1	}
+ChangeItemList[	117	]=	{	4215	,	10	,	3935	,	1	}
+ChangeItemList[	118	]=	{	4215	,	50	,	3936	,	1	}
+ChangeItemList[	119	]=	{	4215	,	300	,	3937	,	1	}
+ChangeItemList[	120	]=	{	3272	,	10	,	3938	,	1	}
+ChangeItemList[	121	]=	{	3272	,	50	,	3939	,	1	}
+ChangeItemList[	122	]=	{	3272	,	300	,	3940	,	1	}
+ChangeItemList[ 123	]=	{	1028	,	2	,	0766	,	1	}
+ChangeItemList[ 124	]=	{	1028	,	2	,	0769	,	1	}
+ChangeItemList[ 125	]=	{	1028	,	2	,	0773	,	1	}
+ChangeItemList[ 126	]=	{	1028	,	2	,	0776	,	1	}
+ChangeItemList[ 127	]=	{	1028	,	2	,	0780	,	1	}
+ChangeItemList[ 128	]=	{	1028	,	2	,	0784	,	1	}
+ChangeItemList[ 129	]=	{	1028	,	2	,	0788	,	1	}
+ChangeItemList[ 130	]=	{	1028	,	2	,	0792	,	1	}
+ChangeItemList[ 131	]=	{	1028	,	2	,	0795	,	1	}
+ChangeItemList[ 132	]=	{	1028	,	2	,	0798	,	1	}
+ChangeItemList[ 133	]=	{	1028	,	2	,	0802	,	1	}
+ChangeItemList[ 134	]=	{	1028	,	2	,	0806	,	1	}
+ChangeItemList[ 135	]=	{	3457	,	1	,	0765	,	1	}
+ChangeItemList[ 136	]=	{	3457	,	1	,	0768	,	1	}
+ChangeItemList[ 137	]=	{	3457	,	1	,	0772	,	1	}
+ChangeItemList[ 138	]=	{	3457	,	1	,	0775	,	1	}
+ChangeItemList[ 139	]=	{	3457	,	1	,	0779	,	1	}
+ChangeItemList[ 140	]=	{	3457	,	1	,	0783	,	1	}
+ChangeItemList[ 141	]=	{	3457	,	1	,	0787	,	1	}
+ChangeItemList[ 142	]=	{	3457	,	1	,	0791	,	1	}
+ChangeItemList[ 143	]=	{	3457	,	1	,	0794	,	1	}
+ChangeItemList[ 144	]=	{	3457	,	1	,	0797	,	1	}
+ChangeItemList[ 145	]=	{	3457	,	1	,	0801	,	1	}
+ChangeItemList[ 146	]=	{	3457	,	1	,	0805	,	1	}
+ChangeItemList[ 147	]=	{	3457	,	1	,	0807	,	1	}
+ChangeItemList[ 148	]=	{	3457	,	1	,	0808	,	1	}
+ChangeItemList[ 149	]=	{	3457	,	1	,	0809	,	1	}
+ChangeItemList[ 150	]=	{	3457	,	1	,	0810	,	1	}
+ChangeItemList[ 151	]=	{	3457	,	1	,	0811	,	1	}
+ChangeItemList[ 152	]=	{	3457	,	1	,	0812	,	1	}
+ChangeItemList[ 153	]=	{	3457	,	1	,	0813	,	1	}
+ChangeItemList[ 154	]=	{	3457	,	1	,	0814	,	1	}
+ChangeItemList[ 155	]=	{	3457	,	1	,	0815	,	1	}
+ChangeItemList[ 156	]=	{	3457	,	1	,	0877	,	1	}
+ChangeItemList[ 157	]=	{	855	,	1000	,	764	,	1	}
+ChangeItemList[ 158	]=	{	855	,	1000	,	767	,	1	}
+ChangeItemList[ 159	]=	{	855	,	1000	,	771	,	1	}
+ChangeItemList[ 160	]=	{	855	,	1000	,	774	,	1	}
+ChangeItemList[ 161	]=	{	855	,	1000	,	778	,	1	}
+ChangeItemList[ 162	]=	{	855	,	1000	,	782	,	1	}
+ChangeItemList[ 163	]=	{	855	,	1000	,	786	,	1	}
+ChangeItemList[ 164	]=	{	855	,	1000	,	790	,	1	}
+ChangeItemList[ 165	]=	{	855	,	1000	,	793	,	1	}
+ChangeItemList[ 166	]=	{	855	,	1000	,	796	,	1	}
+ChangeItemList[ 167	]=	{	855	,	1000	,	800	,	1	}
+ChangeItemList[ 168	]=	{	855	,	1000	,	804	,	1	}
+ChangeItemList[ 169	]=	{	855	,	1000	,	764	,	1	}
+ChangeItemList[ 170	]=	{	855	,	1000	,	767	,	1	}
+ChangeItemList[ 171	]=	{	855	,	1000	,	771	,	1	}
+ChangeItemList[ 172	]=	{	855	,	1000	,	774	,	1	}
+ChangeItemList[ 173	]=	{	855	,	1000	,	778	,	1	}
+ChangeItemList[ 174	]=	{	855	,	1000	,	782	,	1	}
+ChangeItemList[ 175	]=	{	855	,	1000	,	786	,	1	}
+ChangeItemList[ 176	]=	{	855	,	1000	,	790	,	1	}
+ChangeItemList[ 177	]=	{	855	,	1000	,	793	,	1	}
+ChangeItemList[ 178	]=	{	855	,	1000	,	796	,	1	}
+ChangeItemList[ 179	]=	{	855	,	1000	,	800	,	1	}
+ChangeItemList[ 180	]=	{	855	,	1000	,	804	,	1	}
+ChangeItemList[ 181	]=	{	855	,	1000	,	764	,	1	}
+ChangeItemList[ 182	]=	{	855	,	1000	,	767	,	1	}
+ChangeItemList[ 183	]=	{	855	,	1000	,	771	,	1	}
+ChangeItemList[ 184	]=	{	855	,	1000	,	774	,	1	}
+ChangeItemList[ 185	]=	{	855	,	1000	,	778	,	1	}
+ChangeItemList[ 186	]=	{	855	,	1000	,	782	,	1	}
+ChangeItemList[ 187	]=	{	855	,	1000	,	786	,	1	}
+ChangeItemList[ 188	]=	{	855	,	1000	,	790	,	1	}
+ChangeItemList[ 189	]=	{	855	,	1000	,	793	,	1	}
+ChangeItemList[ 190	]=	{	855	,	1000	,	796	,	1	}
+ChangeItemList[ 191	]=	{	855	,	1000	,	800	,	1	}
+ChangeItemList[ 192	]=	{	855	,	1000	,	804	,	1	}
+ChangeItemList[ 193	]=	{	855	,	600	,	763	,	1	}
+ChangeItemList[ 194	]=	{	855	,	600	,	770	,	1	}
+ChangeItemList[ 195	]=	{	855	,	600	,	777	,	1	}
+ChangeItemList[ 196	]=	{	855	,	600	,	781	,	1	}
+ChangeItemList[ 197	]=	{	855	,	600	,	785	,	1	}
+ChangeItemList[ 198	]=	{	855	,	600	,	789	,	1	}
+ChangeItemList[ 199	]=	{	855	,	600	,	799	,	1	}
+ChangeItemList[ 200	]=	{	855	,	600	,	803	,	1	}
+ChangeItemList[ 201	]=	{	855	,	600	,	763	,	1	}
+ChangeItemList[ 202	]=	{	855	,	600	,	770	,	1	}
+ChangeItemList[ 203	]=	{	855	,	600	,	777	,	1	}
+ChangeItemList[ 204	]=	{	855	,	600	,	781	,	1	}
+ChangeItemList[ 205	]=	{	855	,	600	,	785	,	1	}
+ChangeItemList[ 206	]=	{	855	,	600	,	789	,	1	}
+ChangeItemList[ 207	]=	{	855	,	600	,	799	,	1	}
+ChangeItemList[ 208	]=	{	855	,	600	,	803	,	1	}
+ChangeItemList[ 209	]=	{	855	,	600	,	763	,	1	}
+ChangeItemList[ 210	]=	{	855	,	600	,	770	,	1	}
+ChangeItemList[ 211	]=	{	855	,	600	,	777	,	1	}
+ChangeItemList[ 212	]=	{	855	,	600	,	781	,	1	}
+ChangeItemList[ 213	]=	{	855	,	600	,	785	,	1	}
+ChangeItemList[ 214	]=	{	855	,	600	,	789	,	1	}
+ChangeItemList[ 215	]=	{	855	,	600	,	799	,	1	}
+ChangeItemList[ 216	]=	{	855	,	600	,	803	,	1	}
+ChangeItemList[ 217	]=	{	855	,	600	,	763	,	1	}
+ChangeItemList[ 218	]=	{	855	,	600	,	770	,	1	}
+ChangeItemList[ 219	]=	{	855	,	600	,	777	,	1	}
+ChangeItemList[ 220	]=	{	855	,	600	,	781	,	1	}
+ChangeItemList[ 221	]=	{	855	,	600	,	785	,	1	}
+ChangeItemList[ 222	]=	{	855	,	600	,	789	,	1	}
+ChangeItemList[ 223	]=	{	855	,	600	,	799	,	1	}
+ChangeItemList[ 224	]=	{	855	,	600	,	803	,	1	}
+ChangeItemList[ 225	]=	{	855	,	600	,	763	,	1	}
+ChangeItemList[ 226	]=	{	855	,	600	,	770	,	1	}
+ChangeItemList[ 227	]=	{	855	,	600	,	777	,	1	}
+ChangeItemList[ 228	]=	{	855	,	600	,	781	,	1	}
+ChangeItemList[ 229	]=	{	855	,	600	,	785	,	1	}
+ChangeItemList[ 230	]=	{	855	,	600	,	789	,	1	}
+ChangeItemList[ 231	]=	{	855	,	600	,	799	,	1	}
+ChangeItemList[ 232	]=	{	855	,	600	,	803	,	1	}
+ChangeItemList[ 233	]=	{	855	,	600	,	763	,	1	}
+ChangeItemList[ 234	]=	{	855	,	600	,	770	,	1	}
+ChangeItemList[ 235	]=	{	855	,	600	,	777	,	1	}
+ChangeItemList[ 236	]=	{	855	,	600	,	781	,	1	}
+ChangeItemList[ 237	]=	{	855	,	600	,	785	,	1	}
+ChangeItemList[ 238	]=	{	855	,	600	,	789	,	1	}
+ChangeItemList[ 239	]=	{	855	,	600	,	799	,	1	}
+ChangeItemList[ 240	]=	{	855	,	600	,	803	,	1	}
+ChangeItemList[ 241	]=	{	855	,	600	,	763	,	1	}
+ChangeItemList[ 242	]=	{	855	,	600	,	770	,	1	}
+ChangeItemList[ 243	]=	{	855	,	600	,	777	,	1	}
+ChangeItemList[ 244	]=	{	855	,	600	,	781	,	1	}
+ChangeItemList[ 245	]=	{	855	,	600	,	785	,	1	}
+ChangeItemList[ 246	]=	{	855	,	600	,	789	,	1	}
+ChangeItemList[ 247	]=	{	855	,	600	,	799	,	1	}
+ChangeItemList[ 248	]=	{	855	,	600	,	803	,	1	}
 
-----------------------------------
--- Автоматическое кормление фей --
-----------------------------------
-AutoFruit = {}
---Фрукты с 0 по 50 уровень
-AutoFruit[222] = {func = Lvup_Str, min_lv = 0, max_lv = 50, count_up = 1}
-AutoFruit[223] = {func = Lvup_Agi, min_lv = 0, max_lv = 50, count_up = 1}
-AutoFruit[224] = {func = Lvup_Dex, min_lv = 0, max_lv = 50, count_up = 1}
-AutoFruit[225] = {func = Lvup_Con, min_lv = 0, max_lv = 50, count_up = 1}
-AutoFruit[226] = {func = Lvup_Sta, min_lv = 0, max_lv = 50, count_up = 1}
---Фрукты с 50 по 100 уровень
-AutoFruit[276] = {func = Lvup_Str_1, min_lv = 50, max_lv = 100, count_up = 1}
-AutoFruit[277] = {func = Lvup_Agi_1, min_lv = 50, max_lv = 100, count_up = 1}
-AutoFruit[278] = {func = Lvup_Dex_1, min_lv = 50, max_lv = 100, count_up = 1}
-AutoFruit[279] = {func = Lvup_Con_1, min_lv = 50, max_lv = 100, count_up = 1}
-AutoFruit[280] = {func = Lvup_Sta_1, min_lv = 50, max_lv = 100, count_up = 1}
 
----------------------------------------------------------------
---                Даритель подарков(Начало)                  --
----------------------------------------------------------------
-PlayUseBox1				= {}
-PlayUseBox2				= {}
-PlayUseBox3				= {}
----------------------------------------------------------------
---                 Даритель подарков(Конец)                  --
----------------------------------------------------------------
+ChangeItemList[ 249	]=	{	855	,	5	,	2617	,	1		}
+ChangeItemList[ 250	]=	{	855	,	10	,	2619	,	1		}
+ChangeItemList[ 251	]=	{	855	,	15	,	2622	,	1		}
+ChangeItemList[ 252	]=	{	855	,	20	,	2624	,	1		}
+ChangeItemList[ 253	]=	{	855	,	5	,	2640	,	1		}
+ChangeItemList[ 254	]=	{	855	,	10	,	2641	,	1		}
+ChangeItemList[ 255	]=	{	855	,	15	,	2642	,	1		}
+ChangeItemList[ 256	]=	{	855	,	20	,	2643	,	1		}
+ChangeItemList[ 257	]=	{	855	,	25	,	2644	,	1		}
+ChangeItemList[ 258	]=	{	855	,	30	,	2649	,	1		}
+ChangeItemList[ 259	]=	{	855	,	15	,	8080	,	1		}
+ChangeItemList[ 260	]=	{	2588	,	3	,	2679	,	1		}
+ChangeItemList[ 261	]=	{	2588	,	6	,	2680	,	1		}
+ChangeItemList[ 262	]=	{	2588	,	9	,	2681	,	1		}
+ChangeItemList[ 263	]=	{	2588	,	12	,	2682	,	1		}
+ChangeItemList[ 264	]=	{	2588	,	15	,	2683	,	1		}
+ChangeItemList[ 265	]=	{	2588	,	18	,	2684	,	1		}
+ChangeItemList[ 266	]=	{	2588	,	21	,	2685	,	1		}
+ChangeItemList[ 267	]=	{	2588	,	24	,	2686	,	1		}
+ChangeItemList[ 268	]=	{	2588	,	3	,	2689	,	1		}
+ChangeItemList[ 269	]=	{	2588	,	6	,	2690	,	1		}
+ChangeItemList[ 270	]=	{	2588	,	9	,	2691	,	1		}
+ChangeItemList[ 271	]=	{	2588	,	12	,	2692	,	1		}
+ChangeItemList[ 272	]=	{	2588	,	15	,	2693	,	1		}
+ChangeItemList[ 273	]=	{	2588	,	18	,	2694	,	1		}
+ChangeItemList[ 274	]=	{	2588	,	21	,	2695	,	1		}
+ChangeItemList[ 275	]=	{	2588	,	24	,	2696	,	1		}
+ChangeItemList[ 276	]=	{	2588	,	3	,	2699	,	1		}
+ChangeItemList[ 277	]=	{	2588	,	6	,	2700	,	1		}
+ChangeItemList[ 278	]=	{	2588	,	9	,	2701	,	1		}
+ChangeItemList[ 279	]=	{	2588	,	12	,	2702	,	1		}
+ChangeItemList[ 280	]=	{	2588	,	15	,	2703	,	1		}
+ChangeItemList[ 281	]=	{	2588	,	18	,	2704	,	1		}
+ChangeItemList[ 282	]=	{	2588	,	21	,	2705	,	1		}
+ChangeItemList[ 283	]=	{	2588	,	24	,	2706	,	1		}
+ChangeItemList[ 284	]=	{	2588	,	1	,	196	,	1		}
+ChangeItemList[ 285	]=	{	2588	,	1	,	197	,	1		}
 
--------------------------------------
--- Используется для квеста "Бытие" --
--------------------------------------
+
+
+--??????????
+Item_CanRepair_Num = 13
+Item_CanRepair_ID = { }
+Item_CanRepair_ID [0]  =		1	--?
+Item_CanRepair_ID [1]  =		2	--??
+Item_CanRepair_ID [2]  =		3	--?
+Item_CanRepair_ID [3]  =		4	--??
+Item_CanRepair_ID [4]  =		7	--??
+Item_CanRepair_ID [5]  =		11	--??
+Item_CanRepair_ID [6]  =		20	--??
+Item_CanRepair_ID [7]  =		22	--??
+Item_CanRepair_ID [8]  =		23	--??
+Item_CanRepair_ID [9]  =		24	--??
+Item_CanRepair_ID [10] =		27	--??
+Item_CanRepair_ID [11] =		9	--??
+Item_CanRepair_ID [12] =		25 -- xianglian 
+Item_CanRepair_ID [13] =		26 -- jiezhi 
+
+--??????????
+
+Item_CanJinglian_Num = 11
+Item_CanJinglian_ID = { }
+
+Item_CanJinglian_ID [0]  =		1	--?
+Item_CanJinglian_ID [1]  =		2	--??
+Item_CanJinglian_ID [2]  =		3	--?
+Item_CanJinglian_ID [3]  =		4	--??
+Item_CanJinglian_ID [4]  =		7	--??
+Item_CanJinglian_ID [5]  =		11	--??
+Item_CanJinglian_ID [6]  =		20	--??
+Item_CanJinglian_ID [7]  =		22	--??
+Item_CanJinglian_ID [8]  =		23	--??
+Item_CanJinglian_ID [9]  =		24	--??
+Item_CanJinglian_ID [10] =		27	--??
+Item_CanJinglian_ID [11] =		9	--??
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------
+
 JNSTime_Flag_Num=13
 JNSTime_Flag={}
 JNSTime_Flag[1]				=0
@@ -151,10072 +418,648 @@ JNSTime_Flag[10]			=273
 JNSTime_Flag[11]			=304
 JNSTime_Flag[12]			=334
 JNSTime_Flag[13]			=365
-
+--------------------------------------------------------------------????????
 -----------------------------------------
--- Массив с опытом для игровых уровней --
+-- ������ � ������ ��� ������� ������� --
 -----------------------------------------
-DEXP_Num = 10000									
+DEXP_Num = 400									
 DEXP	={}								
 DEXP[1]	=	0
-DEXP[2]	=	1
-DEXP[3]	=	3
-DEXP[4]	=	6
-DEXP[5]	=	17
-DEXP[6]	=	42
-DEXP[7]	=	84
-DEXP[8]	=	167
-DEXP[9]	=	329
-DEXP[10]	=	535
-DEXP[11]	=	831
-DEXP[12]	=	1245
-DEXP[13]	=	1808
-DEXP[14]	=	2557
-DEXP[15]	=	3535
-DEXP[16]	=	4795
-DEXP[17]	=	6393
-DEXP[18]	=	8397
-DEXP[19]	=	10885
-DEXP[20]	=	13943
-DEXP[21]	=	17672
-DEXP[22]	=	22186
-DEXP[23]	=	27612
-DEXP[24]	=	34094
-DEXP[25]	=	41797
-DEXP[26]	=	50902
-DEXP[27]	=	61616
-DEXP[28]	=	74167
-DEXP[29]	=	88812
-DEXP[30]	=	52194
-DEXP[31]	=	54583
-DEXP[32]	=	56972
-DEXP[33]	=	59361
-DEXP[34]	=	61749
-DEXP[35]	=	64138
-DEXP[36]	=	66527
-DEXP[37]	=	68916
-DEXP[38]	=	71305
-DEXP[39]	=	73694
-DEXP[40]	=	76083
-DEXP[41]	=	78472
-DEXP[42]	=	80861
-DEXP[43]	=	83250
-DEXP[44]	=	85639
-DEXP[45]	=	88028
-DEXP[46]	=	90417
-DEXP[47]	=	92806
-DEXP[48]	=	95195
-DEXP[49]	=	97584
-DEXP[50]	=	99972
-DEXP[51]	=	102361
-DEXP[52]	=	104750
-DEXP[53]	=	107139
-DEXP[54]	=	109528
-DEXP[55]	=	111917
-DEXP[56]	=	114306
-DEXP[57]	=	116695
-DEXP[58]	=	119084
-DEXP[59]	=	121473
-DEXP[60]	=	123862
-DEXP[61]	=	126251
-DEXP[62]	=	128640
-DEXP[63]	=	131029
-DEXP[64]	=	133418
-DEXP[65]	=	135807
-DEXP[66]	=	138195
-DEXP[67]	=	140584
-DEXP[68]	=	142973
-DEXP[69]	=	145362
-DEXP[70]	=	147751
-DEXP[71]	=	150140
-DEXP[72]	=	152529
-DEXP[73]	=	154918
-DEXP[74]	=	157307
-DEXP[75]	=	159696
-DEXP[76]	=	162085
-DEXP[77]	=	164474
-DEXP[78]	=	166863
-DEXP[79]	=	169252
-DEXP[80]	=	171641
-DEXP[81]	=	174029
-DEXP[82]	=	176418
-DEXP[83]	=	178807
-DEXP[84]	=	181196
-DEXP[85]	=	183585
-DEXP[86]	=	185974
-DEXP[87]	=	188363
-DEXP[88]	=	190752
-DEXP[89]	=	193141
-DEXP[90]	=	195530
-DEXP[91]	=	197919
-DEXP[92]	=	200308
-DEXP[93]	=	202697
-DEXP[94]	=	205086
-DEXP[95]	=	207475
-DEXP[96]	=	209864
-DEXP[97]	=	212252
-DEXP[98]	=	214641
-DEXP[99]	=	217030
-DEXP[100]	=	219419
-DEXP[101]	=	221808
-DEXP[102]	=	224197
-DEXP[103]	=	226586
-DEXP[104]	=	228975
-DEXP[105]	=	231364
-DEXP[106]	=	233753
-DEXP[107]	=	236142
-DEXP[108]	=	238531
-DEXP[109]	=	240920
-DEXP[110]	=	243309
-DEXP[111]	=	245698
-DEXP[112]	=	248087
-DEXP[113]	=	250475
-DEXP[114]	=	252864
-DEXP[115]	=	255253
-DEXP[116]	=	257642
-DEXP[117]	=	260031
-DEXP[118]	=	262420
-DEXP[119]	=	264809
-DEXP[120]	=	267198
-DEXP[121]	=	269587
-DEXP[122]	=	271976
-DEXP[123]	=	274365
-DEXP[124]	=	276754
-DEXP[125]	=	279143
-DEXP[126]	=	281532
-DEXP[127]	=	283921
-DEXP[128]	=	286310
-DEXP[129]	=	288698
-DEXP[130]	=	291087
-DEXP[131]	=	293476
-DEXP[132]	=	295865
-DEXP[133]	=	298254
-DEXP[134]	=	300643
-DEXP[135]	=	303032
-DEXP[136]	=	305421
-DEXP[137]	=	307810
-DEXP[138]	=	310199
-DEXP[139]	=	312588
-DEXP[140]	=	314977
-DEXP[141]	=	317366
-DEXP[142]	=	319755
-DEXP[143]	=	322144
-DEXP[144]	=	324532
-DEXP[145]	=	326921
-DEXP[146]	=	329310
-DEXP[147]	=	331699
-DEXP[148]	=	334088
-DEXP[149]	=	336477
-DEXP[150]	=	338866
-DEXP[151]	=	341255
-DEXP[152]	=	343644
-DEXP[153]	=	346033
-DEXP[154]	=	348422
-DEXP[155]	=	350811
-DEXP[156]	=	353200
-DEXP[157]	=	355589
-DEXP[158]	=	357978
-DEXP[159]	=	360367
-DEXP[160]	=	362755
-DEXP[161]	=	365144
-DEXP[162]	=	367533
-DEXP[163]	=	369922
-DEXP[164]	=	372311
-DEXP[165]	=	374700
-DEXP[166]	=	377089
-DEXP[167]	=	379478
-DEXP[168]	=	381867
-DEXP[169]	=	384256
-DEXP[170]	=	386645
-DEXP[171]	=	389034
-DEXP[172]	=	391423
-DEXP[173]	=	393812
-DEXP[174]	=	396201
-DEXP[175]	=	398590
-DEXP[176]	=	400978
-DEXP[177]	=	403367
-DEXP[178]	=	405756
-DEXP[179]	=	408145
-DEXP[180]	=	410534
-DEXP[181]	=	412923
-DEXP[182]	=	415312
-DEXP[183]	=	417701
-DEXP[184]	=	420090
-DEXP[185]	=	422479
-DEXP[186]	=	424868
-DEXP[187]	=	427257
-DEXP[188]	=	429646
-DEXP[189]	=	432035
-DEXP[190]	=	434424
-DEXP[191]	=	436813
-DEXP[192]	=	439201
-DEXP[193]	=	441590
-DEXP[194]	=	443979
-DEXP[195]	=	446368
-DEXP[196]	=	448757
-DEXP[197]	=	451146
-DEXP[198]	=	453535
-DEXP[199]	=	455924
-DEXP[200]	=	458313
-DEXP[201]	=	460702
-DEXP[202]	=	463091
-DEXP[203]	=	465480
-DEXP[204]	=	467869
-DEXP[205]	=	470258
-DEXP[206]	=	472647
-DEXP[207]	=	475035
-DEXP[208]	=	477424
-DEXP[209]	=	479813
-DEXP[210]	=	482202
-DEXP[211]	=	484591
-DEXP[212]	=	486980
-DEXP[213]	=	489369
-DEXP[214]	=	491758
-DEXP[215]	=	494147
-DEXP[216]	=	496536
-DEXP[217]	=	498925
-DEXP[218]	=	501314
-DEXP[219]	=	503703
-DEXP[220]	=	506092
-DEXP[221]	=	508481
-DEXP[222]	=	510870
-DEXP[223]	=	513258
-DEXP[224]	=	515647
-DEXP[225]	=	518036
-DEXP[226]	=	520425
-DEXP[227]	=	522814
-DEXP[228]	=	525203
-DEXP[229]	=	527592
-DEXP[230]	=	529981
-DEXP[231]	=	532370
-DEXP[232]	=	534759
-DEXP[233]	=	537148
-DEXP[234]	=	539537
-DEXP[235]	=	541926
-DEXP[236]	=	544315
-DEXP[237]	=	546704
-DEXP[238]	=	549093
-DEXP[239]	=	551481
-DEXP[240]	=	553870
-DEXP[241]	=	556259
-DEXP[242]	=	558648
-DEXP[243]	=	561037
-DEXP[244]	=	563426
-DEXP[245]	=	565815
-DEXP[246]	=	568204
-DEXP[247]	=	570593
-DEXP[248]	=	572982
-DEXP[249]	=	575371
-DEXP[250]	=	577760
-DEXP[251]	=	580149
-DEXP[252]	=	582538
-DEXP[253]	=	584927
-DEXP[254]	=	587316
-DEXP[255]	=	589704
-DEXP[256]	=	592093
-DEXP[257]	=	594482
-DEXP[258]	=	596871
-DEXP[259]	=	599260
-DEXP[260]	=	601649
-DEXP[261]	=	604038
-DEXP[262]	=	606427
-DEXP[263]	=	608816
-DEXP[264]	=	611205
-DEXP[265]	=	613594
-DEXP[266]	=	615983
-DEXP[267]	=	618372
-DEXP[268]	=	620761
-DEXP[269]	=	623150
-DEXP[270]	=	625538
-DEXP[271]	=	627927
-DEXP[272]	=	630316
-DEXP[273]	=	632705
-DEXP[274]	=	635094
-DEXP[275]	=	637483
-DEXP[276]	=	639872
-DEXP[277]	=	642261
-DEXP[278]	=	644650
-DEXP[279]	=	647039
-DEXP[280]	=	649428
-DEXP[281]	=	651817
-DEXP[282]	=	654206
-DEXP[283]	=	656595
-DEXP[284]	=	658984
-DEXP[285]	=	661373
-DEXP[286]	=	663761
-DEXP[287]	=	666150
-DEXP[288]	=	668539
-DEXP[289]	=	670928
-DEXP[290]	=	673317
-DEXP[291]	=	675706
-DEXP[292]	=	678095
-DEXP[293]	=	680484
-DEXP[294]	=	682873
-DEXP[295]	=	685262
-DEXP[296]	=	687651
-DEXP[297]	=	690040
-DEXP[298]	=	692429
-DEXP[299]	=	694818
-DEXP[300]	=	697207
-DEXP[301]	=	699596
-DEXP[302]	=	701984
-DEXP[303]	=	704373
-DEXP[304]	=	706762
-DEXP[305]	=	709151
-DEXP[306]	=	711540
-DEXP[307]	=	713929
-DEXP[308]	=	716318
-DEXP[309]	=	718707
-DEXP[310]	=	721096
-DEXP[311]	=	723485
-DEXP[312]	=	725874
-DEXP[313]	=	728263
-DEXP[314]	=	730652
-DEXP[315]	=	733041
-DEXP[316]	=	735430
-DEXP[317]	=	737818
-DEXP[318]	=	740207
-DEXP[319]	=	742596
-DEXP[320]	=	744985
-DEXP[321]	=	747374
-DEXP[322]	=	749763
-DEXP[323]	=	752152
-DEXP[324]	=	754541
-DEXP[325]	=	756930
-DEXP[326]	=	759319
-DEXP[327]	=	761708
-DEXP[328]	=	764097
-DEXP[329]	=	766486
-DEXP[330]	=	768875
-DEXP[331]	=	771264
-DEXP[332]	=	773653
-DEXP[333]	=	776041
-DEXP[334]	=	778430
-DEXP[335]	=	780819
-DEXP[336]	=	783208
-DEXP[337]	=	785597
-DEXP[338]	=	787986
-DEXP[339]	=	790375
-DEXP[340]	=	792764
-DEXP[341]	=	795153
-DEXP[342]	=	797542
-DEXP[343]	=	799931
-DEXP[344]	=	802320
-DEXP[345]	=	804709
-DEXP[346]	=	807098
-DEXP[347]	=	809487
-DEXP[348]	=	811876
-DEXP[349]	=	814264
-DEXP[350]	=	816653
-DEXP[351]	=	819042
-DEXP[352]	=	821431
-DEXP[353]	=	823820
-DEXP[354]	=	826209
-DEXP[355]	=	828598
-DEXP[356]	=	830987
-DEXP[357]	=	833376
-DEXP[358]	=	835765
-DEXP[359]	=	838154
-DEXP[360]	=	840543
-DEXP[361]	=	842932
-DEXP[362]	=	845321
-DEXP[363]	=	847710
-DEXP[364]	=	850099
-DEXP[365]	=	852487
-DEXP[366]	=	854876
-DEXP[367]	=	857265
-DEXP[368]	=	859654
-DEXP[369]	=	862043
-DEXP[370]	=	864432
-DEXP[371]	=	866821
-DEXP[372]	=	869210
-DEXP[373]	=	871599
-DEXP[374]	=	873988
-DEXP[375]	=	876377
-DEXP[376]	=	878766
-DEXP[377]	=	881155
-DEXP[378]	=	883544
-DEXP[379]	=	885933
-DEXP[380]	=	888321
-DEXP[381]	=	890710
-DEXP[382]	=	893099
-DEXP[383]	=	895488
-DEXP[384]	=	897877
-DEXP[385]	=	900266
-DEXP[386]	=	902655
-DEXP[387]	=	905044
-DEXP[388]	=	907433
-DEXP[389]	=	909822
-DEXP[390]	=	912211
-DEXP[391]	=	914600
-DEXP[392]	=	916989
-DEXP[393]	=	919378
-DEXP[394]	=	921767
-DEXP[395]	=	924156
-DEXP[396]	=	926544
-DEXP[397]	=	928933
-DEXP[398]	=	931322
-DEXP[399]	=	933711
-DEXP[400]	=	936100
-DEXP[401]	=	938489
-DEXP[402]	=	940878
-DEXP[403]	=	943267
-DEXP[404]	=	945656
-DEXP[405]	=	948045
-DEXP[406]	=	950434
-DEXP[407]	=	952823
-DEXP[408]	=	955212
-DEXP[409]	=	957601
-DEXP[410]	=	959990
-DEXP[411]	=	962379
-DEXP[412]	=	964767
-DEXP[413]	=	967156
-DEXP[414]	=	969545
-DEXP[415]	=	971934
-DEXP[416]	=	974323
-DEXP[417]	=	976712
-DEXP[418]	=	979101
-DEXP[419]	=	981490
-DEXP[420]	=	983879
-DEXP[421]	=	986268
-DEXP[422]	=	988657
-DEXP[423]	=	991046
-DEXP[424]	=	993435
-DEXP[425]	=	995824
-DEXP[426]	=	998213
-DEXP[427]	=	1000602
-DEXP[428]	=	1002990
-DEXP[429]	=	1005379
-DEXP[430]	=	1007768
-DEXP[431]	=	1010157
-DEXP[432]	=	1012546
-DEXP[433]	=	1014935
-DEXP[434]	=	1017324
-DEXP[435]	=	1019713
-DEXP[436]	=	1022102
-DEXP[437]	=	1024491
-DEXP[438]	=	1026880
-DEXP[439]	=	1029269
-DEXP[440]	=	1031658
-DEXP[441]	=	1034047
-DEXP[442]	=	1036436
-DEXP[443]	=	1038824
-DEXP[444]	=	1041213
-DEXP[445]	=	1043602
-DEXP[446]	=	1045991
-DEXP[447]	=	1048380
-DEXP[448]	=	1050769
-DEXP[449]	=	1053158
-DEXP[450]	=	1055547
-DEXP[451]	=	1057936
-DEXP[452]	=	1060325
-DEXP[453]	=	1062714
-DEXP[454]	=	1065103
-DEXP[455]	=	1067492
-DEXP[456]	=	1069881
-DEXP[457]	=	1072270
-DEXP[458]	=	1074659
-DEXP[459]	=	1077047
-DEXP[460]	=	1079436
-DEXP[461]	=	1081825
-DEXP[462]	=	1084214
-DEXP[463]	=	1086603
-DEXP[464]	=	1088992
-DEXP[465]	=	1091381
-DEXP[466]	=	1093770
-DEXP[467]	=	1096159
-DEXP[468]	=	1098548
-DEXP[469]	=	1100937
-DEXP[470]	=	1103326
-DEXP[471]	=	1105715
-DEXP[472]	=	1108104
-DEXP[473]	=	1110493
-DEXP[474]	=	1112882
-DEXP[475]	=	1115270
-DEXP[476]	=	1117659
-DEXP[477]	=	1120048
-DEXP[478]	=	1122437
-DEXP[479]	=	1124826
-DEXP[480]	=	1127215
-DEXP[481]	=	1129604
-DEXP[482]	=	1131993
-DEXP[483]	=	1134382
-DEXP[484]	=	1136771
-DEXP[485]	=	1139160
-DEXP[486]	=	1141549
-DEXP[487]	=	1143938
-DEXP[488]	=	1146327
-DEXP[489]	=	1148716
-DEXP[490]	=	1151105
-DEXP[491]	=	1153493
-DEXP[492]	=	1155882
-DEXP[493]	=	1158271
-DEXP[494]	=	1160660
-DEXP[495]	=	1163049
-DEXP[496]	=	1165438
-DEXP[497]	=	1167827
-DEXP[498]	=	1170216
-DEXP[499]	=	1172605
-DEXP[500]	=	1174994
-DEXP[501]	=	1177383
-DEXP[502]	=	1179772
-DEXP[503]	=	1182161
-DEXP[504]	=	1184550
-DEXP[505]	=	1186939
-DEXP[506]	=	1189327
-DEXP[507]	=	1191716
-DEXP[508]	=	1194105
-DEXP[509]	=	1196494
-DEXP[510]	=	1198883
-DEXP[511]	=	1201272
-DEXP[512]	=	1203661
-DEXP[513]	=	1206050
-DEXP[514]	=	1208439
-DEXP[515]	=	1210828
-DEXP[516]	=	1213217
-DEXP[517]	=	1215606
-DEXP[518]	=	1217995
-DEXP[519]	=	1220384
-DEXP[520]	=	1222773
-DEXP[521]	=	1225162
-DEXP[522]	=	1227550
-DEXP[523]	=	1229939
-DEXP[524]	=	1232328
-DEXP[525]	=	1234717
-DEXP[526]	=	1237106
-DEXP[527]	=	1239495
-DEXP[528]	=	1241884
-DEXP[529]	=	1244273
-DEXP[530]	=	1246662
-DEXP[531]	=	1249051
-DEXP[532]	=	1251440
-DEXP[533]	=	1253829
-DEXP[534]	=	1256218
-DEXP[535]	=	1258607
-DEXP[536]	=	1260996
-DEXP[537]	=	1263385
-DEXP[538]	=	1265773
-DEXP[539]	=	1268162
-DEXP[540]	=	1270551
-DEXP[541]	=	1272940
-DEXP[542]	=	1275329
-DEXP[543]	=	1277718
-DEXP[544]	=	1280107
-DEXP[545]	=	1282496
-DEXP[546]	=	1284885
-DEXP[547]	=	1287274
-DEXP[548]	=	1289663
-DEXP[549]	=	1292052
-DEXP[550]	=	1294441
-DEXP[551]	=	1296830
-DEXP[552]	=	1299219
-DEXP[553]	=	1301608
-DEXP[554]	=	1303996
-DEXP[555]	=	1306385
-DEXP[556]	=	1308774
-DEXP[557]	=	1311163
-DEXP[558]	=	1313552
-DEXP[559]	=	1315941
-DEXP[560]	=	1318330
-DEXP[561]	=	1320719
-DEXP[562]	=	1323108
-DEXP[563]	=	1325497
-DEXP[564]	=	1327886
-DEXP[565]	=	1330275
-DEXP[566]	=	1332664
-DEXP[567]	=	1335053
-DEXP[568]	=	1337442
-DEXP[569]	=	1339830
-DEXP[570]	=	1342219
-DEXP[571]	=	1344608
-DEXP[572]	=	1346997
-DEXP[573]	=	1349386
-DEXP[574]	=	1351775
-DEXP[575]	=	1354164
-DEXP[576]	=	1356553
-DEXP[577]	=	1358942
-DEXP[578]	=	1361331
-DEXP[579]	=	1363720
-DEXP[580]	=	1366109
-DEXP[581]	=	1368498
-DEXP[582]	=	1370887
-DEXP[583]	=	1373276
-DEXP[584]	=	1375665
-DEXP[585]	=	1378053
-DEXP[586]	=	1380442
-DEXP[587]	=	1382831
-DEXP[588]	=	1385220
-DEXP[589]	=	1387609
-DEXP[590]	=	1389998
-DEXP[591]	=	1392387
-DEXP[592]	=	1394776
-DEXP[593]	=	1397165
-DEXP[594]	=	1399554
-DEXP[595]	=	1401943
-DEXP[596]	=	1404332
-DEXP[597]	=	1406721
-DEXP[598]	=	1409110
-DEXP[599]	=	1411499
-DEXP[600]	=	1413888
-DEXP[601]	=	1416276
-DEXP[602]	=	1418665
-DEXP[603]	=	1421054
-DEXP[604]	=	1423443
-DEXP[605]	=	1425832
-DEXP[606]	=	1428221
-DEXP[607]	=	1430610
-DEXP[608]	=	1432999
-DEXP[609]	=	1435388
-DEXP[610]	=	1437777
-DEXP[611]	=	1440166
-DEXP[612]	=	1442555
-DEXP[613]	=	1444944
-DEXP[614]	=	1447333
-DEXP[615]	=	1449722
-DEXP[616]	=	1452110
-DEXP[617]	=	1454499
-DEXP[618]	=	1456888
-DEXP[619]	=	1459277
-DEXP[620]	=	1461666
-DEXP[621]	=	1464055
-DEXP[622]	=	1466444
-DEXP[623]	=	1468833
-DEXP[624]	=	1471222
-DEXP[625]	=	1473611
-DEXP[626]	=	1476000
-DEXP[627]	=	1478389
-DEXP[628]	=	1480778
-DEXP[629]	=	1483167
-DEXP[630]	=	1485556
-DEXP[631]	=	1487945
-DEXP[632]	=	1490333
-DEXP[633]	=	1492722
-DEXP[634]	=	1495111
-DEXP[635]	=	1497500
-DEXP[636]	=	1499889
-DEXP[637]	=	1502278
-DEXP[638]	=	1504667
-DEXP[639]	=	1507056
-DEXP[640]	=	1509445
-DEXP[641]	=	1511834
-DEXP[642]	=	1514223
-DEXP[643]	=	1516612
-DEXP[644]	=	1519001
-DEXP[645]	=	1521390
-DEXP[646]	=	1523779
-DEXP[647]	=	1526168
-DEXP[648]	=	1528556
-DEXP[649]	=	1530945
-DEXP[650]	=	1533334
-DEXP[651]	=	1535723
-DEXP[652]	=	1538112
-DEXP[653]	=	1540501
-DEXP[654]	=	1542890
-DEXP[655]	=	1545279
-DEXP[656]	=	1547668
-DEXP[657]	=	1550057
-DEXP[658]	=	1552446
-DEXP[659]	=	1554835
-DEXP[660]	=	1557224
-DEXP[661]	=	1559613
-DEXP[662]	=	1562002
-DEXP[663]	=	1564391
-DEXP[664]	=	1566779
-DEXP[665]	=	1569168
-DEXP[666]	=	1571557
-DEXP[667]	=	1573946
-DEXP[668]	=	1576335
-DEXP[669]	=	1578724
-DEXP[670]	=	1581113
-DEXP[671]	=	1583502
-DEXP[672]	=	1585891
-DEXP[673]	=	1588280
-DEXP[674]	=	1590669
-DEXP[675]	=	1593058
-DEXP[676]	=	1595447
-DEXP[677]	=	1597836
-DEXP[678]	=	1600225
-DEXP[679]	=	1602613
-DEXP[680]	=	1605002
-DEXP[681]	=	1607391
-DEXP[682]	=	1609780
-DEXP[683]	=	1612169
-DEXP[684]	=	1614558
-DEXP[685]	=	1616947
-DEXP[686]	=	1619336
-DEXP[687]	=	1621725
-DEXP[688]	=	1624114
-DEXP[689]	=	1626503
-DEXP[690]	=	1628892
-DEXP[691]	=	1631281
-DEXP[692]	=	1633670
-DEXP[693]	=	1636059
-DEXP[694]	=	1638448
-DEXP[695]	=	1640836
-DEXP[696]	=	1643225
-DEXP[697]	=	1645614
-DEXP[698]	=	1648003
-DEXP[699]	=	1650392
-DEXP[700]	=	1652781
-DEXP[701]	=	1655170
-DEXP[702]	=	1657559
-DEXP[703]	=	1659948
-DEXP[704]	=	1662337
-DEXP[705]	=	1664726
-DEXP[706]	=	1667115
-DEXP[707]	=	1669504
-DEXP[708]	=	1671893
-DEXP[709]	=	1674282
-DEXP[710]	=	1676671
-DEXP[711]	=	1679059
-DEXP[712]	=	1681448
-DEXP[713]	=	1683837
-DEXP[714]	=	1686226
-DEXP[715]	=	1688615
-DEXP[716]	=	1691004
-DEXP[717]	=	1693393
-DEXP[718]	=	1695782
-DEXP[719]	=	1698171
-DEXP[720]	=	1700560
-DEXP[721]	=	1702949
-DEXP[722]	=	1705338
-DEXP[723]	=	1707727
-DEXP[724]	=	1710116
-DEXP[725]	=	1712505
-DEXP[726]	=	1714894
-DEXP[727]	=	1717282
-DEXP[728]	=	1719671
-DEXP[729]	=	1722060
-DEXP[730]	=	1724449
-DEXP[731]	=	1726838
-DEXP[732]	=	1729227
-DEXP[733]	=	1731616
-DEXP[734]	=	1734005
-DEXP[735]	=	1736394
-DEXP[736]	=	1738783
-DEXP[737]	=	1741172
-DEXP[738]	=	1743561
-DEXP[739]	=	1745950
-DEXP[740]	=	1748339
-DEXP[741]	=	1750728
-DEXP[742]	=	1753116
-DEXP[743]	=	1755505
-DEXP[744]	=	1757894
-DEXP[745]	=	1760283
-DEXP[746]	=	1762672
-DEXP[747]	=	1765061
-DEXP[748]	=	1767450
-DEXP[749]	=	1769839
-DEXP[750]	=	1772228
-DEXP[751]	=	1774617
-DEXP[752]	=	1777006
-DEXP[753]	=	1779395
-DEXP[754]	=	1781784
-DEXP[755]	=	1784173
-DEXP[756]	=	1786562
-DEXP[757]	=	1788951
-DEXP[758]	=	1791339
-DEXP[759]	=	1793728
-DEXP[760]	=	1796117
-DEXP[761]	=	1798506
-DEXP[762]	=	1800895
-DEXP[763]	=	1803284
-DEXP[764]	=	1805673
-DEXP[765]	=	1808062
-DEXP[766]	=	1810451
-DEXP[767]	=	1812840
-DEXP[768]	=	1815229
-DEXP[769]	=	1817618
-DEXP[770]	=	1820007
-DEXP[771]	=	1822396
-DEXP[772]	=	1824785
-DEXP[773]	=	1827174
-DEXP[774]	=	1829562
-DEXP[775]	=	1831951
-DEXP[776]	=	1834340
-DEXP[777]	=	1836729
-DEXP[778]	=	1839118
-DEXP[779]	=	1841507
-DEXP[780]	=	1843896
-DEXP[781]	=	1846285
-DEXP[782]	=	1848674
-DEXP[783]	=	1851063
-DEXP[784]	=	1853452
-DEXP[785]	=	1855841
-DEXP[786]	=	1858230
-DEXP[787]	=	1860619
-DEXP[788]	=	1863008
-DEXP[789]	=	1865397
-DEXP[790]	=	1867785
-DEXP[791]	=	1870174
-DEXP[792]	=	1872563
-DEXP[793]	=	1874952
-DEXP[794]	=	1877341
-DEXP[795]	=	1879730
-DEXP[796]	=	1882119
-DEXP[797]	=	1884508
-DEXP[798]	=	1886897
-DEXP[799]	=	1889286
-DEXP[800]	=	1891675
-DEXP[801]	=	1894064
-DEXP[802]	=	1896453
-DEXP[803]	=	1898842
-DEXP[804]	=	1901231
-DEXP[805]	=	1903619
-DEXP[806]	=	1906008
-DEXP[807]	=	1908397
-DEXP[808]	=	1910786
-DEXP[809]	=	1913175
-DEXP[810]	=	1915564
-DEXP[811]	=	1917953
-DEXP[812]	=	1920342
-DEXP[813]	=	1922731
-DEXP[814]	=	1925120
-DEXP[815]	=	1927509
-DEXP[816]	=	1929898
-DEXP[817]	=	1932287
-DEXP[818]	=	1934676
-DEXP[819]	=	1937065
-DEXP[820]	=	1939454
-DEXP[821]	=	1941842
-DEXP[822]	=	1944231
-DEXP[823]	=	1946620
-DEXP[824]	=	1949009
-DEXP[825]	=	1951398
-DEXP[826]	=	1953787
-DEXP[827]	=	1956176
-DEXP[828]	=	1958565
-DEXP[829]	=	1960954
-DEXP[830]	=	1963343
-DEXP[831]	=	1965732
-DEXP[832]	=	1968121
-DEXP[833]	=	1970510
-DEXP[834]	=	1972899
-DEXP[835]	=	1975288
-DEXP[836]	=	1977677
-DEXP[837]	=	1980065
-DEXP[838]	=	1982454
-DEXP[839]	=	1984843
-DEXP[840]	=	1987232
-DEXP[841]	=	1989621
-DEXP[842]	=	1992010
-DEXP[843]	=	1994399
-DEXP[844]	=	1996788
-DEXP[845]	=	1999177
-DEXP[846]	=	2001566
-DEXP[847]	=	2003955
-DEXP[848]	=	2006344
-DEXP[849]	=	2008733
-DEXP[850]	=	2011122
-DEXP[851]	=	2013511
-DEXP[852]	=	2015900
-DEXP[853]	=	2018288
-DEXP[854]	=	2020677
-DEXP[855]	=	2023066
-DEXP[856]	=	2025455
-DEXP[857]	=	2027844
-DEXP[858]	=	2030233
-DEXP[859]	=	2032622
-DEXP[860]	=	2035011
-DEXP[861]	=	2037400
-DEXP[862]	=	2039789
-DEXP[863]	=	2042178
-DEXP[864]	=	2044567
-DEXP[865]	=	2046956
-DEXP[866]	=	2049345
-DEXP[867]	=	2051734
-DEXP[868]	=	2054122
-DEXP[869]	=	2056511
-DEXP[870]	=	2058900
-DEXP[871]	=	2061289
-DEXP[872]	=	2063678
-DEXP[873]	=	2066067
-DEXP[874]	=	2068456
-DEXP[875]	=	2070845
-DEXP[876]	=	2073234
-DEXP[877]	=	2075623
-DEXP[878]	=	2078012
-DEXP[879]	=	2080401
-DEXP[880]	=	2082790
-DEXP[881]	=	2085179
-DEXP[882]	=	2087568
-DEXP[883]	=	2089957
-DEXP[884]	=	2092345
-DEXP[885]	=	2094734
-DEXP[886]	=	2097123
-DEXP[887]	=	2099512
-DEXP[888]	=	2101901
-DEXP[889]	=	2104290
-DEXP[890]	=	2106679
-DEXP[891]	=	2109068
-DEXP[892]	=	2111457
-DEXP[893]	=	2113846
-DEXP[894]	=	2116235
-DEXP[895]	=	2118624
-DEXP[896]	=	2121013
-DEXP[897]	=	2123402
-DEXP[898]	=	2125791
-DEXP[899]	=	2128180
-DEXP[900]	=	2130568
-DEXP[901]	=	2132957
-DEXP[902]	=	2135346
-DEXP[903]	=	2137735
-DEXP[904]	=	2140124
-DEXP[905]	=	2142513
-DEXP[906]	=	2144902
-DEXP[907]	=	2147291
-DEXP[908]	=	2149680
-DEXP[909]	=	2152069
-DEXP[910]	=	2154458
-DEXP[911]	=	2156847
-DEXP[912]	=	2159236
-DEXP[913]	=	2161625
-DEXP[914]	=	2164014
-DEXP[915]	=	2166402
-DEXP[916]	=	2168791
-DEXP[917]	=	2171180
-DEXP[918]	=	2173569
-DEXP[919]	=	2175958
-DEXP[920]	=	2178347
-DEXP[921]	=	2180736
-DEXP[922]	=	2183125
-DEXP[923]	=	2185514
-DEXP[924]	=	2187903
-DEXP[925]	=	2190292
-DEXP[926]	=	2192681
-DEXP[927]	=	2195070
-DEXP[928]	=	2197459
-DEXP[929]	=	2199848
-DEXP[930]	=	2202237
-DEXP[931]	=	2204625
-DEXP[932]	=	2207014
-DEXP[933]	=	2209403
-DEXP[934]	=	2211792
-DEXP[935]	=	2214181
-DEXP[936]	=	2216570
-DEXP[937]	=	2218959
-DEXP[938]	=	2221348
-DEXP[939]	=	2223737
-DEXP[940]	=	2226126
-DEXP[941]	=	2228515
-DEXP[942]	=	2230904
-DEXP[943]	=	2233293
-DEXP[944]	=	2235682
-DEXP[945]	=	2238071
-DEXP[946]	=	2240460
-DEXP[947]	=	2242848
-DEXP[948]	=	2245237
-DEXP[949]	=	2247626
-DEXP[950]	=	2250015
-DEXP[951]	=	2252404
-DEXP[952]	=	2254793
-DEXP[953]	=	2257182
-DEXP[954]	=	2259571
-DEXP[955]	=	2261960
-DEXP[956]	=	2264349
-DEXP[957]	=	2266738
-DEXP[958]	=	2269127
-DEXP[959]	=	2271516
-DEXP[960]	=	2273905
-DEXP[961]	=	2276294
-DEXP[962]	=	2278683
-DEXP[963]	=	2281071
-DEXP[964]	=	2283460
-DEXP[965]	=	2285849
-DEXP[966]	=	2288238
-DEXP[967]	=	2290627
-DEXP[968]	=	2293016
-DEXP[969]	=	2295405
-DEXP[970]	=	2297794
-DEXP[971]	=	2300183
-DEXP[972]	=	2302572
-DEXP[973]	=	2304961
-DEXP[974]	=	2307350
-DEXP[975]	=	2309739
-DEXP[976]	=	2312128
-DEXP[977]	=	2314517
-DEXP[978]	=	2316905
-DEXP[979]	=	2319294
-DEXP[980]	=	2321683
-DEXP[981]	=	2324072
-DEXP[982]	=	2326461
-DEXP[983]	=	2328850
-DEXP[984]	=	2331239
-DEXP[985]	=	2333628
-DEXP[986]	=	2336017
-DEXP[987]	=	2338406
-DEXP[988]	=	2340795
-DEXP[989]	=	2343184
-DEXP[990]	=	2345573
-DEXP[991]	=	2347962
-DEXP[992]	=	2350351
-DEXP[993]	=	2352740
-DEXP[994]	=	2355128
-DEXP[995]	=	2357517
-DEXP[996]	=	2359906
-DEXP[997]	=	2362295
-DEXP[998]	=	2364684
-DEXP[999]	=	2367073
-DEXP[1000]	=	2369462
-DEXP[1001]	=	2371851
-DEXP[1002]	=	2374240
-DEXP[1003]	=	2376629
-DEXP[1004]	=	2379018
-DEXP[1005]	=	2381407
-DEXP[1006]	=	2383796
-DEXP[1007]	=	2386185
-DEXP[1008]	=	2388574
-DEXP[1009]	=	2390963
-DEXP[1010]	=	2393351
-DEXP[1011]	=	2395740
-DEXP[1012]	=	2398129
-DEXP[1013]	=	2400518
-DEXP[1014]	=	2402907
-DEXP[1015]	=	2405296
-DEXP[1016]	=	2407685
-DEXP[1017]	=	2410074
-DEXP[1018]	=	2412463
-DEXP[1019]	=	2414852
-DEXP[1020]	=	2417241
-DEXP[1021]	=	2419630
-DEXP[1022]	=	2422019
-DEXP[1023]	=	2424408
-DEXP[1024]	=	2426797
-DEXP[1025]	=	2429186
-DEXP[1026]	=	2431574
-DEXP[1027]	=	2433963
-DEXP[1028]	=	2436352
-DEXP[1029]	=	2438741
-DEXP[1030]	=	2441130
-DEXP[1031]	=	2443519
-DEXP[1032]	=	2445908
-DEXP[1033]	=	2448297
-DEXP[1034]	=	2450686
-DEXP[1035]	=	2453075
-DEXP[1036]	=	2455464
-DEXP[1037]	=	2457853
-DEXP[1038]	=	2460242
-DEXP[1039]	=	2462631
-DEXP[1040]	=	2465020
-DEXP[1041]	=	2467408
-DEXP[1042]	=	2469797
-DEXP[1043]	=	2472186
-DEXP[1044]	=	2474575
-DEXP[1045]	=	2476964
-DEXP[1046]	=	2479353
-DEXP[1047]	=	2481742
-DEXP[1048]	=	2484131
-DEXP[1049]	=	2486520
-DEXP[1050]	=	2488909
-DEXP[1051]	=	2491298
-DEXP[1052]	=	2493687
-DEXP[1053]	=	2496076
-DEXP[1054]	=	2498465
-DEXP[1055]	=	2500854
-DEXP[1056]	=	2503243
-DEXP[1057]	=	2505631
-DEXP[1058]	=	2508020
-DEXP[1059]	=	2510409
-DEXP[1060]	=	2512798
-DEXP[1061]	=	2515187
-DEXP[1062]	=	2517576
-DEXP[1063]	=	2519965
-DEXP[1064]	=	2522354
-DEXP[1065]	=	2524743
-DEXP[1066]	=	2527132
-DEXP[1067]	=	2529521
-DEXP[1068]	=	2531910
-DEXP[1069]	=	2534299
-DEXP[1070]	=	2536688
-DEXP[1071]	=	2539077
-DEXP[1072]	=	2541466
-DEXP[1073]	=	2543854
-DEXP[1074]	=	2546243
-DEXP[1075]	=	2548632
-DEXP[1076]	=	2551021
-DEXP[1077]	=	2553410
-DEXP[1078]	=	2555799
-DEXP[1079]	=	2558188
-DEXP[1080]	=	2560577
-DEXP[1081]	=	2562966
-DEXP[1082]	=	2565355
-DEXP[1083]	=	2567744
-DEXP[1084]	=	2570133
-DEXP[1085]	=	2572522
-DEXP[1086]	=	2574911
-DEXP[1087]	=	2577300
-DEXP[1088]	=	2579689
-DEXP[1089]	=	2582077
-DEXP[1090]	=	2584466
-DEXP[1091]	=	2586855
-DEXP[1092]	=	2589244
-DEXP[1093]	=	2591633
-DEXP[1094]	=	2594022
-DEXP[1095]	=	2596411
-DEXP[1096]	=	2598800
-DEXP[1097]	=	2601189
-DEXP[1098]	=	2603578
-DEXP[1099]	=	2605967
-DEXP[1100]	=	2608356
-DEXP[1101]	=	2610745
-DEXP[1102]	=	2613134
-DEXP[1103]	=	2615523
-DEXP[1104]	=	2617911
-DEXP[1105]	=	2620300
-DEXP[1106]	=	2622689
-DEXP[1107]	=	2625078
-DEXP[1108]	=	2627467
-DEXP[1109]	=	2629856
-DEXP[1110]	=	2632245
-DEXP[1111]	=	2634634
-DEXP[1112]	=	2637023
-DEXP[1113]	=	2639412
-DEXP[1114]	=	2641801
-DEXP[1115]	=	2644190
-DEXP[1116]	=	2646579
-DEXP[1117]	=	2648968
-DEXP[1118]	=	2651357
-DEXP[1119]	=	2653746
-DEXP[1120]	=	2656134
-DEXP[1121]	=	2658523
-DEXP[1122]	=	2660912
-DEXP[1123]	=	2663301
-DEXP[1124]	=	2665690
-DEXP[1125]	=	2668079
-DEXP[1126]	=	2670468
-DEXP[1127]	=	2672857
-DEXP[1128]	=	2675246
-DEXP[1129]	=	2677635
-DEXP[1130]	=	2680024
-DEXP[1131]	=	2682413
-DEXP[1132]	=	2684802
-DEXP[1133]	=	2687191
-DEXP[1134]	=	2689580
-DEXP[1135]	=	2691969
-DEXP[1136]	=	2694357
-DEXP[1137]	=	2696746
-DEXP[1138]	=	2699135
-DEXP[1139]	=	2701524
-DEXP[1140]	=	2703913
-DEXP[1141]	=	2706302
-DEXP[1142]	=	2708691
-DEXP[1143]	=	2711080
-DEXP[1144]	=	2713469
-DEXP[1145]	=	2715858
-DEXP[1146]	=	2718247
-DEXP[1147]	=	2720636
-DEXP[1148]	=	2723025
-DEXP[1149]	=	2725414
-DEXP[1150]	=	2727803
-DEXP[1151]	=	2730192
-DEXP[1152]	=	2732580
-DEXP[1153]	=	2734969
-DEXP[1154]	=	2737358
-DEXP[1155]	=	2739747
-DEXP[1156]	=	2742136
-DEXP[1157]	=	2744525
-DEXP[1158]	=	2746914
-DEXP[1159]	=	2749303
-DEXP[1160]	=	2751692
-DEXP[1161]	=	2754081
-DEXP[1162]	=	2756470
-DEXP[1163]	=	2758859
-DEXP[1164]	=	2761248
-DEXP[1165]	=	2763637
-DEXP[1166]	=	2766026
-DEXP[1167]	=	2768414
-DEXP[1168]	=	2770803
-DEXP[1169]	=	2773192
-DEXP[1170]	=	2775581
-DEXP[1171]	=	2777970
-DEXP[1172]	=	2780359
-DEXP[1173]	=	2782748
-DEXP[1174]	=	2785137
-DEXP[1175]	=	2787526
-DEXP[1176]	=	2789915
-DEXP[1177]	=	2792304
-DEXP[1178]	=	2794693
-DEXP[1179]	=	2797082
-DEXP[1180]	=	2799471
-DEXP[1181]	=	2801860
-DEXP[1182]	=	2804249
-DEXP[1183]	=	2806637
-DEXP[1184]	=	2809026
-DEXP[1185]	=	2811415
-DEXP[1186]	=	2813804
-DEXP[1187]	=	2816193
-DEXP[1188]	=	2818582
-DEXP[1189]	=	2820971
-DEXP[1190]	=	2823360
-DEXP[1191]	=	2825749
-DEXP[1192]	=	2828138
-DEXP[1193]	=	2830527
-DEXP[1194]	=	2832916
-DEXP[1195]	=	2835305
-DEXP[1196]	=	2837694
-DEXP[1197]	=	2840083
-DEXP[1198]	=	2842472
-DEXP[1199]	=	2844860
-DEXP[1200]	=	2847249
-DEXP[1201]	=	2849638
-DEXP[1202]	=	2852027
-DEXP[1203]	=	2854416
-DEXP[1204]	=	2856805
-DEXP[1205]	=	2859194
-DEXP[1206]	=	2861583
-DEXP[1207]	=	2863972
-DEXP[1208]	=	2866361
-DEXP[1209]	=	2868750
-DEXP[1210]	=	2871139
-DEXP[1211]	=	2873528
-DEXP[1212]	=	2875917
-DEXP[1213]	=	2878306
-DEXP[1214]	=	2880694
-DEXP[1215]	=	2883083
-DEXP[1216]	=	2885472
-DEXP[1217]	=	2887861
-DEXP[1218]	=	2890250
-DEXP[1219]	=	2892639
-DEXP[1220]	=	2895028
-DEXP[1221]	=	2897417
-DEXP[1222]	=	2899806
-DEXP[1223]	=	2902195
-DEXP[1224]	=	2904584
-DEXP[1225]	=	2906973
-DEXP[1226]	=	2909362
-DEXP[1227]	=	2911751
-DEXP[1228]	=	2914140
-DEXP[1229]	=	2916529
-DEXP[1230]	=	2918917
-DEXP[1231]	=	2921306
-DEXP[1232]	=	2923695
-DEXP[1233]	=	2926084
-DEXP[1234]	=	2928473
-DEXP[1235]	=	2930862
-DEXP[1236]	=	2933251
-DEXP[1237]	=	2935640
-DEXP[1238]	=	2938029
-DEXP[1239]	=	2940418
-DEXP[1240]	=	2942807
-DEXP[1241]	=	2945196
-DEXP[1242]	=	2947585
-DEXP[1243]	=	2949974
-DEXP[1244]	=	2952363
-DEXP[1245]	=	2954752
-DEXP[1246]	=	2957140
-DEXP[1247]	=	2959529
-DEXP[1248]	=	2961918
-DEXP[1249]	=	2964307
-DEXP[1250]	=	2966696
-DEXP[1251]	=	2969085
-DEXP[1252]	=	2971474
-DEXP[1253]	=	2973863
-DEXP[1254]	=	2976252
-DEXP[1255]	=	2978641
-DEXP[1256]	=	2981030
-DEXP[1257]	=	2983419
-DEXP[1258]	=	2985808
-DEXP[1259]	=	2988197
-DEXP[1260]	=	2990586
-DEXP[1261]	=	2992975
-DEXP[1262]	=	2995363
-DEXP[1263]	=	2997752
-DEXP[1264]	=	3000141
-DEXP[1265]	=	3002530
-DEXP[1266]	=	3004919
-DEXP[1267]	=	3007308
-DEXP[1268]	=	3009697
-DEXP[1269]	=	3012086
-DEXP[1270]	=	3014475
-DEXP[1271]	=	3016864
-DEXP[1272]	=	3019253
-DEXP[1273]	=	3021642
-DEXP[1274]	=	3024031
-DEXP[1275]	=	3026420
-DEXP[1276]	=	3028809
-DEXP[1277]	=	3031197
-DEXP[1278]	=	3033586
-DEXP[1279]	=	3035975
-DEXP[1280]	=	3038364
-DEXP[1281]	=	3040753
-DEXP[1282]	=	3043142
-DEXP[1283]	=	3045531
-DEXP[1284]	=	3047920
-DEXP[1285]	=	3050309
-DEXP[1286]	=	3052698
-DEXP[1287]	=	3055087
-DEXP[1288]	=	3057476
-DEXP[1289]	=	3059865
-DEXP[1290]	=	3062254
-DEXP[1291]	=	3064643
-DEXP[1292]	=	3067032
-DEXP[1293]	=	3069420
-DEXP[1294]	=	3071809
-DEXP[1295]	=	3074198
-DEXP[1296]	=	3076587
-DEXP[1297]	=	3078976
-DEXP[1298]	=	3081365
-DEXP[1299]	=	3083754
-DEXP[1300]	=	3086143
-DEXP[1301]	=	3088532
-DEXP[1302]	=	3090921
-DEXP[1303]	=	3093310
-DEXP[1304]	=	3095699
-DEXP[1305]	=	3098088
-DEXP[1306]	=	3100477
-DEXP[1307]	=	3102866
-DEXP[1308]	=	3105255
-DEXP[1309]	=	3107643
-DEXP[1310]	=	3110032
-DEXP[1311]	=	3112421
-DEXP[1312]	=	3114810
-DEXP[1313]	=	3117199
-DEXP[1314]	=	3119588
-DEXP[1315]	=	3121977
-DEXP[1316]	=	3124366
-DEXP[1317]	=	3126755
-DEXP[1318]	=	3129144
-DEXP[1319]	=	3131533
-DEXP[1320]	=	3133922
-DEXP[1321]	=	3136311
-DEXP[1322]	=	3138700
-DEXP[1323]	=	3141089
-DEXP[1324]	=	3143478
-DEXP[1325]	=	3145866
-DEXP[1326]	=	3148255
-DEXP[1327]	=	3150644
-DEXP[1328]	=	3153033
-DEXP[1329]	=	3155422
-DEXP[1330]	=	3157811
-DEXP[1331]	=	3160200
-DEXP[1332]	=	3162589
-DEXP[1333]	=	3164978
-DEXP[1334]	=	3167367
-DEXP[1335]	=	3169756
-DEXP[1336]	=	3172145
-DEXP[1337]	=	3174534
-DEXP[1338]	=	3176923
-DEXP[1339]	=	3179312
-DEXP[1340]	=	3181700
-DEXP[1341]	=	3184089
-DEXP[1342]	=	3186478
-DEXP[1343]	=	3188867
-DEXP[1344]	=	3191256
-DEXP[1345]	=	3193645
-DEXP[1346]	=	3196034
-DEXP[1347]	=	3198423
-DEXP[1348]	=	3200812
-DEXP[1349]	=	3203201
-DEXP[1350]	=	3205590
-DEXP[1351]	=	3207979
-DEXP[1352]	=	3210368
-DEXP[1353]	=	3212757
-DEXP[1354]	=	3215146
-DEXP[1355]	=	3217535
-DEXP[1356]	=	3219923
-DEXP[1357]	=	3222312
-DEXP[1358]	=	3224701
-DEXP[1359]	=	3227090
-DEXP[1360]	=	3229479
-DEXP[1361]	=	3231868
-DEXP[1362]	=	3234257
-DEXP[1363]	=	3236646
-DEXP[1364]	=	3239035
-DEXP[1365]	=	3241424
-DEXP[1366]	=	3243813
-DEXP[1367]	=	3246202
-DEXP[1368]	=	3248591
-DEXP[1369]	=	3250980
-DEXP[1370]	=	3253369
-DEXP[1371]	=	3255758
-DEXP[1372]	=	3258146
-DEXP[1373]	=	3260535
-DEXP[1374]	=	3262924
-DEXP[1375]	=	3265313
-DEXP[1376]	=	3267702
-DEXP[1377]	=	3270091
-DEXP[1378]	=	3272480
-DEXP[1379]	=	3274869
-DEXP[1380]	=	3277258
-DEXP[1381]	=	3279647
-DEXP[1382]	=	3282036
-DEXP[1383]	=	3284425
-DEXP[1384]	=	3286814
-DEXP[1385]	=	3289203
-DEXP[1386]	=	3291592
-DEXP[1387]	=	3293981
-DEXP[1388]	=	3296369
-DEXP[1389]	=	3298758
-DEXP[1390]	=	3301147
-DEXP[1391]	=	3303536
-DEXP[1392]	=	3305925
-DEXP[1393]	=	3308314
-DEXP[1394]	=	3310703
-DEXP[1395]	=	3313092
-DEXP[1396]	=	3315481
-DEXP[1397]	=	3317870
-DEXP[1398]	=	3320259
-DEXP[1399]	=	3322648
-DEXP[1400]	=	3325037
-DEXP[1401]	=	3327426
-DEXP[1402]	=	3329815
-DEXP[1403]	=	3332203
-DEXP[1404]	=	3334592
-DEXP[1405]	=	3336981
-DEXP[1406]	=	3339370
-DEXP[1407]	=	3341759
-DEXP[1408]	=	3344148
-DEXP[1409]	=	3346537
-DEXP[1410]	=	3348926
-DEXP[1411]	=	3351315
-DEXP[1412]	=	3353704
-DEXP[1413]	=	3356093
-DEXP[1414]	=	3358482
-DEXP[1415]	=	3360871
-DEXP[1416]	=	3363260
-DEXP[1417]	=	3365649
-DEXP[1418]	=	3368038
-DEXP[1419]	=	3370426
-DEXP[1420]	=	3372815
-DEXP[1421]	=	3375204
-DEXP[1422]	=	3377593
-DEXP[1423]	=	3379982
-DEXP[1424]	=	3382371
-DEXP[1425]	=	3384760
-DEXP[1426]	=	3387149
-DEXP[1427]	=	3389538
-DEXP[1428]	=	3391927
-DEXP[1429]	=	3394316
-DEXP[1430]	=	3396705
-DEXP[1431]	=	3399094
-DEXP[1432]	=	3401483
-DEXP[1433]	=	3403872
-DEXP[1434]	=	3406261
-DEXP[1435]	=	3408649
-DEXP[1436]	=	3411038
-DEXP[1437]	=	3413427
-DEXP[1438]	=	3415816
-DEXP[1439]	=	3418205
-DEXP[1440]	=	3420594
-DEXP[1441]	=	3422983
-DEXP[1442]	=	3425372
-DEXP[1443]	=	3427761
-DEXP[1444]	=	3430150
-DEXP[1445]	=	3432539
-DEXP[1446]	=	3434928
-DEXP[1447]	=	3437317
-DEXP[1448]	=	3439706
-DEXP[1449]	=	3442095
-DEXP[1450]	=	3444483
-DEXP[1451]	=	3446872
-DEXP[1452]	=	3449261
-DEXP[1453]	=	3451650
-DEXP[1454]	=	3454039
-DEXP[1455]	=	3456428
-DEXP[1456]	=	3458817
-DEXP[1457]	=	3461206
-DEXP[1458]	=	3463595
-DEXP[1459]	=	3465984
-DEXP[1460]	=	3468373
-DEXP[1461]	=	3470762
-DEXP[1462]	=	3473151
-DEXP[1463]	=	3475540
-DEXP[1464]	=	3477929
-DEXP[1465]	=	3480318
-DEXP[1466]	=	3482706
-DEXP[1467]	=	3485095
-DEXP[1468]	=	3487484
-DEXP[1469]	=	3489873
-DEXP[1470]	=	3492262
-DEXP[1471]	=	3494651
-DEXP[1472]	=	3497040
-DEXP[1473]	=	3499429
-DEXP[1474]	=	3501818
-DEXP[1475]	=	3504207
-DEXP[1476]	=	3506596
-DEXP[1477]	=	3508985
-DEXP[1478]	=	3511374
-DEXP[1479]	=	3513763
-DEXP[1480]	=	3516152
-DEXP[1481]	=	3518541
-DEXP[1482]	=	3520929
-DEXP[1483]	=	3523318
-DEXP[1484]	=	3525707
-DEXP[1485]	=	3528096
-DEXP[1486]	=	3530485
-DEXP[1487]	=	3532874
-DEXP[1488]	=	3535263
-DEXP[1489]	=	3537652
-DEXP[1490]	=	3540041
-DEXP[1491]	=	3542430
-DEXP[1492]	=	3544819
-DEXP[1493]	=	3547208
-DEXP[1494]	=	3549597
-DEXP[1495]	=	3551986
-DEXP[1496]	=	3554375
-DEXP[1497]	=	3556764
-DEXP[1498]	=	3559152
-DEXP[1499]	=	3561541
-DEXP[1500]	=	3563930
-DEXP[1501]	=	3566319
-DEXP[1502]	=	3568708
-DEXP[1503]	=	3571097
-DEXP[1504]	=	3573486
-DEXP[1505]	=	3575875
-DEXP[1506]	=	3578264
-DEXP[1507]	=	3580653
-DEXP[1508]	=	3583042
-DEXP[1509]	=	3585431
-DEXP[1510]	=	3587820
-DEXP[1511]	=	3590209
-DEXP[1512]	=	3592598
-DEXP[1513]	=	3594986
-DEXP[1514]	=	3597375
-DEXP[1515]	=	3599764
-DEXP[1516]	=	3602153
-DEXP[1517]	=	3604542
-DEXP[1518]	=	3606931
-DEXP[1519]	=	3609320
-DEXP[1520]	=	3611709
-DEXP[1521]	=	3614098
-DEXP[1522]	=	3616487
-DEXP[1523]	=	3618876
-DEXP[1524]	=	3621265
-DEXP[1525]	=	3623654
-DEXP[1526]	=	3626043
-DEXP[1527]	=	3628432
-DEXP[1528]	=	3630821
-DEXP[1529]	=	3633209
-DEXP[1530]	=	3635598
-DEXP[1531]	=	3637987
-DEXP[1532]	=	3640376
-DEXP[1533]	=	3642765
-DEXP[1534]	=	3645154
-DEXP[1535]	=	3647543
-DEXP[1536]	=	3649932
-DEXP[1537]	=	3652321
-DEXP[1538]	=	3654710
-DEXP[1539]	=	3657099
-DEXP[1540]	=	3659488
-DEXP[1541]	=	3661877
-DEXP[1542]	=	3664266
-DEXP[1543]	=	3666655
-DEXP[1544]	=	3669044
-DEXP[1545]	=	3671432
-DEXP[1546]	=	3673821
-DEXP[1547]	=	3676210
-DEXP[1548]	=	3678599
-DEXP[1549]	=	3680988
-DEXP[1550]	=	3683377
-DEXP[1551]	=	3685766
-DEXP[1552]	=	3688155
-DEXP[1553]	=	3690544
-DEXP[1554]	=	3692933
-DEXP[1555]	=	3695322
-DEXP[1556]	=	3697711
-DEXP[1557]	=	3700100
-DEXP[1558]	=	3702489
-DEXP[1559]	=	3704878
-DEXP[1560]	=	3707267
-DEXP[1561]	=	3709655
-DEXP[1562]	=	3712044
-DEXP[1563]	=	3714433
-DEXP[1564]	=	3716822
-DEXP[1565]	=	3719211
-DEXP[1566]	=	3721600
-DEXP[1567]	=	3723989
-DEXP[1568]	=	3726378
-DEXP[1569]	=	3728767
-DEXP[1570]	=	3731156
-DEXP[1571]	=	3733545
-DEXP[1572]	=	3735934
-DEXP[1573]	=	3738323
-DEXP[1574]	=	3740712
-DEXP[1575]	=	3743101
-DEXP[1576]	=	3745489
-DEXP[1577]	=	3747878
-DEXP[1578]	=	3750267
-DEXP[1579]	=	3752656
-DEXP[1580]	=	3755045
-DEXP[1581]	=	3757434
-DEXP[1582]	=	3759823
-DEXP[1583]	=	3762212
-DEXP[1584]	=	3764601
-DEXP[1585]	=	3766990
-DEXP[1586]	=	3769379
-DEXP[1587]	=	3771768
-DEXP[1588]	=	3774157
-DEXP[1589]	=	3776546
-DEXP[1590]	=	3778935
-DEXP[1591]	=	3781324
-DEXP[1592]	=	3783712
-DEXP[1593]	=	3786101
-DEXP[1594]	=	3788490
-DEXP[1595]	=	3790879
-DEXP[1596]	=	3793268
-DEXP[1597]	=	3795657
-DEXP[1598]	=	3798046
-DEXP[1599]	=	3800435
-DEXP[1600]	=	3802824
-DEXP[1601]	=	3805213
-DEXP[1602]	=	3807602
-DEXP[1603]	=	3809991
-DEXP[1604]	=	3812380
-DEXP[1605]	=	3814769
-DEXP[1606]	=	3817158
-DEXP[1607]	=	3819547
-DEXP[1608]	=	3821935
-DEXP[1609]	=	3824324
-DEXP[1610]	=	3826713
-DEXP[1611]	=	3829102
-DEXP[1612]	=	3831491
-DEXP[1613]	=	3833880
-DEXP[1614]	=	3836269
-DEXP[1615]	=	3838658
-DEXP[1616]	=	3841047
-DEXP[1617]	=	3843436
-DEXP[1618]	=	3845825
-DEXP[1619]	=	3848214
-DEXP[1620]	=	3850603
-DEXP[1621]	=	3852992
-DEXP[1622]	=	3855381
-DEXP[1623]	=	3857770
-DEXP[1624]	=	3860158
-DEXP[1625]	=	3862547
-DEXP[1626]	=	3864936
-DEXP[1627]	=	3867325
-DEXP[1628]	=	3869714
-DEXP[1629]	=	3872103
-DEXP[1630]	=	3874492
-DEXP[1631]	=	3876881
-DEXP[1632]	=	3879270
-DEXP[1633]	=	3881659
-DEXP[1634]	=	3884048
-DEXP[1635]	=	3886437
-DEXP[1636]	=	3888826
-DEXP[1637]	=	3891215
-DEXP[1638]	=	3893604
-DEXP[1639]	=	3895992
-DEXP[1640]	=	3898381
-DEXP[1641]	=	3900770
-DEXP[1642]	=	3903159
-DEXP[1643]	=	3905548
-DEXP[1644]	=	3907937
-DEXP[1645]	=	3910326
-DEXP[1646]	=	3912715
-DEXP[1647]	=	3915104
-DEXP[1648]	=	3917493
-DEXP[1649]	=	3919882
-DEXP[1650]	=	3922271
-DEXP[1651]	=	3924660
-DEXP[1652]	=	3927049
-DEXP[1653]	=	3929438
-DEXP[1654]	=	3931827
-DEXP[1655]	=	3934215
-DEXP[1656]	=	3936604
-DEXP[1657]	=	3938993
-DEXP[1658]	=	3941382
-DEXP[1659]	=	3943771
-DEXP[1660]	=	3946160
-DEXP[1661]	=	3948549
-DEXP[1662]	=	3950938
-DEXP[1663]	=	3953327
-DEXP[1664]	=	3955716
-DEXP[1665]	=	3958105
-DEXP[1666]	=	3960494
-DEXP[1667]	=	3962883
-DEXP[1668]	=	3965272
-DEXP[1669]	=	3967661
-DEXP[1670]	=	3970050
-DEXP[1671]	=	3972438
-DEXP[1672]	=	3974827
-DEXP[1673]	=	3977216
-DEXP[1674]	=	3979605
-DEXP[1675]	=	3981994
-DEXP[1676]	=	3984383
-DEXP[1677]	=	3986772
-DEXP[1678]	=	3989161
-DEXP[1679]	=	3991550
-DEXP[1680]	=	3993939
-DEXP[1681]	=	3996328
-DEXP[1682]	=	3998717
-DEXP[1683]	=	4001106
-DEXP[1684]	=	4003495
-DEXP[1685]	=	4005884
-DEXP[1686]	=	4008273
-DEXP[1687]	=	4010661
-DEXP[1688]	=	4013050
-DEXP[1689]	=	4015439
-DEXP[1690]	=	4017828
-DEXP[1691]	=	4020217
-DEXP[1692]	=	4022606
-DEXP[1693]	=	4024995
-DEXP[1694]	=	4027384
-DEXP[1695]	=	4029773
-DEXP[1696]	=	4032162
-DEXP[1697]	=	4034551
-DEXP[1698]	=	4036940
-DEXP[1699]	=	4039329
-DEXP[1700]	=	4041718
-DEXP[1701]	=	4044107
-DEXP[1702]	=	4046495
-DEXP[1703]	=	4048884
-DEXP[1704]	=	4051273
-DEXP[1705]	=	4053662
-DEXP[1706]	=	4056051
-DEXP[1707]	=	4058440
-DEXP[1708]	=	4060829
-DEXP[1709]	=	4063218
-DEXP[1710]	=	4065607
-DEXP[1711]	=	4067996
-DEXP[1712]	=	4070385
-DEXP[1713]	=	4072774
-DEXP[1714]	=	4075163
-DEXP[1715]	=	4077552
-DEXP[1716]	=	4079941
-DEXP[1717]	=	4082330
-DEXP[1718]	=	4084718
-DEXP[1719]	=	4087107
-DEXP[1720]	=	4089496
-DEXP[1721]	=	4091885
-DEXP[1722]	=	4094274
-DEXP[1723]	=	4096663
-DEXP[1724]	=	4099052
-DEXP[1725]	=	4101441
-DEXP[1726]	=	4103830
-DEXP[1727]	=	4106219
-DEXP[1728]	=	4108608
-DEXP[1729]	=	4110997
-DEXP[1730]	=	4113386
-DEXP[1731]	=	4115775
-DEXP[1732]	=	4118164
-DEXP[1733]	=	4120553
-DEXP[1734]	=	4122941
-DEXP[1735]	=	4125330
-DEXP[1736]	=	4127719
-DEXP[1737]	=	4130108
-DEXP[1738]	=	4132497
-DEXP[1739]	=	4134886
-DEXP[1740]	=	4137275
-DEXP[1741]	=	4139664
-DEXP[1742]	=	4142053
-DEXP[1743]	=	4144442
-DEXP[1744]	=	4146831
-DEXP[1745]	=	4149220
-DEXP[1746]	=	4151609
-DEXP[1747]	=	4153998
-DEXP[1748]	=	4156387
-DEXP[1749]	=	4158775
-DEXP[1750]	=	4161164
-DEXP[1751]	=	4163553
-DEXP[1752]	=	4165942
-DEXP[1753]	=	4168331
-DEXP[1754]	=	4170720
-DEXP[1755]	=	4173109
-DEXP[1756]	=	4175498
-DEXP[1757]	=	4177887
-DEXP[1758]	=	4180276
-DEXP[1759]	=	4182665
-DEXP[1760]	=	4185054
-DEXP[1761]	=	4187443
-DEXP[1762]	=	4189832
-DEXP[1763]	=	4192221
-DEXP[1764]	=	4194610
-DEXP[1765]	=	4196998
-DEXP[1766]	=	4199387
-DEXP[1767]	=	4201776
-DEXP[1768]	=	4204165
-DEXP[1769]	=	4206554
-DEXP[1770]	=	4208943
-DEXP[1771]	=	4211332
-DEXP[1772]	=	4213721
-DEXP[1773]	=	4216110
-DEXP[1774]	=	4218499
-DEXP[1775]	=	4220888
-DEXP[1776]	=	4223277
-DEXP[1777]	=	4225666
-DEXP[1778]	=	4228055
-DEXP[1779]	=	4230444
-DEXP[1780]	=	4232833
-DEXP[1781]	=	4235221
-DEXP[1782]	=	4237610
-DEXP[1783]	=	4239999
-DEXP[1784]	=	4242388
-DEXP[1785]	=	4244777
-DEXP[1786]	=	4247166
-DEXP[1787]	=	4249555
-DEXP[1788]	=	4251944
-DEXP[1789]	=	4254333
-DEXP[1790]	=	4256722
-DEXP[1791]	=	4259111
-DEXP[1792]	=	4261500
-DEXP[1793]	=	4263889
-DEXP[1794]	=	4266278
-DEXP[1795]	=	4268667
-DEXP[1796]	=	4271056
-DEXP[1797]	=	4273444
-DEXP[1798]	=	4275833
-DEXP[1799]	=	4278222
-DEXP[1800]	=	4280611
-DEXP[1801]	=	4283000
-DEXP[1802]	=	4285389
-DEXP[1803]	=	4287778
-DEXP[1804]	=	4290167
-DEXP[1805]	=	4292556
-DEXP[1806]	=	4294945
-DEXP[1807]	=	4297334
-DEXP[1808]	=	4299723
-DEXP[1809]	=	4302112
-DEXP[1810]	=	4304501
-DEXP[1811]	=	4306890
-DEXP[1812]	=	4309278
-DEXP[1813]	=	4311667
-DEXP[1814]	=	4314056
-DEXP[1815]	=	4316445
-DEXP[1816]	=	4318834
-DEXP[1817]	=	4321223
-DEXP[1818]	=	4323612
-DEXP[1819]	=	4326001
-DEXP[1820]	=	4328390
-DEXP[1821]	=	4330779
-DEXP[1822]	=	4333168
-DEXP[1823]	=	4335557
-DEXP[1824]	=	4337946
-DEXP[1825]	=	4340335
-DEXP[1826]	=	4342724
-DEXP[1827]	=	4345113
-DEXP[1828]	=	4347501
-DEXP[1829]	=	4349890
-DEXP[1830]	=	4352279
-DEXP[1831]	=	4354668
-DEXP[1832]	=	4357057
-DEXP[1833]	=	4359446
-DEXP[1834]	=	4361835
-DEXP[1835]	=	4364224
-DEXP[1836]	=	4366613
-DEXP[1837]	=	4369002
-DEXP[1838]	=	4371391
-DEXP[1839]	=	4373780
-DEXP[1840]	=	4376169
-DEXP[1841]	=	4378558
-DEXP[1842]	=	4380947
-DEXP[1843]	=	4383336
-DEXP[1844]	=	4385724
-DEXP[1845]	=	4388113
-DEXP[1846]	=	4390502
-DEXP[1847]	=	4392891
-DEXP[1848]	=	4395280
-DEXP[1849]	=	4397669
-DEXP[1850]	=	4400058
-DEXP[1851]	=	4402447
-DEXP[1852]	=	4404836
-DEXP[1853]	=	4407225
-DEXP[1854]	=	4409614
-DEXP[1855]	=	4412003
-DEXP[1856]	=	4414392
-DEXP[1857]	=	4416781
-DEXP[1858]	=	4419170
-DEXP[1859]	=	4421559
-DEXP[1860]	=	4423947
-DEXP[1861]	=	4426336
-DEXP[1862]	=	4428725
-DEXP[1863]	=	4431114
-DEXP[1864]	=	4433503
-DEXP[1865]	=	4435892
-DEXP[1866]	=	4438281
-DEXP[1867]	=	4440670
-DEXP[1868]	=	4443059
-DEXP[1869]	=	4445448
-DEXP[1870]	=	4447837
-DEXP[1871]	=	4450226
-DEXP[1872]	=	4452615
-DEXP[1873]	=	4455004
-DEXP[1874]	=	4457393
-DEXP[1875]	=	4459781
-DEXP[1876]	=	4462170
-DEXP[1877]	=	4464559
-DEXP[1878]	=	4466948
-DEXP[1879]	=	4469337
-DEXP[1880]	=	4471726
-DEXP[1881]	=	4474115
-DEXP[1882]	=	4476504
-DEXP[1883]	=	4478893
-DEXP[1884]	=	4481282
-DEXP[1885]	=	4483671
-DEXP[1886]	=	4486060
-DEXP[1887]	=	4488449
-DEXP[1888]	=	4490838
-DEXP[1889]	=	4493227
-DEXP[1890]	=	4495616
-DEXP[1891]	=	4498004
-DEXP[1892]	=	4500393
-DEXP[1893]	=	4502782
-DEXP[1894]	=	4505171
-DEXP[1895]	=	4507560
-DEXP[1896]	=	4509949
-DEXP[1897]	=	4512338
-DEXP[1898]	=	4514727
-DEXP[1899]	=	4517116
-DEXP[1900]	=	4519505
-DEXP[1901]	=	4521894
-DEXP[1902]	=	4524283
-DEXP[1903]	=	4526672
-DEXP[1904]	=	4529061
-DEXP[1905]	=	4531450
-DEXP[1906]	=	4533839
-DEXP[1907]	=	4536227
-DEXP[1908]	=	4538616
-DEXP[1909]	=	4541005
-DEXP[1910]	=	4543394
-DEXP[1911]	=	4545783
-DEXP[1912]	=	4548172
-DEXP[1913]	=	4550561
-DEXP[1914]	=	4552950
-DEXP[1915]	=	4555339
-DEXP[1916]	=	4557728
-DEXP[1917]	=	4560117
-DEXP[1918]	=	4562506
-DEXP[1919]	=	4564895
-DEXP[1920]	=	4567284
-DEXP[1921]	=	4569673
-DEXP[1922]	=	4572062
-DEXP[1923]	=	4574450
-DEXP[1924]	=	4576839
-DEXP[1925]	=	4579228
-DEXP[1926]	=	4581617
-DEXP[1927]	=	4584006
-DEXP[1928]	=	4586395
-DEXP[1929]	=	4588784
-DEXP[1930]	=	4591173
-DEXP[1931]	=	4593562
-DEXP[1932]	=	4595951
-DEXP[1933]	=	4598340
-DEXP[1934]	=	4600729
-DEXP[1935]	=	4603118
-DEXP[1936]	=	4605507
-DEXP[1937]	=	4607896
-DEXP[1938]	=	4610284
-DEXP[1939]	=	4612673
-DEXP[1940]	=	4615062
-DEXP[1941]	=	4617451
-DEXP[1942]	=	4619840
-DEXP[1943]	=	4622229
-DEXP[1944]	=	4624618
-DEXP[1945]	=	4627007
-DEXP[1946]	=	4629396
-DEXP[1947]	=	4631785
-DEXP[1948]	=	4634174
-DEXP[1949]	=	4636563
-DEXP[1950]	=	4638952
-DEXP[1951]	=	4641341
-DEXP[1952]	=	4643730
-DEXP[1953]	=	4646119
-DEXP[1954]	=	4648507
-DEXP[1955]	=	4650896
-DEXP[1956]	=	4653285
-DEXP[1957]	=	4655674
-DEXP[1958]	=	4658063
-DEXP[1959]	=	4660452
-DEXP[1960]	=	4662841
-DEXP[1961]	=	4665230
-DEXP[1962]	=	4667619
-DEXP[1963]	=	4670008
-DEXP[1964]	=	4672397
-DEXP[1965]	=	4674786
-DEXP[1966]	=	4677175
-DEXP[1967]	=	4679564
-DEXP[1968]	=	4681953
-DEXP[1969]	=	4684342
-DEXP[1970]	=	4686730
-DEXP[1971]	=	4689119
-DEXP[1972]	=	4691508
-DEXP[1973]	=	4693897
-DEXP[1974]	=	4696286
-DEXP[1975]	=	4698675
-DEXP[1976]	=	4701064
-DEXP[1977]	=	4703453
-DEXP[1978]	=	4705842
-DEXP[1979]	=	4708231
-DEXP[1980]	=	4710620
-DEXP[1981]	=	4713009
-DEXP[1982]	=	4715398
-DEXP[1983]	=	4717787
-DEXP[1984]	=	4720176
-DEXP[1985]	=	4722565
-DEXP[1986]	=	4724953
-DEXP[1987]	=	4727342
-DEXP[1988]	=	4729731
-DEXP[1989]	=	4732120
-DEXP[1990]	=	4734509
-DEXP[1991]	=	4736898
-DEXP[1992]	=	4739287
-DEXP[1993]	=	4741676
-DEXP[1994]	=	4744065
-DEXP[1995]	=	4746454
-DEXP[1996]	=	4748843
-DEXP[1997]	=	4751232
-DEXP[1998]	=	4753621
-DEXP[1999]	=	4756010
-DEXP[2000]	=	4758399
-DEXP[2001]	=	4760787
-DEXP[2002]	=	4763176
-DEXP[2003]	=	4765565
-DEXP[2004]	=	4767954
-DEXP[2005]	=	4770343
-DEXP[2006]	=	4772732
-DEXP[2007]	=	4775121
-DEXP[2008]	=	4777510
-DEXP[2009]	=	4779899
-DEXP[2010]	=	4782288
-DEXP[2011]	=	4784677
-DEXP[2012]	=	4787066
-DEXP[2013]	=	4789455
-DEXP[2014]	=	4791844
-DEXP[2015]	=	4794233
-DEXP[2016]	=	4796622
-DEXP[2017]	=	4799010
-DEXP[2018]	=	4801399
-DEXP[2019]	=	4803788
-DEXP[2020]	=	4806177
-DEXP[2021]	=	4808566
-DEXP[2022]	=	4810955
-DEXP[2023]	=	4813344
-DEXP[2024]	=	4815733
-DEXP[2025]	=	4818122
-DEXP[2026]	=	4820511
-DEXP[2027]	=	4822900
-DEXP[2028]	=	4825289
-DEXP[2029]	=	4827678
-DEXP[2030]	=	4830067
-DEXP[2031]	=	4832456
-DEXP[2032]	=	4834845
-DEXP[2033]	=	4837233
-DEXP[2034]	=	4839622
-DEXP[2035]	=	4842011
-DEXP[2036]	=	4844400
-DEXP[2037]	=	4846789
-DEXP[2038]	=	4849178
-DEXP[2039]	=	4851567
-DEXP[2040]	=	4853956
-DEXP[2041]	=	4856345
-DEXP[2042]	=	4858734
-DEXP[2043]	=	4861123
-DEXP[2044]	=	4863512
-DEXP[2045]	=	4865901
-DEXP[2046]	=	4868290
-DEXP[2047]	=	4870679
-DEXP[2048]	=	4873067
-DEXP[2049]	=	4875456
-DEXP[2050]	=	4877845
-DEXP[2051]	=	4880234
-DEXP[2052]	=	4882623
-DEXP[2053]	=	4885012
-DEXP[2054]	=	4887401
-DEXP[2055]	=	4889790
-DEXP[2056]	=	4892179
-DEXP[2057]	=	4894568
-DEXP[2058]	=	4896957
-DEXP[2059]	=	4899346
-DEXP[2060]	=	4901735
-DEXP[2061]	=	4904124
-DEXP[2062]	=	4906513
-DEXP[2063]	=	4908902
-DEXP[2064]	=	4911290
-DEXP[2065]	=	4913679
-DEXP[2066]	=	4916068
-DEXP[2067]	=	4918457
-DEXP[2068]	=	4920846
-DEXP[2069]	=	4923235
-DEXP[2070]	=	4925624
-DEXP[2071]	=	4928013
-DEXP[2072]	=	4930402
-DEXP[2073]	=	4932791
-DEXP[2074]	=	4935180
-DEXP[2075]	=	4937569
-DEXP[2076]	=	4939958
-DEXP[2077]	=	4942347
-DEXP[2078]	=	4944736
-DEXP[2079]	=	4947125
-DEXP[2080]	=	4949513
-DEXP[2081]	=	4951902
-DEXP[2082]	=	4954291
-DEXP[2083]	=	4956680
-DEXP[2084]	=	4959069
-DEXP[2085]	=	4961458
-DEXP[2086]	=	4963847
-DEXP[2087]	=	4966236
-DEXP[2088]	=	4968625
-DEXP[2089]	=	4971014
-DEXP[2090]	=	4973403
-DEXP[2091]	=	4975792
-DEXP[2092]	=	4978181
-DEXP[2093]	=	4980570
-DEXP[2094]	=	4982959
-DEXP[2095]	=	4985348
-DEXP[2096]	=	4987736
-DEXP[2097]	=	4990125
-DEXP[2098]	=	4992514
-DEXP[2099]	=	4994903
-DEXP[2100]	=	4997292
-DEXP[2101]	=	4999681
-DEXP[2102]	=	5002070
-DEXP[2103]	=	5004459
-DEXP[2104]	=	5006848
-DEXP[2105]	=	5009237
-DEXP[2106]	=	5011626
-DEXP[2107]	=	5014015
-DEXP[2108]	=	5016404
-DEXP[2109]	=	5018793
-DEXP[2110]	=	5021182
-DEXP[2111]	=	5023570
-DEXP[2112]	=	5025959
-DEXP[2113]	=	5028348
-DEXP[2114]	=	5030737
-DEXP[2115]	=	5033126
-DEXP[2116]	=	5035515
-DEXP[2117]	=	5037904
-DEXP[2118]	=	5040293
-DEXP[2119]	=	5042682
-DEXP[2120]	=	5045071
-DEXP[2121]	=	5047460
-DEXP[2122]	=	5049849
-DEXP[2123]	=	5052238
-DEXP[2124]	=	5054627
-DEXP[2125]	=	5057016
-DEXP[2126]	=	5059405
-DEXP[2127]	=	5061793
-DEXP[2128]	=	5064182
-DEXP[2129]	=	5066571
-DEXP[2130]	=	5068960
-DEXP[2131]	=	5071349
-DEXP[2132]	=	5073738
-DEXP[2133]	=	5076127
-DEXP[2134]	=	5078516
-DEXP[2135]	=	5080905
-DEXP[2136]	=	5083294
-DEXP[2137]	=	5085683
-DEXP[2138]	=	5088072
-DEXP[2139]	=	5090461
-DEXP[2140]	=	5092850
-DEXP[2141]	=	5095239
-DEXP[2142]	=	5097628
-DEXP[2143]	=	5100016
-DEXP[2144]	=	5102405
-DEXP[2145]	=	5104794
-DEXP[2146]	=	5107183
-DEXP[2147]	=	5109572
-DEXP[2148]	=	5111961
-DEXP[2149]	=	5114350
-DEXP[2150]	=	5116739
-DEXP[2151]	=	5119128
-DEXP[2152]	=	5121517
-DEXP[2153]	=	5123906
-DEXP[2154]	=	5126295
-DEXP[2155]	=	5128684
-DEXP[2156]	=	5131073
-DEXP[2157]	=	5133462
-DEXP[2158]	=	5135851
-DEXP[2159]	=	5138239
-DEXP[2160]	=	5140628
-DEXP[2161]	=	5143017
-DEXP[2162]	=	5145406
-DEXP[2163]	=	5147795
-DEXP[2164]	=	5150184
-DEXP[2165]	=	5152573
-DEXP[2166]	=	5154962
-DEXP[2167]	=	5157351
-DEXP[2168]	=	5159740
-DEXP[2169]	=	5162129
-DEXP[2170]	=	5164518
-DEXP[2171]	=	5166907
-DEXP[2172]	=	5169296
-DEXP[2173]	=	5171685
-DEXP[2174]	=	5174073
-DEXP[2175]	=	5176462
-DEXP[2176]	=	5178851
-DEXP[2177]	=	5181240
-DEXP[2178]	=	5183629
-DEXP[2179]	=	5186018
-DEXP[2180]	=	5188407
-DEXP[2181]	=	5190796
-DEXP[2182]	=	5193185
-DEXP[2183]	=	5195574
-DEXP[2184]	=	5197963
-DEXP[2185]	=	5200352
-DEXP[2186]	=	5202741
-DEXP[2187]	=	5205130
-DEXP[2188]	=	5207519
-DEXP[2189]	=	5209908
-DEXP[2190]	=	5212296
-DEXP[2191]	=	5214685
-DEXP[2192]	=	5217074
-DEXP[2193]	=	5219463
-DEXP[2194]	=	5221852
-DEXP[2195]	=	5224241
-DEXP[2196]	=	5226630
-DEXP[2197]	=	5229019
-DEXP[2198]	=	5231408
-DEXP[2199]	=	5233797
-DEXP[2200]	=	5236186
-DEXP[2201]	=	5238575
-DEXP[2202]	=	5240964
-DEXP[2203]	=	5243353
-DEXP[2204]	=	5245742
-DEXP[2205]	=	5248131
-DEXP[2206]	=	5250519
-DEXP[2207]	=	5252908
-DEXP[2208]	=	5255297
-DEXP[2209]	=	5257686
-DEXP[2210]	=	5260075
-DEXP[2211]	=	5262464
-DEXP[2212]	=	5264853
-DEXP[2213]	=	5267242
-DEXP[2214]	=	5269631
-DEXP[2215]	=	5272020
-DEXP[2216]	=	5274409
-DEXP[2217]	=	5276798
-DEXP[2218]	=	5279187
-DEXP[2219]	=	5281576
-DEXP[2220]	=	5283965
-DEXP[2221]	=	5286354
-DEXP[2222]	=	5288742
-DEXP[2223]	=	5291131
-DEXP[2224]	=	5293520
-DEXP[2225]	=	5295909
-DEXP[2226]	=	5298298
-DEXP[2227]	=	5300687
-DEXP[2228]	=	5303076
-DEXP[2229]	=	5305465
-DEXP[2230]	=	5307854
-DEXP[2231]	=	5310243
-DEXP[2232]	=	5312632
-DEXP[2233]	=	5315021
-DEXP[2234]	=	5317410
-DEXP[2235]	=	5319799
-DEXP[2236]	=	5322188
-DEXP[2237]	=	5324576
-DEXP[2238]	=	5326965
-DEXP[2239]	=	5329354
-DEXP[2240]	=	5331743
-DEXP[2241]	=	5334132
-DEXP[2242]	=	5336521
-DEXP[2243]	=	5338910
-DEXP[2244]	=	5341299
-DEXP[2245]	=	5343688
-DEXP[2246]	=	5346077
-DEXP[2247]	=	5348466
-DEXP[2248]	=	5350855
-DEXP[2249]	=	5353244
-DEXP[2250]	=	5355633
-DEXP[2251]	=	5358022
-DEXP[2252]	=	5360411
-DEXP[2253]	=	5362799
-DEXP[2254]	=	5365188
-DEXP[2255]	=	5367577
-DEXP[2256]	=	5369966
-DEXP[2257]	=	5372355
-DEXP[2258]	=	5374744
-DEXP[2259]	=	5377133
-DEXP[2260]	=	5379522
-DEXP[2261]	=	5381911
-DEXP[2262]	=	5384300
-DEXP[2263]	=	5386689
-DEXP[2264]	=	5389078
-DEXP[2265]	=	5391467
-DEXP[2266]	=	5393856
-DEXP[2267]	=	5396245
-DEXP[2268]	=	5398634
-DEXP[2269]	=	5401022
-DEXP[2270]	=	5403411
-DEXP[2271]	=	5405800
-DEXP[2272]	=	5408189
-DEXP[2273]	=	5410578
-DEXP[2274]	=	5412967
-DEXP[2275]	=	5415356
-DEXP[2276]	=	5417745
-DEXP[2277]	=	5420134
-DEXP[2278]	=	5422523
-DEXP[2279]	=	5424912
-DEXP[2280]	=	5427301
-DEXP[2281]	=	5429690
-DEXP[2282]	=	5432079
-DEXP[2283]	=	5434468
-DEXP[2284]	=	5436857
-DEXP[2285]	=	5439245
-DEXP[2286]	=	5441634
-DEXP[2287]	=	5444023
-DEXP[2288]	=	5446412
-DEXP[2289]	=	5448801
-DEXP[2290]	=	5451190
-DEXP[2291]	=	5453579
-DEXP[2292]	=	5455968
-DEXP[2293]	=	5458357
-DEXP[2294]	=	5460746
-DEXP[2295]	=	5463135
-DEXP[2296]	=	5465524
-DEXP[2297]	=	5467913
-DEXP[2298]	=	5470302
-DEXP[2299]	=	5472691
-DEXP[2300]	=	5475079
-DEXP[2301]	=	5477468
-DEXP[2302]	=	5479857
-DEXP[2303]	=	5482246
-DEXP[2304]	=	5484635
-DEXP[2305]	=	5487024
-DEXP[2306]	=	5489413
-DEXP[2307]	=	5491802
-DEXP[2308]	=	5494191
-DEXP[2309]	=	5496580
-DEXP[2310]	=	5498969
-DEXP[2311]	=	5501358
-DEXP[2312]	=	5503747
-DEXP[2313]	=	5506136
-DEXP[2314]	=	5508525
-DEXP[2315]	=	5510914
-DEXP[2316]	=	5513302
-DEXP[2317]	=	5515691
-DEXP[2318]	=	5518080
-DEXP[2319]	=	5520469
-DEXP[2320]	=	5522858
-DEXP[2321]	=	5525247
-DEXP[2322]	=	5527636
-DEXP[2323]	=	5530025
-DEXP[2324]	=	5532414
-DEXP[2325]	=	5534803
-DEXP[2326]	=	5537192
-DEXP[2327]	=	5539581
-DEXP[2328]	=	5541970
-DEXP[2329]	=	5544359
-DEXP[2330]	=	5546748
-DEXP[2331]	=	5549137
-DEXP[2332]	=	5551525
-DEXP[2333]	=	5553914
-DEXP[2334]	=	5556303
-DEXP[2335]	=	5558692
-DEXP[2336]	=	5561081
-DEXP[2337]	=	5563470
-DEXP[2338]	=	5565859
-DEXP[2339]	=	5568248
-DEXP[2340]	=	5570637
-DEXP[2341]	=	5573026
-DEXP[2342]	=	5575415
-DEXP[2343]	=	5577804
-DEXP[2344]	=	5580193
-DEXP[2345]	=	5582582
-DEXP[2346]	=	5584971
-DEXP[2347]	=	5587359
-DEXP[2348]	=	5589748
-DEXP[2349]	=	5592137
-DEXP[2350]	=	5594526
-DEXP[2351]	=	5596915
-DEXP[2352]	=	5599304
-DEXP[2353]	=	5601693
-DEXP[2354]	=	5604082
-DEXP[2355]	=	5606471
-DEXP[2356]	=	5608860
-DEXP[2357]	=	5611249
-DEXP[2358]	=	5613638
-DEXP[2359]	=	5616027
-DEXP[2360]	=	5618416
-DEXP[2361]	=	5620805
-DEXP[2362]	=	5623194
-DEXP[2363]	=	5625582
-DEXP[2364]	=	5627971
-DEXP[2365]	=	5630360
-DEXP[2366]	=	5632749
-DEXP[2367]	=	5635138
-DEXP[2368]	=	5637527
-DEXP[2369]	=	5639916
-DEXP[2370]	=	5642305
-DEXP[2371]	=	5644694
-DEXP[2372]	=	5647083
-DEXP[2373]	=	5649472
-DEXP[2374]	=	5651861
-DEXP[2375]	=	5654250
-DEXP[2376]	=	5656639
-DEXP[2377]	=	5659028
-DEXP[2378]	=	5661417
-DEXP[2379]	=	5663805
-DEXP[2380]	=	5666194
-DEXP[2381]	=	5668583
-DEXP[2382]	=	5670972
-DEXP[2383]	=	5673361
-DEXP[2384]	=	5675750
-DEXP[2385]	=	5678139
-DEXP[2386]	=	5680528
-DEXP[2387]	=	5682917
-DEXP[2388]	=	5685306
-DEXP[2389]	=	5687695
-DEXP[2390]	=	5690084
-DEXP[2391]	=	5692473
-DEXP[2392]	=	5694862
-DEXP[2393]	=	5697251
-DEXP[2394]	=	5699640
-DEXP[2395]	=	5702028
-DEXP[2396]	=	5704417
-DEXP[2397]	=	5706806
-DEXP[2398]	=	5709195
-DEXP[2399]	=	5711584
-DEXP[2400]	=	5713973
-DEXP[2401]	=	5716362
-DEXP[2402]	=	5718751
-DEXP[2403]	=	5721140
-DEXP[2404]	=	5723529
-DEXP[2405]	=	5725918
-DEXP[2406]	=	5728307
-DEXP[2407]	=	5730696
-DEXP[2408]	=	5733085
-DEXP[2409]	=	5735474
-DEXP[2410]	=	5737862
-DEXP[2411]	=	5740251
-DEXP[2412]	=	5742640
-DEXP[2413]	=	5745029
-DEXP[2414]	=	5747418
-DEXP[2415]	=	5749807
-DEXP[2416]	=	5752196
-DEXP[2417]	=	5754585
-DEXP[2418]	=	5756974
-DEXP[2419]	=	5759363
-DEXP[2420]	=	5761752
-DEXP[2421]	=	5764141
-DEXP[2422]	=	5766530
-DEXP[2423]	=	5768919
-DEXP[2424]	=	5771308
-DEXP[2425]	=	5773697
-DEXP[2426]	=	5776085
-DEXP[2427]	=	5778474
-DEXP[2428]	=	5780863
-DEXP[2429]	=	5783252
-DEXP[2430]	=	5785641
-DEXP[2431]	=	5788030
-DEXP[2432]	=	5790419
-DEXP[2433]	=	5792808
-DEXP[2434]	=	5795197
-DEXP[2435]	=	5797586
-DEXP[2436]	=	5799975
-DEXP[2437]	=	5802364
-DEXP[2438]	=	5804753
-DEXP[2439]	=	5807142
-DEXP[2440]	=	5809531
-DEXP[2441]	=	5811920
-DEXP[2442]	=	5814308
-DEXP[2443]	=	5816697
-DEXP[2444]	=	5819086
-DEXP[2445]	=	5821475
-DEXP[2446]	=	5823864
-DEXP[2447]	=	5826253
-DEXP[2448]	=	5828642
-DEXP[2449]	=	5831031
-DEXP[2450]	=	5833420
-DEXP[2451]	=	5835809
-DEXP[2452]	=	5838198
-DEXP[2453]	=	5840587
-DEXP[2454]	=	5842976
-DEXP[2455]	=	5845365
-DEXP[2456]	=	5847754
-DEXP[2457]	=	5850143
-DEXP[2458]	=	5852531
-DEXP[2459]	=	5854920
-DEXP[2460]	=	5857309
-DEXP[2461]	=	5859698
-DEXP[2462]	=	5862087
-DEXP[2463]	=	5864476
-DEXP[2464]	=	5866865
-DEXP[2465]	=	5869254
-DEXP[2466]	=	5871643
-DEXP[2467]	=	5874032
-DEXP[2468]	=	5876421
-DEXP[2469]	=	5878810
-DEXP[2470]	=	5881199
-DEXP[2471]	=	5883588
-DEXP[2472]	=	5885977
-DEXP[2473]	=	5888365
-DEXP[2474]	=	5890754
-DEXP[2475]	=	5893143
-DEXP[2476]	=	5895532
-DEXP[2477]	=	5897921
-DEXP[2478]	=	5900310
-DEXP[2479]	=	5902699
-DEXP[2480]	=	5905088
-DEXP[2481]	=	5907477
-DEXP[2482]	=	5909866
-DEXP[2483]	=	5912255
-DEXP[2484]	=	5914644
-DEXP[2485]	=	5917033
-DEXP[2486]	=	5919422
-DEXP[2487]	=	5921811
-DEXP[2488]	=	5924200
-DEXP[2489]	=	5926588
-DEXP[2490]	=	5928977
-DEXP[2491]	=	5931366
-DEXP[2492]	=	5933755
-DEXP[2493]	=	5936144
-DEXP[2494]	=	5938533
-DEXP[2495]	=	5940922
-DEXP[2496]	=	5943311
-DEXP[2497]	=	5945700
-DEXP[2498]	=	5948089
-DEXP[2499]	=	5950478
-DEXP[2500]	=	5952867
-DEXP[2501]	=	5955256
-DEXP[2502]	=	5957645
-DEXP[2503]	=	5960034
-DEXP[2504]	=	5962423
-DEXP[2505]	=	5964811
-DEXP[2506]	=	5967200
-DEXP[2507]	=	5969589
-DEXP[2508]	=	5971978
-DEXP[2509]	=	5974367
-DEXP[2510]	=	5976756
-DEXP[2511]	=	5979145
-DEXP[2512]	=	5981534
-DEXP[2513]	=	5983923
-DEXP[2514]	=	5986312
-DEXP[2515]	=	5988701
-DEXP[2516]	=	5991090
-DEXP[2517]	=	5993479
-DEXP[2518]	=	5995868
-DEXP[2519]	=	5998257
-DEXP[2520]	=	6000646
-DEXP[2521]	=	6003034
-DEXP[2522]	=	6005423
-DEXP[2523]	=	6007812
-DEXP[2524]	=	6010201
-DEXP[2525]	=	6012590
-DEXP[2526]	=	6014979
-DEXP[2527]	=	6017368
-DEXP[2528]	=	6019757
-DEXP[2529]	=	6022146
-DEXP[2530]	=	6024535
-DEXP[2531]	=	6026924
-DEXP[2532]	=	6029313
-DEXP[2533]	=	6031702
-DEXP[2534]	=	6034091
-DEXP[2535]	=	6036480
-DEXP[2536]	=	6038868
-DEXP[2537]	=	6041257
-DEXP[2538]	=	6043646
-DEXP[2539]	=	6046035
-DEXP[2540]	=	6048424
-DEXP[2541]	=	6050813
-DEXP[2542]	=	6053202
-DEXP[2543]	=	6055591
-DEXP[2544]	=	6057980
-DEXP[2545]	=	6060369
-DEXP[2546]	=	6062758
-DEXP[2547]	=	6065147
-DEXP[2548]	=	6067536
-DEXP[2549]	=	6069925
-DEXP[2550]	=	6072314
-DEXP[2551]	=	6074703
-DEXP[2552]	=	6077091
-DEXP[2553]	=	6079480
-DEXP[2554]	=	6081869
-DEXP[2555]	=	6084258
-DEXP[2556]	=	6086647
-DEXP[2557]	=	6089036
-DEXP[2558]	=	6091425
-DEXP[2559]	=	6093814
-DEXP[2560]	=	6096203
-DEXP[2561]	=	6098592
-DEXP[2562]	=	6100981
-DEXP[2563]	=	6103370
-DEXP[2564]	=	6105759
-DEXP[2565]	=	6108148
-DEXP[2566]	=	6110537
-DEXP[2567]	=	6112926
-DEXP[2568]	=	6115314
-DEXP[2569]	=	6117703
-DEXP[2570]	=	6120092
-DEXP[2571]	=	6122481
-DEXP[2572]	=	6124870
-DEXP[2573]	=	6127259
-DEXP[2574]	=	6129648
-DEXP[2575]	=	6132037
-DEXP[2576]	=	6134426
-DEXP[2577]	=	6136815
-DEXP[2578]	=	6139204
-DEXP[2579]	=	6141593
-DEXP[2580]	=	6143982
-DEXP[2581]	=	6146371
-DEXP[2582]	=	6148760
-DEXP[2583]	=	6151149
-DEXP[2584]	=	6153537
-DEXP[2585]	=	6155926
-DEXP[2586]	=	6158315
-DEXP[2587]	=	6160704
-DEXP[2588]	=	6163093
-DEXP[2589]	=	6165482
-DEXP[2590]	=	6167871
-DEXP[2591]	=	6170260
-DEXP[2592]	=	6172649
-DEXP[2593]	=	6175038
-DEXP[2594]	=	6177427
-DEXP[2595]	=	6179816
-DEXP[2596]	=	6182205
-DEXP[2597]	=	6184594
-DEXP[2598]	=	6186983
-DEXP[2599]	=	6189371
-DEXP[2600]	=	6191760
-DEXP[2601]	=	6194149
-DEXP[2602]	=	6196538
-DEXP[2603]	=	6198927
-DEXP[2604]	=	6201316
-DEXP[2605]	=	6203705
-DEXP[2606]	=	6206094
-DEXP[2607]	=	6208483
-DEXP[2608]	=	6210872
-DEXP[2609]	=	6213261
-DEXP[2610]	=	6215650
-DEXP[2611]	=	6218039
-DEXP[2612]	=	6220428
-DEXP[2613]	=	6222817
-DEXP[2614]	=	6225206
-DEXP[2615]	=	6227594
-DEXP[2616]	=	6229983
-DEXP[2617]	=	6232372
-DEXP[2618]	=	6234761
-DEXP[2619]	=	6237150
-DEXP[2620]	=	6239539
-DEXP[2621]	=	6241928
-DEXP[2622]	=	6244317
-DEXP[2623]	=	6246706
-DEXP[2624]	=	6249095
-DEXP[2625]	=	6251484
-DEXP[2626]	=	6253873
-DEXP[2627]	=	6256262
-DEXP[2628]	=	6258651
-DEXP[2629]	=	6261040
-DEXP[2630]	=	6263429
-DEXP[2631]	=	6265817
-DEXP[2632]	=	6268206
-DEXP[2633]	=	6270595
-DEXP[2634]	=	6272984
-DEXP[2635]	=	6275373
-DEXP[2636]	=	6277762
-DEXP[2637]	=	6280151
-DEXP[2638]	=	6282540
-DEXP[2639]	=	6284929
-DEXP[2640]	=	6287318
-DEXP[2641]	=	6289707
-DEXP[2642]	=	6292096
-DEXP[2643]	=	6294485
-DEXP[2644]	=	6296874
-DEXP[2645]	=	6299263
-DEXP[2646]	=	6301651
-DEXP[2647]	=	6304040
-DEXP[2648]	=	6306429
-DEXP[2649]	=	6308818
-DEXP[2650]	=	6311207
-DEXP[2651]	=	6313596
-DEXP[2652]	=	6315985
-DEXP[2653]	=	6318374
-DEXP[2654]	=	6320763
-DEXP[2655]	=	6323152
-DEXP[2656]	=	6325541
-DEXP[2657]	=	6327930
-DEXP[2658]	=	6330319
-DEXP[2659]	=	6332708
-DEXP[2660]	=	6335097
-DEXP[2661]	=	6337486
-DEXP[2662]	=	6339874
-DEXP[2663]	=	6342263
-DEXP[2664]	=	6344652
-DEXP[2665]	=	6347041
-DEXP[2666]	=	6349430
-DEXP[2667]	=	6351819
-DEXP[2668]	=	6354208
-DEXP[2669]	=	6356597
-DEXP[2670]	=	6358986
-DEXP[2671]	=	6361375
-DEXP[2672]	=	6363764
-DEXP[2673]	=	6366153
-DEXP[2674]	=	6368542
-DEXP[2675]	=	6370931
-DEXP[2676]	=	6373320
-DEXP[2677]	=	6375709
-DEXP[2678]	=	6378097
-DEXP[2679]	=	6380486
-DEXP[2680]	=	6382875
-DEXP[2681]	=	6385264
-DEXP[2682]	=	6387653
-DEXP[2683]	=	6390042
-DEXP[2684]	=	6392431
-DEXP[2685]	=	6394820
-DEXP[2686]	=	6397209
-DEXP[2687]	=	6399598
-DEXP[2688]	=	6401987
-DEXP[2689]	=	6404376
-DEXP[2690]	=	6406765
-DEXP[2691]	=	6409154
-DEXP[2692]	=	6411543
-DEXP[2693]	=	6413932
-DEXP[2694]	=	6416320
-DEXP[2695]	=	6418709
-DEXP[2696]	=	6421098
-DEXP[2697]	=	6423487
-DEXP[2698]	=	6425876
-DEXP[2699]	=	6428265
-DEXP[2700]	=	6430654
-DEXP[2701]	=	6433043
-DEXP[2702]	=	6435432
-DEXP[2703]	=	6437821
-DEXP[2704]	=	6440210
-DEXP[2705]	=	6442599
-DEXP[2706]	=	6444988
-DEXP[2707]	=	6447377
-DEXP[2708]	=	6449766
-DEXP[2709]	=	6452154
-DEXP[2710]	=	6454543
-DEXP[2711]	=	6456932
-DEXP[2712]	=	6459321
-DEXP[2713]	=	6461710
-DEXP[2714]	=	6464099
-DEXP[2715]	=	6466488
-DEXP[2716]	=	6468877
-DEXP[2717]	=	6471266
-DEXP[2718]	=	6473655
-DEXP[2719]	=	6476044
-DEXP[2720]	=	6478433
-DEXP[2721]	=	6480822
-DEXP[2722]	=	6483211
-DEXP[2723]	=	6485600
-DEXP[2724]	=	6487989
-DEXP[2725]	=	6490377
-DEXP[2726]	=	6492766
-DEXP[2727]	=	6495155
-DEXP[2728]	=	6497544
-DEXP[2729]	=	6499933
-DEXP[2730]	=	6502322
-DEXP[2731]	=	6504711
-DEXP[2732]	=	6507100
-DEXP[2733]	=	6509489
-DEXP[2734]	=	6511878
-DEXP[2735]	=	6514267
-DEXP[2736]	=	6516656
-DEXP[2737]	=	6519045
-DEXP[2738]	=	6521434
-DEXP[2739]	=	6523823
-DEXP[2740]	=	6526212
-DEXP[2741]	=	6528600
-DEXP[2742]	=	6530989
-DEXP[2743]	=	6533378
-DEXP[2744]	=	6535767
-DEXP[2745]	=	6538156
-DEXP[2746]	=	6540545
-DEXP[2747]	=	6542934
-DEXP[2748]	=	6545323
-DEXP[2749]	=	6547712
-DEXP[2750]	=	6550101
-DEXP[2751]	=	6552490
-DEXP[2752]	=	6554879
-DEXP[2753]	=	6557268
-DEXP[2754]	=	6559657
-DEXP[2755]	=	6562046
-DEXP[2756]	=	6564435
-DEXP[2757]	=	6566823
-DEXP[2758]	=	6569212
-DEXP[2759]	=	6571601
-DEXP[2760]	=	6573990
-DEXP[2761]	=	6576379
-DEXP[2762]	=	6578768
-DEXP[2763]	=	6581157
-DEXP[2764]	=	6583546
-DEXP[2765]	=	6585935
-DEXP[2766]	=	6588324
-DEXP[2767]	=	6590713
-DEXP[2768]	=	6593102
-DEXP[2769]	=	6595491
-DEXP[2770]	=	6597880
-DEXP[2771]	=	6600269
-DEXP[2772]	=	6602657
-DEXP[2773]	=	6605046
-DEXP[2774]	=	6607435
-DEXP[2775]	=	6609824
-DEXP[2776]	=	6612213
-DEXP[2777]	=	6614602
-DEXP[2778]	=	6616991
-DEXP[2779]	=	6619380
-DEXP[2780]	=	6621769
-DEXP[2781]	=	6624158
-DEXP[2782]	=	6626547
-DEXP[2783]	=	6628936
-DEXP[2784]	=	6631325
-DEXP[2785]	=	6633714
-DEXP[2786]	=	6636103
-DEXP[2787]	=	6638492
-DEXP[2788]	=	6640880
-DEXP[2789]	=	6643269
-DEXP[2790]	=	6645658
-DEXP[2791]	=	6648047
-DEXP[2792]	=	6650436
-DEXP[2793]	=	6652825
-DEXP[2794]	=	6655214
-DEXP[2795]	=	6657603
-DEXP[2796]	=	6659992
-DEXP[2797]	=	6662381
-DEXP[2798]	=	6664770
-DEXP[2799]	=	6667159
-DEXP[2800]	=	6669548
-DEXP[2801]	=	6671937
-DEXP[2802]	=	6674326
-DEXP[2803]	=	6676715
-DEXP[2804]	=	6679103
-DEXP[2805]	=	6681492
-DEXP[2806]	=	6683881
-DEXP[2807]	=	6686270
-DEXP[2808]	=	6688659
-DEXP[2809]	=	6691048
-DEXP[2810]	=	6693437
-DEXP[2811]	=	6695826
-DEXP[2812]	=	6698215
-DEXP[2813]	=	6700604
-DEXP[2814]	=	6702993
-DEXP[2815]	=	6705382
-DEXP[2816]	=	6707771
-DEXP[2817]	=	6710160
-DEXP[2818]	=	6712549
-DEXP[2819]	=	6714938
-DEXP[2820]	=	6717326
-DEXP[2821]	=	6719715
-DEXP[2822]	=	6722104
-DEXP[2823]	=	6724493
-DEXP[2824]	=	6726882
-DEXP[2825]	=	6729271
-DEXP[2826]	=	6731660
-DEXP[2827]	=	6734049
-DEXP[2828]	=	6736438
-DEXP[2829]	=	6738827
-DEXP[2830]	=	6741216
-DEXP[2831]	=	6743605
-DEXP[2832]	=	6745994
-DEXP[2833]	=	6748383
-DEXP[2834]	=	6750772
-DEXP[2835]	=	6753160
-DEXP[2836]	=	6755549
-DEXP[2837]	=	6757938
-DEXP[2838]	=	6760327
-DEXP[2839]	=	6762716
-DEXP[2840]	=	6765105
-DEXP[2841]	=	6767494
-DEXP[2842]	=	6769883
-DEXP[2843]	=	6772272
-DEXP[2844]	=	6774661
-DEXP[2845]	=	6777050
-DEXP[2846]	=	6779439
-DEXP[2847]	=	6781828
-DEXP[2848]	=	6784217
-DEXP[2849]	=	6786606
-DEXP[2850]	=	6788995
-DEXP[2851]	=	6791383
-DEXP[2852]	=	6793772
-DEXP[2853]	=	6796161
-DEXP[2854]	=	6798550
-DEXP[2855]	=	6800939
-DEXP[2856]	=	6803328
-DEXP[2857]	=	6805717
-DEXP[2858]	=	6808106
-DEXP[2859]	=	6810495
-DEXP[2860]	=	6812884
-DEXP[2861]	=	6815273
-DEXP[2862]	=	6817662
-DEXP[2863]	=	6820051
-DEXP[2864]	=	6822440
-DEXP[2865]	=	6824829
-DEXP[2866]	=	6827218
-DEXP[2867]	=	6829606
-DEXP[2868]	=	6831995
-DEXP[2869]	=	6834384
-DEXP[2870]	=	6836773
-DEXP[2871]	=	6839162
-DEXP[2872]	=	6841551
-DEXP[2873]	=	6843940
-DEXP[2874]	=	6846329
-DEXP[2875]	=	6848718
-DEXP[2876]	=	6851107
-DEXP[2877]	=	6853496
-DEXP[2878]	=	6855885
-DEXP[2879]	=	6858274
-DEXP[2880]	=	6860663
-DEXP[2881]	=	6863052
-DEXP[2882]	=	6865441
-DEXP[2883]	=	6867829
-DEXP[2884]	=	6870218
-DEXP[2885]	=	6872607
-DEXP[2886]	=	6874996
-DEXP[2887]	=	6877385
-DEXP[2888]	=	6879774
-DEXP[2889]	=	6882163
-DEXP[2890]	=	6884552
-DEXP[2891]	=	6886941
-DEXP[2892]	=	6889330
-DEXP[2893]	=	6891719
-DEXP[2894]	=	6894108
-DEXP[2895]	=	6896497
-DEXP[2896]	=	6898886
-DEXP[2897]	=	6901275
-DEXP[2898]	=	6903663
-DEXP[2899]	=	6906052
-DEXP[2900]	=	6908441
-DEXP[2901]	=	6910830
-DEXP[2902]	=	6913219
-DEXP[2903]	=	6915608
-DEXP[2904]	=	6917997
-DEXP[2905]	=	6920386
-DEXP[2906]	=	6922775
-DEXP[2907]	=	6925164
-DEXP[2908]	=	6927553
-DEXP[2909]	=	6929942
-DEXP[2910]	=	6932331
-DEXP[2911]	=	6934720
-DEXP[2912]	=	6937109
-DEXP[2913]	=	6939498
-DEXP[2914]	=	6941886
-DEXP[2915]	=	6944275
-DEXP[2916]	=	6946664
-DEXP[2917]	=	6949053
-DEXP[2918]	=	6951442
-DEXP[2919]	=	6953831
-DEXP[2920]	=	6956220
-DEXP[2921]	=	6958609
-DEXP[2922]	=	6960998
-DEXP[2923]	=	6963387
-DEXP[2924]	=	6965776
-DEXP[2925]	=	6968165
-DEXP[2926]	=	6970554
-DEXP[2927]	=	6972943
-DEXP[2928]	=	6975332
-DEXP[2929]	=	6977721
-DEXP[2930]	=	6980109
-DEXP[2931]	=	6982498
-DEXP[2932]	=	6984887
-DEXP[2933]	=	6987276
-DEXP[2934]	=	6989665
-DEXP[2935]	=	6992054
-DEXP[2936]	=	6994443
-DEXP[2937]	=	6996832
-DEXP[2938]	=	6999221
-DEXP[2939]	=	7001610
-DEXP[2940]	=	7003999
-DEXP[2941]	=	7006388
-DEXP[2942]	=	7008777
-DEXP[2943]	=	7011166
-DEXP[2944]	=	7013555
-DEXP[2945]	=	7015943
-DEXP[2946]	=	7018332
-DEXP[2947]	=	7020721
-DEXP[2948]	=	7023110
-DEXP[2949]	=	7025499
-DEXP[2950]	=	7027888
-DEXP[2951]	=	7030277
-DEXP[2952]	=	7032666
-DEXP[2953]	=	7035055
-DEXP[2954]	=	7037444
-DEXP[2955]	=	7039833
-DEXP[2956]	=	7042222
-DEXP[2957]	=	7044611
-DEXP[2958]	=	7047000
-DEXP[2959]	=	7049389
-DEXP[2960]	=	7051778
-DEXP[2961]	=	7054166
-DEXP[2962]	=	7056555
-DEXP[2963]	=	7058944
-DEXP[2964]	=	7061333
-DEXP[2965]	=	7063722
-DEXP[2966]	=	7066111
-DEXP[2967]	=	7068500
-DEXP[2968]	=	7070889
-DEXP[2969]	=	7073278
-DEXP[2970]	=	7075667
-DEXP[2971]	=	7078056
-DEXP[2972]	=	7080445
-DEXP[2973]	=	7082834
-DEXP[2974]	=	7085223
-DEXP[2975]	=	7087612
-DEXP[2976]	=	7090001
-DEXP[2977]	=	7092389
-DEXP[2978]	=	7094778
-DEXP[2979]	=	7097167
-DEXP[2980]	=	7099556
-DEXP[2981]	=	7101945
-DEXP[2982]	=	7104334
-DEXP[2983]	=	7106723
-DEXP[2984]	=	7109112
-DEXP[2985]	=	7111501
-DEXP[2986]	=	7113890
-DEXP[2987]	=	7116279
-DEXP[2988]	=	7118668
-DEXP[2989]	=	7121057
-DEXP[2990]	=	7123446
-DEXP[2991]	=	7125835
-DEXP[2992]	=	7128224
-DEXP[2993]	=	7130612
-DEXP[2994]	=	7133001
-DEXP[2995]	=	7135390
-DEXP[2996]	=	7137779
-DEXP[2997]	=	7140168
-DEXP[2998]	=	7142557
-DEXP[2999]	=	7144946
-DEXP[3000]	=	7147335
-DEXP[3001]	=	7149724
-DEXP[3002]	=	7152113
-DEXP[3003]	=	7154502
-DEXP[3004]	=	7156891
-DEXP[3005]	=	7159280
-DEXP[3006]	=	7161669
-DEXP[3007]	=	7164058
-DEXP[3008]	=	7166446
-DEXP[3009]	=	7168835
-DEXP[3010]	=	7171224
-DEXP[3011]	=	7173613
-DEXP[3012]	=	7176002
-DEXP[3013]	=	7178391
-DEXP[3014]	=	7180780
-DEXP[3015]	=	7183169
-DEXP[3016]	=	7185558
-DEXP[3017]	=	7187947
-DEXP[3018]	=	7190336
-DEXP[3019]	=	7192725
-DEXP[3020]	=	7195114
-DEXP[3021]	=	7197503
-DEXP[3022]	=	7199892
-DEXP[3023]	=	7202281
-DEXP[3024]	=	7204669
-DEXP[3025]	=	7207058
-DEXP[3026]	=	7209447
-DEXP[3027]	=	7211836
-DEXP[3028]	=	7214225
-DEXP[3029]	=	7216614
-DEXP[3030]	=	7219003
-DEXP[3031]	=	7221392
-DEXP[3032]	=	7223781
-DEXP[3033]	=	7226170
-DEXP[3034]	=	7228559
-DEXP[3035]	=	7230948
-DEXP[3036]	=	7233337
-DEXP[3037]	=	7235726
-DEXP[3038]	=	7238115
-DEXP[3039]	=	7240504
-DEXP[3040]	=	7242892
-DEXP[3041]	=	7245281
-DEXP[3042]	=	7247670
-DEXP[3043]	=	7250059
-DEXP[3044]	=	7252448
-DEXP[3045]	=	7254837
-DEXP[3046]	=	7257226
-DEXP[3047]	=	7259615
-DEXP[3048]	=	7262004
-DEXP[3049]	=	7264393
-DEXP[3050]	=	7266782
-DEXP[3051]	=	7269171
-DEXP[3052]	=	7271560
-DEXP[3053]	=	7273949
-DEXP[3054]	=	7276338
-DEXP[3055]	=	7278727
-DEXP[3056]	=	7281115
-DEXP[3057]	=	7283504
-DEXP[3058]	=	7285893
-DEXP[3059]	=	7288282
-DEXP[3060]	=	7290671
-DEXP[3061]	=	7293060
-DEXP[3062]	=	7295449
-DEXP[3063]	=	7297838
-DEXP[3064]	=	7300227
-DEXP[3065]	=	7302616
-DEXP[3066]	=	7305005
-DEXP[3067]	=	7307394
-DEXP[3068]	=	7309783
-DEXP[3069]	=	7312172
-DEXP[3070]	=	7314561
-DEXP[3071]	=	7316949
-DEXP[3072]	=	7319338
-DEXP[3073]	=	7321727
-DEXP[3074]	=	7324116
-DEXP[3075]	=	7326505
-DEXP[3076]	=	7328894
-DEXP[3077]	=	7331283
-DEXP[3078]	=	7333672
-DEXP[3079]	=	7336061
-DEXP[3080]	=	7338450
-DEXP[3081]	=	7340839
-DEXP[3082]	=	7343228
-DEXP[3083]	=	7345617
-DEXP[3084]	=	7348006
-DEXP[3085]	=	7350395
-DEXP[3086]	=	7352784
-DEXP[3087]	=	7355172
-DEXP[3088]	=	7357561
-DEXP[3089]	=	7359950
-DEXP[3090]	=	7362339
-DEXP[3091]	=	7364728
-DEXP[3092]	=	7367117
-DEXP[3093]	=	7369506
-DEXP[3094]	=	7371895
-DEXP[3095]	=	7374284
-DEXP[3096]	=	7376673
-DEXP[3097]	=	7379062
-DEXP[3098]	=	7381451
-DEXP[3099]	=	7383840
-DEXP[3100]	=	7386229
-DEXP[3101]	=	7388618
-DEXP[3102]	=	7391007
-DEXP[3103]	=	7393395
-DEXP[3104]	=	7395784
-DEXP[3105]	=	7398173
-DEXP[3106]	=	7400562
-DEXP[3107]	=	7402951
-DEXP[3108]	=	7405340
-DEXP[3109]	=	7407729
-DEXP[3110]	=	7410118
-DEXP[3111]	=	7412507
-DEXP[3112]	=	7414896
-DEXP[3113]	=	7417285
-DEXP[3114]	=	7419674
-DEXP[3115]	=	7422063
-DEXP[3116]	=	7424452
-DEXP[3117]	=	7426841
-DEXP[3118]	=	7429230
-DEXP[3119]	=	7431618
-DEXP[3120]	=	7434007
-DEXP[3121]	=	7436396
-DEXP[3122]	=	7438785
-DEXP[3123]	=	7441174
-DEXP[3124]	=	7443563
-DEXP[3125]	=	7445952
-DEXP[3126]	=	7448341
-DEXP[3127]	=	7450730
-DEXP[3128]	=	7453119
-DEXP[3129]	=	7455508
-DEXP[3130]	=	7457897
-DEXP[3131]	=	7460286
-DEXP[3132]	=	7462675
-DEXP[3133]	=	7465064
-DEXP[3134]	=	7467452
-DEXP[3135]	=	7469841
-DEXP[3136]	=	7472230
-DEXP[3137]	=	7474619
-DEXP[3138]	=	7477008
-DEXP[3139]	=	7479397
-DEXP[3140]	=	7481786
-DEXP[3141]	=	7484175
-DEXP[3142]	=	7486564
-DEXP[3143]	=	7488953
-DEXP[3144]	=	7491342
-DEXP[3145]	=	7493731
-DEXP[3146]	=	7496120
-DEXP[3147]	=	7498509
-DEXP[3148]	=	7500898
-DEXP[3149]	=	7503287
-DEXP[3150]	=	7505675
-DEXP[3151]	=	7508064
-DEXP[3152]	=	7510453
-DEXP[3153]	=	7512842
-DEXP[3154]	=	7515231
-DEXP[3155]	=	7517620
-DEXP[3156]	=	7520009
-DEXP[3157]	=	7522398
-DEXP[3158]	=	7524787
-DEXP[3159]	=	7527176
-DEXP[3160]	=	7529565
-DEXP[3161]	=	7531954
-DEXP[3162]	=	7534343
-DEXP[3163]	=	7536732
-DEXP[3164]	=	7539121
-DEXP[3165]	=	7541510
-DEXP[3166]	=	7543898
-DEXP[3167]	=	7546287
-DEXP[3168]	=	7548676
-DEXP[3169]	=	7551065
-DEXP[3170]	=	7553454
-DEXP[3171]	=	7555843
-DEXP[3172]	=	7558232
-DEXP[3173]	=	7560621
-DEXP[3174]	=	7563010
-DEXP[3175]	=	7565399
-DEXP[3176]	=	7567788
-DEXP[3177]	=	7570177
-DEXP[3178]	=	7572566
-DEXP[3179]	=	7574955
-DEXP[3180]	=	7577344
-DEXP[3181]	=	7579733
-DEXP[3182]	=	7582121
-DEXP[3183]	=	7584510
-DEXP[3184]	=	7586899
-DEXP[3185]	=	7589288
-DEXP[3186]	=	7591677
-DEXP[3187]	=	7594066
-DEXP[3188]	=	7596455
-DEXP[3189]	=	7598844
-DEXP[3190]	=	7601233
-DEXP[3191]	=	7603622
-DEXP[3192]	=	7606011
-DEXP[3193]	=	7608400
-DEXP[3194]	=	7610789
-DEXP[3195]	=	7613178
-DEXP[3196]	=	7615567
-DEXP[3197]	=	7617955
-DEXP[3198]	=	7620344
-DEXP[3199]	=	7622733
-DEXP[3200]	=	7625122
-DEXP[3201]	=	7627511
-DEXP[3202]	=	7629900
-DEXP[3203]	=	7632289
-DEXP[3204]	=	7634678
-DEXP[3205]	=	7637067
-DEXP[3206]	=	7639456
-DEXP[3207]	=	7641845
-DEXP[3208]	=	7644234
-DEXP[3209]	=	7646623
-DEXP[3210]	=	7649012
-DEXP[3211]	=	7651401
-DEXP[3212]	=	7653790
-DEXP[3213]	=	7656178
-DEXP[3214]	=	7658567
-DEXP[3215]	=	7660956
-DEXP[3216]	=	7663345
-DEXP[3217]	=	7665734
-DEXP[3218]	=	7668123
-DEXP[3219]	=	7670512
-DEXP[3220]	=	7672901
-DEXP[3221]	=	7675290
-DEXP[3222]	=	7677679
-DEXP[3223]	=	7680068
-DEXP[3224]	=	7682457
-DEXP[3225]	=	7684846
-DEXP[3226]	=	7687235
-DEXP[3227]	=	7689624
-DEXP[3228]	=	7692013
-DEXP[3229]	=	7694401
-DEXP[3230]	=	7696790
-DEXP[3231]	=	7699179
-DEXP[3232]	=	7701568
-DEXP[3233]	=	7703957
-DEXP[3234]	=	7706346
-DEXP[3235]	=	7708735
-DEXP[3236]	=	7711124
-DEXP[3237]	=	7713513
-DEXP[3238]	=	7715902
-DEXP[3239]	=	7718291
-DEXP[3240]	=	7720680
-DEXP[3241]	=	7723069
-DEXP[3242]	=	7725458
-DEXP[3243]	=	7727847
-DEXP[3244]	=	7730235
-DEXP[3245]	=	7732624
-DEXP[3246]	=	7735013
-DEXP[3247]	=	7737402
-DEXP[3248]	=	7739791
-DEXP[3249]	=	7742180
-DEXP[3250]	=	7744569
-DEXP[3251]	=	7746958
-DEXP[3252]	=	7749347
-DEXP[3253]	=	7751736
-DEXP[3254]	=	7754125
-DEXP[3255]	=	7756514
-DEXP[3256]	=	7758903
-DEXP[3257]	=	7761292
-DEXP[3258]	=	7763681
-DEXP[3259]	=	7766070
-DEXP[3260]	=	7768458
-DEXP[3261]	=	7770847
-DEXP[3262]	=	7773236
-DEXP[3263]	=	7775625
-DEXP[3264]	=	7778014
-DEXP[3265]	=	7780403
-DEXP[3266]	=	7782792
-DEXP[3267]	=	7785181
-DEXP[3268]	=	7787570
-DEXP[3269]	=	7789959
-DEXP[3270]	=	7792348
-DEXP[3271]	=	7794737
-DEXP[3272]	=	7797126
-DEXP[3273]	=	7799515
-DEXP[3274]	=	7801904
-DEXP[3275]	=	7804293
-DEXP[3276]	=	7806681
-DEXP[3277]	=	7809070
-DEXP[3278]	=	7811459
-DEXP[3279]	=	7813848
-DEXP[3280]	=	7816237
-DEXP[3281]	=	7818626
-DEXP[3282]	=	7821015
-DEXP[3283]	=	7823404
-DEXP[3284]	=	7825793
-DEXP[3285]	=	7828182
-DEXP[3286]	=	7830571
-DEXP[3287]	=	7832960
-DEXP[3288]	=	7835349
-DEXP[3289]	=	7837738
-DEXP[3290]	=	7840127
-DEXP[3291]	=	7842516
-DEXP[3292]	=	7844904
-DEXP[3293]	=	7847293
-DEXP[3294]	=	7849682
-DEXP[3295]	=	7852071
-DEXP[3296]	=	7854460
-DEXP[3297]	=	7856849
-DEXP[3298]	=	7859238
-DEXP[3299]	=	7861627
-DEXP[3300]	=	7864016
-DEXP[3301]	=	7866405
-DEXP[3302]	=	7868794
-DEXP[3303]	=	7871183
-DEXP[3304]	=	7873572
-DEXP[3305]	=	7875961
-DEXP[3306]	=	7878350
-DEXP[3307]	=	7880738
-DEXP[3308]	=	7883127
-DEXP[3309]	=	7885516
-DEXP[3310]	=	7887905
-DEXP[3311]	=	7890294
-DEXP[3312]	=	7892683
-DEXP[3313]	=	7895072
-DEXP[3314]	=	7897461
-DEXP[3315]	=	7899850
-DEXP[3316]	=	7902239
-DEXP[3317]	=	7904628
-DEXP[3318]	=	7907017
-DEXP[3319]	=	7909406
-DEXP[3320]	=	7911795
-DEXP[3321]	=	7914184
-DEXP[3322]	=	7916573
-DEXP[3323]	=	7918961
-DEXP[3324]	=	7921350
-DEXP[3325]	=	7923739
-DEXP[3326]	=	7926128
-DEXP[3327]	=	7928517
-DEXP[3328]	=	7930906
-DEXP[3329]	=	7933295
-DEXP[3330]	=	7935684
-DEXP[3331]	=	7938073
-DEXP[3332]	=	7940462
-DEXP[3333]	=	7942851
-DEXP[3334]	=	7945240
-DEXP[3335]	=	7947629
-DEXP[3336]	=	7950018
-DEXP[3337]	=	7952407
-DEXP[3338]	=	7954796
-DEXP[3339]	=	7957184
-DEXP[3340]	=	7959573
-DEXP[3341]	=	7961962
-DEXP[3342]	=	7964351
-DEXP[3343]	=	7966740
-DEXP[3344]	=	7969129
-DEXP[3345]	=	7971518
-DEXP[3346]	=	7973907
-DEXP[3347]	=	7976296
-DEXP[3348]	=	7978685
-DEXP[3349]	=	7981074
-DEXP[3350]	=	7983463
-DEXP[3351]	=	7985852
-DEXP[3352]	=	7988241
-DEXP[3353]	=	7990630
-DEXP[3354]	=	7993019
-DEXP[3355]	=	7995407
-DEXP[3356]	=	7997796
-DEXP[3357]	=	8000185
-DEXP[3358]	=	8002574
-DEXP[3359]	=	8004963
-DEXP[3360]	=	8007352
-DEXP[3361]	=	8009741
-DEXP[3362]	=	8012130
-DEXP[3363]	=	8014519
-DEXP[3364]	=	8016908
-DEXP[3365]	=	8019297
-DEXP[3366]	=	8021686
-DEXP[3367]	=	8024075
-DEXP[3368]	=	8026464
-DEXP[3369]	=	8028853
-DEXP[3370]	=	8031241
-DEXP[3371]	=	8033630
-DEXP[3372]	=	8036019
-DEXP[3373]	=	8038408
-DEXP[3374]	=	8040797
-DEXP[3375]	=	8043186
-DEXP[3376]	=	8045575
-DEXP[3377]	=	8047964
-DEXP[3378]	=	8050353
-DEXP[3379]	=	8052742
-DEXP[3380]	=	8055131
-DEXP[3381]	=	8057520
-DEXP[3382]	=	8059909
-DEXP[3383]	=	8062298
-DEXP[3384]	=	8064687
-DEXP[3385]	=	8067076
-DEXP[3386]	=	8069464
-DEXP[3387]	=	8071853
-DEXP[3388]	=	8074242
-DEXP[3389]	=	8076631
-DEXP[3390]	=	8079020
-DEXP[3391]	=	8081409
-DEXP[3392]	=	8083798
-DEXP[3393]	=	8086187
-DEXP[3394]	=	8088576
-DEXP[3395]	=	8090965
-DEXP[3396]	=	8093354
-DEXP[3397]	=	8095743
-DEXP[3398]	=	8098132
-DEXP[3399]	=	8100521
-DEXP[3400]	=	8102910
-DEXP[3401]	=	8105299
-DEXP[3402]	=	8107687
-DEXP[3403]	=	8110076
-DEXP[3404]	=	8112465
-DEXP[3405]	=	8114854
-DEXP[3406]	=	8117243
-DEXP[3407]	=	8119632
-DEXP[3408]	=	8122021
-DEXP[3409]	=	8124410
-DEXP[3410]	=	8126799
-DEXP[3411]	=	8129188
-DEXP[3412]	=	8131577
-DEXP[3413]	=	8133966
-DEXP[3414]	=	8136355
-DEXP[3415]	=	8138744
-DEXP[3416]	=	8141133
-DEXP[3417]	=	8143522
-DEXP[3418]	=	8145910
-DEXP[3419]	=	8148299
-DEXP[3420]	=	8150688
-DEXP[3421]	=	8153077
-DEXP[3422]	=	8155466
-DEXP[3423]	=	8157855
-DEXP[3424]	=	8160244
-DEXP[3425]	=	8162633
-DEXP[3426]	=	8165022
-DEXP[3427]	=	8167411
-DEXP[3428]	=	8169800
-DEXP[3429]	=	8172189
-DEXP[3430]	=	8174578
-DEXP[3431]	=	8176967
-DEXP[3432]	=	8179356
-DEXP[3433]	=	8181744
-DEXP[3434]	=	8184133
-DEXP[3435]	=	8186522
-DEXP[3436]	=	8188911
-DEXP[3437]	=	8191300
-DEXP[3438]	=	8193689
-DEXP[3439]	=	8196078
-DEXP[3440]	=	8198467
-DEXP[3441]	=	8200856
-DEXP[3442]	=	8203245
-DEXP[3443]	=	8205634
-DEXP[3444]	=	8208023
-DEXP[3445]	=	8210412
-DEXP[3446]	=	8212801
-DEXP[3447]	=	8215190
-DEXP[3448]	=	8217579
-DEXP[3449]	=	8219967
-DEXP[3450]	=	8222356
-DEXP[3451]	=	8224745
-DEXP[3452]	=	8227134
-DEXP[3453]	=	8229523
-DEXP[3454]	=	8231912
-DEXP[3455]	=	8234301
-DEXP[3456]	=	8236690
-DEXP[3457]	=	8239079
-DEXP[3458]	=	8241468
-DEXP[3459]	=	8243857
-DEXP[3460]	=	8246246
-DEXP[3461]	=	8248635
-DEXP[3462]	=	8251024
-DEXP[3463]	=	8253413
-DEXP[3464]	=	8255802
-DEXP[3465]	=	8258190
-DEXP[3466]	=	8260579
-DEXP[3467]	=	8262968
-DEXP[3468]	=	8265357
-DEXP[3469]	=	8267746
-DEXP[3470]	=	8270135
-DEXP[3471]	=	8272524
-DEXP[3472]	=	8274913
-DEXP[3473]	=	8277302
-DEXP[3474]	=	8279691
-DEXP[3475]	=	8282080
-DEXP[3476]	=	8284469
-DEXP[3477]	=	8286858
-DEXP[3478]	=	8289247
-DEXP[3479]	=	8291636
-DEXP[3480]	=	8294024
-DEXP[3481]	=	8296413
-DEXP[3482]	=	8298802
-DEXP[3483]	=	8301191
-DEXP[3484]	=	8303580
-DEXP[3485]	=	8305969
-DEXP[3486]	=	8308358
-DEXP[3487]	=	8310747
-DEXP[3488]	=	8313136
-DEXP[3489]	=	8315525
-DEXP[3490]	=	8317914
-DEXP[3491]	=	8320303
-DEXP[3492]	=	8322692
-DEXP[3493]	=	8325081
-DEXP[3494]	=	8327470
-DEXP[3495]	=	8329859
-DEXP[3496]	=	8332247
-DEXP[3497]	=	8334636
-DEXP[3498]	=	8337025
-DEXP[3499]	=	8339414
-DEXP[3500]	=	8341803
-DEXP[3501]	=	8344192
-DEXP[3502]	=	8346581
-DEXP[3503]	=	8348970
-DEXP[3504]	=	8351359
-DEXP[3505]	=	8353748
-DEXP[3506]	=	8356137
-DEXP[3507]	=	8358526
-DEXP[3508]	=	8360915
-DEXP[3509]	=	8363304
-DEXP[3510]	=	8365693
-DEXP[3511]	=	8368082
-DEXP[3512]	=	8370470
-DEXP[3513]	=	8372859
-DEXP[3514]	=	8375248
-DEXP[3515]	=	8377637
-DEXP[3516]	=	8380026
-DEXP[3517]	=	8382415
-DEXP[3518]	=	8384804
-DEXP[3519]	=	8387193
-DEXP[3520]	=	8389582
-DEXP[3521]	=	8391971
-DEXP[3522]	=	8394360
-DEXP[3523]	=	8396749
-DEXP[3524]	=	8399138
-DEXP[3525]	=	8401527
-DEXP[3526]	=	8403916
-DEXP[3527]	=	8406305
-DEXP[3528]	=	8408693
-DEXP[3529]	=	8411082
-DEXP[3530]	=	8413471
-DEXP[3531]	=	8415860
-DEXP[3532]	=	8418249
-DEXP[3533]	=	8420638
-DEXP[3534]	=	8423027
-DEXP[3535]	=	8425416
-DEXP[3536]	=	8427805
-DEXP[3537]	=	8430194
-DEXP[3538]	=	8432583
-DEXP[3539]	=	8434972
-DEXP[3540]	=	8437361
-DEXP[3541]	=	8439750
-DEXP[3542]	=	8442139
-DEXP[3543]	=	8444527
-DEXP[3544]	=	8446916
-DEXP[3545]	=	8449305
-DEXP[3546]	=	8451694
-DEXP[3547]	=	8454083
-DEXP[3548]	=	8456472
-DEXP[3549]	=	8458861
-DEXP[3550]	=	8461250
-DEXP[3551]	=	8463639
-DEXP[3552]	=	8466028
-DEXP[3553]	=	8468417
-DEXP[3554]	=	8470806
-DEXP[3555]	=	8473195
-DEXP[3556]	=	8475584
-DEXP[3557]	=	8477973
-DEXP[3558]	=	8480362
-DEXP[3559]	=	8482750
-DEXP[3560]	=	8485139
-DEXP[3561]	=	8487528
-DEXP[3562]	=	8489917
-DEXP[3563]	=	8492306
-DEXP[3564]	=	8494695
-DEXP[3565]	=	8497084
-DEXP[3566]	=	8499473
-DEXP[3567]	=	8501862
-DEXP[3568]	=	8504251
-DEXP[3569]	=	8506640
-DEXP[3570]	=	8509029
-DEXP[3571]	=	8511418
-DEXP[3572]	=	8513807
-DEXP[3573]	=	8516196
-DEXP[3574]	=	8518585
-DEXP[3575]	=	8520973
-DEXP[3576]	=	8523362
-DEXP[3577]	=	8525751
-DEXP[3578]	=	8528140
-DEXP[3579]	=	8530529
-DEXP[3580]	=	8532918
-DEXP[3581]	=	8535307
-DEXP[3582]	=	8537696
-DEXP[3583]	=	8540085
-DEXP[3584]	=	8542474
-DEXP[3585]	=	8544863
-DEXP[3586]	=	8547252
-DEXP[3587]	=	8549641
-DEXP[3588]	=	8552030
-DEXP[3589]	=	8554419
-DEXP[3590]	=	8556808
-DEXP[3591]	=	8559196
-DEXP[3592]	=	8561585
-DEXP[3593]	=	8563974
-DEXP[3594]	=	8566363
-DEXP[3595]	=	8568752
-DEXP[3596]	=	8571141
-DEXP[3597]	=	8573530
-DEXP[3598]	=	8575919
-DEXP[3599]	=	8578308
-DEXP[3600]	=	8580697
-DEXP[3601]	=	8583086
-DEXP[3602]	=	8585475
-DEXP[3603]	=	8587864
-DEXP[3604]	=	8590253
-DEXP[3605]	=	8592642
-DEXP[3606]	=	8595030
-DEXP[3607]	=	8597419
-DEXP[3608]	=	8599808
-DEXP[3609]	=	8602197
-DEXP[3610]	=	8604586
-DEXP[3611]	=	8606975
-DEXP[3612]	=	8609364
-DEXP[3613]	=	8611753
-DEXP[3614]	=	8614142
-DEXP[3615]	=	8616531
-DEXP[3616]	=	8618920
-DEXP[3617]	=	8621309
-DEXP[3618]	=	8623698
-DEXP[3619]	=	8626087
-DEXP[3620]	=	8628476
-DEXP[3621]	=	8630865
-DEXP[3622]	=	8633253
-DEXP[3623]	=	8635642
-DEXP[3624]	=	8638031
-DEXP[3625]	=	8640420
-DEXP[3626]	=	8642809
-DEXP[3627]	=	8645198
-DEXP[3628]	=	8647587
-DEXP[3629]	=	8649976
-DEXP[3630]	=	8652365
-DEXP[3631]	=	8654754
-DEXP[3632]	=	8657143
-DEXP[3633]	=	8659532
-DEXP[3634]	=	8661921
-DEXP[3635]	=	8664310
-DEXP[3636]	=	8666699
-DEXP[3637]	=	8669088
-DEXP[3638]	=	8671476
-DEXP[3639]	=	8673865
-DEXP[3640]	=	8676254
-DEXP[3641]	=	8678643
-DEXP[3642]	=	8681032
-DEXP[3643]	=	8683421
-DEXP[3644]	=	8685810
-DEXP[3645]	=	8688199
-DEXP[3646]	=	8690588
-DEXP[3647]	=	8692977
-DEXP[3648]	=	8695366
-DEXP[3649]	=	8697755
-DEXP[3650]	=	8700144
-DEXP[3651]	=	8702533
-DEXP[3652]	=	8704922
-DEXP[3653]	=	8707311
-DEXP[3654]	=	8709699
-DEXP[3655]	=	8712088
-DEXP[3656]	=	8714477
-DEXP[3657]	=	8716866
-DEXP[3658]	=	8719255
-DEXP[3659]	=	8721644
-DEXP[3660]	=	8724033
-DEXP[3661]	=	8726422
-DEXP[3662]	=	8728811
-DEXP[3663]	=	8731200
-DEXP[3664]	=	8733589
-DEXP[3665]	=	8735978
-DEXP[3666]	=	8738367
-DEXP[3667]	=	8740756
-DEXP[3668]	=	8743145
-DEXP[3669]	=	8745533
-DEXP[3670]	=	8747922
-DEXP[3671]	=	8750311
-DEXP[3672]	=	8752700
-DEXP[3673]	=	8755089
-DEXP[3674]	=	8757478
-DEXP[3675]	=	8759867
-DEXP[3676]	=	8762256
-DEXP[3677]	=	8764645
-DEXP[3678]	=	8767034
-DEXP[3679]	=	8769423
-DEXP[3680]	=	8771812
-DEXP[3681]	=	8774201
-DEXP[3682]	=	8776590
-DEXP[3683]	=	8778979
-DEXP[3684]	=	8781368
-DEXP[3685]	=	8783756
-DEXP[3686]	=	8786145
-DEXP[3687]	=	8788534
-DEXP[3688]	=	8790923
-DEXP[3689]	=	8793312
-DEXP[3690]	=	8795701
-DEXP[3691]	=	8798090
-DEXP[3692]	=	8800479
-DEXP[3693]	=	8802868
-DEXP[3694]	=	8805257
-DEXP[3695]	=	8807646
-DEXP[3696]	=	8810035
-DEXP[3697]	=	8812424
-DEXP[3698]	=	8814813
-DEXP[3699]	=	8817202
-DEXP[3700]	=	8819591
-DEXP[3701]	=	8821979
-DEXP[3702]	=	8824368
-DEXP[3703]	=	8826757
-DEXP[3704]	=	8829146
-DEXP[3705]	=	8831535
-DEXP[3706]	=	8833924
-DEXP[3707]	=	8836313
-DEXP[3708]	=	8838702
-DEXP[3709]	=	8841091
-DEXP[3710]	=	8843480
-DEXP[3711]	=	8845869
-DEXP[3712]	=	8848258
-DEXP[3713]	=	8850647
-DEXP[3714]	=	8853036
-DEXP[3715]	=	8855425
-DEXP[3716]	=	8857814
-DEXP[3717]	=	8860202
-DEXP[3718]	=	8862591
-DEXP[3719]	=	8864980
-DEXP[3720]	=	8867369
-DEXP[3721]	=	8869758
-DEXP[3722]	=	8872147
-DEXP[3723]	=	8874536
-DEXP[3724]	=	8876925
-DEXP[3725]	=	8879314
-DEXP[3726]	=	8881703
-DEXP[3727]	=	8884092
-DEXP[3728]	=	8886481
-DEXP[3729]	=	8888870
-DEXP[3730]	=	8891259
-DEXP[3731]	=	8893648
-DEXP[3732]	=	8896036
-DEXP[3733]	=	8898425
-DEXP[3734]	=	8900814
-DEXP[3735]	=	8903203
-DEXP[3736]	=	8905592
-DEXP[3737]	=	8907981
-DEXP[3738]	=	8910370
-DEXP[3739]	=	8912759
-DEXP[3740]	=	8915148
-DEXP[3741]	=	8917537
-DEXP[3742]	=	8919926
-DEXP[3743]	=	8922315
-DEXP[3744]	=	8924704
-DEXP[3745]	=	8927093
-DEXP[3746]	=	8929482
-DEXP[3747]	=	8931871
-DEXP[3748]	=	8934259
-DEXP[3749]	=	8936648
-DEXP[3750]	=	8939037
-DEXP[3751]	=	8941426
-DEXP[3752]	=	8943815
-DEXP[3753]	=	8946204
-DEXP[3754]	=	8948593
-DEXP[3755]	=	8950982
-DEXP[3756]	=	8953371
-DEXP[3757]	=	8955760
-DEXP[3758]	=	8958149
-DEXP[3759]	=	8960538
-DEXP[3760]	=	8962927
-DEXP[3761]	=	8965316
-DEXP[3762]	=	8967705
-DEXP[3763]	=	8970094
-DEXP[3764]	=	8972482
-DEXP[3765]	=	8974871
-DEXP[3766]	=	8977260
-DEXP[3767]	=	8979649
-DEXP[3768]	=	8982038
-DEXP[3769]	=	8984427
-DEXP[3770]	=	8986816
-DEXP[3771]	=	8989205
-DEXP[3772]	=	8991594
-DEXP[3773]	=	8993983
-DEXP[3774]	=	8996372
-DEXP[3775]	=	8998761
-DEXP[3776]	=	9001150
-DEXP[3777]	=	9003539
-DEXP[3778]	=	9005928
-DEXP[3779]	=	9008316
-DEXP[3780]	=	9010705
-DEXP[3781]	=	9013094
-DEXP[3782]	=	9015483
-DEXP[3783]	=	9017872
-DEXP[3784]	=	9020261
-DEXP[3785]	=	9022650
-DEXP[3786]	=	9025039
-DEXP[3787]	=	9027428
-DEXP[3788]	=	9029817
-DEXP[3789]	=	9032206
-DEXP[3790]	=	9034595
-DEXP[3791]	=	9036984
-DEXP[3792]	=	9039373
-DEXP[3793]	=	9041762
-DEXP[3794]	=	9044151
-DEXP[3795]	=	9046539
-DEXP[3796]	=	9048928
-DEXP[3797]	=	9051317
-DEXP[3798]	=	9053706
-DEXP[3799]	=	9056095
-DEXP[3800]	=	9058484
-DEXP[3801]	=	9060873
-DEXP[3802]	=	9063262
-DEXP[3803]	=	9065651
-DEXP[3804]	=	9068040
-DEXP[3805]	=	9070429
-DEXP[3806]	=	9072818
-DEXP[3807]	=	9075207
-DEXP[3808]	=	9077596
-DEXP[3809]	=	9079985
-DEXP[3810]	=	9082374
-DEXP[3811]	=	9084762
-DEXP[3812]	=	9087151
-DEXP[3813]	=	9089540
-DEXP[3814]	=	9091929
-DEXP[3815]	=	9094318
-DEXP[3816]	=	9096707
-DEXP[3817]	=	9099096
-DEXP[3818]	=	9101485
-DEXP[3819]	=	9103874
-DEXP[3820]	=	9106263
-DEXP[3821]	=	9108652
-DEXP[3822]	=	9111041
-DEXP[3823]	=	9113430
-DEXP[3824]	=	9115819
-DEXP[3825]	=	9118208
-DEXP[3826]	=	9120597
-DEXP[3827]	=	9122985
-DEXP[3828]	=	9125374
-DEXP[3829]	=	9127763
-DEXP[3830]	=	9130152
-DEXP[3831]	=	9132541
-DEXP[3832]	=	9134930
-DEXP[3833]	=	9137319
-DEXP[3834]	=	9139708
-DEXP[3835]	=	9142097
-DEXP[3836]	=	9144486
-DEXP[3837]	=	9146875
-DEXP[3838]	=	9149264
-DEXP[3839]	=	9151653
-DEXP[3840]	=	9154042
-DEXP[3841]	=	9156431
-DEXP[3842]	=	9158819
-DEXP[3843]	=	9161208
-DEXP[3844]	=	9163597
-DEXP[3845]	=	9165986
-DEXP[3846]	=	9168375
-DEXP[3847]	=	9170764
-DEXP[3848]	=	9173153
-DEXP[3849]	=	9175542
-DEXP[3850]	=	9177931
-DEXP[3851]	=	9180320
-DEXP[3852]	=	9182709
-DEXP[3853]	=	9185098
-DEXP[3854]	=	9187487
-DEXP[3855]	=	9189876
-DEXP[3856]	=	9192265
-DEXP[3857]	=	9194654
-DEXP[3858]	=	9197042
-DEXP[3859]	=	9199431
-DEXP[3860]	=	9201820
-DEXP[3861]	=	9204209
-DEXP[3862]	=	9206598
-DEXP[3863]	=	9208987
-DEXP[3864]	=	9211376
-DEXP[3865]	=	9213765
-DEXP[3866]	=	9216154
-DEXP[3867]	=	9218543
-DEXP[3868]	=	9220932
-DEXP[3869]	=	9223321
-DEXP[3870]	=	9225710
-DEXP[3871]	=	9228099
-DEXP[3872]	=	9230488
-DEXP[3873]	=	9232877
-DEXP[3874]	=	9235265
-DEXP[3875]	=	9237654
-DEXP[3876]	=	9240043
-DEXP[3877]	=	9242432
-DEXP[3878]	=	9244821
-DEXP[3879]	=	9247210
-DEXP[3880]	=	9249599
-DEXP[3881]	=	9251988
-DEXP[3882]	=	9254377
-DEXP[3883]	=	9256766
-DEXP[3884]	=	9259155
-DEXP[3885]	=	9261544
-DEXP[3886]	=	9263933
-DEXP[3887]	=	9266322
-DEXP[3888]	=	9268711
-DEXP[3889]	=	9271100
-DEXP[3890]	=	9273488
-DEXP[3891]	=	9275877
-DEXP[3892]	=	9278266
-DEXP[3893]	=	9280655
-DEXP[3894]	=	9283044
-DEXP[3895]	=	9285433
-DEXP[3896]	=	9287822
-DEXP[3897]	=	9290211
-DEXP[3898]	=	9292600
-DEXP[3899]	=	9294989
-DEXP[3900]	=	9297378
-DEXP[3901]	=	9299767
-DEXP[3902]	=	9302156
-DEXP[3903]	=	9304545
-DEXP[3904]	=	9306934
-DEXP[3905]	=	9309322
-DEXP[3906]	=	9311711
-DEXP[3907]	=	9314100
-DEXP[3908]	=	9316489
-DEXP[3909]	=	9318878
-DEXP[3910]	=	9321267
-DEXP[3911]	=	9323656
-DEXP[3912]	=	9326045
-DEXP[3913]	=	9328434
-DEXP[3914]	=	9330823
-DEXP[3915]	=	9333212
-DEXP[3916]	=	9335601
-DEXP[3917]	=	9337990
-DEXP[3918]	=	9340379
-DEXP[3919]	=	9342768
-DEXP[3920]	=	9345157
-DEXP[3921]	=	9347545
-DEXP[3922]	=	9349934
-DEXP[3923]	=	9352323
-DEXP[3924]	=	9354712
-DEXP[3925]	=	9357101
-DEXP[3926]	=	9359490
-DEXP[3927]	=	9361879
-DEXP[3928]	=	9364268
-DEXP[3929]	=	9366657
-DEXP[3930]	=	9369046
-DEXP[3931]	=	9371435
-DEXP[3932]	=	9373824
-DEXP[3933]	=	9376213
-DEXP[3934]	=	9378602
-DEXP[3935]	=	9380991
-DEXP[3936]	=	9383380
-DEXP[3937]	=	9385768
-DEXP[3938]	=	9388157
-DEXP[3939]	=	9390546
-DEXP[3940]	=	9392935
-DEXP[3941]	=	9395324
-DEXP[3942]	=	9397713
-DEXP[3943]	=	9400102
-DEXP[3944]	=	9402491
-DEXP[3945]	=	9404880
-DEXP[3946]	=	9407269
-DEXP[3947]	=	9409658
-DEXP[3948]	=	9412047
-DEXP[3949]	=	9414436
-DEXP[3950]	=	9416825
-DEXP[3951]	=	9419214
-DEXP[3952]	=	9421603
-DEXP[3953]	=	9423991
-DEXP[3954]	=	9426380
-DEXP[3955]	=	9428769
-DEXP[3956]	=	9431158
-DEXP[3957]	=	9433547
-DEXP[3958]	=	9435936
-DEXP[3959]	=	9438325
-DEXP[3960]	=	9440714
-DEXP[3961]	=	9443103
-DEXP[3962]	=	9445492
-DEXP[3963]	=	9447881
-DEXP[3964]	=	9450270
-DEXP[3965]	=	9452659
-DEXP[3966]	=	9455048
-DEXP[3967]	=	9457437
-DEXP[3968]	=	9459825
-DEXP[3969]	=	9462214
-DEXP[3970]	=	9464603
-DEXP[3971]	=	9466992
-DEXP[3972]	=	9469381
-DEXP[3973]	=	9471770
-DEXP[3974]	=	9474159
-DEXP[3975]	=	9476548
-DEXP[3976]	=	9478937
-DEXP[3977]	=	9481326
-DEXP[3978]	=	9483715
-DEXP[3979]	=	9486104
-DEXP[3980]	=	9488493
-DEXP[3981]	=	9490882
-DEXP[3982]	=	9493271
-DEXP[3983]	=	9495660
-DEXP[3984]	=	9498048
-DEXP[3985]	=	9500437
-DEXP[3986]	=	9502826
-DEXP[3987]	=	9505215
-DEXP[3988]	=	9507604
-DEXP[3989]	=	9509993
-DEXP[3990]	=	9512382
-DEXP[3991]	=	9514771
-DEXP[3992]	=	9517160
-DEXP[3993]	=	9519549
-DEXP[3994]	=	9521938
-DEXP[3995]	=	9524327
-DEXP[3996]	=	9526716
-DEXP[3997]	=	9529105
-DEXP[3998]	=	9531494
-DEXP[3999]	=	9533883
-DEXP[4000]	=	9536271
-DEXP[4001]	=	9538660
-DEXP[4002]	=	9541049
-DEXP[4003]	=	9543438
-DEXP[4004]	=	9545827
-DEXP[4005]	=	9548216
-DEXP[4006]	=	9550605
-DEXP[4007]	=	9552994
-DEXP[4008]	=	9555383
-DEXP[4009]	=	9557772
-DEXP[4010]	=	9560161
-DEXP[4011]	=	9562550
-DEXP[4012]	=	9564939
-DEXP[4013]	=	9567328
-DEXP[4014]	=	9569717
-DEXP[4015]	=	9572106
-DEXP[4016]	=	9574494
-DEXP[4017]	=	9576883
-DEXP[4018]	=	9579272
-DEXP[4019]	=	9581661
-DEXP[4020]	=	9584050
-DEXP[4021]	=	9586439
-DEXP[4022]	=	9588828
-DEXP[4023]	=	9591217
-DEXP[4024]	=	9593606
-DEXP[4025]	=	9595995
-DEXP[4026]	=	9598384
-DEXP[4027]	=	9600773
-DEXP[4028]	=	9603162
-DEXP[4029]	=	9605551
-DEXP[4030]	=	9607940
-DEXP[4031]	=	9610328
-DEXP[4032]	=	9612717
-DEXP[4033]	=	9615106
-DEXP[4034]	=	9617495
-DEXP[4035]	=	9619884
-DEXP[4036]	=	9622273
-DEXP[4037]	=	9624662
-DEXP[4038]	=	9627051
-DEXP[4039]	=	9629440
-DEXP[4040]	=	9631829
-DEXP[4041]	=	9634218
-DEXP[4042]	=	9636607
-DEXP[4043]	=	9638996
-DEXP[4044]	=	9641385
-DEXP[4045]	=	9643774
-DEXP[4046]	=	9646163
-DEXP[4047]	=	9648551
-DEXP[4048]	=	9650940
-DEXP[4049]	=	9653329
-DEXP[4050]	=	9655718
-DEXP[4051]	=	9658107
-DEXP[4052]	=	9660496
-DEXP[4053]	=	9662885
-DEXP[4054]	=	9665274
-DEXP[4055]	=	9667663
-DEXP[4056]	=	9670052
-DEXP[4057]	=	9672441
-DEXP[4058]	=	9674830
-DEXP[4059]	=	9677219
-DEXP[4060]	=	9679608
-DEXP[4061]	=	9681997
-DEXP[4062]	=	9684386
-DEXP[4063]	=	9686774
-DEXP[4064]	=	9689163
-DEXP[4065]	=	9691552
-DEXP[4066]	=	9693941
-DEXP[4067]	=	9696330
-DEXP[4068]	=	9698719
-DEXP[4069]	=	9701108
-DEXP[4070]	=	9703497
-DEXP[4071]	=	9705886
-DEXP[4072]	=	9708275
-DEXP[4073]	=	9710664
-DEXP[4074]	=	9713053
-DEXP[4075]	=	9715442
-DEXP[4076]	=	9717831
-DEXP[4077]	=	9720220
-DEXP[4078]	=	9722608
-DEXP[4079]	=	9724997
-DEXP[4080]	=	9727386
-DEXP[4081]	=	9729775
-DEXP[4082]	=	9732164
-DEXP[4083]	=	9734553
-DEXP[4084]	=	9736942
-DEXP[4085]	=	9739331
-DEXP[4086]	=	9741720
-DEXP[4087]	=	9744109
-DEXP[4088]	=	9746498
-DEXP[4089]	=	9748887
-DEXP[4090]	=	9751276
-DEXP[4091]	=	9753665
-DEXP[4092]	=	9756054
-DEXP[4093]	=	9758443
-DEXP[4094]	=	9760831
-DEXP[4095]	=	9763220
-DEXP[4096]	=	9765609
-DEXP[4097]	=	9767998
-DEXP[4098]	=	9770387
-DEXP[4099]	=	9772776
-DEXP[4100]	=	9775165
-DEXP[4101]	=	9777554
-DEXP[4102]	=	9779943
-DEXP[4103]	=	9782332
-DEXP[4104]	=	9784721
-DEXP[4105]	=	9787110
-DEXP[4106]	=	9789499
-DEXP[4107]	=	9791888
-DEXP[4108]	=	9794277
-DEXP[4109]	=	9796666
-DEXP[4110]	=	9799054
-DEXP[4111]	=	9801443
-DEXP[4112]	=	9803832
-DEXP[4113]	=	9806221
-DEXP[4114]	=	9808610
-DEXP[4115]	=	9810999
-DEXP[4116]	=	9813388
-DEXP[4117]	=	9815777
-DEXP[4118]	=	9818166
-DEXP[4119]	=	9820555
-DEXP[4120]	=	9822944
-DEXP[4121]	=	9825333
-DEXP[4122]	=	9827722
-DEXP[4123]	=	9830111
-DEXP[4124]	=	9832500
-DEXP[4125]	=	9834889
-DEXP[4126]	=	9837277
-DEXP[4127]	=	9839666
-DEXP[4128]	=	9842055
-DEXP[4129]	=	9844444
-DEXP[4130]	=	9846833
-DEXP[4131]	=	9849222
-DEXP[4132]	=	9851611
-DEXP[4133]	=	9854000
-DEXP[4134]	=	9856389
-DEXP[4135]	=	9858778
-DEXP[4136]	=	9861167
-DEXP[4137]	=	9863556
-DEXP[4138]	=	9865945
-DEXP[4139]	=	9868334
-DEXP[4140]	=	9870723
-DEXP[4141]	=	9873111
-DEXP[4142]	=	9875500
-DEXP[4143]	=	9877889
-DEXP[4144]	=	9880278
-DEXP[4145]	=	9882667
-DEXP[4146]	=	9885056
-DEXP[4147]	=	9887445
-DEXP[4148]	=	9889834
-DEXP[4149]	=	9892223
-DEXP[4150]	=	9894612
-DEXP[4151]	=	9897001
-DEXP[4152]	=	9899390
-DEXP[4153]	=	9901779
-DEXP[4154]	=	9904168
-DEXP[4155]	=	9906557
-DEXP[4156]	=	9908946
-DEXP[4157]	=	9911334
-DEXP[4158]	=	9913723
-DEXP[4159]	=	9916112
-DEXP[4160]	=	9918501
-DEXP[4161]	=	9920890
-DEXP[4162]	=	9923279
-DEXP[4163]	=	9925668
-DEXP[4164]	=	9928057
-DEXP[4165]	=	9930446
-DEXP[4166]	=	9932835
-DEXP[4167]	=	9935224
-DEXP[4168]	=	9937613
-DEXP[4169]	=	9940002
-DEXP[4170]	=	9942391
-DEXP[4171]	=	9944780
-DEXP[4172]	=	9947169
-DEXP[4173]	=	9949557
-DEXP[4174]	=	9951946
-DEXP[4175]	=	9954335
-DEXP[4176]	=	9956724
-DEXP[4177]	=	9959113
-DEXP[4178]	=	9961502
-DEXP[4179]	=	9963891
-DEXP[4180]	=	9966280
-DEXP[4181]	=	9968669
-DEXP[4182]	=	9971058
-DEXP[4183]	=	9973447
-DEXP[4184]	=	9975836
-DEXP[4185]	=	9978225
-DEXP[4186]	=	9980614
-DEXP[4187]	=	9983003
-DEXP[4188]	=	9985392
-DEXP[4189]	=	9987780
-DEXP[4190]	=	9990169
-DEXP[4191]	=	9992558
-DEXP[4192]	=	9994947
-DEXP[4193]	=	9997336
-DEXP[4194]	=	9999725
-DEXP[4195]	=	10002114
-DEXP[4196]	=	10004503
-DEXP[4197]	=	10006892
-DEXP[4198]	=	10009281
-DEXP[4199]	=	10011670
-DEXP[4200]	=	10014059
-DEXP[4201]	=	10016448
-DEXP[4202]	=	10018837
-DEXP[4203]	=	10021226
-DEXP[4204]	=	10023614
-DEXP[4205]	=	10026003
-DEXP[4206]	=	10028392
-DEXP[4207]	=	10030781
-DEXP[4208]	=	10033170
-DEXP[4209]	=	10035559
-DEXP[4210]	=	10037948
-DEXP[4211]	=	10040337
-DEXP[4212]	=	10042726
-DEXP[4213]	=	10045115
-DEXP[4214]	=	10047504
-DEXP[4215]	=	10049893
-DEXP[4216]	=	10052282
-DEXP[4217]	=	10054671
-DEXP[4218]	=	10057060
-DEXP[4219]	=	10059449
-DEXP[4220]	=	10061837
-DEXP[4221]	=	10064226
-DEXP[4222]	=	10066615
-DEXP[4223]	=	10069004
-DEXP[4224]	=	10071393
-DEXP[4225]	=	10073782
-DEXP[4226]	=	10076171
-DEXP[4227]	=	10078560
-DEXP[4228]	=	10080949
-DEXP[4229]	=	10083338
-DEXP[4230]	=	10085727
-DEXP[4231]	=	10088116
-DEXP[4232]	=	10090505
-DEXP[4233]	=	10092894
-DEXP[4234]	=	10095283
-DEXP[4235]	=	10097672
-DEXP[4236]	=	10100060
-DEXP[4237]	=	10102449
-DEXP[4238]	=	10104838
-DEXP[4239]	=	10107227
-DEXP[4240]	=	10109616
-DEXP[4241]	=	10112005
-DEXP[4242]	=	10114394
-DEXP[4243]	=	10116783
-DEXP[4244]	=	10119172
-DEXP[4245]	=	10121561
-DEXP[4246]	=	10123950
-DEXP[4247]	=	10126339
-DEXP[4248]	=	10128728
-DEXP[4249]	=	10131117
-DEXP[4250]	=	10133506
-DEXP[4251]	=	10135895
-DEXP[4252]	=	10138283
-DEXP[4253]	=	10140672
-DEXP[4254]	=	10143061
-DEXP[4255]	=	10145450
-DEXP[4256]	=	10147839
-DEXP[4257]	=	10150228
-DEXP[4258]	=	10152617
-DEXP[4259]	=	10155006
-DEXP[4260]	=	10157395
-DEXP[4261]	=	10159784
-DEXP[4262]	=	10162173
-DEXP[4263]	=	10164562
-DEXP[4264]	=	10166951
-DEXP[4265]	=	10169340
-DEXP[4266]	=	10171729
-DEXP[4267]	=	10174117
-DEXP[4268]	=	10176506
-DEXP[4269]	=	10178895
-DEXP[4270]	=	10181284
-DEXP[4271]	=	10183673
-DEXP[4272]	=	10186062
-DEXP[4273]	=	10188451
-DEXP[4274]	=	10190840
-DEXP[4275]	=	10193229
-DEXP[4276]	=	10195618
-DEXP[4277]	=	10198007
-DEXP[4278]	=	10200396
-DEXP[4279]	=	10202785
-DEXP[4280]	=	10205174
-DEXP[4281]	=	10207563
-DEXP[4282]	=	10209952
-DEXP[4283]	=	10212340
-DEXP[4284]	=	10214729
-DEXP[4285]	=	10217118
-DEXP[4286]	=	10219507
-DEXP[4287]	=	10221896
-DEXP[4288]	=	10224285
-DEXP[4289]	=	10226674
-DEXP[4290]	=	10229063
-DEXP[4291]	=	10231452
-DEXP[4292]	=	10233841
-DEXP[4293]	=	10236230
-DEXP[4294]	=	10238619
-DEXP[4295]	=	10241008
-DEXP[4296]	=	10243397
-DEXP[4297]	=	10245786
-DEXP[4298]	=	10248175
-DEXP[4299]	=	10250563
-DEXP[4300]	=	10252952
-DEXP[4301]	=	10255341
-DEXP[4302]	=	10257730
-DEXP[4303]	=	10260119
-DEXP[4304]	=	10262508
-DEXP[4305]	=	10264897
-DEXP[4306]	=	10267286
-DEXP[4307]	=	10269675
-DEXP[4308]	=	10272064
-DEXP[4309]	=	10274453
-DEXP[4310]	=	10276842
-DEXP[4311]	=	10279231
-DEXP[4312]	=	10281620
-DEXP[4313]	=	10284009
-DEXP[4314]	=	10286398
-DEXP[4315]	=	10288786
-DEXP[4316]	=	10291175
-DEXP[4317]	=	10293564
-DEXP[4318]	=	10295953
-DEXP[4319]	=	10298342
-DEXP[4320]	=	10300731
-DEXP[4321]	=	10303120
-DEXP[4322]	=	10305509
-DEXP[4323]	=	10307898
-DEXP[4324]	=	10310287
-DEXP[4325]	=	10312676
-DEXP[4326]	=	10315065
-DEXP[4327]	=	10317454
-DEXP[4328]	=	10319843
-DEXP[4329]	=	10322232
-DEXP[4330]	=	10324620
-DEXP[4331]	=	10327009
-DEXP[4332]	=	10329398
-DEXP[4333]	=	10331787
-DEXP[4334]	=	10334176
-DEXP[4335]	=	10336565
-DEXP[4336]	=	10338954
-DEXP[4337]	=	10341343
-DEXP[4338]	=	10343732
-DEXP[4339]	=	10346121
-DEXP[4340]	=	10348510
-DEXP[4341]	=	10350899
-DEXP[4342]	=	10353288
-DEXP[4343]	=	10355677
-DEXP[4344]	=	10358066
-DEXP[4345]	=	10360455
-DEXP[4346]	=	10362843
-DEXP[4347]	=	10365232
-DEXP[4348]	=	10367621
-DEXP[4349]	=	10370010
-DEXP[4350]	=	10372399
-DEXP[4351]	=	10374788
-DEXP[4352]	=	10377177
-DEXP[4353]	=	10379566
-DEXP[4354]	=	10381955
-DEXP[4355]	=	10384344
-DEXP[4356]	=	10386733
-DEXP[4357]	=	10389122
-DEXP[4358]	=	10391511
-DEXP[4359]	=	10393900
-DEXP[4360]	=	10396289
-DEXP[4361]	=	10398678
-DEXP[4362]	=	10401066
-DEXP[4363]	=	10403455
-DEXP[4364]	=	10405844
-DEXP[4365]	=	10408233
-DEXP[4366]	=	10410622
-DEXP[4367]	=	10413011
-DEXP[4368]	=	10415400
-DEXP[4369]	=	10417789
-DEXP[4370]	=	10420178
-DEXP[4371]	=	10422567
-DEXP[4372]	=	10424956
-DEXP[4373]	=	10427345
-DEXP[4374]	=	10429734
-DEXP[4375]	=	10432123
-DEXP[4376]	=	10434512
-DEXP[4377]	=	10436900
-DEXP[4378]	=	10439289
-DEXP[4379]	=	10441678
-DEXP[4380]	=	10444067
-DEXP[4381]	=	10446456
-DEXP[4382]	=	10448845
-DEXP[4383]	=	10451234
-DEXP[4384]	=	10453623
-DEXP[4385]	=	10456012
-DEXP[4386]	=	10458401
-DEXP[4387]	=	10460790
-DEXP[4388]	=	10463179
-DEXP[4389]	=	10465568
-DEXP[4390]	=	10467957
-DEXP[4391]	=	10470346
-DEXP[4392]	=	10472735
-DEXP[4393]	=	10475123
-DEXP[4394]	=	10477512
-DEXP[4395]	=	10479901
-DEXP[4396]	=	10482290
-DEXP[4397]	=	10484679
-DEXP[4398]	=	10487068
-DEXP[4399]	=	10489457
-DEXP[4400]	=	10491846
-DEXP[4401]	=	10494235
-DEXP[4402]	=	10496624
-DEXP[4403]	=	10499013
-DEXP[4404]	=	10501402
-DEXP[4405]	=	10503791
-DEXP[4406]	=	10506180
-DEXP[4407]	=	10508569
-DEXP[4408]	=	10510958
-DEXP[4409]	=	10513346
-DEXP[4410]	=	10515735
-DEXP[4411]	=	10518124
-DEXP[4412]	=	10520513
-DEXP[4413]	=	10522902
-DEXP[4414]	=	10525291
-DEXP[4415]	=	10527680
-DEXP[4416]	=	10530069
-DEXP[4417]	=	10532458
-DEXP[4418]	=	10534847
-DEXP[4419]	=	10537236
-DEXP[4420]	=	10539625
-DEXP[4421]	=	10542014
-DEXP[4422]	=	10544403
-DEXP[4423]	=	10546792
-DEXP[4424]	=	10549181
-DEXP[4425]	=	10551569
-DEXP[4426]	=	10553958
-DEXP[4427]	=	10556347
-DEXP[4428]	=	10558736
-DEXP[4429]	=	10561125
-DEXP[4430]	=	10563514
-DEXP[4431]	=	10565903
-DEXP[4432]	=	10568292
-DEXP[4433]	=	10570681
-DEXP[4434]	=	10573070
-DEXP[4435]	=	10575459
-DEXP[4436]	=	10577848
-DEXP[4437]	=	10580237
-DEXP[4438]	=	10582626
-DEXP[4439]	=	10585015
-DEXP[4440]	=	10587403
-DEXP[4441]	=	10589792
-DEXP[4442]	=	10592181
-DEXP[4443]	=	10594570
-DEXP[4444]	=	10596959
-DEXP[4445]	=	10599348
-DEXP[4446]	=	10601737
-DEXP[4447]	=	10604126
-DEXP[4448]	=	10606515
-DEXP[4449]	=	10608904
-DEXP[4450]	=	10611293
-DEXP[4451]	=	10613682
-DEXP[4452]	=	10616071
-DEXP[4453]	=	10618460
-DEXP[4454]	=	10620849
-DEXP[4455]	=	10623238
-DEXP[4456]	=	10625626
-DEXP[4457]	=	10628015
-DEXP[4458]	=	10630404
-DEXP[4459]	=	10632793
-DEXP[4460]	=	10635182
-DEXP[4461]	=	10637571
-DEXP[4462]	=	10639960
-DEXP[4463]	=	10642349
-DEXP[4464]	=	10644738
-DEXP[4465]	=	10647127
-DEXP[4466]	=	10649516
-DEXP[4467]	=	10651905
-DEXP[4468]	=	10654294
-DEXP[4469]	=	10656683
-DEXP[4470]	=	10659072
-DEXP[4471]	=	10661461
-DEXP[4472]	=	10663849
-DEXP[4473]	=	10666238
-DEXP[4474]	=	10668627
-DEXP[4475]	=	10671016
-DEXP[4476]	=	10673405
-DEXP[4477]	=	10675794
-DEXP[4478]	=	10678183
-DEXP[4479]	=	10680572
-DEXP[4480]	=	10682961
-DEXP[4481]	=	10685350
-DEXP[4482]	=	10687739
-DEXP[4483]	=	10690128
-DEXP[4484]	=	10692517
-DEXP[4485]	=	10694906
-DEXP[4486]	=	10697295
-DEXP[4487]	=	10699684
-DEXP[4488]	=	10702072
-DEXP[4489]	=	10704461
-DEXP[4490]	=	10706850
-DEXP[4491]	=	10709239
-DEXP[4492]	=	10711628
-DEXP[4493]	=	10714017
-DEXP[4494]	=	10716406
-DEXP[4495]	=	10718795
-DEXP[4496]	=	10721184
-DEXP[4497]	=	10723573
-DEXP[4498]	=	10725962
-DEXP[4499]	=	10728351
-DEXP[4500]	=	10730740
-DEXP[4501]	=	10733129
-DEXP[4502]	=	10735518
-DEXP[4503]	=	10737906
-DEXP[4504]	=	10740295
-DEXP[4505]	=	10742684
-DEXP[4506]	=	10745073
-DEXP[4507]	=	10747462
-DEXP[4508]	=	10749851
-DEXP[4509]	=	10752240
-DEXP[4510]	=	10754629
-DEXP[4511]	=	10757018
-DEXP[4512]	=	10759407
-DEXP[4513]	=	10761796
-DEXP[4514]	=	10764185
-DEXP[4515]	=	10766574
-DEXP[4516]	=	10768963
-DEXP[4517]	=	10771352
-DEXP[4518]	=	10773741
-DEXP[4519]	=	10776129
-DEXP[4520]	=	10778518
-DEXP[4521]	=	10780907
-DEXP[4522]	=	10783296
-DEXP[4523]	=	10785685
-DEXP[4524]	=	10788074
-DEXP[4525]	=	10790463
-DEXP[4526]	=	10792852
-DEXP[4527]	=	10795241
-DEXP[4528]	=	10797630
-DEXP[4529]	=	10800019
-DEXP[4530]	=	10802408
-DEXP[4531]	=	10804797
-DEXP[4532]	=	10807186
-DEXP[4533]	=	10809575
-DEXP[4534]	=	10811964
-DEXP[4535]	=	10814352
-DEXP[4536]	=	10816741
-DEXP[4537]	=	10819130
-DEXP[4538]	=	10821519
-DEXP[4539]	=	10823908
-DEXP[4540]	=	10826297
-DEXP[4541]	=	10828686
-DEXP[4542]	=	10831075
-DEXP[4543]	=	10833464
-DEXP[4544]	=	10835853
-DEXP[4545]	=	10838242
-DEXP[4546]	=	10840631
-DEXP[4547]	=	10843020
-DEXP[4548]	=	10845409
-DEXP[4549]	=	10847798
-DEXP[4550]	=	10850187
-DEXP[4551]	=	10852575
-DEXP[4552]	=	10854964
-DEXP[4553]	=	10857353
-DEXP[4554]	=	10859742
-DEXP[4555]	=	10862131
-DEXP[4556]	=	10864520
-DEXP[4557]	=	10866909
-DEXP[4558]	=	10869298
-DEXP[4559]	=	10871687
-DEXP[4560]	=	10874076
-DEXP[4561]	=	10876465
-DEXP[4562]	=	10878854
-DEXP[4563]	=	10881243
-DEXP[4564]	=	10883632
-DEXP[4565]	=	10886021
-DEXP[4566]	=	10888409
-DEXP[4567]	=	10890798
-DEXP[4568]	=	10893187
-DEXP[4569]	=	10895576
-DEXP[4570]	=	10897965
-DEXP[4571]	=	10900354
-DEXP[4572]	=	10902743
-DEXP[4573]	=	10905132
-DEXP[4574]	=	10907521
-DEXP[4575]	=	10909910
-DEXP[4576]	=	10912299
-DEXP[4577]	=	10914688
-DEXP[4578]	=	10917077
-DEXP[4579]	=	10919466
-DEXP[4580]	=	10921855
-DEXP[4581]	=	10924244
-DEXP[4582]	=	10926632
-DEXP[4583]	=	10929021
-DEXP[4584]	=	10931410
-DEXP[4585]	=	10933799
-DEXP[4586]	=	10936188
-DEXP[4587]	=	10938577
-DEXP[4588]	=	10940966
-DEXP[4589]	=	10943355
-DEXP[4590]	=	10945744
-DEXP[4591]	=	10948133
-DEXP[4592]	=	10950522
-DEXP[4593]	=	10952911
-DEXP[4594]	=	10955300
-DEXP[4595]	=	10957689
-DEXP[4596]	=	10960078
-DEXP[4597]	=	10962467
-DEXP[4598]	=	10964855
-DEXP[4599]	=	10967244
-DEXP[4600]	=	10969633
-DEXP[4601]	=	10972022
-DEXP[4602]	=	10974411
-DEXP[4603]	=	10976800
-DEXP[4604]	=	10979189
-DEXP[4605]	=	10981578
-DEXP[4606]	=	10983967
-DEXP[4607]	=	10986356
-DEXP[4608]	=	10988745
-DEXP[4609]	=	10991134
-DEXP[4610]	=	10993523
-DEXP[4611]	=	10995912
-DEXP[4612]	=	10998301
-DEXP[4613]	=	11000690
-DEXP[4614]	=	11003078
-DEXP[4615]	=	11005467
-DEXP[4616]	=	11007856
-DEXP[4617]	=	11010245
-DEXP[4618]	=	11012634
-DEXP[4619]	=	11015023
-DEXP[4620]	=	11017412
-DEXP[4621]	=	11019801
-DEXP[4622]	=	11022190
-DEXP[4623]	=	11024579
-DEXP[4624]	=	11026968
-DEXP[4625]	=	11029357
-DEXP[4626]	=	11031746
-DEXP[4627]	=	11034135
-DEXP[4628]	=	11036524
-DEXP[4629]	=	11038912
-DEXP[4630]	=	11041301
-DEXP[4631]	=	11043690
-DEXP[4632]	=	11046079
-DEXP[4633]	=	11048468
-DEXP[4634]	=	11050857
-DEXP[4635]	=	11053246
-DEXP[4636]	=	11055635
-DEXP[4637]	=	11058024
-DEXP[4638]	=	11060413
-DEXP[4639]	=	11062802
-DEXP[4640]	=	11065191
-DEXP[4641]	=	11067580
-DEXP[4642]	=	11069969
-DEXP[4643]	=	11072358
-DEXP[4644]	=	11074747
-DEXP[4645]	=	11077135
-DEXP[4646]	=	11079524
-DEXP[4647]	=	11081913
-DEXP[4648]	=	11084302
-DEXP[4649]	=	11086691
-DEXP[4650]	=	11089080
-DEXP[4651]	=	11091469
-DEXP[4652]	=	11093858
-DEXP[4653]	=	11096247
-DEXP[4654]	=	11098636
-DEXP[4655]	=	11101025
-DEXP[4656]	=	11103414
-DEXP[4657]	=	11105803
-DEXP[4658]	=	11108192
-DEXP[4659]	=	11110581
-DEXP[4660]	=	11112970
-DEXP[4661]	=	11115358
-DEXP[4662]	=	11117747
-DEXP[4663]	=	11120136
-DEXP[4664]	=	11122525
-DEXP[4665]	=	11124914
-DEXP[4666]	=	11127303
-DEXP[4667]	=	11129692
-DEXP[4668]	=	11132081
-DEXP[4669]	=	11134470
-DEXP[4670]	=	11136859
-DEXP[4671]	=	11139248
-DEXP[4672]	=	11141637
-DEXP[4673]	=	11144026
-DEXP[4674]	=	11146415
-DEXP[4675]	=	11148804
-DEXP[4676]	=	11151192
-DEXP[4677]	=	11153581
-DEXP[4678]	=	11155970
-DEXP[4679]	=	11158359
-DEXP[4680]	=	11160748
-DEXP[4681]	=	11163137
-DEXP[4682]	=	11165526
-DEXP[4683]	=	11167915
-DEXP[4684]	=	11170304
-DEXP[4685]	=	11172693
-DEXP[4686]	=	11175082
-DEXP[4687]	=	11177471
-DEXP[4688]	=	11179860
-DEXP[4689]	=	11182249
-DEXP[4690]	=	11184638
-DEXP[4691]	=	11187027
-DEXP[4692]	=	11189415
-DEXP[4693]	=	11191804
-DEXP[4694]	=	11194193
-DEXP[4695]	=	11196582
-DEXP[4696]	=	11198971
-DEXP[4697]	=	11201360
-DEXP[4698]	=	11203749
-DEXP[4699]	=	11206138
-DEXP[4700]	=	11208527
-DEXP[4701]	=	11210916
-DEXP[4702]	=	11213305
-DEXP[4703]	=	11215694
-DEXP[4704]	=	11218083
-DEXP[4705]	=	11220472
-DEXP[4706]	=	11222861
-DEXP[4707]	=	11225250
-DEXP[4708]	=	11227638
-DEXP[4709]	=	11230027
-DEXP[4710]	=	11232416
-DEXP[4711]	=	11234805
-DEXP[4712]	=	11237194
-DEXP[4713]	=	11239583
-DEXP[4714]	=	11241972
-DEXP[4715]	=	11244361
-DEXP[4716]	=	11246750
-DEXP[4717]	=	11249139
-DEXP[4718]	=	11251528
-DEXP[4719]	=	11253917
-DEXP[4720]	=	11256306
-DEXP[4721]	=	11258695
-DEXP[4722]	=	11261084
-DEXP[4723]	=	11263473
-DEXP[4724]	=	11265861
-DEXP[4725]	=	11268250
-DEXP[4726]	=	11270639
-DEXP[4727]	=	11273028
-DEXP[4728]	=	11275417
-DEXP[4729]	=	11277806
-DEXP[4730]	=	11280195
-DEXP[4731]	=	11282584
-DEXP[4732]	=	11284973
-DEXP[4733]	=	11287362
-DEXP[4734]	=	11289751
-DEXP[4735]	=	11292140
-DEXP[4736]	=	11294529
-DEXP[4737]	=	11296918
-DEXP[4738]	=	11299307
-DEXP[4739]	=	11301695
-DEXP[4740]	=	11304084
-DEXP[4741]	=	11306473
-DEXP[4742]	=	11308862
-DEXP[4743]	=	11311251
-DEXP[4744]	=	11313640
-DEXP[4745]	=	11316029
-DEXP[4746]	=	11318418
-DEXP[4747]	=	11320807
-DEXP[4748]	=	11323196
-DEXP[4749]	=	11325585
-DEXP[4750]	=	11327974
-DEXP[4751]	=	11330363
-DEXP[4752]	=	11332752
-DEXP[4753]	=	11335141
-DEXP[4754]	=	11337530
-DEXP[4755]	=	11339918
-DEXP[4756]	=	11342307
-DEXP[4757]	=	11344696
-DEXP[4758]	=	11347085
-DEXP[4759]	=	11349474
-DEXP[4760]	=	11351863
-DEXP[4761]	=	11354252
-DEXP[4762]	=	11356641
-DEXP[4763]	=	11359030
-DEXP[4764]	=	11361419
-DEXP[4765]	=	11363808
-DEXP[4766]	=	11366197
-DEXP[4767]	=	11368586
-DEXP[4768]	=	11370975
-DEXP[4769]	=	11373364
-DEXP[4770]	=	11375753
-DEXP[4771]	=	11378141
-DEXP[4772]	=	11380530
-DEXP[4773]	=	11382919
-DEXP[4774]	=	11385308
-DEXP[4775]	=	11387697
-DEXP[4776]	=	11390086
-DEXP[4777]	=	11392475
-DEXP[4778]	=	11394864
-DEXP[4779]	=	11397253
-DEXP[4780]	=	11399642
-DEXP[4781]	=	11402031
-DEXP[4782]	=	11404420
-DEXP[4783]	=	11406809
-DEXP[4784]	=	11409198
-DEXP[4785]	=	11411587
-DEXP[4786]	=	11413976
-DEXP[4787]	=	11416364
-DEXP[4788]	=	11418753
-DEXP[4789]	=	11421142
-DEXP[4790]	=	11423531
-DEXP[4791]	=	11425920
-DEXP[4792]	=	11428309
-DEXP[4793]	=	11430698
-DEXP[4794]	=	11433087
-DEXP[4795]	=	11435476
-DEXP[4796]	=	11437865
-DEXP[4797]	=	11440254
-DEXP[4798]	=	11442643
-DEXP[4799]	=	11445032
-DEXP[4800]	=	11447421
-DEXP[4801]	=	11449810
-DEXP[4802]	=	11452198
-DEXP[4803]	=	11454587
-DEXP[4804]	=	11456976
-DEXP[4805]	=	11459365
-DEXP[4806]	=	11461754
-DEXP[4807]	=	11464143
-DEXP[4808]	=	11466532
-DEXP[4809]	=	11468921
-DEXP[4810]	=	11471310
-DEXP[4811]	=	11473699
-DEXP[4812]	=	11476088
-DEXP[4813]	=	11478477
-DEXP[4814]	=	11480866
-DEXP[4815]	=	11483255
-DEXP[4816]	=	11485644
-DEXP[4817]	=	11488033
-DEXP[4818]	=	11490421
-DEXP[4819]	=	11492810
-DEXP[4820]	=	11495199
-DEXP[4821]	=	11497588
-DEXP[4822]	=	11499977
-DEXP[4823]	=	11502366
-DEXP[4824]	=	11504755
-DEXP[4825]	=	11507144
-DEXP[4826]	=	11509533
-DEXP[4827]	=	11511922
-DEXP[4828]	=	11514311
-DEXP[4829]	=	11516700
-DEXP[4830]	=	11519089
-DEXP[4831]	=	11521478
-DEXP[4832]	=	11523867
-DEXP[4833]	=	11526256
-DEXP[4834]	=	11528644
-DEXP[4835]	=	11531033
-DEXP[4836]	=	11533422
-DEXP[4837]	=	11535811
-DEXP[4838]	=	11538200
-DEXP[4839]	=	11540589
-DEXP[4840]	=	11542978
-DEXP[4841]	=	11545367
-DEXP[4842]	=	11547756
-DEXP[4843]	=	11550145
-DEXP[4844]	=	11552534
-DEXP[4845]	=	11554923
-DEXP[4846]	=	11557312
-DEXP[4847]	=	11559701
-DEXP[4848]	=	11562090
-DEXP[4849]	=	11564479
-DEXP[4850]	=	11566867
-DEXP[4851]	=	11569256
-DEXP[4852]	=	11571645
-DEXP[4853]	=	11574034
-DEXP[4854]	=	11576423
-DEXP[4855]	=	11578812
-DEXP[4856]	=	11581201
-DEXP[4857]	=	11583590
-DEXP[4858]	=	11585979
-DEXP[4859]	=	11588368
-DEXP[4860]	=	11590757
-DEXP[4861]	=	11593146
-DEXP[4862]	=	11595535
-DEXP[4863]	=	11597924
-DEXP[4864]	=	11600313
-DEXP[4865]	=	11602701
-DEXP[4866]	=	11605090
-DEXP[4867]	=	11607479
-DEXP[4868]	=	11609868
-DEXP[4869]	=	11612257
-DEXP[4870]	=	11614646
-DEXP[4871]	=	11617035
-DEXP[4872]	=	11619424
-DEXP[4873]	=	11621813
-DEXP[4874]	=	11624202
-DEXP[4875]	=	11626591
-DEXP[4876]	=	11628980
-DEXP[4877]	=	11631369
-DEXP[4878]	=	11633758
-DEXP[4879]	=	11636147
-DEXP[4880]	=	11638536
-DEXP[4881]	=	11640924
-DEXP[4882]	=	11643313
-DEXP[4883]	=	11645702
-DEXP[4884]	=	11648091
-DEXP[4885]	=	11650480
-DEXP[4886]	=	11652869
-DEXP[4887]	=	11655258
-DEXP[4888]	=	11657647
-DEXP[4889]	=	11660036
-DEXP[4890]	=	11662425
-DEXP[4891]	=	11664814
-DEXP[4892]	=	11667203
-DEXP[4893]	=	11669592
-DEXP[4894]	=	11671981
-DEXP[4895]	=	11674370
-DEXP[4896]	=	11676759
-DEXP[4897]	=	11679147
-DEXP[4898]	=	11681536
-DEXP[4899]	=	11683925
-DEXP[4900]	=	11686314
-DEXP[4901]	=	11688703
-DEXP[4902]	=	11691092
-DEXP[4903]	=	11693481
-DEXP[4904]	=	11695870
-DEXP[4905]	=	11698259
-DEXP[4906]	=	11700648
-DEXP[4907]	=	11703037
-DEXP[4908]	=	11705426
-DEXP[4909]	=	11707815
-DEXP[4910]	=	11710204
-DEXP[4911]	=	11712593
-DEXP[4912]	=	11714982
-DEXP[4913]	=	11717370
-DEXP[4914]	=	11719759
-DEXP[4915]	=	11722148
-DEXP[4916]	=	11724537
-DEXP[4917]	=	11726926
-DEXP[4918]	=	11729315
-DEXP[4919]	=	11731704
-DEXP[4920]	=	11734093
-DEXP[4921]	=	11736482
-DEXP[4922]	=	11738871
-DEXP[4923]	=	11741260
-DEXP[4924]	=	11743649
-DEXP[4925]	=	11746038
-DEXP[4926]	=	11748427
-DEXP[4927]	=	11750816
-DEXP[4928]	=	11753204
-DEXP[4929]	=	11755593
-DEXP[4930]	=	11757982
-DEXP[4931]	=	11760371
-DEXP[4932]	=	11762760
-DEXP[4933]	=	11765149
-DEXP[4934]	=	11767538
-DEXP[4935]	=	11769927
-DEXP[4936]	=	11772316
-DEXP[4937]	=	11774705
-DEXP[4938]	=	11777094
-DEXP[4939]	=	11779483
-DEXP[4940]	=	11781872
-DEXP[4941]	=	11784261
-DEXP[4942]	=	11786650
-DEXP[4943]	=	11789039
-DEXP[4944]	=	11791427
-DEXP[4945]	=	11793816
-DEXP[4946]	=	11796205
-DEXP[4947]	=	11798594
-DEXP[4948]	=	11800983
-DEXP[4949]	=	11803372
-DEXP[4950]	=	11805761
-DEXP[4951]	=	11808150
-DEXP[4952]	=	11810539
-DEXP[4953]	=	11812928
-DEXP[4954]	=	11815317
-DEXP[4955]	=	11817706
-DEXP[4956]	=	11820095
-DEXP[4957]	=	11822484
-DEXP[4958]	=	11824873
-DEXP[4959]	=	11827262
-DEXP[4960]	=	11829650
-DEXP[4961]	=	11832039
-DEXP[4962]	=	11834428
-DEXP[4963]	=	11836817
-DEXP[4964]	=	11839206
-DEXP[4965]	=	11841595
-DEXP[4966]	=	11843984
-DEXP[4967]	=	11846373
-DEXP[4968]	=	11848762
-DEXP[4969]	=	11851151
-DEXP[4970]	=	11853540
-DEXP[4971]	=	11855929
-DEXP[4972]	=	11858318
-DEXP[4973]	=	11860707
-DEXP[4974]	=	11863096
-DEXP[4975]	=	11865484
-DEXP[4976]	=	11867873
-DEXP[4977]	=	11870262
-DEXP[4978]	=	11872651
-DEXP[4979]	=	11875040
-DEXP[4980]	=	11877429
-DEXP[4981]	=	11879818
-DEXP[4982]	=	11882207
-DEXP[4983]	=	11884596
-DEXP[4984]	=	11886985
-DEXP[4985]	=	11889374
-DEXP[4986]	=	11891763
-DEXP[4987]	=	11894152
-DEXP[4988]	=	11896541
-DEXP[4989]	=	11898930
-DEXP[4990]	=	11901319
-DEXP[4991]	=	11903707
-DEXP[4992]	=	11906096
-DEXP[4993]	=	11908485
-DEXP[4994]	=	11910874
-DEXP[4995]	=	11913263
-DEXP[4996]	=	11915652
-DEXP[4997]	=	11918041
-DEXP[4998]	=	11920430
-DEXP[4999]	=	11922819
-DEXP[5000]	=	11925208
-DEXP[5001]	=	11927597
-DEXP[5002]	=	11929986
-DEXP[5003]	=	11932375
-DEXP[5004]	=	11934764
-DEXP[5005]	=	11937153
-DEXP[5006]	=	11939542
-DEXP[5007]	=	11941930
-DEXP[5008]	=	11944319
-DEXP[5009]	=	11946708
-DEXP[5010]	=	11949097
-DEXP[5011]	=	11951486
-DEXP[5012]	=	11953875
-DEXP[5013]	=	11956264
-DEXP[5014]	=	11958653
-DEXP[5015]	=	11961042
-DEXP[5016]	=	11963431
-DEXP[5017]	=	11965820
-DEXP[5018]	=	11968209
-DEXP[5019]	=	11970598
-DEXP[5020]	=	11972987
-DEXP[5021]	=	11975376
-DEXP[5022]	=	11977765
-DEXP[5023]	=	11980153
-DEXP[5024]	=	11982542
-DEXP[5025]	=	11984931
-DEXP[5026]	=	11987320
-DEXP[5027]	=	11989709
-DEXP[5028]	=	11992098
-DEXP[5029]	=	11994487
-DEXP[5030]	=	11996876
-DEXP[5031]	=	11999265
-DEXP[5032]	=	12001654
-DEXP[5033]	=	12004043
-DEXP[5034]	=	12006432
-DEXP[5035]	=	12008821
-DEXP[5036]	=	12011210
-DEXP[5037]	=	12013599
-DEXP[5038]	=	12015987
-DEXP[5039]	=	12018376
-DEXP[5040]	=	12020765
-DEXP[5041]	=	12023154
-DEXP[5042]	=	12025543
-DEXP[5043]	=	12027932
-DEXP[5044]	=	12030321
-DEXP[5045]	=	12032710
-DEXP[5046]	=	12035099
-DEXP[5047]	=	12037488
-DEXP[5048]	=	12039877
-DEXP[5049]	=	12042266
-DEXP[5050]	=	12044655
-DEXP[5051]	=	12047044
-DEXP[5052]	=	12049433
-DEXP[5053]	=	12051822
-DEXP[5054]	=	12054210
-DEXP[5055]	=	12056599
-DEXP[5056]	=	12058988
-DEXP[5057]	=	12061377
-DEXP[5058]	=	12063766
-DEXP[5059]	=	12066155
-DEXP[5060]	=	12068544
-DEXP[5061]	=	12070933
-DEXP[5062]	=	12073322
-DEXP[5063]	=	12075711
-DEXP[5064]	=	12078100
-DEXP[5065]	=	12080489
-DEXP[5066]	=	12082878
-DEXP[5067]	=	12085267
-DEXP[5068]	=	12087656
-DEXP[5069]	=	12090045
-DEXP[5070]	=	12092433
-DEXP[5071]	=	12094822
-DEXP[5072]	=	12097211
-DEXP[5073]	=	12099600
-DEXP[5074]	=	12101989
-DEXP[5075]	=	12104378
-DEXP[5076]	=	12106767
-DEXP[5077]	=	12109156
-DEXP[5078]	=	12111545
-DEXP[5079]	=	12113934
-DEXP[5080]	=	12116323
-DEXP[5081]	=	12118712
-DEXP[5082]	=	12121101
-DEXP[5083]	=	12123490
-DEXP[5084]	=	12125879
-DEXP[5085]	=	12128268
-DEXP[5086]	=	12130656
-DEXP[5087]	=	12133045
-DEXP[5088]	=	12135434
-DEXP[5089]	=	12137823
-DEXP[5090]	=	12140212
-DEXP[5091]	=	12142601
-DEXP[5092]	=	12144990
-DEXP[5093]	=	12147379
-DEXP[5094]	=	12149768
-DEXP[5095]	=	12152157
-DEXP[5096]	=	12154546
-DEXP[5097]	=	12156935
-DEXP[5098]	=	12159324
-DEXP[5099]	=	12161713
-DEXP[5100]	=	12164102
-DEXP[5101]	=	12166490
-DEXP[5102]	=	12168879
-DEXP[5103]	=	12171268
-DEXP[5104]	=	12173657
-DEXP[5105]	=	12176046
-DEXP[5106]	=	12178435
-DEXP[5107]	=	12180824
-DEXP[5108]	=	12183213
-DEXP[5109]	=	12185602
-DEXP[5110]	=	12187991
-DEXP[5111]	=	12190380
-DEXP[5112]	=	12192769
-DEXP[5113]	=	12195158
-DEXP[5114]	=	12197547
-DEXP[5115]	=	12199936
-DEXP[5116]	=	12202325
-DEXP[5117]	=	12204713
-DEXP[5118]	=	12207102
-DEXP[5119]	=	12209491
-DEXP[5120]	=	12211880
-DEXP[5121]	=	12214269
-DEXP[5122]	=	12216658
-DEXP[5123]	=	12219047
-DEXP[5124]	=	12221436
-DEXP[5125]	=	12223825
-DEXP[5126]	=	12226214
-DEXP[5127]	=	12228603
-DEXP[5128]	=	12230992
-DEXP[5129]	=	12233381
-DEXP[5130]	=	12235770
-DEXP[5131]	=	12238159
-DEXP[5132]	=	12240548
-DEXP[5133]	=	12242936
-DEXP[5134]	=	12245325
-DEXP[5135]	=	12247714
-DEXP[5136]	=	12250103
-DEXP[5137]	=	12252492
-DEXP[5138]	=	12254881
-DEXP[5139]	=	12257270
-DEXP[5140]	=	12259659
-DEXP[5141]	=	12262048
-DEXP[5142]	=	12264437
-DEXP[5143]	=	12266826
-DEXP[5144]	=	12269215
-DEXP[5145]	=	12271604
-DEXP[5146]	=	12273993
-DEXP[5147]	=	12276382
-DEXP[5148]	=	12278771
-DEXP[5149]	=	12281159
-DEXP[5150]	=	12283548
-DEXP[5151]	=	12285937
-DEXP[5152]	=	12288326
-DEXP[5153]	=	12290715
-DEXP[5154]	=	12293104
-DEXP[5155]	=	12295493
-DEXP[5156]	=	12297882
-DEXP[5157]	=	12300271
-DEXP[5158]	=	12302660
-DEXP[5159]	=	12305049
-DEXP[5160]	=	12307438
-DEXP[5161]	=	12309827
-DEXP[5162]	=	12312216
-DEXP[5163]	=	12314605
-DEXP[5164]	=	12316993
-DEXP[5165]	=	12319382
-DEXP[5166]	=	12321771
-DEXP[5167]	=	12324160
-DEXP[5168]	=	12326549
-DEXP[5169]	=	12328938
-DEXP[5170]	=	12331327
-DEXP[5171]	=	12333716
-DEXP[5172]	=	12336105
-DEXP[5173]	=	12338494
-DEXP[5174]	=	12340883
-DEXP[5175]	=	12343272
-DEXP[5176]	=	12345661
-DEXP[5177]	=	12348050
-DEXP[5178]	=	12350439
-DEXP[5179]	=	12352828
-DEXP[5180]	=	12355216
-DEXP[5181]	=	12357605
-DEXP[5182]	=	12359994
-DEXP[5183]	=	12362383
-DEXP[5184]	=	12364772
-DEXP[5185]	=	12367161
-DEXP[5186]	=	12369550
-DEXP[5187]	=	12371939
-DEXP[5188]	=	12374328
-DEXP[5189]	=	12376717
-DEXP[5190]	=	12379106
-DEXP[5191]	=	12381495
-DEXP[5192]	=	12383884
-DEXP[5193]	=	12386273
-DEXP[5194]	=	12388662
-DEXP[5195]	=	12391051
-DEXP[5196]	=	12393439
-DEXP[5197]	=	12395828
-DEXP[5198]	=	12398217
-DEXP[5199]	=	12400606
-DEXP[5200]	=	12402995
-DEXP[5201]	=	12405384
-DEXP[5202]	=	12407773
-DEXP[5203]	=	12410162
-DEXP[5204]	=	12412551
-DEXP[5205]	=	12414940
-DEXP[5206]	=	12417329
-DEXP[5207]	=	12419718
-DEXP[5208]	=	12422107
-DEXP[5209]	=	12424496
-DEXP[5210]	=	12426885
-DEXP[5211]	=	12429274
-DEXP[5212]	=	12431662
-DEXP[5213]	=	12434051
-DEXP[5214]	=	12436440
-DEXP[5215]	=	12438829
-DEXP[5216]	=	12441218
-DEXP[5217]	=	12443607
-DEXP[5218]	=	12445996
-DEXP[5219]	=	12448385
-DEXP[5220]	=	12450774
-DEXP[5221]	=	12453163
-DEXP[5222]	=	12455552
-DEXP[5223]	=	12457941
-DEXP[5224]	=	12460330
-DEXP[5225]	=	12462719
-DEXP[5226]	=	12465108
-DEXP[5227]	=	12467496
-DEXP[5228]	=	12469885
-DEXP[5229]	=	12472274
-DEXP[5230]	=	12474663
-DEXP[5231]	=	12477052
-DEXP[5232]	=	12479441
-DEXP[5233]	=	12481830
-DEXP[5234]	=	12484219
-DEXP[5235]	=	12486608
-DEXP[5236]	=	12488997
-DEXP[5237]	=	12491386
-DEXP[5238]	=	12493775
-DEXP[5239]	=	12496164
-DEXP[5240]	=	12498553
-DEXP[5241]	=	12500942
-DEXP[5242]	=	12503331
-DEXP[5243]	=	12505719
-DEXP[5244]	=	12508108
-DEXP[5245]	=	12510497
-DEXP[5246]	=	12512886
-DEXP[5247]	=	12515275
-DEXP[5248]	=	12517664
-DEXP[5249]	=	12520053
-DEXP[5250]	=	12522442
-DEXP[5251]	=	12524831
-DEXP[5252]	=	12527220
-DEXP[5253]	=	12529609
-DEXP[5254]	=	12531998
-DEXP[5255]	=	12534387
-DEXP[5256]	=	12536776
-DEXP[5257]	=	12539165
-DEXP[5258]	=	12541554
-DEXP[5259]	=	12543942
-DEXP[5260]	=	12546331
-DEXP[5261]	=	12548720
-DEXP[5262]	=	12551109
-DEXP[5263]	=	12553498
-DEXP[5264]	=	12555887
-DEXP[5265]	=	12558276
-DEXP[5266]	=	12560665
-DEXP[5267]	=	12563054
-DEXP[5268]	=	12565443
-DEXP[5269]	=	12567832
-DEXP[5270]	=	12570221
-DEXP[5271]	=	12572610
-DEXP[5272]	=	12574999
-DEXP[5273]	=	12577388
-DEXP[5274]	=	12579776
-DEXP[5275]	=	12582165
-DEXP[5276]	=	12584554
-DEXP[5277]	=	12586943
-DEXP[5278]	=	12589332
-DEXP[5279]	=	12591721
-DEXP[5280]	=	12594110
-DEXP[5281]	=	12596499
-DEXP[5282]	=	12598888
-DEXP[5283]	=	12601277
-DEXP[5284]	=	12603666
-DEXP[5285]	=	12606055
-DEXP[5286]	=	12608444
-DEXP[5287]	=	12610833
-DEXP[5288]	=	12613222
-DEXP[5289]	=	12615611
-DEXP[5290]	=	12617999
-DEXP[5291]	=	12620388
-DEXP[5292]	=	12622777
-DEXP[5293]	=	12625166
-DEXP[5294]	=	12627555
-DEXP[5295]	=	12629944
-DEXP[5296]	=	12632333
-DEXP[5297]	=	12634722
-DEXP[5298]	=	12637111
-DEXP[5299]	=	12639500
-DEXP[5300]	=	12641889
-DEXP[5301]	=	12644278
-DEXP[5302]	=	12646667
-DEXP[5303]	=	12649056
-DEXP[5304]	=	12651445
-DEXP[5305]	=	12653834
-DEXP[5306]	=	12656222
-DEXP[5307]	=	12658611
-DEXP[5308]	=	12661000
-DEXP[5309]	=	12663389
-DEXP[5310]	=	12665778
-DEXP[5311]	=	12668167
-DEXP[5312]	=	12670556
-DEXP[5313]	=	12672945
-DEXP[5314]	=	12675334
-DEXP[5315]	=	12677723
-DEXP[5316]	=	12680112
-DEXP[5317]	=	12682501
-DEXP[5318]	=	12684890
-DEXP[5319]	=	12687279
-DEXP[5320]	=	12689668
-DEXP[5321]	=	12692057
-DEXP[5322]	=	12694445
-DEXP[5323]	=	12696834
-DEXP[5324]	=	12699223
-DEXP[5325]	=	12701612
-DEXP[5326]	=	12704001
-DEXP[5327]	=	12706390
-DEXP[5328]	=	12708779
-DEXP[5329]	=	12711168
-DEXP[5330]	=	12713557
-DEXP[5331]	=	12715946
-DEXP[5332]	=	12718335
-DEXP[5333]	=	12720724
-DEXP[5334]	=	12723113
-DEXP[5335]	=	12725502
-DEXP[5336]	=	12727891
-DEXP[5337]	=	12730279
-DEXP[5338]	=	12732668
-DEXP[5339]	=	12735057
-DEXP[5340]	=	12737446
-DEXP[5341]	=	12739835
-DEXP[5342]	=	12742224
-DEXP[5343]	=	12744613
-DEXP[5344]	=	12747002
-DEXP[5345]	=	12749391
-DEXP[5346]	=	12751780
-DEXP[5347]	=	12754169
-DEXP[5348]	=	12756558
-DEXP[5349]	=	12758947
-DEXP[5350]	=	12761336
-DEXP[5351]	=	12763725
-DEXP[5352]	=	12766114
-DEXP[5353]	=	12768502
-DEXP[5354]	=	12770891
-DEXP[5355]	=	12773280
-DEXP[5356]	=	12775669
-DEXP[5357]	=	12778058
-DEXP[5358]	=	12780447
-DEXP[5359]	=	12782836
-DEXP[5360]	=	12785225
-DEXP[5361]	=	12787614
-DEXP[5362]	=	12790003
-DEXP[5363]	=	12792392
-DEXP[5364]	=	12794781
-DEXP[5365]	=	12797170
-DEXP[5366]	=	12799559
-DEXP[5367]	=	12801948
-DEXP[5368]	=	12804337
-DEXP[5369]	=	12806725
-DEXP[5370]	=	12809114
-DEXP[5371]	=	12811503
-DEXP[5372]	=	12813892
-DEXP[5373]	=	12816281
-DEXP[5374]	=	12818670
-DEXP[5375]	=	12821059
-DEXP[5376]	=	12823448
-DEXP[5377]	=	12825837
-DEXP[5378]	=	12828226
-DEXP[5379]	=	12830615
-DEXP[5380]	=	12833004
-DEXP[5381]	=	12835393
-DEXP[5382]	=	12837782
-DEXP[5383]	=	12840171
-DEXP[5384]	=	12842560
-DEXP[5385]	=	12844948
-DEXP[5386]	=	12847337
-DEXP[5387]	=	12849726
-DEXP[5388]	=	12852115
-DEXP[5389]	=	12854504
-DEXP[5390]	=	12856893
-DEXP[5391]	=	12859282
-DEXP[5392]	=	12861671
-DEXP[5393]	=	12864060
-DEXP[5394]	=	12866449
-DEXP[5395]	=	12868838
-DEXP[5396]	=	12871227
-DEXP[5397]	=	12873616
-DEXP[5398]	=	12876005
-DEXP[5399]	=	12878394
-DEXP[5400]	=	12880782
-DEXP[5401]	=	12883171
-DEXP[5402]	=	12885560
-DEXP[5403]	=	12887949
-DEXP[5404]	=	12890338
-DEXP[5405]	=	12892727
-DEXP[5406]	=	12895116
-DEXP[5407]	=	12897505
-DEXP[5408]	=	12899894
-DEXP[5409]	=	12902283
-DEXP[5410]	=	12904672
-DEXP[5411]	=	12907061
-DEXP[5412]	=	12909450
-DEXP[5413]	=	12911839
-DEXP[5414]	=	12914228
-DEXP[5415]	=	12916617
-DEXP[5416]	=	12919005
-DEXP[5417]	=	12921394
-DEXP[5418]	=	12923783
-DEXP[5419]	=	12926172
-DEXP[5420]	=	12928561
-DEXP[5421]	=	12930950
-DEXP[5422]	=	12933339
-DEXP[5423]	=	12935728
-DEXP[5424]	=	12938117
-DEXP[5425]	=	12940506
-DEXP[5426]	=	12942895
-DEXP[5427]	=	12945284
-DEXP[5428]	=	12947673
-DEXP[5429]	=	12950062
-DEXP[5430]	=	12952451
-DEXP[5431]	=	12954840
-DEXP[5432]	=	12957228
-DEXP[5433]	=	12959617
-DEXP[5434]	=	12962006
-DEXP[5435]	=	12964395
-DEXP[5436]	=	12966784
-DEXP[5437]	=	12969173
-DEXP[5438]	=	12971562
-DEXP[5439]	=	12973951
-DEXP[5440]	=	12976340
-DEXP[5441]	=	12978729
-DEXP[5442]	=	12981118
-DEXP[5443]	=	12983507
-DEXP[5444]	=	12985896
-DEXP[5445]	=	12988285
-DEXP[5446]	=	12990674
-DEXP[5447]	=	12993063
-DEXP[5448]	=	12995451
-DEXP[5449]	=	12997840
-DEXP[5450]	=	13000229
-DEXP[5451]	=	13002618
-DEXP[5452]	=	13005007
-DEXP[5453]	=	13007396
-DEXP[5454]	=	13009785
-DEXP[5455]	=	13012174
-DEXP[5456]	=	13014563
-DEXP[5457]	=	13016952
-DEXP[5458]	=	13019341
-DEXP[5459]	=	13021730
-DEXP[5460]	=	13024119
-DEXP[5461]	=	13026508
-DEXP[5462]	=	13028897
-DEXP[5463]	=	13031285
-DEXP[5464]	=	13033674
-DEXP[5465]	=	13036063
-DEXP[5466]	=	13038452
-DEXP[5467]	=	13040841
-DEXP[5468]	=	13043230
-DEXP[5469]	=	13045619
-DEXP[5470]	=	13048008
-DEXP[5471]	=	13050397
-DEXP[5472]	=	13052786
-DEXP[5473]	=	13055175
-DEXP[5474]	=	13057564
-DEXP[5475]	=	13059953
-DEXP[5476]	=	13062342
-DEXP[5477]	=	13064731
-DEXP[5478]	=	13067120
-DEXP[5479]	=	13069508
-DEXP[5480]	=	13071897
-DEXP[5481]	=	13074286
-DEXP[5482]	=	13076675
-DEXP[5483]	=	13079064
-DEXP[5484]	=	13081453
-DEXP[5485]	=	13083842
-DEXP[5486]	=	13086231
-DEXP[5487]	=	13088620
-DEXP[5488]	=	13091009
-DEXP[5489]	=	13093398
-DEXP[5490]	=	13095787
-DEXP[5491]	=	13098176
-DEXP[5492]	=	13100565
-DEXP[5493]	=	13102954
-DEXP[5494]	=	13105343
-DEXP[5495]	=	13107731
-DEXP[5496]	=	13110120
-DEXP[5497]	=	13112509
-DEXP[5498]	=	13114898
-DEXP[5499]	=	13117287
-DEXP[5500]	=	13119676
-DEXP[5501]	=	13122065
-DEXP[5502]	=	13124454
-DEXP[5503]	=	13126843
-DEXP[5504]	=	13129232
-DEXP[5505]	=	13131621
-DEXP[5506]	=	13134010
-DEXP[5507]	=	13136399
-DEXP[5508]	=	13138788
-DEXP[5509]	=	13141177
-DEXP[5510]	=	13143565
-DEXP[5511]	=	13145954
-DEXP[5512]	=	13148343
-DEXP[5513]	=	13150732
-DEXP[5514]	=	13153121
-DEXP[5515]	=	13155510
-DEXP[5516]	=	13157899
-DEXP[5517]	=	13160288
-DEXP[5518]	=	13162677
-DEXP[5519]	=	13165066
-DEXP[5520]	=	13167455
-DEXP[5521]	=	13169844
-DEXP[5522]	=	13172233
-DEXP[5523]	=	13174622
-DEXP[5524]	=	13177011
-DEXP[5525]	=	13179400
-DEXP[5526]	=	13181788
-DEXP[5527]	=	13184177
-DEXP[5528]	=	13186566
-DEXP[5529]	=	13188955
-DEXP[5530]	=	13191344
-DEXP[5531]	=	13193733
-DEXP[5532]	=	13196122
-DEXP[5533]	=	13198511
-DEXP[5534]	=	13200900
-DEXP[5535]	=	13203289
-DEXP[5536]	=	13205678
-DEXP[5537]	=	13208067
-DEXP[5538]	=	13210456
-DEXP[5539]	=	13212845
-DEXP[5540]	=	13215234
-DEXP[5541]	=	13217623
-DEXP[5542]	=	13220011
-DEXP[5543]	=	13222400
-DEXP[5544]	=	13224789
-DEXP[5545]	=	13227178
-DEXP[5546]	=	13229567
-DEXP[5547]	=	13231956
-DEXP[5548]	=	13234345
-DEXP[5549]	=	13236734
-DEXP[5550]	=	13239123
-DEXP[5551]	=	13241512
-DEXP[5552]	=	13243901
-DEXP[5553]	=	13246290
-DEXP[5554]	=	13248679
-DEXP[5555]	=	13251068
-DEXP[5556]	=	13253457
-DEXP[5557]	=	13255846
-DEXP[5558]	=	13258234
-DEXP[5559]	=	13260623
-DEXP[5560]	=	13263012
-DEXP[5561]	=	13265401
-DEXP[5562]	=	13267790
-DEXP[5563]	=	13270179
-DEXP[5564]	=	13272568
-DEXP[5565]	=	13274957
-DEXP[5566]	=	13277346
-DEXP[5567]	=	13279735
-DEXP[5568]	=	13282124
-DEXP[5569]	=	13284513
-DEXP[5570]	=	13286902
-DEXP[5571]	=	13289291
-DEXP[5572]	=	13291680
-DEXP[5573]	=	13294068
-DEXP[5574]	=	13296457
-DEXP[5575]	=	13298846
-DEXP[5576]	=	13301235
-DEXP[5577]	=	13303624
-DEXP[5578]	=	13306013
-DEXP[5579]	=	13308402
-DEXP[5580]	=	13310791
-DEXP[5581]	=	13313180
-DEXP[5582]	=	13315569
-DEXP[5583]	=	13317958
-DEXP[5584]	=	13320347
-DEXP[5585]	=	13322736
-DEXP[5586]	=	13325125
-DEXP[5587]	=	13327514
-DEXP[5588]	=	13329903
-DEXP[5589]	=	13332291
-DEXP[5590]	=	13334680
-DEXP[5591]	=	13337069
-DEXP[5592]	=	13339458
-DEXP[5593]	=	13341847
-DEXP[5594]	=	13344236
-DEXP[5595]	=	13346625
-DEXP[5596]	=	13349014
-DEXP[5597]	=	13351403
-DEXP[5598]	=	13353792
-DEXP[5599]	=	13356181
-DEXP[5600]	=	13358570
-DEXP[5601]	=	13360959
-DEXP[5602]	=	13363348
-DEXP[5603]	=	13365737
-DEXP[5604]	=	13368126
-DEXP[5605]	=	13370514
-DEXP[5606]	=	13372903
-DEXP[5607]	=	13375292
-DEXP[5608]	=	13377681
-DEXP[5609]	=	13380070
-DEXP[5610]	=	13382459
-DEXP[5611]	=	13384848
-DEXP[5612]	=	13387237
-DEXP[5613]	=	13389626
-DEXP[5614]	=	13392015
-DEXP[5615]	=	13394404
-DEXP[5616]	=	13396793
-DEXP[5617]	=	13399182
-DEXP[5618]	=	13401571
-DEXP[5619]	=	13403960
-DEXP[5620]	=	13406349
-DEXP[5621]	=	13408737
-DEXP[5622]	=	13411126
-DEXP[5623]	=	13413515
-DEXP[5624]	=	13415904
-DEXP[5625]	=	13418293
-DEXP[5626]	=	13420682
-DEXP[5627]	=	13423071
-DEXP[5628]	=	13425460
-DEXP[5629]	=	13427849
-DEXP[5630]	=	13430238
-DEXP[5631]	=	13432627
-DEXP[5632]	=	13435016
-DEXP[5633]	=	13437405
-DEXP[5634]	=	13439794
-DEXP[5635]	=	13442183
-DEXP[5636]	=	13444571
-DEXP[5637]	=	13446960
-DEXP[5638]	=	13449349
-DEXP[5639]	=	13451738
-DEXP[5640]	=	13454127
-DEXP[5641]	=	13456516
-DEXP[5642]	=	13458905
-DEXP[5643]	=	13461294
-DEXP[5644]	=	13463683
-DEXP[5645]	=	13466072
-DEXP[5646]	=	13468461
-DEXP[5647]	=	13470850
-DEXP[5648]	=	13473239
-DEXP[5649]	=	13475628
-DEXP[5650]	=	13478017
-DEXP[5651]	=	13480406
-DEXP[5652]	=	13482794
-DEXP[5653]	=	13485183
-DEXP[5654]	=	13487572
-DEXP[5655]	=	13489961
-DEXP[5656]	=	13492350
-DEXP[5657]	=	13494739
-DEXP[5658]	=	13497128
-DEXP[5659]	=	13499517
-DEXP[5660]	=	13501906
-DEXP[5661]	=	13504295
-DEXP[5662]	=	13506684
-DEXP[5663]	=	13509073
-DEXP[5664]	=	13511462
-DEXP[5665]	=	13513851
-DEXP[5666]	=	13516240
-DEXP[5667]	=	13518629
-DEXP[5668]	=	13521017
-DEXP[5669]	=	13523406
-DEXP[5670]	=	13525795
-DEXP[5671]	=	13528184
-DEXP[5672]	=	13530573
-DEXP[5673]	=	13532962
-DEXP[5674]	=	13535351
-DEXP[5675]	=	13537740
-DEXP[5676]	=	13540129
-DEXP[5677]	=	13542518
-DEXP[5678]	=	13544907
-DEXP[5679]	=	13547296
-DEXP[5680]	=	13549685
-DEXP[5681]	=	13552074
-DEXP[5682]	=	13554463
-DEXP[5683]	=	13556852
-DEXP[5684]	=	13559240
-DEXP[5685]	=	13561629
-DEXP[5686]	=	13564018
-DEXP[5687]	=	13566407
-DEXP[5688]	=	13568796
-DEXP[5689]	=	13571185
-DEXP[5690]	=	13573574
-DEXP[5691]	=	13575963
-DEXP[5692]	=	13578352
-DEXP[5693]	=	13580741
-DEXP[5694]	=	13583130
-DEXP[5695]	=	13585519
-DEXP[5696]	=	13587908
-DEXP[5697]	=	13590297
-DEXP[5698]	=	13592686
-DEXP[5699]	=	13595074
-DEXP[5700]	=	13597463
-DEXP[5701]	=	13599852
-DEXP[5702]	=	13602241
-DEXP[5703]	=	13604630
-DEXP[5704]	=	13607019
-DEXP[5705]	=	13609408
-DEXP[5706]	=	13611797
-DEXP[5707]	=	13614186
-DEXP[5708]	=	13616575
-DEXP[5709]	=	13618964
-DEXP[5710]	=	13621353
-DEXP[5711]	=	13623742
-DEXP[5712]	=	13626131
-DEXP[5713]	=	13628520
-DEXP[5714]	=	13630909
-DEXP[5715]	=	13633297
-DEXP[5716]	=	13635686
-DEXP[5717]	=	13638075
-DEXP[5718]	=	13640464
-DEXP[5719]	=	13642853
-DEXP[5720]	=	13645242
-DEXP[5721]	=	13647631
-DEXP[5722]	=	13650020
-DEXP[5723]	=	13652409
-DEXP[5724]	=	13654798
-DEXP[5725]	=	13657187
-DEXP[5726]	=	13659576
-DEXP[5727]	=	13661965
-DEXP[5728]	=	13664354
-DEXP[5729]	=	13666743
-DEXP[5730]	=	13669132
-DEXP[5731]	=	13671520
-DEXP[5732]	=	13673909
-DEXP[5733]	=	13676298
-DEXP[5734]	=	13678687
-DEXP[5735]	=	13681076
-DEXP[5736]	=	13683465
-DEXP[5737]	=	13685854
-DEXP[5738]	=	13688243
-DEXP[5739]	=	13690632
-DEXP[5740]	=	13693021
-DEXP[5741]	=	13695410
-DEXP[5742]	=	13697799
-DEXP[5743]	=	13700188
-DEXP[5744]	=	13702577
-DEXP[5745]	=	13704966
-DEXP[5746]	=	13707355
-DEXP[5747]	=	13709743
-DEXP[5748]	=	13712132
-DEXP[5749]	=	13714521
-DEXP[5750]	=	13716910
-DEXP[5751]	=	13719299
-DEXP[5752]	=	13721688
-DEXP[5753]	=	13724077
-DEXP[5754]	=	13726466
-DEXP[5755]	=	13728855
-DEXP[5756]	=	13731244
-DEXP[5757]	=	13733633
-DEXP[5758]	=	13736022
-DEXP[5759]	=	13738411
-DEXP[5760]	=	13740800
-DEXP[5761]	=	13743189
-DEXP[5762]	=	13745577
-DEXP[5763]	=	13747966
-DEXP[5764]	=	13750355
-DEXP[5765]	=	13752744
-DEXP[5766]	=	13755133
-DEXP[5767]	=	13757522
-DEXP[5768]	=	13759911
-DEXP[5769]	=	13762300
-DEXP[5770]	=	13764689
-DEXP[5771]	=	13767078
-DEXP[5772]	=	13769467
-DEXP[5773]	=	13771856
-DEXP[5774]	=	13774245
-DEXP[5775]	=	13776634
-DEXP[5776]	=	13779023
-DEXP[5777]	=	13781412
-DEXP[5778]	=	13783800
-DEXP[5779]	=	13786189
-DEXP[5780]	=	13788578
-DEXP[5781]	=	13790967
-DEXP[5782]	=	13793356
-DEXP[5783]	=	13795745
-DEXP[5784]	=	13798134
-DEXP[5785]	=	13800523
-DEXP[5786]	=	13802912
-DEXP[5787]	=	13805301
-DEXP[5788]	=	13807690
-DEXP[5789]	=	13810079
-DEXP[5790]	=	13812468
-DEXP[5791]	=	13814857
-DEXP[5792]	=	13817246
-DEXP[5793]	=	13819635
-DEXP[5794]	=	13822023
-DEXP[5795]	=	13824412
-DEXP[5796]	=	13826801
-DEXP[5797]	=	13829190
-DEXP[5798]	=	13831579
-DEXP[5799]	=	13833968
-DEXP[5800]	=	13836357
-DEXP[5801]	=	13838746
-DEXP[5802]	=	13841135
-DEXP[5803]	=	13843524
-DEXP[5804]	=	13845913
-DEXP[5805]	=	13848302
-DEXP[5806]	=	13850691
-DEXP[5807]	=	13853080
-DEXP[5808]	=	13855469
-DEXP[5809]	=	13857857
-DEXP[5810]	=	13860246
-DEXP[5811]	=	13862635
-DEXP[5812]	=	13865024
-DEXP[5813]	=	13867413
-DEXP[5814]	=	13869802
-DEXP[5815]	=	13872191
-DEXP[5816]	=	13874580
-DEXP[5817]	=	13876969
-DEXP[5818]	=	13879358
-DEXP[5819]	=	13881747
-DEXP[5820]	=	13884136
-DEXP[5821]	=	13886525
-DEXP[5822]	=	13888914
-DEXP[5823]	=	13891303
-DEXP[5824]	=	13893692
-DEXP[5825]	=	13896080
-DEXP[5826]	=	13898469
-DEXP[5827]	=	13900858
-DEXP[5828]	=	13903247
-DEXP[5829]	=	13905636
-DEXP[5830]	=	13908025
-DEXP[5831]	=	13910414
-DEXP[5832]	=	13912803
-DEXP[5833]	=	13915192
-DEXP[5834]	=	13917581
-DEXP[5835]	=	13919970
-DEXP[5836]	=	13922359
-DEXP[5837]	=	13924748
-DEXP[5838]	=	13927137
-DEXP[5839]	=	13929526
-DEXP[5840]	=	13931915
-DEXP[5841]	=	13934303
-DEXP[5842]	=	13936692
-DEXP[5843]	=	13939081
-DEXP[5844]	=	13941470
-DEXP[5845]	=	13943859
-DEXP[5846]	=	13946248
-DEXP[5847]	=	13948637
-DEXP[5848]	=	13951026
-DEXP[5849]	=	13953415
-DEXP[5850]	=	13955804
-DEXP[5851]	=	13958193
-DEXP[5852]	=	13960582
-DEXP[5853]	=	13962971
-DEXP[5854]	=	13965360
-DEXP[5855]	=	13967749
-DEXP[5856]	=	13970138
-DEXP[5857]	=	13972526
-DEXP[5858]	=	13974915
-DEXP[5859]	=	13977304
-DEXP[5860]	=	13979693
-DEXP[5861]	=	13982082
-DEXP[5862]	=	13984471
-DEXP[5863]	=	13986860
-DEXP[5864]	=	13989249
-DEXP[5865]	=	13991638
-DEXP[5866]	=	13994027
-DEXP[5867]	=	13996416
-DEXP[5868]	=	13998805
-DEXP[5869]	=	14001194
-DEXP[5870]	=	14003583
-DEXP[5871]	=	14005972
-DEXP[5872]	=	14008360
-DEXP[5873]	=	14010749
-DEXP[5874]	=	14013138
-DEXP[5875]	=	14015527
-DEXP[5876]	=	14017916
-DEXP[5877]	=	14020305
-DEXP[5878]	=	14022694
-DEXP[5879]	=	14025083
-DEXP[5880]	=	14027472
-DEXP[5881]	=	14029861
-DEXP[5882]	=	14032250
-DEXP[5883]	=	14034639
-DEXP[5884]	=	14037028
-DEXP[5885]	=	14039417
-DEXP[5886]	=	14041806
-DEXP[5887]	=	14044195
-DEXP[5888]	=	14046583
-DEXP[5889]	=	14048972
-DEXP[5890]	=	14051361
-DEXP[5891]	=	14053750
-DEXP[5892]	=	14056139
-DEXP[5893]	=	14058528
-DEXP[5894]	=	14060917
-DEXP[5895]	=	14063306
-DEXP[5896]	=	14065695
-DEXP[5897]	=	14068084
-DEXP[5898]	=	14070473
-DEXP[5899]	=	14072862
-DEXP[5900]	=	14075251
-DEXP[5901]	=	14077640
-DEXP[5902]	=	14080029
-DEXP[5903]	=	14082418
-DEXP[5904]	=	14084806
-DEXP[5905]	=	14087195
-DEXP[5906]	=	14089584
-DEXP[5907]	=	14091973
-DEXP[5908]	=	14094362
-DEXP[5909]	=	14096751
-DEXP[5910]	=	14099140
-DEXP[5911]	=	14101529
-DEXP[5912]	=	14103918
-DEXP[5913]	=	14106307
-DEXP[5914]	=	14108696
-DEXP[5915]	=	14111085
-DEXP[5916]	=	14113474
-DEXP[5917]	=	14115863
-DEXP[5918]	=	14118252
-DEXP[5919]	=	14120641
-DEXP[5920]	=	14123029
-DEXP[5921]	=	14125418
-DEXP[5922]	=	14127807
-DEXP[5923]	=	14130196
-DEXP[5924]	=	14132585
-DEXP[5925]	=	14134974
-DEXP[5926]	=	14137363
-DEXP[5927]	=	14139752
-DEXP[5928]	=	14142141
-DEXP[5929]	=	14144530
-DEXP[5930]	=	14146919
-DEXP[5931]	=	14149308
-DEXP[5932]	=	14151697
-DEXP[5933]	=	14154086
-DEXP[5934]	=	14156475
-DEXP[5935]	=	14158863
-DEXP[5936]	=	14161252
-DEXP[5937]	=	14163641
-DEXP[5938]	=	14166030
-DEXP[5939]	=	14168419
-DEXP[5940]	=	14170808
-DEXP[5941]	=	14173197
-DEXP[5942]	=	14175586
-DEXP[5943]	=	14177975
-DEXP[5944]	=	14180364
-DEXP[5945]	=	14182753
-DEXP[5946]	=	14185142
-DEXP[5947]	=	14187531
-DEXP[5948]	=	14189920
-DEXP[5949]	=	14192309
-DEXP[5950]	=	14194698
-DEXP[5951]	=	14197086
-DEXP[5952]	=	14199475
-DEXP[5953]	=	14201864
-DEXP[5954]	=	14204253
-DEXP[5955]	=	14206642
-DEXP[5956]	=	14209031
-DEXP[5957]	=	14211420
-DEXP[5958]	=	14213809
-DEXP[5959]	=	14216198
-DEXP[5960]	=	14218587
-DEXP[5961]	=	14220976
-DEXP[5962]	=	14223365
-DEXP[5963]	=	14225754
-DEXP[5964]	=	14228143
-DEXP[5965]	=	14230532
-DEXP[5966]	=	14232921
-DEXP[5967]	=	14235309
-DEXP[5968]	=	14237698
-DEXP[5969]	=	14240087
-DEXP[5970]	=	14242476
-DEXP[5971]	=	14244865
-DEXP[5972]	=	14247254
-DEXP[5973]	=	14249643
-DEXP[5974]	=	14252032
-DEXP[5975]	=	14254421
-DEXP[5976]	=	14256810
-DEXP[5977]	=	14259199
-DEXP[5978]	=	14261588
-DEXP[5979]	=	14263977
-DEXP[5980]	=	14266366
-DEXP[5981]	=	14268755
-DEXP[5982]	=	14271144
-DEXP[5983]	=	14273532
-DEXP[5984]	=	14275921
-DEXP[5985]	=	14278310
-DEXP[5986]	=	14280699
-DEXP[5987]	=	14283088
-DEXP[5988]	=	14285477
-DEXP[5989]	=	14287866
-DEXP[5990]	=	14290255
-DEXP[5991]	=	14292644
-DEXP[5992]	=	14295033
-DEXP[5993]	=	14297422
-DEXP[5994]	=	14299811
-DEXP[5995]	=	14302200
-DEXP[5996]	=	14304589
-DEXP[5997]	=	14306978
-DEXP[5998]	=	14309366
-DEXP[5999]	=	14311755
-DEXP[6000]	=	14314144
-DEXP[6001]	=	14316533
-DEXP[6002]	=	14318922
-DEXP[6003]	=	14321311
-DEXP[6004]	=	14323700
-DEXP[6005]	=	14326089
-DEXP[6006]	=	14328478
-DEXP[6007]	=	14330867
-DEXP[6008]	=	14333256
-DEXP[6009]	=	14335645
-DEXP[6010]	=	14338034
-DEXP[6011]	=	14340423
-DEXP[6012]	=	14342812
-DEXP[6013]	=	14345201
-DEXP[6014]	=	14347589
-DEXP[6015]	=	14349978
-DEXP[6016]	=	14352367
-DEXP[6017]	=	14354756
-DEXP[6018]	=	14357145
-DEXP[6019]	=	14359534
-DEXP[6020]	=	14361923
-DEXP[6021]	=	14364312
-DEXP[6022]	=	14366701
-DEXP[6023]	=	14369090
-DEXP[6024]	=	14371479
-DEXP[6025]	=	14373868
-DEXP[6026]	=	14376257
-DEXP[6027]	=	14378646
-DEXP[6028]	=	14381035
-DEXP[6029]	=	14383424
-DEXP[6030]	=	14385812
-DEXP[6031]	=	14388201
-DEXP[6032]	=	14390590
-DEXP[6033]	=	14392979
-DEXP[6034]	=	14395368
-DEXP[6035]	=	14397757
-DEXP[6036]	=	14400146
-DEXP[6037]	=	14402535
-DEXP[6038]	=	14404924
-DEXP[6039]	=	14407313
-DEXP[6040]	=	14409702
-DEXP[6041]	=	14412091
-DEXP[6042]	=	14414480
-DEXP[6043]	=	14416869
-DEXP[6044]	=	14419258
-DEXP[6045]	=	14421647
-DEXP[6046]	=	14424035
-DEXP[6047]	=	14426424
-DEXP[6048]	=	14428813
-DEXP[6049]	=	14431202
-DEXP[6050]	=	14433591
-DEXP[6051]	=	14435980
-DEXP[6052]	=	14438369
-DEXP[6053]	=	14440758
-DEXP[6054]	=	14443147
-DEXP[6055]	=	14445536
-DEXP[6056]	=	14447925
-DEXP[6057]	=	14450314
-DEXP[6058]	=	14452703
-DEXP[6059]	=	14455092
-DEXP[6060]	=	14457481
-DEXP[6061]	=	14459869
-DEXP[6062]	=	14462258
-DEXP[6063]	=	14464647
-DEXP[6064]	=	14467036
-DEXP[6065]	=	14469425
-DEXP[6066]	=	14471814
-DEXP[6067]	=	14474203
-DEXP[6068]	=	14476592
-DEXP[6069]	=	14478981
-DEXP[6070]	=	14481370
-DEXP[6071]	=	14483759
-DEXP[6072]	=	14486148
-DEXP[6073]	=	14488537
-DEXP[6074]	=	14490926
-DEXP[6075]	=	14493315
-DEXP[6076]	=	14495704
-DEXP[6077]	=	14498092
-DEXP[6078]	=	14500481
-DEXP[6079]	=	14502870
-DEXP[6080]	=	14505259
-DEXP[6081]	=	14507648
-DEXP[6082]	=	14510037
-DEXP[6083]	=	14512426
-DEXP[6084]	=	14514815
-DEXP[6085]	=	14517204
-DEXP[6086]	=	14519593
-DEXP[6087]	=	14521982
-DEXP[6088]	=	14524371
-DEXP[6089]	=	14526760
-DEXP[6090]	=	14529149
-DEXP[6091]	=	14531538
-DEXP[6092]	=	14533927
-DEXP[6093]	=	14536315
-DEXP[6094]	=	14538704
-DEXP[6095]	=	14541093
-DEXP[6096]	=	14543482
-DEXP[6097]	=	14545871
-DEXP[6098]	=	14548260
-DEXP[6099]	=	14550649
-DEXP[6100]	=	14553038
-DEXP[6101]	=	14555427
-DEXP[6102]	=	14557816
-DEXP[6103]	=	14560205
-DEXP[6104]	=	14562594
-DEXP[6105]	=	14564983
-DEXP[6106]	=	14567372
-DEXP[6107]	=	14569761
-DEXP[6108]	=	14572149
-DEXP[6109]	=	14574538
-DEXP[6110]	=	14576927
-DEXP[6111]	=	14579316
-DEXP[6112]	=	14581705
-DEXP[6113]	=	14584094
-DEXP[6114]	=	14586483
-DEXP[6115]	=	14588872
-DEXP[6116]	=	14591261
-DEXP[6117]	=	14593650
-DEXP[6118]	=	14596039
-DEXP[6119]	=	14598428
-DEXP[6120]	=	14600817
-DEXP[6121]	=	14603206
-DEXP[6122]	=	14605595
-DEXP[6123]	=	14607984
-DEXP[6124]	=	14610372
-DEXP[6125]	=	14612761
-DEXP[6126]	=	14615150
-DEXP[6127]	=	14617539
-DEXP[6128]	=	14619928
-DEXP[6129]	=	14622317
-DEXP[6130]	=	14624706
-DEXP[6131]	=	14627095
-DEXP[6132]	=	14629484
-DEXP[6133]	=	14631873
-DEXP[6134]	=	14634262
-DEXP[6135]	=	14636651
-DEXP[6136]	=	14639040
-DEXP[6137]	=	14641429
-DEXP[6138]	=	14643818
-DEXP[6139]	=	14646207
-DEXP[6140]	=	14648595
-DEXP[6141]	=	14650984
-DEXP[6142]	=	14653373
-DEXP[6143]	=	14655762
-DEXP[6144]	=	14658151
-DEXP[6145]	=	14660540
-DEXP[6146]	=	14662929
-DEXP[6147]	=	14665318
-DEXP[6148]	=	14667707
-DEXP[6149]	=	14670096
-DEXP[6150]	=	14672485
-DEXP[6151]	=	14674874
-DEXP[6152]	=	14677263
-DEXP[6153]	=	14679652
-DEXP[6154]	=	14682041
-DEXP[6155]	=	14684430
-DEXP[6156]	=	14686818
-DEXP[6157]	=	14689207
-DEXP[6158]	=	14691596
-DEXP[6159]	=	14693985
-DEXP[6160]	=	14696374
-DEXP[6161]	=	14698763
-DEXP[6162]	=	14701152
-DEXP[6163]	=	14703541
-DEXP[6164]	=	14705930
-DEXP[6165]	=	14708319
-DEXP[6166]	=	14710708
-DEXP[6167]	=	14713097
-DEXP[6168]	=	14715486
-DEXP[6169]	=	14717875
-DEXP[6170]	=	14720264
-DEXP[6171]	=	14722652
-DEXP[6172]	=	14725041
-DEXP[6173]	=	14727430
-DEXP[6174]	=	14729819
-DEXP[6175]	=	14732208
-DEXP[6176]	=	14734597
-DEXP[6177]	=	14736986
-DEXP[6178]	=	14739375
-DEXP[6179]	=	14741764
-DEXP[6180]	=	14744153
-DEXP[6181]	=	14746542
-DEXP[6182]	=	14748931
-DEXP[6183]	=	14751320
-DEXP[6184]	=	14753709
-DEXP[6185]	=	14756098
-DEXP[6186]	=	14758487
-DEXP[6187]	=	14760875
-DEXP[6188]	=	14763264
-DEXP[6189]	=	14765653
-DEXP[6190]	=	14768042
-DEXP[6191]	=	14770431
-DEXP[6192]	=	14772820
-DEXP[6193]	=	14775209
-DEXP[6194]	=	14777598
-DEXP[6195]	=	14779987
-DEXP[6196]	=	14782376
-DEXP[6197]	=	14784765
-DEXP[6198]	=	14787154
-DEXP[6199]	=	14789543
-DEXP[6200]	=	14791932
-DEXP[6201]	=	14794321
-DEXP[6202]	=	14796710
-DEXP[6203]	=	14799098
-DEXP[6204]	=	14801487
-DEXP[6205]	=	14803876
-DEXP[6206]	=	14806265
-DEXP[6207]	=	14808654
-DEXP[6208]	=	14811043
-DEXP[6209]	=	14813432
-DEXP[6210]	=	14815821
-DEXP[6211]	=	14818210
-DEXP[6212]	=	14820599
-DEXP[6213]	=	14822988
-DEXP[6214]	=	14825377
-DEXP[6215]	=	14827766
-DEXP[6216]	=	14830155
-DEXP[6217]	=	14832544
-DEXP[6218]	=	14834933
-DEXP[6219]	=	14837321
-DEXP[6220]	=	14839710
-DEXP[6221]	=	14842099
-DEXP[6222]	=	14844488
-DEXP[6223]	=	14846877
-DEXP[6224]	=	14849266
-DEXP[6225]	=	14851655
-DEXP[6226]	=	14854044
-DEXP[6227]	=	14856433
-DEXP[6228]	=	14858822
-DEXP[6229]	=	14861211
-DEXP[6230]	=	14863600
-DEXP[6231]	=	14865989
-DEXP[6232]	=	14868378
-DEXP[6233]	=	14870767
-DEXP[6234]	=	14873155
-DEXP[6235]	=	14875544
-DEXP[6236]	=	14877933
-DEXP[6237]	=	14880322
-DEXP[6238]	=	14882711
-DEXP[6239]	=	14885100
-DEXP[6240]	=	14887489
-DEXP[6241]	=	14889878
-DEXP[6242]	=	14892267
-DEXP[6243]	=	14894656
-DEXP[6244]	=	14897045
-DEXP[6245]	=	14899434
-DEXP[6246]	=	14901823
-DEXP[6247]	=	14904212
-DEXP[6248]	=	14906601
-DEXP[6249]	=	14908990
-DEXP[6250]	=	14911378
-DEXP[6251]	=	14913767
-DEXP[6252]	=	14916156
-DEXP[6253]	=	14918545
-DEXP[6254]	=	14920934
-DEXP[6255]	=	14923323
-DEXP[6256]	=	14925712
-DEXP[6257]	=	14928101
-DEXP[6258]	=	14930490
-DEXP[6259]	=	14932879
-DEXP[6260]	=	14935268
-DEXP[6261]	=	14937657
-DEXP[6262]	=	14940046
-DEXP[6263]	=	14942435
-DEXP[6264]	=	14944824
-DEXP[6265]	=	14947213
-DEXP[6266]	=	14949601
-DEXP[6267]	=	14951990
-DEXP[6268]	=	14954379
-DEXP[6269]	=	14956768
-DEXP[6270]	=	14959157
-DEXP[6271]	=	14961546
-DEXP[6272]	=	14963935
-DEXP[6273]	=	14966324
-DEXP[6274]	=	14968713
-DEXP[6275]	=	14971102
-DEXP[6276]	=	14973491
-DEXP[6277]	=	14975880
-DEXP[6278]	=	14978269
-DEXP[6279]	=	14980658
-DEXP[6280]	=	14983047
-DEXP[6281]	=	14985436
-DEXP[6282]	=	14987824
-DEXP[6283]	=	14990213
-DEXP[6284]	=	14992602
-DEXP[6285]	=	14994991
-DEXP[6286]	=	14997380
-DEXP[6287]	=	14999769
-DEXP[6288]	=	15002158
-DEXP[6289]	=	15004547
-DEXP[6290]	=	15006936
-DEXP[6291]	=	15009325
-DEXP[6292]	=	15011714
-DEXP[6293]	=	15014103
-DEXP[6294]	=	15016492
-DEXP[6295]	=	15018881
-DEXP[6296]	=	15021270
-DEXP[6297]	=	15023658
-DEXP[6298]	=	15026047
-DEXP[6299]	=	15028436
-DEXP[6300]	=	15030825
-DEXP[6301]	=	15033214
-DEXP[6302]	=	15035603
-DEXP[6303]	=	15037992
-DEXP[6304]	=	15040381
-DEXP[6305]	=	15042770
-DEXP[6306]	=	15045159
-DEXP[6307]	=	15047548
-DEXP[6308]	=	15049937
-DEXP[6309]	=	15052326
-DEXP[6310]	=	15054715
-DEXP[6311]	=	15057104
-DEXP[6312]	=	15059493
-DEXP[6313]	=	15061881
-DEXP[6314]	=	15064270
-DEXP[6315]	=	15066659
-DEXP[6316]	=	15069048
-DEXP[6317]	=	15071437
-DEXP[6318]	=	15073826
-DEXP[6319]	=	15076215
-DEXP[6320]	=	15078604
-DEXP[6321]	=	15080993
-DEXP[6322]	=	15083382
-DEXP[6323]	=	15085771
-DEXP[6324]	=	15088160
-DEXP[6325]	=	15090549
-DEXP[6326]	=	15092938
-DEXP[6327]	=	15095327
-DEXP[6328]	=	15097716
-DEXP[6329]	=	15100104
-DEXP[6330]	=	15102493
-DEXP[6331]	=	15104882
-DEXP[6332]	=	15107271
-DEXP[6333]	=	15109660
-DEXP[6334]	=	15112049
-DEXP[6335]	=	15114438
-DEXP[6336]	=	15116827
-DEXP[6337]	=	15119216
-DEXP[6338]	=	15121605
-DEXP[6339]	=	15123994
-DEXP[6340]	=	15126383
-DEXP[6341]	=	15128772
-DEXP[6342]	=	15131161
-DEXP[6343]	=	15133550
-DEXP[6344]	=	15135939
-DEXP[6345]	=	15138327
-DEXP[6346]	=	15140716
-DEXP[6347]	=	15143105
-DEXP[6348]	=	15145494
-DEXP[6349]	=	15147883
-DEXP[6350]	=	15150272
-DEXP[6351]	=	15152661
-DEXP[6352]	=	15155050
-DEXP[6353]	=	15157439
-DEXP[6354]	=	15159828
-DEXP[6355]	=	15162217
-DEXP[6356]	=	15164606
-DEXP[6357]	=	15166995
-DEXP[6358]	=	15169384
-DEXP[6359]	=	15171773
-DEXP[6360]	=	15174161
-DEXP[6361]	=	15176550
-DEXP[6362]	=	15178939
-DEXP[6363]	=	15181328
-DEXP[6364]	=	15183717
-DEXP[6365]	=	15186106
-DEXP[6366]	=	15188495
-DEXP[6367]	=	15190884
-DEXP[6368]	=	15193273
-DEXP[6369]	=	15195662
-DEXP[6370]	=	15198051
-DEXP[6371]	=	15200440
-DEXP[6372]	=	15202829
-DEXP[6373]	=	15205218
-DEXP[6374]	=	15207607
-DEXP[6375]	=	15209996
-DEXP[6376]	=	15212384
-DEXP[6377]	=	15214773
-DEXP[6378]	=	15217162
-DEXP[6379]	=	15219551
-DEXP[6380]	=	15221940
-DEXP[6381]	=	15224329
-DEXP[6382]	=	15226718
-DEXP[6383]	=	15229107
-DEXP[6384]	=	15231496
-DEXP[6385]	=	15233885
-DEXP[6386]	=	15236274
-DEXP[6387]	=	15238663
-DEXP[6388]	=	15241052
-DEXP[6389]	=	15243441
-DEXP[6390]	=	15245830
-DEXP[6391]	=	15248219
-DEXP[6392]	=	15250607
-DEXP[6393]	=	15252996
-DEXP[6394]	=	15255385
-DEXP[6395]	=	15257774
-DEXP[6396]	=	15260163
-DEXP[6397]	=	15262552
-DEXP[6398]	=	15264941
-DEXP[6399]	=	15267330
-DEXP[6400]	=	15269719
-DEXP[6401]	=	15272108
-DEXP[6402]	=	15274497
-DEXP[6403]	=	15276886
-DEXP[6404]	=	15279275
-DEXP[6405]	=	15281664
-DEXP[6406]	=	15284053
-DEXP[6407]	=	15286441
-DEXP[6408]	=	15288830
-DEXP[6409]	=	15291219
-DEXP[6410]	=	15293608
-DEXP[6411]	=	15295997
-DEXP[6412]	=	15298386
-DEXP[6413]	=	15300775
-DEXP[6414]	=	15303164
-DEXP[6415]	=	15305553
-DEXP[6416]	=	15307942
-DEXP[6417]	=	15310331
-DEXP[6418]	=	15312720
-DEXP[6419]	=	15315109
-DEXP[6420]	=	15317498
-DEXP[6421]	=	15319887
-DEXP[6422]	=	15322276
-DEXP[6423]	=	15324664
-DEXP[6424]	=	15327053
-DEXP[6425]	=	15329442
-DEXP[6426]	=	15331831
-DEXP[6427]	=	15334220
-DEXP[6428]	=	15336609
-DEXP[6429]	=	15338998
-DEXP[6430]	=	15341387
-DEXP[6431]	=	15343776
-DEXP[6432]	=	15346165
-DEXP[6433]	=	15348554
-DEXP[6434]	=	15350943
-DEXP[6435]	=	15353332
-DEXP[6436]	=	15355721
-DEXP[6437]	=	15358110
-DEXP[6438]	=	15360499
-DEXP[6439]	=	15362887
-DEXP[6440]	=	15365276
-DEXP[6441]	=	15367665
-DEXP[6442]	=	15370054
-DEXP[6443]	=	15372443
-DEXP[6444]	=	15374832
-DEXP[6445]	=	15377221
-DEXP[6446]	=	15379610
-DEXP[6447]	=	15381999
-DEXP[6448]	=	15384388
-DEXP[6449]	=	15386777
-DEXP[6450]	=	15389166
-DEXP[6451]	=	15391555
-DEXP[6452]	=	15393944
-DEXP[6453]	=	15396333
-DEXP[6454]	=	15398722
-DEXP[6455]	=	15401110
-DEXP[6456]	=	15403499
-DEXP[6457]	=	15405888
-DEXP[6458]	=	15408277
-DEXP[6459]	=	15410666
-DEXP[6460]	=	15413055
-DEXP[6461]	=	15415444
-DEXP[6462]	=	15417833
-DEXP[6463]	=	15420222
-DEXP[6464]	=	15422611
-DEXP[6465]	=	15425000
-DEXP[6466]	=	15427389
-DEXP[6467]	=	15429778
-DEXP[6468]	=	15432167
-DEXP[6469]	=	15434556
-DEXP[6470]	=	15436944
-DEXP[6471]	=	15439333
-DEXP[6472]	=	15441722
-DEXP[6473]	=	15444111
-DEXP[6474]	=	15446500
-DEXP[6475]	=	15448889
-DEXP[6476]	=	15451278
-DEXP[6477]	=	15453667
-DEXP[6478]	=	15456056
-DEXP[6479]	=	15458445
-DEXP[6480]	=	15460834
-DEXP[6481]	=	15463223
-DEXP[6482]	=	15465612
-DEXP[6483]	=	15468001
-DEXP[6484]	=	15470390
-DEXP[6485]	=	15472779
-DEXP[6486]	=	15475167
-DEXP[6487]	=	15477556
-DEXP[6488]	=	15479945
-DEXP[6489]	=	15482334
-DEXP[6490]	=	15484723
-DEXP[6491]	=	15487112
-DEXP[6492]	=	15489501
-DEXP[6493]	=	15491890
-DEXP[6494]	=	15494279
-DEXP[6495]	=	15496668
-DEXP[6496]	=	15499057
-DEXP[6497]	=	15501446
-DEXP[6498]	=	15503835
-DEXP[6499]	=	15506224
-DEXP[6500]	=	15508613
-DEXP[6501]	=	15511002
-DEXP[6502]	=	15513390
-DEXP[6503]	=	15515779
-DEXP[6504]	=	15518168
-DEXP[6505]	=	15520557
-DEXP[6506]	=	15522946
-DEXP[6507]	=	15525335
-DEXP[6508]	=	15527724
-DEXP[6509]	=	15530113
-DEXP[6510]	=	15532502
-DEXP[6511]	=	15534891
-DEXP[6512]	=	15537280
-DEXP[6513]	=	15539669
-DEXP[6514]	=	15542058
-DEXP[6515]	=	15544447
-DEXP[6516]	=	15546836
-DEXP[6517]	=	15549225
-DEXP[6518]	=	15551613
-DEXP[6519]	=	15554002
-DEXP[6520]	=	15556391
-DEXP[6521]	=	15558780
-DEXP[6522]	=	15561169
-DEXP[6523]	=	15563558
-DEXP[6524]	=	15565947
-DEXP[6525]	=	15568336
-DEXP[6526]	=	15570725
-DEXP[6527]	=	15573114
-DEXP[6528]	=	15575503
-DEXP[6529]	=	15577892
-DEXP[6530]	=	15580281
-DEXP[6531]	=	15582670
-DEXP[6532]	=	15585059
-DEXP[6533]	=	15587447
-DEXP[6534]	=	15589836
-DEXP[6535]	=	15592225
-DEXP[6536]	=	15594614
-DEXP[6537]	=	15597003
-DEXP[6538]	=	15599392
-DEXP[6539]	=	15601781
-DEXP[6540]	=	15604170
-DEXP[6541]	=	15606559
-DEXP[6542]	=	15608948
-DEXP[6543]	=	15611337
-DEXP[6544]	=	15613726
-DEXP[6545]	=	15616115
-DEXP[6546]	=	15618504
-DEXP[6547]	=	15620893
-DEXP[6548]	=	15623282
-DEXP[6549]	=	15625670
-DEXP[6550]	=	15628059
-DEXP[6551]	=	15630448
-DEXP[6552]	=	15632837
-DEXP[6553]	=	15635226
-DEXP[6554]	=	15637615
-DEXP[6555]	=	15640004
-DEXP[6556]	=	15642393
-DEXP[6557]	=	15644782
-DEXP[6558]	=	15647171
-DEXP[6559]	=	15649560
-DEXP[6560]	=	15651949
-DEXP[6561]	=	15654338
-DEXP[6562]	=	15656727
-DEXP[6563]	=	15659116
-DEXP[6564]	=	15661505
-DEXP[6565]	=	15663893
-DEXP[6566]	=	15666282
-DEXP[6567]	=	15668671
-DEXP[6568]	=	15671060
-DEXP[6569]	=	15673449
-DEXP[6570]	=	15675838
-DEXP[6571]	=	15678227
-DEXP[6572]	=	15680616
-DEXP[6573]	=	15683005
-DEXP[6574]	=	15685394
-DEXP[6575]	=	15687783
-DEXP[6576]	=	15690172
-DEXP[6577]	=	15692561
-DEXP[6578]	=	15694950
-DEXP[6579]	=	15697339
-DEXP[6580]	=	15699728
-DEXP[6581]	=	15702116
-DEXP[6582]	=	15704505
-DEXP[6583]	=	15706894
-DEXP[6584]	=	15709283
-DEXP[6585]	=	15711672
-DEXP[6586]	=	15714061
-DEXP[6587]	=	15716450
-DEXP[6588]	=	15718839
-DEXP[6589]	=	15721228
-DEXP[6590]	=	15723617
-DEXP[6591]	=	15726006
-DEXP[6592]	=	15728395
-DEXP[6593]	=	15730784
-DEXP[6594]	=	15733173
-DEXP[6595]	=	15735562
-DEXP[6596]	=	15737950
-DEXP[6597]	=	15740339
-DEXP[6598]	=	15742728
-DEXP[6599]	=	15745117
-DEXP[6600]	=	15747506
-DEXP[6601]	=	15749895
-DEXP[6602]	=	15752284
-DEXP[6603]	=	15754673
-DEXP[6604]	=	15757062
-DEXP[6605]	=	15759451
-DEXP[6606]	=	15761840
-DEXP[6607]	=	15764229
-DEXP[6608]	=	15766618
-DEXP[6609]	=	15769007
-DEXP[6610]	=	15771396
-DEXP[6611]	=	15773785
-DEXP[6612]	=	15776173
-DEXP[6613]	=	15778562
-DEXP[6614]	=	15780951
-DEXP[6615]	=	15783340
-DEXP[6616]	=	15785729
-DEXP[6617]	=	15788118
-DEXP[6618]	=	15790507
-DEXP[6619]	=	15792896
-DEXP[6620]	=	15795285
-DEXP[6621]	=	15797674
-DEXP[6622]	=	15800063
-DEXP[6623]	=	15802452
-DEXP[6624]	=	15804841
-DEXP[6625]	=	15807230
-DEXP[6626]	=	15809619
-DEXP[6627]	=	15812008
-DEXP[6628]	=	15814396
-DEXP[6629]	=	15816785
-DEXP[6630]	=	15819174
-DEXP[6631]	=	15821563
-DEXP[6632]	=	15823952
-DEXP[6633]	=	15826341
-DEXP[6634]	=	15828730
-DEXP[6635]	=	15831119
-DEXP[6636]	=	15833508
-DEXP[6637]	=	15835897
-DEXP[6638]	=	15838286
-DEXP[6639]	=	15840675
-DEXP[6640]	=	15843064
-DEXP[6641]	=	15845453
-DEXP[6642]	=	15847842
-DEXP[6643]	=	15850231
-DEXP[6644]	=	15852619
-DEXP[6645]	=	15855008
-DEXP[6646]	=	15857397
-DEXP[6647]	=	15859786
-DEXP[6648]	=	15862175
-DEXP[6649]	=	15864564
-DEXP[6650]	=	15866953
-DEXP[6651]	=	15869342
-DEXP[6652]	=	15871731
-DEXP[6653]	=	15874120
-DEXP[6654]	=	15876509
-DEXP[6655]	=	15878898
-DEXP[6656]	=	15881287
-DEXP[6657]	=	15883676
-DEXP[6658]	=	15886065
-DEXP[6659]	=	15888453
-DEXP[6660]	=	15890842
-DEXP[6661]	=	15893231
-DEXP[6662]	=	15895620
-DEXP[6663]	=	15898009
-DEXP[6664]	=	15900398
-DEXP[6665]	=	15902787
-DEXP[6666]	=	15905176
-DEXP[6667]	=	15907565
-DEXP[6668]	=	15909954
-DEXP[6669]	=	15912343
-DEXP[6670]	=	15914732
-DEXP[6671]	=	15917121
-DEXP[6672]	=	15919510
-DEXP[6673]	=	15921899
-DEXP[6674]	=	15924288
-DEXP[6675]	=	15926676
-DEXP[6676]	=	15929065
-DEXP[6677]	=	15931454
-DEXP[6678]	=	15933843
-DEXP[6679]	=	15936232
-DEXP[6680]	=	15938621
-DEXP[6681]	=	15941010
-DEXP[6682]	=	15943399
-DEXP[6683]	=	15945788
-DEXP[6684]	=	15948177
-DEXP[6685]	=	15950566
-DEXP[6686]	=	15952955
-DEXP[6687]	=	15955344
-DEXP[6688]	=	15957733
-DEXP[6689]	=	15960122
-DEXP[6690]	=	15962511
-DEXP[6691]	=	15964899
-DEXP[6692]	=	15967288
-DEXP[6693]	=	15969677
-DEXP[6694]	=	15972066
-DEXP[6695]	=	15974455
-DEXP[6696]	=	15976844
-DEXP[6697]	=	15979233
-DEXP[6698]	=	15981622
-DEXP[6699]	=	15984011
-DEXP[6700]	=	15986400
-DEXP[6701]	=	15988789
-DEXP[6702]	=	15991178
-DEXP[6703]	=	15993567
-DEXP[6704]	=	15995956
-DEXP[6705]	=	15998345
-DEXP[6706]	=	16000733
-DEXP[6707]	=	16003122
-DEXP[6708]	=	16005511
-DEXP[6709]	=	16007900
-DEXP[6710]	=	16010289
-DEXP[6711]	=	16012678
-DEXP[6712]	=	16015067
-DEXP[6713]	=	16017456
-DEXP[6714]	=	16019845
-DEXP[6715]	=	16022234
-DEXP[6716]	=	16024623
-DEXP[6717]	=	16027012
-DEXP[6718]	=	16029401
-DEXP[6719]	=	16031790
-DEXP[6720]	=	16034179
-DEXP[6721]	=	16036568
-DEXP[6722]	=	16038956
-DEXP[6723]	=	16041345
-DEXP[6724]	=	16043734
-DEXP[6725]	=	16046123
-DEXP[6726]	=	16048512
-DEXP[6727]	=	16050901
-DEXP[6728]	=	16053290
-DEXP[6729]	=	16055679
-DEXP[6730]	=	16058068
-DEXP[6731]	=	16060457
-DEXP[6732]	=	16062846
-DEXP[6733]	=	16065235
-DEXP[6734]	=	16067624
-DEXP[6735]	=	16070013
-DEXP[6736]	=	16072402
-DEXP[6737]	=	16074791
-DEXP[6738]	=	16077179
-DEXP[6739]	=	16079568
-DEXP[6740]	=	16081957
-DEXP[6741]	=	16084346
-DEXP[6742]	=	16086735
-DEXP[6743]	=	16089124
-DEXP[6744]	=	16091513
-DEXP[6745]	=	16093902
-DEXP[6746]	=	16096291
-DEXP[6747]	=	16098680
-DEXP[6748]	=	16101069
-DEXP[6749]	=	16103458
-DEXP[6750]	=	16105847
-DEXP[6751]	=	16108236
-DEXP[6752]	=	16110625
-DEXP[6753]	=	16113014
-DEXP[6754]	=	16115402
-DEXP[6755]	=	16117791
-DEXP[6756]	=	16120180
-DEXP[6757]	=	16122569
-DEXP[6758]	=	16124958
-DEXP[6759]	=	16127347
-DEXP[6760]	=	16129736
-DEXP[6761]	=	16132125
-DEXP[6762]	=	16134514
-DEXP[6763]	=	16136903
-DEXP[6764]	=	16139292
-DEXP[6765]	=	16141681
-DEXP[6766]	=	16144070
-DEXP[6767]	=	16146459
-DEXP[6768]	=	16148848
-DEXP[6769]	=	16151236
-DEXP[6770]	=	16153625
-DEXP[6771]	=	16156014
-DEXP[6772]	=	16158403
-DEXP[6773]	=	16160792
-DEXP[6774]	=	16163181
-DEXP[6775]	=	16165570
-DEXP[6776]	=	16167959
-DEXP[6777]	=	16170348
-DEXP[6778]	=	16172737
-DEXP[6779]	=	16175126
-DEXP[6780]	=	16177515
-DEXP[6781]	=	16179904
-DEXP[6782]	=	16182293
-DEXP[6783]	=	16184682
-DEXP[6784]	=	16187071
-DEXP[6785]	=	16189459
-DEXP[6786]	=	16191848
-DEXP[6787]	=	16194237
-DEXP[6788]	=	16196626
-DEXP[6789]	=	16199015
-DEXP[6790]	=	16201404
-DEXP[6791]	=	16203793
-DEXP[6792]	=	16206182
-DEXP[6793]	=	16208571
-DEXP[6794]	=	16210960
-DEXP[6795]	=	16213349
-DEXP[6796]	=	16215738
-DEXP[6797]	=	16218127
-DEXP[6798]	=	16220516
-DEXP[6799]	=	16222905
-DEXP[6800]	=	16225294
-DEXP[6801]	=	16227682
-DEXP[6802]	=	16230071
-DEXP[6803]	=	16232460
-DEXP[6804]	=	16234849
-DEXP[6805]	=	16237238
-DEXP[6806]	=	16239627
-DEXP[6807]	=	16242016
-DEXP[6808]	=	16244405
-DEXP[6809]	=	16246794
-DEXP[6810]	=	16249183
-DEXP[6811]	=	16251572
-DEXP[6812]	=	16253961
-DEXP[6813]	=	16256350
-DEXP[6814]	=	16258739
-DEXP[6815]	=	16261128
-DEXP[6816]	=	16263517
-DEXP[6817]	=	16265905
-DEXP[6818]	=	16268294
-DEXP[6819]	=	16270683
-DEXP[6820]	=	16273072
-DEXP[6821]	=	16275461
-DEXP[6822]	=	16277850
-DEXP[6823]	=	16280239
-DEXP[6824]	=	16282628
-DEXP[6825]	=	16285017
-DEXP[6826]	=	16287406
-DEXP[6827]	=	16289795
-DEXP[6828]	=	16292184
-DEXP[6829]	=	16294573
-DEXP[6830]	=	16296962
-DEXP[6831]	=	16299351
-DEXP[6832]	=	16301739
-DEXP[6833]	=	16304128
-DEXP[6834]	=	16306517
-DEXP[6835]	=	16308906
-DEXP[6836]	=	16311295
-DEXP[6837]	=	16313684
-DEXP[6838]	=	16316073
-DEXP[6839]	=	16318462
-DEXP[6840]	=	16320851
-DEXP[6841]	=	16323240
-DEXP[6842]	=	16325629
-DEXP[6843]	=	16328018
-DEXP[6844]	=	16330407
-DEXP[6845]	=	16332796
-DEXP[6846]	=	16335185
-DEXP[6847]	=	16337574
-DEXP[6848]	=	16339962
-DEXP[6849]	=	16342351
-DEXP[6850]	=	16344740
-DEXP[6851]	=	16347129
-DEXP[6852]	=	16349518
-DEXP[6853]	=	16351907
-DEXP[6854]	=	16354296
-DEXP[6855]	=	16356685
-DEXP[6856]	=	16359074
-DEXP[6857]	=	16361463
-DEXP[6858]	=	16363852
-DEXP[6859]	=	16366241
-DEXP[6860]	=	16368630
-DEXP[6861]	=	16371019
-DEXP[6862]	=	16373408
-DEXP[6863]	=	16375797
-DEXP[6864]	=	16378185
-DEXP[6865]	=	16380574
-DEXP[6866]	=	16382963
-DEXP[6867]	=	16385352
-DEXP[6868]	=	16387741
-DEXP[6869]	=	16390130
-DEXP[6870]	=	16392519
-DEXP[6871]	=	16394908
-DEXP[6872]	=	16397297
-DEXP[6873]	=	16399686
-DEXP[6874]	=	16402075
-DEXP[6875]	=	16404464
-DEXP[6876]	=	16406853
-DEXP[6877]	=	16409242
-DEXP[6878]	=	16411631
-DEXP[6879]	=	16414020
-DEXP[6880]	=	16416408
-DEXP[6881]	=	16418797
-DEXP[6882]	=	16421186
-DEXP[6883]	=	16423575
-DEXP[6884]	=	16425964
-DEXP[6885]	=	16428353
-DEXP[6886]	=	16430742
-DEXP[6887]	=	16433131
-DEXP[6888]	=	16435520
-DEXP[6889]	=	16437909
-DEXP[6890]	=	16440298
-DEXP[6891]	=	16442687
-DEXP[6892]	=	16445076
-DEXP[6893]	=	16447465
-DEXP[6894]	=	16449854
-DEXP[6895]	=	16452242
-DEXP[6896]	=	16454631
-DEXP[6897]	=	16457020
-DEXP[6898]	=	16459409
-DEXP[6899]	=	16461798
-DEXP[6900]	=	16464187
-DEXP[6901]	=	16466576
-DEXP[6902]	=	16468965
-DEXP[6903]	=	16471354
-DEXP[6904]	=	16473743
-DEXP[6905]	=	16476132
-DEXP[6906]	=	16478521
-DEXP[6907]	=	16480910
-DEXP[6908]	=	16483299
-DEXP[6909]	=	16485688
-DEXP[6910]	=	16488077
-DEXP[6911]	=	16490465
-DEXP[6912]	=	16492854
-DEXP[6913]	=	16495243
-DEXP[6914]	=	16497632
-DEXP[6915]	=	16500021
-DEXP[6916]	=	16502410
-DEXP[6917]	=	16504799
-DEXP[6918]	=	16507188
-DEXP[6919]	=	16509577
-DEXP[6920]	=	16511966
-DEXP[6921]	=	16514355
-DEXP[6922]	=	16516744
-DEXP[6923]	=	16519133
-DEXP[6924]	=	16521522
-DEXP[6925]	=	16523911
-DEXP[6926]	=	16526300
-DEXP[6927]	=	16528688
-DEXP[6928]	=	16531077
-DEXP[6929]	=	16533466
-DEXP[6930]	=	16535855
-DEXP[6931]	=	16538244
-DEXP[6932]	=	16540633
-DEXP[6933]	=	16543022
-DEXP[6934]	=	16545411
-DEXP[6935]	=	16547800
-DEXP[6936]	=	16550189
-DEXP[6937]	=	16552578
-DEXP[6938]	=	16554967
-DEXP[6939]	=	16557356
-DEXP[6940]	=	16559745
-DEXP[6941]	=	16562134
-DEXP[6942]	=	16564523
-DEXP[6943]	=	16566911
-DEXP[6944]	=	16569300
-DEXP[6945]	=	16571689
-DEXP[6946]	=	16574078
-DEXP[6947]	=	16576467
-DEXP[6948]	=	16578856
-DEXP[6949]	=	16581245
-DEXP[6950]	=	16583634
-DEXP[6951]	=	16586023
-DEXP[6952]	=	16588412
-DEXP[6953]	=	16590801
-DEXP[6954]	=	16593190
-DEXP[6955]	=	16595579
-DEXP[6956]	=	16597968
-DEXP[6957]	=	16600357
-DEXP[6958]	=	16602745
-DEXP[6959]	=	16605134
-DEXP[6960]	=	16607523
-DEXP[6961]	=	16609912
-DEXP[6962]	=	16612301
-DEXP[6963]	=	16614690
-DEXP[6964]	=	16617079
-DEXP[6965]	=	16619468
-DEXP[6966]	=	16621857
-DEXP[6967]	=	16624246
-DEXP[6968]	=	16626635
-DEXP[6969]	=	16629024
-DEXP[6970]	=	16631413
-DEXP[6971]	=	16633802
-DEXP[6972]	=	16636191
-DEXP[6973]	=	16638580
-DEXP[6974]	=	16640968
-DEXP[6975]	=	16643357
-DEXP[6976]	=	16645746
-DEXP[6977]	=	16648135
-DEXP[6978]	=	16650524
-DEXP[6979]	=	16652913
-DEXP[6980]	=	16655302
-DEXP[6981]	=	16657691
-DEXP[6982]	=	16660080
-DEXP[6983]	=	16662469
-DEXP[6984]	=	16664858
-DEXP[6985]	=	16667247
-DEXP[6986]	=	16669636
-DEXP[6987]	=	16672025
-DEXP[6988]	=	16674414
-DEXP[6989]	=	16676803
-DEXP[6990]	=	16679191
-DEXP[6991]	=	16681580
-DEXP[6992]	=	16683969
-DEXP[6993]	=	16686358
-DEXP[6994]	=	16688747
-DEXP[6995]	=	16691136
-DEXP[6996]	=	16693525
-DEXP[6997]	=	16695914
-DEXP[6998]	=	16698303
-DEXP[6999]	=	16700692
-DEXP[7000]	=	16703081
-DEXP[7001]	=	16705470
-DEXP[7002]	=	16707859
-DEXP[7003]	=	16710248
-DEXP[7004]	=	16712637
-DEXP[7005]	=	16715025
-DEXP[7006]	=	16717414
-DEXP[7007]	=	16719803
-DEXP[7008]	=	16722192
-DEXP[7009]	=	16724581
-DEXP[7010]	=	16726970
-DEXP[7011]	=	16729359
-DEXP[7012]	=	16731748
-DEXP[7013]	=	16734137
-DEXP[7014]	=	16736526
-DEXP[7015]	=	16738915
-DEXP[7016]	=	16741304
-DEXP[7017]	=	16743693
-DEXP[7018]	=	16746082
-DEXP[7019]	=	16748471
-DEXP[7020]	=	16750860
-DEXP[7021]	=	16753248
-DEXP[7022]	=	16755637
-DEXP[7023]	=	16758026
-DEXP[7024]	=	16760415
-DEXP[7025]	=	16762804
-DEXP[7026]	=	16765193
-DEXP[7027]	=	16767582
-DEXP[7028]	=	16769971
-DEXP[7029]	=	16772360
-DEXP[7030]	=	16774749
-DEXP[7031]	=	16777138
-DEXP[7032]	=	16779527
-DEXP[7033]	=	16781916
-DEXP[7034]	=	16784305
-DEXP[7035]	=	16786694
-DEXP[7036]	=	16789083
-DEXP[7037]	=	16791471
-DEXP[7038]	=	16793860
-DEXP[7039]	=	16796249
-DEXP[7040]	=	16798638
-DEXP[7041]	=	16801027
-DEXP[7042]	=	16803416
-DEXP[7043]	=	16805805
-DEXP[7044]	=	16808194
-DEXP[7045]	=	16810583
-DEXP[7046]	=	16812972
-DEXP[7047]	=	16815361
-DEXP[7048]	=	16817750
-DEXP[7049]	=	16820139
-DEXP[7050]	=	16822528
-DEXP[7051]	=	16824917
-DEXP[7052]	=	16827306
-DEXP[7053]	=	16829694
-DEXP[7054]	=	16832083
-DEXP[7055]	=	16834472
-DEXP[7056]	=	16836861
-DEXP[7057]	=	16839250
-DEXP[7058]	=	16841639
-DEXP[7059]	=	16844028
-DEXP[7060]	=	16846417
-DEXP[7061]	=	16848806
-DEXP[7062]	=	16851195
-DEXP[7063]	=	16853584
-DEXP[7064]	=	16855973
-DEXP[7065]	=	16858362
-DEXP[7066]	=	16860751
-DEXP[7067]	=	16863140
-DEXP[7068]	=	16865528
-DEXP[7069]	=	16867917
-DEXP[7070]	=	16870306
-DEXP[7071]	=	16872695
-DEXP[7072]	=	16875084
-DEXP[7073]	=	16877473
-DEXP[7074]	=	16879862
-DEXP[7075]	=	16882251
-DEXP[7076]	=	16884640
-DEXP[7077]	=	16887029
-DEXP[7078]	=	16889418
-DEXP[7079]	=	16891807
-DEXP[7080]	=	16894196
-DEXP[7081]	=	16896585
-DEXP[7082]	=	16898974
-DEXP[7083]	=	16901363
-DEXP[7084]	=	16903751
-DEXP[7085]	=	16906140
-DEXP[7086]	=	16908529
-DEXP[7087]	=	16910918
-DEXP[7088]	=	16913307
-DEXP[7089]	=	16915696
-DEXP[7090]	=	16918085
-DEXP[7091]	=	16920474
-DEXP[7092]	=	16922863
-DEXP[7093]	=	16925252
-DEXP[7094]	=	16927641
-DEXP[7095]	=	16930030
-DEXP[7096]	=	16932419
-DEXP[7097]	=	16934808
-DEXP[7098]	=	16937197
-DEXP[7099]	=	16939586
-DEXP[7100]	=	16941974
-DEXP[7101]	=	16944363
-DEXP[7102]	=	16946752
-DEXP[7103]	=	16949141
-DEXP[7104]	=	16951530
-DEXP[7105]	=	16953919
-DEXP[7106]	=	16956308
-DEXP[7107]	=	16958697
-DEXP[7108]	=	16961086
-DEXP[7109]	=	16963475
-DEXP[7110]	=	16965864
-DEXP[7111]	=	16968253
-DEXP[7112]	=	16970642
-DEXP[7113]	=	16973031
-DEXP[7114]	=	16975420
-DEXP[7115]	=	16977809
-DEXP[7116]	=	16980197
-DEXP[7117]	=	16982586
-DEXP[7118]	=	16984975
-DEXP[7119]	=	16987364
-DEXP[7120]	=	16989753
-DEXP[7121]	=	16992142
-DEXP[7122]	=	16994531
-DEXP[7123]	=	16996920
-DEXP[7124]	=	16999309
-DEXP[7125]	=	17001698
-DEXP[7126]	=	17004087
-DEXP[7127]	=	17006476
-DEXP[7128]	=	17008865
-DEXP[7129]	=	17011254
-DEXP[7130]	=	17013643
-DEXP[7131]	=	17016031
-DEXP[7132]	=	17018420
-DEXP[7133]	=	17020809
-DEXP[7134]	=	17023198
-DEXP[7135]	=	17025587
-DEXP[7136]	=	17027976
-DEXP[7137]	=	17030365
-DEXP[7138]	=	17032754
-DEXP[7139]	=	17035143
-DEXP[7140]	=	17037532
-DEXP[7141]	=	17039921
-DEXP[7142]	=	17042310
-DEXP[7143]	=	17044699
-DEXP[7144]	=	17047088
-DEXP[7145]	=	17049477
-DEXP[7146]	=	17051866
-DEXP[7147]	=	17054254
-DEXP[7148]	=	17056643
-DEXP[7149]	=	17059032
-DEXP[7150]	=	17061421
-DEXP[7151]	=	17063810
-DEXP[7152]	=	17066199
-DEXP[7153]	=	17068588
-DEXP[7154]	=	17070977
-DEXP[7155]	=	17073366
-DEXP[7156]	=	17075755
-DEXP[7157]	=	17078144
-DEXP[7158]	=	17080533
-DEXP[7159]	=	17082922
-DEXP[7160]	=	17085311
-DEXP[7161]	=	17087700
-DEXP[7162]	=	17090089
-DEXP[7163]	=	17092477
-DEXP[7164]	=	17094866
-DEXP[7165]	=	17097255
-DEXP[7166]	=	17099644
-DEXP[7167]	=	17102033
-DEXP[7168]	=	17104422
-DEXP[7169]	=	17106811
-DEXP[7170]	=	17109200
-DEXP[7171]	=	17111589
-DEXP[7172]	=	17113978
-DEXP[7173]	=	17116367
-DEXP[7174]	=	17118756
-DEXP[7175]	=	17121145
-DEXP[7176]	=	17123534
-DEXP[7177]	=	17125923
-DEXP[7178]	=	17128312
-DEXP[7179]	=	17130700
-DEXP[7180]	=	17133089
-DEXP[7181]	=	17135478
-DEXP[7182]	=	17137867
-DEXP[7183]	=	17140256
-DEXP[7184]	=	17142645
-DEXP[7185]	=	17145034
-DEXP[7186]	=	17147423
-DEXP[7187]	=	17149812
-DEXP[7188]	=	17152201
-DEXP[7189]	=	17154590
-DEXP[7190]	=	17156979
-DEXP[7191]	=	17159368
-DEXP[7192]	=	17161757
-DEXP[7193]	=	17164146
-DEXP[7194]	=	17166534
-DEXP[7195]	=	17168923
-DEXP[7196]	=	17171312
-DEXP[7197]	=	17173701
-DEXP[7198]	=	17176090
-DEXP[7199]	=	17178479
-DEXP[7200]	=	17180868
-DEXP[7201]	=	17183257
-DEXP[7202]	=	17185646
-DEXP[7203]	=	17188035
-DEXP[7204]	=	17190424
-DEXP[7205]	=	17192813
-DEXP[7206]	=	17195202
-DEXP[7207]	=	17197591
-DEXP[7208]	=	17199980
-DEXP[7209]	=	17202369
-DEXP[7210]	=	17204757
-DEXP[7211]	=	17207146
-DEXP[7212]	=	17209535
-DEXP[7213]	=	17211924
-DEXP[7214]	=	17214313
-DEXP[7215]	=	17216702
-DEXP[7216]	=	17219091
-DEXP[7217]	=	17221480
-DEXP[7218]	=	17223869
-DEXP[7219]	=	17226258
-DEXP[7220]	=	17228647
-DEXP[7221]	=	17231036
-DEXP[7222]	=	17233425
-DEXP[7223]	=	17235814
-DEXP[7224]	=	17238203
-DEXP[7225]	=	17240592
-DEXP[7226]	=	17242980
-DEXP[7227]	=	17245369
-DEXP[7228]	=	17247758
-DEXP[7229]	=	17250147
-DEXP[7230]	=	17252536
-DEXP[7231]	=	17254925
-DEXP[7232]	=	17257314
-DEXP[7233]	=	17259703
-DEXP[7234]	=	17262092
-DEXP[7235]	=	17264481
-DEXP[7236]	=	17266870
-DEXP[7237]	=	17269259
-DEXP[7238]	=	17271648
-DEXP[7239]	=	17274037
-DEXP[7240]	=	17276426
-DEXP[7241]	=	17278815
-DEXP[7242]	=	17281203
-DEXP[7243]	=	17283592
-DEXP[7244]	=	17285981
-DEXP[7245]	=	17288370
-DEXP[7246]	=	17290759
-DEXP[7247]	=	17293148
-DEXP[7248]	=	17295537
-DEXP[7249]	=	17297926
-DEXP[7250]	=	17300315
-DEXP[7251]	=	17302704
-DEXP[7252]	=	17305093
-DEXP[7253]	=	17307482
-DEXP[7254]	=	17309871
-DEXP[7255]	=	17312260
-DEXP[7256]	=	17314649
-DEXP[7257]	=	17317037
-DEXP[7258]	=	17319426
-DEXP[7259]	=	17321815
-DEXP[7260]	=	17324204
-DEXP[7261]	=	17326593
-DEXP[7262]	=	17328982
-DEXP[7263]	=	17331371
-DEXP[7264]	=	17333760
-DEXP[7265]	=	17336149
-DEXP[7266]	=	17338538
-DEXP[7267]	=	17340927
-DEXP[7268]	=	17343316
-DEXP[7269]	=	17345705
-DEXP[7270]	=	17348094
-DEXP[7271]	=	17350483
-DEXP[7272]	=	17352872
-DEXP[7273]	=	17355260
-DEXP[7274]	=	17357649
-DEXP[7275]	=	17360038
-DEXP[7276]	=	17362427
-DEXP[7277]	=	17364816
-DEXP[7278]	=	17367205
-DEXP[7279]	=	17369594
-DEXP[7280]	=	17371983
-DEXP[7281]	=	17374372
-DEXP[7282]	=	17376761
-DEXP[7283]	=	17379150
-DEXP[7284]	=	17381539
-DEXP[7285]	=	17383928
-DEXP[7286]	=	17386317
-DEXP[7287]	=	17388706
-DEXP[7288]	=	17391095
-DEXP[7289]	=	17393483
-DEXP[7290]	=	17395872
-DEXP[7291]	=	17398261
-DEXP[7292]	=	17400650
-DEXP[7293]	=	17403039
-DEXP[7294]	=	17405428
-DEXP[7295]	=	17407817
-DEXP[7296]	=	17410206
-DEXP[7297]	=	17412595
-DEXP[7298]	=	17414984
-DEXP[7299]	=	17417373
-DEXP[7300]	=	17419762
-DEXP[7301]	=	17422151
-DEXP[7302]	=	17424540
-DEXP[7303]	=	17426929
-DEXP[7304]	=	17429317
-DEXP[7305]	=	17431706
-DEXP[7306]	=	17434095
-DEXP[7307]	=	17436484
-DEXP[7308]	=	17438873
-DEXP[7309]	=	17441262
-DEXP[7310]	=	17443651
-DEXP[7311]	=	17446040
-DEXP[7312]	=	17448429
-DEXP[7313]	=	17450818
-DEXP[7314]	=	17453207
-DEXP[7315]	=	17455596
-DEXP[7316]	=	17457985
-DEXP[7317]	=	17460374
-DEXP[7318]	=	17462763
-DEXP[7319]	=	17465152
-DEXP[7320]	=	17467540
-DEXP[7321]	=	17469929
-DEXP[7322]	=	17472318
-DEXP[7323]	=	17474707
-DEXP[7324]	=	17477096
-DEXP[7325]	=	17479485
-DEXP[7326]	=	17481874
-DEXP[7327]	=	17484263
-DEXP[7328]	=	17486652
-DEXP[7329]	=	17489041
-DEXP[7330]	=	17491430
-DEXP[7331]	=	17493819
-DEXP[7332]	=	17496208
-DEXP[7333]	=	17498597
-DEXP[7334]	=	17500986
-DEXP[7335]	=	17503375
-DEXP[7336]	=	17505763
-DEXP[7337]	=	17508152
-DEXP[7338]	=	17510541
-DEXP[7339]	=	17512930
-DEXP[7340]	=	17515319
-DEXP[7341]	=	17517708
-DEXP[7342]	=	17520097
-DEXP[7343]	=	17522486
-DEXP[7344]	=	17524875
-DEXP[7345]	=	17527264
-DEXP[7346]	=	17529653
-DEXP[7347]	=	17532042
-DEXP[7348]	=	17534431
-DEXP[7349]	=	17536820
-DEXP[7350]	=	17539209
-DEXP[7351]	=	17541598
-DEXP[7352]	=	17543986
-DEXP[7353]	=	17546375
-DEXP[7354]	=	17548764
-DEXP[7355]	=	17551153
-DEXP[7356]	=	17553542
-DEXP[7357]	=	17555931
-DEXP[7358]	=	17558320
-DEXP[7359]	=	17560709
-DEXP[7360]	=	17563098
-DEXP[7361]	=	17565487
-DEXP[7362]	=	17567876
-DEXP[7363]	=	17570265
-DEXP[7364]	=	17572654
-DEXP[7365]	=	17575043
-DEXP[7366]	=	17577432
-DEXP[7367]	=	17579820
-DEXP[7368]	=	17582209
-DEXP[7369]	=	17584598
-DEXP[7370]	=	17586987
-DEXP[7371]	=	17589376
-DEXP[7372]	=	17591765
-DEXP[7373]	=	17594154
-DEXP[7374]	=	17596543
-DEXP[7375]	=	17598932
-DEXP[7376]	=	17601321
-DEXP[7377]	=	17603710
-DEXP[7378]	=	17606099
-DEXP[7379]	=	17608488
-DEXP[7380]	=	17610877
-DEXP[7381]	=	17613266
-DEXP[7382]	=	17615655
-DEXP[7383]	=	17618043
-DEXP[7384]	=	17620432
-DEXP[7385]	=	17622821
-DEXP[7386]	=	17625210
-DEXP[7387]	=	17627599
-DEXP[7388]	=	17629988
-DEXP[7389]	=	17632377
-DEXP[7390]	=	17634766
-DEXP[7391]	=	17637155
-DEXP[7392]	=	17639544
-DEXP[7393]	=	17641933
-DEXP[7394]	=	17644322
-DEXP[7395]	=	17646711
-DEXP[7396]	=	17649100
-DEXP[7397]	=	17651489
-DEXP[7398]	=	17653878
-DEXP[7399]	=	17656266
-DEXP[7400]	=	17658655
-DEXP[7401]	=	17661044
-DEXP[7402]	=	17663433
-DEXP[7403]	=	17665822
-DEXP[7404]	=	17668211
-DEXP[7405]	=	17670600
-DEXP[7406]	=	17672989
-DEXP[7407]	=	17675378
-DEXP[7408]	=	17677767
-DEXP[7409]	=	17680156
-DEXP[7410]	=	17682545
-DEXP[7411]	=	17684934
-DEXP[7412]	=	17687323
-DEXP[7413]	=	17689712
-DEXP[7414]	=	17692101
-DEXP[7415]	=	17694489
-DEXP[7416]	=	17696878
-DEXP[7417]	=	17699267
-DEXP[7418]	=	17701656
-DEXP[7419]	=	17704045
-DEXP[7420]	=	17706434
-DEXP[7421]	=	17708823
-DEXP[7422]	=	17711212
-DEXP[7423]	=	17713601
-DEXP[7424]	=	17715990
-DEXP[7425]	=	17718379
-DEXP[7426]	=	17720768
-DEXP[7427]	=	17723157
-DEXP[7428]	=	17725546
-DEXP[7429]	=	17727935
-DEXP[7430]	=	17730323
-DEXP[7431]	=	17732712
-DEXP[7432]	=	17735101
-DEXP[7433]	=	17737490
-DEXP[7434]	=	17739879
-DEXP[7435]	=	17742268
-DEXP[7436]	=	17744657
-DEXP[7437]	=	17747046
-DEXP[7438]	=	17749435
-DEXP[7439]	=	17751824
-DEXP[7440]	=	17754213
-DEXP[7441]	=	17756602
-DEXP[7442]	=	17758991
-DEXP[7443]	=	17761380
-DEXP[7444]	=	17763769
-DEXP[7445]	=	17766158
-DEXP[7446]	=	17768546
-DEXP[7447]	=	17770935
-DEXP[7448]	=	17773324
-DEXP[7449]	=	17775713
-DEXP[7450]	=	17778102
-DEXP[7451]	=	17780491
-DEXP[7452]	=	17782880
-DEXP[7453]	=	17785269
-DEXP[7454]	=	17787658
-DEXP[7455]	=	17790047
-DEXP[7456]	=	17792436
-DEXP[7457]	=	17794825
-DEXP[7458]	=	17797214
-DEXP[7459]	=	17799603
-DEXP[7460]	=	17801992
-DEXP[7461]	=	17804381
-DEXP[7462]	=	17806769
-DEXP[7463]	=	17809158
-DEXP[7464]	=	17811547
-DEXP[7465]	=	17813936
-DEXP[7466]	=	17816325
-DEXP[7467]	=	17818714
-DEXP[7468]	=	17821103
-DEXP[7469]	=	17823492
-DEXP[7470]	=	17825881
-DEXP[7471]	=	17828270
-DEXP[7472]	=	17830659
-DEXP[7473]	=	17833048
-DEXP[7474]	=	17835437
-DEXP[7475]	=	17837826
-DEXP[7476]	=	17840215
-DEXP[7477]	=	17842604
-DEXP[7478]	=	17844992
-DEXP[7479]	=	17847381
-DEXP[7480]	=	17849770
-DEXP[7481]	=	17852159
-DEXP[7482]	=	17854548
-DEXP[7483]	=	17856937
-DEXP[7484]	=	17859326
-DEXP[7485]	=	17861715
-DEXP[7486]	=	17864104
-DEXP[7487]	=	17866493
-DEXP[7488]	=	17868882
-DEXP[7489]	=	17871271
-DEXP[7490]	=	17873660
-DEXP[7491]	=	17876049
-DEXP[7492]	=	17878438
-DEXP[7493]	=	17880826
-DEXP[7494]	=	17883215
-DEXP[7495]	=	17885604
-DEXP[7496]	=	17887993
-DEXP[7497]	=	17890382
-DEXP[7498]	=	17892771
-DEXP[7499]	=	17895160
-DEXP[7500]	=	17897549
-DEXP[7501]	=	17899938
-DEXP[7502]	=	17902327
-DEXP[7503]	=	17904716
-DEXP[7504]	=	17907105
-DEXP[7505]	=	17909494
-DEXP[7506]	=	17911883
-DEXP[7507]	=	17914272
-DEXP[7508]	=	17916661
-DEXP[7509]	=	17919049
-DEXP[7510]	=	17921438
-DEXP[7511]	=	17923827
-DEXP[7512]	=	17926216
-DEXP[7513]	=	17928605
-DEXP[7514]	=	17930994
-DEXP[7515]	=	17933383
-DEXP[7516]	=	17935772
-DEXP[7517]	=	17938161
-DEXP[7518]	=	17940550
-DEXP[7519]	=	17942939
-DEXP[7520]	=	17945328
-DEXP[7521]	=	17947717
-DEXP[7522]	=	17950106
-DEXP[7523]	=	17952495
-DEXP[7524]	=	17954884
-DEXP[7525]	=	17957272
-DEXP[7526]	=	17959661
-DEXP[7527]	=	17962050
-DEXP[7528]	=	17964439
-DEXP[7529]	=	17966828
-DEXP[7530]	=	17969217
-DEXP[7531]	=	17971606
-DEXP[7532]	=	17973995
-DEXP[7533]	=	17976384
-DEXP[7534]	=	17978773
-DEXP[7535]	=	17981162
-DEXP[7536]	=	17983551
-DEXP[7537]	=	17985940
-DEXP[7538]	=	17988329
-DEXP[7539]	=	17990718
-DEXP[7540]	=	17993106
-DEXP[7541]	=	17995495
-DEXP[7542]	=	17997884
-DEXP[7543]	=	18000273
-DEXP[7544]	=	18002662
-DEXP[7545]	=	18005051
-DEXP[7546]	=	18007440
-DEXP[7547]	=	18009829
-DEXP[7548]	=	18012218
-DEXP[7549]	=	18014607
-DEXP[7550]	=	18016996
-DEXP[7551]	=	18019385
-DEXP[7552]	=	18021774
-DEXP[7553]	=	18024163
-DEXP[7554]	=	18026552
-DEXP[7555]	=	18028941
-DEXP[7556]	=	18031329
-DEXP[7557]	=	18033718
-DEXP[7558]	=	18036107
-DEXP[7559]	=	18038496
-DEXP[7560]	=	18040885
-DEXP[7561]	=	18043274
-DEXP[7562]	=	18045663
-DEXP[7563]	=	18048052
-DEXP[7564]	=	18050441
-DEXP[7565]	=	18052830
-DEXP[7566]	=	18055219
-DEXP[7567]	=	18057608
-DEXP[7568]	=	18059997
-DEXP[7569]	=	18062386
-DEXP[7570]	=	18064775
-DEXP[7571]	=	18067164
-DEXP[7572]	=	18069552
-DEXP[7573]	=	18071941
-DEXP[7574]	=	18074330
-DEXP[7575]	=	18076719
-DEXP[7576]	=	18079108
-DEXP[7577]	=	18081497
-DEXP[7578]	=	18083886
-DEXP[7579]	=	18086275
-DEXP[7580]	=	18088664
-DEXP[7581]	=	18091053
-DEXP[7582]	=	18093442
-DEXP[7583]	=	18095831
-DEXP[7584]	=	18098220
-DEXP[7585]	=	18100609
-DEXP[7586]	=	18102998
-DEXP[7587]	=	18105387
-DEXP[7588]	=	18107775
-DEXP[7589]	=	18110164
-DEXP[7590]	=	18112553
-DEXP[7591]	=	18114942
-DEXP[7592]	=	18117331
-DEXP[7593]	=	18119720
-DEXP[7594]	=	18122109
-DEXP[7595]	=	18124498
-DEXP[7596]	=	18126887
-DEXP[7597]	=	18129276
-DEXP[7598]	=	18131665
-DEXP[7599]	=	18134054
-DEXP[7600]	=	18136443
-DEXP[7601]	=	18138832
-DEXP[7602]	=	18141221
-DEXP[7603]	=	18143609
-DEXP[7604]	=	18145998
-DEXP[7605]	=	18148387
-DEXP[7606]	=	18150776
-DEXP[7607]	=	18153165
-DEXP[7608]	=	18155554
-DEXP[7609]	=	18157943
-DEXP[7610]	=	18160332
-DEXP[7611]	=	18162721
-DEXP[7612]	=	18165110
-DEXP[7613]	=	18167499
-DEXP[7614]	=	18169888
-DEXP[7615]	=	18172277
-DEXP[7616]	=	18174666
-DEXP[7617]	=	18177055
-DEXP[7618]	=	18179444
-DEXP[7619]	=	18181832
-DEXP[7620]	=	18184221
-DEXP[7621]	=	18186610
-DEXP[7622]	=	18188999
-DEXP[7623]	=	18191388
-DEXP[7624]	=	18193777
-DEXP[7625]	=	18196166
-DEXP[7626]	=	18198555
-DEXP[7627]	=	18200944
-DEXP[7628]	=	18203333
-DEXP[7629]	=	18205722
-DEXP[7630]	=	18208111
-DEXP[7631]	=	18210500
-DEXP[7632]	=	18212889
-DEXP[7633]	=	18215278
-DEXP[7634]	=	18217667
-DEXP[7635]	=	18220055
-DEXP[7636]	=	18222444
-DEXP[7637]	=	18224833
-DEXP[7638]	=	18227222
-DEXP[7639]	=	18229611
-DEXP[7640]	=	18232000
-DEXP[7641]	=	18234389
-DEXP[7642]	=	18236778
-DEXP[7643]	=	18239167
-DEXP[7644]	=	18241556
-DEXP[7645]	=	18243945
-DEXP[7646]	=	18246334
-DEXP[7647]	=	18248723
-DEXP[7648]	=	18251112
-DEXP[7649]	=	18253501
-DEXP[7650]	=	18255890
-DEXP[7651]	=	18258278
-DEXP[7652]	=	18260667
-DEXP[7653]	=	18263056
-DEXP[7654]	=	18265445
-DEXP[7655]	=	18267834
-DEXP[7656]	=	18270223
-DEXP[7657]	=	18272612
-DEXP[7658]	=	18275001
-DEXP[7659]	=	18277390
-DEXP[7660]	=	18279779
-DEXP[7661]	=	18282168
-DEXP[7662]	=	18284557
-DEXP[7663]	=	18286946
-DEXP[7664]	=	18289335
-DEXP[7665]	=	18291724
-DEXP[7666]	=	18294112
-DEXP[7667]	=	18296501
-DEXP[7668]	=	18298890
-DEXP[7669]	=	18301279
-DEXP[7670]	=	18303668
-DEXP[7671]	=	18306057
-DEXP[7672]	=	18308446
-DEXP[7673]	=	18310835
-DEXP[7674]	=	18313224
-DEXP[7675]	=	18315613
-DEXP[7676]	=	18318002
-DEXP[7677]	=	18320391
-DEXP[7678]	=	18322780
-DEXP[7679]	=	18325169
-DEXP[7680]	=	18327558
-DEXP[7681]	=	18329947
-DEXP[7682]	=	18332335
-DEXP[7683]	=	18334724
-DEXP[7684]	=	18337113
-DEXP[7685]	=	18339502
-DEXP[7686]	=	18341891
-DEXP[7687]	=	18344280
-DEXP[7688]	=	18346669
-DEXP[7689]	=	18349058
-DEXP[7690]	=	18351447
-DEXP[7691]	=	18353836
-DEXP[7692]	=	18356225
-DEXP[7693]	=	18358614
-DEXP[7694]	=	18361003
-DEXP[7695]	=	18363392
-DEXP[7696]	=	18365781
-DEXP[7697]	=	18368170
-DEXP[7698]	=	18370558
-DEXP[7699]	=	18372947
-DEXP[7700]	=	18375336
-DEXP[7701]	=	18377725
-DEXP[7702]	=	18380114
-DEXP[7703]	=	18382503
-DEXP[7704]	=	18384892
-DEXP[7705]	=	18387281
-DEXP[7706]	=	18389670
-DEXP[7707]	=	18392059
-DEXP[7708]	=	18394448
-DEXP[7709]	=	18396837
-DEXP[7710]	=	18399226
-DEXP[7711]	=	18401615
-DEXP[7712]	=	18404004
-DEXP[7713]	=	18406393
-DEXP[7714]	=	18408781
-DEXP[7715]	=	18411170
-DEXP[7716]	=	18413559
-DEXP[7717]	=	18415948
-DEXP[7718]	=	18418337
-DEXP[7719]	=	18420726
-DEXP[7720]	=	18423115
-DEXP[7721]	=	18425504
-DEXP[7722]	=	18427893
-DEXP[7723]	=	18430282
-DEXP[7724]	=	18432671
-DEXP[7725]	=	18435060
-DEXP[7726]	=	18437449
-DEXP[7727]	=	18439838
-DEXP[7728]	=	18442227
-DEXP[7729]	=	18444615
-DEXP[7730]	=	18447004
-DEXP[7731]	=	18449393
-DEXP[7732]	=	18451782
-DEXP[7733]	=	18454171
-DEXP[7734]	=	18456560
-DEXP[7735]	=	18458949
-DEXP[7736]	=	18461338
-DEXP[7737]	=	18463727
-DEXP[7738]	=	18466116
-DEXP[7739]	=	18468505
-DEXP[7740]	=	18470894
-DEXP[7741]	=	18473283
-DEXP[7742]	=	18475672
-DEXP[7743]	=	18478061
-DEXP[7744]	=	18480450
-DEXP[7745]	=	18482838
-DEXP[7746]	=	18485227
-DEXP[7747]	=	18487616
-DEXP[7748]	=	18490005
-DEXP[7749]	=	18492394
-DEXP[7750]	=	18494783
-DEXP[7751]	=	18497172
-DEXP[7752]	=	18499561
-DEXP[7753]	=	18501950
-DEXP[7754]	=	18504339
-DEXP[7755]	=	18506728
-DEXP[7756]	=	18509117
-DEXP[7757]	=	18511506
-DEXP[7758]	=	18513895
-DEXP[7759]	=	18516284
-DEXP[7760]	=	18518673
-DEXP[7761]	=	18521061
-DEXP[7762]	=	18523450
-DEXP[7763]	=	18525839
-DEXP[7764]	=	18528228
-DEXP[7765]	=	18530617
-DEXP[7766]	=	18533006
-DEXP[7767]	=	18535395
-DEXP[7768]	=	18537784
-DEXP[7769]	=	18540173
-DEXP[7770]	=	18542562
-DEXP[7771]	=	18544951
-DEXP[7772]	=	18547340
-DEXP[7773]	=	18549729
-DEXP[7774]	=	18552118
-DEXP[7775]	=	18554507
-DEXP[7776]	=	18556896
-DEXP[7777]	=	18559284
-DEXP[7778]	=	18561673
-DEXP[7779]	=	18564062
-DEXP[7780]	=	18566451
-DEXP[7781]	=	18568840
-DEXP[7782]	=	18571229
-DEXP[7783]	=	18573618
-DEXP[7784]	=	18576007
-DEXP[7785]	=	18578396
-DEXP[7786]	=	18580785
-DEXP[7787]	=	18583174
-DEXP[7788]	=	18585563
-DEXP[7789]	=	18587952
-DEXP[7790]	=	18590341
-DEXP[7791]	=	18592730
-DEXP[7792]	=	18595118
-DEXP[7793]	=	18597507
-DEXP[7794]	=	18599896
-DEXP[7795]	=	18602285
-DEXP[7796]	=	18604674
-DEXP[7797]	=	18607063
-DEXP[7798]	=	18609452
-DEXP[7799]	=	18611841
-DEXP[7800]	=	18614230
-DEXP[7801]	=	18616619
-DEXP[7802]	=	18619008
-DEXP[7803]	=	18621397
-DEXP[7804]	=	18623786
-DEXP[7805]	=	18626175
-DEXP[7806]	=	18628564
-DEXP[7807]	=	18630953
-DEXP[7808]	=	18633341
-DEXP[7809]	=	18635730
-DEXP[7810]	=	18638119
-DEXP[7811]	=	18640508
-DEXP[7812]	=	18642897
-DEXP[7813]	=	18645286
-DEXP[7814]	=	18647675
-DEXP[7815]	=	18650064
-DEXP[7816]	=	18652453
-DEXP[7817]	=	18654842
-DEXP[7818]	=	18657231
-DEXP[7819]	=	18659620
-DEXP[7820]	=	18662009
-DEXP[7821]	=	18664398
-DEXP[7822]	=	18666787
-DEXP[7823]	=	18669176
-DEXP[7824]	=	18671564
-DEXP[7825]	=	18673953
-DEXP[7826]	=	18676342
-DEXP[7827]	=	18678731
-DEXP[7828]	=	18681120
-DEXP[7829]	=	18683509
-DEXP[7830]	=	18685898
-DEXP[7831]	=	18688287
-DEXP[7832]	=	18690676
-DEXP[7833]	=	18693065
-DEXP[7834]	=	18695454
-DEXP[7835]	=	18697843
-DEXP[7836]	=	18700232
-DEXP[7837]	=	18702621
-DEXP[7838]	=	18705010
-DEXP[7839]	=	18707398
-DEXP[7840]	=	18709787
-DEXP[7841]	=	18712176
-DEXP[7842]	=	18714565
-DEXP[7843]	=	18716954
-DEXP[7844]	=	18719343
-DEXP[7845]	=	18721732
-DEXP[7846]	=	18724121
-DEXP[7847]	=	18726510
-DEXP[7848]	=	18728899
-DEXP[7849]	=	18731288
-DEXP[7850]	=	18733677
-DEXP[7851]	=	18736066
-DEXP[7852]	=	18738455
-DEXP[7853]	=	18740844
-DEXP[7854]	=	18743233
-DEXP[7855]	=	18745621
-DEXP[7856]	=	18748010
-DEXP[7857]	=	18750399
-DEXP[7858]	=	18752788
-DEXP[7859]	=	18755177
-DEXP[7860]	=	18757566
-DEXP[7861]	=	18759955
-DEXP[7862]	=	18762344
-DEXP[7863]	=	18764733
-DEXP[7864]	=	18767122
-DEXP[7865]	=	18769511
-DEXP[7866]	=	18771900
-DEXP[7867]	=	18774289
-DEXP[7868]	=	18776678
-DEXP[7869]	=	18779067
-DEXP[7870]	=	18781456
-DEXP[7871]	=	18783844
-DEXP[7872]	=	18786233
-DEXP[7873]	=	18788622
-DEXP[7874]	=	18791011
-DEXP[7875]	=	18793400
-DEXP[7876]	=	18795789
-DEXP[7877]	=	18798178
-DEXP[7878]	=	18800567
-DEXP[7879]	=	18802956
-DEXP[7880]	=	18805345
-DEXP[7881]	=	18807734
-DEXP[7882]	=	18810123
-DEXP[7883]	=	18812512
-DEXP[7884]	=	18814901
-DEXP[7885]	=	18817290
-DEXP[7886]	=	18819679
-DEXP[7887]	=	18822067
-DEXP[7888]	=	18824456
-DEXP[7889]	=	18826845
-DEXP[7890]	=	18829234
-DEXP[7891]	=	18831623
-DEXP[7892]	=	18834012
-DEXP[7893]	=	18836401
-DEXP[7894]	=	18838790
-DEXP[7895]	=	18841179
-DEXP[7896]	=	18843568
-DEXP[7897]	=	18845957
-DEXP[7898]	=	18848346
-DEXP[7899]	=	18850735
-DEXP[7900]	=	18853124
-DEXP[7901]	=	18855513
-DEXP[7902]	=	18857901
-DEXP[7903]	=	18860290
-DEXP[7904]	=	18862679
-DEXP[7905]	=	18865068
-DEXP[7906]	=	18867457
-DEXP[7907]	=	18869846
-DEXP[7908]	=	18872235
-DEXP[7909]	=	18874624
-DEXP[7910]	=	18877013
-DEXP[7911]	=	18879402
-DEXP[7912]	=	18881791
-DEXP[7913]	=	18884180
-DEXP[7914]	=	18886569
-DEXP[7915]	=	18888958
-DEXP[7916]	=	18891347
-DEXP[7917]	=	18893736
-DEXP[7918]	=	18896124
-DEXP[7919]	=	18898513
-DEXP[7920]	=	18900902
-DEXP[7921]	=	18903291
-DEXP[7922]	=	18905680
-DEXP[7923]	=	18908069
-DEXP[7924]	=	18910458
-DEXP[7925]	=	18912847
-DEXP[7926]	=	18915236
-DEXP[7927]	=	18917625
-DEXP[7928]	=	18920014
-DEXP[7929]	=	18922403
-DEXP[7930]	=	18924792
-DEXP[7931]	=	18927181
-DEXP[7932]	=	18929570
-DEXP[7933]	=	18931959
-DEXP[7934]	=	18934347
-DEXP[7935]	=	18936736
-DEXP[7936]	=	18939125
-DEXP[7937]	=	18941514
-DEXP[7938]	=	18943903
-DEXP[7939]	=	18946292
-DEXP[7940]	=	18948681
-DEXP[7941]	=	18951070
-DEXP[7942]	=	18953459
-DEXP[7943]	=	18955848
-DEXP[7944]	=	18958237
-DEXP[7945]	=	18960626
-DEXP[7946]	=	18963015
-DEXP[7947]	=	18965404
-DEXP[7948]	=	18967793
-DEXP[7949]	=	18970182
-DEXP[7950]	=	18972570
-DEXP[7951]	=	18974959
-DEXP[7952]	=	18977348
-DEXP[7953]	=	18979737
-DEXP[7954]	=	18982126
-DEXP[7955]	=	18984515
-DEXP[7956]	=	18986904
-DEXP[7957]	=	18989293
-DEXP[7958]	=	18991682
-DEXP[7959]	=	18994071
-DEXP[7960]	=	18996460
-DEXP[7961]	=	18998849
-DEXP[7962]	=	19001238
-DEXP[7963]	=	19003627
-DEXP[7964]	=	19006016
-DEXP[7965]	=	19008404
-DEXP[7966]	=	19010793
-DEXP[7967]	=	19013182
-DEXP[7968]	=	19015571
-DEXP[7969]	=	19017960
-DEXP[7970]	=	19020349
-DEXP[7971]	=	19022738
-DEXP[7972]	=	19025127
-DEXP[7973]	=	19027516
-DEXP[7974]	=	19029905
-DEXP[7975]	=	19032294
-DEXP[7976]	=	19034683
-DEXP[7977]	=	19037072
-DEXP[7978]	=	19039461
-DEXP[7979]	=	19041850
-DEXP[7980]	=	19044239
-DEXP[7981]	=	19046627
-DEXP[7982]	=	19049016
-DEXP[7983]	=	19051405
-DEXP[7984]	=	19053794
-DEXP[7985]	=	19056183
-DEXP[7986]	=	19058572
-DEXP[7987]	=	19060961
-DEXP[7988]	=	19063350
-DEXP[7989]	=	19065739
-DEXP[7990]	=	19068128
-DEXP[7991]	=	19070517
-DEXP[7992]	=	19072906
-DEXP[7993]	=	19075295
-DEXP[7994]	=	19077684
-DEXP[7995]	=	19080073
-DEXP[7996]	=	19082462
-DEXP[7997]	=	19084850
-DEXP[7998]	=	19087239
-DEXP[7999]	=	19089628
-DEXP[8000]	=	19092017
-DEXP[8001]	=	19094406
-DEXP[8002]	=	19096795
-DEXP[8003]	=	19099184
-DEXP[8004]	=	19101573
-DEXP[8005]	=	19103962
-DEXP[8006]	=	19106351
-DEXP[8007]	=	19108740
-DEXP[8008]	=	19111129
-DEXP[8009]	=	19113518
-DEXP[8010]	=	19115907
-DEXP[8011]	=	19118296
-DEXP[8012]	=	19120685
-DEXP[8013]	=	19123073
-DEXP[8014]	=	19125462
-DEXP[8015]	=	19127851
-DEXP[8016]	=	19130240
-DEXP[8017]	=	19132629
-DEXP[8018]	=	19135018
-DEXP[8019]	=	19137407
-DEXP[8020]	=	19139796
-DEXP[8021]	=	19142185
-DEXP[8022]	=	19144574
-DEXP[8023]	=	19146963
-DEXP[8024]	=	19149352
-DEXP[8025]	=	19151741
-DEXP[8026]	=	19154130
-DEXP[8027]	=	19156519
-DEXP[8028]	=	19158907
-DEXP[8029]	=	19161296
-DEXP[8030]	=	19163685
-DEXP[8031]	=	19166074
-DEXP[8032]	=	19168463
-DEXP[8033]	=	19170852
-DEXP[8034]	=	19173241
-DEXP[8035]	=	19175630
-DEXP[8036]	=	19178019
-DEXP[8037]	=	19180408
-DEXP[8038]	=	19182797
-DEXP[8039]	=	19185186
-DEXP[8040]	=	19187575
-DEXP[8041]	=	19189964
-DEXP[8042]	=	19192353
-DEXP[8043]	=	19194742
-DEXP[8044]	=	19197130
-DEXP[8045]	=	19199519
-DEXP[8046]	=	19201908
-DEXP[8047]	=	19204297
-DEXP[8048]	=	19206686
-DEXP[8049]	=	19209075
-DEXP[8050]	=	19211464
-DEXP[8051]	=	19213853
-DEXP[8052]	=	19216242
-DEXP[8053]	=	19218631
-DEXP[8054]	=	19221020
-DEXP[8055]	=	19223409
-DEXP[8056]	=	19225798
-DEXP[8057]	=	19228187
-DEXP[8058]	=	19230576
-DEXP[8059]	=	19232965
-DEXP[8060]	=	19235353
-DEXP[8061]	=	19237742
-DEXP[8062]	=	19240131
-DEXP[8063]	=	19242520
-DEXP[8064]	=	19244909
-DEXP[8065]	=	19247298
-DEXP[8066]	=	19249687
-DEXP[8067]	=	19252076
-DEXP[8068]	=	19254465
-DEXP[8069]	=	19256854
-DEXP[8070]	=	19259243
-DEXP[8071]	=	19261632
-DEXP[8072]	=	19264021
-DEXP[8073]	=	19266410
-DEXP[8074]	=	19268799
-DEXP[8075]	=	19271188
-DEXP[8076]	=	19273576
-DEXP[8077]	=	19275965
-DEXP[8078]	=	19278354
-DEXP[8079]	=	19280743
-DEXP[8080]	=	19283132
-DEXP[8081]	=	19285521
-DEXP[8082]	=	19287910
-DEXP[8083]	=	19290299
-DEXP[8084]	=	19292688
-DEXP[8085]	=	19295077
-DEXP[8086]	=	19297466
-DEXP[8087]	=	19299855
-DEXP[8088]	=	19302244
-DEXP[8089]	=	19304633
-DEXP[8090]	=	19307022
-DEXP[8091]	=	19309410
-DEXP[8092]	=	19311799
-DEXP[8093]	=	19314188
-DEXP[8094]	=	19316577
-DEXP[8095]	=	19318966
-DEXP[8096]	=	19321355
-DEXP[8097]	=	19323744
-DEXP[8098]	=	19326133
-DEXP[8099]	=	19328522
-DEXP[8100]	=	19330911
-DEXP[8101]	=	19333300
-DEXP[8102]	=	19335689
-DEXP[8103]	=	19338078
-DEXP[8104]	=	19340467
-DEXP[8105]	=	19342856
-DEXP[8106]	=	19345245
-DEXP[8107]	=	19347633
-DEXP[8108]	=	19350022
-DEXP[8109]	=	19352411
-DEXP[8110]	=	19354800
-DEXP[8111]	=	19357189
-DEXP[8112]	=	19359578
-DEXP[8113]	=	19361967
-DEXP[8114]	=	19364356
-DEXP[8115]	=	19366745
-DEXP[8116]	=	19369134
-DEXP[8117]	=	19371523
-DEXP[8118]	=	19373912
-DEXP[8119]	=	19376301
-DEXP[8120]	=	19378690
-DEXP[8121]	=	19381079
-DEXP[8122]	=	19383468
-DEXP[8123]	=	19385856
-DEXP[8124]	=	19388245
-DEXP[8125]	=	19390634
-DEXP[8126]	=	19393023
-DEXP[8127]	=	19395412
-DEXP[8128]	=	19397801
-DEXP[8129]	=	19400190
-DEXP[8130]	=	19402579
-DEXP[8131]	=	19404968
-DEXP[8132]	=	19407357
-DEXP[8133]	=	19409746
-DEXP[8134]	=	19412135
-DEXP[8135]	=	19414524
-DEXP[8136]	=	19416913
-DEXP[8137]	=	19419302
-DEXP[8138]	=	19421690
-DEXP[8139]	=	19424079
-DEXP[8140]	=	19426468
-DEXP[8141]	=	19428857
-DEXP[8142]	=	19431246
-DEXP[8143]	=	19433635
-DEXP[8144]	=	19436024
-DEXP[8145]	=	19438413
-DEXP[8146]	=	19440802
-DEXP[8147]	=	19443191
-DEXP[8148]	=	19445580
-DEXP[8149]	=	19447969
-DEXP[8150]	=	19450358
-DEXP[8151]	=	19452747
-DEXP[8152]	=	19455136
-DEXP[8153]	=	19457525
-DEXP[8154]	=	19459913
-DEXP[8155]	=	19462302
-DEXP[8156]	=	19464691
-DEXP[8157]	=	19467080
-DEXP[8158]	=	19469469
-DEXP[8159]	=	19471858
-DEXP[8160]	=	19474247
-DEXP[8161]	=	19476636
-DEXP[8162]	=	19479025
-DEXP[8163]	=	19481414
-DEXP[8164]	=	19483803
-DEXP[8165]	=	19486192
-DEXP[8166]	=	19488581
-DEXP[8167]	=	19490970
-DEXP[8168]	=	19493359
-DEXP[8169]	=	19495748
-DEXP[8170]	=	19498136
-DEXP[8171]	=	19500525
-DEXP[8172]	=	19502914
-DEXP[8173]	=	19505303
-DEXP[8174]	=	19507692
-DEXP[8175]	=	19510081
-DEXP[8176]	=	19512470
-DEXP[8177]	=	19514859
-DEXP[8178]	=	19517248
-DEXP[8179]	=	19519637
-DEXP[8180]	=	19522026
-DEXP[8181]	=	19524415
-DEXP[8182]	=	19526804
-DEXP[8183]	=	19529193
-DEXP[8184]	=	19531582
-DEXP[8185]	=	19533971
-DEXP[8186]	=	19536359
-DEXP[8187]	=	19538748
-DEXP[8188]	=	19541137
-DEXP[8189]	=	19543526
-DEXP[8190]	=	19545915
-DEXP[8191]	=	19548304
-DEXP[8192]	=	19550693
-DEXP[8193]	=	19553082
-DEXP[8194]	=	19555471
-DEXP[8195]	=	19557860
-DEXP[8196]	=	19560249
-DEXP[8197]	=	19562638
-DEXP[8198]	=	19565027
-DEXP[8199]	=	19567416
-DEXP[8200]	=	19569805
-DEXP[8201]	=	19572193
-DEXP[8202]	=	19574582
-DEXP[8203]	=	19576971
-DEXP[8204]	=	19579360
-DEXP[8205]	=	19581749
-DEXP[8206]	=	19584138
-DEXP[8207]	=	19586527
-DEXP[8208]	=	19588916
-DEXP[8209]	=	19591305
-DEXP[8210]	=	19593694
-DEXP[8211]	=	19596083
-DEXP[8212]	=	19598472
-DEXP[8213]	=	19600861
-DEXP[8214]	=	19603250
-DEXP[8215]	=	19605639
-DEXP[8216]	=	19608028
-DEXP[8217]	=	19610416
-DEXP[8218]	=	19612805
-DEXP[8219]	=	19615194
-DEXP[8220]	=	19617583
-DEXP[8221]	=	19619972
-DEXP[8222]	=	19622361
-DEXP[8223]	=	19624750
-DEXP[8224]	=	19627139
-DEXP[8225]	=	19629528
-DEXP[8226]	=	19631917
-DEXP[8227]	=	19634306
-DEXP[8228]	=	19636695
-DEXP[8229]	=	19639084
-DEXP[8230]	=	19641473
-DEXP[8231]	=	19643862
-DEXP[8232]	=	19646251
-DEXP[8233]	=	19648639
-DEXP[8234]	=	19651028
-DEXP[8235]	=	19653417
-DEXP[8236]	=	19655806
-DEXP[8237]	=	19658195
-DEXP[8238]	=	19660584
-DEXP[8239]	=	19662973
-DEXP[8240]	=	19665362
-DEXP[8241]	=	19667751
-DEXP[8242]	=	19670140
-DEXP[8243]	=	19672529
-DEXP[8244]	=	19674918
-DEXP[8245]	=	19677307
-DEXP[8246]	=	19679696
-DEXP[8247]	=	19682085
-DEXP[8248]	=	19684474
-DEXP[8249]	=	19686862
-DEXP[8250]	=	19689251
-DEXP[8251]	=	19691640
-DEXP[8252]	=	19694029
-DEXP[8253]	=	19696418
-DEXP[8254]	=	19698807
-DEXP[8255]	=	19701196
-DEXP[8256]	=	19703585
-DEXP[8257]	=	19705974
-DEXP[8258]	=	19708363
-DEXP[8259]	=	19710752
-DEXP[8260]	=	19713141
-DEXP[8261]	=	19715530
-DEXP[8262]	=	19717919
-DEXP[8263]	=	19720308
-DEXP[8264]	=	19722696
-DEXP[8265]	=	19725085
-DEXP[8266]	=	19727474
-DEXP[8267]	=	19729863
-DEXP[8268]	=	19732252
-DEXP[8269]	=	19734641
-DEXP[8270]	=	19737030
-DEXP[8271]	=	19739419
-DEXP[8272]	=	19741808
-DEXP[8273]	=	19744197
-DEXP[8274]	=	19746586
-DEXP[8275]	=	19748975
-DEXP[8276]	=	19751364
-DEXP[8277]	=	19753753
-DEXP[8278]	=	19756142
-DEXP[8279]	=	19758531
-DEXP[8280]	=	19760919
-DEXP[8281]	=	19763308
-DEXP[8282]	=	19765697
-DEXP[8283]	=	19768086
-DEXP[8284]	=	19770475
-DEXP[8285]	=	19772864
-DEXP[8286]	=	19775253
-DEXP[8287]	=	19777642
-DEXP[8288]	=	19780031
-DEXP[8289]	=	19782420
-DEXP[8290]	=	19784809
-DEXP[8291]	=	19787198
-DEXP[8292]	=	19789587
-DEXP[8293]	=	19791976
-DEXP[8294]	=	19794365
-DEXP[8295]	=	19796754
-DEXP[8296]	=	19799142
-DEXP[8297]	=	19801531
-DEXP[8298]	=	19803920
-DEXP[8299]	=	19806309
-DEXP[8300]	=	19808698
-DEXP[8301]	=	19811087
-DEXP[8302]	=	19813476
-DEXP[8303]	=	19815865
-DEXP[8304]	=	19818254
-DEXP[8305]	=	19820643
-DEXP[8306]	=	19823032
-DEXP[8307]	=	19825421
-DEXP[8308]	=	19827810
-DEXP[8309]	=	19830199
-DEXP[8310]	=	19832588
-DEXP[8311]	=	19834977
-DEXP[8312]	=	19837365
-DEXP[8313]	=	19839754
-DEXP[8314]	=	19842143
-DEXP[8315]	=	19844532
-DEXP[8316]	=	19846921
-DEXP[8317]	=	19849310
-DEXP[8318]	=	19851699
-DEXP[8319]	=	19854088
-DEXP[8320]	=	19856477
-DEXP[8321]	=	19858866
-DEXP[8322]	=	19861255
-DEXP[8323]	=	19863644
-DEXP[8324]	=	19866033
-DEXP[8325]	=	19868422
-DEXP[8326]	=	19870811
-DEXP[8327]	=	19873199
-DEXP[8328]	=	19875588
-DEXP[8329]	=	19877977
-DEXP[8330]	=	19880366
-DEXP[8331]	=	19882755
-DEXP[8332]	=	19885144
-DEXP[8333]	=	19887533
-DEXP[8334]	=	19889922
-DEXP[8335]	=	19892311
-DEXP[8336]	=	19894700
-DEXP[8337]	=	19897089
-DEXP[8338]	=	19899478
-DEXP[8339]	=	19901867
-DEXP[8340]	=	19904256
-DEXP[8341]	=	19906645
-DEXP[8342]	=	19909034
-DEXP[8343]	=	19911422
-DEXP[8344]	=	19913811
-DEXP[8345]	=	19916200
-DEXP[8346]	=	19918589
-DEXP[8347]	=	19920978
-DEXP[8348]	=	19923367
-DEXP[8349]	=	19925756
-DEXP[8350]	=	19928145
-DEXP[8351]	=	19930534
-DEXP[8352]	=	19932923
-DEXP[8353]	=	19935312
-DEXP[8354]	=	19937701
-DEXP[8355]	=	19940090
-DEXP[8356]	=	19942479
-DEXP[8357]	=	19944868
-DEXP[8358]	=	19947257
-DEXP[8359]	=	19949645
-DEXP[8360]	=	19952034
-DEXP[8361]	=	19954423
-DEXP[8362]	=	19956812
-DEXP[8363]	=	19959201
-DEXP[8364]	=	19961590
-DEXP[8365]	=	19963979
-DEXP[8366]	=	19966368
-DEXP[8367]	=	19968757
-DEXP[8368]	=	19971146
-DEXP[8369]	=	19973535
-DEXP[8370]	=	19975924
-DEXP[8371]	=	19978313
-DEXP[8372]	=	19980702
-DEXP[8373]	=	19983091
-DEXP[8374]	=	19985480
-DEXP[8375]	=	19987868
-DEXP[8376]	=	19990257
-DEXP[8377]	=	19992646
-DEXP[8378]	=	19995035
-DEXP[8379]	=	19997424
-DEXP[8380]	=	19999813
-DEXP[8381]	=	20002202
-DEXP[8382]	=	20004591
-DEXP[8383]	=	20006980
-DEXP[8384]	=	20009369
-DEXP[8385]	=	20011758
-DEXP[8386]	=	20014147
-DEXP[8387]	=	20016536
-DEXP[8388]	=	20018925
-DEXP[8389]	=	20021314
-DEXP[8390]	=	20023702
-DEXP[8391]	=	20026091
-DEXP[8392]	=	20028480
-DEXP[8393]	=	20030869
-DEXP[8394]	=	20033258
-DEXP[8395]	=	20035647
-DEXP[8396]	=	20038036
-DEXP[8397]	=	20040425
-DEXP[8398]	=	20042814
-DEXP[8399]	=	20045203
-DEXP[8400]	=	20047592
-DEXP[8401]	=	20049981
-DEXP[8402]	=	20052370
-DEXP[8403]	=	20054759
-DEXP[8404]	=	20057148
-DEXP[8405]	=	20059537
-DEXP[8406]	=	20061925
-DEXP[8407]	=	20064314
-DEXP[8408]	=	20066703
-DEXP[8409]	=	20069092
-DEXP[8410]	=	20071481
-DEXP[8411]	=	20073870
-DEXP[8412]	=	20076259
-DEXP[8413]	=	20078648
-DEXP[8414]	=	20081037
-DEXP[8415]	=	20083426
-DEXP[8416]	=	20085815
-DEXP[8417]	=	20088204
-DEXP[8418]	=	20090593
-DEXP[8419]	=	20092982
-DEXP[8420]	=	20095371
-DEXP[8421]	=	20097760
-DEXP[8422]	=	20100148
-DEXP[8423]	=	20102537
-DEXP[8424]	=	20104926
-DEXP[8425]	=	20107315
-DEXP[8426]	=	20109704
-DEXP[8427]	=	20112093
-DEXP[8428]	=	20114482
-DEXP[8429]	=	20116871
-DEXP[8430]	=	20119260
-DEXP[8431]	=	20121649
-DEXP[8432]	=	20124038
-DEXP[8433]	=	20126427
-DEXP[8434]	=	20128816
-DEXP[8435]	=	20131205
-DEXP[8436]	=	20133594
-DEXP[8437]	=	20135982
-DEXP[8438]	=	20138371
-DEXP[8439]	=	20140760
-DEXP[8440]	=	20143149
-DEXP[8441]	=	20145538
-DEXP[8442]	=	20147927
-DEXP[8443]	=	20150316
-DEXP[8444]	=	20152705
-DEXP[8445]	=	20155094
-DEXP[8446]	=	20157483
-DEXP[8447]	=	20159872
-DEXP[8448]	=	20162261
-DEXP[8449]	=	20164650
-DEXP[8450]	=	20167039
-DEXP[8451]	=	20169428
-DEXP[8452]	=	20171817
-DEXP[8453]	=	20174205
-DEXP[8454]	=	20176594
-DEXP[8455]	=	20178983
-DEXP[8456]	=	20181372
-DEXP[8457]	=	20183761
-DEXP[8458]	=	20186150
-DEXP[8459]	=	20188539
-DEXP[8460]	=	20190928
-DEXP[8461]	=	20193317
-DEXP[8462]	=	20195706
-DEXP[8463]	=	20198095
-DEXP[8464]	=	20200484
-DEXP[8465]	=	20202873
-DEXP[8466]	=	20205262
-DEXP[8467]	=	20207651
-DEXP[8468]	=	20210040
-DEXP[8469]	=	20212428
-DEXP[8470]	=	20214817
-DEXP[8471]	=	20217206
-DEXP[8472]	=	20219595
-DEXP[8473]	=	20221984
-DEXP[8474]	=	20224373
-DEXP[8475]	=	20226762
-DEXP[8476]	=	20229151
-DEXP[8477]	=	20231540
-DEXP[8478]	=	20233929
-DEXP[8479]	=	20236318
-DEXP[8480]	=	20238707
-DEXP[8481]	=	20241096
-DEXP[8482]	=	20243485
-DEXP[8483]	=	20245874
-DEXP[8484]	=	20248263
-DEXP[8485]	=	20250651
-DEXP[8486]	=	20253040
-DEXP[8487]	=	20255429
-DEXP[8488]	=	20257818
-DEXP[8489]	=	20260207
-DEXP[8490]	=	20262596
-DEXP[8491]	=	20264985
-DEXP[8492]	=	20267374
-DEXP[8493]	=	20269763
-DEXP[8494]	=	20272152
-DEXP[8495]	=	20274541
-DEXP[8496]	=	20276930
-DEXP[8497]	=	20279319
-DEXP[8498]	=	20281708
-DEXP[8499]	=	20284097
-DEXP[8500]	=	20286485
-DEXP[8501]	=	20288874
-DEXP[8502]	=	20291263
-DEXP[8503]	=	20293652
-DEXP[8504]	=	20296041
-DEXP[8505]	=	20298430
-DEXP[8506]	=	20300819
-DEXP[8507]	=	20303208
-DEXP[8508]	=	20305597
-DEXP[8509]	=	20307986
-DEXP[8510]	=	20310375
-DEXP[8511]	=	20312764
-DEXP[8512]	=	20315153
-DEXP[8513]	=	20317542
-DEXP[8514]	=	20319931
-DEXP[8515]	=	20322320
-DEXP[8516]	=	20324708
-DEXP[8517]	=	20327097
-DEXP[8518]	=	20329486
-DEXP[8519]	=	20331875
-DEXP[8520]	=	20334264
-DEXP[8521]	=	20336653
-DEXP[8522]	=	20339042
-DEXP[8523]	=	20341431
-DEXP[8524]	=	20343820
-DEXP[8525]	=	20346209
-DEXP[8526]	=	20348598
-DEXP[8527]	=	20350987
-DEXP[8528]	=	20353376
-DEXP[8529]	=	20355765
-DEXP[8530]	=	20358154
-DEXP[8531]	=	20360543
-DEXP[8532]	=	20362931
-DEXP[8533]	=	20365320
-DEXP[8534]	=	20367709
-DEXP[8535]	=	20370098
-DEXP[8536]	=	20372487
-DEXP[8537]	=	20374876
-DEXP[8538]	=	20377265
-DEXP[8539]	=	20379654
-DEXP[8540]	=	20382043
-DEXP[8541]	=	20384432
-DEXP[8542]	=	20386821
-DEXP[8543]	=	20389210
-DEXP[8544]	=	20391599
-DEXP[8545]	=	20393988
-DEXP[8546]	=	20396377
-DEXP[8547]	=	20398766
-DEXP[8548]	=	20401154
-DEXP[8549]	=	20403543
-DEXP[8550]	=	20405932
-DEXP[8551]	=	20408321
-DEXP[8552]	=	20410710
-DEXP[8553]	=	20413099
-DEXP[8554]	=	20415488
-DEXP[8555]	=	20417877
-DEXP[8556]	=	20420266
-DEXP[8557]	=	20422655
-DEXP[8558]	=	20425044
-DEXP[8559]	=	20427433
-DEXP[8560]	=	20429822
-DEXP[8561]	=	20432211
-DEXP[8562]	=	20434600
-DEXP[8563]	=	20436988
-DEXP[8564]	=	20439377
-DEXP[8565]	=	20441766
-DEXP[8566]	=	20444155
-DEXP[8567]	=	20446544
-DEXP[8568]	=	20448933
-DEXP[8569]	=	20451322
-DEXP[8570]	=	20453711
-DEXP[8571]	=	20456100
-DEXP[8572]	=	20458489
-DEXP[8573]	=	20460878
-DEXP[8574]	=	20463267
-DEXP[8575]	=	20465656
-DEXP[8576]	=	20468045
-DEXP[8577]	=	20470434
-DEXP[8578]	=	20472823
-DEXP[8579]	=	20475211
-DEXP[8580]	=	20477600
-DEXP[8581]	=	20479989
-DEXP[8582]	=	20482378
-DEXP[8583]	=	20484767
-DEXP[8584]	=	20487156
-DEXP[8585]	=	20489545
-DEXP[8586]	=	20491934
-DEXP[8587]	=	20494323
-DEXP[8588]	=	20496712
-DEXP[8589]	=	20499101
-DEXP[8590]	=	20501490
-DEXP[8591]	=	20503879
-DEXP[8592]	=	20506268
-DEXP[8593]	=	20508657
-DEXP[8594]	=	20511046
-DEXP[8595]	=	20513434
-DEXP[8596]	=	20515823
-DEXP[8597]	=	20518212
-DEXP[8598]	=	20520601
-DEXP[8599]	=	20522990
-DEXP[8600]	=	20525379
-DEXP[8601]	=	20527768
-DEXP[8602]	=	20530157
-DEXP[8603]	=	20532546
-DEXP[8604]	=	20534935
-DEXP[8605]	=	20537324
-DEXP[8606]	=	20539713
-DEXP[8607]	=	20542102
-DEXP[8608]	=	20544491
-DEXP[8609]	=	20546880
-DEXP[8610]	=	20549269
-DEXP[8611]	=	20551657
-DEXP[8612]	=	20554046
-DEXP[8613]	=	20556435
-DEXP[8614]	=	20558824
-DEXP[8615]	=	20561213
-DEXP[8616]	=	20563602
-DEXP[8617]	=	20565991
-DEXP[8618]	=	20568380
-DEXP[8619]	=	20570769
-DEXP[8620]	=	20573158
-DEXP[8621]	=	20575547
-DEXP[8622]	=	20577936
-DEXP[8623]	=	20580325
-DEXP[8624]	=	20582714
-DEXP[8625]	=	20585103
-DEXP[8626]	=	20587491
-DEXP[8627]	=	20589880
-DEXP[8628]	=	20592269
-DEXP[8629]	=	20594658
-DEXP[8630]	=	20597047
-DEXP[8631]	=	20599436
-DEXP[8632]	=	20601825
-DEXP[8633]	=	20604214
-DEXP[8634]	=	20606603
-DEXP[8635]	=	20608992
-DEXP[8636]	=	20611381
-DEXP[8637]	=	20613770
-DEXP[8638]	=	20616159
-DEXP[8639]	=	20618548
-DEXP[8640]	=	20620937
-DEXP[8641]	=	20623326
-DEXP[8642]	=	20625714
-DEXP[8643]	=	20628103
-DEXP[8644]	=	20630492
-DEXP[8645]	=	20632881
-DEXP[8646]	=	20635270
-DEXP[8647]	=	20637659
-DEXP[8648]	=	20640048
-DEXP[8649]	=	20642437
-DEXP[8650]	=	20644826
-DEXP[8651]	=	20647215
-DEXP[8652]	=	20649604
-DEXP[8653]	=	20651993
-DEXP[8654]	=	20654382
-DEXP[8655]	=	20656771
-DEXP[8656]	=	20659160
-DEXP[8657]	=	20661549
-DEXP[8658]	=	20663937
-DEXP[8659]	=	20666326
-DEXP[8660]	=	20668715
-DEXP[8661]	=	20671104
-DEXP[8662]	=	20673493
-DEXP[8663]	=	20675882
-DEXP[8664]	=	20678271
-DEXP[8665]	=	20680660
-DEXP[8666]	=	20683049
-DEXP[8667]	=	20685438
-DEXP[8668]	=	20687827
-DEXP[8669]	=	20690216
-DEXP[8670]	=	20692605
-DEXP[8671]	=	20694994
-DEXP[8672]	=	20697383
-DEXP[8673]	=	20699772
-DEXP[8674]	=	20702160
-DEXP[8675]	=	20704549
-DEXP[8676]	=	20706938
-DEXP[8677]	=	20709327
-DEXP[8678]	=	20711716
-DEXP[8679]	=	20714105
-DEXP[8680]	=	20716494
-DEXP[8681]	=	20718883
-DEXP[8682]	=	20721272
-DEXP[8683]	=	20723661
-DEXP[8684]	=	20726050
-DEXP[8685]	=	20728439
-DEXP[8686]	=	20730828
-DEXP[8687]	=	20733217
-DEXP[8688]	=	20735606
-DEXP[8689]	=	20737994
-DEXP[8690]	=	20740383
-DEXP[8691]	=	20742772
-DEXP[8692]	=	20745161
-DEXP[8693]	=	20747550
-DEXP[8694]	=	20749939
-DEXP[8695]	=	20752328
-DEXP[8696]	=	20754717
-DEXP[8697]	=	20757106
-DEXP[8698]	=	20759495
-DEXP[8699]	=	20761884
-DEXP[8700]	=	20764273
-DEXP[8701]	=	20766662
-DEXP[8702]	=	20769051
-DEXP[8703]	=	20771440
-DEXP[8704]	=	20773829
-DEXP[8705]	=	20776217
-DEXP[8706]	=	20778606
-DEXP[8707]	=	20780995
-DEXP[8708]	=	20783384
-DEXP[8709]	=	20785773
-DEXP[8710]	=	20788162
-DEXP[8711]	=	20790551
-DEXP[8712]	=	20792940
-DEXP[8713]	=	20795329
-DEXP[8714]	=	20797718
-DEXP[8715]	=	20800107
-DEXP[8716]	=	20802496
-DEXP[8717]	=	20804885
-DEXP[8718]	=	20807274
-DEXP[8719]	=	20809663
-DEXP[8720]	=	20812052
-DEXP[8721]	=	20814440
-DEXP[8722]	=	20816829
-DEXP[8723]	=	20819218
-DEXP[8724]	=	20821607
-DEXP[8725]	=	20823996
-DEXP[8726]	=	20826385
-DEXP[8727]	=	20828774
-DEXP[8728]	=	20831163
-DEXP[8729]	=	20833552
-DEXP[8730]	=	20835941
-DEXP[8731]	=	20838330
-DEXP[8732]	=	20840719
-DEXP[8733]	=	20843108
-DEXP[8734]	=	20845497
-DEXP[8735]	=	20847886
-DEXP[8736]	=	20850274
-DEXP[8737]	=	20852663
-DEXP[8738]	=	20855052
-DEXP[8739]	=	20857441
-DEXP[8740]	=	20859830
-DEXP[8741]	=	20862219
-DEXP[8742]	=	20864608
-DEXP[8743]	=	20866997
-DEXP[8744]	=	20869386
-DEXP[8745]	=	20871775
-DEXP[8746]	=	20874164
-DEXP[8747]	=	20876553
-DEXP[8748]	=	20878942
-DEXP[8749]	=	20881331
-DEXP[8750]	=	20883720
-DEXP[8751]	=	20886109
-DEXP[8752]	=	20888497
-DEXP[8753]	=	20890886
-DEXP[8754]	=	20893275
-DEXP[8755]	=	20895664
-DEXP[8756]	=	20898053
-DEXP[8757]	=	20900442
-DEXP[8758]	=	20902831
-DEXP[8759]	=	20905220
-DEXP[8760]	=	20907609
-DEXP[8761]	=	20909998
-DEXP[8762]	=	20912387
-DEXP[8763]	=	20914776
-DEXP[8764]	=	20917165
-DEXP[8765]	=	20919554
-DEXP[8766]	=	20921943
-DEXP[8767]	=	20924332
-DEXP[8768]	=	20926720
-DEXP[8769]	=	20929109
-DEXP[8770]	=	20931498
-DEXP[8771]	=	20933887
-DEXP[8772]	=	20936276
-DEXP[8773]	=	20938665
-DEXP[8774]	=	20941054
-DEXP[8775]	=	20943443
-DEXP[8776]	=	20945832
-DEXP[8777]	=	20948221
-DEXP[8778]	=	20950610
-DEXP[8779]	=	20952999
-DEXP[8780]	=	20955388
-DEXP[8781]	=	20957777
-DEXP[8782]	=	20960166
-DEXP[8783]	=	20962555
-DEXP[8784]	=	20964943
-DEXP[8785]	=	20967332
-DEXP[8786]	=	20969721
-DEXP[8787]	=	20972110
-DEXP[8788]	=	20974499
-DEXP[8789]	=	20976888
-DEXP[8790]	=	20979277
-DEXP[8791]	=	20981666
-DEXP[8792]	=	20984055
-DEXP[8793]	=	20986444
-DEXP[8794]	=	20988833
-DEXP[8795]	=	20991222
-DEXP[8796]	=	20993611
-DEXP[8797]	=	20996000
-DEXP[8798]	=	20998389
-DEXP[8799]	=	21000777
-DEXP[8800]	=	21003166
-DEXP[8801]	=	21005555
-DEXP[8802]	=	21007944
-DEXP[8803]	=	21010333
-DEXP[8804]	=	21012722
-DEXP[8805]	=	21015111
-DEXP[8806]	=	21017500
-DEXP[8807]	=	21019889
-DEXP[8808]	=	21022278
-DEXP[8809]	=	21024667
-DEXP[8810]	=	21027056
-DEXP[8811]	=	21029445
-DEXP[8812]	=	21031834
-DEXP[8813]	=	21034223
-DEXP[8814]	=	21036612
-DEXP[8815]	=	21039000
-DEXP[8816]	=	21041389
-DEXP[8817]	=	21043778
-DEXP[8818]	=	21046167
-DEXP[8819]	=	21048556
-DEXP[8820]	=	21050945
-DEXP[8821]	=	21053334
-DEXP[8822]	=	21055723
-DEXP[8823]	=	21058112
-DEXP[8824]	=	21060501
-DEXP[8825]	=	21062890
-DEXP[8826]	=	21065279
-DEXP[8827]	=	21067668
-DEXP[8828]	=	21070057
-DEXP[8829]	=	21072446
-DEXP[8830]	=	21074835
-DEXP[8831]	=	21077223
-DEXP[8832]	=	21079612
-DEXP[8833]	=	21082001
-DEXP[8834]	=	21084390
-DEXP[8835]	=	21086779
-DEXP[8836]	=	21089168
-DEXP[8837]	=	21091557
-DEXP[8838]	=	21093946
-DEXP[8839]	=	21096335
-DEXP[8840]	=	21098724
-DEXP[8841]	=	21101113
-DEXP[8842]	=	21103502
-DEXP[8843]	=	21105891
-DEXP[8844]	=	21108280
-DEXP[8845]	=	21110669
-DEXP[8846]	=	21113058
-DEXP[8847]	=	21115446
-DEXP[8848]	=	21117835
-DEXP[8849]	=	21120224
-DEXP[8850]	=	21122613
-DEXP[8851]	=	21125002
-DEXP[8852]	=	21127391
-DEXP[8853]	=	21129780
-DEXP[8854]	=	21132169
-DEXP[8855]	=	21134558
-DEXP[8856]	=	21136947
-DEXP[8857]	=	21139336
-DEXP[8858]	=	21141725
-DEXP[8859]	=	21144114
-DEXP[8860]	=	21146503
-DEXP[8861]	=	21148892
-DEXP[8862]	=	21151280
-DEXP[8863]	=	21153669
-DEXP[8864]	=	21156058
-DEXP[8865]	=	21158447
-DEXP[8866]	=	21160836
-DEXP[8867]	=	21163225
-DEXP[8868]	=	21165614
-DEXP[8869]	=	21168003
-DEXP[8870]	=	21170392
-DEXP[8871]	=	21172781
-DEXP[8872]	=	21175170
-DEXP[8873]	=	21177559
-DEXP[8874]	=	21179948
-DEXP[8875]	=	21182337
-DEXP[8876]	=	21184726
-DEXP[8877]	=	21187115
-DEXP[8878]	=	21189503
-DEXP[8879]	=	21191892
-DEXP[8880]	=	21194281
-DEXP[8881]	=	21196670
-DEXP[8882]	=	21199059
-DEXP[8883]	=	21201448
-DEXP[8884]	=	21203837
-DEXP[8885]	=	21206226
-DEXP[8886]	=	21208615
-DEXP[8887]	=	21211004
-DEXP[8888]	=	21213393
-DEXP[8889]	=	21215782
-DEXP[8890]	=	21218171
-DEXP[8891]	=	21220560
-DEXP[8892]	=	21222949
-DEXP[8893]	=	21225338
-DEXP[8894]	=	21227726
-DEXP[8895]	=	21230115
-DEXP[8896]	=	21232504
-DEXP[8897]	=	21234893
-DEXP[8898]	=	21237282
-DEXP[8899]	=	21239671
-DEXP[8900]	=	21242060
-DEXP[8901]	=	21244449
-DEXP[8902]	=	21246838
-DEXP[8903]	=	21249227
-DEXP[8904]	=	21251616
-DEXP[8905]	=	21254005
-DEXP[8906]	=	21256394
-DEXP[8907]	=	21258783
-DEXP[8908]	=	21261172
-DEXP[8909]	=	21263561
-DEXP[8910]	=	21265949
-DEXP[8911]	=	21268338
-DEXP[8912]	=	21270727
-DEXP[8913]	=	21273116
-DEXP[8914]	=	21275505
-DEXP[8915]	=	21277894
-DEXP[8916]	=	21280283
-DEXP[8917]	=	21282672
-DEXP[8918]	=	21285061
-DEXP[8919]	=	21287450
-DEXP[8920]	=	21289839
-DEXP[8921]	=	21292228
-DEXP[8922]	=	21294617
-DEXP[8923]	=	21297006
-DEXP[8924]	=	21299395
-DEXP[8925]	=	21301783
-DEXP[8926]	=	21304172
-DEXP[8927]	=	21306561
-DEXP[8928]	=	21308950
-DEXP[8929]	=	21311339
-DEXP[8930]	=	21313728
-DEXP[8931]	=	21316117
-DEXP[8932]	=	21318506
-DEXP[8933]	=	21320895
-DEXP[8934]	=	21323284
-DEXP[8935]	=	21325673
-DEXP[8936]	=	21328062
-DEXP[8937]	=	21330451
-DEXP[8938]	=	21332840
-DEXP[8939]	=	21335229
-DEXP[8940]	=	21337618
-DEXP[8941]	=	21340006
-DEXP[8942]	=	21342395
-DEXP[8943]	=	21344784
-DEXP[8944]	=	21347173
-DEXP[8945]	=	21349562
-DEXP[8946]	=	21351951
-DEXP[8947]	=	21354340
-DEXP[8948]	=	21356729
-DEXP[8949]	=	21359118
-DEXP[8950]	=	21361507
-DEXP[8951]	=	21363896
-DEXP[8952]	=	21366285
-DEXP[8953]	=	21368674
-DEXP[8954]	=	21371063
-DEXP[8955]	=	21373452
-DEXP[8956]	=	21375841
-DEXP[8957]	=	21378229
-DEXP[8958]	=	21380618
-DEXP[8959]	=	21383007
-DEXP[8960]	=	21385396
-DEXP[8961]	=	21387785
-DEXP[8962]	=	21390174
-DEXP[8963]	=	21392563
-DEXP[8964]	=	21394952
-DEXP[8965]	=	21397341
-DEXP[8966]	=	21399730
-DEXP[8967]	=	21402119
-DEXP[8968]	=	21404508
-DEXP[8969]	=	21406897
-DEXP[8970]	=	21409286
-DEXP[8971]	=	21411675
-DEXP[8972]	=	21414064
-DEXP[8973]	=	21416452
-DEXP[8974]	=	21418841
-DEXP[8975]	=	21421230
-DEXP[8976]	=	21423619
-DEXP[8977]	=	21426008
-DEXP[8978]	=	21428397
-DEXP[8979]	=	21430786
-DEXP[8980]	=	21433175
-DEXP[8981]	=	21435564
-DEXP[8982]	=	21437953
-DEXP[8983]	=	21440342
-DEXP[8984]	=	21442731
-DEXP[8985]	=	21445120
-DEXP[8986]	=	21447509
-DEXP[8987]	=	21449898
-DEXP[8988]	=	21452286
-DEXP[8989]	=	21454675
-DEXP[8990]	=	21457064
-DEXP[8991]	=	21459453
-DEXP[8992]	=	21461842
-DEXP[8993]	=	21464231
-DEXP[8994]	=	21466620
-DEXP[8995]	=	21469009
-DEXP[8996]	=	21471398
-DEXP[8997]	=	21473787
-DEXP[8998]	=	21476176
-DEXP[8999]	=	21478565
-DEXP[9000]	=	21480954
-DEXP[9001]	=	21483343
-DEXP[9002]	=	21485732
-DEXP[9003]	=	21488121
-DEXP[9004]	=	21490509
-DEXP[9005]	=	21492898
-DEXP[9006]	=	21495287
-DEXP[9007]	=	21497676
-DEXP[9008]	=	21500065
-DEXP[9009]	=	21502454
-DEXP[9010]	=	21504843
-DEXP[9011]	=	21507232
-DEXP[9012]	=	21509621
-DEXP[9013]	=	21512010
-DEXP[9014]	=	21514399
-DEXP[9015]	=	21516788
-DEXP[9016]	=	21519177
-DEXP[9017]	=	21521566
-DEXP[9018]	=	21523955
-DEXP[9019]	=	21526344
-DEXP[9020]	=	21528732
-DEXP[9021]	=	21531121
-DEXP[9022]	=	21533510
-DEXP[9023]	=	21535899
-DEXP[9024]	=	21538288
-DEXP[9025]	=	21540677
-DEXP[9026]	=	21543066
-DEXP[9027]	=	21545455
-DEXP[9028]	=	21547844
-DEXP[9029]	=	21550233
-DEXP[9030]	=	21552622
-DEXP[9031]	=	21555011
-DEXP[9032]	=	21557400
-DEXP[9033]	=	21559789
-DEXP[9034]	=	21562178
-DEXP[9035]	=	21564566
-DEXP[9036]	=	21566955
-DEXP[9037]	=	21569344
-DEXP[9038]	=	21571733
-DEXP[9039]	=	21574122
-DEXP[9040]	=	21576511
-DEXP[9041]	=	21578900
-DEXP[9042]	=	21581289
-DEXP[9043]	=	21583678
-DEXP[9044]	=	21586067
-DEXP[9045]	=	21588456
-DEXP[9046]	=	21590845
-DEXP[9047]	=	21593234
-DEXP[9048]	=	21595623
-DEXP[9049]	=	21598012
-DEXP[9050]	=	21600401
-DEXP[9051]	=	21602789
-DEXP[9052]	=	21605178
-DEXP[9053]	=	21607567
-DEXP[9054]	=	21609956
-DEXP[9055]	=	21612345
-DEXP[9056]	=	21614734
-DEXP[9057]	=	21617123
-DEXP[9058]	=	21619512
-DEXP[9059]	=	21621901
-DEXP[9060]	=	21624290
-DEXP[9061]	=	21626679
-DEXP[9062]	=	21629068
-DEXP[9063]	=	21631457
-DEXP[9064]	=	21633846
-DEXP[9065]	=	21636235
-DEXP[9066]	=	21638624
-DEXP[9067]	=	21641012
-DEXP[9068]	=	21643401
-DEXP[9069]	=	21645790
-DEXP[9070]	=	21648179
-DEXP[9071]	=	21650568
-DEXP[9072]	=	21652957
-DEXP[9073]	=	21655346
-DEXP[9074]	=	21657735
-DEXP[9075]	=	21660124
-DEXP[9076]	=	21662513
-DEXP[9077]	=	21664902
-DEXP[9078]	=	21667291
-DEXP[9079]	=	21669680
-DEXP[9080]	=	21672069
-DEXP[9081]	=	21674458
-DEXP[9082]	=	21676847
-DEXP[9083]	=	21679235
-DEXP[9084]	=	21681624
-DEXP[9085]	=	21684013
-DEXP[9086]	=	21686402
-DEXP[9087]	=	21688791
-DEXP[9088]	=	21691180
-DEXP[9089]	=	21693569
-DEXP[9090]	=	21695958
-DEXP[9091]	=	21698347
-DEXP[9092]	=	21700736
-DEXP[9093]	=	21703125
-DEXP[9094]	=	21705514
-DEXP[9095]	=	21707903
-DEXP[9096]	=	21710292
-DEXP[9097]	=	21712681
-DEXP[9098]	=	21715069
-DEXP[9099]	=	21717458
-DEXP[9100]	=	21719847
-DEXP[9101]	=	21722236
-DEXP[9102]	=	21724625
-DEXP[9103]	=	21727014
-DEXP[9104]	=	21729403
-DEXP[9105]	=	21731792
-DEXP[9106]	=	21734181
-DEXP[9107]	=	21736570
-DEXP[9108]	=	21738959
-DEXP[9109]	=	21741348
-DEXP[9110]	=	21743737
-DEXP[9111]	=	21746126
-DEXP[9112]	=	21748515
-DEXP[9113]	=	21750904
-DEXP[9114]	=	21753292
-DEXP[9115]	=	21755681
-DEXP[9116]	=	21758070
-DEXP[9117]	=	21760459
-DEXP[9118]	=	21762848
-DEXP[9119]	=	21765237
-DEXP[9120]	=	21767626
-DEXP[9121]	=	21770015
-DEXP[9122]	=	21772404
-DEXP[9123]	=	21774793
-DEXP[9124]	=	21777182
-DEXP[9125]	=	21779571
-DEXP[9126]	=	21781960
-DEXP[9127]	=	21784349
-DEXP[9128]	=	21786738
-DEXP[9129]	=	21789127
-DEXP[9130]	=	21791515
-DEXP[9131]	=	21793904
-DEXP[9132]	=	21796293
-DEXP[9133]	=	21798682
-DEXP[9134]	=	21801071
-DEXP[9135]	=	21803460
-DEXP[9136]	=	21805849
-DEXP[9137]	=	21808238
-DEXP[9138]	=	21810627
-DEXP[9139]	=	21813016
-DEXP[9140]	=	21815405
-DEXP[9141]	=	21817794
-DEXP[9142]	=	21820183
-DEXP[9143]	=	21822572
-DEXP[9144]	=	21824961
-DEXP[9145]	=	21827350
-DEXP[9146]	=	21829738
-DEXP[9147]	=	21832127
-DEXP[9148]	=	21834516
-DEXP[9149]	=	21836905
-DEXP[9150]	=	21839294
-DEXP[9151]	=	21841683
-DEXP[9152]	=	21844072
-DEXP[9153]	=	21846461
-DEXP[9154]	=	21848850
-DEXP[9155]	=	21851239
-DEXP[9156]	=	21853628
-DEXP[9157]	=	21856017
-DEXP[9158]	=	21858406
-DEXP[9159]	=	21860795
-DEXP[9160]	=	21863184
-DEXP[9161]	=	21865572
-DEXP[9162]	=	21867961
-DEXP[9163]	=	21870350
-DEXP[9164]	=	21872739
-DEXP[9165]	=	21875128
-DEXP[9166]	=	21877517
-DEXP[9167]	=	21879906
-DEXP[9168]	=	21882295
-DEXP[9169]	=	21884684
-DEXP[9170]	=	21887073
-DEXP[9171]	=	21889462
-DEXP[9172]	=	21891851
-DEXP[9173]	=	21894240
-DEXP[9174]	=	21896629
-DEXP[9175]	=	21899018
-DEXP[9176]	=	21901407
-DEXP[9177]	=	21903795
-DEXP[9178]	=	21906184
-DEXP[9179]	=	21908573
-DEXP[9180]	=	21910962
-DEXP[9181]	=	21913351
-DEXP[9182]	=	21915740
-DEXP[9183]	=	21918129
-DEXP[9184]	=	21920518
-DEXP[9185]	=	21922907
-DEXP[9186]	=	21925296
-DEXP[9187]	=	21927685
-DEXP[9188]	=	21930074
-DEXP[9189]	=	21932463
-DEXP[9190]	=	21934852
-DEXP[9191]	=	21937241
-DEXP[9192]	=	21939630
-DEXP[9193]	=	21942018
-DEXP[9194]	=	21944407
-DEXP[9195]	=	21946796
-DEXP[9196]	=	21949185
-DEXP[9197]	=	21951574
-DEXP[9198]	=	21953963
-DEXP[9199]	=	21956352
-DEXP[9200]	=	21958741
-DEXP[9201]	=	21961130
-DEXP[9202]	=	21963519
-DEXP[9203]	=	21965908
-DEXP[9204]	=	21968297
-DEXP[9205]	=	21970686
-DEXP[9206]	=	21973075
-DEXP[9207]	=	21975464
-DEXP[9208]	=	21977853
-DEXP[9209]	=	21980241
-DEXP[9210]	=	21982630
-DEXP[9211]	=	21985019
-DEXP[9212]	=	21987408
-DEXP[9213]	=	21989797
-DEXP[9214]	=	21992186
-DEXP[9215]	=	21994575
-DEXP[9216]	=	21996964
-DEXP[9217]	=	21999353
-DEXP[9218]	=	22001742
-DEXP[9219]	=	22004131
-DEXP[9220]	=	22006520
-DEXP[9221]	=	22008909
-DEXP[9222]	=	22011298
-DEXP[9223]	=	22013687
-DEXP[9224]	=	22016075
-DEXP[9225]	=	22018464
-DEXP[9226]	=	22020853
-DEXP[9227]	=	22023242
-DEXP[9228]	=	22025631
-DEXP[9229]	=	22028020
-DEXP[9230]	=	22030409
-DEXP[9231]	=	22032798
-DEXP[9232]	=	22035187
-DEXP[9233]	=	22037576
-DEXP[9234]	=	22039965
-DEXP[9235]	=	22042354
-DEXP[9236]	=	22044743
-DEXP[9237]	=	22047132
-DEXP[9238]	=	22049521
-DEXP[9239]	=	22051910
-DEXP[9240]	=	22054298
-DEXP[9241]	=	22056687
-DEXP[9242]	=	22059076
-DEXP[9243]	=	22061465
-DEXP[9244]	=	22063854
-DEXP[9245]	=	22066243
-DEXP[9246]	=	22068632
-DEXP[9247]	=	22071021
-DEXP[9248]	=	22073410
-DEXP[9249]	=	22075799
-DEXP[9250]	=	22078188
-DEXP[9251]	=	22080577
-DEXP[9252]	=	22082966
-DEXP[9253]	=	22085355
-DEXP[9254]	=	22087744
-DEXP[9255]	=	22090133
-DEXP[9256]	=	22092521
-DEXP[9257]	=	22094910
-DEXP[9258]	=	22097299
-DEXP[9259]	=	22099688
-DEXP[9260]	=	22102077
-DEXP[9261]	=	22104466
-DEXP[9262]	=	22106855
-DEXP[9263]	=	22109244
-DEXP[9264]	=	22111633
-DEXP[9265]	=	22114022
-DEXP[9266]	=	22116411
-DEXP[9267]	=	22118800
-DEXP[9268]	=	22121189
-DEXP[9269]	=	22123578
-DEXP[9270]	=	22125967
-DEXP[9271]	=	22128356
-DEXP[9272]	=	22130744
-DEXP[9273]	=	22133133
-DEXP[9274]	=	22135522
-DEXP[9275]	=	22137911
-DEXP[9276]	=	22140300
-DEXP[9277]	=	22142689
-DEXP[9278]	=	22145078
-DEXP[9279]	=	22147467
-DEXP[9280]	=	22149856
-DEXP[9281]	=	22152245
-DEXP[9282]	=	22154634
-DEXP[9283]	=	22157023
-DEXP[9284]	=	22159412
-DEXP[9285]	=	22161801
-DEXP[9286]	=	22164190
-DEXP[9287]	=	22166578
-DEXP[9288]	=	22168967
-DEXP[9289]	=	22171356
-DEXP[9290]	=	22173745
-DEXP[9291]	=	22176134
-DEXP[9292]	=	22178523
-DEXP[9293]	=	22180912
-DEXP[9294]	=	22183301
-DEXP[9295]	=	22185690
-DEXP[9296]	=	22188079
-DEXP[9297]	=	22190468
-DEXP[9298]	=	22192857
-DEXP[9299]	=	22195246
-DEXP[9300]	=	22197635
-DEXP[9301]	=	22200024
-DEXP[9302]	=	22202413
-DEXP[9303]	=	22204801
-DEXP[9304]	=	22207190
-DEXP[9305]	=	22209579
-DEXP[9306]	=	22211968
-DEXP[9307]	=	22214357
-DEXP[9308]	=	22216746
-DEXP[9309]	=	22219135
-DEXP[9310]	=	22221524
-DEXP[9311]	=	22223913
-DEXP[9312]	=	22226302
-DEXP[9313]	=	22228691
-DEXP[9314]	=	22231080
-DEXP[9315]	=	22233469
-DEXP[9316]	=	22235858
-DEXP[9317]	=	22238247
-DEXP[9318]	=	22240636
-DEXP[9319]	=	22243024
-DEXP[9320]	=	22245413
-DEXP[9321]	=	22247802
-DEXP[9322]	=	22250191
-DEXP[9323]	=	22252580
-DEXP[9324]	=	22254969
-DEXP[9325]	=	22257358
-DEXP[9326]	=	22259747
-DEXP[9327]	=	22262136
-DEXP[9328]	=	22264525
-DEXP[9329]	=	22266914
-DEXP[9330]	=	22269303
-DEXP[9331]	=	22271692
-DEXP[9332]	=	22274081
-DEXP[9333]	=	22276470
-DEXP[9334]	=	22278858
-DEXP[9335]	=	22281247
-DEXP[9336]	=	22283636
-DEXP[9337]	=	22286025
-DEXP[9338]	=	22288414
-DEXP[9339]	=	22290803
-DEXP[9340]	=	22293192
-DEXP[9341]	=	22295581
-DEXP[9342]	=	22297970
-DEXP[9343]	=	22300359
-DEXP[9344]	=	22302748
-DEXP[9345]	=	22305137
-DEXP[9346]	=	22307526
-DEXP[9347]	=	22309915
-DEXP[9348]	=	22312304
-DEXP[9349]	=	22314693
-DEXP[9350]	=	22317081
-DEXP[9351]	=	22319470
-DEXP[9352]	=	22321859
-DEXP[9353]	=	22324248
-DEXP[9354]	=	22326637
-DEXP[9355]	=	22329026
-DEXP[9356]	=	22331415
-DEXP[9357]	=	22333804
-DEXP[9358]	=	22336193
-DEXP[9359]	=	22338582
-DEXP[9360]	=	22340971
-DEXP[9361]	=	22343360
-DEXP[9362]	=	22345749
-DEXP[9363]	=	22348138
-DEXP[9364]	=	22350527
-DEXP[9365]	=	22352916
-DEXP[9366]	=	22355304
-DEXP[9367]	=	22357693
-DEXP[9368]	=	22360082
-DEXP[9369]	=	22362471
-DEXP[9370]	=	22364860
-DEXP[9371]	=	22367249
-DEXP[9372]	=	22369638
-DEXP[9373]	=	22372027
-DEXP[9374]	=	22374416
-DEXP[9375]	=	22376805
-DEXP[9376]	=	22379194
-DEXP[9377]	=	22381583
-DEXP[9378]	=	22383972
-DEXP[9379]	=	22386361
-DEXP[9380]	=	22388750
-DEXP[9381]	=	22391139
-DEXP[9382]	=	22393527
-DEXP[9383]	=	22395916
-DEXP[9384]	=	22398305
-DEXP[9385]	=	22400694
-DEXP[9386]	=	22403083
-DEXP[9387]	=	22405472
-DEXP[9388]	=	22407861
-DEXP[9389]	=	22410250
-DEXP[9390]	=	22412639
-DEXP[9391]	=	22415028
-DEXP[9392]	=	22417417
-DEXP[9393]	=	22419806
-DEXP[9394]	=	22422195
-DEXP[9395]	=	22424584
-DEXP[9396]	=	22426973
-DEXP[9397]	=	22429361
-DEXP[9398]	=	22431750
-DEXP[9399]	=	22434139
-DEXP[9400]	=	22436528
-DEXP[9401]	=	22438917
-DEXP[9402]	=	22441306
-DEXP[9403]	=	22443695
-DEXP[9404]	=	22446084
-DEXP[9405]	=	22448473
-DEXP[9406]	=	22450862
-DEXP[9407]	=	22453251
-DEXP[9408]	=	22455640
-DEXP[9409]	=	22458029
-DEXP[9410]	=	22460418
-DEXP[9411]	=	22462807
-DEXP[9412]	=	22465196
-DEXP[9413]	=	22467584
-DEXP[9414]	=	22469973
-DEXP[9415]	=	22472362
-DEXP[9416]	=	22474751
-DEXP[9417]	=	22477140
-DEXP[9418]	=	22479529
-DEXP[9419]	=	22481918
-DEXP[9420]	=	22484307
-DEXP[9421]	=	22486696
-DEXP[9422]	=	22489085
-DEXP[9423]	=	22491474
-DEXP[9424]	=	22493863
-DEXP[9425]	=	22496252
-DEXP[9426]	=	22498641
-DEXP[9427]	=	22501030
-DEXP[9428]	=	22503419
-DEXP[9429]	=	22505807
-DEXP[9430]	=	22508196
-DEXP[9431]	=	22510585
-DEXP[9432]	=	22512974
-DEXP[9433]	=	22515363
-DEXP[9434]	=	22517752
-DEXP[9435]	=	22520141
-DEXP[9436]	=	22522530
-DEXP[9437]	=	22524919
-DEXP[9438]	=	22527308
-DEXP[9439]	=	22529697
-DEXP[9440]	=	22532086
-DEXP[9441]	=	22534475
-DEXP[9442]	=	22536864
-DEXP[9443]	=	22539253
-DEXP[9444]	=	22541642
-DEXP[9445]	=	22544030
-DEXP[9446]	=	22546419
-DEXP[9447]	=	22548808
-DEXP[9448]	=	22551197
-DEXP[9449]	=	22553586
-DEXP[9450]	=	22555975
-DEXP[9451]	=	22558364
-DEXP[9452]	=	22560753
-DEXP[9453]	=	22563142
-DEXP[9454]	=	22565531
-DEXP[9455]	=	22567920
-DEXP[9456]	=	22570309
-DEXP[9457]	=	22572698
-DEXP[9458]	=	22575087
-DEXP[9459]	=	22577476
-DEXP[9460]	=	22579864
-DEXP[9461]	=	22582253
-DEXP[9462]	=	22584642
-DEXP[9463]	=	22587031
-DEXP[9464]	=	22589420
-DEXP[9465]	=	22591809
-DEXP[9466]	=	22594198
-DEXP[9467]	=	22596587
-DEXP[9468]	=	22598976
-DEXP[9469]	=	22601365
-DEXP[9470]	=	22603754
-DEXP[9471]	=	22606143
-DEXP[9472]	=	22608532
-DEXP[9473]	=	22610921
-DEXP[9474]	=	22613310
-DEXP[9475]	=	22615699
-DEXP[9476]	=	22618087
-DEXP[9477]	=	22620476
-DEXP[9478]	=	22622865
-DEXP[9479]	=	22625254
-DEXP[9480]	=	22627643
-DEXP[9481]	=	22630032
-DEXP[9482]	=	22632421
-DEXP[9483]	=	22634810
-DEXP[9484]	=	22637199
-DEXP[9485]	=	22639588
-DEXP[9486]	=	22641977
-DEXP[9487]	=	22644366
-DEXP[9488]	=	22646755
-DEXP[9489]	=	22649144
-DEXP[9490]	=	22651533
-DEXP[9491]	=	22653922
-DEXP[9492]	=	22656310
-DEXP[9493]	=	22658699
-DEXP[9494]	=	22661088
-DEXP[9495]	=	22663477
-DEXP[9496]	=	22665866
-DEXP[9497]	=	22668255
-DEXP[9498]	=	22670644
-DEXP[9499]	=	22673033
-DEXP[9500]	=	22675422
-DEXP[9501]	=	22677811
-DEXP[9502]	=	22680200
-DEXP[9503]	=	22682589
-DEXP[9504]	=	22684978
-DEXP[9505]	=	22687367
-DEXP[9506]	=	22689756
-DEXP[9507]	=	22692145
-DEXP[9508]	=	22694533
-DEXP[9509]	=	22696922
-DEXP[9510]	=	22699311
-DEXP[9511]	=	22701700
-DEXP[9512]	=	22704089
-DEXP[9513]	=	22706478
-DEXP[9514]	=	22708867
-DEXP[9515]	=	22711256
-DEXP[9516]	=	22713645
-DEXP[9517]	=	22716034
-DEXP[9518]	=	22718423
-DEXP[9519]	=	22720812
-DEXP[9520]	=	22723201
-DEXP[9521]	=	22725590
-DEXP[9522]	=	22727979
-DEXP[9523]	=	22730367
-DEXP[9524]	=	22732756
-DEXP[9525]	=	22735145
-DEXP[9526]	=	22737534
-DEXP[9527]	=	22739923
-DEXP[9528]	=	22742312
-DEXP[9529]	=	22744701
-DEXP[9530]	=	22747090
-DEXP[9531]	=	22749479
-DEXP[9532]	=	22751868
-DEXP[9533]	=	22754257
-DEXP[9534]	=	22756646
-DEXP[9535]	=	22759035
-DEXP[9536]	=	22761424
-DEXP[9537]	=	22763813
-DEXP[9538]	=	22766202
-DEXP[9539]	=	22768590
-DEXP[9540]	=	22770979
-DEXP[9541]	=	22773368
-DEXP[9542]	=	22775757
-DEXP[9543]	=	22778146
-DEXP[9544]	=	22780535
-DEXP[9545]	=	22782924
-DEXP[9546]	=	22785313
-DEXP[9547]	=	22787702
-DEXP[9548]	=	22790091
-DEXP[9549]	=	22792480
-DEXP[9550]	=	22794869
-DEXP[9551]	=	22797258
-DEXP[9552]	=	22799647
-DEXP[9553]	=	22802036
-DEXP[9554]	=	22804425
-DEXP[9555]	=	22806813
-DEXP[9556]	=	22809202
-DEXP[9557]	=	22811591
-DEXP[9558]	=	22813980
-DEXP[9559]	=	22816369
-DEXP[9560]	=	22818758
-DEXP[9561]	=	22821147
-DEXP[9562]	=	22823536
-DEXP[9563]	=	22825925
-DEXP[9564]	=	22828314
-DEXP[9565]	=	22830703
-DEXP[9566]	=	22833092
-DEXP[9567]	=	22835481
-DEXP[9568]	=	22837870
-DEXP[9569]	=	22840259
-DEXP[9570]	=	22842647
-DEXP[9571]	=	22845036
-DEXP[9572]	=	22847425
-DEXP[9573]	=	22849814
-DEXP[9574]	=	22852203
-DEXP[9575]	=	22854592
-DEXP[9576]	=	22856981
-DEXP[9577]	=	22859370
-DEXP[9578]	=	22861759
-DEXP[9579]	=	22864148
-DEXP[9580]	=	22866537
-DEXP[9581]	=	22868926
-DEXP[9582]	=	22871315
-DEXP[9583]	=	22873704
-DEXP[9584]	=	22876093
-DEXP[9585]	=	22878482
-DEXP[9586]	=	22880870
-DEXP[9587]	=	22883259
-DEXP[9588]	=	22885648
-DEXP[9589]	=	22888037
-DEXP[9590]	=	22890426
-DEXP[9591]	=	22892815
-DEXP[9592]	=	22895204
-DEXP[9593]	=	22897593
-DEXP[9594]	=	22899982
-DEXP[9595]	=	22902371
-DEXP[9596]	=	22904760
-DEXP[9597]	=	22907149
-DEXP[9598]	=	22909538
-DEXP[9599]	=	22911927
-DEXP[9600]	=	22914316
-DEXP[9601]	=	22916705
-DEXP[9602]	=	22919093
-DEXP[9603]	=	22921482
-DEXP[9604]	=	22923871
-DEXP[9605]	=	22926260
-DEXP[9606]	=	22928649
-DEXP[9607]	=	22931038
-DEXP[9608]	=	22933427
-DEXP[9609]	=	22935816
-DEXP[9610]	=	22938205
-DEXP[9611]	=	22940594
-DEXP[9612]	=	22942983
-DEXP[9613]	=	22945372
-DEXP[9614]	=	22947761
-DEXP[9615]	=	22950150
-DEXP[9616]	=	22952539
-DEXP[9617]	=	22954928
-DEXP[9618]	=	22957316
-DEXP[9619]	=	22959705
-DEXP[9620]	=	22962094
-DEXP[9621]	=	22964483
-DEXP[9622]	=	22966872
-DEXP[9623]	=	22969261
-DEXP[9624]	=	22971650
-DEXP[9625]	=	22974039
-DEXP[9626]	=	22976428
-DEXP[9627]	=	22978817
-DEXP[9628]	=	22981206
-DEXP[9629]	=	22983595
-DEXP[9630]	=	22985984
-DEXP[9631]	=	22988373
-DEXP[9632]	=	22990762
-DEXP[9633]	=	22993150
-DEXP[9634]	=	22995539
-DEXP[9635]	=	22997928
-DEXP[9636]	=	23000317
-DEXP[9637]	=	23002706
-DEXP[9638]	=	23005095
-DEXP[9639]	=	23007484
-DEXP[9640]	=	23009873
-DEXP[9641]	=	23012262
-DEXP[9642]	=	23014651
-DEXP[9643]	=	23017040
-DEXP[9644]	=	23019429
-DEXP[9645]	=	23021818
-DEXP[9646]	=	23024207
-DEXP[9647]	=	23026596
-DEXP[9648]	=	23028985
-DEXP[9649]	=	23031373
-DEXP[9650]	=	23033762
-DEXP[9651]	=	23036151
-DEXP[9652]	=	23038540
-DEXP[9653]	=	23040929
-DEXP[9654]	=	23043318
-DEXP[9655]	=	23045707
-DEXP[9656]	=	23048096
-DEXP[9657]	=	23050485
-DEXP[9658]	=	23052874
-DEXP[9659]	=	23055263
-DEXP[9660]	=	23057652
-DEXP[9661]	=	23060041
-DEXP[9662]	=	23062430
-DEXP[9663]	=	23064819
-DEXP[9664]	=	23067208
-DEXP[9665]	=	23069596
-DEXP[9666]	=	23071985
-DEXP[9667]	=	23074374
-DEXP[9668]	=	23076763
-DEXP[9669]	=	23079152
-DEXP[9670]	=	23081541
-DEXP[9671]	=	23083930
-DEXP[9672]	=	23086319
-DEXP[9673]	=	23088708
-DEXP[9674]	=	23091097
-DEXP[9675]	=	23093486
-DEXP[9676]	=	23095875
-DEXP[9677]	=	23098264
-DEXP[9678]	=	23100653
-DEXP[9679]	=	23103042
-DEXP[9680]	=	23105431
-DEXP[9681]	=	23107819
-DEXP[9682]	=	23110208
-DEXP[9683]	=	23112597
-DEXP[9684]	=	23114986
-DEXP[9685]	=	23117375
-DEXP[9686]	=	23119764
-DEXP[9687]	=	23122153
-DEXP[9688]	=	23124542
-DEXP[9689]	=	23126931
-DEXP[9690]	=	23129320
-DEXP[9691]	=	23131709
-DEXP[9692]	=	23134098
-DEXP[9693]	=	23136487
-DEXP[9694]	=	23138876
-DEXP[9695]	=	23141265
-DEXP[9696]	=	23143653
-DEXP[9697]	=	23146042
-DEXP[9698]	=	23148431
-DEXP[9699]	=	23150820
-DEXP[9700]	=	23153209
-DEXP[9701]	=	23155598
-DEXP[9702]	=	23157987
-DEXP[9703]	=	23160376
-DEXP[9704]	=	23162765
-DEXP[9705]	=	23165154
-DEXP[9706]	=	23167543
-DEXP[9707]	=	23169932
-DEXP[9708]	=	23172321
-DEXP[9709]	=	23174710
-DEXP[9710]	=	23177099
-DEXP[9711]	=	23179488
-DEXP[9712]	=	23181876
-DEXP[9713]	=	23184265
-DEXP[9714]	=	23186654
-DEXP[9715]	=	23189043
-DEXP[9716]	=	23191432
-DEXP[9717]	=	23193821
-DEXP[9718]	=	23196210
-DEXP[9719]	=	23198599
-DEXP[9720]	=	23200988
-DEXP[9721]	=	23203377
-DEXP[9722]	=	23205766
-DEXP[9723]	=	23208155
-DEXP[9724]	=	23210544
-DEXP[9725]	=	23212933
-DEXP[9726]	=	23215322
-DEXP[9727]	=	23217711
-DEXP[9728]	=	23220099
-DEXP[9729]	=	23222488
-DEXP[9730]	=	23224877
-DEXP[9731]	=	23227266
-DEXP[9732]	=	23229655
-DEXP[9733]	=	23232044
-DEXP[9734]	=	23234433
-DEXP[9735]	=	23236822
-DEXP[9736]	=	23239211
-DEXP[9737]	=	23241600
-DEXP[9738]	=	23243989
-DEXP[9739]	=	23246378
-DEXP[9740]	=	23248767
-DEXP[9741]	=	23251156
-DEXP[9742]	=	23253545
-DEXP[9743]	=	23255934
-DEXP[9744]	=	23258322
-DEXP[9745]	=	23260711
-DEXP[9746]	=	23263100
-DEXP[9747]	=	23265489
-DEXP[9748]	=	23267878
-DEXP[9749]	=	23270267
-DEXP[9750]	=	23272656
-DEXP[9751]	=	23275045
-DEXP[9752]	=	23277434
-DEXP[9753]	=	23279823
-DEXP[9754]	=	23282212
-DEXP[9755]	=	23284601
-DEXP[9756]	=	23286990
-DEXP[9757]	=	23289379
-DEXP[9758]	=	23291768
-DEXP[9759]	=	23294156
-DEXP[9760]	=	23296545
-DEXP[9761]	=	23298934
-DEXP[9762]	=	23301323
-DEXP[9763]	=	23303712
-DEXP[9764]	=	23306101
-DEXP[9765]	=	23308490
-DEXP[9766]	=	23310879
-DEXP[9767]	=	23313268
-DEXP[9768]	=	23315657
-DEXP[9769]	=	23318046
-DEXP[9770]	=	23320435
-DEXP[9771]	=	23322824
-DEXP[9772]	=	23325213
-DEXP[9773]	=	23327602
-DEXP[9774]	=	23329991
-DEXP[9775]	=	23332379
-DEXP[9776]	=	23334768
-DEXP[9777]	=	23337157
-DEXP[9778]	=	23339546
-DEXP[9779]	=	23341935
-DEXP[9780]	=	23344324
-DEXP[9781]	=	23346713
-DEXP[9782]	=	23349102
-DEXP[9783]	=	23351491
-DEXP[9784]	=	23353880
-DEXP[9785]	=	23356269
-DEXP[9786]	=	23358658
-DEXP[9787]	=	23361047
-DEXP[9788]	=	23363436
-DEXP[9789]	=	23365825
-DEXP[9790]	=	23368214
-DEXP[9791]	=	23370602
-DEXP[9792]	=	23372991
-DEXP[9793]	=	23375380
-DEXP[9794]	=	23377769
-DEXP[9795]	=	23380158
-DEXP[9796]	=	23382547
-DEXP[9797]	=	23384936
-DEXP[9798]	=	23387325
-DEXP[9799]	=	23389714
-DEXP[9800]	=	23392103
-DEXP[9801]	=	23394492
-DEXP[9802]	=	23396881
-DEXP[9803]	=	23399270
-DEXP[9804]	=	23401659
-DEXP[9805]	=	23404048
-DEXP[9806]	=	23406437
-DEXP[9807]	=	23408825
-DEXP[9808]	=	23411214
-DEXP[9809]	=	23413603
-DEXP[9810]	=	23415992
-DEXP[9811]	=	23418381
-DEXP[9812]	=	23420770
-DEXP[9813]	=	23423159
-DEXP[9814]	=	23425548
-DEXP[9815]	=	23427937
-DEXP[9816]	=	23430326
-DEXP[9817]	=	23432715
-DEXP[9818]	=	23435104
-DEXP[9819]	=	23437493
-DEXP[9820]	=	23439882
-DEXP[9821]	=	23442271
-DEXP[9822]	=	23444659
-DEXP[9823]	=	23447048
-DEXP[9824]	=	23449437
-DEXP[9825]	=	23451826
-DEXP[9826]	=	23454215
-DEXP[9827]	=	23456604
-DEXP[9828]	=	23458993
-DEXP[9829]	=	23461382
-DEXP[9830]	=	23463771
-DEXP[9831]	=	23466160
-DEXP[9832]	=	23468549
-DEXP[9833]	=	23470938
-DEXP[9834]	=	23473327
-DEXP[9835]	=	23475716
-DEXP[9836]	=	23478105
-DEXP[9837]	=	23480494
-DEXP[9838]	=	23482882
-DEXP[9839]	=	23485271
-DEXP[9840]	=	23487660
-DEXP[9841]	=	23490049
-DEXP[9842]	=	23492438
-DEXP[9843]	=	23494827
-DEXP[9844]	=	23497216
-DEXP[9845]	=	23499605
-DEXP[9846]	=	23501994
-DEXP[9847]	=	23504383
-DEXP[9848]	=	23506772
-DEXP[9849]	=	23509161
-DEXP[9850]	=	23511550
-DEXP[9851]	=	23513939
-DEXP[9852]	=	23516328
-DEXP[9853]	=	23518717
-DEXP[9854]	=	23521105
-DEXP[9855]	=	23523494
-DEXP[9856]	=	23525883
-DEXP[9857]	=	23528272
-DEXP[9858]	=	23530661
-DEXP[9859]	=	23533050
-DEXP[9860]	=	23535439
-DEXP[9861]	=	23537828
-DEXP[9862]	=	23540217
-DEXP[9863]	=	23542606
-DEXP[9864]	=	23544995
-DEXP[9865]	=	23547384
-DEXP[9866]	=	23549773
-DEXP[9867]	=	23552162
-DEXP[9868]	=	23554551
-DEXP[9869]	=	23556939
-DEXP[9870]	=	23559328
-DEXP[9871]	=	23561717
-DEXP[9872]	=	23564106
-DEXP[9873]	=	23566495
-DEXP[9874]	=	23568884
-DEXP[9875]	=	23571273
-DEXP[9876]	=	23573662
-DEXP[9877]	=	23576051
-DEXP[9878]	=	23578440
-DEXP[9879]	=	23580829
-DEXP[9880]	=	23583218
-DEXP[9881]	=	23585607
-DEXP[9882]	=	23587996
-DEXP[9883]	=	23590385
-DEXP[9884]	=	23592774
-DEXP[9885]	=	23595162
-DEXP[9886]	=	23597551
-DEXP[9887]	=	23599940
-DEXP[9888]	=	23602329
-DEXP[9889]	=	23604718
-DEXP[9890]	=	23607107
-DEXP[9891]	=	23609496
-DEXP[9892]	=	23611885
-DEXP[9893]	=	23614274
-DEXP[9894]	=	23616663
-DEXP[9895]	=	23619052
-DEXP[9896]	=	23621441
-DEXP[9897]	=	23623830
-DEXP[9898]	=	23626219
-DEXP[9899]	=	23628608
-DEXP[9900]	=	23630997
-DEXP[9901]	=	23633385
-DEXP[9902]	=	23635774
-DEXP[9903]	=	23638163
-DEXP[9904]	=	23640552
-DEXP[9905]	=	23642941
-DEXP[9906]	=	23645330
-DEXP[9907]	=	23647719
-DEXP[9908]	=	23650108
-DEXP[9909]	=	23652497
-DEXP[9910]	=	23654886
-DEXP[9911]	=	23657275
-DEXP[9912]	=	23659664
-DEXP[9913]	=	23662053
-DEXP[9914]	=	23664442
-DEXP[9915]	=	23666831
-DEXP[9916]	=	23669220
-DEXP[9917]	=	23671608
-DEXP[9918]	=	23673997
-DEXP[9919]	=	23676386
-DEXP[9920]	=	23678775
-DEXP[9921]	=	23681164
-DEXP[9922]	=	23683553
-DEXP[9923]	=	23685942
-DEXP[9924]	=	23688331
-DEXP[9925]	=	23690720
-DEXP[9926]	=	23693109
-DEXP[9927]	=	23695498
-DEXP[9928]	=	23697887
-DEXP[9929]	=	23700276
-DEXP[9930]	=	23702665
-DEXP[9931]	=	23705054
-DEXP[9932]	=	23707442
-DEXP[9933]	=	23709831
-DEXP[9934]	=	23712220
-DEXP[9935]	=	23714609
-DEXP[9936]	=	23716998
-DEXP[9937]	=	23719387
-DEXP[9938]	=	23721776
-DEXP[9939]	=	23724165
-DEXP[9940]	=	23726554
-DEXP[9941]	=	23728943
-DEXP[9942]	=	23731332
-DEXP[9943]	=	23733721
-DEXP[9944]	=	23736110
-DEXP[9945]	=	23738499
-DEXP[9946]	=	23740888
-DEXP[9947]	=	23743277
-DEXP[9948]	=	23745665
-DEXP[9949]	=	23748054
-DEXP[9950]	=	23750443
-DEXP[9951]	=	23752832
-DEXP[9952]	=	23755221
-DEXP[9953]	=	23757610
-DEXP[9954]	=	23759999
-DEXP[9955]	=	23762388
-DEXP[9956]	=	23764777
-DEXP[9957]	=	23767166
-DEXP[9958]	=	23769555
-DEXP[9959]	=	23771944
-DEXP[9960]	=	23774333
-DEXP[9961]	=	23776722
-DEXP[9962]	=	23779111
-DEXP[9963]	=	23781500
-DEXP[9964]	=	23783888
-DEXP[9965]	=	23786277
-DEXP[9966]	=	23788666
-DEXP[9967]	=	23791055
-DEXP[9968]	=	23793444
-DEXP[9969]	=	23795833
-DEXP[9970]	=	23798222
-DEXP[9971]	=	23800611
-DEXP[9972]	=	23803000
-DEXP[9973]	=	23805389
-DEXP[9974]	=	23807778
-DEXP[9975]	=	23810167
-DEXP[9976]	=	23812556
-DEXP[9977]	=	23814945
-DEXP[9978]	=	23817334
-DEXP[9979]	=	23819723
-DEXP[9980]	=	23822111
-DEXP[9981]	=	23824500
-DEXP[9982]	=	23826889
-DEXP[9983]	=	23829278
-DEXP[9984]	=	23831667
-DEXP[9985]	=	23834056
-DEXP[9986]	=	23836445
-DEXP[9987]	=	23838834
-DEXP[9988]	=	23841223
-DEXP[9989]	=	23843612
-DEXP[9990]	=	23846001
-DEXP[9991]	=	23848390
-DEXP[9992]	=	23850779
-DEXP[9993]	=	23853168
-DEXP[9994]	=	23855557
-DEXP[9995]	=	23857945
-DEXP[9996]	=	23860334
-DEXP[9997]	=	23862723
-DEXP[9998]	=	23865112
-DEXP[9999]	=	23867501
-DEXP[10000]	=	23869890
+DEXP[2]	=	15
+DEXP[3]	=	15
+DEXP[4]	=	18
+DEXP[5]	=	18
+DEXP[6]	=	18
+DEXP[7]	=	18
+DEXP[8]	=	21
+DEXP[9]	=	21
+DEXP[10]	=	21
+DEXP[11]	=	24
+DEXP[12]	=	24
+DEXP[13]	=	27
+DEXP[14]	=	27
+DEXP[15]	=	27
+DEXP[16]	=	30
+DEXP[17]	=	30
+DEXP[18]	=	33
+DEXP[19]	=	33
+DEXP[20]	=	36
+DEXP[21]	=	39
+DEXP[22]	=	39
+DEXP[23]	=	42
+DEXP[24]	=	45
+DEXP[25]	=	45
+DEXP[26]	=	48
+DEXP[27]	=	51
+DEXP[28]	=	54
+DEXP[29]	=	57
+DEXP[30]	=	60
+DEXP[31]	=	63
+DEXP[32]	=	66
+DEXP[33]	=	69
+DEXP[34]	=	72
+DEXP[35]	=	75
+DEXP[36]	=	78
+DEXP[37]	=	84
+DEXP[38]	=	87
+DEXP[39]	=	90
+DEXP[40]	=	96
+DEXP[41]	=	102
+DEXP[42]	=	105
+DEXP[43]	=	111
+DEXP[44]	=	117
+DEXP[45]	=	123
+DEXP[46]	=	129
+DEXP[47]	=	135
+DEXP[48]	=	141
+DEXP[49]	=	150
+DEXP[50]	=	156
+DEXP[51]	=	165
+DEXP[52]	=	171
+DEXP[53]	=	180
+DEXP[54]	=	189
+DEXP[55]	=	198
+DEXP[56]	=	210
+DEXP[57]	=	219
+DEXP[58]	=	231
+DEXP[59]	=	243
+DEXP[60]	=	255
+DEXP[61]	=	267
+DEXP[62]	=	279
+DEXP[63]	=	294
+DEXP[64]	=	309
+DEXP[65]	=	324
+DEXP[66]	=	342
+DEXP[67]	=	357
+DEXP[68]	=	375
+DEXP[69]	=	393
+DEXP[70]	=	414
+DEXP[71]	=	435
+DEXP[72]	=	456
+DEXP[73]	=	480
+DEXP[74]	=	504
+DEXP[75]	=	528
+DEXP[76]	=	555
+DEXP[77]	=	582
+DEXP[78]	=	612
+DEXP[79]	=	642
+DEXP[80]	=	675
+DEXP[81]	=	708
+DEXP[82]	=	744
+DEXP[83]	=	780
+DEXP[84]	=	819
+DEXP[85]	=	861
+DEXP[86]	=	903
+DEXP[87]	=	948
+DEXP[88]	=	996
+DEXP[89]	=	1047
+DEXP[90]	=	1098
+DEXP[91]	=	1152
+DEXP[92]	=	1212
+DEXP[93]	=	1272
+DEXP[94]	=	1335
+DEXP[95]	=	1401
+DEXP[96]	=	1473
+DEXP[97]	=	1545
+DEXP[98]	=	1623
+DEXP[99]	=	1704
+DEXP[100]	=	1788
+DEXP[101]	=	1878
+DEXP[102]	=	1974
+DEXP[103]	=	2070
+DEXP[104]	=	2175
+DEXP[105]	=	2283
+DEXP[106]	=	2397
+DEXP[107]	=	2517
+DEXP[108]	=	2643
+DEXP[109]	=	2775
+DEXP[110]	=	2913
+DEXP[111]	=	3060
+DEXP[112]	=	3213
+DEXP[113]	=	3375
+DEXP[114]	=	3543
+DEXP[115]	=	3720
+DEXP[116]	=	3906
+DEXP[117]	=	4101
+DEXP[118]	=	4305
+DEXP[119]	=	4521
+DEXP[120]	=	4746
+DEXP[121]	=	4983
+DEXP[122]	=	5235
+DEXP[123]	=	5496
+DEXP[124]	=	5769
+DEXP[125]	=	6060
+DEXP[126]	=	6363
+DEXP[127]	=	6681
+DEXP[128]	=	7014
+DEXP[129]	=	7365
+DEXP[130]	=	7734
+DEXP[131]	=	8118
+DEXP[132]	=	8526
+DEXP[133]	=	8952
+DEXP[134]	=	9399
+DEXP[135]	=	9870
+DEXP[136]	=	10362
+DEXP[137]	=	10881
+DEXP[138]	=	11424
+DEXP[139]	=	11997
+DEXP[140]	=	12594
+DEXP[141]	=	13224
+DEXP[142]	=	13887
+DEXP[143]	=	14580
+DEXP[144]	=	15309
+DEXP[145]	=	16074
+DEXP[146]	=	16878
+DEXP[147]	=	17724
+DEXP[148]	=	18609
+DEXP[149]	=	19539
+DEXP[150]	=	20517
+DEXP[151]	=	21543
+DEXP[152]	=	22620
+DEXP[153]	=	23751
+DEXP[154]	=	24939
+DEXP[155]	=	26184
+DEXP[156]	=	27495
+DEXP[157]	=	28869
+DEXP[158]	=	30312
+DEXP[159]	=	31827
+DEXP[160]	=	33420
+DEXP[161]	=	35091
+DEXP[162]	=	36846
+DEXP[163]	=	38688
+DEXP[164]	=	40623
+DEXP[165]	=	42654
+DEXP[166]	=	44784
+DEXP[167]	=	47025
+DEXP[168]	=	49377
+DEXP[169]	=	51846
+DEXP[170]	=	54438
+DEXP[171]	=	57159
+DEXP[172]	=	60018
+DEXP[173]	=	63018
+DEXP[174]	=	66168
+DEXP[175]	=	69477
+DEXP[176]	=	72951
+DEXP[177]	=	76599
+DEXP[178]	=	80427
+DEXP[179]	=	84450
+DEXP[180]	=	88671
+DEXP[181]	=	93105
+DEXP[182]	=	97761
+DEXP[183]	=	102648
+DEXP[184]	=	107781
+DEXP[185]	=	113169
+DEXP[186]	=	118830
+DEXP[187]	=	124770
+DEXP[188]	=	131010
+DEXP[189]	=	137559
+DEXP[190]	=	144438
+DEXP[191]	=	151659
+DEXP[192]	=	159243
+DEXP[193]	=	167205
+DEXP[194]	=	175563
+DEXP[195]	=	184344
+DEXP[196]	=	193560
+DEXP[197]	=	203238
+DEXP[198]	=	213399
+DEXP[199]	=	224070
+DEXP[200]	=	235272
+DEXP[201]	=	247038
+DEXP[202]	=	259389
+DEXP[203]	=	272358
+DEXP[204]	=	285975
+DEXP[205]	=	300276
+DEXP[206]	=	315288
+DEXP[207]	=	331053
+DEXP[208]	=	347607
+DEXP[209]	=	364986
+DEXP[210]	=	383235
+DEXP[211]	=	402396
+DEXP[212]	=	422517
+DEXP[213]	=	443643
+DEXP[214]	=	465825
+DEXP[215]	=	489117
+DEXP[216]	=	513573
+DEXP[217]	=	539250
+DEXP[218]	=	566214
+DEXP[219]	=	594525
+DEXP[220]	=	624249
+DEXP[221]	=	655461
+DEXP[222]	=	688236
+DEXP[223]	=	722646
+DEXP[224]	=	758781
+DEXP[225]	=	796719
+DEXP[226]	=	836556
+DEXP[227]	=	878382
+DEXP[228]	=	922302
+DEXP[229]	=	968415
+DEXP[230]	=	1016838
+DEXP[231]	=	1067679
+DEXP[232]	=	1121064
+DEXP[233]	=	1177116
+DEXP[234]	=	1235973
+DEXP[235]	=	1297770
+DEXP[236]	=	1362660
+DEXP[237]	=	1430793
+DEXP[238]	=	1502331
+DEXP[239]	=	1577448
+DEXP[240]	=	1656321
+DEXP[241]	=	1739136
+DEXP[242]	=	1826094
+DEXP[243]	=	1917399
+DEXP[244]	=	2013267
+DEXP[245]	=	2113932
+DEXP[246]	=	2219628
+DEXP[247]	=	2330610
+DEXP[248]	=	2447139
+DEXP[249]	=	2569497
+DEXP[250]	=	2697972
+DEXP[251]	=	2832870
+DEXP[252]	=	2974515
+DEXP[253]	=	3123240
+DEXP[254]	=	3279402
+DEXP[255]	=	3443373
+DEXP[256]	=	3615540
+DEXP[257]	=	3796317
+DEXP[258]	=	3986133
+DEXP[259]	=	4185441
+DEXP[260]	=	4394712
+DEXP[261]	=	4614447
+DEXP[262]	=	4845171
+DEXP[263]	=	5087427
+DEXP[264]	=	5341800
+DEXP[265]	=	5608890
+DEXP[266]	=	5889333
+DEXP[267]	=	6183801
+DEXP[268]	=	6492990
+DEXP[269]	=	6817641
+DEXP[270]	=	7158522
+DEXP[271]	=	7516449
+DEXP[272]	=	7892271
+DEXP[273]	=	8286885
+DEXP[274]	=	8701230
+DEXP[275]	=	9136290
+DEXP[276]	=	9593106
+DEXP[277]	=	10072761
+DEXP[278]	=	10576398
+DEXP[279]	=	11105217
+DEXP[280]	=	11660478
+DEXP[281]	=	12243504
+DEXP[282]	=	12855678
+DEXP[283]	=	13498461
+DEXP[284]	=	14173386
+DEXP[285]	=	14882055
+DEXP[286]	=	15626157
+DEXP[287]	=	16407465
+DEXP[288]	=	17227839
+DEXP[289]	=	18089229
+DEXP[290]	=	18993693
+DEXP[291]	=	19943376
+DEXP[292]	=	20940546
+DEXP[293]	=	21987573
+DEXP[294]	=	23086950
+DEXP[295]	=	24241299
+DEXP[296]	=	25453365
+DEXP[297]	=	26726031
+DEXP[298]	=	28062333
+DEXP[299]	=	29465451
+DEXP[300]	=	30938724
+DEXP[301]	=	32485659
+DEXP[302]	=	34109943
+DEXP[303]	=	35815440
+DEXP[304]	=	37606212
+DEXP[305]	=	39486522
+DEXP[306]	=	41460849
+DEXP[307]	=	43533891
+DEXP[308]	=	45710583
+DEXP[309]	=	47996115
+DEXP[310]	=	50395920
+DEXP[311]	=	52915716
+DEXP[312]	=	55561500
+DEXP[313]	=	58339575
+DEXP[314]	=	61256556
+DEXP[315]	=	64319382
+DEXP[316]	=	67535352
+DEXP[317]	=	70912119
+DEXP[318]	=	74457726
+DEXP[319]	=	78180612
+DEXP[320]	=	82089642
+DEXP[321]	=	86194125
+DEXP[322]	=	90503832
+DEXP[323]	=	95029023
+DEXP[324]	=	99780474
+DEXP[325]	=	104769498
+DEXP[326]	=	110007972
+DEXP[327]	=	115508370
+DEXP[328]	=	121283790
+DEXP[329]	=	127347978
+DEXP[330]	=	133715376
+DEXP[331]	=	140401146
+DEXP[332]	=	147421203
+DEXP[333]	=	154792263
+DEXP[334]	=	162531876
+DEXP[335]	=	170658471
+DEXP[336]	=	179191395
+DEXP[337]	=	188150964
+DEXP[338]	=	197558511
+DEXP[339]	=	207436437
+DEXP[340]	=	217808259
+DEXP[341]	=	228698673
+DEXP[342]	=	240133605
+DEXP[343]	=	252140286
+DEXP[344]	=	264747300
+DEXP[345]	=	277984665
+DEXP[346]	=	291883899
+DEXP[347]	=	306478095
+DEXP[348]	=	321801999
+DEXP[349]	=	337892100
+DEXP[350]	=	354786705
+DEXP[351]	=	372526038
+DEXP[352]	=	391152342
+DEXP[353]	=	410709957
+DEXP[354]	=	431245455
+DEXP[355]	=	452807727
+DEXP[356]	=	475448115
+DEXP[357]	=	499220520
+DEXP[358]	=	524181546
+DEXP[359]	=	550390623
+DEXP[360]	=	577910154
+DEXP[361]	=	606805662
+DEXP[362]	=	637145946
+DEXP[363]	=	669003243
+DEXP[364]	=	702453405
+DEXP[365]	=	737576076
+DEXP[366]	=	774454881
+DEXP[367]	=	813177624
+DEXP[368]	=	853836504
+DEXP[369]	=	896528331
+DEXP[370]	=	941354748
+DEXP[371]	=	988422483
+DEXP[372]	=	1037843607
+DEXP[373]	=	1089735789
+DEXP[374]	=	1144222578
+DEXP[375]	=	1201433706
+DEXP[376]	=	1261505391
+DEXP[377]	=	1324580661
+DEXP[378]	=	1390809696
+DEXP[379]	=	1460350179
+DEXP[380]	=	1533367689
+DEXP[381]	=	1610036073
+DEXP[382]	=	1690537878
+DEXP[383]	=	1775064771
+DEXP[384]	=	1863818010
+DEXP[385]	=	1957008909
+DEXP[386]	=	2054859354
+DEXP[387]	=	2157602322
+DEXP[388]	=	2265482439
+DEXP[389]	=	2378756562
+DEXP[390]	=	2497694388
+DEXP[391]	=	2622579108
+DEXP[392]	=	2753708064
+DEXP[393]	=	2891393466
+DEXP[394]	=	3035963139
+DEXP[395]	=	3187761297
+DEXP[396]	=	3347149362
+DEXP[397]	=	3514506831
+DEXP[398]	=	3690232173
+DEXP[399]	=	3874743780
+DEXP[400]	=	4068480969
 
 
 
-	-------------------------------
-	-- Массив с характеристиками --
-	-------------------------------
-STAR_ATTR_Num	= 47 -- Кол-во характеристик
-STAR_ATTR		= {}
-STAR_ATTR[1]	= "Бонус Силы "
-STAR_ATTR[2]	= "Бонус Ловкости "
-STAR_ATTR[3]	= "Бонус Точности "
-STAR_ATTR[4]	= "Бонус Телосложения "
-STAR_ATTR[5]	= "Бонус Духа "
-STAR_ATTR[6]	= "Бонус Удачи "
-STAR_ATTR[7]	= "Добавление частоты коэффициента атаки "
-STAR_ATTR[8]	= "Добавление коэффициента расстояния атаки "
-STAR_ATTR[9]	= "Минимальный коэффициент бонуса атаки "
-STAR_ATTR[10]	= "Максимальный коэффициент бонуса атаки "
-STAR_ATTR[11]	= "Бонус Защиты "
-STAR_ATTR[12]	= "Бонус Макс. Здоровья"
-STAR_ATTR[13]	= "Бонус макс. Маны "
-STAR_ATTR[14]	= "Бонус Уклонения "
-STAR_ATTR[15]	= "Бонус Попадания "
-STAR_ATTR[16]	= "Бонус Скорости атаки "
-STAR_ATTR[17]	= "Бонус Выпадения % вещей "
-STAR_ATTR[18]	= "Бонус востановления Здоровья "
-STAR_ATTR[19]	= "Бонус востановления Маны "
-STAR_ATTR[20]	= "Бонус Скорость передвежения "
-STAR_ATTR[21]	= "Бонус Скорости сбора "
-STAR_ATTR[22]	= "Бонус Физического сопративления "
-STAR_ATTR[23]	= "Бонуса нет "
-STAR_ATTR[24]	= "Бонуса нет "
-STAR_ATTR[25]	= "Бонуса нет "
-STAR_ATTR[26]	= "Бонус постояной Силы "
-STAR_ATTR[27]	= "Бонус постояной Ловкости "
-STAR_ATTR[28]	= "Бонус посотяной Точности "
-STAR_ATTR[29]	= "Бонус постояного Телосложения "
-STAR_ATTR[30]	= "Бонус постояного Духа "
-STAR_ATTR[31]	= "Бонус постояной Удачи "
-STAR_ATTR[32]	= "Бонус постояного Попадания "
-STAR_ATTR[33]	= "Бонус постояного нападения с добавлением атаки "
-STAR_ATTR[34]	= "Бонус минимальной Силы атаки "
-STAR_ATTR[35]	= "Бонус максимальной Силы атаки "
-STAR_ATTR[36]	= "Бонус постояной Защиты "
-STAR_ATTR[37]	= "Бонус постояно максимального Здоровья "
-STAR_ATTR[38]	= "Бонус постояно максимальной Маны "
-STAR_ATTR[39]	= "Бонус постояного Уклонения "
-STAR_ATTR[40]	= "Бонус постояного Попадания "
-STAR_ATTR[41]	= "Бонус постояной Скорости атаки "
-STAR_ATTR[42]	= "Бонус постояного выпадения % вещей "
-STAR_ATTR[43]	= "Бонус постояного востановления Здоровья "
-STAR_ATTR[44]	= "Бонус постояного востановления Маны "
-STAR_ATTR[45]	= "Бонус постояной Скорости передвежения "
-STAR_ATTR[46]	= "Бонус постояной Скорости сбор "
-STAR_ATTR[47]	= "Бонус постояного Физического Сопротивления "
 
-	-----------------------------------------------------------------------------------------------------------------------
-	-- В принципе не нужный массив. Отголоски данного массива есть в forge.lua, но они бессмысленны  и закомментированы. --
-	--                                                                                                      //by insider --
-	-----------------------------------------------------------------------------------------------------------------------
+
+LV_EXP_Num = 130
+LV_EXP	={}
+LV_EXP	[	1	]	=	1
+LV_EXP	[	2	]	=	1
+LV_EXP	[	3	]	=	1
+LV_EXP	[	4	]	=	1
+LV_EXP	[	5	]	=	1
+LV_EXP	[	6	]	=	1.2
+LV_EXP	[	7	]	=	1.2
+LV_EXP	[	8	]	=	1.3
+LV_EXP	[	9	]	=	1.3
+LV_EXP	[	10	]	=	1.5
+LV_EXP	[	11	]	=	1.5
+LV_EXP	[	12	]	=	1.5
+LV_EXP	[	13	]	=	1.5
+LV_EXP	[	14	]	=	1.5
+LV_EXP	[	15	]	=	1.5
+LV_EXP	[	16	]	=	1.8
+LV_EXP	[	17	]	=	1.8
+LV_EXP	[	18	]	=	1.8
+LV_EXP	[	19	]	=	1.8
+LV_EXP	[	20	]	=	1.8
+LV_EXP	[	21	]	=	2
+LV_EXP	[	22	]	=	2
+LV_EXP	[	23	]	=	2
+LV_EXP	[	24	]	=	2
+LV_EXP	[	25	]	=	2
+LV_EXP	[	26	]	=	2.2
+LV_EXP	[	27	]	=	2.2
+LV_EXP	[	28	]	=	2.2
+LV_EXP	[	29	]	=	2.2
+LV_EXP	[	30	]	=	2.2
+LV_EXP	[	31	]	=	2
+LV_EXP	[	32	]	=	2
+LV_EXP	[	33	]	=	2
+LV_EXP	[	34	]	=	2
+LV_EXP	[	35	]	=	2
+LV_EXP	[	36	]	=	1.8
+LV_EXP	[	37	]	=	1.8
+LV_EXP	[	38	]	=	1.8
+LV_EXP	[	39	]	=	1.8
+LV_EXP	[	40	]	=	1.8
+LV_EXP	[	41	]	=	1.5
+LV_EXP	[	42	]	=	1.5
+LV_EXP	[	43	]	=	1.5
+LV_EXP	[	44	]	=	1.5
+LV_EXP	[	45	]	=	1.3
+LV_EXP	[	46	]	=	1.3
+LV_EXP	[	47	]	=	1.3
+LV_EXP	[	48	]	=	1.3
+LV_EXP	[	49	]	=	1.2
+LV_EXP	[	50	]	=	1.2
+LV_EXP	[	51	]	=	1.2
+LV_EXP	[	52	]	=	1.2
+LV_EXP	[	53	]	=	1.1
+LV_EXP	[	54	]	=	1.1
+LV_EXP	[	55	]	=	1.1
+LV_EXP	[	56	]	=	1.1
+LV_EXP	[	57	]	=	1
+LV_EXP	[	58	]	=	1
+LV_EXP	[	59	]	=	1
+LV_EXP	[	60	]	=	1
+LV_EXP	[	61	]	=	1
+LV_EXP	[	62	]	=	1
+LV_EXP	[	63	]	=	1
+LV_EXP	[	64	]	=	1
+LV_EXP	[	65	]	=	1
+LV_EXP	[	66	]	=	1
+LV_EXP	[	67	]	=	1
+LV_EXP	[	68	]	=	1
+LV_EXP	[	69	]	=	1
+LV_EXP	[	70	]	=	1
+LV_EXP	[	71	]	=	1
+LV_EXP	[	72	]	=	1
+LV_EXP	[	73	]	=	1
+LV_EXP	[	74	]	=	1
+LV_EXP	[	75	]	=	1
+LV_EXP	[	76	]	=	1
+LV_EXP	[	77	]	=	1
+LV_EXP	[	78	]	=	1
+LV_EXP	[	79	]	=	1
+LV_EXP	[	80	]	=	1
+LV_EXP	[	81	]	=	1
+LV_EXP	[	82	]	=	1
+LV_EXP	[	83	]	=	1
+LV_EXP	[	84	]	=	1
+LV_EXP	[	85	]	=	1
+LV_EXP	[	86	]	=	1
+LV_EXP	[	87	]	=	1
+LV_EXP	[	88	]	=	1
+LV_EXP	[	89	]	=	1
+LV_EXP	[	90	]	=	1
+LV_EXP	[	91	]	=	1
+LV_EXP	[	92	]	=	1
+LV_EXP	[	93	]	=	1
+LV_EXP	[	94	]	=	1
+LV_EXP	[	95	]	=	1
+LV_EXP	[	96	]	=	1
+LV_EXP	[	97	]	=	1
+LV_EXP	[	98	]	=	1
+LV_EXP	[	99	]	=	1
+LV_EXP	[	100	]	=	1
+LV_EXP	[	101	]	=	1
+LV_EXP	[	102	]	=	1
+LV_EXP	[	103	]	=	1
+LV_EXP	[	104	]	=	1
+LV_EXP	[	105	]	=	1
+LV_EXP	[	106	]	=	1
+LV_EXP	[	107	]	=	1
+LV_EXP	[	108	]	=	1
+LV_EXP	[	109	]	=	1
+LV_EXP	[	110	]	=	1
+LV_EXP	[	111	]	=	1
+LV_EXP	[	112	]	=	1
+LV_EXP	[	113	]	=	1
+LV_EXP	[	114	]	=	1
+LV_EXP	[	115	]	=	1
+LV_EXP	[	116	]	=	1
+LV_EXP	[	117	]	=	1
+LV_EXP	[	118	]	=	1
+LV_EXP	[	119	]	=	1
+LV_EXP	[	120	]	=	1
+LV_EXP	[	121	]	=	1
+LV_EXP	[	122	]	=	1
+LV_EXP	[	123	]	=	1
+LV_EXP	[	124	]	=	1
+LV_EXP	[	125	]	=	1
+LV_EXP	[	126	]	=	1
+LV_EXP	[	127	]	=	1
+LV_EXP	[	128	]	=	1
+LV_EXP	[	129	]	=	1
+LV_EXP	[	130	]	=	1
+
+--------------------????
+STAR_ATTR_Num = 47
+STAR_ATTR={}
+CALCULATE_VARIABLE_LUA_000001 = GetResString("CALCULATE_VARIABLE_LUA_000001")
+STAR_ATTR[1]				=	CALCULATE_VARIABLE_LUA_000001	--??????             
+CALCULATE_VARIABLE_LUA_000002 = GetResString("CALCULATE_VARIABLE_LUA_000002")
+STAR_ATTR[2]				=	CALCULATE_VARIABLE_LUA_000002	--??????             
+CALCULATE_VARIABLE_LUA_000003 = GetResString("CALCULATE_VARIABLE_LUA_000003")
+STAR_ATTR[3]				=	CALCULATE_VARIABLE_LUA_000003	--??????             
+CALCULATE_VARIABLE_LUA_000004 = GetResString("CALCULATE_VARIABLE_LUA_000004")
+STAR_ATTR[4]				=	CALCULATE_VARIABLE_LUA_000004	--??????             
+CALCULATE_VARIABLE_LUA_000005 = GetResString("CALCULATE_VARIABLE_LUA_000005")
+STAR_ATTR[5]				=	CALCULATE_VARIABLE_LUA_000005	--??????             
+CALCULATE_VARIABLE_LUA_000006 = GetResString("CALCULATE_VARIABLE_LUA_000006")
+STAR_ATTR[6]				=	CALCULATE_VARIABLE_LUA_000006	--??????             
+CALCULATE_VARIABLE_LUA_000007 = GetResString("CALCULATE_VARIABLE_LUA_000007")
+STAR_ATTR[7]				=	CALCULATE_VARIABLE_LUA_000007	--????????       
+CALCULATE_VARIABLE_LUA_000008 = GetResString("CALCULATE_VARIABLE_LUA_000008")
+STAR_ATTR[8]				=	CALCULATE_VARIABLE_LUA_000008	--????????       
+CALCULATE_VARIABLE_LUA_000009 = GetResString("CALCULATE_VARIABLE_LUA_000009")
+STAR_ATTR[9]				=	CALCULATE_VARIABLE_LUA_000009	--?????????    
+CALCULATE_VARIABLE_LUA_000010 = GetResString("CALCULATE_VARIABLE_LUA_000010")
+STAR_ATTR[10]				=	CALCULATE_VARIABLE_LUA_000010	--?????????    
+CALCULATE_VARIABLE_LUA_000011 = GetResString("CALCULATE_VARIABLE_LUA_000011")
+STAR_ATTR[11]				=	CALCULATE_VARIABLE_LUA_000011	--??????             
+CALCULATE_VARIABLE_LUA_000012 = GetResString("CALCULATE_VARIABLE_LUA_000012")
+STAR_ATTR[12]				=	CALCULATE_VARIABLE_LUA_000012	--??Hp????         
+CALCULATE_VARIABLE_LUA_000013 = GetResString("CALCULATE_VARIABLE_LUA_000013")
+STAR_ATTR[13]				=	CALCULATE_VARIABLE_LUA_000013	--??Sp????         
+CALCULATE_VARIABLE_LUA_000014 = GetResString("CALCULATE_VARIABLE_LUA_000014")
+STAR_ATTR[14]				=	CALCULATE_VARIABLE_LUA_000014	--???????          
+CALCULATE_VARIABLE_LUA_000015 = GetResString("CALCULATE_VARIABLE_LUA_000015")
+STAR_ATTR[15]				=	CALCULATE_VARIABLE_LUA_000015	--???????          
+CALCULATE_VARIABLE_LUA_000016 = GetResString("CALCULATE_VARIABLE_LUA_000016")
+STAR_ATTR[16]				=	CALCULATE_VARIABLE_LUA_000016	--???????          
+CALCULATE_VARIABLE_LUA_000017 = GetResString("CALCULATE_VARIABLE_LUA_000017")
+STAR_ATTR[17]				=	CALCULATE_VARIABLE_LUA_000017	--???????          
+CALCULATE_VARIABLE_LUA_000018 = GetResString("CALCULATE_VARIABLE_LUA_000018")
+STAR_ATTR[18]				=	CALCULATE_VARIABLE_LUA_000018	--hp????????   
+CALCULATE_VARIABLE_LUA_000019 = GetResString("CALCULATE_VARIABLE_LUA_000019")
+STAR_ATTR[19]				=	CALCULATE_VARIABLE_LUA_000019	--sp????????    
+CALCULATE_VARIABLE_LUA_000020 = GetResString("CALCULATE_VARIABLE_LUA_000020")
+STAR_ATTR[20]				=	CALCULATE_VARIABLE_LUA_000020	--????????       
+CALCULATE_VARIABLE_LUA_000021 = GetResString("CALCULATE_VARIABLE_LUA_000021")
+STAR_ATTR[21]				=	CALCULATE_VARIABLE_LUA_000021	--?????????? 
+CALCULATE_VARIABLE_LUA_000022 = GetResString("CALCULATE_VARIABLE_LUA_000022")
+STAR_ATTR[22]				=	CALCULATE_VARIABLE_LUA_000022	--????????       
+CALCULATE_VARIABLE_LUA_000023 = GetResString("CALCULATE_VARIABLE_LUA_000023")
+STAR_ATTR[23]				=	CALCULATE_VARIABLE_LUA_000023	--?                            
+CALCULATE_VARIABLE_LUA_000023 = GetResString("CALCULATE_VARIABLE_LUA_000023")
+STAR_ATTR[24]				=	CALCULATE_VARIABLE_LUA_000023	--?                            
+CALCULATE_VARIABLE_LUA_000023 = GetResString("CALCULATE_VARIABLE_LUA_000023")
+STAR_ATTR[25]				=	CALCULATE_VARIABLE_LUA_000023	--?                            
+CALCULATE_VARIABLE_LUA_000024 = GetResString("CALCULATE_VARIABLE_LUA_000024")
+STAR_ATTR[26]				=	CALCULATE_VARIABLE_LUA_000024	--??????             
+CALCULATE_VARIABLE_LUA_000025 = GetResString("CALCULATE_VARIABLE_LUA_000025")
+STAR_ATTR[27]				=	CALCULATE_VARIABLE_LUA_000025	--??????             
+CALCULATE_VARIABLE_LUA_000026 = GetResString("CALCULATE_VARIABLE_LUA_000026")
+STAR_ATTR[28]				=	CALCULATE_VARIABLE_LUA_000026	--??????             
+CALCULATE_VARIABLE_LUA_000027 = GetResString("CALCULATE_VARIABLE_LUA_000027")
+STAR_ATTR[29]				=	CALCULATE_VARIABLE_LUA_000027	--??????             
+CALCULATE_VARIABLE_LUA_000028 = GetResString("CALCULATE_VARIABLE_LUA_000028")
+STAR_ATTR[30]				=	CALCULATE_VARIABLE_LUA_000028	--??????             
+CALCULATE_VARIABLE_LUA_000029 = GetResString("CALCULATE_VARIABLE_LUA_000029")
+STAR_ATTR[31]				=	CALCULATE_VARIABLE_LUA_000029	--??????             
+CALCULATE_VARIABLE_LUA_000030 = GetResString("CALCULATE_VARIABLE_LUA_000030")
+STAR_ATTR[32]				=	CALCULATE_VARIABLE_LUA_000030	--????????       
+CALCULATE_VARIABLE_LUA_000031 = GetResString("CALCULATE_VARIABLE_LUA_000031")
+STAR_ATTR[33]				=	CALCULATE_VARIABLE_LUA_000031	--????????       
+CALCULATE_VARIABLE_LUA_000032 = GetResString("CALCULATE_VARIABLE_LUA_000032")
+STAR_ATTR[34]				=	CALCULATE_VARIABLE_LUA_000032	--?????????    
+CALCULATE_VARIABLE_LUA_000033 = GetResString("CALCULATE_VARIABLE_LUA_000033")
+STAR_ATTR[35]				=	CALCULATE_VARIABLE_LUA_000033	--?????????    
+CALCULATE_VARIABLE_LUA_000034 = GetResString("CALCULATE_VARIABLE_LUA_000034")
+STAR_ATTR[36]				=	CALCULATE_VARIABLE_LUA_000034	--??????             
+CALCULATE_VARIABLE_LUA_000035 = GetResString("CALCULATE_VARIABLE_LUA_000035")
+STAR_ATTR[37]				=	CALCULATE_VARIABLE_LUA_000035	--??Hp????         
+CALCULATE_VARIABLE_LUA_000036 = GetResString("CALCULATE_VARIABLE_LUA_000036")
+STAR_ATTR[38]				=	CALCULATE_VARIABLE_LUA_000036	--??Sp????         
+CALCULATE_VARIABLE_LUA_000037 = GetResString("CALCULATE_VARIABLE_LUA_000037")
+STAR_ATTR[39]				=	CALCULATE_VARIABLE_LUA_000037	--???????          
+CALCULATE_VARIABLE_LUA_000038 = GetResString("CALCULATE_VARIABLE_LUA_000038")
+STAR_ATTR[40]				=	CALCULATE_VARIABLE_LUA_000038	--???????          
+CALCULATE_VARIABLE_LUA_000039 = GetResString("CALCULATE_VARIABLE_LUA_000039")
+STAR_ATTR[41]				=	CALCULATE_VARIABLE_LUA_000039	--???????          
+CALCULATE_VARIABLE_LUA_000040 = GetResString("CALCULATE_VARIABLE_LUA_000040")
+STAR_ATTR[42]				=	CALCULATE_VARIABLE_LUA_000040	--???????          
+CALCULATE_VARIABLE_LUA_000041 = GetResString("CALCULATE_VARIABLE_LUA_000041")
+STAR_ATTR[43]				=	CALCULATE_VARIABLE_LUA_000041	--hp????????   
+CALCULATE_VARIABLE_LUA_000042 = GetResString("CALCULATE_VARIABLE_LUA_000042")
+STAR_ATTR[44]				=	CALCULATE_VARIABLE_LUA_000042	--sp????????    
+CALCULATE_VARIABLE_LUA_000043 = GetResString("CALCULATE_VARIABLE_LUA_000043")
+STAR_ATTR[45]				=	CALCULATE_VARIABLE_LUA_000043	--????????       
+CALCULATE_VARIABLE_LUA_000044 = GetResString("CALCULATE_VARIABLE_LUA_000044")
+STAR_ATTR[46]				=	CALCULATE_VARIABLE_LUA_000044	--?????????? 
+CALCULATE_VARIABLE_LUA_000045 = GetResString("CALCULATE_VARIABLE_LUA_000045")
+STAR_ATTR[47]				=	CALCULATE_VARIABLE_LUA_000045	--????????       
+--------------------------------------------------------------------????????
 WORD_Num = 52
 WORD={}
 WORD[1]="A"
@@ -10271,11 +1114,2627 @@ WORD[49]="w"
 WORD[50]="x"
 WORD[51]="y"
 WORD[52]="z"
+-------------------------
+	-------?????ID
+	LHJ_ID_Num = 252					
+	LHJ_ID	=	{}			
+	LHJ_ID	[	1	]	=	387
+	LHJ_ID	[	2	]	=	395
+	LHJ_ID	[	3	]	=	397
+	LHJ_ID	[	4	]	=	399
+	LHJ_ID	[	5	]	=	401
+	LHJ_ID	[	6	]	=	403
+	LHJ_ID	[	7	]	=	405
+	LHJ_ID	[	8	]	=	407
+	LHJ_ID	[	9	]	=	409
+	LHJ_ID	[	10	]	=	412
+	LHJ_ID	[	11	]	=	414
+	LHJ_ID	[	12	]	=	415
+	LHJ_ID	[	13	]	=	416
+	LHJ_ID	[	14	]	=	417
+	LHJ_ID	[	15	]	=	484
+	LHJ_ID	[	16	]	=	485
+	LHJ_ID	[	17	]	=	495
+	LHJ_ID	[	18	]	=	497
+	LHJ_ID	[	19	]	=	505
+	LHJ_ID	[	20	]	=	506
+	LHJ_ID	[	21	]	=	522
+	LHJ_ID	[	22	]	=	523
+	LHJ_ID	[	23	]	=	587
+	LHJ_ID	[	24	]	=	589
+	LHJ_ID	[	25	]	=	591
+	LHJ_ID	[	26	]	=	593
+	LHJ_ID	[	27	]	=	595
+	LHJ_ID	[	28	]	=	597
+	LHJ_ID	[	29	]	=	599
+	LHJ_ID	[	30	]	=	601
+	LHJ_ID	[	31	]	=	603
+	LHJ_ID	[	32	]	=	660
+	LHJ_ID	[	33	]	=	661
+	LHJ_ID	[	34	]	=	747
+	LHJ_ID	[	35	]	=	749
+	LHJ_ID	[	36	]	=	751
+	LHJ_ID	[	37	]	=	753
+	LHJ_ID	[	38	]	=	755
+	LHJ_ID	[	39	]	=	757
+	LHJ_ID	[	40	]	=	759
+	LHJ_ID	[	41	]	=	761
+	LHJ_ID	[	42	]	=	763
+	LHJ_ID	[	43	]	=	764
+	LHJ_ID	[	44	]	=	765
+	LHJ_ID	[	45	]	=	766
+	LHJ_ID	[	46	]	=	767
+	LHJ_ID	[	47	]	=	768
+	LHJ_ID	[	48	]	=	769
+	LHJ_ID	[	49	]	=	770
+	LHJ_ID	[	50	]	=	771
+	LHJ_ID	[	51	]	=	772
+	LHJ_ID	[	52	]	=	773
+	LHJ_ID	[	53	]	=	774
+	LHJ_ID	[	54	]	=	775
+	LHJ_ID	[	55	]	=	776
+	LHJ_ID	[	56	]	=	777
+	LHJ_ID	[	57	]	=	778
+	LHJ_ID	[	58	]	=	779
+	LHJ_ID	[	59	]	=	780
+	LHJ_ID	[	60	]	=	781
+	LHJ_ID	[	61	]	=	782
+	LHJ_ID	[	62	]	=	783
+	LHJ_ID	[	63	]	=	784
+	LHJ_ID	[	64	]	=	785
+	LHJ_ID	[	65	]	=	786
+	LHJ_ID	[	66	]	=	787
+	LHJ_ID	[	67	]	=	788
+	LHJ_ID	[	68	]	=	789
+	LHJ_ID	[	69	]	=	790
+	LHJ_ID	[	70	]	=	791
+	LHJ_ID	[	71	]	=	792
+	LHJ_ID	[	72	]	=	793
+	LHJ_ID	[	73	]	=	794
+	LHJ_ID	[	74	]	=	795
+	LHJ_ID	[	75	]	=	796
+	LHJ_ID	[	76	]	=	797
+	LHJ_ID	[	77	]	=	798
+	LHJ_ID	[	78	]	=	799
+	LHJ_ID	[	79	]	=	800
+	LHJ_ID	[	80	]	=	801
+	LHJ_ID	[	81	]	=	802
+	LHJ_ID	[	82	]	=	803
+	LHJ_ID	[	83	]	=	804
+	LHJ_ID	[	84	]	=	805
+	LHJ_ID	[	85	]	=	806
+	LHJ_ID	[	86	]	=	807
+	LHJ_ID	[	87	]	=	808
+	LHJ_ID	[	88	]	=	809
+	LHJ_ID	[	89	]	=	810
+	LHJ_ID	[	90	]	=	811
+	LHJ_ID	[	91	]	=	812
+	LHJ_ID	[	92	]	=	813
+	LHJ_ID	[	93	]	=	814
+	LHJ_ID	[	94	]	=	815
+	LHJ_ID	[	95	]	=	816
+	LHJ_ID	[	96	]	=	822
+	LHJ_ID	[	97	]	=	823
+	LHJ_ID	[	98	]	=	829
+	LHJ_ID	[	99	]	=	1375
+	LHJ_ID	[	100	]	=	1376
+	LHJ_ID	[	101	]	=	1384
+	LHJ_ID	[	102	]	=	1385
+	LHJ_ID	[	103	]	=	1394
+	LHJ_ID	[	104	]	=	1412
+	LHJ_ID	[	105	]	=	1415
+	LHJ_ID	[	106	]	=	1928
+	LHJ_ID	[	107	]	=	1929
+	LHJ_ID	[	108	]	=	1930
+	LHJ_ID	[	109	]	=	1931
+	LHJ_ID	[	110	]	=	1932
+	LHJ_ID	[	111	]	=	1933
+	LHJ_ID	[	112	]	=	1934
+	LHJ_ID	[	113	]	=	1935
+	LHJ_ID	[	114	]	=	1936
+	LHJ_ID	[	115	]	=	1937
+	LHJ_ID	[	116	]	=	1938
+	LHJ_ID	[	117	]	=	1939
+	LHJ_ID	[	118	]	=	1940
+	LHJ_ID	[	119	]	=	1941
+	LHJ_ID	[	120	]	=	1942
+	LHJ_ID	[	121	]	=	1943
+	LHJ_ID	[	122	]	=	1944
+	LHJ_ID	[	123	]	=	1945
+	LHJ_ID	[	124	]	=	1946
+	LHJ_ID	[	125	]	=	1947
+	LHJ_ID	[	126	]	=	1948
+	LHJ_ID	[	127	]	=	1949
+	LHJ_ID	[	128	]	=	1950
+	LHJ_ID	[	129	]	=	1951
+	LHJ_ID	[	130	]	=	1952
+	LHJ_ID	[	131	]	=	1953
+	LHJ_ID	[	132	]	=	1954
+	LHJ_ID	[	133	]	=	1955
+	LHJ_ID	[	134	]	=	1956
+	LHJ_ID	[	135	]	=	1957
+	LHJ_ID	[	136	]	=	1958
+	LHJ_ID	[	137	]	=	1959
+	LHJ_ID	[	138	]	=	1960
+	LHJ_ID	[	139	]	=	1961
+	LHJ_ID	[	140	]	=	1962
+	LHJ_ID	[	141	]	=	1963
+	LHJ_ID	[	142	]	=	1964
+	LHJ_ID	[	143	]	=	1965
+	LHJ_ID	[	144	]	=	1966
+	LHJ_ID	[	145	]	=	1967
+	LHJ_ID	[	146	]	=	1968
+	LHJ_ID	[	147	]	=	1969
+	LHJ_ID	[	148	]	=	1970
+	LHJ_ID	[	149	]	=	1971
+	LHJ_ID	[	150	]	=	1972
+	LHJ_ID	[	151	]	=	1973
+	LHJ_ID	[	152	]	=	1974
+	LHJ_ID	[	153	]	=	1975
+	LHJ_ID	[	154	]	=	1976
+	LHJ_ID	[	155	]	=	1977
+	LHJ_ID	[	156	]	=	1978
+	LHJ_ID	[	157	]	=	1979
+	LHJ_ID	[	158	]	=	1980
+	LHJ_ID	[	159	]	=	1981
+	LHJ_ID	[	160	]	=	1982
+	LHJ_ID	[	161	]	=	1983
+	LHJ_ID	[	162	]	=	1984
+	LHJ_ID	[	163	]	=	1985
+	LHJ_ID	[	164	]	=	1986
+	LHJ_ID	[	165	]	=	1987
+	LHJ_ID	[	166	]	=	2312
+	LHJ_ID	[	167	]	=	2426
+	LHJ_ID	[	168	]	=	2445
+	LHJ_ID	[	169	]	=	2530
+	LHJ_ID	[	170	]	=	2533
+	LHJ_ID	[	171	]	=	2536
+	LHJ_ID	[	172	]	=	2539
+	LHJ_ID	[	173	]	=	2542
+	LHJ_ID	[	174	]	=	2545
+	LHJ_ID	[	175	]	=	3115
+	LHJ_ID	[	176	]	=	3798
+	LHJ_ID	[	177	]	=	3799
+	LHJ_ID	[	178	]	=	3800
+	LHJ_ID	[	179	]	=	3801
+	LHJ_ID	[	180	]	=	3802
+	LHJ_ID	[	181	]	=	3803
+	LHJ_ID	[	182	]	=	3804
+	LHJ_ID	[	183	]	=	3805
+	LHJ_ID	[	184	]	=	3806
+	LHJ_ID	[	185	]	=	3807
+	LHJ_ID	[	186	]	=	3808
+	LHJ_ID	[	187	]	=	3809
+	LHJ_ID	[	188	]	=	3810
+	LHJ_ID	[	189	]	=	3811
+	LHJ_ID	[	190	]	=	3812
+	LHJ_ID	[	191	]	=	3813
+	LHJ_ID	[	192	]	=	3814
+	LHJ_ID	[	193	]	=	3815
+	LHJ_ID	[	194	]	=	3816
+	LHJ_ID	[	195	]	=	3817
+	LHJ_ID	[	196	]	=	3818
+	LHJ_ID	[	197	]	=	3819
+	LHJ_ID	[	198	]	=	4146
+	LHJ_ID	[	199	]	=	4210
+	LHJ_ID	[	200	]	=	4213
+	LHJ_ID	[	201	]	=	239
+	LHJ_ID	[	202	]	=	608
+	LHJ_ID	[	203	]	=	609
+	LHJ_ID	[	204	]	=	610
+	LHJ_ID	[	205	]	=	611
+	LHJ_ID	[	206	]	=	612
+	LHJ_ID	[	207	]	=	292
+	LHJ_ID	[	208	]	=	294
+	LHJ_ID	[	209	]	=	468
+	LHJ_ID	[	210	]	=	470
+	LHJ_ID	[	211	]	=	644
+	LHJ_ID	[	212	]	=	646
+	LHJ_ID	[	213	]	=	2331
+	LHJ_ID	[	214	]	=	2332
+	LHJ_ID	[	215	]	=	2333
+	LHJ_ID	[	216	]	=	2334
+	LHJ_ID	[	217	]	=	2335
+	LHJ_ID	[	218	]	=	2336
+	LHJ_ID	[	219	]	=	2337
+	LHJ_ID	[	220	]	=	2338
+	LHJ_ID	[	221	]	=	2339
+	LHJ_ID	[	222	]	=	2340
+	LHJ_ID	[	223	]	=	2341
+	LHJ_ID	[	224	]	=	2342
+	LHJ_ID	[	225	]	=	2343
+	LHJ_ID	[	226	]	=	2344
+	LHJ_ID	[	227	]	=	2367
+	LHJ_ID	[	228	]	=	2368
+	LHJ_ID	[	229	]	=	2369
+	LHJ_ID	[	230	]	=	2370
+	LHJ_ID	[	231	]	=	2549
+	LHJ_ID	[	232	]	=	2550
+	LHJ_ID	[	233	]	=	2551
+	LHJ_ID	[	234	]	=	2552
+	LHJ_ID	[	235	]	=	2817
+	LHJ_ID	[	236	]	=	2818
+	LHJ_ID	[	237	]	=	2819
+	LHJ_ID	[	238	]	=	2820
+	LHJ_ID	[	239	]	=	2821
+	LHJ_ID	[	240	]	=	2822
+	LHJ_ID	[	241	]	=	2823
+	LHJ_ID	[	242	]	=	2824
+	LHJ_ID	[	243	]	=	2825
+	LHJ_ID	[	244	]	=	2826
+	LHJ_ID	[	245	]	=	2827
+	LHJ_ID	[	246	]	=	2828
+	LHJ_ID	[	247	]	=	2829
+	LHJ_ID	[	248	]	=	2830
+	LHJ_ID	[	249	]	=	2831
+	LHJ_ID	[	250	]	=	2832
+	LHJ_ID	[	251	]	=	2833
+	LHJ_ID	[	252	]	=	2834
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---                                                    Массивы для предмета Кровожадный Сундук (ID 0459) (Начало)                                                       --
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+--	??		
+	STONE1_ID_Num = 143
+	STONE1_ID	=	{}			
+	STONE1_ID	[	1	]	=	3387
+	STONE1_ID	[	2	]	=	1671
+	STONE1_ID	[	3	]	=	1670
+	STONE1_ID	[	4	]	=	4415
+	STONE1_ID	[	5	]	=	4029
+	STONE1_ID	[	6	]	=	4039
+	STONE1_ID	[	7	]	=	1640
+	STONE1_ID	[	8	]	=	1706
+	STONE1_ID	[	9	]	=	3363
+	STONE1_ID	[	10	]	=	3368
+	STONE1_ID	[	11	]	=	1668
+	STONE1_ID	[	12	]	=	1784
+	STONE1_ID	[	13	]	=	4030
+	STONE1_ID	[	14	]	=	4040
+	STONE1_ID	[	15	]	=	1634
+	STONE1_ID	[	16	]	=	4351
+	STONE1_ID	[	17	]	=	4349
+	STONE1_ID	[	18	]	=	1673
+	STONE1_ID	[	19	]	=	3391
+	STONE1_ID	[	20	]	=	3360
+	STONE1_ID	[	21	]	=	1667
+	STONE1_ID	[	22	]	=	1662
+	STONE1_ID	[	23	]	=	3388
+	STONE1_ID	[	24	]	=	1639
+	STONE1_ID	[	25	]	=	1786
+	STONE1_ID	[	26	]	=	3380
+	STONE1_ID	[	27	]	=	1771
+	STONE1_ID	[	28	]	=	4031
+	STONE1_ID	[	29	]	=	4041
+	STONE1_ID	[	30	]	=	3425
+	STONE1_ID	[	31	]	=	1196
+	STONE1_ID	[	32	]	=	3428
+	STONE1_ID	[	33	]	=	1216
+	STONE1_ID	[	34	]	=	1630
+	STONE1_ID	[	35	]	=	1781
+	STONE1_ID	[	36	]	=	4467
+	STONE1_ID	[	37	]	=	1631
+	STONE1_ID	[	38	]	=	1643
+	STONE1_ID	[	39	]	=	1642
+	STONE1_ID	[	40	]	=	1751
+	STONE1_ID	[	41	]	=	4363
+	STONE1_ID	[	42	]	=	1645
+	STONE1_ID	[	43	]	=	3426
+	STONE1_ID	[	44	]	=	1636
+	STONE1_ID	[	45	]	=	4536
+	STONE1_ID	[	46	]	=	3431
+	STONE1_ID	[	47	]	=	1669
+	STONE1_ID	[	48	]	=	1672
+	STONE1_ID	[	49	]	=	3442
+	STONE1_ID	[	50	]	=	3927
+	STONE1_ID	[	51	]	=	1666
+	STONE1_ID	[	52	]	=	1699
+	STONE1_ID	[	53	]	=	4368
+	STONE1_ID	[	54	]	=	4455
+	STONE1_ID	[	55	]	=	3429
+	STONE1_ID	[	56	]	=	3364
+	STONE1_ID	[	57	]	=	4032
+	STONE1_ID	[	58	]	=	4042
+	STONE1_ID	[	59	]	=	4541
+	STONE1_ID	[	60	]	=	1234
+	STONE1_ID	[	61	]	=	1253
+	STONE1_ID	[	62	]	=	3369
+	STONE1_ID	[	63	]	=	1638
+	STONE1_ID	[	64	]	=	4825
+	STONE1_ID	[	65	]	=	1288
+	STONE1_ID	[	66	]	=	1308
+	STONE1_ID	[	67	]	=	1326
+	STONE1_ID	[	68	]	=	3378
+	STONE1_ID	[	69	]	=	4850
+	STONE1_ID	[	70	]	=	4791
+	STONE1_ID	[	71	]	=	4895
+	STONE1_ID	[	72	]	=	3432
+	STONE1_ID	[	73	]	=	3444
+	STONE1_ID	[	74	]	=	3371
+	STONE1_ID	[	75	]	=	1637
+	STONE1_ID	[	76	]	=	3427
+	STONE1_ID	[	77	]	=	3820
+	STONE1_ID	[	78	]	=	4033
+	STONE1_ID	[	79	]	=	4043
+	STONE1_ID	[	80	]	=	4721
+	STONE1_ID	[	81	]	=	1345
+	STONE1_ID	[	82	]	=	3390
+	STONE1_ID	[	83	]	=	3433
+	STONE1_ID	[	84	]	=	3821
+	STONE1_ID	[	85	]	=	1641
+	STONE1_ID	[	86	]	=	1633
+	STONE1_ID	[	87	]	=	3389
+	STONE1_ID	[	88	]	=	3430
+	STONE1_ID	[	89	]	=	3361
+	STONE1_ID	[	90	]	=	1201
+	STONE1_ID	[	91	]	=	1635
+	STONE1_ID	[	92	]	=	1239
+	STONE1_ID	[	93	]	=	1647
+	STONE1_ID	[	94	]	=	1483
+	STONE1_ID	[	95	]	=	1494
+	STONE1_ID	[	96	]	=	1482
+	STONE1_ID	[	97	]	=	4034
+	STONE1_ID	[	98	]	=	4044
+	STONE1_ID	[	99	]	=	3455
+	STONE1_ID	[	100	]	=	1632
+	STONE1_ID	[	101	]	=	3456
+	STONE1_ID	[	102	]	=	1258
+	STONE1_ID	[	103	]	=	1258
+	STONE1_ID	[	104	]	=	3366
+	STONE1_ID	[	105	]	=	1769
+	STONE1_ID	[	106	]	=	1782
+	STONE1_ID	[	107	]	=	1268
+	STONE1_ID	[	108	]	=	1205
+	STONE1_ID	[	109	]	=	1295
+	STONE1_ID	[	110	]	=	1314
+	STONE1_ID	[	111	]	=	1263
+	STONE1_ID	[	112	]	=	3365
+	STONE1_ID	[	113	]	=	4728
+	STONE1_ID	[	114	]	=	1297
+	STONE1_ID	[	115	]	=	1785
+	STONE1_ID	[	116	]	=	1271
+	STONE1_ID	[	117	]	=	4035
+	STONE1_ID	[	118	]	=	4045
+	STONE1_ID	[	119	]	=	1315
+	STONE1_ID	[	120	]	=	1333
+	STONE1_ID	[	121	]	=	1644
+	STONE1_ID	[	122	]	=	1335
+	STONE1_ID	[	123	]	=	1783
+	STONE1_ID	[	124	]	=	1775
+	STONE1_ID	[	125	]	=	2815
+	STONE1_ID	[	126	]	=	1363
+	STONE1_ID	[	127	]	=	1355
+	STONE1_ID	[	128	]	=	1352
+	STONE1_ID	[	129	]	=	1360
+	STONE1_ID	[	130	]	=	3362
+	STONE1_ID	[	131	]	=	3367
+	STONE1_ID	[	132	]	=	1780
+	STONE1_ID	[	133	]	=	3379
+	STONE1_ID	[	134	]	=	4036
+	STONE1_ID	[	135	]	=	4046
+	STONE1_ID	[	136	]	=	1767
+	STONE1_ID	[	137	]	=	1674
+	STONE1_ID	[	138	]	=	4037
+	STONE1_ID	[	139	]	=	4047
+	STONE1_ID	[	140	]	=	2901
+	STONE1_ID	[	141	]	=	4832
+	STONE1_ID	[	142	]	=	4038
+	STONE1_ID	[	143	]	=	4048
+-------------------------------------
+--	??					
+	WATER_ID_Num = 37
+	WATER_ID	=	{}			
+	WATER_ID	[	1	]	=	1585
+	WATER_ID	[	2	]	=	4318
+	WATER_ID	[	3	]	=	1648
+	WATER_ID	[	4	]	=	1705
+	WATER_ID	[	5	]	=	1650
+	WATER_ID	[	6	]	=	1681
+	WATER_ID	[	7	]	=	1844
+	WATER_ID	[	8	]	=	4488
+	WATER_ID	[	9	]	=	1649
+	WATER_ID	[	10	]	=	4340
+	WATER_ID	[	11	]	=	4475
+	WATER_ID	[	12	]	=	1628
+	WATER_ID	[	13	]	=	1651
+	WATER_ID	[	14	]	=	1627
+	WATER_ID	[	15	]	=	1629
+	WATER_ID	[	16	]	=	1726
+	WATER_ID	[	17	]	=	4441
+	WATER_ID	[	18	]	=	1838
+	WATER_ID	[	19	]	=	4514
+	WATER_ID	[	20	]	=	4924
+	WATER_ID	[	21	]	=	4931
+	WATER_ID	[	22	]	=	4951
+	WATER_ID	[	23	]	=	4925
+	WATER_ID	[	24	]	=	1652
+	WATER_ID	[	25	]	=	4482
+	WATER_ID	[	26	]	=	4945
+	WATER_ID	[	27	]	=	4963
+	WATER_ID	[	28	]	=	4969
+	WATER_ID	[	29	]	=	4988
+	WATER_ID	[	30	]	=	1289
+	WATER_ID	[	31	]	=	1309
+	WATER_ID	[	32	]	=	1327
+	WATER_ID	[	33	]	=	1346
+	WATER_ID	[	34	]	=	1294
+	WATER_ID	[	35	]	=	1313
+	WATER_ID	[	36	]	=	1332
+	WATER_ID	[	37	]	=	1351
+
+------------------------------------------------
+--	??		
+	BONE_ID_Num = 176
+	BONE_ID	=	{}			
+	BONE_ID	[	1	]	=	1583
+	BONE_ID	[	2	]	=	4319
+	BONE_ID	[	3	]	=	4507
+	BONE_ID	[	4	]	=	4400
+	BONE_ID	[	5	]	=	1610
+	BONE_ID	[	6	]	=	1623
+	BONE_ID	[	7	]	=	4327
+	BONE_ID	[	8	]	=	4328
+	BONE_ID	[	9	]	=	4408
+	BONE_ID	[	10	]	=	1843
+	BONE_ID	[	11	]	=	4410
+	BONE_ID	[	12	]	=	1614
+	BONE_ID	[	13	]	=	4330
+	BONE_ID	[	14	]	=	4409
+	BONE_ID	[	15	]	=	1584
+	BONE_ID	[	16	]	=	4414
+	BONE_ID	[	17	]	=	4331
+	BONE_ID	[	18	]	=	4412
+	BONE_ID	[	19	]	=	4487
+	BONE_ID	[	20	]	=	1611
+	BONE_ID	[	21	]	=	1720
+	BONE_ID	[	22	]	=	1617
+	BONE_ID	[	23	]	=	1696
+	BONE_ID	[	24	]	=	4335
+	BONE_ID	[	25	]	=	4336
+	BONE_ID	[	26	]	=	4420
+	BONE_ID	[	27	]	=	4337
+	BONE_ID	[	28	]	=	4339
+	BONE_ID	[	29	]	=	4423
+	BONE_ID	[	30	]	=	4490
+	BONE_ID	[	31	]	=	4388
+	BONE_ID	[	32	]	=	4497
+	BONE_ID	[	33	]	=	1709
+	BONE_ID	[	34	]	=	4427
+	BONE_ID	[	35	]	=	4342
+	BONE_ID	[	36	]	=	1618
+	BONE_ID	[	37	]	=	4344
+	BONE_ID	[	38	]	=	1682
+	BONE_ID	[	39	]	=	4346
+	BONE_ID	[	40	]	=	4430
+	BONE_ID	[	41	]	=	1677
+	BONE_ID	[	42	]	=	4500
+	BONE_ID	[	43	]	=	4379
+	BONE_ID	[	44	]	=	4432
+	BONE_ID	[	45	]	=	4376
+	BONE_ID	[	46	]	=	4373
+	BONE_ID	[	47	]	=	4493
+	BONE_ID	[	48	]	=	4383
+	BONE_ID	[	49	]	=	4356
+	BONE_ID	[	50	]	=	4371
+	BONE_ID	[	51	]	=	4480
+	BONE_ID	[	52	]	=	4439
+	BONE_ID	[	53	]	=	4377
+	BONE_ID	[	54	]	=	4513
+	BONE_ID	[	55	]	=	4465
+	BONE_ID	[	56	]	=	1842
+	BONE_ID	[	57	]	=	4374
+	BONE_ID	[	58	]	=	4443
+	BONE_ID	[	59	]	=	1624
+	BONE_ID	[	60	]	=	1688
+	BONE_ID	[	61	]	=	4446
+	BONE_ID	[	62	]	=	4509
+	BONE_ID	[	63	]	=	4930
+	BONE_ID	[	64	]	=	4950
+	BONE_ID	[	65	]	=	3434
+	BONE_ID	[	66	]	=	4451
+	BONE_ID	[	67	]	=	3435
+	BONE_ID	[	68	]	=	4469
+	BONE_ID	[	69	]	=	3436
+	BONE_ID	[	70	]	=	3437
+	BONE_ID	[	71	]	=	1717
+	BONE_ID	[	72	]	=	4386
+	BONE_ID	[	73	]	=	4534
+	BONE_ID	[	74	]	=	4449
+	BONE_ID	[	75	]	=	4381
+	BONE_ID	[	76	]	=	4468
+	BONE_ID	[	77	]	=	4384
+	BONE_ID	[	78	]	=	4385
+	BONE_ID	[	79	]	=	3449
+	BONE_ID	[	80	]	=	4395
+	BONE_ID	[	81	]	=	4365
+	BONE_ID	[	82	]	=	4453
+	BONE_ID	[	83	]	=	1713
+	BONE_ID	[	84	]	=	4521
+	BONE_ID	[	85	]	=	4537
+	BONE_ID	[	86	]	=	4324
+	BONE_ID	[	87	]	=	3450
+	BONE_ID	[	88	]	=	1612
+	BONE_ID	[	89	]	=	3451
+	BONE_ID	[	90	]	=	4968
+	BONE_ID	[	91	]	=	4539
+	BONE_ID	[	92	]	=	1715
+	BONE_ID	[	93	]	=	4353
+	BONE_ID	[	94	]	=	4987
+	BONE_ID	[	95	]	=	1616
+	BONE_ID	[	96	]	=	3452
+	BONE_ID	[	97	]	=	4908
+	BONE_ID	[	98	]	=	4524
+	BONE_ID	[	99	]	=	4909
+	BONE_ID	[	100	]	=	4717
+	BONE_ID	[	101	]	=	4821
+	BONE_ID	[	102	]	=	1613
+	BONE_ID	[	103	]	=	1176
+	BONE_ID	[	104	]	=	4542
+	BONE_ID	[	105	]	=	4822
+	BONE_ID	[	106	]	=	4746
+	BONE_ID	[	107	]	=	4824
+	BONE_ID	[	108	]	=	1199
+	BONE_ID	[	109	]	=	4812
+	BONE_ID	[	110	]	=	1710
+	BONE_ID	[	111	]	=	1219
+	BONE_ID	[	112	]	=	1683
+	BONE_ID	[	113	]	=	4753
+	BONE_ID	[	114	]	=	1334
+	BONE_ID	[	115	]	=	4979
+	BONE_ID	[	116	]	=	1237
+	BONE_ID	[	117	]	=	1353
+	BONE_ID	[	118	]	=	4998
+	BONE_ID	[	119	]	=	4883
+	BONE_ID	[	120	]	=	1182
+	BONE_ID	[	121	]	=	1364
+	BONE_ID	[	122	]	=	167
+	BONE_ID	[	123	]	=	1179
+	BONE_ID	[	124	]	=	1361
+	BONE_ID	[	125	]	=	4835
+	BONE_ID	[	126	]	=	1183
+	BONE_ID	[	127	]	=	1365
+	BONE_ID	[	128	]	=	4858
+	BONE_ID	[	129	]	=	4886
+	BONE_ID	[	130	]	=	1202
+	BONE_ID	[	131	]	=	1293
+	BONE_ID	[	132	]	=	4938
+	BONE_ID	[	133	]	=	4818
+	BONE_ID	[	134	]	=	1693
+	BONE_ID	[	135	]	=	1312
+	BONE_ID	[	136	]	=	4957
+	BONE_ID	[	137	]	=	1684
+	BONE_ID	[	138	]	=	1221
+	BONE_ID	[	139	]	=	1240
+	BONE_ID	[	140	]	=	4976
+	BONE_ID	[	141	]	=	1331
+	BONE_ID	[	142	]	=	4897
+	BONE_ID	[	143	]	=	4828
+	BONE_ID	[	144	]	=	4783
+	BONE_ID	[	145	]	=	4887
+	BONE_ID	[	146	]	=	1485
+	BONE_ID	[	147	]	=	4737
+	BONE_ID	[	148	]	=	1259
+	BONE_ID	[	149	]	=	4995
+	BONE_ID	[	150	]	=	1774
+	BONE_ID	[	151	]	=	1350
+	BONE_ID	[	152	]	=	4860
+	BONE_ID	[	153	]	=	1204
+	BONE_ID	[	154	]	=	1223
+	BONE_ID	[	155	]	=	3063
+	BONE_ID	[	156	]	=	4716
+	BONE_ID	[	157	]	=	2419
+	BONE_ID	[	158	]	=	2488
+	BONE_ID	[	159	]	=	4742
+	BONE_ID	[	160	]	=	1224
+	BONE_ID	[	161	]	=	1242
+	BONE_ID	[	162	]	=	4761
+	BONE_ID	[	163	]	=	4889
+	BONE_ID	[	164	]	=	3067
+	BONE_ID	[	165	]	=	1272
+	BONE_ID	[	166	]	=	1264
+	BONE_ID	[	167	]	=	1261
+	BONE_ID	[	168	]	=	4767
+	BONE_ID	[	169	]	=	1269
+	BONE_ID	[	170	]	=	4891
+	BONE_ID	[	171	]	=	1716
+	BONE_ID	[	172	]	=	1492
+	BONE_ID	[	173	]	=	1625
+	BONE_ID	[	174	]	=	1711
+	BONE_ID	[	175	]	=	1758
+	BONE_ID	[	176	]	=	1626
+
+------------------------------------------
+--	??		
+	SKIP_ID_Num = 97
+	SKIP_ID	=	{}			
+	SKIP_ID	[	1	]	=	4317
+	SKIP_ID	[	2	]	=	1695
+	SKIP_ID	[	3	]	=	4405
+	SKIP_ID	[	4	]	=	4486
+	SKIP_ID	[	5	]	=	4407
+	SKIP_ID	[	6	]	=	1678
+	SKIP_ID	[	7	]	=	1679
+	SKIP_ID	[	8	]	=	4413
+	SKIP_ID	[	9	]	=	4333
+	SKIP_ID	[	10	]	=	4334
+	SKIP_ID	[	11	]	=	4416
+	SKIP_ID	[	12	]	=	3383
+	SKIP_ID	[	13	]	=	1603
+	SKIP_ID	[	14	]	=	1604
+	SKIP_ID	[	15	]	=	1707
+	SKIP_ID	[	16	]	=	1605
+	SKIP_ID	[	17	]	=	4422
+	SKIP_ID	[	18	]	=	4489
+	SKIP_ID	[	19	]	=	4341
+	SKIP_ID	[	20	]	=	1845
+	SKIP_ID	[	21	]	=	3384
+	SKIP_ID	[	22	]	=	4347
+	SKIP_ID	[	23	]	=	4479
+	SKIP_ID	[	24	]	=	4470
+	SKIP_ID	[	25	]	=	4458
+	SKIP_ID	[	26	]	=	1608
+	SKIP_ID	[	27	]	=	4512
+	SKIP_ID	[	28	]	=	4929
+	SKIP_ID	[	29	]	=	4949
+	SKIP_ID	[	30	]	=	4359
+	SKIP_ID	[	31	]	=	3932
+	SKIP_ID	[	32	]	=	1721
+	SKIP_ID	[	33	]	=	4364
+	SKIP_ID	[	34	]	=	4516
+	SKIP_ID	[	35	]	=	1287
+	SKIP_ID	[	36	]	=	1307
+	SKIP_ID	[	37	]	=	4517
+	SKIP_ID	[	38	]	=	1606
+	SKIP_ID	[	39	]	=	4380
+	SKIP_ID	[	40	]	=	4967
+	SKIP_ID	[	41	]	=	4519
+	SKIP_ID	[	42	]	=	4986
+	SKIP_ID	[	43	]	=	1607
+	SKIP_ID	[	44	]	=	4472
+	SKIP_ID	[	45	]	=	1609
+	SKIP_ID	[	46	]	=	4474
+	SKIP_ID	[	47	]	=	4522
+	SKIP_ID	[	48	]	=	1619
+	SKIP_ID	[	49	]	=	4820
+	SKIP_ID	[	50	]	=	4805
+	SKIP_ID	[	51	]	=	1325
+	SKIP_ID	[	52	]	=	1344
+	SKIP_ID	[	53	]	=	2396
+	SKIP_ID	[	54	]	=	4933
+	SKIP_ID	[	55	]	=	4953
+	SKIP_ID	[	56	]	=	4934
+	SKIP_ID	[	57	]	=	4971
+	SKIP_ID	[	58	]	=	176
+	SKIP_ID	[	59	]	=	178
+	SKIP_ID	[	60	]	=	4954
+	SKIP_ID	[	61	]	=	4972
+	SKIP_ID	[	62	]	=	1290
+	SKIP_ID	[	63	]	=	1310
+	SKIP_ID	[	64	]	=	1729
+	SKIP_ID	[	65	]	=	1328
+	SKIP_ID	[	66	]	=	4857
+	SKIP_ID	[	67	]	=	3385
+	SKIP_ID	[	68	]	=	160
+	SKIP_ID	[	69	]	=	161
+	SKIP_ID	[	70	]	=	175
+	SKIP_ID	[	71	]	=	177
+	SKIP_ID	[	72	]	=	4779
+	SKIP_ID	[	73	]	=	4780
+	SKIP_ID	[	74	]	=	4884
+	SKIP_ID	[	75	]	=	4990
+	SKIP_ID	[	76	]	=	4991
+	SKIP_ID	[	77	]	=	4459
+	SKIP_ID	[	78	]	=	4731
+	SKIP_ID	[	79	]	=	4936
+	SKIP_ID	[	80	]	=	4956
+	SKIP_ID	[	81	]	=	4782
+	SKIP_ID	[	82	]	=	1697
+	SKIP_ID	[	83	]	=	4939
+	SKIP_ID	[	84	]	=	4896
+	SKIP_ID	[	85	]	=	4958
+	SKIP_ID	[	86	]	=	4977
+	SKIP_ID	[	87	]	=	4724
+	SKIP_ID	[	88	]	=	4974
+	SKIP_ID	[	89	]	=	1347
+	SKIP_ID	[	90	]	=	4993
+	SKIP_ID	[	91	]	=	1730
+	SKIP_ID	[	92	]	=	4756
+	SKIP_ID	[	93	]	=	4996
+	SKIP_ID	[	94	]	=	1712
+	SKIP_ID	[	95	]	=	1734
+	SKIP_ID	[	96	]	=	1621
+	SKIP_ID	[	97	]	=	1703
+
+-------------------------------------------------
+--	??			
+	TREE_ID_Num = 72
+	TREE_ID	=	{}			
+	TREE_ID	[	1	]	=	1576
+	TREE_ID	[	2	]	=	1575
+	TREE_ID	[	3	]	=	1597
+	TREE_ID	[	4	]	=	1691
+	TREE_ID	[	5	]	=	4314
+	TREE_ID	[	6	]	=	4315
+	TREE_ID	[	7	]	=	4316
+	TREE_ID	[	8	]	=	4396
+	TREE_ID	[	9	]	=	4397
+	TREE_ID	[	10	]	=	4398
+	TREE_ID	[	11	]	=	4506
+	TREE_ID	[	12	]	=	1577
+	TREE_ID	[	13	]	=	1574
+	TREE_ID	[	14	]	=	1579
+	TREE_ID	[	15	]	=	1600
+	TREE_ID	[	16	]	=	1692
+	TREE_ID	[	17	]	=	3372
+	TREE_ID	[	18	]	=	4322
+	TREE_ID	[	19	]	=	4323
+	TREE_ID	[	20	]	=	4401
+	TREE_ID	[	21	]	=	4403
+	TREE_ID	[	22	]	=	4483
+	TREE_ID	[	23	]	=	4508
+	TREE_ID	[	24	]	=	1725
+	TREE_ID	[	25	]	=	4406
+	TREE_ID	[	26	]	=	4049
+	TREE_ID	[	27	]	=	4338
+	TREE_ID	[	28	]	=	4421
+	TREE_ID	[	29	]	=	1601
+	TREE_ID	[	30	]	=	1685
+	TREE_ID	[	31	]	=	1686
+	TREE_ID	[	32	]	=	1846
+	TREE_ID	[	33	]	=	4343
+	TREE_ID	[	34	]	=	4477
+	TREE_ID	[	35	]	=	4345
+	TREE_ID	[	36	]	=	4429
+	TREE_ID	[	37	]	=	4050
+	TREE_ID	[	38	]	=	4466
+	TREE_ID	[	39	]	=	4389
+	TREE_ID	[	40	]	=	4476
+	TREE_ID	[	41	]	=	1212
+	TREE_ID	[	42	]	=	1303
+	TREE_ID	[	43	]	=	4511
+	TREE_ID	[	44	]	=	4527
+	TREE_ID	[	45	]	=	4948
+	TREE_ID	[	46	]	=	1230
+	TREE_ID	[	47	]	=	1321
+	TREE_ID	[	48	]	=	4352
+	TREE_ID	[	49	]	=	4966
+	TREE_ID	[	50	]	=	1192
+	TREE_ID	[	51	]	=	1283
+	TREE_ID	[	52	]	=	4928
+	TREE_ID	[	53	]	=	1249
+	TREE_ID	[	54	]	=	1340
+	TREE_ID	[	55	]	=	4378
+	TREE_ID	[	56	]	=	4985
+	TREE_ID	[	57	]	=	1593
+	TREE_ID	[	58	]	=	1578
+	TREE_ID	[	59	]	=	4060
+	TREE_ID	[	60	]	=	4804
+	TREE_ID	[	61	]	=	4915
+	TREE_ID	[	62	]	=	4055
+	TREE_ID	[	63	]	=	4730
+	TREE_ID	[	64	]	=	4061
+	TREE_ID	[	65	]	=	4790
+	TREE_ID	[	66	]	=	4894
+	TREE_ID	[	67	]	=	4864
+	TREE_ID	[	68	]	=	4727
+	TREE_ID	[	69	]	=	4831
+	TREE_ID	[	70	]	=	2225
+	TREE_ID	[	71	]	=	4057
+	TREE_ID	[	72	]	=	1768
+
+--------------------------------------------
+--	??	
+	FOOD_ID_Num = 151
+	FOOD_ID	=	{}			
+	FOOD_ID	[	1	]	=	1690
+	FOOD_ID	[	2	]	=	1622
+	FOOD_ID	[	3	]	=	4320
+	FOOD_ID	[	4	]	=	1587
+	FOOD_ID	[	5	]	=	4484
+	FOOD_ID	[	6	]	=	1676
+	FOOD_ID	[	7	]	=	1704
+	FOOD_ID	[	8	]	=	1746
+	FOOD_ID	[	9	]	=	4404
+	FOOD_ID	[	10	]	=	4325
+	FOOD_ID	[	11	]	=	4329
+	FOOD_ID	[	12	]	=	4411
+	FOOD_ID	[	13	]	=	1595
+	FOOD_ID	[	14	]	=	1680
+	FOOD_ID	[	15	]	=	4417
+	FOOD_ID	[	16	]	=	4009
+	FOOD_ID	[	17	]	=	1722
+	FOOD_ID	[	18	]	=	4419
+	FOOD_ID	[	19	]	=	1689
+	FOOD_ID	[	20	]	=	4425
+	FOOD_ID	[	21	]	=	4426
+	FOOD_ID	[	22	]	=	4491
+	FOOD_ID	[	23	]	=	4390
+	FOOD_ID	[	24	]	=	4428
+	FOOD_ID	[	25	]	=	4457
+	FOOD_ID	[	26	]	=	4494
+	FOOD_ID	[	27	]	=	4010
+	FOOD_ID	[	28	]	=	4463
+	FOOD_ID	[	29	]	=	4433
+	FOOD_ID	[	30	]	=	4442
+	FOOD_ID	[	31	]	=	4393
+	FOOD_ID	[	32	]	=	4528
+	FOOD_ID	[	33	]	=	4355
+	FOOD_ID	[	34	]	=	4464
+	FOOD_ID	[	35	]	=	4529
+	FOOD_ID	[	36	]	=	4530
+	FOOD_ID	[	37	]	=	1193
+	FOOD_ID	[	38	]	=	1213
+	FOOD_ID	[	39	]	=	1284
+	FOOD_ID	[	40	]	=	1304
+	FOOD_ID	[	41	]	=	1188
+	FOOD_ID	[	42	]	=	1279
+	FOOD_ID	[	43	]	=	4357
+	FOOD_ID	[	44	]	=	4461
+	FOOD_ID	[	45	]	=	4011
+	FOOD_ID	[	46	]	=	1194
+	FOOD_ID	[	47	]	=	1214
+	FOOD_ID	[	48	]	=	1285
+	FOOD_ID	[	49	]	=	1305
+	FOOD_ID	[	50	]	=	1195
+	FOOD_ID	[	51	]	=	1286
+	FOOD_ID	[	52	]	=	4532
+	FOOD_ID	[	53	]	=	1215
+	FOOD_ID	[	54	]	=	1306
+	FOOD_ID	[	55	]	=	4382
+	FOOD_ID	[	56	]	=	4533
+	FOOD_ID	[	57	]	=	1231
+	FOOD_ID	[	58	]	=	1322
+	FOOD_ID	[	59	]	=	4473
+	FOOD_ID	[	60	]	=	4518
+	FOOD_ID	[	61	]	=	1250
+	FOOD_ID	[	62	]	=	1341
+	FOOD_ID	[	63	]	=	4535
+	FOOD_ID	[	64	]	=	1189
+	FOOD_ID	[	65	]	=	1280
+	FOOD_ID	[	66	]	=	4520
+	FOOD_ID	[	67	]	=	1209
+	FOOD_ID	[	68	]	=	1300
+	FOOD_ID	[	69	]	=	4366
+	FOOD_ID	[	70	]	=	4452
+	FOOD_ID	[	71	]	=	1218
+	FOOD_ID	[	72	]	=	1227
+	FOOD_ID	[	73	]	=	1318
+	FOOD_ID	[	74	]	=	4387
+	FOOD_ID	[	75	]	=	4462
+	FOOD_ID	[	76	]	=	1232
+	FOOD_ID	[	77	]	=	1323
+	FOOD_ID	[	78	]	=	4012
+	FOOD_ID	[	79	]	=	1251
+	FOOD_ID	[	80	]	=	1342
+	FOOD_ID	[	81	]	=	1233
+	FOOD_ID	[	82	]	=	1324
+	FOOD_ID	[	83	]	=	4540
+	FOOD_ID	[	84	]	=	1252
+	FOOD_ID	[	85	]	=	1343
+	FOOD_ID	[	86	]	=	4525
+	FOOD_ID	[	87	]	=	1267
+	FOOD_ID	[	88	]	=	1358
+	FOOD_ID	[	89	]	=	1197
+	FOOD_ID	[	90	]	=	1217
+	FOOD_ID	[	91	]	=	4809
+	FOOD_ID	[	92	]	=	1198
+	FOOD_ID	[	93	]	=	1235
+	FOOD_ID	[	94	]	=	4786
+	FOOD_ID	[	95	]	=	4890
+	FOOD_ID	[	96	]	=	165
+	FOOD_ID	[	97	]	=	1236
+	FOOD_ID	[	98	]	=	4720
+	FOOD_ID	[	99	]	=	4935
+	FOOD_ID	[	100	]	=	4955
+	FOOD_ID	[	101	]	=	4013
+	FOOD_ID	[	102	]	=	1243
+	FOOD_ID	[	103	]	=	4973
+	FOOD_ID	[	104	]	=	1262
+	FOOD_ID	[	105	]	=	1270
+	FOOD_ID	[	106	]	=	1273
+	FOOD_ID	[	107	]	=	1254
+	FOOD_ID	[	108	]	=	1255
+	FOOD_ID	[	109	]	=	1200
+	FOOD_ID	[	110	]	=	1274
+	FOOD_ID	[	111	]	=	1291
+	FOOD_ID	[	112	]	=	1220
+	FOOD_ID	[	113	]	=	1292
+	FOOD_ID	[	114	]	=	1311
+	FOOD_ID	[	115	]	=	4937
+	FOOD_ID	[	116	]	=	1330
+	FOOD_ID	[	117	]	=	4975
+	FOOD_ID	[	118	]	=	1735
+	FOOD_ID	[	119	]	=	3062
+	FOOD_ID	[	120	]	=	4014
+	FOOD_ID	[	121	]	=	1203
+	FOOD_ID	[	122	]	=	1222
+	FOOD_ID	[	123	]	=	1241
+	FOOD_ID	[	124	]	=	4792
+	FOOD_ID	[	125	]	=	4793
+	FOOD_ID	[	126	]	=	1238
+	FOOD_ID	[	127	]	=	1329
+	FOOD_ID	[	128	]	=	4735
+	FOOD_ID	[	129	]	=	1256
+	FOOD_ID	[	130	]	=	1257
+	FOOD_ID	[	131	]	=	1348
+	FOOD_ID	[	132	]	=	4992
+	FOOD_ID	[	133	]	=	1349
+	FOOD_ID	[	134	]	=	3064
+	FOOD_ID	[	135	]	=	4994
+	FOOD_ID	[	136	]	=	1177
+	FOOD_ID	[	137	]	=	1260
+	FOOD_ID	[	138	]	=	1359
+	FOOD_ID	[	139	]	=	1296
+	FOOD_ID	[	140	]	=	4759
+	FOOD_ID	[	141	]	=	4941
+	FOOD_ID	[	142	]	=	1354
+	FOOD_ID	[	143	]	=	4999
+	FOOD_ID	[	144	]	=	1180
+	FOOD_ID	[	145	]	=	1362
+	FOOD_ID	[	146	]	=	3069
+	FOOD_ID	[	147	]	=	4015
+	FOOD_ID	[	148	]	=	4785
+	FOOD_ID	[	149	]	=	4016
+	FOOD_ID	[	150	]	=	4017
+	FOOD_ID	[	151	]	=	4018
+
+-------------------------------------
+--	??	
+	SPECIL_ID_Num = 346
+	SPECIL_ID	=	{}			
+	SPECIL_ID	[	1	]	=	1573
+	SPECIL_ID	[	2	]	=	4399
+	SPECIL_ID	[	3	]	=	1620
+	SPECIL_ID	[	4	]	=	1777
+	SPECIL_ID	[	5	]	=	1839
+	SPECIL_ID	[	6	]	=	4402
+	SPECIL_ID	[	7	]	=	1840
+	SPECIL_ID	[	8	]	=	4485
+	SPECIL_ID	[	9	]	=	1779
+	SPECIL_ID	[	10	]	=	1654
+	SPECIL_ID	[	11	]	=	4332
+	SPECIL_ID	[	12	]	=	1719
+	SPECIL_ID	[	13	]	=	1778
+	SPECIL_ID	[	14	]	=	4418
+	SPECIL_ID	[	15	]	=	1752
+	SPECIL_ID	[	16	]	=	3381
+	SPECIL_ID	[	17	]	=	4503
+	SPECIL_ID	[	18	]	=	1708
+	SPECIL_ID	[	19	]	=	1658
+	SPECIL_ID	[	20	]	=	1747
+	SPECIL_ID	[	21	]	=	3929
+	SPECIL_ID	[	22	]	=	4370
+	SPECIL_ID	[	23	]	=	4391
+	SPECIL_ID	[	24	]	=	4431
+	SPECIL_ID	[	25	]	=	4492
+	SPECIL_ID	[	26	]	=	1661
+	SPECIL_ID	[	27	]	=	1698
+	SPECIL_ID	[	28	]	=	4392
+	SPECIL_ID	[	29	]	=	4434
+	SPECIL_ID	[	30	]	=	1773
+	SPECIL_ID	[	31	]	=	4438
+	SPECIL_ID	[	32	]	=	4460
+	SPECIL_ID	[	33	]	=	1759
+	SPECIL_ID	[	34	]	=	4436
+	SPECIL_ID	[	35	]	=	1749
+	SPECIL_ID	[	36	]	=	1753
+	SPECIL_ID	[	37	]	=	1841
+	SPECIL_ID	[	38	]	=	3933
+	SPECIL_ID	[	39	]	=	4350
+	SPECIL_ID	[	40	]	=	4437
+	SPECIL_ID	[	41	]	=	4445
+	SPECIL_ID	[	42	]	=	1749
+	SPECIL_ID	[	43	]	=	4501
+	SPECIL_ID	[	44	]	=	3382
+	SPECIL_ID	[	45	]	=	4354
+	SPECIL_ID	[	46	]	=	4440
+	SPECIL_ID	[	47	]	=	1728
+	SPECIL_ID	[	48	]	=	4348
+	SPECIL_ID	[	49	]	=	4435
+	SPECIL_ID	[	50	]	=	4394
+	SPECIL_ID	[	51	]	=	4481
+	SPECIL_ID	[	52	]	=	4496
+	SPECIL_ID	[	53	]	=	4502
+	SPECIL_ID	[	54	]	=	3793
+	SPECIL_ID	[	55	]	=	4358
+	SPECIL_ID	[	56	]	=	4444
+	SPECIL_ID	[	57	]	=	4478
+	SPECIL_ID	[	58	]	=	1739
+	SPECIL_ID	[	59	]	=	1757
+	SPECIL_ID	[	60	]	=	3790
+	SPECIL_ID	[	61	]	=	3794
+	SPECIL_ID	[	62	]	=	4498
+	SPECIL_ID	[	63	]	=	4504
+	SPECIL_ID	[	64	]	=	4515
+	SPECIL_ID	[	65	]	=	4531
+	SPECIL_ID	[	66	]	=	4372
+	SPECIL_ID	[	67	]	=	4424
+	SPECIL_ID	[	68	]	=	1657
+	SPECIL_ID	[	69	]	=	1754
+	SPECIL_ID	[	70	]	=	4932
+	SPECIL_ID	[	71	]	=	4360
+	SPECIL_ID	[	72	]	=	4361
+	SPECIL_ID	[	73	]	=	4447
+	SPECIL_ID	[	74	]	=	4510
+	SPECIL_ID	[	75	]	=	4952
+	SPECIL_ID	[	76	]	=	1653
+	SPECIL_ID	[	77	]	=	4448
+	SPECIL_ID	[	78	]	=	4499
+	SPECIL_ID	[	79	]	=	4505
+	SPECIL_ID	[	80	]	=	1655
+	SPECIL_ID	[	81	]	=	4362
+	SPECIL_ID	[	82	]	=	4450
+	SPECIL_ID	[	83	]	=	4471
+	SPECIL_ID	[	84	]	=	3438
+	SPECIL_ID	[	85	]	=	3439
+	SPECIL_ID	[	86	]	=	3935
+	SPECIL_ID	[	87	]	=	4367
+	SPECIL_ID	[	88	]	=	4454
+	SPECIL_ID	[	89	]	=	3440
+	SPECIL_ID	[	90	]	=	3441
+	SPECIL_ID	[	91	]	=	4369
+	SPECIL_ID	[	92	]	=	4456
+	SPECIL_ID	[	93	]	=	4523
+	SPECIL_ID	[	94	]	=	3791
+	SPECIL_ID	[	95	]	=	3795
+	SPECIL_ID	[	96	]	=	4732
+	SPECIL_ID	[	97	]	=	4836
+	SPECIL_ID	[	98	]	=	4803
+	SPECIL_ID	[	99	]	=	4907
+	SPECIL_ID	[	100	]	=	4806
+	SPECIL_ID	[	101	]	=	4861
+	SPECIL_ID	[	102	]	=	4734
+	SPECIL_ID	[	103	]	=	4838
+	SPECIL_ID	[	104	]	=	4970
+	SPECIL_ID	[	105	]	=	4989
+	SPECIL_ID	[	106	]	=	3446
+	SPECIL_ID	[	107	]	=	3453
+	SPECIL_ID	[	108	]	=	3792
+	SPECIL_ID	[	109	]	=	3796
+	SPECIL_ID	[	110	]	=	4526
+	SPECIL_ID	[	111	]	=	4807
+	SPECIL_ID	[	112	]	=	4808
+	SPECIL_ID	[	113	]	=	4862
+	SPECIL_ID	[	114	]	=	4911
+	SPECIL_ID	[	115	]	=	4810
+	SPECIL_ID	[	116	]	=	4913
+	SPECIL_ID	[	117	]	=	4914
+	SPECIL_ID	[	118	]	=	4718
+	SPECIL_ID	[	119	]	=	153
+	SPECIL_ID	[	120	]	=	3370
+	SPECIL_ID	[	121	]	=	1210
+	SPECIL_ID	[	122	]	=	1301
+	SPECIL_ID	[	123	]	=	4719
+	SPECIL_ID	[	124	]	=	4823
+	SPECIL_ID	[	125	]	=	4946
+	SPECIL_ID	[	126	]	=	1211
+	SPECIL_ID	[	127	]	=	1302
+	SPECIL_ID	[	128	]	=	3447
+	SPECIL_ID	[	129	]	=	3454
+	SPECIL_ID	[	130	]	=	4757
+	SPECIL_ID	[	131	]	=	4910
+	SPECIL_ID	[	132	]	=	4916
+	SPECIL_ID	[	133	]	=	4947
+	SPECIL_ID	[	134	]	=	4758
+	SPECIL_ID	[	135	]	=	4794
+	SPECIL_ID	[	136	]	=	4898
+	SPECIL_ID	[	137	]	=	4912
+	SPECIL_ID	[	138	]	=	1185
+	SPECIL_ID	[	139	]	=	1276
+	SPECIL_ID	[	140	]	=	1367
+	SPECIL_ID	[	141	]	=	4722
+	SPECIL_ID	[	142	]	=	4795
+	SPECIL_ID	[	143	]	=	4796
+	SPECIL_ID	[	144	]	=	4813
+	SPECIL_ID	[	145	]	=	4826
+	SPECIL_ID	[	146	]	=	4899
+	SPECIL_ID	[	147	]	=	4900
+	SPECIL_ID	[	148	]	=	4917
+	SPECIL_ID	[	149	]	=	4729
+	SPECIL_ID	[	150	]	=	4833
+	SPECIL_ID	[	151	]	=	1190
+	SPECIL_ID	[	152	]	=	1281
+	SPECIL_ID	[	153	]	=	4834
+	SPECIL_ID	[	154	]	=	4926
+	SPECIL_ID	[	155	]	=	1191
+	SPECIL_ID	[	156	]	=	1282
+	SPECIL_ID	[	157	]	=	1480
+	SPECIL_ID	[	158	]	=	1481
+	SPECIL_ID	[	159	]	=	1740
+	SPECIL_ID	[	160	]	=	3448
+	SPECIL_ID	[	161	]	=	3827
+	SPECIL_ID	[	162	]	=	4814
+	SPECIL_ID	[	163	]	=	4815
+	SPECIL_ID	[	164	]	=	4918
+	SPECIL_ID	[	165	]	=	4919
+	SPECIL_ID	[	166	]	=	4920
+	SPECIL_ID	[	167	]	=	4927
+	SPECIL_ID	[	168	]	=	3822
+	SPECIL_ID	[	169	]	=	4733
+	SPECIL_ID	[	170	]	=	4781
+	SPECIL_ID	[	171	]	=	4797
+	SPECIL_ID	[	172	]	=	4798
+	SPECIL_ID	[	173	]	=	4837
+	SPECIL_ID	[	174	]	=	4885
+	SPECIL_ID	[	175	]	=	4901
+	SPECIL_ID	[	176	]	=	4902
+	SPECIL_ID	[	177	]	=	1184
+	SPECIL_ID	[	178	]	=	1275
+	SPECIL_ID	[	179	]	=	1366
+	SPECIL_ID	[	180	]	=	4754
+	SPECIL_ID	[	181	]	=	4799
+	SPECIL_ID	[	182	]	=	4817
+	SPECIL_ID	[	183	]	=	4903
+	SPECIL_ID	[	184	]	=	4921
+	SPECIL_ID	[	185	]	=	1228
+	SPECIL_ID	[	186	]	=	1319
+	SPECIL_ID	[	187	]	=	3823
+	SPECIL_ID	[	188	]	=	4775
+	SPECIL_ID	[	189	]	=	4879
+	SPECIL_ID	[	190	]	=	4964
+	SPECIL_ID	[	191	]	=	1229
+	SPECIL_ID	[	192	]	=	1320
+	SPECIL_ID	[	193	]	=	1493
+	SPECIL_ID	[	194	]	=	1504
+	SPECIL_ID	[	195	]	=	1505
+	SPECIL_ID	[	196	]	=	1742
+	SPECIL_ID	[	197	]	=	1763
+	SPECIL_ID	[	198	]	=	3386
+	SPECIL_ID	[	199	]	=	4819
+	SPECIL_ID	[	200	]	=	4922
+	SPECIL_ID	[	201	]	=	4965
+	SPECIL_ID	[	202	]	=	3824
+	SPECIL_ID	[	203	]	=	1186
+	SPECIL_ID	[	204	]	=	1277
+	SPECIL_ID	[	205	]	=	1368
+	SPECIL_ID	[	206	]	=	1788
+	SPECIL_ID	[	207	]	=	4839
+	SPECIL_ID	[	208	]	=	1790
+	SPECIL_ID	[	209	]	=	4736
+	SPECIL_ID	[	210	]	=	4840
+	SPECIL_ID	[	211	]	=	1484
+	SPECIL_ID	[	212	]	=	1495
+	SPECIL_ID	[	213	]	=	1791
+	SPECIL_ID	[	214	]	=	3825
+	SPECIL_ID	[	215	]	=	3826
+	SPECIL_ID	[	216	]	=	4841
+	SPECIL_ID	[	217	]	=	1793
+	SPECIL_ID	[	218	]	=	4606
+	SPECIL_ID	[	219	]	=	4762
+	SPECIL_ID	[	220	]	=	4866
+	SPECIL_ID	[	221	]	=	4608
+	SPECIL_ID	[	222	]	=	4776
+	SPECIL_ID	[	223	]	=	4800
+	SPECIL_ID	[	224	]	=	4880
+	SPECIL_ID	[	225	]	=	4904
+	SPECIL_ID	[	226	]	=	4940
+	SPECIL_ID	[	227	]	=	4788
+	SPECIL_ID	[	228	]	=	4789
+	SPECIL_ID	[	229	]	=	4801
+	SPECIL_ID	[	230	]	=	4802
+	SPECIL_ID	[	231	]	=	4892
+	SPECIL_ID	[	232	]	=	4893
+	SPECIL_ID	[	233	]	=	4905
+	SPECIL_ID	[	234	]	=	4906
+	SPECIL_ID	[	235	]	=	4959
+	SPECIL_ID	[	236	]	=	1206
+	SPECIL_ID	[	237	]	=	1247
+	SPECIL_ID	[	238	]	=	1338
+	SPECIL_ID	[	239	]	=	4738
+	SPECIL_ID	[	240	]	=	4739
+	SPECIL_ID	[	241	]	=	4740
+	SPECIL_ID	[	242	]	=	4741
+	SPECIL_ID	[	243	]	=	4842
+	SPECIL_ID	[	244	]	=	4843
+	SPECIL_ID	[	245	]	=	4844
+	SPECIL_ID	[	246	]	=	4845
+	SPECIL_ID	[	247	]	=	4942
+	SPECIL_ID	[	248	]	=	4983
+	SPECIL_ID	[	249	]	=	1248
+	SPECIL_ID	[	250	]	=	1339
+	SPECIL_ID	[	251	]	=	1486
+	SPECIL_ID	[	252	]	=	1487
+	SPECIL_ID	[	253	]	=	1488
+	SPECIL_ID	[	254	]	=	1489
+	SPECIL_ID	[	255	]	=	1497
+	SPECIL_ID	[	256	]	=	1498
+	SPECIL_ID	[	257	]	=	1499
+	SPECIL_ID	[	258	]	=	1500
+	SPECIL_ID	[	259	]	=	3085
+	SPECIL_ID	[	260	]	=	4984
+	SPECIL_ID	[	261	]	=	1207
+	SPECIL_ID	[	262	]	=	1298
+	SPECIL_ID	[	263	]	=	4743
+	SPECIL_ID	[	264	]	=	4744
+	SPECIL_ID	[	265	]	=	4777
+	SPECIL_ID	[	266	]	=	4846
+	SPECIL_ID	[	267	]	=	4847
+	SPECIL_ID	[	268	]	=	4848
+	SPECIL_ID	[	269	]	=	4881
+	SPECIL_ID	[	270	]	=	4943
+	SPECIL_ID	[	271	]	=	4960
+	SPECIL_ID	[	272	]	=	1208
+	SPECIL_ID	[	273	]	=	1299
+	SPECIL_ID	[	274	]	=	4745
+	SPECIL_ID	[	275	]	=	4778
+	SPECIL_ID	[	276	]	=	4849
+	SPECIL_ID	[	277	]	=	4882
+	SPECIL_ID	[	278	]	=	4944
+	SPECIL_ID	[	279	]	=	4978
+	SPECIL_ID	[	280	]	=	1187
+	SPECIL_ID	[	281	]	=	1244
+	SPECIL_ID	[	282	]	=	1278
+	SPECIL_ID	[	283	]	=	1369
+	SPECIL_ID	[	284	]	=	4725
+	SPECIL_ID	[	285	]	=	4748
+	SPECIL_ID	[	286	]	=	4749
+	SPECIL_ID	[	287	]	=	4829
+	SPECIL_ID	[	288	]	=	4852
+	SPECIL_ID	[	289	]	=	4853
+	SPECIL_ID	[	290	]	=	4980
+	SPECIL_ID	[	291	]	=	1225
+	SPECIL_ID	[	292	]	=	1226
+	SPECIL_ID	[	293	]	=	1316
+	SPECIL_ID	[	294	]	=	1317
+	SPECIL_ID	[	295	]	=	4747
+	SPECIL_ID	[	296	]	=	4851
+	SPECIL_ID	[	297	]	=	4865
+	SPECIL_ID	[	298	]	=	4961
+	SPECIL_ID	[	299	]	=	4962
+	SPECIL_ID	[	300	]	=	1245
+	SPECIL_ID	[	301	]	=	1246
+	SPECIL_ID	[	302	]	=	1336
+	SPECIL_ID	[	303	]	=	1337
+	SPECIL_ID	[	304	]	=	1490
+	SPECIL_ID	[	305	]	=	1501
+	SPECIL_ID	[	306	]	=	2489
+	SPECIL_ID	[	307	]	=	4750
+	SPECIL_ID	[	308	]	=	4763
+	SPECIL_ID	[	309	]	=	4854
+	SPECIL_ID	[	310	]	=	4867
+	SPECIL_ID	[	311	]	=	4981
+	SPECIL_ID	[	312	]	=	4982
+	SPECIL_ID	[	313	]	=	1181
+	SPECIL_ID	[	314	]	=	1479
+	SPECIL_ID	[	315	]	=	1660
+	SPECIL_ID	[	316	]	=	4764
+	SPECIL_ID	[	317	]	=	4770
+	SPECIL_ID	[	318	]	=	4868
+	SPECIL_ID	[	319	]	=	4874
+	SPECIL_ID	[	320	]	=	4765
+	SPECIL_ID	[	321	]	=	4766
+	SPECIL_ID	[	322	]	=	4772
+	SPECIL_ID	[	323	]	=	4869
+	SPECIL_ID	[	324	]	=	4870
+	SPECIL_ID	[	325	]	=	4876
+	SPECIL_ID	[	326	]	=	4997
+	SPECIL_ID	[	327	]	=	1178
+	SPECIL_ID	[	328	]	=	1491
+	SPECIL_ID	[	329	]	=	1502
+	SPECIL_ID	[	330	]	=	4871
+	SPECIL_ID	[	331	]	=	1174
+	SPECIL_ID	[	332	]	=	1265
+	SPECIL_ID	[	333	]	=	1356
+	SPECIL_ID	[	334	]	=	1702
+	SPECIL_ID	[	335	]	=	4787
+	SPECIL_ID	[	336	]	=	1175
+	SPECIL_ID	[	337	]	=	1266
+	SPECIL_ID	[	338	]	=	1357
+	SPECIL_ID	[	339	]	=	2490
+	SPECIL_ID	[	340	]	=	3084
+	SPECIL_ID	[	341	]	=	4784
+	SPECIL_ID	[	342	]	=	4888
+	SPECIL_ID	[	343	]	=	179
+	SPECIL_ID	[	344	]	=	3065
+	SPECIL_ID	[	345	]	=	1797
+	SPECIL_ID	[	346	]	=	1797
+
+-----------------------??ID
+TESHU_ID_Num = 54					
+TESHU_ID	=	{}			
+TESHU_ID	[	1	]	=	2650
+TESHU_ID	[	2	]	=	2651
+TESHU_ID	[	3	]	=	2652
+TESHU_ID	[	4	]	=	2653
+TESHU_ID	[	5	]	=	2654
+TESHU_ID	[	6	]	=	2617
+TESHU_ID	[	7	]	=	2655
+TESHU_ID	[	8	]	=	2656
+TESHU_ID	[	9	]	=	2657
+TESHU_ID	[	10	]	=	2658
+TESHU_ID	[	11	]	=	2605
+TESHU_ID	[	12	]	=	2588
+TESHU_ID	[	13	]	=	2602
+TESHU_ID	[	14	]	=	2659
+TESHU_ID	[	15	]	=	2660
+TESHU_ID	[	16	]	=	2661
+TESHU_ID	[	17	]	=	2614
+TESHU_ID	[	18	]	=	2640
+TESHU_ID	[	19	]	=	2662
+TESHU_ID	[	20	]	=	2664
+TESHU_ID	[	21	]	=	2608
+TESHU_ID	[	22	]	=	2619
+TESHU_ID	[	23	]	=	2641
+TESHU_ID	[	24	]	=	2668
+TESHU_ID	[	25	]	=	2663
+TESHU_ID	[	26	]	=	2603
+TESHU_ID	[	27	]	=	2615
+TESHU_ID	[	28	]	=	2602
+TESHU_ID	[	29	]	=	2642
+TESHU_ID	[	30	]	=	2667
+TESHU_ID	[	31	]	=	2603
+TESHU_ID	[	32	]	=	2606
+TESHU_ID	[	33	]	=	2609
+TESHU_ID	[	34	]	=	2589
+TESHU_ID	[	35	]	=	2622
+TESHU_ID	[	36	]	=	2643
+TESHU_ID	[	37	]	=	2604
+TESHU_ID	[	38	]	=	2604
+TESHU_ID	[	39	]	=	2616
+TESHU_ID	[	40	]	=	2610
+TESHU_ID	[	41	]	=	2644
+TESHU_ID	[	42	]	=	2666
+TESHU_ID	[	43	]	=	2607
+TESHU_ID	[	44	]	=	2624
+TESHU_ID	[	45	]	=	2649
+TESHU_ID	[	46	]	=	2665
+TESHU_ID	[	47	]	=	2665
+TESHU_ID	[	48	]	=	2665
+TESHU_ID	[	49	]	=	2665
+TESHU_ID	[	50	]	=	2665
+TESHU_ID	[	51	]	=	2665
+TESHU_ID	[	52	]	=	2665
+TESHU_ID	[	53	]	=	2665
+TESHU_ID	[	54	]	=	2665
+
+
+--	??																																							
+--	????							??????																																
+	ZHIZAO_Qua	=	5	 			ZHIZAO_Mxcount	=	280																															
+	ZHIZAO_ID	=	{}					ZHIZAO_LV	=	{}					ZHIZAO_ID1	=	{}					ZHIZAO_ID2	=	{}					ZHIZAO_ID3	=	{}				ZHIZAO__Rad	=	{}			
+	ZHIZAO_ID	[	1	]	=	1067		ZHIZAO_LV	[	1	]	=	10		ZHIZAO_ID1	[	1	]	=	3989		ZHIZAO_ID2	[	1	]	=	1720		ZHIZAO_ID3	[1	]	=	2617		ZHIZAO__Rad	[	1	]	=	5
+	ZHIZAO_ID	[	2	]	=	1068		ZHIZAO_LV	[	2	]	=	10		ZHIZAO_ID1	[	2	]	=	3989		ZHIZAO_ID2	[	2	]	=	4029		ZHIZAO_ID3	[2	]	=	2617		ZHIZAO__Rad	[	2	]	=	5
+	ZHIZAO_ID	[	3	]	=	1069		ZHIZAO_LV	[	3	]	=	10		ZHIZAO_ID1	[	3	]	=	3989		ZHIZAO_ID2	[	3	]	=	1720		ZHIZAO_ID3	[3	]	=	2617		ZHIZAO__Rad	[	3	]	=	5
+	ZHIZAO_ID	[	4	]	=	1070		ZHIZAO_LV	[	4	]	=	10		ZHIZAO_ID1	[	4	]	=	3989		ZHIZAO_ID2	[	4	]	=	4029		ZHIZAO_ID3	[4	]	=	2617		ZHIZAO__Rad	[	4	]	=	5
+	ZHIZAO_ID	[	5	]	=	1135		ZHIZAO_LV	[	5	]	=	10		ZHIZAO_ID1	[	5	]	=	3989		ZHIZAO_ID2	[	5	]	=	1720		ZHIZAO_ID3	[5	]	=	2617		ZHIZAO__Rad	[	5	]	=	1
+	ZHIZAO_ID	[	6	]	=	2372		ZHIZAO_LV	[	6	]	=	10		ZHIZAO_ID1	[	6	]	=	3989		ZHIZAO_ID2	[	6	]	=	4029		ZHIZAO_ID3	[6	]	=	2617		ZHIZAO__Rad	[	6	]	=	1
+	ZHIZAO_ID	[	7	]	=	1137		ZHIZAO_LV	[	7	]	=	10		ZHIZAO_ID1	[	7	]	=	3989		ZHIZAO_ID2	[	7	]	=	1720		ZHIZAO_ID3	[7	]	=	2617		ZHIZAO__Rad	[	7	]	=	1
+	ZHIZAO_ID	[	8	]	=	1146		ZHIZAO_LV	[	8	]	=	10		ZHIZAO_ID1	[	8	]	=	3989		ZHIZAO_ID2	[	8	]	=	4029		ZHIZAO_ID3	[8	]	=	2617		ZHIZAO__Rad	[	8	]	=	1
+	ZHIZAO_ID	[	9	]	=	1145		ZHIZAO_LV	[	9	]	=	10		ZHIZAO_ID1	[	9	]	=	3989		ZHIZAO_ID2	[	9	]	=	1720		ZHIZAO_ID3	[9	]	=	2617		ZHIZAO__Rad	[	9	]	=	1
+	ZHIZAO_ID	[	10	]	=	1136		ZHIZAO_LV	[	10	]	=	10		ZHIZAO_ID1	[	10	]	=	3989		ZHIZAO_ID2	[	10	]	=	4029		ZHIZAO_ID3	[10	]	=	2617		ZHIZAO__Rad	[	10	]	=	1
+	ZHIZAO_ID	[	11	]	=	1135		ZHIZAO_LV	[	11	]	=	10		ZHIZAO_ID1	[	11	]	=	3989		ZHIZAO_ID2	[	11	]	=	1720		ZHIZAO_ID3	[11	]	=	2617		ZHIZAO__Rad	[	11	]	=	1
+	ZHIZAO_ID	[	12	]	=	6533		ZHIZAO_LV	[	12	]	=	10		ZHIZAO_ID1	[	12	]	=	3989		ZHIZAO_ID2	[	12	]	=	4029		ZHIZAO_ID3	[12	]	=	2617		ZHIZAO__Rad	[	12	]	=	1
+	ZHIZAO_ID	[	13	]	=	1138		ZHIZAO_LV	[	13	]	=	10		ZHIZAO_ID1	[	13	]	=	3989		ZHIZAO_ID2	[	13	]	=	1720		ZHIZAO_ID3	[13	]	=	2617		ZHIZAO__Rad	[	13	]	=	1
+	ZHIZAO_ID	[	14	]	=	6533		ZHIZAO_LV	[	14	]	=	10		ZHIZAO_ID1	[	14	]	=	3989		ZHIZAO_ID2	[	14	]	=	4029		ZHIZAO_ID3	[14	]	=	2617		ZHIZAO__Rad	[	14	]	=	1
+	ZHIZAO_ID	[	15	]	=	1150		ZHIZAO_LV	[	15	]	=	10		ZHIZAO_ID1	[	15	]	=	3989		ZHIZAO_ID2	[	15	]	=	1720		ZHIZAO_ID3	[15	]	=	2617		ZHIZAO__Rad	[	15	]	=	1
+	ZHIZAO_ID	[	16	]	=	1152		ZHIZAO_LV	[	16	]	=	10		ZHIZAO_ID1	[	16	]	=	3989		ZHIZAO_ID2	[	16	]	=	4029		ZHIZAO_ID3	[16	]	=	2617		ZHIZAO__Rad	[	16	]	=	1
+	ZHIZAO_ID	[	17	]	=	2673		ZHIZAO_LV	[	17	]	=	10		ZHIZAO_ID1	[	17	]	=	3989		ZHIZAO_ID2	[	17	]	=	1720		ZHIZAO_ID3	[17	]	=	2617		ZHIZAO__Rad	[	17	]	=	1
+	ZHIZAO_ID	[	18	]	=	1139		ZHIZAO_LV	[	18	]	=	10		ZHIZAO_ID1	[	18	]	=	3989		ZHIZAO_ID2	[	18	]	=	4029		ZHIZAO_ID3	[18	]	=	2617		ZHIZAO__Rad	[	18	]	=	1
+	ZHIZAO_ID	[	19	]	=	6533		ZHIZAO_LV	[	19	]	=	10		ZHIZAO_ID1	[	19	]	=	3989		ZHIZAO_ID2	[	19	]	=	1720		ZHIZAO_ID3	[19	]	=	2617		ZHIZAO__Rad	[	19	]	=	1
+	ZHIZAO_ID	[	20	]	=	2677		ZHIZAO_LV	[	20	]	=	10		ZHIZAO_ID1	[	20	]	=	3989		ZHIZAO_ID2	[	20	]	=	4029		ZHIZAO_ID3	[20	]	=	2617		ZHIZAO__Rad	[	20	]	=	1
+	ZHIZAO_ID	[	21	]	=	1140		ZHIZAO_LV	[	21	]	=	10		ZHIZAO_ID1	[	21	]	=	3989		ZHIZAO_ID2	[	21	]	=	1720		ZHIZAO_ID3	[21	]	=	2617		ZHIZAO__Rad	[	21	]	=	1
+	ZHIZAO_ID	[	22	]	=	1141		ZHIZAO_LV	[	22	]	=	10		ZHIZAO_ID1	[	22	]	=	3989		ZHIZAO_ID2	[	22	]	=	4029		ZHIZAO_ID3	[22	]	=	2617		ZHIZAO__Rad	[	22	]	=	1
+	ZHIZAO_ID	[	23	]	=	1142		ZHIZAO_LV	[	23	]	=	10		ZHIZAO_ID1	[	23	]	=	3989		ZHIZAO_ID2	[	23	]	=	1720		ZHIZAO_ID3	[23	]	=	2617		ZHIZAO__Rad	[	23	]	=	1
+	ZHIZAO_ID	[	24	]	=	6533		ZHIZAO_LV	[	24	]	=	10		ZHIZAO_ID1	[	24	]	=	3989		ZHIZAO_ID2	[	24	]	=	4029		ZHIZAO_ID3	[24	]	=	2617		ZHIZAO__Rad	[	24	]	=	1
+	ZHIZAO_ID	[	25	]	=	1143		ZHIZAO_LV	[	25	]	=	10		ZHIZAO_ID1	[	25	]	=	3989		ZHIZAO_ID2	[	25	]	=	1720		ZHIZAO_ID3	[25	]	=	2617		ZHIZAO__Rad	[	25	]	=	1
+	ZHIZAO_ID	[	26	]	=	1151		ZHIZAO_LV	[	26	]	=	10		ZHIZAO_ID1	[	26	]	=	3989		ZHIZAO_ID2	[	26	]	=	4029		ZHIZAO_ID3	[26	]	=	2617		ZHIZAO__Rad	[	26	]	=	1
+	ZHIZAO_ID	[	27	]	=	2678		ZHIZAO_LV	[	27	]	=	10		ZHIZAO_ID1	[	27	]	=	3989		ZHIZAO_ID2	[	27	]	=	1720		ZHIZAO_ID3	[27	]	=	2617		ZHIZAO__Rad	[	27	]	=	1
+	ZHIZAO_ID	[	28	]	=	6533		ZHIZAO_LV	[	28	]	=	10		ZHIZAO_ID1	[	28	]	=	3989		ZHIZAO_ID2	[	28	]	=	4029		ZHIZAO_ID3	[28	]	=	2617		ZHIZAO__Rad	[	28	]	=	1
+	ZHIZAO_ID	[	29	]	=	2236		ZHIZAO_LV	[	29	]	=	20		ZHIZAO_ID1	[	29	]	=	3990		ZHIZAO_ID2	[	29	]	=	1677		ZHIZAO_ID3	[29	]	=	2617		ZHIZAO__Rad	[	29	]	=	5
+	ZHIZAO_ID	[	30	]	=	6533		ZHIZAO_LV	[	30	]	=	20		ZHIZAO_ID1	[	30	]	=	3990		ZHIZAO_ID2	[	30	]	=	4030		ZHIZAO_ID3	[30	]	=	2617		ZHIZAO__Rad	[	30	]	=	5
+	ZHIZAO_ID	[	31	]	=	2236		ZHIZAO_LV	[	31	]	=	20		ZHIZAO_ID1	[	31	]	=	3990		ZHIZAO_ID2	[	31	]	=	1677		ZHIZAO_ID3	[31	]	=	2617		ZHIZAO__Rad	[	31	]	=	5
+	ZHIZAO_ID	[	32	]	=	2236		ZHIZAO_LV	[	32	]	=	20		ZHIZAO_ID1	[	32	]	=	3990		ZHIZAO_ID2	[	32	]	=	4030		ZHIZAO_ID3	[32	]	=	2617		ZHIZAO__Rad	[	32	]	=	5
+	ZHIZAO_ID	[	33	]	=	1135		ZHIZAO_LV	[	33	]	=	20		ZHIZAO_ID1	[	33	]	=	3990		ZHIZAO_ID2	[	33	]	=	1677		ZHIZAO_ID3	[33	]	=	2617		ZHIZAO__Rad	[	33	]	=	1
+	ZHIZAO_ID	[	34	]	=	2372		ZHIZAO_LV	[	34	]	=	20		ZHIZAO_ID1	[	34	]	=	3990		ZHIZAO_ID2	[	34	]	=	4030		ZHIZAO_ID3	[34	]	=	2617		ZHIZAO__Rad	[	34	]	=	1
+	ZHIZAO_ID	[	35	]	=	1137		ZHIZAO_LV	[	35	]	=	20		ZHIZAO_ID1	[	35	]	=	3990		ZHIZAO_ID2	[	35	]	=	1677		ZHIZAO_ID3	[35	]	=	2617		ZHIZAO__Rad	[	35	]	=	1
+	ZHIZAO_ID	[	36	]	=	1146		ZHIZAO_LV	[	36	]	=	20		ZHIZAO_ID1	[	36	]	=	3990		ZHIZAO_ID2	[	36	]	=	4030		ZHIZAO_ID3	[36	]	=	2617		ZHIZAO__Rad	[	36	]	=	1
+	ZHIZAO_ID	[	37	]	=	1145		ZHIZAO_LV	[	37	]	=	20		ZHIZAO_ID1	[	37	]	=	3990		ZHIZAO_ID2	[	37	]	=	1677		ZHIZAO_ID3	[37	]	=	2617		ZHIZAO__Rad	[	37	]	=	1
+	ZHIZAO_ID	[	38	]	=	1136		ZHIZAO_LV	[	38	]	=	20		ZHIZAO_ID1	[	38	]	=	3990		ZHIZAO_ID2	[	38	]	=	4030		ZHIZAO_ID3	[38	]	=	2617		ZHIZAO__Rad	[	38	]	=	1
+	ZHIZAO_ID	[	39	]	=	1135		ZHIZAO_LV	[	39	]	=	20		ZHIZAO_ID1	[	39	]	=	3990		ZHIZAO_ID2	[	39	]	=	1677		ZHIZAO_ID3	[39	]	=	2617		ZHIZAO__Rad	[	39	]	=	1
+	ZHIZAO_ID	[	40	]	=	6533		ZHIZAO_LV	[	40	]	=	20		ZHIZAO_ID1	[	40	]	=	3990		ZHIZAO_ID2	[	40	]	=	4030		ZHIZAO_ID3	[40	]	=	2617		ZHIZAO__Rad	[	40	]	=	1
+	ZHIZAO_ID	[	41	]	=	1138		ZHIZAO_LV	[	41	]	=	20		ZHIZAO_ID1	[	41	]	=	3990		ZHIZAO_ID2	[	41	]	=	1677		ZHIZAO_ID3	[41	]	=	2617		ZHIZAO__Rad	[	41	]	=	1
+	ZHIZAO_ID	[	42	]	=	6533		ZHIZAO_LV	[	42	]	=	20		ZHIZAO_ID1	[	42	]	=	3990		ZHIZAO_ID2	[	42	]	=	4030		ZHIZAO_ID3	[42	]	=	2617		ZHIZAO__Rad	[	42	]	=	1
+	ZHIZAO_ID	[	43	]	=	1150		ZHIZAO_LV	[	43	]	=	20		ZHIZAO_ID1	[	43	]	=	3990		ZHIZAO_ID2	[	43	]	=	1677		ZHIZAO_ID3	[43	]	=	2617		ZHIZAO__Rad	[	43	]	=	1
+	ZHIZAO_ID	[	44	]	=	1152		ZHIZAO_LV	[	44	]	=	20		ZHIZAO_ID1	[	44	]	=	3990		ZHIZAO_ID2	[	44	]	=	4030		ZHIZAO_ID3	[44	]	=	2617		ZHIZAO__Rad	[	44	]	=	1
+	ZHIZAO_ID	[	45	]	=	2673		ZHIZAO_LV	[	45	]	=	20		ZHIZAO_ID1	[	45	]	=	3990		ZHIZAO_ID2	[	45	]	=	1677		ZHIZAO_ID3	[45	]	=	2617		ZHIZAO__Rad	[	45	]	=	1
+	ZHIZAO_ID	[	46	]	=	6533		ZHIZAO_LV	[	46	]	=	20		ZHIZAO_ID1	[	46	]	=	3990		ZHIZAO_ID2	[	46	]	=	4030		ZHIZAO_ID3	[46	]	=	2617		ZHIZAO__Rad	[	46	]	=	1
+	ZHIZAO_ID	[	47	]	=	1139		ZHIZAO_LV	[	47	]	=	20		ZHIZAO_ID1	[	47	]	=	3990		ZHIZAO_ID2	[	47	]	=	1677		ZHIZAO_ID3	[47	]	=	2617		ZHIZAO__Rad	[	47	]	=	1
+	ZHIZAO_ID	[	48	]	=	2677		ZHIZAO_LV	[	48	]	=	20		ZHIZAO_ID1	[	48	]	=	3990		ZHIZAO_ID2	[	48	]	=	4030		ZHIZAO_ID3	[48	]	=	2617		ZHIZAO__Rad	[	48	]	=	1
+	ZHIZAO_ID	[	49	]	=	1140		ZHIZAO_LV	[	49	]	=	20		ZHIZAO_ID1	[	49	]	=	3990		ZHIZAO_ID2	[	49	]	=	1677		ZHIZAO_ID3	[49	]	=	2617		ZHIZAO__Rad	[	49	]	=	1
+	ZHIZAO_ID	[	50	]	=	1141		ZHIZAO_LV	[	50	]	=	20		ZHIZAO_ID1	[	50	]	=	3990		ZHIZAO_ID2	[	50	]	=	4030		ZHIZAO_ID3	[50	]	=	2617		ZHIZAO__Rad	[	50	]	=	1
+	ZHIZAO_ID	[	51	]	=	6533		ZHIZAO_LV	[	51	]	=	20		ZHIZAO_ID1	[	51	]	=	3990		ZHIZAO_ID2	[	51	]	=	1677		ZHIZAO_ID3	[51	]	=	2617		ZHIZAO__Rad	[	51	]	=	1
+	ZHIZAO_ID	[	52	]	=	1142		ZHIZAO_LV	[	52	]	=	20		ZHIZAO_ID1	[	52	]	=	3990		ZHIZAO_ID2	[	52	]	=	4030		ZHIZAO_ID3	[52	]	=	2617		ZHIZAO__Rad	[	52	]	=	1
+	ZHIZAO_ID	[	53	]	=	1143		ZHIZAO_LV	[	53	]	=	20		ZHIZAO_ID1	[	53	]	=	3990		ZHIZAO_ID2	[	53	]	=	1677		ZHIZAO_ID3	[53	]	=	2617		ZHIZAO__Rad	[	53	]	=	1
+	ZHIZAO_ID	[	54	]	=	1151		ZHIZAO_LV	[	54	]	=	20		ZHIZAO_ID1	[	54	]	=	3990		ZHIZAO_ID2	[	54	]	=	4030		ZHIZAO_ID3	[54	]	=	2617		ZHIZAO__Rad	[	54	]	=	1
+	ZHIZAO_ID	[	55	]	=	2678		ZHIZAO_LV	[	55	]	=	20		ZHIZAO_ID1	[	55	]	=	3990		ZHIZAO_ID2	[	55	]	=	1677		ZHIZAO_ID3	[55	]	=	2617		ZHIZAO__Rad	[	55	]	=	1
+	ZHIZAO_ID	[	56	]	=	6533		ZHIZAO_LV	[	56	]	=	20		ZHIZAO_ID1	[	56	]	=	3990		ZHIZAO_ID2	[	56	]	=	4030		ZHIZAO_ID3	[56	]	=	2617		ZHIZAO__Rad	[	56	]	=	1
+	ZHIZAO_ID	[	57	]	=	2236		ZHIZAO_LV	[	57	]	=	30		ZHIZAO_ID1	[	57	]	=	3991		ZHIZAO_ID2	[	57	]	=	1624		ZHIZAO_ID3	[57	]	=	2619		ZHIZAO__Rad	[	57	]	=	5
+	ZHIZAO_ID	[	58	]	=	6533		ZHIZAO_LV	[	58	]	=	30		ZHIZAO_ID1	[	58	]	=	3991		ZHIZAO_ID2	[	58	]	=	4031		ZHIZAO_ID3	[58	]	=	2619		ZHIZAO__Rad	[	58	]	=	5
+	ZHIZAO_ID	[	59	]	=	2236		ZHIZAO_LV	[	59	]	=	30		ZHIZAO_ID1	[	59	]	=	3991		ZHIZAO_ID2	[	59	]	=	1624		ZHIZAO_ID3	[59	]	=	2619		ZHIZAO__Rad	[	59	]	=	5
+	ZHIZAO_ID	[	60	]	=	2236		ZHIZAO_LV	[	60	]	=	30		ZHIZAO_ID1	[	60	]	=	3991		ZHIZAO_ID2	[	60	]	=	4031		ZHIZAO_ID3	[60	]	=	2619		ZHIZAO__Rad	[	60	]	=	5
+	ZHIZAO_ID	[	61	]	=	1135		ZHIZAO_LV	[	61	]	=	30		ZHIZAO_ID1	[	61	]	=	3991		ZHIZAO_ID2	[	61	]	=	1624		ZHIZAO_ID3	[61	]	=	2619		ZHIZAO__Rad	[	61	]	=	1
+	ZHIZAO_ID	[	62	]	=	2372		ZHIZAO_LV	[	62	]	=	30		ZHIZAO_ID1	[	62	]	=	3991		ZHIZAO_ID2	[	62	]	=	4031		ZHIZAO_ID3	[62	]	=	2619		ZHIZAO__Rad	[	62	]	=	1
+	ZHIZAO_ID	[	63	]	=	1137		ZHIZAO_LV	[	63	]	=	30		ZHIZAO_ID1	[	63	]	=	3991		ZHIZAO_ID2	[	63	]	=	1624		ZHIZAO_ID3	[63	]	=	2619		ZHIZAO__Rad	[	63	]	=	1
+	ZHIZAO_ID	[	64	]	=	1146		ZHIZAO_LV	[	64	]	=	30		ZHIZAO_ID1	[	64	]	=	3991		ZHIZAO_ID2	[	64	]	=	4031		ZHIZAO_ID3	[64	]	=	2619		ZHIZAO__Rad	[	64	]	=	1
+	ZHIZAO_ID	[	65	]	=	1145		ZHIZAO_LV	[	65	]	=	30		ZHIZAO_ID1	[	65	]	=	3991		ZHIZAO_ID2	[	65	]	=	1624		ZHIZAO_ID3	[65	]	=	2619		ZHIZAO__Rad	[	65	]	=	1
+	ZHIZAO_ID	[	66	]	=	1136		ZHIZAO_LV	[	66	]	=	30		ZHIZAO_ID1	[	66	]	=	3991		ZHIZAO_ID2	[	66	]	=	4031		ZHIZAO_ID3	[66	]	=	2619		ZHIZAO__Rad	[	66	]	=	1
+	ZHIZAO_ID	[	67	]	=	1135		ZHIZAO_LV	[	67	]	=	30		ZHIZAO_ID1	[	67	]	=	3991		ZHIZAO_ID2	[	67	]	=	1624		ZHIZAO_ID3	[67	]	=	2619		ZHIZAO__Rad	[	67	]	=	1
+	ZHIZAO_ID	[	68	]	=	6533		ZHIZAO_LV	[	68	]	=	30		ZHIZAO_ID1	[	68	]	=	3991		ZHIZAO_ID2	[	68	]	=	4031		ZHIZAO_ID3	[68	]	=	2619		ZHIZAO__Rad	[	68	]	=	1
+	ZHIZAO_ID	[	69	]	=	1138		ZHIZAO_LV	[	69	]	=	30		ZHIZAO_ID1	[	69	]	=	3991		ZHIZAO_ID2	[	69	]	=	1624		ZHIZAO_ID3	[69	]	=	2619		ZHIZAO__Rad	[	69	]	=	1
+	ZHIZAO_ID	[	70	]	=	6533		ZHIZAO_LV	[	70	]	=	30		ZHIZAO_ID1	[	70	]	=	3991		ZHIZAO_ID2	[	70	]	=	4031		ZHIZAO_ID3	[70	]	=	2619		ZHIZAO__Rad	[	70	]	=	1
+	ZHIZAO_ID	[	71	]	=	1150		ZHIZAO_LV	[	71	]	=	30		ZHIZAO_ID1	[	71	]	=	3991		ZHIZAO_ID2	[	71	]	=	1624		ZHIZAO_ID3	[71	]	=	2619		ZHIZAO__Rad	[	71	]	=	1
+	ZHIZAO_ID	[	72	]	=	1152		ZHIZAO_LV	[	72	]	=	30		ZHIZAO_ID1	[	72	]	=	3991		ZHIZAO_ID2	[	72	]	=	4031		ZHIZAO_ID3	[72	]	=	2619		ZHIZAO__Rad	[	72	]	=	1
+	ZHIZAO_ID	[	73	]	=	2673		ZHIZAO_LV	[	73	]	=	30		ZHIZAO_ID1	[	73	]	=	3991		ZHIZAO_ID2	[	73	]	=	1624		ZHIZAO_ID3	[73	]	=	2619		ZHIZAO__Rad	[	73	]	=	1
+	ZHIZAO_ID	[	74	]	=	6533		ZHIZAO_LV	[	74	]	=	30		ZHIZAO_ID1	[	74	]	=	3991		ZHIZAO_ID2	[	74	]	=	4031		ZHIZAO_ID3	[74	]	=	2619		ZHIZAO__Rad	[	74	]	=	1
+	ZHIZAO_ID	[	75	]	=	1139		ZHIZAO_LV	[	75	]	=	30		ZHIZAO_ID1	[	75	]	=	3991		ZHIZAO_ID2	[	75	]	=	1624		ZHIZAO_ID3	[75	]	=	2619		ZHIZAO__Rad	[	75	]	=	1
+	ZHIZAO_ID	[	76	]	=	2677		ZHIZAO_LV	[	76	]	=	30		ZHIZAO_ID1	[	76	]	=	3991		ZHIZAO_ID2	[	76	]	=	4031		ZHIZAO_ID3	[76	]	=	2619		ZHIZAO__Rad	[	76	]	=	1
+	ZHIZAO_ID	[	77	]	=	1140		ZHIZAO_LV	[	77	]	=	30		ZHIZAO_ID1	[	77	]	=	3991		ZHIZAO_ID2	[	77	]	=	1624		ZHIZAO_ID3	[77	]	=	2619		ZHIZAO__Rad	[	77	]	=	1
+	ZHIZAO_ID	[	78	]	=	1141		ZHIZAO_LV	[	78	]	=	30		ZHIZAO_ID1	[	78	]	=	3991		ZHIZAO_ID2	[	78	]	=	4031		ZHIZAO_ID3	[78	]	=	2619		ZHIZAO__Rad	[	78	]	=	1
+	ZHIZAO_ID	[	79	]	=	6533		ZHIZAO_LV	[	79	]	=	30		ZHIZAO_ID1	[	79	]	=	3991		ZHIZAO_ID2	[	79	]	=	1624		ZHIZAO_ID3	[79	]	=	2619		ZHIZAO__Rad	[	79	]	=	1
+	ZHIZAO_ID	[	80	]	=	1142		ZHIZAO_LV	[	80	]	=	30		ZHIZAO_ID1	[	80	]	=	3991		ZHIZAO_ID2	[	80	]	=	4031		ZHIZAO_ID3	[80	]	=	2619		ZHIZAO__Rad	[	80	]	=	1
+	ZHIZAO_ID	[	81	]	=	1143		ZHIZAO_LV	[	81	]	=	30		ZHIZAO_ID1	[	81	]	=	3991		ZHIZAO_ID2	[	81	]	=	1624		ZHIZAO_ID3	[81	]	=	2619		ZHIZAO__Rad	[	81	]	=	1
+	ZHIZAO_ID	[	82	]	=	1151		ZHIZAO_LV	[	82	]	=	30		ZHIZAO_ID1	[	82	]	=	3991		ZHIZAO_ID2	[	82	]	=	4031		ZHIZAO_ID3	[82	]	=	2619		ZHIZAO__Rad	[	82	]	=	1
+	ZHIZAO_ID	[	83	]	=	2678		ZHIZAO_LV	[	83	]	=	30		ZHIZAO_ID1	[	83	]	=	3991		ZHIZAO_ID2	[	83	]	=	1624		ZHIZAO_ID3	[83	]	=	2619		ZHIZAO__Rad	[	83	]	=	1
+	ZHIZAO_ID	[	84	]	=	6533		ZHIZAO_LV	[	84	]	=	30		ZHIZAO_ID1	[	84	]	=	3991		ZHIZAO_ID2	[	84	]	=	4031		ZHIZAO_ID3	[84	]	=	2619		ZHIZAO__Rad	[	84	]	=	1
+	ZHIZAO_ID	[	85	]	=	2236		ZHIZAO_LV	[	85	]	=	40		ZHIZAO_ID1	[	85	]	=	3992		ZHIZAO_ID2	[	85	]	=	4032		ZHIZAO_ID3	[85	]	=	2619		ZHIZAO__Rad	[	85	]	=	5
+	ZHIZAO_ID	[	86	]	=	2236		ZHIZAO_LV	[	86	]	=	40		ZHIZAO_ID1	[	86	]	=	3992		ZHIZAO_ID2	[	86	]	=	1715		ZHIZAO_ID3	[86	]	=	2619		ZHIZAO__Rad	[	86	]	=	5
+	ZHIZAO_ID	[	87	]	=	2236		ZHIZAO_LV	[	87	]	=	40		ZHIZAO_ID1	[	87	]	=	3992		ZHIZAO_ID2	[	87	]	=	4032		ZHIZAO_ID3	[87	]	=	2619		ZHIZAO__Rad	[	87	]	=	5
+	ZHIZAO_ID	[	88	]	=	2236		ZHIZAO_LV	[	88	]	=	40		ZHIZAO_ID1	[	88	]	=	3992		ZHIZAO_ID2	[	88	]	=	1715		ZHIZAO_ID3	[88	]	=	2619		ZHIZAO__Rad	[	88	]	=	5
+	ZHIZAO_ID	[	89	]	=	2721		ZHIZAO_LV	[	89	]	=	40		ZHIZAO_ID1	[	89	]	=	3992		ZHIZAO_ID2	[	89	]	=	4032		ZHIZAO_ID3	[89	]	=	2619		ZHIZAO__Rad	[	89	]	=	1
+	ZHIZAO_ID	[	90	]	=	2373		ZHIZAO_LV	[	90	]	=	40		ZHIZAO_ID1	[	90	]	=	3992		ZHIZAO_ID2	[	90	]	=	1715		ZHIZAO_ID3	[90	]	=	2619		ZHIZAO__Rad	[	90	]	=	1
+	ZHIZAO_ID	[	91	]	=	2721		ZHIZAO_LV	[	91	]	=	40		ZHIZAO_ID1	[	91	]	=	3992		ZHIZAO_ID2	[	91	]	=	4032		ZHIZAO_ID3	[91	]	=	2619		ZHIZAO__Rad	[	91	]	=	1
+	ZHIZAO_ID	[	92	]	=	2730		ZHIZAO_LV	[	92	]	=	40		ZHIZAO_ID1	[	92	]	=	3992		ZHIZAO_ID2	[	92	]	=	1715		ZHIZAO_ID3	[92	]	=	2619		ZHIZAO__Rad	[	92	]	=	1
+	ZHIZAO_ID	[	93	]	=	2729		ZHIZAO_LV	[	93	]	=	40		ZHIZAO_ID1	[	93	]	=	3992		ZHIZAO_ID2	[	93	]	=	4032		ZHIZAO_ID3	[93	]	=	2619		ZHIZAO__Rad	[	93	]	=	1
+	ZHIZAO_ID	[	94	]	=	2720		ZHIZAO_LV	[	94	]	=	40		ZHIZAO_ID1	[	94	]	=	3992		ZHIZAO_ID2	[	94	]	=	1715		ZHIZAO_ID3	[94	]	=	2619		ZHIZAO__Rad	[	94	]	=	1
+	ZHIZAO_ID	[	95	]	=	2719		ZHIZAO_LV	[	95	]	=	40		ZHIZAO_ID1	[	95	]	=	3992		ZHIZAO_ID2	[	95	]	=	4032		ZHIZAO_ID3	[95	]	=	2619		ZHIZAO__Rad	[	95	]	=	1
+	ZHIZAO_ID	[	96	]	=	2719		ZHIZAO_LV	[	96	]	=	40		ZHIZAO_ID1	[	96	]	=	3992		ZHIZAO_ID2	[	96	]	=	1715		ZHIZAO_ID3	[96	]	=	2619		ZHIZAO__Rad	[	96	]	=	1
+	ZHIZAO_ID	[	97	]	=	2722		ZHIZAO_LV	[	97	]	=	40		ZHIZAO_ID1	[	97	]	=	3992		ZHIZAO_ID2	[	97	]	=	4032		ZHIZAO_ID3	[97	]	=	2619		ZHIZAO__Rad	[	97	]	=	1
+	ZHIZAO_ID	[	98	]	=	2724		ZHIZAO_LV	[	98	]	=	40		ZHIZAO_ID1	[	98	]	=	3992		ZHIZAO_ID2	[	98	]	=	1715		ZHIZAO_ID3	[98	]	=	2619		ZHIZAO__Rad	[	98	]	=	1
+	ZHIZAO_ID	[	99	]	=	2734		ZHIZAO_LV	[	99	]	=	40		ZHIZAO_ID1	[	99	]	=	3992		ZHIZAO_ID2	[	99	]	=	4032		ZHIZAO_ID3	[99	]	=	2619		ZHIZAO__Rad	[	99	]	=	1
+	ZHIZAO_ID	[	100	]	=	2736		ZHIZAO_LV	[	100	]	=	40		ZHIZAO_ID1	[	100	]	=	3992		ZHIZAO_ID2	[	100	]	=	1715		ZHIZAO_ID3	[100	]	=	2619		ZHIZAO__Rad	[	100	]	=	1
+	ZHIZAO_ID	[	101	]	=	2737		ZHIZAO_LV	[	101	]	=	40		ZHIZAO_ID1	[	101	]	=	3992		ZHIZAO_ID2	[	101	]	=	4032		ZHIZAO_ID3	[101	]	=	2619		ZHIZAO__Rad	[	101	]	=	1
+	ZHIZAO_ID	[	102	]	=	2723		ZHIZAO_LV	[	102	]	=	40		ZHIZAO_ID1	[	102	]	=	3992		ZHIZAO_ID2	[	102	]	=	1715		ZHIZAO_ID3	[102	]	=	2619		ZHIZAO__Rad	[	102	]	=	1
+	ZHIZAO_ID	[	103	]	=	2741		ZHIZAO_LV	[	103	]	=	40		ZHIZAO_ID1	[	103	]	=	3992		ZHIZAO_ID2	[	103	]	=	4032		ZHIZAO_ID3	[103	]	=	2619		ZHIZAO__Rad	[	103	]	=	1
+	ZHIZAO_ID	[	104	]	=	2741		ZHIZAO_LV	[	104	]	=	40		ZHIZAO_ID1	[	104	]	=	3992		ZHIZAO_ID2	[	104	]	=	1715		ZHIZAO_ID3	[104	]	=	2619		ZHIZAO__Rad	[	104	]	=	1
+	ZHIZAO_ID	[	105	]	=	2724		ZHIZAO_LV	[	105	]	=	40		ZHIZAO_ID1	[	105	]	=	3992		ZHIZAO_ID2	[	105	]	=	4032		ZHIZAO_ID3	[105	]	=	2619		ZHIZAO__Rad	[	105	]	=	1
+	ZHIZAO_ID	[	106	]	=	2725		ZHIZAO_LV	[	106	]	=	40		ZHIZAO_ID1	[	106	]	=	3992		ZHIZAO_ID2	[	106	]	=	1715		ZHIZAO_ID3	[106	]	=	2619		ZHIZAO__Rad	[	106	]	=	1
+	ZHIZAO_ID	[	107	]	=	2726		ZHIZAO_LV	[	107	]	=	40		ZHIZAO_ID1	[	107	]	=	3992		ZHIZAO_ID2	[	107	]	=	4032		ZHIZAO_ID3	[107	]	=	2619		ZHIZAO__Rad	[	107	]	=	1
+	ZHIZAO_ID	[	108	]	=	2727		ZHIZAO_LV	[	108	]	=	40		ZHIZAO_ID1	[	108	]	=	3992		ZHIZAO_ID2	[	108	]	=	1715		ZHIZAO_ID3	[108	]	=	2619		ZHIZAO__Rad	[	108	]	=	1
+	ZHIZAO_ID	[	109	]	=	2727		ZHIZAO_LV	[	109	]	=	40		ZHIZAO_ID1	[	109	]	=	3992		ZHIZAO_ID2	[	109	]	=	4032		ZHIZAO_ID3	[109	]	=	2619		ZHIZAO__Rad	[	109	]	=	1
+	ZHIZAO_ID	[	110	]	=	2735		ZHIZAO_LV	[	110	]	=	40		ZHIZAO_ID1	[	110	]	=	3992		ZHIZAO_ID2	[	110	]	=	1715		ZHIZAO_ID3	[110	]	=	2619		ZHIZAO__Rad	[	110	]	=	1
+	ZHIZAO_ID	[	111	]	=	2742		ZHIZAO_LV	[	111	]	=	40		ZHIZAO_ID1	[	111	]	=	3992		ZHIZAO_ID2	[	111	]	=	4032		ZHIZAO_ID3	[111	]	=	2619		ZHIZAO__Rad	[	111	]	=	1
+	ZHIZAO_ID	[	112	]	=	2722		ZHIZAO_LV	[	112	]	=	40		ZHIZAO_ID1	[	112	]	=	3992		ZHIZAO_ID2	[	112	]	=	1715		ZHIZAO_ID3	[112	]	=	2619		ZHIZAO__Rad	[	112	]	=	1
+	ZHIZAO_ID	[	113	]	=	2236		ZHIZAO_LV	[	113	]	=	50		ZHIZAO_ID1	[	113	]	=	3993		ZHIZAO_ID2	[	113	]	=	1683		ZHIZAO_ID3	[113	]	=	2622		ZHIZAO__Rad	[	113	]	=	5
+	ZHIZAO_ID	[	114	]	=	2236		ZHIZAO_LV	[	114	]	=	50		ZHIZAO_ID1	[	114	]	=	3993		ZHIZAO_ID2	[	114	]	=	4033		ZHIZAO_ID3	[114	]	=	2622		ZHIZAO__Rad	[	114	]	=	5
+	ZHIZAO_ID	[	115	]	=	2236		ZHIZAO_LV	[	115	]	=	50		ZHIZAO_ID1	[	115	]	=	3993		ZHIZAO_ID2	[	115	]	=	1683		ZHIZAO_ID3	[115	]	=	2622		ZHIZAO__Rad	[	115	]	=	5
+	ZHIZAO_ID	[	116	]	=	2236		ZHIZAO_LV	[	116	]	=	50		ZHIZAO_ID1	[	116	]	=	3993		ZHIZAO_ID2	[	116	]	=	4033		ZHIZAO_ID3	[116	]	=	2622		ZHIZAO__Rad	[	116	]	=	5
+	ZHIZAO_ID	[	117	]	=	2721		ZHIZAO_LV	[	117	]	=	50		ZHIZAO_ID1	[	117	]	=	3993		ZHIZAO_ID2	[	117	]	=	1683		ZHIZAO_ID3	[117	]	=	2622		ZHIZAO__Rad	[	117	]	=	1
+	ZHIZAO_ID	[	118	]	=	2373		ZHIZAO_LV	[	118	]	=	50		ZHIZAO_ID1	[	118	]	=	3993		ZHIZAO_ID2	[	118	]	=	4033		ZHIZAO_ID3	[118	]	=	2622		ZHIZAO__Rad	[	118	]	=	1
+	ZHIZAO_ID	[	119	]	=	2721		ZHIZAO_LV	[	119	]	=	50		ZHIZAO_ID1	[	119	]	=	3993		ZHIZAO_ID2	[	119	]	=	1683		ZHIZAO_ID3	[119	]	=	2622		ZHIZAO__Rad	[	119	]	=	1
+	ZHIZAO_ID	[	120	]	=	2730		ZHIZAO_LV	[	120	]	=	50		ZHIZAO_ID1	[	120	]	=	3993		ZHIZAO_ID2	[	120	]	=	4033		ZHIZAO_ID3	[120	]	=	2622		ZHIZAO__Rad	[	120	]	=	1
+	ZHIZAO_ID	[	121	]	=	2729		ZHIZAO_LV	[	121	]	=	50		ZHIZAO_ID1	[	121	]	=	3993		ZHIZAO_ID2	[	121	]	=	1683		ZHIZAO_ID3	[121	]	=	6534		ZHIZAO__Rad	[	121	]	=	1
+	ZHIZAO_ID	[	122	]	=	2720		ZHIZAO_LV	[	122	]	=	50		ZHIZAO_ID1	[	122	]	=	3993		ZHIZAO_ID2	[	122	]	=	4033		ZHIZAO_ID3	[122	]	=	2622		ZHIZAO__Rad	[	122	]	=	1
+	ZHIZAO_ID	[	123	]	=	2719		ZHIZAO_LV	[	123	]	=	50		ZHIZAO_ID1	[	123	]	=	3993		ZHIZAO_ID2	[	123	]	=	1683		ZHIZAO_ID3	[123	]	=	2622		ZHIZAO__Rad	[	123	]	=	1
+	ZHIZAO_ID	[	124	]	=	2719		ZHIZAO_LV	[	124	]	=	50		ZHIZAO_ID1	[	124	]	=	3993		ZHIZAO_ID2	[	124	]	=	4033		ZHIZAO_ID3	[124	]	=	2622		ZHIZAO__Rad	[	124	]	=	1
+	ZHIZAO_ID	[	125	]	=	2722		ZHIZAO_LV	[	125	]	=	50		ZHIZAO_ID1	[	125	]	=	3993		ZHIZAO_ID2	[	125	]	=	1683		ZHIZAO_ID3	[125	]	=	2622		ZHIZAO__Rad	[	125	]	=	1
+	ZHIZAO_ID	[	126	]	=	2724		ZHIZAO_LV	[	126	]	=	50		ZHIZAO_ID1	[	126	]	=	3993		ZHIZAO_ID2	[	126	]	=	4033		ZHIZAO_ID3	[126	]	=	2622		ZHIZAO__Rad	[	126	]	=	1
+	ZHIZAO_ID	[	127	]	=	2734		ZHIZAO_LV	[	127	]	=	50		ZHIZAO_ID1	[	127	]	=	3993		ZHIZAO_ID2	[	127	]	=	1683		ZHIZAO_ID3	[127	]	=	2622		ZHIZAO__Rad	[	127	]	=	1
+	ZHIZAO_ID	[	128	]	=	2736		ZHIZAO_LV	[	128	]	=	50		ZHIZAO_ID1	[	128	]	=	3993		ZHIZAO_ID2	[	128	]	=	4033		ZHIZAO_ID3	[128	]	=	6534		ZHIZAO__Rad	[	128	]	=	1
+	ZHIZAO_ID	[	129	]	=	2737		ZHIZAO_LV	[	129	]	=	50		ZHIZAO_ID1	[	129	]	=	3993		ZHIZAO_ID2	[	129	]	=	1683		ZHIZAO_ID3	[129	]	=	2622		ZHIZAO__Rad	[	129	]	=	1
+	ZHIZAO_ID	[	130	]	=	2723		ZHIZAO_LV	[	130	]	=	50		ZHIZAO_ID1	[	130	]	=	3993		ZHIZAO_ID2	[	130	]	=	4033		ZHIZAO_ID3	[130	]	=	2622		ZHIZAO__Rad	[	130	]	=	1
+	ZHIZAO_ID	[	131	]	=	2741		ZHIZAO_LV	[	131	]	=	50		ZHIZAO_ID1	[	131	]	=	3993		ZHIZAO_ID2	[	131	]	=	1683		ZHIZAO_ID3	[131	]	=	2622		ZHIZAO__Rad	[	131	]	=	1
+	ZHIZAO_ID	[	132	]	=	2741		ZHIZAO_LV	[	132	]	=	50		ZHIZAO_ID1	[	132	]	=	3993		ZHIZAO_ID2	[	132	]	=	4033		ZHIZAO_ID3	[132	]	=	2622		ZHIZAO__Rad	[	132	]	=	1
+	ZHIZAO_ID	[	133	]	=	2724		ZHIZAO_LV	[	133	]	=	50		ZHIZAO_ID1	[	133	]	=	3993		ZHIZAO_ID2	[	133	]	=	1683		ZHIZAO_ID3	[133	]	=	2622		ZHIZAO__Rad	[	133	]	=	1
+	ZHIZAO_ID	[	134	]	=	2725		ZHIZAO_LV	[	134	]	=	50		ZHIZAO_ID1	[	134	]	=	3993		ZHIZAO_ID2	[	134	]	=	4033		ZHIZAO_ID3	[134	]	=	2622		ZHIZAO__Rad	[	134	]	=	1
+	ZHIZAO_ID	[	135	]	=	2726		ZHIZAO_LV	[	135	]	=	50		ZHIZAO_ID1	[	135	]	=	3993		ZHIZAO_ID2	[	135	]	=	1683		ZHIZAO_ID3	[135	]	=	2622		ZHIZAO__Rad	[	135	]	=	1
+	ZHIZAO_ID	[	136	]	=	2727		ZHIZAO_LV	[	136	]	=	50		ZHIZAO_ID1	[	136	]	=	3993		ZHIZAO_ID2	[	136	]	=	4033		ZHIZAO_ID3	[136	]	=	6534		ZHIZAO__Rad	[	136	]	=	1
+	ZHIZAO_ID	[	137	]	=	2727		ZHIZAO_LV	[	137	]	=	50		ZHIZAO_ID1	[	137	]	=	3993		ZHIZAO_ID2	[	137	]	=	1683		ZHIZAO_ID3	[137	]	=	2622		ZHIZAO__Rad	[	137	]	=	1
+	ZHIZAO_ID	[	138	]	=	2735		ZHIZAO_LV	[	138	]	=	50		ZHIZAO_ID1	[	138	]	=	3993		ZHIZAO_ID2	[	138	]	=	4033		ZHIZAO_ID3	[138	]	=	2622		ZHIZAO__Rad	[	138	]	=	1
+	ZHIZAO_ID	[	139	]	=	2742		ZHIZAO_LV	[	139	]	=	50		ZHIZAO_ID1	[	139	]	=	3993		ZHIZAO_ID2	[	139	]	=	1683		ZHIZAO_ID3	[139	]	=	2622		ZHIZAO__Rad	[	139	]	=	1
+	ZHIZAO_ID	[	140	]	=	2722		ZHIZAO_LV	[	140	]	=	50		ZHIZAO_ID1	[	140	]	=	3993		ZHIZAO_ID2	[	140	]	=	4033		ZHIZAO_ID3	[140	]	=	2622		ZHIZAO__Rad	[	140	]	=	1
+	ZHIZAO_ID	[	141	]	=	2236		ZHIZAO_LV	[	141	]	=	60		ZHIZAO_ID1	[	141	]	=	3994		ZHIZAO_ID2	[	141	]	=	1684		ZHIZAO_ID3	[141	]	=	2622		ZHIZAO__Rad	[	141	]	=	5
+	ZHIZAO_ID	[	142	]	=	2236		ZHIZAO_LV	[	142	]	=	60		ZHIZAO_ID1	[	142	]	=	3994		ZHIZAO_ID2	[	142	]	=	4034		ZHIZAO_ID3	[142	]	=	2622		ZHIZAO__Rad	[	142	]	=	5
+	ZHIZAO_ID	[	143	]	=	2236		ZHIZAO_LV	[	143	]	=	60		ZHIZAO_ID1	[	143	]	=	3994		ZHIZAO_ID2	[	143	]	=	1684		ZHIZAO_ID3	[143	]	=	2622		ZHIZAO__Rad	[	143	]	=	5
+	ZHIZAO_ID	[	144	]	=	2236		ZHIZAO_LV	[	144	]	=	60		ZHIZAO_ID1	[	144	]	=	3994		ZHIZAO_ID2	[	144	]	=	4034		ZHIZAO_ID3	[144	]	=	2622		ZHIZAO__Rad	[	144	]	=	5
+	ZHIZAO_ID	[	145	]	=	2750		ZHIZAO_LV	[	145	]	=	60		ZHIZAO_ID1	[	145	]	=	3994		ZHIZAO_ID2	[	145	]	=	1684		ZHIZAO_ID3	[145	]	=	2622		ZHIZAO__Rad	[	145	]	=	1
+	ZHIZAO_ID	[	146	]	=	2375		ZHIZAO_LV	[	146	]	=	60		ZHIZAO_ID1	[	146	]	=	3994		ZHIZAO_ID2	[	146	]	=	4034		ZHIZAO_ID3	[146	]	=	2622		ZHIZAO__Rad	[	146	]	=	1
+	ZHIZAO_ID	[	147	]	=	2745		ZHIZAO_LV	[	147	]	=	60		ZHIZAO_ID1	[	147	]	=	3994		ZHIZAO_ID2	[	147	]	=	1684		ZHIZAO_ID3	[147	]	=	2622		ZHIZAO__Rad	[	147	]	=	1
+	ZHIZAO_ID	[	148	]	=	2754		ZHIZAO_LV	[	148	]	=	60		ZHIZAO_ID1	[	148	]	=	3994		ZHIZAO_ID2	[	148	]	=	4034		ZHIZAO_ID3	[148	]	=	2622		ZHIZAO__Rad	[	148	]	=	1
+	ZHIZAO_ID	[	149	]	=	2753		ZHIZAO_LV	[	149	]	=	60		ZHIZAO_ID1	[	149	]	=	3994		ZHIZAO_ID2	[	149	]	=	1684		ZHIZAO_ID3	[149	]	=	2622		ZHIZAO__Rad	[	149	]	=	1
+	ZHIZAO_ID	[	150	]	=	2744		ZHIZAO_LV	[	150	]	=	60		ZHIZAO_ID1	[	150	]	=	3994		ZHIZAO_ID2	[	150	]	=	4034		ZHIZAO_ID3	[150	]	=	2622		ZHIZAO__Rad	[	150	]	=	1
+	ZHIZAO_ID	[	151	]	=	2743		ZHIZAO_LV	[	151	]	=	60		ZHIZAO_ID1	[	151	]	=	3994		ZHIZAO_ID2	[	151	]	=	1684		ZHIZAO_ID3	[151	]	=	6534		ZHIZAO__Rad	[	151	]	=	1
+	ZHIZAO_ID	[	152	]	=	2743		ZHIZAO_LV	[	152	]	=	60		ZHIZAO_ID1	[	152	]	=	3994		ZHIZAO_ID2	[	152	]	=	4034		ZHIZAO_ID3	[152	]	=	2622		ZHIZAO__Rad	[	152	]	=	1
+	ZHIZAO_ID	[	153	]	=	2746		ZHIZAO_LV	[	153	]	=	60		ZHIZAO_ID1	[	153	]	=	3994		ZHIZAO_ID2	[	153	]	=	1684		ZHIZAO_ID3	[153	]	=	2622		ZHIZAO__Rad	[	153	]	=	1
+	ZHIZAO_ID	[	154	]	=	2758		ZHIZAO_LV	[	154	]	=	60		ZHIZAO_ID1	[	154	]	=	3994		ZHIZAO_ID2	[	154	]	=	4034		ZHIZAO_ID3	[154	]	=	2622		ZHIZAO__Rad	[	154	]	=	1
+	ZHIZAO_ID	[	155	]	=	2758		ZHIZAO_LV	[	155	]	=	60		ZHIZAO_ID1	[	155	]	=	3994		ZHIZAO_ID2	[	155	]	=	1684		ZHIZAO_ID3	[155	]	=	2622		ZHIZAO__Rad	[	155	]	=	1
+	ZHIZAO_ID	[	156	]	=	2760		ZHIZAO_LV	[	156	]	=	60		ZHIZAO_ID1	[	156	]	=	3994		ZHIZAO_ID2	[	156	]	=	4034		ZHIZAO_ID3	[156	]	=	2622		ZHIZAO__Rad	[	156	]	=	1
+	ZHIZAO_ID	[	157	]	=	2761		ZHIZAO_LV	[	157	]	=	60		ZHIZAO_ID1	[	157	]	=	3994		ZHIZAO_ID2	[	157	]	=	1684		ZHIZAO_ID3	[157	]	=	2622		ZHIZAO__Rad	[	157	]	=	1
+	ZHIZAO_ID	[	158	]	=	2747		ZHIZAO_LV	[	158	]	=	60		ZHIZAO_ID1	[	158	]	=	3994		ZHIZAO_ID2	[	158	]	=	4034		ZHIZAO_ID3	[158	]	=	2622		ZHIZAO__Rad	[	158	]	=	1
+	ZHIZAO_ID	[	159	]	=	2765		ZHIZAO_LV	[	159	]	=	60		ZHIZAO_ID1	[	159	]	=	3994		ZHIZAO_ID2	[	159	]	=	1684		ZHIZAO_ID3	[159	]	=	2622		ZHIZAO__Rad	[	159	]	=	1
+	ZHIZAO_ID	[	160	]	=	2765		ZHIZAO_LV	[	160	]	=	60		ZHIZAO_ID1	[	160	]	=	3994		ZHIZAO_ID2	[	160	]	=	4034		ZHIZAO_ID3	[160	]	=	2622		ZHIZAO__Rad	[	160	]	=	1
+	ZHIZAO_ID	[	161	]	=	2748		ZHIZAO_LV	[	161	]	=	60		ZHIZAO_ID1	[	161	]	=	3994		ZHIZAO_ID2	[	161	]	=	1684		ZHIZAO_ID3	[161	]	=	2622		ZHIZAO__Rad	[	161	]	=	1
+	ZHIZAO_ID	[	162	]	=	2749		ZHIZAO_LV	[	162	]	=	60		ZHIZAO_ID1	[	162	]	=	3994		ZHIZAO_ID2	[	162	]	=	4034		ZHIZAO_ID3	[162	]	=	2622		ZHIZAO__Rad	[	162	]	=	1
+	ZHIZAO_ID	[	163	]	=	2750		ZHIZAO_LV	[	163	]	=	60		ZHIZAO_ID1	[	163	]	=	3994		ZHIZAO_ID2	[	163	]	=	1684		ZHIZAO_ID3	[163	]	=	2622		ZHIZAO__Rad	[	163	]	=	1
+	ZHIZAO_ID	[	164	]	=	2751		ZHIZAO_LV	[	164	]	=	60		ZHIZAO_ID1	[	164	]	=	3994		ZHIZAO_ID2	[	164	]	=	4034		ZHIZAO_ID3	[164	]	=	6534		ZHIZAO__Rad	[	164	]	=	1
+	ZHIZAO_ID	[	165	]	=	2751		ZHIZAO_LV	[	165	]	=	60		ZHIZAO_ID1	[	165	]	=	3994		ZHIZAO_ID2	[	165	]	=	1684		ZHIZAO_ID3	[165	]	=	2622		ZHIZAO__Rad	[	165	]	=	1
+	ZHIZAO_ID	[	166	]	=	2759		ZHIZAO_LV	[	166	]	=	60		ZHIZAO_ID1	[	166	]	=	3994		ZHIZAO_ID2	[	166	]	=	4034		ZHIZAO_ID3	[166	]	=	2622		ZHIZAO__Rad	[	166	]	=	1
+	ZHIZAO_ID	[	167	]	=	2766		ZHIZAO_LV	[	167	]	=	60		ZHIZAO_ID1	[	167	]	=	3994		ZHIZAO_ID2	[	167	]	=	1684		ZHIZAO_ID3	[167	]	=	2622		ZHIZAO__Rad	[	167	]	=	1
+	ZHIZAO_ID	[	168	]	=	2746		ZHIZAO_LV	[	168	]	=	60		ZHIZAO_ID1	[	168	]	=	3994		ZHIZAO_ID2	[	168	]	=	4034		ZHIZAO_ID3	[168	]	=	2622		ZHIZAO__Rad	[	168	]	=	1
+	ZHIZAO_ID	[	169	]	=	2236		ZHIZAO_LV	[	169	]	=	70		ZHIZAO_ID1	[	169	]	=	3995		ZHIZAO_ID2	[	169	]	=	2419		ZHIZAO_ID3	[169	]	=	2624		ZHIZAO__Rad	[	169	]	=	5
+	ZHIZAO_ID	[	170	]	=	2236		ZHIZAO_LV	[	170	]	=	70		ZHIZAO_ID1	[	170	]	=	3995		ZHIZAO_ID2	[	170	]	=	4035		ZHIZAO_ID3	[170	]	=	6534		ZHIZAO__Rad	[	170	]	=	5
+	ZHIZAO_ID	[	171	]	=	2236		ZHIZAO_LV	[	171	]	=	70		ZHIZAO_ID1	[	171	]	=	3995		ZHIZAO_ID2	[	171	]	=	2419		ZHIZAO_ID3	[171	]	=	2624		ZHIZAO__Rad	[	171	]	=	5
+	ZHIZAO_ID	[	172	]	=	2236		ZHIZAO_LV	[	172	]	=	70		ZHIZAO_ID1	[	172	]	=	3995		ZHIZAO_ID2	[	172	]	=	4035		ZHIZAO_ID3	[172	]	=	2624		ZHIZAO__Rad	[	172	]	=	5
+	ZHIZAO_ID	[	173	]	=	2769		ZHIZAO_LV	[	173	]	=	70		ZHIZAO_ID1	[	173	]	=	3995		ZHIZAO_ID2	[	173	]	=	2419		ZHIZAO_ID3	[173	]	=	2624		ZHIZAO__Rad	[	173	]	=	1
+	ZHIZAO_ID	[	174	]	=	2379		ZHIZAO_LV	[	174	]	=	70		ZHIZAO_ID1	[	174	]	=	3995		ZHIZAO_ID2	[	174	]	=	2419		ZHIZAO_ID3	[174	]	=	2624		ZHIZAO__Rad	[	174	]	=	1
+	ZHIZAO_ID	[	175	]	=	2769		ZHIZAO_LV	[	175	]	=	70		ZHIZAO_ID1	[	175	]	=	3995		ZHIZAO_ID2	[	175	]	=	4035		ZHIZAO_ID3	[175	]	=	2624		ZHIZAO__Rad	[	175	]	=	1
+	ZHIZAO_ID	[	176	]	=	2778		ZHIZAO_LV	[	176	]	=	70		ZHIZAO_ID1	[	176	]	=	3995		ZHIZAO_ID2	[	176	]	=	2419		ZHIZAO_ID3	[176	]	=	6534		ZHIZAO__Rad	[	176	]	=	1
+	ZHIZAO_ID	[	177	]	=	2777		ZHIZAO_LV	[	177	]	=	70		ZHIZAO_ID1	[	177	]	=	3995		ZHIZAO_ID2	[	177	]	=	4035		ZHIZAO_ID3	[177	]	=	2624		ZHIZAO__Rad	[	177	]	=	1
+	ZHIZAO_ID	[	178	]	=	2768		ZHIZAO_LV	[	178	]	=	70		ZHIZAO_ID1	[	178	]	=	3995		ZHIZAO_ID2	[	178	]	=	2419		ZHIZAO_ID3	[178	]	=	2624		ZHIZAO__Rad	[	178	]	=	1
+	ZHIZAO_ID	[	179	]	=	2767		ZHIZAO_LV	[	179	]	=	70		ZHIZAO_ID1	[	179	]	=	3995		ZHIZAO_ID2	[	179	]	=	2419		ZHIZAO_ID3	[179	]	=	2624		ZHIZAO__Rad	[	179	]	=	1
+	ZHIZAO_ID	[	180	]	=	2767		ZHIZAO_LV	[	180	]	=	70		ZHIZAO_ID1	[	180	]	=	3995		ZHIZAO_ID2	[	180	]	=	2419		ZHIZAO_ID3	[180	]	=	6534		ZHIZAO__Rad	[	180	]	=	1
+	ZHIZAO_ID	[	181	]	=	2770		ZHIZAO_LV	[	181	]	=	70		ZHIZAO_ID1	[	181	]	=	3995		ZHIZAO_ID2	[	181	]	=	4035		ZHIZAO_ID3	[181	]	=	2624		ZHIZAO__Rad	[	181	]	=	1
+	ZHIZAO_ID	[	182	]	=	2782		ZHIZAO_LV	[	182	]	=	70		ZHIZAO_ID1	[	182	]	=	3995		ZHIZAO_ID2	[	182	]	=	2419		ZHIZAO_ID3	[182	]	=	6534		ZHIZAO__Rad	[	182	]	=	1
+	ZHIZAO_ID	[	183	]	=	2782		ZHIZAO_LV	[	183	]	=	70		ZHIZAO_ID1	[	183	]	=	3995		ZHIZAO_ID2	[	183	]	=	4035		ZHIZAO_ID3	[183	]	=	2624		ZHIZAO__Rad	[	183	]	=	1
+	ZHIZAO_ID	[	184	]	=	2784		ZHIZAO_LV	[	184	]	=	70		ZHIZAO_ID1	[	184	]	=	3995		ZHIZAO_ID2	[	184	]	=	2419		ZHIZAO_ID3	[184	]	=	2624		ZHIZAO__Rad	[	184	]	=	1
+	ZHIZAO_ID	[	185	]	=	2785		ZHIZAO_LV	[	185	]	=	70		ZHIZAO_ID1	[	185	]	=	3995		ZHIZAO_ID2	[	185	]	=	2419		ZHIZAO_ID3	[185	]	=	2624		ZHIZAO__Rad	[	185	]	=	1
+	ZHIZAO_ID	[	186	]	=	2771		ZHIZAO_LV	[	186	]	=	70		ZHIZAO_ID1	[	186	]	=	3995		ZHIZAO_ID2	[	186	]	=	4035		ZHIZAO_ID3	[186	]	=	2624		ZHIZAO__Rad	[	186	]	=	1
+	ZHIZAO_ID	[	187	]	=	2789		ZHIZAO_LV	[	187	]	=	70		ZHIZAO_ID1	[	187	]	=	3995		ZHIZAO_ID2	[	187	]	=	2419		ZHIZAO_ID3	[187	]	=	6534		ZHIZAO__Rad	[	187	]	=	1
+	ZHIZAO_ID	[	188	]	=	2789		ZHIZAO_LV	[	188	]	=	70		ZHIZAO_ID1	[	188	]	=	3995		ZHIZAO_ID2	[	188	]	=	4035		ZHIZAO_ID3	[188	]	=	2624		ZHIZAO__Rad	[	188	]	=	1
+	ZHIZAO_ID	[	189	]	=	2772		ZHIZAO_LV	[	189	]	=	70		ZHIZAO_ID1	[	189	]	=	3995		ZHIZAO_ID2	[	189	]	=	2419		ZHIZAO_ID3	[189	]	=	2624		ZHIZAO__Rad	[	189	]	=	1
+	ZHIZAO_ID	[	190	]	=	2773		ZHIZAO_LV	[	190	]	=	70		ZHIZAO_ID1	[	190	]	=	3995		ZHIZAO_ID2	[	190	]	=	4035		ZHIZAO_ID3	[190	]	=	2624		ZHIZAO__Rad	[	190	]	=	1
+	ZHIZAO_ID	[	191	]	=	2774		ZHIZAO_LV	[	191	]	=	70		ZHIZAO_ID1	[	191	]	=	3995		ZHIZAO_ID2	[	191	]	=	2419		ZHIZAO_ID3	[191	]	=	2624		ZHIZAO__Rad	[	191	]	=	1
+	ZHIZAO_ID	[	192	]	=	2775		ZHIZAO_LV	[	192	]	=	70		ZHIZAO_ID1	[	192	]	=	3995		ZHIZAO_ID2	[	192	]	=	4035		ZHIZAO_ID3	[192	]	=	2624		ZHIZAO__Rad	[	192	]	=	1
+	ZHIZAO_ID	[	193	]	=	2775		ZHIZAO_LV	[	193	]	=	70		ZHIZAO_ID1	[	193	]	=	3995		ZHIZAO_ID2	[	193	]	=	2419		ZHIZAO_ID3	[193	]	=	2624		ZHIZAO__Rad	[	193	]	=	1
+	ZHIZAO_ID	[	194	]	=	2783		ZHIZAO_LV	[	194	]	=	70		ZHIZAO_ID1	[	194	]	=	3995		ZHIZAO_ID2	[	194	]	=	4035		ZHIZAO_ID3	[194	]	=	2624		ZHIZAO__Rad	[	194	]	=	1
+	ZHIZAO_ID	[	195	]	=	2790		ZHIZAO_LV	[	195	]	=	70		ZHIZAO_ID1	[	195	]	=	3995		ZHIZAO_ID2	[	195	]	=	2419		ZHIZAO_ID3	[195	]	=	2624		ZHIZAO__Rad	[	195	]	=	1
+	ZHIZAO_ID	[	196	]	=	2770		ZHIZAO_LV	[	196	]	=	70		ZHIZAO_ID1	[	196	]	=	3995		ZHIZAO_ID2	[	196	]	=	4035		ZHIZAO_ID3	[196	]	=	2624		ZHIZAO__Rad	[	196	]	=	1
+	ZHIZAO_ID	[	197	]	=	2236		ZHIZAO_LV	[	197	]	=	80		ZHIZAO_ID1	[	197	]	=	3996		ZHIZAO_ID2	[	197	]	=	1625		ZHIZAO_ID3	[197	]	=	2624		ZHIZAO__Rad	[	197	]	=	5
+	ZHIZAO_ID	[	198	]	=	2236		ZHIZAO_LV	[	198	]	=	80		ZHIZAO_ID1	[	198	]	=	3996		ZHIZAO_ID2	[	198	]	=	4036		ZHIZAO_ID3	[198	]	=	6534		ZHIZAO__Rad	[	198	]	=	5
+	ZHIZAO_ID	[	199	]	=	2236		ZHIZAO_LV	[	199	]	=	80		ZHIZAO_ID1	[	199	]	=	3996		ZHIZAO_ID2	[	199	]	=	1625		ZHIZAO_ID3	[199	]	=	2624		ZHIZAO__Rad	[	199	]	=	5
+	ZHIZAO_ID	[	200	]	=	2236		ZHIZAO_LV	[	200	]	=	80		ZHIZAO_ID1	[	200	]	=	3996		ZHIZAO_ID2	[	200	]	=	4036		ZHIZAO_ID3	[200	]	=	2624		ZHIZAO__Rad	[	200	]	=	5
+	ZHIZAO_ID	[	201	]	=	2793		ZHIZAO_LV	[	201	]	=	80		ZHIZAO_ID1	[	201	]	=	3996		ZHIZAO_ID2	[	201	]	=	1625		ZHIZAO_ID3	[201	]	=	2624		ZHIZAO__Rad	[	201	]	=	1
+	ZHIZAO_ID	[	202	]	=	2380		ZHIZAO_LV	[	202	]	=	80		ZHIZAO_ID1	[	202	]	=	3996		ZHIZAO_ID2	[	202	]	=	4036		ZHIZAO_ID3	[202	]	=	2624		ZHIZAO__Rad	[	202	]	=	1
+	ZHIZAO_ID	[	203	]	=	2793		ZHIZAO_LV	[	203	]	=	80		ZHIZAO_ID1	[	203	]	=	3996		ZHIZAO_ID2	[	203	]	=	1625		ZHIZAO_ID3	[203	]	=	2624		ZHIZAO__Rad	[	203	]	=	1
+	ZHIZAO_ID	[	204	]	=	2802		ZHIZAO_LV	[	204	]	=	80		ZHIZAO_ID1	[	204	]	=	3996		ZHIZAO_ID2	[	204	]	=	4036		ZHIZAO_ID3	[204	]	=	6534		ZHIZAO__Rad	[	204	]	=	1
+	ZHIZAO_ID	[	205	]	=	2801		ZHIZAO_LV	[	205	]	=	80		ZHIZAO_ID1	[	205	]	=	3996		ZHIZAO_ID2	[	205	]	=	1625		ZHIZAO_ID3	[205	]	=	2624		ZHIZAO__Rad	[	205	]	=	1
+	ZHIZAO_ID	[	206	]	=	2792		ZHIZAO_LV	[	206	]	=	80		ZHIZAO_ID1	[	206	]	=	3996		ZHIZAO_ID2	[	206	]	=	4036		ZHIZAO_ID3	[206	]	=	2624		ZHIZAO__Rad	[	206	]	=	1
+	ZHIZAO_ID	[	207	]	=	2791		ZHIZAO_LV	[	207	]	=	80		ZHIZAO_ID1	[	207	]	=	3996		ZHIZAO_ID2	[	207	]	=	1625		ZHIZAO_ID3	[207	]	=	6534		ZHIZAO__Rad	[	207	]	=	1
+	ZHIZAO_ID	[	208	]	=	2791		ZHIZAO_LV	[	208	]	=	80		ZHIZAO_ID1	[	208	]	=	3996		ZHIZAO_ID2	[	208	]	=	4036		ZHIZAO_ID3	[208	]	=	2624		ZHIZAO__Rad	[	208	]	=	1
+	ZHIZAO_ID	[	209	]	=	2794		ZHIZAO_LV	[	209	]	=	80		ZHIZAO_ID1	[	209	]	=	3996		ZHIZAO_ID2	[	209	]	=	1625		ZHIZAO_ID3	[209	]	=	2624		ZHIZAO__Rad	[	209	]	=	1
+	ZHIZAO_ID	[	210	]	=	2806		ZHIZAO_LV	[	210	]	=	80		ZHIZAO_ID1	[	210	]	=	3996		ZHIZAO_ID2	[	210	]	=	4036		ZHIZAO_ID3	[210	]	=	2624		ZHIZAO__Rad	[	210	]	=	1
+	ZHIZAO_ID	[	211	]	=	2806		ZHIZAO_LV	[	211	]	=	80		ZHIZAO_ID1	[	211	]	=	3996		ZHIZAO_ID2	[	211	]	=	1625		ZHIZAO_ID3	[211	]	=	2624		ZHIZAO__Rad	[	211	]	=	1
+	ZHIZAO_ID	[	212	]	=	2808		ZHIZAO_LV	[	212	]	=	80		ZHIZAO_ID1	[	212	]	=	3996		ZHIZAO_ID2	[	212	]	=	4036		ZHIZAO_ID3	[212	]	=	6534		ZHIZAO__Rad	[	212	]	=	1
+	ZHIZAO_ID	[	213	]	=	2809		ZHIZAO_LV	[	213	]	=	80		ZHIZAO_ID1	[	213	]	=	3996		ZHIZAO_ID2	[	213	]	=	1625		ZHIZAO_ID3	[213	]	=	2624		ZHIZAO__Rad	[	213	]	=	1
+	ZHIZAO_ID	[	214	]	=	2795		ZHIZAO_LV	[	214	]	=	80		ZHIZAO_ID1	[	214	]	=	3996		ZHIZAO_ID2	[	214	]	=	4036		ZHIZAO_ID3	[214	]	=	2624		ZHIZAO__Rad	[	214	]	=	1
+	ZHIZAO_ID	[	215	]	=	2796		ZHIZAO_LV	[	215	]	=	80		ZHIZAO_ID1	[	215	]	=	3996		ZHIZAO_ID2	[	215	]	=	1625		ZHIZAO_ID3	[215	]	=	6534		ZHIZAO__Rad	[	215	]	=	1
+	ZHIZAO_ID	[	216	]	=	2813		ZHIZAO_LV	[	216	]	=	80		ZHIZAO_ID1	[	216	]	=	3996		ZHIZAO_ID2	[	216	]	=	4036		ZHIZAO_ID3	[216	]	=	2624		ZHIZAO__Rad	[	216	]	=	1
+	ZHIZAO_ID	[	217	]	=	2796		ZHIZAO_LV	[	217	]	=	80		ZHIZAO_ID1	[	217	]	=	3996		ZHIZAO_ID2	[	217	]	=	1625		ZHIZAO_ID3	[217	]	=	2624		ZHIZAO__Rad	[	217	]	=	1
+	ZHIZAO_ID	[	218	]	=	2797		ZHIZAO_LV	[	218	]	=	80		ZHIZAO_ID1	[	218	]	=	3996		ZHIZAO_ID2	[	218	]	=	4036		ZHIZAO_ID3	[218	]	=	2624		ZHIZAO__Rad	[	218	]	=	1
+	ZHIZAO_ID	[	219	]	=	2798		ZHIZAO_LV	[	219	]	=	80		ZHIZAO_ID1	[	219	]	=	3996		ZHIZAO_ID2	[	219	]	=	1625		ZHIZAO_ID3	[219	]	=	2624		ZHIZAO__Rad	[	219	]	=	1
+	ZHIZAO_ID	[	220	]	=	2799		ZHIZAO_LV	[	220	]	=	80		ZHIZAO_ID1	[	220	]	=	3996		ZHIZAO_ID2	[	220	]	=	4036		ZHIZAO_ID3	[220	]	=	2624		ZHIZAO__Rad	[	220	]	=	1
+	ZHIZAO_ID	[	221	]	=	2799		ZHIZAO_LV	[	221	]	=	80		ZHIZAO_ID1	[	221	]	=	3996		ZHIZAO_ID2	[	221	]	=	1625		ZHIZAO_ID3	[221	]	=	2624		ZHIZAO__Rad	[	221	]	=	1
+	ZHIZAO_ID	[	222	]	=	2807		ZHIZAO_LV	[	222	]	=	80		ZHIZAO_ID1	[	222	]	=	3996		ZHIZAO_ID2	[	222	]	=	4036		ZHIZAO_ID3	[222	]	=	6534		ZHIZAO__Rad	[	222	]	=	1
+	ZHIZAO_ID	[	223	]	=	2814		ZHIZAO_LV	[	223	]	=	80		ZHIZAO_ID1	[	223	]	=	3996		ZHIZAO_ID2	[	223	]	=	1625		ZHIZAO_ID3	[223	]	=	2624		ZHIZAO__Rad	[	223	]	=	1
+	ZHIZAO_ID	[	224	]	=	2794		ZHIZAO_LV	[	224	]	=	80		ZHIZAO_ID1	[	224	]	=	3996		ZHIZAO_ID2	[	224	]	=	4036		ZHIZAO_ID3	[224	]	=	2624		ZHIZAO__Rad	[	224	]	=	1
+	-- ZHIZAO_ID	[	225	]	=	2236		ZHIZAO_LV	[	225	]	=	90		ZHIZAO_ID1	[	225	]	=	3065		ZHIZAO_ID2	[	225	]	=	4007		ZHIZAO_ID3	[225	]	=	2589		ZHIZAO__Rad	[	225	]	=	5
+	-- ZHIZAO_ID	[	226	]	=	2236		ZHIZAO_LV	[	226	]	=	90		ZHIZAO_ID1	[	226	]	=	3065		ZHIZAO_ID2	[	226	]	=	4007		ZHIZAO_ID3	[226	]	=	2589		ZHIZAO__Rad	[	226	]	=	5
+	-- ZHIZAO_ID	[	227	]	=	2236		ZHIZAO_LV	[	227	]	=	90		ZHIZAO_ID1	[	227	]	=	3065		ZHIZAO_ID2	[	227	]	=	4007		ZHIZAO_ID3	[227	]	=	2589		ZHIZAO__Rad	[	227	]	=	5
+	-- ZHIZAO_ID	[	228	]	=	2236		ZHIZAO_LV	[	228	]	=	90		ZHIZAO_ID1	[	228	]	=	3065		ZHIZAO_ID2	[	228	]	=	4007		ZHIZAO_ID3	[228	]	=	2589		ZHIZAO__Rad	[	228	]	=	5
+	-- ZHIZAO_ID	[	229	]	=	2793		ZHIZAO_LV	[	229	]	=	90		ZHIZAO_ID1	[	229	]	=	4037		ZHIZAO_ID2	[	229	]	=	4007		ZHIZAO_ID3	[229	]	=	2607		ZHIZAO__Rad	[	229	]	=	1
+	-- ZHIZAO_ID	[	230	]	=	2380		ZHIZAO_LV	[	230	]	=	90		ZHIZAO_ID1	[	230	]	=	3463		ZHIZAO_ID2	[	230	]	=	4007		ZHIZAO_ID3	[230	]	=	2607		ZHIZAO__Rad	[	230	]	=	1
+	-- ZHIZAO_ID	[	231	]	=	2793		ZHIZAO_LV	[	231	]	=	90		ZHIZAO_ID1	[	231	]	=	4037		ZHIZAO_ID2	[	231	]	=	4007		ZHIZAO_ID3	[231	]	=	2607		ZHIZAO__Rad	[	231	]	=	1
+	-- ZHIZAO_ID	[	232	]	=	2802		ZHIZAO_LV	[	232	]	=	90		ZHIZAO_ID1	[	232	]	=	3463		ZHIZAO_ID2	[	232	]	=	4007		ZHIZAO_ID3	[232	]	=	2607		ZHIZAO__Rad	[	232	]	=	1
+	-- ZHIZAO_ID	[	233	]	=	2801		ZHIZAO_LV	[	233	]	=	90		ZHIZAO_ID1	[	233	]	=	4037		ZHIZAO_ID2	[	233	]	=	4007		ZHIZAO_ID3	[233	]	=	2607		ZHIZAO__Rad	[	233	]	=	1
+	-- ZHIZAO_ID	[	234	]	=	2792		ZHIZAO_LV	[	234	]	=	90		ZHIZAO_ID1	[	234	]	=	3463		ZHIZAO_ID2	[	234	]	=	4007		ZHIZAO_ID3	[234	]	=	2607		ZHIZAO__Rad	[	234	]	=	1
+	-- ZHIZAO_ID	[	235	]	=	2791		ZHIZAO_LV	[	235	]	=	90		ZHIZAO_ID1	[	235	]	=	4037		ZHIZAO_ID2	[	235	]	=	4007		ZHIZAO_ID3	[235	]	=	2607		ZHIZAO__Rad	[	235	]	=	1
+	-- ZHIZAO_ID	[	236	]	=	2791		ZHIZAO_LV	[	236	]	=	90		ZHIZAO_ID1	[	236	]	=	3463		ZHIZAO_ID2	[	236	]	=	4007		ZHIZAO_ID3	[236	]	=	2607		ZHIZAO__Rad	[	236	]	=	1
+	-- ZHIZAO_ID	[	237	]	=	2794		ZHIZAO_LV	[	237	]	=	90		ZHIZAO_ID1	[	237	]	=	4037		ZHIZAO_ID2	[	237	]	=	4007		ZHIZAO_ID3	[237	]	=	2607		ZHIZAO__Rad	[	237	]	=	1
+	-- ZHIZAO_ID	[	238	]	=	2806		ZHIZAO_LV	[	238	]	=	90		ZHIZAO_ID1	[	238	]	=	3463		ZHIZAO_ID2	[	238	]	=	4007		ZHIZAO_ID3	[238	]	=	2607		ZHIZAO__Rad	[	238	]	=	1
+	-- ZHIZAO_ID	[	239	]	=	2806		ZHIZAO_LV	[	239	]	=	90		ZHIZAO_ID1	[	239	]	=	1711		ZHIZAO_ID2	[	239	]	=	4007		ZHIZAO_ID3	[239	]	=	2610		ZHIZAO__Rad	[	239	]	=	1
+	-- ZHIZAO_ID	[	240	]	=	2808		ZHIZAO_LV	[	240	]	=	90		ZHIZAO_ID1	[	240	]	=	1758		ZHIZAO_ID2	[	240	]	=	4007		ZHIZAO_ID3	[240	]	=	2610		ZHIZAO__Rad	[	240	]	=	1
+	-- ZHIZAO_ID	[	241	]	=	2809		ZHIZAO_LV	[	241	]	=	90		ZHIZAO_ID1	[	241	]	=	1711		ZHIZAO_ID2	[	241	]	=	4007		ZHIZAO_ID3	[241	]	=	2610		ZHIZAO__Rad	[	241	]	=	1
+	-- ZHIZAO_ID	[	242	]	=	2795		ZHIZAO_LV	[	242	]	=	90		ZHIZAO_ID1	[	242	]	=	1711		ZHIZAO_ID2	[	242	]	=	4007		ZHIZAO_ID3	[242	]	=	2610		ZHIZAO__Rad	[	242	]	=	1
+	-- ZHIZAO_ID	[	243	]	=	2796		ZHIZAO_LV	[	243	]	=	90		ZHIZAO_ID1	[	243	]	=	1758		ZHIZAO_ID2	[	243	]	=	4007		ZHIZAO_ID3	[243	]	=	2610		ZHIZAO__Rad	[	243	]	=	1
+	-- ZHIZAO_ID	[	244	]	=	2813		ZHIZAO_LV	[	244	]	=	90		ZHIZAO_ID1	[	244	]	=	1711		ZHIZAO_ID2	[	244	]	=	4007		ZHIZAO_ID3	[244	]	=	2610		ZHIZAO__Rad	[	244	]	=	1
+	-- ZHIZAO_ID	[	245	]	=	2796		ZHIZAO_LV	[	245	]	=	90		ZHIZAO_ID1	[	245	]	=	1758		ZHIZAO_ID2	[	245	]	=	4007		ZHIZAO_ID3	[245	]	=	2610		ZHIZAO__Rad	[	245	]	=	1
+	-- ZHIZAO_ID	[	246	]	=	2797		ZHIZAO_LV	[	246	]	=	90		ZHIZAO_ID1	[	246	]	=	1711		ZHIZAO_ID2	[	246	]	=	4007		ZHIZAO_ID3	[246	]	=	2610		ZHIZAO__Rad	[	246	]	=	1
+	-- ZHIZAO_ID	[	247	]	=	2798		ZHIZAO_LV	[	247	]	=	90		ZHIZAO_ID1	[	247	]	=	1758		ZHIZAO_ID2	[	247	]	=	4007		ZHIZAO_ID3	[247	]	=	2610		ZHIZAO__Rad	[	247	]	=	1
+	-- ZHIZAO_ID	[	248	]	=	2799		ZHIZAO_LV	[	248	]	=	90		ZHIZAO_ID1	[	248	]	=	1711		ZHIZAO_ID2	[	248	]	=	4007		ZHIZAO_ID3	[248	]	=	2610		ZHIZAO__Rad	[	248	]	=	1
+	-- ZHIZAO_ID	[	249	]	=	2799		ZHIZAO_LV	[	249	]	=	90		ZHIZAO_ID1	[	249	]	=	1711		ZHIZAO_ID2	[	249	]	=	4007		ZHIZAO_ID3	[249	]	=	2610		ZHIZAO__Rad	[	249	]	=	1
+	-- ZHIZAO_ID	[	250	]	=	2807		ZHIZAO_LV	[	250	]	=	90		ZHIZAO_ID1	[	250	]	=	1758		ZHIZAO_ID2	[	250	]	=	4007		ZHIZAO_ID3	[250	]	=	2610		ZHIZAO__Rad	[	250	]	=	1
+	-- ZHIZAO_ID	[	251	]	=	2814		ZHIZAO_LV	[	251	]	=	90		ZHIZAO_ID1	[	251	]	=	1758		ZHIZAO_ID2	[	251	]	=	4007		ZHIZAO_ID3	[251	]	=	2610		ZHIZAO__Rad	[	251	]	=	1
+	-- ZHIZAO_ID	[	252	]	=	2794		ZHIZAO_LV	[	252	]	=	90		ZHIZAO_ID1	[	252	]	=	1758		ZHIZAO_ID2	[	252	]	=	4007		ZHIZAO_ID3	[252	]	=	2610		ZHIZAO__Rad	[	252	]	=	1
+	-- ZHIZAO_ID	[	253	]	=	2236		ZHIZAO_LV	[	253	]	=	100		ZHIZAO_ID1	[	253	]	=	1797		ZHIZAO_ID2	[	253	]	=	4008		ZHIZAO_ID3	[253	]	=	2665		ZHIZAO__Rad	[	253	]	=	5
+	-- ZHIZAO_ID	[	254	]	=	2236		ZHIZAO_LV	[	254	]	=	100		ZHIZAO_ID1	[	254	]	=	1797		ZHIZAO_ID2	[	254	]	=	4008		ZHIZAO_ID3	[254	]	=	2665		ZHIZAO__Rad	[	254	]	=	5
+	-- ZHIZAO_ID	[	255	]	=	2236		ZHIZAO_LV	[	255	]	=	100		ZHIZAO_ID1	[	255	]	=	1797		ZHIZAO_ID2	[	255	]	=	4008		ZHIZAO_ID3	[255	]	=	2665		ZHIZAO__Rad	[	255	]	=	5
+	-- ZHIZAO_ID	[	256	]	=	2236		ZHIZAO_LV	[	256	]	=	100		ZHIZAO_ID1	[	256	]	=	1797		ZHIZAO_ID2	[	256	]	=	4008		ZHIZAO_ID3	[256	]	=	2665		ZHIZAO__Rad	[	256	]	=	5
+	-- ZHIZAO_ID	[	257	]	=	2793		ZHIZAO_LV	[	257	]	=	100		ZHIZAO_ID1	[	257	]	=	4038		ZHIZAO_ID2	[	257	]	=	4008		ZHIZAO_ID3	[257	]	=	2610		ZHIZAO__Rad	[	257	]	=	1
+	-- ZHIZAO_ID	[	258	]	=	2380		ZHIZAO_LV	[	258	]	=	100		ZHIZAO_ID1	[	258	]	=	4038		ZHIZAO_ID2	[	258	]	=	4008		ZHIZAO_ID3	[258	]	=	2610		ZHIZAO__Rad	[	258	]	=	1
+	-- ZHIZAO_ID	[	259	]	=	2793		ZHIZAO_LV	[	259	]	=	100		ZHIZAO_ID1	[	259	]	=	4038		ZHIZAO_ID2	[	259	]	=	4008		ZHIZAO_ID3	[259	]	=	2610		ZHIZAO__Rad	[	259	]	=	1
+	-- ZHIZAO_ID	[	260	]	=	2802		ZHIZAO_LV	[	260	]	=	100		ZHIZAO_ID1	[	260	]	=	4038		ZHIZAO_ID2	[	260	]	=	4008		ZHIZAO_ID3	[260	]	=	2610		ZHIZAO__Rad	[	260	]	=	1
+	-- ZHIZAO_ID	[	261	]	=	2801		ZHIZAO_LV	[	261	]	=	100		ZHIZAO_ID1	[	261	]	=	4038		ZHIZAO_ID2	[	261	]	=	4008		ZHIZAO_ID3	[261	]	=	2610		ZHIZAO__Rad	[	261	]	=	1
+	-- ZHIZAO_ID	[	262	]	=	2792		ZHIZAO_LV	[	262	]	=	100		ZHIZAO_ID1	[	262	]	=	4038		ZHIZAO_ID2	[	262	]	=	4008		ZHIZAO_ID3	[262	]	=	2610		ZHIZAO__Rad	[	262	]	=	1
+	-- ZHIZAO_ID	[	263	]	=	2791		ZHIZAO_LV	[	263	]	=	100		ZHIZAO_ID1	[	263	]	=	4038		ZHIZAO_ID2	[	263	]	=	4008		ZHIZAO_ID3	[263	]	=	2610		ZHIZAO__Rad	[	263	]	=	1
+	-- ZHIZAO_ID	[	264	]	=	2791		ZHIZAO_LV	[	264	]	=	100		ZHIZAO_ID1	[	264	]	=	4038		ZHIZAO_ID2	[	264	]	=	4008		ZHIZAO_ID3	[264	]	=	2610		ZHIZAO__Rad	[	264	]	=	1
+	-- ZHIZAO_ID	[	265	]	=	2794		ZHIZAO_LV	[	265	]	=	100		ZHIZAO_ID1	[	265	]	=	4038		ZHIZAO_ID2	[	265	]	=	4008		ZHIZAO_ID3	[265	]	=	2610		ZHIZAO__Rad	[	265	]	=	1
+	-- ZHIZAO_ID	[	266	]	=	2806		ZHIZAO_LV	[	266	]	=	100		ZHIZAO_ID1	[	266	]	=	4038		ZHIZAO_ID2	[	266	]	=	4008		ZHIZAO_ID3	[266	]	=	2610		ZHIZAO__Rad	[	266	]	=	1
+	-- ZHIZAO_ID	[	267	]	=	2806		ZHIZAO_LV	[	267	]	=	100		ZHIZAO_ID1	[	267	]	=	1626		ZHIZAO_ID2	[	267	]	=	4008		ZHIZAO_ID3	[267	]	=	2610		ZHIZAO__Rad	[	267	]	=	1
+	-- ZHIZAO_ID	[	268	]	=	2808		ZHIZAO_LV	[	268	]	=	100		ZHIZAO_ID1	[	268	]	=	1626		ZHIZAO_ID2	[	268	]	=	4008		ZHIZAO_ID3	[268	]	=	2610		ZHIZAO__Rad	[	268	]	=	1
+	-- ZHIZAO_ID	[	269	]	=	2809		ZHIZAO_LV	[	269	]	=	100		ZHIZAO_ID1	[	269	]	=	1626		ZHIZAO_ID2	[	269	]	=	4008		ZHIZAO_ID3	[269	]	=	2610		ZHIZAO__Rad	[	269	]	=	1
+	-- ZHIZAO_ID	[	270	]	=	2795		ZHIZAO_LV	[	270	]	=	100		ZHIZAO_ID1	[	270	]	=	1626		ZHIZAO_ID2	[	270	]	=	4008		ZHIZAO_ID3	[270	]	=	2610		ZHIZAO__Rad	[	270	]	=	1
+	-- ZHIZAO_ID	[	271	]	=	2796		ZHIZAO_LV	[	271	]	=	100		ZHIZAO_ID1	[	271	]	=	1626		ZHIZAO_ID2	[	271	]	=	4008		ZHIZAO_ID3	[271	]	=	2610		ZHIZAO__Rad	[	271	]	=	1
+	-- ZHIZAO_ID	[	272	]	=	2813		ZHIZAO_LV	[	272	]	=	100		ZHIZAO_ID1	[	272	]	=	1626		ZHIZAO_ID2	[	272	]	=	4008		ZHIZAO_ID3	[272	]	=	2610		ZHIZAO__Rad	[	272	]	=	1
+	-- ZHIZAO_ID	[	273	]	=	2796		ZHIZAO_LV	[	273	]	=	100		ZHIZAO_ID1	[	273	]	=	1626		ZHIZAO_ID2	[	273	]	=	4008		ZHIZAO_ID3	[273	]	=	2610		ZHIZAO__Rad	[	273	]	=	1
+	-- ZHIZAO_ID	[	274	]	=	2797		ZHIZAO_LV	[	274	]	=	100		ZHIZAO_ID1	[	274	]	=	1626		ZHIZAO_ID2	[	274	]	=	4008		ZHIZAO_ID3	[274	]	=	2610		ZHIZAO__Rad	[	274	]	=	1
+	-- ZHIZAO_ID	[	275	]	=	2798		ZHIZAO_LV	[	275	]	=	100		ZHIZAO_ID1	[	275	]	=	1626		ZHIZAO_ID2	[	275	]	=	4008		ZHIZAO_ID3	[275	]	=	2610		ZHIZAO__Rad	[	275	]	=	1
+	-- ZHIZAO_ID	[	276	]	=	2799		ZHIZAO_LV	[	276	]	=	100		ZHIZAO_ID1	[	276	]	=	1626		ZHIZAO_ID2	[	276	]	=	4008		ZHIZAO_ID3	[276	]	=	2610		ZHIZAO__Rad	[	276	]	=	1
+	-- ZHIZAO_ID	[	277	]	=	2799		ZHIZAO_LV	[	277	]	=	100		ZHIZAO_ID1	[	277	]	=	1626		ZHIZAO_ID2	[	277	]	=	4008		ZHIZAO_ID3	[277	]	=	2610		ZHIZAO__Rad	[	277	]	=	1
+	-- ZHIZAO_ID	[	278	]	=	2807		ZHIZAO_LV	[	278	]	=	100		ZHIZAO_ID1	[	278	]	=	1626		ZHIZAO_ID2	[	278	]	=	4008		ZHIZAO_ID3	[278	]	=	2610		ZHIZAO__Rad	[	278	]	=	1
+	-- ZHIZAO_ID	[	279	]	=	2814		ZHIZAO_LV	[	279	]	=	100		ZHIZAO_ID1	[	279	]	=	1626		ZHIZAO_ID2	[	279	]	=	4008		ZHIZAO_ID3	[279	]	=	2610		ZHIZAO__Rad	[	279	]	=	1
+	-- ZHIZAO_ID	[	280	]	=	2794		ZHIZAO_LV	[	280	]	=	100		ZHIZAO_ID1	[	280	]	=	1626		ZHIZAO_ID2	[	280	]	=	4008		ZHIZAO_ID3	[280	]	=	2610		ZHIZAO__Rad	[	280	]	=	1
+
+
+
+
+																																									
+--	??																																								
+--	????							??????																																	
+	ZHUZAO_Qua	=	5	 				ZHUZAO_Mxcount	=	902																															
+	ZHUZAO_ID	=	{}					ZHUZAO_LV	=	{}					ZHUZAO_ID1	=	{}					ZHUZAO_ID2	=	{}					ZHUZAO_ID3	=	{}					ZHUZAO__Rad	=	{}			
+	ZHUZAO_ID	[	1	]	=	635		ZHUZAO_LV	[	1	]	=	10		ZHUZAO_ID1	[	1	]	=	4029		ZHUZAO_ID2	[	1	]	=	1720		ZHUZAO_ID3	[	1	]	=	2640		ZHUZAO__Rad	[	1	]	=	1
+	ZHUZAO_ID	[	2	]	=	817		ZHUZAO_LV	[	2	]	=	10		ZHUZAO_ID1	[	2	]	=	4029		ZHUZAO_ID2	[	2	]	=	3989		ZHUZAO_ID3	[	2	]	=	2640		ZHUZAO__Rad	[	2	]	=	1
+	ZHUZAO_ID	[	3	]	=	867		ZHUZAO_LV	[	3	]	=	10		ZHUZAO_ID1	[	3	]	=	4029		ZHUZAO_ID2	[	3	]	=	1720		ZHUZAO_ID3	[	3	]	=	2640		ZHUZAO__Rad	[	3	]	=	1
+	ZHUZAO_ID	[	4	]	=	872		ZHUZAO_LV	[	4	]	=	10		ZHUZAO_ID1	[	4	]	=	4029		ZHUZAO_ID2	[	4	]	=	3989		ZHUZAO_ID3	[	4	]	=	2640		ZHUZAO__Rad	[	4	]	=	1
+	ZHUZAO_ID	[	5	]	=	6534		ZHUZAO_LV	[	5	]	=	10		ZHUZAO_ID1	[	5	]	=	4029		ZHUZAO_ID2	[	5	]	=	1720		ZHUZAO_ID3	[	5	]	=	2640		ZHUZAO__Rad	[	5	]	=	1
+	ZHUZAO_ID	[	6	]	=	6534		ZHUZAO_LV	[	6	]	=	10		ZHUZAO_ID1	[	6	]	=	4029		ZHUZAO_ID2	[	6	]	=	3989		ZHUZAO_ID3	[	6	]	=	2640		ZHUZAO__Rad	[	6	]	=	1
+	ZHUZAO_ID	[	7	]	=	6534		ZHUZAO_LV	[	7	]	=	10		ZHUZAO_ID1	[	7	]	=	4029		ZHUZAO_ID2	[	7	]	=	1720		ZHUZAO_ID3	[	7	]	=	2640		ZHUZAO__Rad	[	7	]	=	1
+	ZHUZAO_ID	[	8	]	=	6534		ZHUZAO_LV	[	8	]	=	10		ZHUZAO_ID1	[	8	]	=	4029		ZHUZAO_ID2	[	8	]	=	3989		ZHUZAO_ID3	[	8	]	=	2640		ZHUZAO__Rad	[	8	]	=	1
+	ZHUZAO_ID	[	9	]	=	6534		ZHUZAO_LV	[	9	]	=	10		ZHUZAO_ID1	[	9	]	=	4029		ZHUZAO_ID2	[	9	]	=	1720		ZHUZAO_ID3	[	9	]	=	2640		ZHUZAO__Rad	[	9	]	=	1
+	ZHUZAO_ID	[	10	]	=	6534		ZHUZAO_LV	[	10	]	=	10		ZHUZAO_ID1	[	10	]	=	4029		ZHUZAO_ID2	[	10	]	=	3989		ZHUZAO_ID3	[	10	]	=	2640		ZHUZAO__Rad	[	10	]	=	1
+	ZHUZAO_ID	[	11	]	=	1443		ZHUZAO_LV	[	11	]	=	10		ZHUZAO_ID1	[	11	]	=	4029		ZHUZAO_ID2	[	11	]	=	1720		ZHUZAO_ID3	[	11	]	=	2640		ZHUZAO__Rad	[	11	]	=	1
+	ZHUZAO_ID	[	12	]	=	97		ZHUZAO_LV	[	12	]	=	10		ZHUZAO_ID1	[	12	]	=	4029		ZHUZAO_ID2	[	12	]	=	3989		ZHUZAO_ID3	[	12	]	=	2640		ZHUZAO__Rad	[	12	]	=	1
+	ZHUZAO_ID	[	13	]	=	1427		ZHUZAO_LV	[	13	]	=	10		ZHUZAO_ID1	[	13	]	=	4029		ZHUZAO_ID2	[	13	]	=	1720		ZHUZAO_ID3	[	13	]	=	2640		ZHUZAO__Rad	[	13	]	=	1
+	ZHUZAO_ID	[	14	]	=	1462		ZHUZAO_LV	[	14	]	=	10		ZHUZAO_ID1	[	14	]	=	4029		ZHUZAO_ID2	[	14	]	=	3989		ZHUZAO_ID3	[	14	]	=	2640		ZHUZAO__Rad	[	14	]	=	1
+	ZHUZAO_ID	[	15	]	=	6534		ZHUZAO_LV	[	15	]	=	10		ZHUZAO_ID1	[	15	]	=	4029		ZHUZAO_ID2	[	15	]	=	1720		ZHUZAO_ID3	[	15	]	=	2640		ZHUZAO__Rad	[	15	]	=	1
+	ZHUZAO_ID	[	16	]	=	2202		ZHUZAO_LV	[	16	]	=	10		ZHUZAO_ID1	[	16	]	=	4029		ZHUZAO_ID2	[	16	]	=	3989		ZHUZAO_ID3	[	16	]	=	2640		ZHUZAO__Rad	[	16	]	=	1
+	ZHUZAO_ID	[	17	]	=	2205		ZHUZAO_LV	[	17	]	=	10		ZHUZAO_ID1	[	17	]	=	4029		ZHUZAO_ID2	[	17	]	=	1720		ZHUZAO_ID3	[	17	]	=	2640		ZHUZAO__Rad	[	17	]	=	1
+	ZHUZAO_ID	[	18	]	=	335		ZHUZAO_LV	[	18	]	=	10		ZHUZAO_ID1	[	18	]	=	4029		ZHUZAO_ID2	[	18	]	=	3989		ZHUZAO_ID3	[	18	]	=	2640		ZHUZAO__Rad	[	18	]	=	1
+	ZHUZAO_ID	[	19	]	=	305		ZHUZAO_LV	[	19	]	=	10		ZHUZAO_ID1	[	19	]	=	4029		ZHUZAO_ID2	[	19	]	=	1720		ZHUZAO_ID3	[	19	]	=	2640		ZHUZAO__Rad	[	19	]	=	1
+	ZHUZAO_ID	[	20	]	=	380		ZHUZAO_LV	[	20	]	=	10		ZHUZAO_ID1	[	20	]	=	4029		ZHUZAO_ID2	[	20	]	=	3989		ZHUZAO_ID3	[	20	]	=	2640		ZHUZAO__Rad	[	20	]	=	1
+	ZHUZAO_ID	[	21	]	=	6534		ZHUZAO_LV	[	21	]	=	10		ZHUZAO_ID1	[	21	]	=	4029		ZHUZAO_ID2	[	21	]	=	1720		ZHUZAO_ID3	[	21	]	=	2640		ZHUZAO__Rad	[	21	]	=	1
+	ZHUZAO_ID	[	22	]	=	365		ZHUZAO_LV	[	22	]	=	10		ZHUZAO_ID1	[	22	]	=	4029		ZHUZAO_ID2	[	22	]	=	3989		ZHUZAO_ID3	[	22	]	=	2640		ZHUZAO__Rad	[	22	]	=	1
+	ZHUZAO_ID	[	23	]	=	383		ZHUZAO_LV	[	23	]	=	10		ZHUZAO_ID1	[	23	]	=	4029		ZHUZAO_ID2	[	23	]	=	1720		ZHUZAO_ID3	[	23	]	=	2640		ZHUZAO__Rad	[	23	]	=	1
+	ZHUZAO_ID	[	24	]	=	511		ZHUZAO_LV	[	24	]	=	10		ZHUZAO_ID1	[	24	]	=	4029		ZHUZAO_ID2	[	24	]	=	3989		ZHUZAO_ID3	[	24	]	=	2640		ZHUZAO__Rad	[	24	]	=	1
+	ZHUZAO_ID	[	25	]	=	481		ZHUZAO_LV	[	25	]	=	10		ZHUZAO_ID1	[	25	]	=	4029		ZHUZAO_ID2	[	25	]	=	1720		ZHUZAO_ID3	[	25	]	=	2640		ZHUZAO__Rad	[	25	]	=	1
+	ZHUZAO_ID	[	26	]	=	556		ZHUZAO_LV	[	26	]	=	10		ZHUZAO_ID1	[	26	]	=	4029		ZHUZAO_ID2	[	26	]	=	3989		ZHUZAO_ID3	[	26	]	=	2640		ZHUZAO__Rad	[	26	]	=	1
+	ZHUZAO_ID	[	27	]	=	466		ZHUZAO_LV	[	27	]	=	10		ZHUZAO_ID1	[	27	]	=	4029		ZHUZAO_ID2	[	27	]	=	1720		ZHUZAO_ID3	[	27	]	=	2640		ZHUZAO__Rad	[	27	]	=	1
+	ZHUZAO_ID	[	28	]	=	541		ZHUZAO_LV	[	28	]	=	10		ZHUZAO_ID1	[	28	]	=	4029		ZHUZAO_ID2	[	28	]	=	3989		ZHUZAO_ID3	[	28	]	=	2640		ZHUZAO__Rad	[	28	]	=	1
+	ZHUZAO_ID	[	29	]	=	559		ZHUZAO_LV	[	29	]	=	10		ZHUZAO_ID1	[	29	]	=	4029		ZHUZAO_ID2	[	29	]	=	1720		ZHUZAO_ID3	[	29	]	=	2640		ZHUZAO__Rad	[	29	]	=	1
+	ZHUZAO_ID	[	30	]	=	6534		ZHUZAO_LV	[	30	]	=	10		ZHUZAO_ID1	[	30	]	=	4029		ZHUZAO_ID2	[	30	]	=	3989		ZHUZAO_ID3	[	30	]	=	2640		ZHUZAO__Rad	[	30	]	=	1
+	ZHUZAO_ID	[	31	]	=	657		ZHUZAO_LV	[	31	]	=	10		ZHUZAO_ID1	[	31	]	=	4029		ZHUZAO_ID2	[	31	]	=	1720		ZHUZAO_ID3	[	31	]	=	2640		ZHUZAO__Rad	[	31	]	=	1
+	ZHUZAO_ID	[	32	]	=	732		ZHUZAO_LV	[	32	]	=	10		ZHUZAO_ID1	[	32	]	=	4029		ZHUZAO_ID2	[	32	]	=	3989		ZHUZAO_ID3	[	32	]	=	2640		ZHUZAO__Rad	[	32	]	=	1
+	ZHUZAO_ID	[	33	]	=	6534		ZHUZAO_LV	[	33	]	=	10		ZHUZAO_ID1	[	33	]	=	4029		ZHUZAO_ID2	[	33	]	=	1720		ZHUZAO_ID3	[	33	]	=	2640		ZHUZAO__Rad	[	33	]	=	1
+	ZHUZAO_ID	[	34	]	=	6534		ZHUZAO_LV	[	34	]	=	10		ZHUZAO_ID1	[	34	]	=	4029		ZHUZAO_ID2	[	34	]	=	3989		ZHUZAO_ID3	[	34	]	=	2640		ZHUZAO__Rad	[	34	]	=	1
+	ZHUZAO_ID	[	35	]	=	735		ZHUZAO_LV	[	35	]	=	10		ZHUZAO_ID1	[	35	]	=	4029		ZHUZAO_ID2	[	35	]	=	1720		ZHUZAO_ID3	[	35	]	=	2640		ZHUZAO__Rad	[	35	]	=	1
+	ZHUZAO_ID	[	36	]	=	4666		ZHUZAO_LV	[	36	]	=	15		ZHUZAO_ID1	[	36	]	=	4029		ZHUZAO_ID2	[	36	]	=	3989		ZHUZAO_ID3	[	36	]	=	2640		ZHUZAO__Rad	[	36	]	=	1
+	ZHUZAO_ID	[	37	]	=	4667		ZHUZAO_LV	[	37	]	=	15		ZHUZAO_ID1	[	37	]	=	4029		ZHUZAO_ID2	[	37	]	=	1720		ZHUZAO_ID3	[	37	]	=	2640		ZHUZAO__Rad	[	37	]	=	1
+	ZHUZAO_ID	[	38	]	=	4668		ZHUZAO_LV	[	38	]	=	15		ZHUZAO_ID1	[	38	]	=	4029		ZHUZAO_ID2	[	38	]	=	3989		ZHUZAO_ID3	[	38	]	=	2640		ZHUZAO__Rad	[	38	]	=	1
+	ZHUZAO_ID	[	39	]	=	4669		ZHUZAO_LV	[	39	]	=	15		ZHUZAO_ID1	[	39	]	=	4029		ZHUZAO_ID2	[	39	]	=	1720		ZHUZAO_ID3	[	39	]	=	2640		ZHUZAO__Rad	[	39	]	=	1
+	ZHUZAO_ID	[	40	]	=	4611		ZHUZAO_LV	[	40	]	=	15		ZHUZAO_ID1	[	40	]	=	4029		ZHUZAO_ID2	[	40	]	=	3989		ZHUZAO_ID3	[	40	]	=	2640		ZHUZAO__Rad	[	40	]	=	1
+	ZHUZAO_ID	[	41	]	=	4612		ZHUZAO_LV	[	41	]	=	15		ZHUZAO_ID1	[	41	]	=	4029		ZHUZAO_ID2	[	41	]	=	1720		ZHUZAO_ID3	[	41	]	=	2640		ZHUZAO__Rad	[	41	]	=	1
+	ZHUZAO_ID	[	42	]	=	4613		ZHUZAO_LV	[	42	]	=	15		ZHUZAO_ID1	[	42	]	=	4029		ZHUZAO_ID2	[	42	]	=	3989		ZHUZAO_ID3	[	42	]	=	2640		ZHUZAO__Rad	[	42	]	=	1
+	ZHUZAO_ID	[	43	]	=	4614		ZHUZAO_LV	[	43	]	=	15		ZHUZAO_ID1	[	43	]	=	4029		ZHUZAO_ID2	[	43	]	=	1720		ZHUZAO_ID3	[	43	]	=	2640		ZHUZAO__Rad	[	43	]	=	1
+	ZHUZAO_ID	[	44	]	=	4615		ZHUZAO_LV	[	44	]	=	15		ZHUZAO_ID1	[	44	]	=	4029		ZHUZAO_ID2	[	44	]	=	3989		ZHUZAO_ID3	[	44	]	=	2640		ZHUZAO__Rad	[	44	]	=	1
+	ZHUZAO_ID	[	45	]	=	6534		ZHUZAO_LV	[	45	]	=	15		ZHUZAO_ID1	[	45	]	=	4029		ZHUZAO_ID2	[	45	]	=	1720		ZHUZAO_ID3	[	45	]	=	2640		ZHUZAO__Rad	[	45	]	=	1
+	ZHUZAO_ID	[	46	]	=	1395		ZHUZAO_LV	[	46	]	=	15		ZHUZAO_ID1	[	46	]	=	4029		ZHUZAO_ID2	[	46	]	=	3989		ZHUZAO_ID3	[	46	]	=	2640		ZHUZAO__Rad	[	46	]	=	1
+	ZHUZAO_ID	[	47	]	=	6534		ZHUZAO_LV	[	47	]	=	15		ZHUZAO_ID1	[	47	]	=	4029		ZHUZAO_ID2	[	47	]	=	1720		ZHUZAO_ID3	[	47	]	=	2640		ZHUZAO__Rad	[	47	]	=	1
+	ZHUZAO_ID	[	48	]	=	1370		ZHUZAO_LV	[	48	]	=	15		ZHUZAO_ID1	[	48	]	=	4029		ZHUZAO_ID2	[	48	]	=	3989		ZHUZAO_ID3	[	48	]	=	2640		ZHUZAO__Rad	[	48	]	=	1
+	ZHUZAO_ID	[	49	]	=	1379		ZHUZAO_LV	[	49	]	=	15		ZHUZAO_ID1	[	49	]	=	4029		ZHUZAO_ID2	[	49	]	=	1720		ZHUZAO_ID3	[	49	]	=	2640		ZHUZAO__Rad	[	49	]	=	1
+	ZHUZAO_ID	[	50	]	=	32		ZHUZAO_LV	[	50	]	=	15		ZHUZAO_ID1	[	50	]	=	4029		ZHUZAO_ID2	[	50	]	=	3989		ZHUZAO_ID3	[	50	]	=	2640		ZHUZAO__Rad	[	50	]	=	1
+	ZHUZAO_ID	[	51	]	=	1403		ZHUZAO_LV	[	51	]	=	15		ZHUZAO_ID1	[	51	]	=	4029		ZHUZAO_ID2	[	51	]	=	1720		ZHUZAO_ID3	[	51	]	=	2640		ZHUZAO__Rad	[	51	]	=	1
+	ZHUZAO_ID	[	52	]	=	80		ZHUZAO_LV	[	52	]	=	15		ZHUZAO_ID1	[	52	]	=	4029		ZHUZAO_ID2	[	52	]	=	3989		ZHUZAO_ID3	[	52	]	=	2640		ZHUZAO__Rad	[	52	]	=	1
+	ZHUZAO_ID	[	53	]	=	1422		ZHUZAO_LV	[	53	]	=	15		ZHUZAO_ID1	[	53	]	=	4029		ZHUZAO_ID2	[	53	]	=	1720		ZHUZAO_ID3	[	53	]	=	2640		ZHUZAO__Rad	[	53	]	=	1
+	ZHUZAO_ID	[	54	]	=	1450		ZHUZAO_LV	[	54	]	=	15		ZHUZAO_ID1	[	54	]	=	4029		ZHUZAO_ID2	[	54	]	=	3989		ZHUZAO_ID3	[	54	]	=	2640		ZHUZAO__Rad	[	54	]	=	1
+	ZHUZAO_ID	[	55	]	=	6534		ZHUZAO_LV	[	55	]	=	15		ZHUZAO_ID1	[	55	]	=	4029		ZHUZAO_ID2	[	55	]	=	1720		ZHUZAO_ID3	[	55	]	=	2640		ZHUZAO__Rad	[	55	]	=	1
+	ZHUZAO_ID	[	56	]	=	6534		ZHUZAO_LV	[	56	]	=	15		ZHUZAO_ID1	[	56	]	=	4029		ZHUZAO_ID2	[	56	]	=	3989		ZHUZAO_ID3	[	56	]	=	2640		ZHUZAO__Rad	[	56	]	=	1
+	ZHUZAO_ID	[	57	]	=	1469		ZHUZAO_LV	[	57	]	=	15		ZHUZAO_ID1	[	57	]	=	4029		ZHUZAO_ID2	[	57	]	=	1720		ZHUZAO_ID3	[	57	]	=	2640		ZHUZAO__Rad	[	57	]	=	1
+	ZHUZAO_ID	[	58	]	=	2188		ZHUZAO_LV	[	58	]	=	15		ZHUZAO_ID1	[	58	]	=	4029		ZHUZAO_ID2	[	58	]	=	3989		ZHUZAO_ID3	[	58	]	=	2640		ZHUZAO__Rad	[	58	]	=	1
+	ZHUZAO_ID	[	59	]	=	2196		ZHUZAO_LV	[	59	]	=	15		ZHUZAO_ID1	[	59	]	=	4029		ZHUZAO_ID2	[	59	]	=	1720		ZHUZAO_ID3	[	59	]	=	2640		ZHUZAO__Rad	[	59	]	=	1
+	ZHUZAO_ID	[	60	]	=	311		ZHUZAO_LV	[	60	]	=	15		ZHUZAO_ID1	[	60	]	=	4029		ZHUZAO_ID2	[	60	]	=	3989		ZHUZAO_ID3	[	60	]	=	2640		ZHUZAO__Rad	[	60	]	=	1
+	ZHUZAO_ID	[	61	]	=	351		ZHUZAO_LV	[	61	]	=	15		ZHUZAO_ID1	[	61	]	=	4029		ZHUZAO_ID2	[	61	]	=	1720		ZHUZAO_ID3	[	61	]	=	2640		ZHUZAO__Rad	[	61	]	=	1
+	ZHUZAO_ID	[	62	]	=	336		ZHUZAO_LV	[	62	]	=	15		ZHUZAO_ID1	[	62	]	=	4029		ZHUZAO_ID2	[	62	]	=	3989		ZHUZAO_ID3	[	62	]	=	2640		ZHUZAO__Rad	[	62	]	=	1
+	ZHUZAO_ID	[	63	]	=	372		ZHUZAO_LV	[	63	]	=	15		ZHUZAO_ID1	[	63	]	=	4029		ZHUZAO_ID2	[	63	]	=	1720		ZHUZAO_ID3	[	63	]	=	2640		ZHUZAO__Rad	[	63	]	=	1
+	ZHUZAO_ID	[	64	]	=	359		ZHUZAO_LV	[	64	]	=	15		ZHUZAO_ID1	[	64	]	=	4029		ZHUZAO_ID2	[	64	]	=	3989		ZHUZAO_ID3	[	64	]	=	2640		ZHUZAO__Rad	[	64	]	=	1
+	ZHUZAO_ID	[	65	]	=	296		ZHUZAO_LV	[	65	]	=	15		ZHUZAO_ID1	[	65	]	=	4029		ZHUZAO_ID2	[	65	]	=	1720		ZHUZAO_ID3	[	65	]	=	2640		ZHUZAO__Rad	[	65	]	=	1
+	ZHUZAO_ID	[	66	]	=	489		ZHUZAO_LV	[	66	]	=	15		ZHUZAO_ID1	[	66	]	=	4029		ZHUZAO_ID2	[	66	]	=	3989		ZHUZAO_ID3	[	66	]	=	2640		ZHUZAO__Rad	[	66	]	=	1
+	ZHUZAO_ID	[	67	]	=	527		ZHUZAO_LV	[	67	]	=	15		ZHUZAO_ID1	[	67	]	=	4029		ZHUZAO_ID2	[	67	]	=	1720		ZHUZAO_ID3	[	67	]	=	2640		ZHUZAO__Rad	[	67	]	=	1
+	ZHUZAO_ID	[	68	]	=	512		ZHUZAO_LV	[	68	]	=	15		ZHUZAO_ID1	[	68	]	=	4029		ZHUZAO_ID2	[	68	]	=	3989		ZHUZAO_ID3	[	68	]	=	2640		ZHUZAO__Rad	[	68	]	=	1
+	ZHUZAO_ID	[	69	]	=	548		ZHUZAO_LV	[	69	]	=	15		ZHUZAO_ID1	[	69	]	=	4029		ZHUZAO_ID2	[	69	]	=	1720		ZHUZAO_ID3	[	69	]	=	2640		ZHUZAO__Rad	[	69	]	=	1
+	ZHUZAO_ID	[	70	]	=	535		ZHUZAO_LV	[	70	]	=	15		ZHUZAO_ID1	[	70	]	=	4029		ZHUZAO_ID2	[	70	]	=	3989		ZHUZAO_ID3	[	70	]	=	2640		ZHUZAO__Rad	[	70	]	=	1
+	ZHUZAO_ID	[	71	]	=	472		ZHUZAO_LV	[	71	]	=	15		ZHUZAO_ID1	[	71	]	=	4029		ZHUZAO_ID2	[	71	]	=	1720		ZHUZAO_ID3	[	71	]	=	2640		ZHUZAO__Rad	[	71	]	=	1
+	ZHUZAO_ID	[	72	]	=	663		ZHUZAO_LV	[	72	]	=	15		ZHUZAO_ID1	[	72	]	=	4029		ZHUZAO_ID2	[	72	]	=	3989		ZHUZAO_ID3	[	72	]	=	2640		ZHUZAO__Rad	[	72	]	=	1
+	ZHUZAO_ID	[	73	]	=	703		ZHUZAO_LV	[	73	]	=	15		ZHUZAO_ID1	[	73	]	=	4029		ZHUZAO_ID2	[	73	]	=	1720		ZHUZAO_ID3	[	73	]	=	2640		ZHUZAO__Rad	[	73	]	=	1
+	ZHUZAO_ID	[	74	]	=	688		ZHUZAO_LV	[	74	]	=	15		ZHUZAO_ID1	[	74	]	=	4029		ZHUZAO_ID2	[	74	]	=	3989		ZHUZAO_ID3	[	74	]	=	2640		ZHUZAO__Rad	[	74	]	=	1
+	ZHUZAO_ID	[	75	]	=	724		ZHUZAO_LV	[	75	]	=	15		ZHUZAO_ID1	[	75	]	=	4029		ZHUZAO_ID2	[	75	]	=	1720		ZHUZAO_ID3	[	75	]	=	2640		ZHUZAO__Rad	[	75	]	=	1
+	ZHUZAO_ID	[	76	]	=	711		ZHUZAO_LV	[	76	]	=	15		ZHUZAO_ID1	[	76	]	=	4029		ZHUZAO_ID2	[	76	]	=	3989		ZHUZAO_ID3	[	76	]	=	2640		ZHUZAO__Rad	[	76	]	=	1
+	ZHUZAO_ID	[	77	]	=	648		ZHUZAO_LV	[	77	]	=	15		ZHUZAO_ID1	[	77	]	=	4029		ZHUZAO_ID2	[	77	]	=	1720		ZHUZAO_ID3	[	77	]	=	2640		ZHUZAO__Rad	[	77	]	=	1
+	ZHUZAO_ID	[	78	]	=	4671		ZHUZAO_LV	[	78	]	=	20		ZHUZAO_ID1	[	78	]	=	4030		ZHUZAO_ID2	[	78	]	=	1677		ZHUZAO_ID3	[	78	]	=	2640		ZHUZAO__Rad	[	78	]	=	1
+	ZHUZAO_ID	[	79	]	=	4672		ZHUZAO_LV	[	79	]	=	20		ZHUZAO_ID1	[	79	]	=	4030		ZHUZAO_ID2	[	79	]	=	3990		ZHUZAO_ID3	[	79	]	=	2640		ZHUZAO__Rad	[	79	]	=	1
+	ZHUZAO_ID	[	80	]	=	4673		ZHUZAO_LV	[	80	]	=	20		ZHUZAO_ID1	[	80	]	=	4030		ZHUZAO_ID2	[	80	]	=	1677		ZHUZAO_ID3	[	80	]	=	2640		ZHUZAO__Rad	[	80	]	=	1
+	ZHUZAO_ID	[	81	]	=	4674		ZHUZAO_LV	[	81	]	=	20		ZHUZAO_ID1	[	81	]	=	4030		ZHUZAO_ID2	[	81	]	=	3990		ZHUZAO_ID3	[	81	]	=	2640		ZHUZAO__Rad	[	81	]	=	1
+	ZHUZAO_ID	[	82	]	=	4675		ZHUZAO_LV	[	82	]	=	20		ZHUZAO_ID1	[	82	]	=	4030		ZHUZAO_ID2	[	82	]	=	1677		ZHUZAO_ID3	[	82	]	=	2640		ZHUZAO__Rad	[	82	]	=	1
+	ZHUZAO_ID	[	83	]	=	4616		ZHUZAO_LV	[	83	]	=	20		ZHUZAO_ID1	[	83	]	=	4030		ZHUZAO_ID2	[	83	]	=	3990		ZHUZAO_ID3	[	83	]	=	2640		ZHUZAO__Rad	[	83	]	=	1
+	ZHUZAO_ID	[	84	]	=	4617		ZHUZAO_LV	[	84	]	=	20		ZHUZAO_ID1	[	84	]	=	4030		ZHUZAO_ID2	[	84	]	=	1677		ZHUZAO_ID3	[	84	]	=	2640		ZHUZAO__Rad	[	84	]	=	1
+	ZHUZAO_ID	[	85	]	=	4618		ZHUZAO_LV	[	85	]	=	20		ZHUZAO_ID1	[	85	]	=	4030		ZHUZAO_ID2	[	85	]	=	3990		ZHUZAO_ID3	[	85	]	=	2640		ZHUZAO__Rad	[	85	]	=	1
+	ZHUZAO_ID	[	86	]	=	4619		ZHUZAO_LV	[	86	]	=	20		ZHUZAO_ID1	[	86	]	=	4030		ZHUZAO_ID2	[	86	]	=	1677		ZHUZAO_ID3	[	86	]	=	2640		ZHUZAO__Rad	[	86	]	=	1
+	ZHUZAO_ID	[	87	]	=	4620		ZHUZAO_LV	[	87	]	=	20		ZHUZAO_ID1	[	87	]	=	4030		ZHUZAO_ID2	[	87	]	=	3990		ZHUZAO_ID3	[	87	]	=	2640		ZHUZAO__Rad	[	87	]	=	1
+	ZHUZAO_ID	[	88	]	=	636		ZHUZAO_LV	[	88	]	=	20		ZHUZAO_ID1	[	88	]	=	4030		ZHUZAO_ID2	[	88	]	=	1677		ZHUZAO_ID3	[	88	]	=	2640		ZHUZAO__Rad	[	88	]	=	1
+	ZHUZAO_ID	[	89	]	=	818		ZHUZAO_LV	[	89	]	=	20		ZHUZAO_ID1	[	89	]	=	4030		ZHUZAO_ID2	[	89	]	=	3990		ZHUZAO_ID3	[	89	]	=	2640		ZHUZAO__Rad	[	89	]	=	1
+	ZHUZAO_ID	[	90	]	=	868		ZHUZAO_LV	[	90	]	=	20		ZHUZAO_ID1	[	90	]	=	4030		ZHUZAO_ID2	[	90	]	=	1677		ZHUZAO_ID3	[	90	]	=	2640		ZHUZAO__Rad	[	90	]	=	1
+	ZHUZAO_ID	[	91	]	=	873		ZHUZAO_LV	[	91	]	=	20		ZHUZAO_ID1	[	91	]	=	4030		ZHUZAO_ID2	[	91	]	=	3990		ZHUZAO_ID3	[	91	]	=	2640		ZHUZAO__Rad	[	91	]	=	1
+	ZHUZAO_ID	[	92	]	=	2		ZHUZAO_LV	[	92	]	=	20		ZHUZAO_ID1	[	92	]	=	4030		ZHUZAO_ID2	[	92	]	=	1677		ZHUZAO_ID3	[	92	]	=	2640		ZHUZAO__Rad	[	92	]	=	1
+	ZHUZAO_ID	[	93	]	=	1389		ZHUZAO_LV	[	93	]	=	20		ZHUZAO_ID1	[	93	]	=	4030		ZHUZAO_ID2	[	93	]	=	3990		ZHUZAO_ID3	[	93	]	=	2640		ZHUZAO__Rad	[	93	]	=	1
+	ZHUZAO_ID	[	94	]	=	26		ZHUZAO_LV	[	94	]	=	20		ZHUZAO_ID1	[	94	]	=	4030		ZHUZAO_ID2	[	94	]	=	1677		ZHUZAO_ID3	[	94	]	=	2640		ZHUZAO__Rad	[	94	]	=	1
+	ZHUZAO_ID	[	95	]	=	1401		ZHUZAO_LV	[	95	]	=	20		ZHUZAO_ID1	[	95	]	=	4030		ZHUZAO_ID2	[	95	]	=	3990		ZHUZAO_ID3	[	95	]	=	2640		ZHUZAO__Rad	[	95	]	=	1
+	ZHUZAO_ID	[	96	]	=	74		ZHUZAO_LV	[	96	]	=	20		ZHUZAO_ID1	[	96	]	=	4030		ZHUZAO_ID2	[	96	]	=	1677		ZHUZAO_ID3	[	96	]	=	2640		ZHUZAO__Rad	[	96	]	=	1
+	ZHUZAO_ID	[	97	]	=	1416		ZHUZAO_LV	[	97	]	=	20		ZHUZAO_ID1	[	97	]	=	4030		ZHUZAO_ID2	[	97	]	=	3990		ZHUZAO_ID3	[	97	]	=	2640		ZHUZAO__Rad	[	97	]	=	1
+	ZHUZAO_ID	[	98	]	=	1444		ZHUZAO_LV	[	98	]	=	20		ZHUZAO_ID1	[	98	]	=	4030		ZHUZAO_ID2	[	98	]	=	1677		ZHUZAO_ID3	[	98	]	=	2640		ZHUZAO__Rad	[	98	]	=	1
+	ZHUZAO_ID	[	99	]	=	6534		ZHUZAO_LV	[	99	]	=	20		ZHUZAO_ID1	[	99	]	=	4030		ZHUZAO_ID2	[	99	]	=	3990		ZHUZAO_ID3	[	99	]	=	2640		ZHUZAO__Rad	[	99	]	=	1
+	ZHUZAO_ID	[	100	]	=	1428		ZHUZAO_LV	[	100	]	=	20		ZHUZAO_ID1	[	100	]	=	4030		ZHUZAO_ID2	[	100	]	=	1677		ZHUZAO_ID3	[	100	]	=	2640		ZHUZAO__Rad	[	100	]	=	1
+	ZHUZAO_ID	[	101	]	=	1463		ZHUZAO_LV	[	101	]	=	20		ZHUZAO_ID1	[	101	]	=	4030		ZHUZAO_ID2	[	101	]	=	3990		ZHUZAO_ID3	[	101	]	=	2640		ZHUZAO__Rad	[	101	]	=	1
+	ZHUZAO_ID	[	102	]	=	122		ZHUZAO_LV	[	102	]	=	20		ZHUZAO_ID1	[	102	]	=	4030		ZHUZAO_ID2	[	102	]	=	1677		ZHUZAO_ID3	[	102	]	=	2640		ZHUZAO__Rad	[	102	]	=	1
+	ZHUZAO_ID	[	103	]	=	2208		ZHUZAO_LV	[	103	]	=	20		ZHUZAO_ID1	[	103	]	=	4030		ZHUZAO_ID2	[	103	]	=	3990		ZHUZAO_ID3	[	103	]	=	2640		ZHUZAO__Rad	[	103	]	=	1
+	ZHUZAO_ID	[	104	]	=	2203		ZHUZAO_LV	[	104	]	=	20		ZHUZAO_ID1	[	104	]	=	4030		ZHUZAO_ID2	[	104	]	=	1677		ZHUZAO_ID3	[	104	]	=	2640		ZHUZAO__Rad	[	104	]	=	1
+	ZHUZAO_ID	[	105	]	=	386		ZHUZAO_LV	[	105	]	=	20		ZHUZAO_ID1	[	105	]	=	4030		ZHUZAO_ID2	[	105	]	=	3990		ZHUZAO_ID3	[	105	]	=	2640		ZHUZAO__Rad	[	105	]	=	1
+	ZHUZAO_ID	[	106	]	=	338		ZHUZAO_LV	[	106	]	=	20		ZHUZAO_ID1	[	106	]	=	4030		ZHUZAO_ID2	[	106	]	=	1677		ZHUZAO_ID3	[	106	]	=	2640		ZHUZAO__Rad	[	106	]	=	1
+	ZHUZAO_ID	[	107	]	=	306		ZHUZAO_LV	[	107	]	=	20		ZHUZAO_ID1	[	107	]	=	4030		ZHUZAO_ID2	[	107	]	=	3990		ZHUZAO_ID3	[	107	]	=	2640		ZHUZAO__Rad	[	107	]	=	1
+	ZHUZAO_ID	[	108	]	=	291		ZHUZAO_LV	[	108	]	=	20		ZHUZAO_ID1	[	108	]	=	4030		ZHUZAO_ID2	[	108	]	=	1677		ZHUZAO_ID3	[	108	]	=	2640		ZHUZAO__Rad	[	108	]	=	1
+	ZHUZAO_ID	[	109	]	=	381		ZHUZAO_LV	[	109	]	=	20		ZHUZAO_ID1	[	109	]	=	4030		ZHUZAO_ID2	[	109	]	=	3990		ZHUZAO_ID3	[	109	]	=	2640		ZHUZAO__Rad	[	109	]	=	1
+	ZHUZAO_ID	[	110	]	=	366		ZHUZAO_LV	[	110	]	=	20		ZHUZAO_ID1	[	110	]	=	4030		ZHUZAO_ID2	[	110	]	=	1677		ZHUZAO_ID3	[	110	]	=	2640		ZHUZAO__Rad	[	110	]	=	1
+	ZHUZAO_ID	[	111	]	=	562		ZHUZAO_LV	[	111	]	=	20		ZHUZAO_ID1	[	111	]	=	4030		ZHUZAO_ID2	[	111	]	=	3990		ZHUZAO_ID3	[	111	]	=	2640		ZHUZAO__Rad	[	111	]	=	1
+	ZHUZAO_ID	[	112	]	=	514		ZHUZAO_LV	[	112	]	=	20		ZHUZAO_ID1	[	112	]	=	4030		ZHUZAO_ID2	[	112	]	=	1677		ZHUZAO_ID3	[	112	]	=	2640		ZHUZAO__Rad	[	112	]	=	1
+	ZHUZAO_ID	[	113	]	=	482		ZHUZAO_LV	[	113	]	=	20		ZHUZAO_ID1	[	113	]	=	4030		ZHUZAO_ID2	[	113	]	=	3990		ZHUZAO_ID3	[	113	]	=	2640		ZHUZAO__Rad	[	113	]	=	1
+	ZHUZAO_ID	[	114	]	=	467		ZHUZAO_LV	[	114	]	=	20		ZHUZAO_ID1	[	114	]	=	4030		ZHUZAO_ID2	[	114	]	=	1677		ZHUZAO_ID3	[	114	]	=	2640		ZHUZAO__Rad	[	114	]	=	1
+	ZHUZAO_ID	[	115	]	=	557		ZHUZAO_LV	[	115	]	=	20		ZHUZAO_ID1	[	115	]	=	4030		ZHUZAO_ID2	[	115	]	=	3990		ZHUZAO_ID3	[	115	]	=	2640		ZHUZAO__Rad	[	115	]	=	1
+	ZHUZAO_ID	[	116	]	=	542		ZHUZAO_LV	[	116	]	=	20		ZHUZAO_ID1	[	116	]	=	4030		ZHUZAO_ID2	[	116	]	=	1677		ZHUZAO_ID3	[	116	]	=	2640		ZHUZAO__Rad	[	116	]	=	1
+	ZHUZAO_ID	[	117	]	=	738		ZHUZAO_LV	[	117	]	=	20		ZHUZAO_ID1	[	117	]	=	4030		ZHUZAO_ID2	[	117	]	=	3990		ZHUZAO_ID3	[	117	]	=	2640		ZHUZAO__Rad	[	117	]	=	1
+	ZHUZAO_ID	[	118	]	=	690		ZHUZAO_LV	[	118	]	=	20		ZHUZAO_ID1	[	118	]	=	4030		ZHUZAO_ID2	[	118	]	=	1677		ZHUZAO_ID3	[	118	]	=	2640		ZHUZAO__Rad	[	118	]	=	1
+	ZHUZAO_ID	[	119	]	=	658		ZHUZAO_LV	[	119	]	=	20		ZHUZAO_ID1	[	119	]	=	4030		ZHUZAO_ID2	[	119	]	=	3990		ZHUZAO_ID3	[	119	]	=	2640		ZHUZAO__Rad	[	119	]	=	1
+	ZHUZAO_ID	[	120	]	=	643		ZHUZAO_LV	[	120	]	=	20		ZHUZAO_ID1	[	120	]	=	4030		ZHUZAO_ID2	[	120	]	=	1677		ZHUZAO_ID3	[	120	]	=	2640		ZHUZAO__Rad	[	120	]	=	1
+	ZHUZAO_ID	[	121	]	=	733		ZHUZAO_LV	[	121	]	=	20		ZHUZAO_ID1	[	121	]	=	4030		ZHUZAO_ID2	[	121	]	=	3990		ZHUZAO_ID3	[	121	]	=	2640		ZHUZAO__Rad	[	121	]	=	1
+	ZHUZAO_ID	[	122	]	=	718		ZHUZAO_LV	[	122	]	=	20		ZHUZAO_ID1	[	122	]	=	4030		ZHUZAO_ID2	[	122	]	=	1677		ZHUZAO_ID3	[	122	]	=	2640		ZHUZAO__Rad	[	122	]	=	1
+	ZHUZAO_ID	[	123	]	=	4676		ZHUZAO_LV	[	123	]	=	25		ZHUZAO_ID1	[	123	]	=	4030		ZHUZAO_ID2	[	123	]	=	3990		ZHUZAO_ID3	[	123	]	=	2640		ZHUZAO__Rad	[	123	]	=	1
+	ZHUZAO_ID	[	124	]	=	4677		ZHUZAO_LV	[	124	]	=	25		ZHUZAO_ID1	[	124	]	=	4030		ZHUZAO_ID2	[	124	]	=	1677		ZHUZAO_ID3	[	124	]	=	2640		ZHUZAO__Rad	[	124	]	=	1
+	ZHUZAO_ID	[	125	]	=	4678		ZHUZAO_LV	[	125	]	=	25		ZHUZAO_ID1	[	125	]	=	4030		ZHUZAO_ID2	[	125	]	=	3990		ZHUZAO_ID3	[	125	]	=	2640		ZHUZAO__Rad	[	125	]	=	1
+	ZHUZAO_ID	[	126	]	=	4679		ZHUZAO_LV	[	126	]	=	25		ZHUZAO_ID1	[	126	]	=	4030		ZHUZAO_ID2	[	126	]	=	1677		ZHUZAO_ID3	[	126	]	=	2640		ZHUZAO__Rad	[	126	]	=	1
+	ZHUZAO_ID	[	127	]	=	4621		ZHUZAO_LV	[	127	]	=	25		ZHUZAO_ID1	[	127	]	=	4030		ZHUZAO_ID2	[	127	]	=	3990		ZHUZAO_ID3	[	127	]	=	2640		ZHUZAO__Rad	[	127	]	=	1
+	ZHUZAO_ID	[	128	]	=	4622		ZHUZAO_LV	[	128	]	=	25		ZHUZAO_ID1	[	128	]	=	4030		ZHUZAO_ID2	[	128	]	=	1677		ZHUZAO_ID3	[	128	]	=	2640		ZHUZAO__Rad	[	128	]	=	1
+	ZHUZAO_ID	[	129	]	=	4623		ZHUZAO_LV	[	129	]	=	25		ZHUZAO_ID1	[	129	]	=	4030		ZHUZAO_ID2	[	129	]	=	3990		ZHUZAO_ID3	[	129	]	=	2640		ZHUZAO__Rad	[	129	]	=	1
+	ZHUZAO_ID	[	130	]	=	4624		ZHUZAO_LV	[	130	]	=	25		ZHUZAO_ID1	[	130	]	=	4030		ZHUZAO_ID2	[	130	]	=	1677		ZHUZAO_ID3	[	130	]	=	2640		ZHUZAO__Rad	[	130	]	=	1
+	ZHUZAO_ID	[	131	]	=	4625		ZHUZAO_LV	[	131	]	=	25		ZHUZAO_ID1	[	131	]	=	4030		ZHUZAO_ID2	[	131	]	=	3990		ZHUZAO_ID3	[	131	]	=	2640		ZHUZAO__Rad	[	131	]	=	1
+	ZHUZAO_ID	[	132	]	=	11		ZHUZAO_LV	[	132	]	=	25		ZHUZAO_ID1	[	132	]	=	4030		ZHUZAO_ID2	[	132	]	=	1677		ZHUZAO_ID3	[	132	]	=	2640		ZHUZAO__Rad	[	132	]	=	1
+	ZHUZAO_ID	[	133	]	=	1396		ZHUZAO_LV	[	133	]	=	25		ZHUZAO_ID1	[	133	]	=	4030		ZHUZAO_ID2	[	133	]	=	3990		ZHUZAO_ID3	[	133	]	=	2640		ZHUZAO__Rad	[	133	]	=	1
+	ZHUZAO_ID	[	134	]	=	14		ZHUZAO_LV	[	134	]	=	25		ZHUZAO_ID1	[	134	]	=	4030		ZHUZAO_ID2	[	134	]	=	1677		ZHUZAO_ID3	[	134	]	=	2640		ZHUZAO__Rad	[	134	]	=	1
+	ZHUZAO_ID	[	135	]	=	1371		ZHUZAO_LV	[	135	]	=	25		ZHUZAO_ID1	[	135	]	=	4030		ZHUZAO_ID2	[	135	]	=	3990		ZHUZAO_ID3	[	135	]	=	2640		ZHUZAO__Rad	[	135	]	=	1
+	ZHUZAO_ID	[	136	]	=	1380		ZHUZAO_LV	[	136	]	=	25		ZHUZAO_ID1	[	136	]	=	4030		ZHUZAO_ID2	[	136	]	=	1677		ZHUZAO_ID3	[	136	]	=	2640		ZHUZAO__Rad	[	136	]	=	1
+	ZHUZAO_ID	[	137	]	=	33		ZHUZAO_LV	[	137	]	=	25		ZHUZAO_ID1	[	137	]	=	4030		ZHUZAO_ID2	[	137	]	=	3990		ZHUZAO_ID3	[	137	]	=	2640		ZHUZAO__Rad	[	137	]	=	1
+	ZHUZAO_ID	[	138	]	=	1404		ZHUZAO_LV	[	138	]	=	25		ZHUZAO_ID1	[	138	]	=	4030		ZHUZAO_ID2	[	138	]	=	1677		ZHUZAO_ID3	[	138	]	=	2640		ZHUZAO__Rad	[	138	]	=	1
+	ZHUZAO_ID	[	139	]	=	37		ZHUZAO_LV	[	139	]	=	25		ZHUZAO_ID1	[	139	]	=	4030		ZHUZAO_ID2	[	139	]	=	3990		ZHUZAO_ID3	[	139	]	=	2640		ZHUZAO__Rad	[	139	]	=	1
+	ZHUZAO_ID	[	140	]	=	1406		ZHUZAO_LV	[	140	]	=	25		ZHUZAO_ID1	[	140	]	=	4030		ZHUZAO_ID2	[	140	]	=	1677		ZHUZAO_ID3	[	140	]	=	2640		ZHUZAO__Rad	[	140	]	=	1
+	ZHUZAO_ID	[	141	]	=	81		ZHUZAO_LV	[	141	]	=	25		ZHUZAO_ID1	[	141	]	=	4030		ZHUZAO_ID2	[	141	]	=	3990		ZHUZAO_ID3	[	141	]	=	2640		ZHUZAO__Rad	[	141	]	=	1
+	ZHUZAO_ID	[	142	]	=	1423		ZHUZAO_LV	[	142	]	=	25		ZHUZAO_ID1	[	142	]	=	4030		ZHUZAO_ID2	[	142	]	=	1677		ZHUZAO_ID3	[	142	]	=	2640		ZHUZAO__Rad	[	142	]	=	1
+	ZHUZAO_ID	[	143	]	=	1451		ZHUZAO_LV	[	143	]	=	25		ZHUZAO_ID1	[	143	]	=	4030		ZHUZAO_ID2	[	143	]	=	3990		ZHUZAO_ID3	[	143	]	=	2640		ZHUZAO__Rad	[	143	]	=	1
+	ZHUZAO_ID	[	144	]	=	105		ZHUZAO_LV	[	144	]	=	25		ZHUZAO_ID1	[	144	]	=	4030		ZHUZAO_ID2	[	144	]	=	1677		ZHUZAO_ID3	[	144	]	=	2640		ZHUZAO__Rad	[	144	]	=	1
+	ZHUZAO_ID	[	145	]	=	1435		ZHUZAO_LV	[	145	]	=	25		ZHUZAO_ID1	[	145	]	=	4030		ZHUZAO_ID2	[	145	]	=	3990		ZHUZAO_ID3	[	145	]	=	2640		ZHUZAO__Rad	[	145	]	=	1
+	ZHUZAO_ID	[	146	]	=	1470		ZHUZAO_LV	[	146	]	=	25		ZHUZAO_ID1	[	146	]	=	4030		ZHUZAO_ID2	[	146	]	=	1677		ZHUZAO_ID3	[	146	]	=	2640		ZHUZAO__Rad	[	146	]	=	1
+	ZHUZAO_ID	[	147	]	=	2189		ZHUZAO_LV	[	147	]	=	25		ZHUZAO_ID1	[	147	]	=	4030		ZHUZAO_ID2	[	147	]	=	3990		ZHUZAO_ID3	[	147	]	=	2640		ZHUZAO__Rad	[	147	]	=	1
+	ZHUZAO_ID	[	148	]	=	2197		ZHUZAO_LV	[	148	]	=	25		ZHUZAO_ID1	[	148	]	=	4030		ZHUZAO_ID2	[	148	]	=	1677		ZHUZAO_ID3	[	148	]	=	2640		ZHUZAO__Rad	[	148	]	=	1
+	ZHUZAO_ID	[	149	]	=	313		ZHUZAO_LV	[	149	]	=	25		ZHUZAO_ID1	[	149	]	=	4030		ZHUZAO_ID2	[	149	]	=	3990		ZHUZAO_ID3	[	149	]	=	2640		ZHUZAO__Rad	[	149	]	=	1
+	ZHUZAO_ID	[	150	]	=	352		ZHUZAO_LV	[	150	]	=	25		ZHUZAO_ID1	[	150	]	=	4030		ZHUZAO_ID2	[	150	]	=	1677		ZHUZAO_ID3	[	150	]	=	2640		ZHUZAO__Rad	[	150	]	=	1
+	ZHUZAO_ID	[	151	]	=	337		ZHUZAO_LV	[	151	]	=	25		ZHUZAO_ID1	[	151	]	=	4030		ZHUZAO_ID2	[	151	]	=	3990		ZHUZAO_ID3	[	151	]	=	2640		ZHUZAO__Rad	[	151	]	=	1
+	ZHUZAO_ID	[	152	]	=	360		ZHUZAO_LV	[	152	]	=	25		ZHUZAO_ID1	[	152	]	=	4030		ZHUZAO_ID2	[	152	]	=	1677		ZHUZAO_ID3	[	152	]	=	2640		ZHUZAO__Rad	[	152	]	=	1
+	ZHUZAO_ID	[	153	]	=	297		ZHUZAO_LV	[	153	]	=	25		ZHUZAO_ID1	[	153	]	=	4030		ZHUZAO_ID2	[	153	]	=	3990		ZHUZAO_ID3	[	153	]	=	2640		ZHUZAO__Rad	[	153	]	=	1
+	ZHUZAO_ID	[	154	]	=	373		ZHUZAO_LV	[	154	]	=	25		ZHUZAO_ID1	[	154	]	=	4030		ZHUZAO_ID2	[	154	]	=	1677		ZHUZAO_ID3	[	154	]	=	2640		ZHUZAO__Rad	[	154	]	=	1
+	ZHUZAO_ID	[	155	]	=	487		ZHUZAO_LV	[	155	]	=	25		ZHUZAO_ID1	[	155	]	=	4030		ZHUZAO_ID2	[	155	]	=	3990		ZHUZAO_ID3	[	155	]	=	2640		ZHUZAO__Rad	[	155	]	=	1
+	ZHUZAO_ID	[	156	]	=	528		ZHUZAO_LV	[	156	]	=	25		ZHUZAO_ID1	[	156	]	=	4030		ZHUZAO_ID2	[	156	]	=	1677		ZHUZAO_ID3	[	156	]	=	2640		ZHUZAO__Rad	[	156	]	=	1
+	ZHUZAO_ID	[	157	]	=	513		ZHUZAO_LV	[	157	]	=	25		ZHUZAO_ID1	[	157	]	=	4030		ZHUZAO_ID2	[	157	]	=	3990		ZHUZAO_ID3	[	157	]	=	2640		ZHUZAO__Rad	[	157	]	=	1
+	ZHUZAO_ID	[	158	]	=	536		ZHUZAO_LV	[	158	]	=	25		ZHUZAO_ID1	[	158	]	=	4030		ZHUZAO_ID2	[	158	]	=	1677		ZHUZAO_ID3	[	158	]	=	2640		ZHUZAO__Rad	[	158	]	=	1
+	ZHUZAO_ID	[	159	]	=	473		ZHUZAO_LV	[	159	]	=	25		ZHUZAO_ID1	[	159	]	=	4030		ZHUZAO_ID2	[	159	]	=	3990		ZHUZAO_ID3	[	159	]	=	2640		ZHUZAO__Rad	[	159	]	=	1
+	ZHUZAO_ID	[	160	]	=	549		ZHUZAO_LV	[	160	]	=	25		ZHUZAO_ID1	[	160	]	=	4030		ZHUZAO_ID2	[	160	]	=	1677		ZHUZAO_ID3	[	160	]	=	2640		ZHUZAO__Rad	[	160	]	=	1
+	ZHUZAO_ID	[	161	]	=	665		ZHUZAO_LV	[	161	]	=	25		ZHUZAO_ID1	[	161	]	=	4030		ZHUZAO_ID2	[	161	]	=	3990		ZHUZAO_ID3	[	161	]	=	2640		ZHUZAO__Rad	[	161	]	=	1
+	ZHUZAO_ID	[	162	]	=	704		ZHUZAO_LV	[	162	]	=	25		ZHUZAO_ID1	[	162	]	=	4030		ZHUZAO_ID2	[	162	]	=	1677		ZHUZAO_ID3	[	162	]	=	2640		ZHUZAO__Rad	[	162	]	=	1
+	ZHUZAO_ID	[	163	]	=	689		ZHUZAO_LV	[	163	]	=	25		ZHUZAO_ID1	[	163	]	=	4030		ZHUZAO_ID2	[	163	]	=	3990		ZHUZAO_ID3	[	163	]	=	2640		ZHUZAO__Rad	[	163	]	=	1
+	ZHUZAO_ID	[	164	]	=	712		ZHUZAO_LV	[	164	]	=	25		ZHUZAO_ID1	[	164	]	=	4030		ZHUZAO_ID2	[	164	]	=	1677		ZHUZAO_ID3	[	164	]	=	2640		ZHUZAO__Rad	[	164	]	=	1
+	ZHUZAO_ID	[	165	]	=	649		ZHUZAO_LV	[	165	]	=	25		ZHUZAO_ID1	[	165	]	=	4030		ZHUZAO_ID2	[	165	]	=	3990		ZHUZAO_ID3	[	165	]	=	2640		ZHUZAO__Rad	[	165	]	=	1
+	ZHUZAO_ID	[	166	]	=	725		ZHUZAO_LV	[	166	]	=	25		ZHUZAO_ID1	[	166	]	=	4030		ZHUZAO_ID2	[	166	]	=	1677		ZHUZAO_ID3	[	166	]	=	2640		ZHUZAO__Rad	[	166	]	=	1
+	ZHUZAO_ID	[	167	]	=	4681		ZHUZAO_LV	[	167	]	=	30		ZHUZAO_ID1	[	167	]	=	4031		ZHUZAO_ID2	[	167	]	=	1624		ZHUZAO_ID3	[	167	]	=	2641		ZHUZAO__Rad	[	167	]	=	1
+	ZHUZAO_ID	[	168	]	=	4682		ZHUZAO_LV	[	168	]	=	30		ZHUZAO_ID1	[	168	]	=	4031		ZHUZAO_ID2	[	168	]	=	3991		ZHUZAO_ID3	[	168	]	=	2641		ZHUZAO__Rad	[	168	]	=	1
+	ZHUZAO_ID	[	169	]	=	4683		ZHUZAO_LV	[	169	]	=	30		ZHUZAO_ID1	[	169	]	=	4031		ZHUZAO_ID2	[	169	]	=	1624		ZHUZAO_ID3	[	169	]	=	2641		ZHUZAO__Rad	[	169	]	=	1
+	ZHUZAO_ID	[	170	]	=	4684		ZHUZAO_LV	[	170	]	=	30		ZHUZAO_ID1	[	170	]	=	4031		ZHUZAO_ID2	[	170	]	=	3991		ZHUZAO_ID3	[	170	]	=	2641		ZHUZAO__Rad	[	170	]	=	1
+	ZHUZAO_ID	[	171	]	=	4685		ZHUZAO_LV	[	171	]	=	30		ZHUZAO_ID1	[	171	]	=	4031		ZHUZAO_ID2	[	171	]	=	1624		ZHUZAO_ID3	[	171	]	=	2641		ZHUZAO__Rad	[	171	]	=	1
+	ZHUZAO_ID	[	172	]	=	4626		ZHUZAO_LV	[	172	]	=	30		ZHUZAO_ID1	[	172	]	=	4031		ZHUZAO_ID2	[	172	]	=	3991		ZHUZAO_ID3	[	172	]	=	2641		ZHUZAO__Rad	[	172	]	=	1
+	ZHUZAO_ID	[	173	]	=	4627		ZHUZAO_LV	[	173	]	=	30		ZHUZAO_ID1	[	173	]	=	4031		ZHUZAO_ID2	[	173	]	=	1624		ZHUZAO_ID3	[	173	]	=	2641		ZHUZAO__Rad	[	173	]	=	1
+	ZHUZAO_ID	[	174	]	=	4628		ZHUZAO_LV	[	174	]	=	30		ZHUZAO_ID1	[	174	]	=	4031		ZHUZAO_ID2	[	174	]	=	3991		ZHUZAO_ID3	[	174	]	=	2641		ZHUZAO__Rad	[	174	]	=	1
+	ZHUZAO_ID	[	175	]	=	4629		ZHUZAO_LV	[	175	]	=	30		ZHUZAO_ID1	[	175	]	=	4031		ZHUZAO_ID2	[	175	]	=	1624		ZHUZAO_ID3	[	175	]	=	2641		ZHUZAO__Rad	[	175	]	=	1
+	ZHUZAO_ID	[	176	]	=	4630		ZHUZAO_LV	[	176	]	=	30		ZHUZAO_ID1	[	176	]	=	4031		ZHUZAO_ID2	[	176	]	=	3991		ZHUZAO_ID3	[	176	]	=	2641		ZHUZAO__Rad	[	176	]	=	1
+	ZHUZAO_ID	[	177	]	=	637		ZHUZAO_LV	[	177	]	=	30		ZHUZAO_ID1	[	177	]	=	4031		ZHUZAO_ID2	[	177	]	=	1624		ZHUZAO_ID3	[	177	]	=	2641		ZHUZAO__Rad	[	177	]	=	1
+	ZHUZAO_ID	[	178	]	=	819		ZHUZAO_LV	[	178	]	=	30		ZHUZAO_ID1	[	178	]	=	4031		ZHUZAO_ID2	[	178	]	=	3991		ZHUZAO_ID3	[	178	]	=	2641		ZHUZAO__Rad	[	178	]	=	1
+	ZHUZAO_ID	[	179	]	=	869		ZHUZAO_LV	[	179	]	=	30		ZHUZAO_ID1	[	179	]	=	4031		ZHUZAO_ID2	[	179	]	=	1624		ZHUZAO_ID3	[	179	]	=	2641		ZHUZAO__Rad	[	179	]	=	1
+	ZHUZAO_ID	[	180	]	=	874		ZHUZAO_LV	[	180	]	=	30		ZHUZAO_ID1	[	180	]	=	4031		ZHUZAO_ID2	[	180	]	=	3991		ZHUZAO_ID3	[	180	]	=	2641		ZHUZAO__Rad	[	180	]	=	1
+	ZHUZAO_ID	[	181	]	=	3		ZHUZAO_LV	[	181	]	=	30		ZHUZAO_ID1	[	181	]	=	4031		ZHUZAO_ID2	[	181	]	=	1624		ZHUZAO_ID3	[	181	]	=	2641		ZHUZAO__Rad	[	181	]	=	1
+	ZHUZAO_ID	[	182	]	=	1390		ZHUZAO_LV	[	182	]	=	30		ZHUZAO_ID1	[	182	]	=	4031		ZHUZAO_ID2	[	182	]	=	3991		ZHUZAO_ID3	[	182	]	=	2641		ZHUZAO__Rad	[	182	]	=	1
+	ZHUZAO_ID	[	183	]	=	3798		ZHUZAO_LV	[	183	]	=	30		ZHUZAO_ID1	[	183	]	=	4031		ZHUZAO_ID2	[	183	]	=	1624		ZHUZAO_ID3	[	183	]	=	2641		ZHUZAO__Rad	[	183	]	=	1
+	ZHUZAO_ID	[	184	]	=	27		ZHUZAO_LV	[	184	]	=	30		ZHUZAO_ID1	[	184	]	=	4031		ZHUZAO_ID2	[	184	]	=	3991		ZHUZAO_ID3	[	184	]	=	2641		ZHUZAO__Rad	[	184	]	=	1
+	ZHUZAO_ID	[	185	]	=	1402		ZHUZAO_LV	[	185	]	=	30		ZHUZAO_ID1	[	185	]	=	4031		ZHUZAO_ID2	[	185	]	=	1624		ZHUZAO_ID3	[	185	]	=	2641		ZHUZAO__Rad	[	185	]	=	1
+	ZHUZAO_ID	[	186	]	=	3805		ZHUZAO_LV	[	186	]	=	30		ZHUZAO_ID1	[	186	]	=	4031		ZHUZAO_ID2	[	186	]	=	3991		ZHUZAO_ID3	[	186	]	=	2641		ZHUZAO__Rad	[	186	]	=	1
+	ZHUZAO_ID	[	187	]	=	75		ZHUZAO_LV	[	187	]	=	30		ZHUZAO_ID1	[	187	]	=	4031		ZHUZAO_ID2	[	187	]	=	1624		ZHUZAO_ID3	[	187	]	=	2641		ZHUZAO__Rad	[	187	]	=	1
+	ZHUZAO_ID	[	188	]	=	1417		ZHUZAO_LV	[	188	]	=	30		ZHUZAO_ID1	[	188	]	=	4031		ZHUZAO_ID2	[	188	]	=	3991		ZHUZAO_ID3	[	188	]	=	2641		ZHUZAO__Rad	[	188	]	=	1
+	ZHUZAO_ID	[	189	]	=	1445		ZHUZAO_LV	[	189	]	=	30		ZHUZAO_ID1	[	189	]	=	4031		ZHUZAO_ID2	[	189	]	=	1624		ZHUZAO_ID3	[	189	]	=	2641		ZHUZAO__Rad	[	189	]	=	1
+	ZHUZAO_ID	[	190	]	=	3816		ZHUZAO_LV	[	190	]	=	30		ZHUZAO_ID1	[	190	]	=	4031		ZHUZAO_ID2	[	190	]	=	3991		ZHUZAO_ID3	[	190	]	=	2641		ZHUZAO__Rad	[	190	]	=	1
+	ZHUZAO_ID	[	191	]	=	99		ZHUZAO_LV	[	191	]	=	30		ZHUZAO_ID1	[	191	]	=	4031		ZHUZAO_ID2	[	191	]	=	1624		ZHUZAO_ID3	[	191	]	=	2641		ZHUZAO__Rad	[	191	]	=	1
+	ZHUZAO_ID	[	192	]	=	1429		ZHUZAO_LV	[	192	]	=	30		ZHUZAO_ID1	[	192	]	=	4031		ZHUZAO_ID2	[	192	]	=	3991		ZHUZAO_ID3	[	192	]	=	2641		ZHUZAO__Rad	[	192	]	=	1
+	ZHUZAO_ID	[	193	]	=	1464		ZHUZAO_LV	[	193	]	=	30		ZHUZAO_ID1	[	193	]	=	4031		ZHUZAO_ID2	[	193	]	=	1624		ZHUZAO_ID3	[	193	]	=	2641		ZHUZAO__Rad	[	193	]	=	1
+	ZHUZAO_ID	[	194	]	=	3809		ZHUZAO_LV	[	194	]	=	30		ZHUZAO_ID1	[	194	]	=	4031		ZHUZAO_ID2	[	194	]	=	3991		ZHUZAO_ID3	[	194	]	=	2641		ZHUZAO__Rad	[	194	]	=	1
+	ZHUZAO_ID	[	195	]	=	123		ZHUZAO_LV	[	195	]	=	30		ZHUZAO_ID1	[	195	]	=	4031		ZHUZAO_ID2	[	195	]	=	1624		ZHUZAO_ID3	[	195	]	=	2641		ZHUZAO__Rad	[	195	]	=	1
+	ZHUZAO_ID	[	196	]	=	2187		ZHUZAO_LV	[	196	]	=	30		ZHUZAO_ID1	[	196	]	=	4031		ZHUZAO_ID2	[	196	]	=	3991		ZHUZAO_ID3	[	196	]	=	2641		ZHUZAO__Rad	[	196	]	=	1
+	ZHUZAO_ID	[	197	]	=	2211		ZHUZAO_LV	[	197	]	=	30		ZHUZAO_ID1	[	197	]	=	4031		ZHUZAO_ID2	[	197	]	=	1624		ZHUZAO_ID3	[	197	]	=	2641		ZHUZAO__Rad	[	197	]	=	1
+	ZHUZAO_ID	[	198	]	=	307		ZHUZAO_LV	[	198	]	=	30		ZHUZAO_ID1	[	198	]	=	4031		ZHUZAO_ID2	[	198	]	=	3991		ZHUZAO_ID3	[	198	]	=	2641		ZHUZAO__Rad	[	198	]	=	1
+	ZHUZAO_ID	[	199	]	=	340		ZHUZAO_LV	[	199	]	=	30		ZHUZAO_ID1	[	199	]	=	4031		ZHUZAO_ID2	[	199	]	=	1624		ZHUZAO_ID3	[	199	]	=	2641		ZHUZAO__Rad	[	199	]	=	1
+	ZHUZAO_ID	[	200	]	=	1976		ZHUZAO_LV	[	200	]	=	30		ZHUZAO_ID1	[	200	]	=	4031		ZHUZAO_ID2	[	200	]	=	3991		ZHUZAO_ID3	[	200	]	=	2641		ZHUZAO__Rad	[	200	]	=	1
+	ZHUZAO_ID	[	201	]	=	1943		ZHUZAO_LV	[	201	]	=	30		ZHUZAO_ID1	[	201	]	=	4031		ZHUZAO_ID2	[	201	]	=	1624		ZHUZAO_ID3	[	201	]	=	2641		ZHUZAO__Rad	[	201	]	=	1
+	ZHUZAO_ID	[	202	]	=	350		ZHUZAO_LV	[	202	]	=	30		ZHUZAO_ID1	[	202	]	=	4031		ZHUZAO_ID2	[	202	]	=	3991		ZHUZAO_ID3	[	202	]	=	2641		ZHUZAO__Rad	[	202	]	=	1
+	ZHUZAO_ID	[	203	]	=	1928		ZHUZAO_LV	[	203	]	=	30		ZHUZAO_ID1	[	203	]	=	4031		ZHUZAO_ID2	[	203	]	=	1624		ZHUZAO_ID3	[	203	]	=	2641		ZHUZAO__Rad	[	203	]	=	1
+	ZHUZAO_ID	[	204	]	=	368		ZHUZAO_LV	[	204	]	=	30		ZHUZAO_ID1	[	204	]	=	4031		ZHUZAO_ID2	[	204	]	=	3991		ZHUZAO_ID3	[	204	]	=	2641		ZHUZAO__Rad	[	204	]	=	1
+	ZHUZAO_ID	[	205	]	=	1955		ZHUZAO_LV	[	205	]	=	30		ZHUZAO_ID1	[	205	]	=	4031		ZHUZAO_ID2	[	205	]	=	1624		ZHUZAO_ID3	[	205	]	=	2641		ZHUZAO__Rad	[	205	]	=	1
+	ZHUZAO_ID	[	206	]	=	389		ZHUZAO_LV	[	206	]	=	30		ZHUZAO_ID1	[	206	]	=	4031		ZHUZAO_ID2	[	206	]	=	3991		ZHUZAO_ID3	[	206	]	=	2641		ZHUZAO__Rad	[	206	]	=	1
+	ZHUZAO_ID	[	207	]	=	293		ZHUZAO_LV	[	207	]	=	30		ZHUZAO_ID1	[	207	]	=	4031		ZHUZAO_ID2	[	207	]	=	1624		ZHUZAO_ID3	[	207	]	=	2641		ZHUZAO__Rad	[	207	]	=	1
+	ZHUZAO_ID	[	208	]	=	483		ZHUZAO_LV	[	208	]	=	30		ZHUZAO_ID1	[	208	]	=	4031		ZHUZAO_ID2	[	208	]	=	3991		ZHUZAO_ID3	[	208	]	=	2641		ZHUZAO__Rad	[	208	]	=	1
+	ZHUZAO_ID	[	209	]	=	516		ZHUZAO_LV	[	209	]	=	30		ZHUZAO_ID1	[	209	]	=	4031		ZHUZAO_ID2	[	209	]	=	1624		ZHUZAO_ID3	[	209	]	=	2641		ZHUZAO__Rad	[	209	]	=	1
+	ZHUZAO_ID	[	210	]	=	1980		ZHUZAO_LV	[	210	]	=	30		ZHUZAO_ID1	[	210	]	=	4031		ZHUZAO_ID2	[	210	]	=	3991		ZHUZAO_ID3	[	210	]	=	2641		ZHUZAO__Rad	[	210	]	=	1
+	ZHUZAO_ID	[	211	]	=	1947		ZHUZAO_LV	[	211	]	=	30		ZHUZAO_ID1	[	211	]	=	4031		ZHUZAO_ID2	[	211	]	=	1624		ZHUZAO_ID3	[	211	]	=	2641		ZHUZAO__Rad	[	211	]	=	1
+	ZHUZAO_ID	[	212	]	=	526		ZHUZAO_LV	[	212	]	=	30		ZHUZAO_ID1	[	212	]	=	4031		ZHUZAO_ID2	[	212	]	=	3991		ZHUZAO_ID3	[	212	]	=	2641		ZHUZAO__Rad	[	212	]	=	1
+	ZHUZAO_ID	[	213	]	=	1935		ZHUZAO_LV	[	213	]	=	30		ZHUZAO_ID1	[	213	]	=	4031		ZHUZAO_ID2	[	213	]	=	1624		ZHUZAO_ID3	[	213	]	=	2641		ZHUZAO__Rad	[	213	]	=	1
+	ZHUZAO_ID	[	214	]	=	544		ZHUZAO_LV	[	214	]	=	30		ZHUZAO_ID1	[	214	]	=	4031		ZHUZAO_ID2	[	214	]	=	3991		ZHUZAO_ID3	[	214	]	=	2641		ZHUZAO__Rad	[	214	]	=	1
+	ZHUZAO_ID	[	215	]	=	1962		ZHUZAO_LV	[	215	]	=	30		ZHUZAO_ID1	[	215	]	=	4031		ZHUZAO_ID2	[	215	]	=	1624		ZHUZAO_ID3	[	215	]	=	2641		ZHUZAO__Rad	[	215	]	=	1
+	ZHUZAO_ID	[	216	]	=	565		ZHUZAO_LV	[	216	]	=	30		ZHUZAO_ID1	[	216	]	=	4031		ZHUZAO_ID2	[	216	]	=	3991		ZHUZAO_ID3	[	216	]	=	2641		ZHUZAO__Rad	[	216	]	=	1
+	ZHUZAO_ID	[	217	]	=	469		ZHUZAO_LV	[	217	]	=	30		ZHUZAO_ID1	[	217	]	=	4031		ZHUZAO_ID2	[	217	]	=	1624		ZHUZAO_ID3	[	217	]	=	2641		ZHUZAO__Rad	[	217	]	=	1
+	ZHUZAO_ID	[	218	]	=	659		ZHUZAO_LV	[	218	]	=	30		ZHUZAO_ID1	[	218	]	=	4031		ZHUZAO_ID2	[	218	]	=	3991		ZHUZAO_ID3	[	218	]	=	2641		ZHUZAO__Rad	[	218	]	=	1
+	ZHUZAO_ID	[	219	]	=	692		ZHUZAO_LV	[	219	]	=	30		ZHUZAO_ID1	[	219	]	=	4031		ZHUZAO_ID2	[	219	]	=	1624		ZHUZAO_ID3	[	219	]	=	2641		ZHUZAO__Rad	[	219	]	=	1
+	ZHUZAO_ID	[	220	]	=	1984		ZHUZAO_LV	[	220	]	=	30		ZHUZAO_ID1	[	220	]	=	4031		ZHUZAO_ID2	[	220	]	=	3991		ZHUZAO_ID3	[	220	]	=	2641		ZHUZAO__Rad	[	220	]	=	1
+	ZHUZAO_ID	[	221	]	=	1951		ZHUZAO_LV	[	221	]	=	30		ZHUZAO_ID1	[	221	]	=	4031		ZHUZAO_ID2	[	221	]	=	1624		ZHUZAO_ID3	[	221	]	=	2641		ZHUZAO__Rad	[	221	]	=	1
+	ZHUZAO_ID	[	222	]	=	702		ZHUZAO_LV	[	222	]	=	30		ZHUZAO_ID1	[	222	]	=	4031		ZHUZAO_ID2	[	222	]	=	3991		ZHUZAO_ID3	[	222	]	=	2641		ZHUZAO__Rad	[	222	]	=	1
+	ZHUZAO_ID	[	223	]	=	1939		ZHUZAO_LV	[	223	]	=	30		ZHUZAO_ID1	[	223	]	=	4031		ZHUZAO_ID2	[	223	]	=	1624		ZHUZAO_ID3	[	223	]	=	2641		ZHUZAO__Rad	[	223	]	=	1
+	ZHUZAO_ID	[	224	]	=	720		ZHUZAO_LV	[	224	]	=	30		ZHUZAO_ID1	[	224	]	=	4031		ZHUZAO_ID2	[	224	]	=	3991		ZHUZAO_ID3	[	224	]	=	2641		ZHUZAO__Rad	[	224	]	=	1
+	ZHUZAO_ID	[	225	]	=	1969		ZHUZAO_LV	[	225	]	=	30		ZHUZAO_ID1	[	225	]	=	4031		ZHUZAO_ID2	[	225	]	=	1624		ZHUZAO_ID3	[	225	]	=	2641		ZHUZAO__Rad	[	225	]	=	1
+	ZHUZAO_ID	[	226	]	=	741		ZHUZAO_LV	[	226	]	=	30		ZHUZAO_ID1	[	226	]	=	4031		ZHUZAO_ID2	[	226	]	=	3991		ZHUZAO_ID3	[	226	]	=	2641		ZHUZAO__Rad	[	226	]	=	1
+	ZHUZAO_ID	[	227	]	=	645		ZHUZAO_LV	[	227	]	=	30		ZHUZAO_ID1	[	227	]	=	4031		ZHUZAO_ID2	[	227	]	=	1624		ZHUZAO_ID3	[	227	]	=	2641		ZHUZAO__Rad	[	227	]	=	1
+	ZHUZAO_ID	[	228	]	=	4686		ZHUZAO_LV	[	228	]	=	35		ZHUZAO_ID1	[	228	]	=	4031		ZHUZAO_ID2	[	228	]	=	3991		ZHUZAO_ID3	[	228	]	=	2641		ZHUZAO__Rad	[	228	]	=	1
+	ZHUZAO_ID	[	229	]	=	4687		ZHUZAO_LV	[	229	]	=	35		ZHUZAO_ID1	[	229	]	=	4031		ZHUZAO_ID2	[	229	]	=	1624		ZHUZAO_ID3	[	229	]	=	2641		ZHUZAO__Rad	[	229	]	=	1
+	ZHUZAO_ID	[	230	]	=	4688		ZHUZAO_LV	[	230	]	=	35		ZHUZAO_ID1	[	230	]	=	4031		ZHUZAO_ID2	[	230	]	=	3991		ZHUZAO_ID3	[	230	]	=	2641		ZHUZAO__Rad	[	230	]	=	1
+	ZHUZAO_ID	[	231	]	=	4689		ZHUZAO_LV	[	231	]	=	35		ZHUZAO_ID1	[	231	]	=	4031		ZHUZAO_ID2	[	231	]	=	1624		ZHUZAO_ID3	[	231	]	=	2641		ZHUZAO__Rad	[	231	]	=	1
+	ZHUZAO_ID	[	232	]	=	4631		ZHUZAO_LV	[	232	]	=	35		ZHUZAO_ID1	[	232	]	=	4031		ZHUZAO_ID2	[	232	]	=	3991		ZHUZAO_ID3	[	232	]	=	2641		ZHUZAO__Rad	[	232	]	=	1
+	ZHUZAO_ID	[	233	]	=	4632		ZHUZAO_LV	[	233	]	=	35		ZHUZAO_ID1	[	233	]	=	4031		ZHUZAO_ID2	[	233	]	=	1624		ZHUZAO_ID3	[	233	]	=	2641		ZHUZAO__Rad	[	233	]	=	1
+	ZHUZAO_ID	[	234	]	=	4633		ZHUZAO_LV	[	234	]	=	35		ZHUZAO_ID1	[	234	]	=	4031		ZHUZAO_ID2	[	234	]	=	3991		ZHUZAO_ID3	[	234	]	=	2641		ZHUZAO__Rad	[	234	]	=	1
+	ZHUZAO_ID	[	235	]	=	4634		ZHUZAO_LV	[	235	]	=	35		ZHUZAO_ID1	[	235	]	=	4031		ZHUZAO_ID2	[	235	]	=	1624		ZHUZAO_ID3	[	235	]	=	2641		ZHUZAO__Rad	[	235	]	=	1
+	ZHUZAO_ID	[	236	]	=	4635		ZHUZAO_LV	[	236	]	=	35		ZHUZAO_ID1	[	236	]	=	4031		ZHUZAO_ID2	[	236	]	=	3991		ZHUZAO_ID3	[	236	]	=	2641		ZHUZAO__Rad	[	236	]	=	1
+	ZHUZAO_ID	[	237	]	=	12		ZHUZAO_LV	[	237	]	=	35		ZHUZAO_ID1	[	237	]	=	4031		ZHUZAO_ID2	[	237	]	=	1624		ZHUZAO_ID3	[	237	]	=	2641		ZHUZAO__Rad	[	237	]	=	1
+	ZHUZAO_ID	[	238	]	=	1397		ZHUZAO_LV	[	238	]	=	35		ZHUZAO_ID1	[	238	]	=	4031		ZHUZAO_ID2	[	238	]	=	3991		ZHUZAO_ID3	[	238	]	=	2641		ZHUZAO__Rad	[	238	]	=	1
+	ZHUZAO_ID	[	239	]	=	770		ZHUZAO_LV	[	239	]	=	35		ZHUZAO_ID1	[	239	]	=	4031		ZHUZAO_ID2	[	239	]	=	1624		ZHUZAO_ID3	[	239	]	=	2641		ZHUZAO__Rad	[	239	]	=	1
+	ZHUZAO_ID	[	240	]	=	28		ZHUZAO_LV	[	240	]	=	35		ZHUZAO_ID1	[	240	]	=	4031		ZHUZAO_ID2	[	240	]	=	3991		ZHUZAO_ID3	[	240	]	=	2641		ZHUZAO__Rad	[	240	]	=	1
+	ZHUZAO_ID	[	241	]	=	34		ZHUZAO_LV	[	241	]	=	35		ZHUZAO_ID1	[	241	]	=	4031		ZHUZAO_ID2	[	241	]	=	1624		ZHUZAO_ID3	[	241	]	=	2641		ZHUZAO__Rad	[	241	]	=	1
+	ZHUZAO_ID	[	242	]	=	1405		ZHUZAO_LV	[	242	]	=	35		ZHUZAO_ID1	[	242	]	=	4031		ZHUZAO_ID2	[	242	]	=	3991		ZHUZAO_ID3	[	242	]	=	2641		ZHUZAO__Rad	[	242	]	=	1
+	ZHUZAO_ID	[	243	]	=	38		ZHUZAO_LV	[	243	]	=	35		ZHUZAO_ID1	[	243	]	=	4031		ZHUZAO_ID2	[	243	]	=	1624		ZHUZAO_ID3	[	243	]	=	2641		ZHUZAO__Rad	[	243	]	=	1
+	ZHUZAO_ID	[	244	]	=	781		ZHUZAO_LV	[	244	]	=	35		ZHUZAO_ID1	[	244	]	=	4031		ZHUZAO_ID2	[	244	]	=	3991		ZHUZAO_ID3	[	244	]	=	2641		ZHUZAO__Rad	[	244	]	=	1
+	ZHUZAO_ID	[	245	]	=	1407		ZHUZAO_LV	[	245	]	=	35		ZHUZAO_ID1	[	245	]	=	4031		ZHUZAO_ID2	[	245	]	=	1624		ZHUZAO_ID3	[	245	]	=	2641		ZHUZAO__Rad	[	245	]	=	1
+	ZHUZAO_ID	[	246	]	=	82		ZHUZAO_LV	[	246	]	=	35		ZHUZAO_ID1	[	246	]	=	4031		ZHUZAO_ID2	[	246	]	=	3991		ZHUZAO_ID3	[	246	]	=	2641		ZHUZAO__Rad	[	246	]	=	1
+	ZHUZAO_ID	[	247	]	=	799		ZHUZAO_LV	[	247	]	=	35		ZHUZAO_ID1	[	247	]	=	4031		ZHUZAO_ID2	[	247	]	=	1624		ZHUZAO_ID3	[	247	]	=	2641		ZHUZAO__Rad	[	247	]	=	1
+	ZHUZAO_ID	[	248	]	=	1424		ZHUZAO_LV	[	248	]	=	35		ZHUZAO_ID1	[	248	]	=	4031		ZHUZAO_ID2	[	248	]	=	3991		ZHUZAO_ID3	[	248	]	=	2641		ZHUZAO__Rad	[	248	]	=	1
+	ZHUZAO_ID	[	249	]	=	1452		ZHUZAO_LV	[	249	]	=	35		ZHUZAO_ID1	[	249	]	=	4031		ZHUZAO_ID2	[	249	]	=	1624		ZHUZAO_ID3	[	249	]	=	2641		ZHUZAO__Rad	[	249	]	=	1
+	ZHUZAO_ID	[	250	]	=	106		ZHUZAO_LV	[	250	]	=	35		ZHUZAO_ID1	[	250	]	=	4031		ZHUZAO_ID2	[	250	]	=	3991		ZHUZAO_ID3	[	250	]	=	2641		ZHUZAO__Rad	[	250	]	=	1
+	ZHUZAO_ID	[	251	]	=	785		ZHUZAO_LV	[	251	]	=	35		ZHUZAO_ID1	[	251	]	=	4031		ZHUZAO_ID2	[	251	]	=	1624		ZHUZAO_ID3	[	251	]	=	2641		ZHUZAO__Rad	[	251	]	=	1
+	ZHUZAO_ID	[	252	]	=	1436		ZHUZAO_LV	[	252	]	=	35		ZHUZAO_ID1	[	252	]	=	4031		ZHUZAO_ID2	[	252	]	=	3991		ZHUZAO_ID3	[	252	]	=	2641		ZHUZAO__Rad	[	252	]	=	1
+	ZHUZAO_ID	[	253	]	=	1471		ZHUZAO_LV	[	253	]	=	35		ZHUZAO_ID1	[	253	]	=	4031		ZHUZAO_ID2	[	253	]	=	1624		ZHUZAO_ID3	[	253	]	=	2641		ZHUZAO__Rad	[	253	]	=	1
+	ZHUZAO_ID	[	254	]	=	124		ZHUZAO_LV	[	254	]	=	35		ZHUZAO_ID1	[	254	]	=	4031		ZHUZAO_ID2	[	254	]	=	3991		ZHUZAO_ID3	[	254	]	=	2641		ZHUZAO__Rad	[	254	]	=	1
+	ZHUZAO_ID	[	255	]	=	2191		ZHUZAO_LV	[	255	]	=	35		ZHUZAO_ID1	[	255	]	=	4031		ZHUZAO_ID2	[	255	]	=	1624		ZHUZAO_ID3	[	255	]	=	2641		ZHUZAO__Rad	[	255	]	=	1
+	ZHUZAO_ID	[	256	]	=	2198		ZHUZAO_LV	[	256	]	=	35		ZHUZAO_ID1	[	256	]	=	4031		ZHUZAO_ID2	[	256	]	=	3991		ZHUZAO_ID3	[	256	]	=	2641		ZHUZAO__Rad	[	256	]	=	1
+	ZHUZAO_ID	[	257	]	=	339		ZHUZAO_LV	[	257	]	=	35		ZHUZAO_ID1	[	257	]	=	4031		ZHUZAO_ID2	[	257	]	=	1624		ZHUZAO_ID3	[	257	]	=	2641		ZHUZAO__Rad	[	257	]	=	1
+	ZHUZAO_ID	[	258	]	=	803		ZHUZAO_LV	[	258	]	=	35		ZHUZAO_ID1	[	258	]	=	4031		ZHUZAO_ID2	[	258	]	=	3991		ZHUZAO_ID3	[	258	]	=	2641		ZHUZAO__Rad	[	258	]	=	1
+	ZHUZAO_ID	[	259	]	=	354		ZHUZAO_LV	[	259	]	=	35		ZHUZAO_ID1	[	259	]	=	4031		ZHUZAO_ID2	[	259	]	=	1624		ZHUZAO_ID3	[	259	]	=	2641		ZHUZAO__Rad	[	259	]	=	1
+	ZHUZAO_ID	[	260	]	=	314		ZHUZAO_LV	[	260	]	=	35		ZHUZAO_ID1	[	260	]	=	4031		ZHUZAO_ID2	[	260	]	=	3991		ZHUZAO_ID3	[	260	]	=	2641		ZHUZAO__Rad	[	260	]	=	1
+	ZHUZAO_ID	[	261	]	=	777		ZHUZAO_LV	[	261	]	=	35		ZHUZAO_ID1	[	261	]	=	4031		ZHUZAO_ID2	[	261	]	=	1624		ZHUZAO_ID3	[	261	]	=	2641		ZHUZAO__Rad	[	261	]	=	1
+	ZHUZAO_ID	[	262	]	=	374		ZHUZAO_LV	[	262	]	=	35		ZHUZAO_ID1	[	262	]	=	4031		ZHUZAO_ID2	[	262	]	=	3991		ZHUZAO_ID3	[	262	]	=	2641		ZHUZAO__Rad	[	262	]	=	1
+	ZHUZAO_ID	[	263	]	=	789		ZHUZAO_LV	[	263	]	=	35		ZHUZAO_ID1	[	263	]	=	4031		ZHUZAO_ID2	[	263	]	=	1624		ZHUZAO_ID3	[	263	]	=	2641		ZHUZAO__Rad	[	263	]	=	1
+	ZHUZAO_ID	[	264	]	=	361		ZHUZAO_LV	[	264	]	=	35		ZHUZAO_ID1	[	264	]	=	4031		ZHUZAO_ID2	[	264	]	=	3991		ZHUZAO_ID3	[	264	]	=	2641		ZHUZAO__Rad	[	264	]	=	1
+	ZHUZAO_ID	[	265	]	=	298		ZHUZAO_LV	[	265	]	=	35		ZHUZAO_ID1	[	265	]	=	4031		ZHUZAO_ID2	[	265	]	=	1624		ZHUZAO_ID3	[	265	]	=	2641		ZHUZAO__Rad	[	265	]	=	1
+	ZHUZAO_ID	[	266	]	=	763		ZHUZAO_LV	[	266	]	=	35		ZHUZAO_ID1	[	266	]	=	4031		ZHUZAO_ID2	[	266	]	=	3991		ZHUZAO_ID3	[	266	]	=	2641		ZHUZAO__Rad	[	266	]	=	1
+	ZHUZAO_ID	[	267	]	=	515		ZHUZAO_LV	[	267	]	=	35		ZHUZAO_ID1	[	267	]	=	4031		ZHUZAO_ID2	[	267	]	=	1624		ZHUZAO_ID3	[	267	]	=	2641		ZHUZAO__Rad	[	267	]	=	1
+	ZHUZAO_ID	[	268	]	=	530		ZHUZAO_LV	[	268	]	=	35		ZHUZAO_ID1	[	268	]	=	4031		ZHUZAO_ID2	[	268	]	=	3991		ZHUZAO_ID3	[	268	]	=	2641		ZHUZAO__Rad	[	268	]	=	1
+	ZHUZAO_ID	[	269	]	=	490		ZHUZAO_LV	[	269	]	=	35		ZHUZAO_ID1	[	269	]	=	4031		ZHUZAO_ID2	[	269	]	=	1624		ZHUZAO_ID3	[	269	]	=	2641		ZHUZAO__Rad	[	269	]	=	1
+	ZHUZAO_ID	[	270	]	=	550		ZHUZAO_LV	[	270	]	=	35		ZHUZAO_ID1	[	270	]	=	4031		ZHUZAO_ID2	[	270	]	=	3991		ZHUZAO_ID3	[	270	]	=	2641		ZHUZAO__Rad	[	270	]	=	1
+	ZHUZAO_ID	[	271	]	=	537		ZHUZAO_LV	[	271	]	=	35		ZHUZAO_ID1	[	271	]	=	4031		ZHUZAO_ID2	[	271	]	=	1624		ZHUZAO_ID3	[	271	]	=	2641		ZHUZAO__Rad	[	271	]	=	1
+	ZHUZAO_ID	[	272	]	=	474		ZHUZAO_LV	[	272	]	=	35		ZHUZAO_ID1	[	272	]	=	4031		ZHUZAO_ID2	[	272	]	=	3991		ZHUZAO_ID3	[	272	]	=	2641		ZHUZAO__Rad	[	272	]	=	1
+	ZHUZAO_ID	[	273	]	=	691		ZHUZAO_LV	[	273	]	=	35		ZHUZAO_ID1	[	273	]	=	4031		ZHUZAO_ID2	[	273	]	=	1624		ZHUZAO_ID3	[	273	]	=	2641		ZHUZAO__Rad	[	273	]	=	1
+	ZHUZAO_ID	[	274	]	=	706		ZHUZAO_LV	[	274	]	=	35		ZHUZAO_ID1	[	274	]	=	4031		ZHUZAO_ID2	[	274	]	=	3991		ZHUZAO_ID3	[	274	]	=	2641		ZHUZAO__Rad	[	274	]	=	1
+	ZHUZAO_ID	[	275	]	=	666		ZHUZAO_LV	[	275	]	=	35		ZHUZAO_ID1	[	275	]	=	4031		ZHUZAO_ID2	[	275	]	=	1624		ZHUZAO_ID3	[	275	]	=	2641		ZHUZAO__Rad	[	275	]	=	1
+	ZHUZAO_ID	[	276	]	=	726		ZHUZAO_LV	[	276	]	=	35		ZHUZAO_ID1	[	276	]	=	4031		ZHUZAO_ID2	[	276	]	=	3991		ZHUZAO_ID3	[	276	]	=	2641		ZHUZAO__Rad	[	276	]	=	1
+	ZHUZAO_ID	[	277	]	=	713		ZHUZAO_LV	[	277	]	=	35		ZHUZAO_ID1	[	277	]	=	4031		ZHUZAO_ID2	[	277	]	=	1624		ZHUZAO_ID3	[	277	]	=	2641		ZHUZAO__Rad	[	277	]	=	1
+	ZHUZAO_ID	[	278	]	=	650		ZHUZAO_LV	[	278	]	=	35		ZHUZAO_ID1	[	278	]	=	4031		ZHUZAO_ID2	[	278	]	=	3991		ZHUZAO_ID3	[	278	]	=	2641		ZHUZAO__Rad	[	278	]	=	1
+	ZHUZAO_ID	[	279	]	=	739		ZHUZAO_LV	[	279	]	=	40		ZHUZAO_ID1	[	279	]	=	4032		ZHUZAO_ID2	[	279	]	=	1715		ZHUZAO_ID3	[	279	]	=	2641		ZHUZAO__Rad	[	279	]	=	1
+	ZHUZAO_ID	[	280	]	=	4691		ZHUZAO_LV	[	280	]	=	40		ZHUZAO_ID1	[	280	]	=	4032		ZHUZAO_ID2	[	280	]	=	3992		ZHUZAO_ID3	[	280	]	=	2641		ZHUZAO__Rad	[	280	]	=	1
+	ZHUZAO_ID	[	281	]	=	4692		ZHUZAO_LV	[	281	]	=	40		ZHUZAO_ID1	[	281	]	=	4032		ZHUZAO_ID2	[	281	]	=	1715		ZHUZAO_ID3	[	281	]	=	2641		ZHUZAO__Rad	[	281	]	=	1
+	ZHUZAO_ID	[	282	]	=	4693		ZHUZAO_LV	[	282	]	=	40		ZHUZAO_ID1	[	282	]	=	4032		ZHUZAO_ID2	[	282	]	=	3992		ZHUZAO_ID3	[	282	]	=	2641		ZHUZAO__Rad	[	282	]	=	1
+	ZHUZAO_ID	[	283	]	=	4694		ZHUZAO_LV	[	283	]	=	40		ZHUZAO_ID1	[	283	]	=	4032		ZHUZAO_ID2	[	283	]	=	1715		ZHUZAO_ID3	[	283	]	=	2641		ZHUZAO__Rad	[	283	]	=	1
+	ZHUZAO_ID	[	284	]	=	1121		ZHUZAO_LV	[	284	]	=	40		ZHUZAO_ID1	[	284	]	=	4032		ZHUZAO_ID2	[	284	]	=	3992		ZHUZAO_ID3	[	284	]	=	2641		ZHUZAO__Rad	[	284	]	=	1
+	ZHUZAO_ID	[	285	]	=	1122		ZHUZAO_LV	[	285	]	=	40		ZHUZAO_ID1	[	285	]	=	4032		ZHUZAO_ID2	[	285	]	=	1715		ZHUZAO_ID3	[	285	]	=	2641		ZHUZAO__Rad	[	285	]	=	1
+	ZHUZAO_ID	[	286	]	=	1120		ZHUZAO_LV	[	286	]	=	40		ZHUZAO_ID1	[	286	]	=	4032		ZHUZAO_ID2	[	286	]	=	3992		ZHUZAO_ID3	[	286	]	=	2641		ZHUZAO__Rad	[	286	]	=	1
+	ZHUZAO_ID	[	287	]	=	4695		ZHUZAO_LV	[	287	]	=	40		ZHUZAO_ID1	[	287	]	=	4032		ZHUZAO_ID2	[	287	]	=	1715		ZHUZAO_ID3	[	287	]	=	2641		ZHUZAO__Rad	[	287	]	=	1
+	ZHUZAO_ID	[	288	]	=	4636		ZHUZAO_LV	[	288	]	=	40		ZHUZAO_ID1	[	288	]	=	4032		ZHUZAO_ID2	[	288	]	=	3992		ZHUZAO_ID3	[	288	]	=	2641		ZHUZAO__Rad	[	288	]	=	1
+	ZHUZAO_ID	[	289	]	=	4637		ZHUZAO_LV	[	289	]	=	40		ZHUZAO_ID1	[	289	]	=	4032		ZHUZAO_ID2	[	289	]	=	1715		ZHUZAO_ID3	[	289	]	=	2641		ZHUZAO__Rad	[	289	]	=	1
+	ZHUZAO_ID	[	290	]	=	4638		ZHUZAO_LV	[	290	]	=	40		ZHUZAO_ID1	[	290	]	=	4032		ZHUZAO_ID2	[	290	]	=	3992		ZHUZAO_ID3	[	290	]	=	2641		ZHUZAO__Rad	[	290	]	=	1
+	ZHUZAO_ID	[	291	]	=	4639		ZHUZAO_LV	[	291	]	=	40		ZHUZAO_ID1	[	291	]	=	4032		ZHUZAO_ID2	[	291	]	=	1715		ZHUZAO_ID3	[	291	]	=	2641		ZHUZAO__Rad	[	291	]	=	1
+	ZHUZAO_ID	[	292	]	=	4640		ZHUZAO_LV	[	292	]	=	40		ZHUZAO_ID1	[	292	]	=	4032		ZHUZAO_ID2	[	292	]	=	3992		ZHUZAO_ID3	[	292	]	=	2641		ZHUZAO__Rad	[	292	]	=	1
+	ZHUZAO_ID	[	293	]	=	638		ZHUZAO_LV	[	293	]	=	40		ZHUZAO_ID1	[	293	]	=	4032		ZHUZAO_ID2	[	293	]	=	1715		ZHUZAO_ID3	[	293	]	=	2641		ZHUZAO__Rad	[	293	]	=	1
+	ZHUZAO_ID	[	294	]	=	820		ZHUZAO_LV	[	294	]	=	40		ZHUZAO_ID1	[	294	]	=	4032		ZHUZAO_ID2	[	294	]	=	3992		ZHUZAO_ID3	[	294	]	=	2641		ZHUZAO__Rad	[	294	]	=	1
+	ZHUZAO_ID	[	295	]	=	870		ZHUZAO_LV	[	295	]	=	40		ZHUZAO_ID1	[	295	]	=	4032		ZHUZAO_ID2	[	295	]	=	1715		ZHUZAO_ID3	[	295	]	=	2641		ZHUZAO__Rad	[	295	]	=	1
+	ZHUZAO_ID	[	296	]	=	875		ZHUZAO_LV	[	296	]	=	40		ZHUZAO_ID1	[	296	]	=	4032		ZHUZAO_ID2	[	296	]	=	3992		ZHUZAO_ID3	[	296	]	=	2641		ZHUZAO__Rad	[	296	]	=	1
+	ZHUZAO_ID	[	297	]	=	885		ZHUZAO_LV	[	297	]	=	40		ZHUZAO_ID1	[	297	]	=	4032		ZHUZAO_ID2	[	297	]	=	1715		ZHUZAO_ID3	[	297	]	=	2641		ZHUZAO__Rad	[	297	]	=	1
+	ZHUZAO_ID	[	298	]	=	4		ZHUZAO_LV	[	298	]	=	40		ZHUZAO_ID1	[	298	]	=	4032		ZHUZAO_ID2	[	298	]	=	3992		ZHUZAO_ID3	[	298	]	=	2641		ZHUZAO__Rad	[	298	]	=	1
+	ZHUZAO_ID	[	299	]	=	1391		ZHUZAO_LV	[	299	]	=	40		ZHUZAO_ID1	[	299	]	=	4032		ZHUZAO_ID2	[	299	]	=	1715		ZHUZAO_ID3	[	299	]	=	2641		ZHUZAO__Rad	[	299	]	=	1
+	ZHUZAO_ID	[	300	]	=	3799		ZHUZAO_LV	[	300	]	=	40		ZHUZAO_ID1	[	300	]	=	4032		ZHUZAO_ID2	[	300	]	=	3992		ZHUZAO_ID3	[	300	]	=	2641		ZHUZAO__Rad	[	300	]	=	1
+	ZHUZAO_ID	[	301	]	=	15		ZHUZAO_LV	[	301	]	=	40		ZHUZAO_ID1	[	301	]	=	4032		ZHUZAO_ID2	[	301	]	=	1715		ZHUZAO_ID3	[	301	]	=	2641		ZHUZAO__Rad	[	301	]	=	1
+	ZHUZAO_ID	[	302	]	=	1372		ZHUZAO_LV	[	302	]	=	40		ZHUZAO_ID1	[	302	]	=	4032		ZHUZAO_ID2	[	302	]	=	3992		ZHUZAO_ID3	[	302	]	=	2641		ZHUZAO__Rad	[	302	]	=	1
+	ZHUZAO_ID	[	303	]	=	1381		ZHUZAO_LV	[	303	]	=	40		ZHUZAO_ID1	[	303	]	=	4032		ZHUZAO_ID2	[	303	]	=	1715		ZHUZAO_ID3	[	303	]	=	2641		ZHUZAO__Rad	[	303	]	=	1
+	ZHUZAO_ID	[	304	]	=	3802		ZHUZAO_LV	[	304	]	=	40		ZHUZAO_ID1	[	304	]	=	4032		ZHUZAO_ID2	[	304	]	=	3992		ZHUZAO_ID3	[	304	]	=	2641		ZHUZAO__Rad	[	304	]	=	1
+	ZHUZAO_ID	[	305	]	=	39		ZHUZAO_LV	[	305	]	=	40		ZHUZAO_ID1	[	305	]	=	4032		ZHUZAO_ID2	[	305	]	=	1715		ZHUZAO_ID3	[	305	]	=	2641		ZHUZAO__Rad	[	305	]	=	1
+	ZHUZAO_ID	[	306	]	=	1408		ZHUZAO_LV	[	306	]	=	40		ZHUZAO_ID1	[	306	]	=	4032		ZHUZAO_ID2	[	306	]	=	3992		ZHUZAO_ID3	[	306	]	=	2641		ZHUZAO__Rad	[	306	]	=	1
+	ZHUZAO_ID	[	307	]	=	3806		ZHUZAO_LV	[	307	]	=	40		ZHUZAO_ID1	[	307	]	=	4032		ZHUZAO_ID2	[	307	]	=	1715		ZHUZAO_ID3	[	307	]	=	2641		ZHUZAO__Rad	[	307	]	=	1
+	ZHUZAO_ID	[	308	]	=	76		ZHUZAO_LV	[	308	]	=	40		ZHUZAO_ID1	[	308	]	=	4032		ZHUZAO_ID2	[	308	]	=	3992		ZHUZAO_ID3	[	308	]	=	2641		ZHUZAO__Rad	[	308	]	=	1
+	ZHUZAO_ID	[	309	]	=	1418		ZHUZAO_LV	[	309	]	=	40		ZHUZAO_ID1	[	309	]	=	4032		ZHUZAO_ID2	[	309	]	=	1715		ZHUZAO_ID3	[	309	]	=	2641		ZHUZAO__Rad	[	309	]	=	1
+	ZHUZAO_ID	[	310	]	=	1446		ZHUZAO_LV	[	310	]	=	40		ZHUZAO_ID1	[	310	]	=	4032		ZHUZAO_ID2	[	310	]	=	3992		ZHUZAO_ID3	[	310	]	=	2641		ZHUZAO__Rad	[	310	]	=	1
+	ZHUZAO_ID	[	311	]	=	3817		ZHUZAO_LV	[	311	]	=	40		ZHUZAO_ID1	[	311	]	=	4032		ZHUZAO_ID2	[	311	]	=	1715		ZHUZAO_ID3	[	311	]	=	2641		ZHUZAO__Rad	[	311	]	=	1
+	ZHUZAO_ID	[	312	]	=	100		ZHUZAO_LV	[	312	]	=	40		ZHUZAO_ID1	[	312	]	=	4032		ZHUZAO_ID2	[	312	]	=	3992		ZHUZAO_ID3	[	312	]	=	2641		ZHUZAO__Rad	[	312	]	=	1
+	ZHUZAO_ID	[	313	]	=	101		ZHUZAO_LV	[	313	]	=	40		ZHUZAO_ID1	[	313	]	=	4032		ZHUZAO_ID2	[	313	]	=	1715		ZHUZAO_ID3	[	313	]	=	2641		ZHUZAO__Rad	[	313	]	=	1
+	ZHUZAO_ID	[	314	]	=	1430		ZHUZAO_LV	[	314	]	=	40		ZHUZAO_ID1	[	314	]	=	4032		ZHUZAO_ID2	[	314	]	=	3992		ZHUZAO_ID3	[	314	]	=	2641		ZHUZAO__Rad	[	314	]	=	1
+	ZHUZAO_ID	[	315	]	=	1431		ZHUZAO_LV	[	315	]	=	40		ZHUZAO_ID1	[	315	]	=	4032		ZHUZAO_ID2	[	315	]	=	1715		ZHUZAO_ID3	[	315	]	=	2641		ZHUZAO__Rad	[	315	]	=	1
+	ZHUZAO_ID	[	316	]	=	1465		ZHUZAO_LV	[	316	]	=	40		ZHUZAO_ID1	[	316	]	=	4032		ZHUZAO_ID2	[	316	]	=	3992		ZHUZAO_ID3	[	316	]	=	2641		ZHUZAO__Rad	[	316	]	=	1
+	ZHUZAO_ID	[	317	]	=	1466		ZHUZAO_LV	[	317	]	=	40		ZHUZAO_ID1	[	317	]	=	4032		ZHUZAO_ID2	[	317	]	=	1715		ZHUZAO_ID3	[	317	]	=	2641		ZHUZAO__Rad	[	317	]	=	1
+	ZHUZAO_ID	[	318	]	=	3810		ZHUZAO_LV	[	318	]	=	40		ZHUZAO_ID1	[	318	]	=	4032		ZHUZAO_ID2	[	318	]	=	3992		ZHUZAO_ID3	[	318	]	=	2641		ZHUZAO__Rad	[	318	]	=	1
+	ZHUZAO_ID	[	319	]	=	3813		ZHUZAO_LV	[	319	]	=	40		ZHUZAO_ID1	[	319	]	=	4032		ZHUZAO_ID2	[	319	]	=	1715		ZHUZAO_ID3	[	319	]	=	2641		ZHUZAO__Rad	[	319	]	=	1
+	ZHUZAO_ID	[	320	]	=	2214		ZHUZAO_LV	[	320	]	=	40		ZHUZAO_ID1	[	320	]	=	4032		ZHUZAO_ID2	[	320	]	=	3992		ZHUZAO_ID3	[	320	]	=	2641		ZHUZAO__Rad	[	320	]	=	1
+	ZHUZAO_ID	[	321	]	=	2212		ZHUZAO_LV	[	321	]	=	40		ZHUZAO_ID1	[	321	]	=	4032		ZHUZAO_ID2	[	321	]	=	1715		ZHUZAO_ID3	[	321	]	=	2641		ZHUZAO__Rad	[	321	]	=	1
+	ZHUZAO_ID	[	322	]	=	2190		ZHUZAO_LV	[	322	]	=	40		ZHUZAO_ID1	[	322	]	=	4032		ZHUZAO_ID2	[	322	]	=	3992		ZHUZAO_ID3	[	322	]	=	2641		ZHUZAO__Rad	[	322	]	=	1
+	ZHUZAO_ID	[	323	]	=	1977		ZHUZAO_LV	[	323	]	=	40		ZHUZAO_ID1	[	323	]	=	4032		ZHUZAO_ID2	[	323	]	=	1715		ZHUZAO_ID3	[	323	]	=	2641		ZHUZAO__Rad	[	323	]	=	1
+	ZHUZAO_ID	[	324	]	=	310		ZHUZAO_LV	[	324	]	=	40		ZHUZAO_ID1	[	324	]	=	4032		ZHUZAO_ID2	[	324	]	=	3992		ZHUZAO_ID3	[	324	]	=	2641		ZHUZAO__Rad	[	324	]	=	1
+	ZHUZAO_ID	[	325	]	=	300		ZHUZAO_LV	[	325	]	=	40		ZHUZAO_ID1	[	325	]	=	4032		ZHUZAO_ID2	[	325	]	=	1715		ZHUZAO_ID3	[	325	]	=	2641		ZHUZAO__Rad	[	325	]	=	1
+	ZHUZAO_ID	[	326	]	=	1929		ZHUZAO_LV	[	326	]	=	40		ZHUZAO_ID1	[	326	]	=	4032		ZHUZAO_ID2	[	326	]	=	3992		ZHUZAO_ID3	[	326	]	=	2641		ZHUZAO__Rad	[	326	]	=	1
+	ZHUZAO_ID	[	327	]	=	1944		ZHUZAO_LV	[	327	]	=	40		ZHUZAO_ID1	[	327	]	=	4032		ZHUZAO_ID2	[	327	]	=	1715		ZHUZAO_ID3	[	327	]	=	2641		ZHUZAO__Rad	[	327	]	=	1
+	ZHUZAO_ID	[	328	]	=	392		ZHUZAO_LV	[	328	]	=	40		ZHUZAO_ID1	[	328	]	=	4032		ZHUZAO_ID2	[	328	]	=	3992		ZHUZAO_ID3	[	328	]	=	2641		ZHUZAO__Rad	[	328	]	=	1
+	ZHUZAO_ID	[	329	]	=	390		ZHUZAO_LV	[	329	]	=	40		ZHUZAO_ID1	[	329	]	=	4032		ZHUZAO_ID2	[	329	]	=	1715		ZHUZAO_ID3	[	329	]	=	2641		ZHUZAO__Rad	[	329	]	=	1
+	ZHUZAO_ID	[	330	]	=	1956		ZHUZAO_LV	[	330	]	=	40		ZHUZAO_ID1	[	330	]	=	4032		ZHUZAO_ID2	[	330	]	=	3992		ZHUZAO_ID3	[	330	]	=	2641		ZHUZAO__Rad	[	330	]	=	1
+	ZHUZAO_ID	[	331	]	=	341		ZHUZAO_LV	[	331	]	=	40		ZHUZAO_ID1	[	331	]	=	4032		ZHUZAO_ID2	[	331	]	=	1715		ZHUZAO_ID3	[	331	]	=	2641		ZHUZAO__Rad	[	331	]	=	1
+	ZHUZAO_ID	[	332	]	=	367		ZHUZAO_LV	[	332	]	=	40		ZHUZAO_ID1	[	332	]	=	4032		ZHUZAO_ID2	[	332	]	=	3992		ZHUZAO_ID3	[	332	]	=	2641		ZHUZAO__Rad	[	332	]	=	1
+	ZHUZAO_ID	[	333	]	=	295		ZHUZAO_LV	[	333	]	=	40		ZHUZAO_ID1	[	333	]	=	4032		ZHUZAO_ID2	[	333	]	=	1715		ZHUZAO_ID3	[	333	]	=	2641		ZHUZAO__Rad	[	333	]	=	1
+	ZHUZAO_ID	[	334	]	=	353		ZHUZAO_LV	[	334	]	=	40		ZHUZAO_ID1	[	334	]	=	4032		ZHUZAO_ID2	[	334	]	=	3992		ZHUZAO_ID3	[	334	]	=	2641		ZHUZAO__Rad	[	334	]	=	1
+	ZHUZAO_ID	[	335	]	=	370		ZHUZAO_LV	[	335	]	=	40		ZHUZAO_ID1	[	335	]	=	4032		ZHUZAO_ID2	[	335	]	=	1715		ZHUZAO_ID3	[	335	]	=	2641		ZHUZAO__Rad	[	335	]	=	1
+	ZHUZAO_ID	[	336	]	=	1959		ZHUZAO_LV	[	336	]	=	40		ZHUZAO_ID1	[	336	]	=	4032		ZHUZAO_ID2	[	336	]	=	3992		ZHUZAO_ID3	[	336	]	=	2641		ZHUZAO__Rad	[	336	]	=	1
+	ZHUZAO_ID	[	337	]	=	1981		ZHUZAO_LV	[	337	]	=	40		ZHUZAO_ID1	[	337	]	=	4032		ZHUZAO_ID2	[	337	]	=	1715		ZHUZAO_ID3	[	337	]	=	2641		ZHUZAO__Rad	[	337	]	=	1
+	ZHUZAO_ID	[	338	]	=	486		ZHUZAO_LV	[	338	]	=	40		ZHUZAO_ID1	[	338	]	=	4032		ZHUZAO_ID2	[	338	]	=	3992		ZHUZAO_ID3	[	338	]	=	2641		ZHUZAO__Rad	[	338	]	=	1
+	ZHUZAO_ID	[	339	]	=	476		ZHUZAO_LV	[	339	]	=	40		ZHUZAO_ID1	[	339	]	=	4032		ZHUZAO_ID2	[	339	]	=	1715		ZHUZAO_ID3	[	339	]	=	2641		ZHUZAO__Rad	[	339	]	=	1
+	ZHUZAO_ID	[	340	]	=	568		ZHUZAO_LV	[	340	]	=	40		ZHUZAO_ID1	[	340	]	=	4032		ZHUZAO_ID2	[	340	]	=	3992		ZHUZAO_ID3	[	340	]	=	2641		ZHUZAO__Rad	[	340	]	=	1
+	ZHUZAO_ID	[	341	]	=	1936		ZHUZAO_LV	[	341	]	=	40		ZHUZAO_ID1	[	341	]	=	4032		ZHUZAO_ID2	[	341	]	=	1715		ZHUZAO_ID3	[	341	]	=	2641		ZHUZAO__Rad	[	341	]	=	1
+	ZHUZAO_ID	[	342	]	=	1948		ZHUZAO_LV	[	342	]	=	40		ZHUZAO_ID1	[	342	]	=	4032		ZHUZAO_ID2	[	342	]	=	3992		ZHUZAO_ID3	[	342	]	=	2641		ZHUZAO__Rad	[	342	]	=	1
+	ZHUZAO_ID	[	343	]	=	566		ZHUZAO_LV	[	343	]	=	40		ZHUZAO_ID1	[	343	]	=	4032		ZHUZAO_ID2	[	343	]	=	1715		ZHUZAO_ID3	[	343	]	=	2641		ZHUZAO__Rad	[	343	]	=	1
+	ZHUZAO_ID	[	344	]	=	1963		ZHUZAO_LV	[	344	]	=	40		ZHUZAO_ID1	[	344	]	=	4032		ZHUZAO_ID2	[	344	]	=	3992		ZHUZAO_ID3	[	344	]	=	2641		ZHUZAO__Rad	[	344	]	=	1
+	ZHUZAO_ID	[	345	]	=	543		ZHUZAO_LV	[	345	]	=	40		ZHUZAO_ID1	[	345	]	=	4032		ZHUZAO_ID2	[	345	]	=	1715		ZHUZAO_ID3	[	345	]	=	2641		ZHUZAO__Rad	[	345	]	=	1
+	ZHUZAO_ID	[	346	]	=	517		ZHUZAO_LV	[	346	]	=	40		ZHUZAO_ID1	[	346	]	=	4032		ZHUZAO_ID2	[	346	]	=	3992		ZHUZAO_ID3	[	346	]	=	2641		ZHUZAO__Rad	[	346	]	=	1
+	ZHUZAO_ID	[	347	]	=	471		ZHUZAO_LV	[	347	]	=	40		ZHUZAO_ID1	[	347	]	=	4032		ZHUZAO_ID2	[	347	]	=	1715		ZHUZAO_ID3	[	347	]	=	2641		ZHUZAO__Rad	[	347	]	=	1
+	ZHUZAO_ID	[	348	]	=	546		ZHUZAO_LV	[	348	]	=	40		ZHUZAO_ID1	[	348	]	=	4032		ZHUZAO_ID2	[	348	]	=	3992		ZHUZAO_ID3	[	348	]	=	2641		ZHUZAO__Rad	[	348	]	=	1
+	ZHUZAO_ID	[	349	]	=	529		ZHUZAO_LV	[	349	]	=	40		ZHUZAO_ID1	[	349	]	=	4032		ZHUZAO_ID2	[	349	]	=	1715		ZHUZAO_ID3	[	349	]	=	2641		ZHUZAO__Rad	[	349	]	=	1
+	ZHUZAO_ID	[	350	]	=	1966		ZHUZAO_LV	[	350	]	=	40		ZHUZAO_ID1	[	350	]	=	4032		ZHUZAO_ID2	[	350	]	=	3992		ZHUZAO_ID3	[	350	]	=	2641		ZHUZAO__Rad	[	350	]	=	1
+	ZHUZAO_ID	[	351	]	=	1985		ZHUZAO_LV	[	351	]	=	40		ZHUZAO_ID1	[	351	]	=	4032		ZHUZAO_ID2	[	351	]	=	1715		ZHUZAO_ID3	[	351	]	=	2641		ZHUZAO__Rad	[	351	]	=	1
+	ZHUZAO_ID	[	352	]	=	662		ZHUZAO_LV	[	352	]	=	40		ZHUZAO_ID1	[	352	]	=	4032		ZHUZAO_ID2	[	352	]	=	3992		ZHUZAO_ID3	[	352	]	=	2641		ZHUZAO__Rad	[	352	]	=	1
+	ZHUZAO_ID	[	353	]	=	744		ZHUZAO_LV	[	353	]	=	40		ZHUZAO_ID1	[	353	]	=	4032		ZHUZAO_ID2	[	353	]	=	1715		ZHUZAO_ID3	[	353	]	=	2641		ZHUZAO__Rad	[	353	]	=	1
+	ZHUZAO_ID	[	354	]	=	1940		ZHUZAO_LV	[	354	]	=	40		ZHUZAO_ID1	[	354	]	=	4032		ZHUZAO_ID2	[	354	]	=	3992		ZHUZAO_ID3	[	354	]	=	2641		ZHUZAO__Rad	[	354	]	=	1
+	ZHUZAO_ID	[	355	]	=	1952		ZHUZAO_LV	[	355	]	=	40		ZHUZAO_ID1	[	355	]	=	4032		ZHUZAO_ID2	[	355	]	=	1715		ZHUZAO_ID3	[	355	]	=	2641		ZHUZAO__Rad	[	355	]	=	1
+	ZHUZAO_ID	[	356	]	=	742		ZHUZAO_LV	[	356	]	=	40		ZHUZAO_ID1	[	356	]	=	4032		ZHUZAO_ID2	[	356	]	=	3992		ZHUZAO_ID3	[	356	]	=	2641		ZHUZAO__Rad	[	356	]	=	1
+	ZHUZAO_ID	[	357	]	=	1970		ZHUZAO_LV	[	357	]	=	40		ZHUZAO_ID1	[	357	]	=	4032		ZHUZAO_ID2	[	357	]	=	1715		ZHUZAO_ID3	[	357	]	=	2641		ZHUZAO__Rad	[	357	]	=	1
+	ZHUZAO_ID	[	358	]	=	719		ZHUZAO_LV	[	358	]	=	40		ZHUZAO_ID1	[	358	]	=	4032		ZHUZAO_ID2	[	358	]	=	3992		ZHUZAO_ID3	[	358	]	=	2641		ZHUZAO__Rad	[	358	]	=	1
+	ZHUZAO_ID	[	359	]	=	652		ZHUZAO_LV	[	359	]	=	40		ZHUZAO_ID1	[	359	]	=	4032		ZHUZAO_ID2	[	359	]	=	1715		ZHUZAO_ID3	[	359	]	=	2641		ZHUZAO__Rad	[	359	]	=	1
+	ZHUZAO_ID	[	360	]	=	693		ZHUZAO_LV	[	360	]	=	40		ZHUZAO_ID1	[	360	]	=	4032		ZHUZAO_ID2	[	360	]	=	3992		ZHUZAO_ID3	[	360	]	=	2641		ZHUZAO__Rad	[	360	]	=	1
+	ZHUZAO_ID	[	361	]	=	647		ZHUZAO_LV	[	361	]	=	40		ZHUZAO_ID1	[	361	]	=	4032		ZHUZAO_ID2	[	361	]	=	1715		ZHUZAO_ID3	[	361	]	=	2641		ZHUZAO__Rad	[	361	]	=	1
+	ZHUZAO_ID	[	362	]	=	722		ZHUZAO_LV	[	362	]	=	40		ZHUZAO_ID1	[	362	]	=	4032		ZHUZAO_ID2	[	362	]	=	3992		ZHUZAO_ID3	[	362	]	=	2641		ZHUZAO__Rad	[	362	]	=	1
+	ZHUZAO_ID	[	363	]	=	705		ZHUZAO_LV	[	363	]	=	40		ZHUZAO_ID1	[	363	]	=	4032		ZHUZAO_ID2	[	363	]	=	1715		ZHUZAO_ID3	[	363	]	=	2641		ZHUZAO__Rad	[	363	]	=	1
+	ZHUZAO_ID	[	364	]	=	1973		ZHUZAO_LV	[	364	]	=	40		ZHUZAO_ID1	[	364	]	=	4032		ZHUZAO_ID2	[	364	]	=	3992		ZHUZAO_ID3	[	364	]	=	2641		ZHUZAO__Rad	[	364	]	=	1
+	ZHUZAO_ID	[	365	]	=	1932		ZHUZAO_LV	[	365	]	=	40		ZHUZAO_ID1	[	365	]	=	4032		ZHUZAO_ID2	[	365	]	=	1715		ZHUZAO_ID3	[	365	]	=	2641		ZHUZAO__Rad	[	365	]	=	1
+	ZHUZAO_ID	[	366	]	=	29		ZHUZAO_LV	[	366	]	=	44		ZHUZAO_ID1	[	366	]	=	4032		ZHUZAO_ID2	[	366	]	=	3992		ZHUZAO_ID3	[	366	]	=	2641		ZHUZAO__Rad	[	366	]	=	1
+	ZHUZAO_ID	[	367	]	=	4696		ZHUZAO_LV	[	367	]	=	45		ZHUZAO_ID1	[	367	]	=	4032		ZHUZAO_ID2	[	367	]	=	1715		ZHUZAO_ID3	[	367	]	=	2641		ZHUZAO__Rad	[	367	]	=	1
+	ZHUZAO_ID	[	368	]	=	4697		ZHUZAO_LV	[	368	]	=	45		ZHUZAO_ID1	[	368	]	=	4032		ZHUZAO_ID2	[	368	]	=	3992		ZHUZAO_ID3	[	368	]	=	2641		ZHUZAO__Rad	[	368	]	=	1
+	ZHUZAO_ID	[	369	]	=	4698		ZHUZAO_LV	[	369	]	=	45		ZHUZAO_ID1	[	369	]	=	4032		ZHUZAO_ID2	[	369	]	=	1715		ZHUZAO_ID3	[	369	]	=	2641		ZHUZAO__Rad	[	369	]	=	1
+	ZHUZAO_ID	[	370	]	=	4699		ZHUZAO_LV	[	370	]	=	45		ZHUZAO_ID1	[	370	]	=	4032		ZHUZAO_ID2	[	370	]	=	3992		ZHUZAO_ID3	[	370	]	=	2641		ZHUZAO__Rad	[	370	]	=	1
+	ZHUZAO_ID	[	371	]	=	4641		ZHUZAO_LV	[	371	]	=	45		ZHUZAO_ID1	[	371	]	=	4032		ZHUZAO_ID2	[	371	]	=	1715		ZHUZAO_ID3	[	371	]	=	2641		ZHUZAO__Rad	[	371	]	=	1
+	ZHUZAO_ID	[	372	]	=	4642		ZHUZAO_LV	[	372	]	=	45		ZHUZAO_ID1	[	372	]	=	4032		ZHUZAO_ID2	[	372	]	=	3992		ZHUZAO_ID3	[	372	]	=	2641		ZHUZAO__Rad	[	372	]	=	1
+	ZHUZAO_ID	[	373	]	=	4643		ZHUZAO_LV	[	373	]	=	45		ZHUZAO_ID1	[	373	]	=	4032		ZHUZAO_ID2	[	373	]	=	1715		ZHUZAO_ID3	[	373	]	=	2641		ZHUZAO__Rad	[	373	]	=	1
+	ZHUZAO_ID	[	374	]	=	4644		ZHUZAO_LV	[	374	]	=	45		ZHUZAO_ID1	[	374	]	=	4032		ZHUZAO_ID2	[	374	]	=	3992		ZHUZAO_ID3	[	374	]	=	2641		ZHUZAO__Rad	[	374	]	=	1
+	ZHUZAO_ID	[	375	]	=	4645		ZHUZAO_LV	[	375	]	=	45		ZHUZAO_ID1	[	375	]	=	4032		ZHUZAO_ID2	[	375	]	=	1715		ZHUZAO_ID3	[	375	]	=	2641		ZHUZAO__Rad	[	375	]	=	1
+	ZHUZAO_ID	[	376	]	=	22		ZHUZAO_LV	[	376	]	=	45		ZHUZAO_ID1	[	376	]	=	4032		ZHUZAO_ID2	[	376	]	=	3992		ZHUZAO_ID3	[	376	]	=	2641		ZHUZAO__Rad	[	376	]	=	1
+	ZHUZAO_ID	[	377	]	=	774		ZHUZAO_LV	[	377	]	=	45		ZHUZAO_ID1	[	377	]	=	4032		ZHUZAO_ID2	[	377	]	=	1715		ZHUZAO_ID3	[	377	]	=	2641		ZHUZAO__Rad	[	377	]	=	1
+	ZHUZAO_ID	[	378	]	=	1398		ZHUZAO_LV	[	378	]	=	45		ZHUZAO_ID1	[	378	]	=	4032		ZHUZAO_ID2	[	378	]	=	3992		ZHUZAO_ID3	[	378	]	=	2641		ZHUZAO__Rad	[	378	]	=	1
+	ZHUZAO_ID	[	379	]	=	20		ZHUZAO_LV	[	379	]	=	45		ZHUZAO_ID1	[	379	]	=	4032		ZHUZAO_ID2	[	379	]	=	1715		ZHUZAO_ID3	[	379	]	=	2641		ZHUZAO__Rad	[	379	]	=	1
+	ZHUZAO_ID	[	380	]	=	771		ZHUZAO_LV	[	380	]	=	45		ZHUZAO_ID1	[	380	]	=	4032		ZHUZAO_ID2	[	380	]	=	3992		ZHUZAO_ID3	[	380	]	=	2641		ZHUZAO__Rad	[	380	]	=	1
+	ZHUZAO_ID	[	381	]	=	1377		ZHUZAO_LV	[	381	]	=	45		ZHUZAO_ID1	[	381	]	=	4032		ZHUZAO_ID2	[	381	]	=	1715		ZHUZAO_ID3	[	381	]	=	2641		ZHUZAO__Rad	[	381	]	=	1
+	ZHUZAO_ID	[	382	]	=	1386		ZHUZAO_LV	[	382	]	=	45		ZHUZAO_ID1	[	382	]	=	4032		ZHUZAO_ID2	[	382	]	=	3992		ZHUZAO_ID3	[	382	]	=	2641		ZHUZAO__Rad	[	382	]	=	1
+	ZHUZAO_ID	[	383	]	=	44		ZHUZAO_LV	[	383	]	=	45		ZHUZAO_ID1	[	383	]	=	4032		ZHUZAO_ID2	[	383	]	=	1715		ZHUZAO_ID3	[	383	]	=	2641		ZHUZAO__Rad	[	383	]	=	1
+	ZHUZAO_ID	[	384	]	=	782		ZHUZAO_LV	[	384	]	=	45		ZHUZAO_ID1	[	384	]	=	4032		ZHUZAO_ID2	[	384	]	=	3992		ZHUZAO_ID3	[	384	]	=	2641		ZHUZAO__Rad	[	384	]	=	1
+	ZHUZAO_ID	[	385	]	=	1413		ZHUZAO_LV	[	385	]	=	45		ZHUZAO_ID1	[	385	]	=	4032		ZHUZAO_ID2	[	385	]	=	1715		ZHUZAO_ID3	[	385	]	=	2641		ZHUZAO__Rad	[	385	]	=	1
+	ZHUZAO_ID	[	386	]	=	83		ZHUZAO_LV	[	386	]	=	45		ZHUZAO_ID1	[	386	]	=	4032		ZHUZAO_ID2	[	386	]	=	3992		ZHUZAO_ID3	[	386	]	=	2641		ZHUZAO__Rad	[	386	]	=	1
+	ZHUZAO_ID	[	387	]	=	800		ZHUZAO_LV	[	387	]	=	45		ZHUZAO_ID1	[	387	]	=	4032		ZHUZAO_ID2	[	387	]	=	1715		ZHUZAO_ID3	[	387	]	=	2641		ZHUZAO__Rad	[	387	]	=	1
+	ZHUZAO_ID	[	388	]	=	1425		ZHUZAO_LV	[	388	]	=	45		ZHUZAO_ID1	[	388	]	=	4032		ZHUZAO_ID2	[	388	]	=	3992		ZHUZAO_ID3	[	388	]	=	2641		ZHUZAO__Rad	[	388	]	=	1
+	ZHUZAO_ID	[	389	]	=	1460		ZHUZAO_LV	[	389	]	=	45		ZHUZAO_ID1	[	389	]	=	4032		ZHUZAO_ID2	[	389	]	=	1715		ZHUZAO_ID3	[	389	]	=	2641		ZHUZAO__Rad	[	389	]	=	1
+	ZHUZAO_ID	[	390	]	=	107		ZHUZAO_LV	[	390	]	=	45		ZHUZAO_ID1	[	390	]	=	4032		ZHUZAO_ID2	[	390	]	=	3992		ZHUZAO_ID3	[	390	]	=	2641		ZHUZAO__Rad	[	390	]	=	1
+	ZHUZAO_ID	[	391	]	=	786		ZHUZAO_LV	[	391	]	=	45		ZHUZAO_ID1	[	391	]	=	4032		ZHUZAO_ID2	[	391	]	=	1715		ZHUZAO_ID3	[	391	]	=	2641		ZHUZAO__Rad	[	391	]	=	1
+	ZHUZAO_ID	[	392	]	=	793		ZHUZAO_LV	[	392	]	=	45		ZHUZAO_ID1	[	392	]	=	4032		ZHUZAO_ID2	[	392	]	=	3992		ZHUZAO_ID3	[	392	]	=	2641		ZHUZAO__Rad	[	392	]	=	1
+	ZHUZAO_ID	[	393	]	=	1437		ZHUZAO_LV	[	393	]	=	45		ZHUZAO_ID1	[	393	]	=	4032		ZHUZAO_ID2	[	393	]	=	1715		ZHUZAO_ID3	[	393	]	=	2641		ZHUZAO__Rad	[	393	]	=	1
+	ZHUZAO_ID	[	394	]	=	1440		ZHUZAO_LV	[	394	]	=	45		ZHUZAO_ID1	[	394	]	=	4032		ZHUZAO_ID2	[	394	]	=	3992		ZHUZAO_ID3	[	394	]	=	2641		ZHUZAO__Rad	[	394	]	=	1
+	ZHUZAO_ID	[	395	]	=	1472		ZHUZAO_LV	[	395	]	=	45		ZHUZAO_ID1	[	395	]	=	4032		ZHUZAO_ID2	[	395	]	=	1715		ZHUZAO_ID3	[	395	]	=	2641		ZHUZAO__Rad	[	395	]	=	1
+	ZHUZAO_ID	[	396	]	=	1475		ZHUZAO_LV	[	396	]	=	45		ZHUZAO_ID1	[	396	]	=	4032		ZHUZAO_ID2	[	396	]	=	3992		ZHUZAO_ID3	[	396	]	=	2641		ZHUZAO__Rad	[	396	]	=	1
+	ZHUZAO_ID	[	397	]	=	4301		ZHUZAO_LV	[	397	]	=	45		ZHUZAO_ID1	[	397	]	=	4032		ZHUZAO_ID2	[	397	]	=	1715		ZHUZAO_ID3	[	397	]	=	2641		ZHUZAO__Rad	[	397	]	=	1
+	ZHUZAO_ID	[	398	]	=	125		ZHUZAO_LV	[	398	]	=	45		ZHUZAO_ID1	[	398	]	=	4032		ZHUZAO_ID2	[	398	]	=	3992		ZHUZAO_ID3	[	398	]	=	2641		ZHUZAO__Rad	[	398	]	=	1
+	ZHUZAO_ID	[	399	]	=	2199		ZHUZAO_LV	[	399	]	=	45		ZHUZAO_ID1	[	399	]	=	4032		ZHUZAO_ID2	[	399	]	=	1715		ZHUZAO_ID3	[	399	]	=	2641		ZHUZAO__Rad	[	399	]	=	1
+	ZHUZAO_ID	[	400	]	=	2210		ZHUZAO_LV	[	400	]	=	45		ZHUZAO_ID1	[	400	]	=	4032		ZHUZAO_ID2	[	400	]	=	3992		ZHUZAO_ID3	[	400	]	=	2641		ZHUZAO__Rad	[	400	]	=	1
+	ZHUZAO_ID	[	401	]	=	2193		ZHUZAO_LV	[	401	]	=	45		ZHUZAO_ID1	[	401	]	=	4032		ZHUZAO_ID2	[	401	]	=	1715		ZHUZAO_ID3	[	401	]	=	2641		ZHUZAO__Rad	[	401	]	=	1
+	ZHUZAO_ID	[	402	]	=	315		ZHUZAO_LV	[	402	]	=	45		ZHUZAO_ID1	[	402	]	=	4032		ZHUZAO_ID2	[	402	]	=	3992		ZHUZAO_ID3	[	402	]	=	2641		ZHUZAO__Rad	[	402	]	=	1
+	ZHUZAO_ID	[	403	]	=	790		ZHUZAO_LV	[	403	]	=	45		ZHUZAO_ID1	[	403	]	=	4032		ZHUZAO_ID2	[	403	]	=	1715		ZHUZAO_ID3	[	403	]	=	2641		ZHUZAO__Rad	[	403	]	=	1
+	ZHUZAO_ID	[	404	]	=	362		ZHUZAO_LV	[	404	]	=	45		ZHUZAO_ID1	[	404	]	=	4032		ZHUZAO_ID2	[	404	]	=	3992		ZHUZAO_ID3	[	404	]	=	2641		ZHUZAO__Rad	[	404	]	=	1
+	ZHUZAO_ID	[	405	]	=	388		ZHUZAO_LV	[	405	]	=	45		ZHUZAO_ID1	[	405	]	=	4032		ZHUZAO_ID2	[	405	]	=	1715		ZHUZAO_ID3	[	405	]	=	2641		ZHUZAO__Rad	[	405	]	=	1
+	ZHUZAO_ID	[	406	]	=	778		ZHUZAO_LV	[	406	]	=	45		ZHUZAO_ID1	[	406	]	=	4032		ZHUZAO_ID2	[	406	]	=	3992		ZHUZAO_ID3	[	406	]	=	2641		ZHUZAO__Rad	[	406	]	=	1
+	ZHUZAO_ID	[	407	]	=	375		ZHUZAO_LV	[	407	]	=	45		ZHUZAO_ID1	[	407	]	=	4032		ZHUZAO_ID2	[	407	]	=	1715		ZHUZAO_ID3	[	407	]	=	2641		ZHUZAO__Rad	[	407	]	=	1
+	ZHUZAO_ID	[	408	]	=	764		ZHUZAO_LV	[	408	]	=	45		ZHUZAO_ID1	[	408	]	=	4032		ZHUZAO_ID2	[	408	]	=	3992		ZHUZAO_ID3	[	408	]	=	2641		ZHUZAO__Rad	[	408	]	=	1
+	ZHUZAO_ID	[	409	]	=	301		ZHUZAO_LV	[	409	]	=	45		ZHUZAO_ID1	[	409	]	=	4032		ZHUZAO_ID2	[	409	]	=	1715		ZHUZAO_ID3	[	409	]	=	2641		ZHUZAO__Rad	[	409	]	=	1
+	ZHUZAO_ID	[	410	]	=	302		ZHUZAO_LV	[	410	]	=	45		ZHUZAO_ID1	[	410	]	=	4032		ZHUZAO_ID2	[	410	]	=	3992		ZHUZAO_ID3	[	410	]	=	2641		ZHUZAO__Rad	[	410	]	=	1
+	ZHUZAO_ID	[	411	]	=	796		ZHUZAO_LV	[	411	]	=	45		ZHUZAO_ID1	[	411	]	=	4032		ZHUZAO_ID2	[	411	]	=	1715		ZHUZAO_ID3	[	411	]	=	2641		ZHUZAO__Rad	[	411	]	=	1
+	ZHUZAO_ID	[	412	]	=	378		ZHUZAO_LV	[	412	]	=	45		ZHUZAO_ID1	[	412	]	=	4032		ZHUZAO_ID2	[	412	]	=	3992		ZHUZAO_ID3	[	412	]	=	2641		ZHUZAO__Rad	[	412	]	=	1
+	ZHUZAO_ID	[	413	]	=	342		ZHUZAO_LV	[	413	]	=	45		ZHUZAO_ID1	[	413	]	=	4032		ZHUZAO_ID2	[	413	]	=	1715		ZHUZAO_ID3	[	413	]	=	2641		ZHUZAO__Rad	[	413	]	=	1
+	ZHUZAO_ID	[	414	]	=	356		ZHUZAO_LV	[	414	]	=	45		ZHUZAO_ID1	[	414	]	=	4032		ZHUZAO_ID2	[	414	]	=	3992		ZHUZAO_ID3	[	414	]	=	2641		ZHUZAO__Rad	[	414	]	=	1
+	ZHUZAO_ID	[	415	]	=	804		ZHUZAO_LV	[	415	]	=	45		ZHUZAO_ID1	[	415	]	=	4032		ZHUZAO_ID2	[	415	]	=	1715		ZHUZAO_ID3	[	415	]	=	2641		ZHUZAO__Rad	[	415	]	=	1
+	ZHUZAO_ID	[	416	]	=	767		ZHUZAO_LV	[	416	]	=	45		ZHUZAO_ID1	[	416	]	=	4032		ZHUZAO_ID2	[	416	]	=	3992		ZHUZAO_ID3	[	416	]	=	2641		ZHUZAO__Rad	[	416	]	=	1
+	ZHUZAO_ID	[	417	]	=	538		ZHUZAO_LV	[	417	]	=	45		ZHUZAO_ID1	[	417	]	=	4032		ZHUZAO_ID2	[	417	]	=	1715		ZHUZAO_ID3	[	417	]	=	2641		ZHUZAO__Rad	[	417	]	=	1
+	ZHUZAO_ID	[	418	]	=	491		ZHUZAO_LV	[	418	]	=	45		ZHUZAO_ID1	[	418	]	=	4032		ZHUZAO_ID2	[	418	]	=	3992		ZHUZAO_ID3	[	418	]	=	2641		ZHUZAO__Rad	[	418	]	=	1
+	ZHUZAO_ID	[	419	]	=	564		ZHUZAO_LV	[	419	]	=	45		ZHUZAO_ID1	[	419	]	=	4032		ZHUZAO_ID2	[	419	]	=	1715		ZHUZAO_ID3	[	419	]	=	2641		ZHUZAO__Rad	[	419	]	=	1
+	ZHUZAO_ID	[	420	]	=	554		ZHUZAO_LV	[	420	]	=	45		ZHUZAO_ID1	[	420	]	=	4032		ZHUZAO_ID2	[	420	]	=	3992		ZHUZAO_ID3	[	420	]	=	2641		ZHUZAO__Rad	[	420	]	=	1
+	ZHUZAO_ID	[	421	]	=	518		ZHUZAO_LV	[	421	]	=	45		ZHUZAO_ID1	[	421	]	=	4032		ZHUZAO_ID2	[	421	]	=	1715		ZHUZAO_ID3	[	421	]	=	2641		ZHUZAO__Rad	[	421	]	=	1
+	ZHUZAO_ID	[	422	]	=	551		ZHUZAO_LV	[	422	]	=	45		ZHUZAO_ID1	[	422	]	=	4032		ZHUZAO_ID2	[	422	]	=	3992		ZHUZAO_ID3	[	422	]	=	2641		ZHUZAO__Rad	[	422	]	=	1
+	ZHUZAO_ID	[	423	]	=	477		ZHUZAO_LV	[	423	]	=	45		ZHUZAO_ID1	[	423	]	=	4032		ZHUZAO_ID2	[	423	]	=	1715		ZHUZAO_ID3	[	423	]	=	2641		ZHUZAO__Rad	[	423	]	=	1
+	ZHUZAO_ID	[	424	]	=	478		ZHUZAO_LV	[	424	]	=	45		ZHUZAO_ID1	[	424	]	=	4032		ZHUZAO_ID2	[	424	]	=	3992		ZHUZAO_ID3	[	424	]	=	2641		ZHUZAO__Rad	[	424	]	=	1
+	ZHUZAO_ID	[	425	]	=	532		ZHUZAO_LV	[	425	]	=	45		ZHUZAO_ID1	[	425	]	=	4032		ZHUZAO_ID2	[	425	]	=	1715		ZHUZAO_ID3	[	425	]	=	2641		ZHUZAO__Rad	[	425	]	=	1
+	ZHUZAO_ID	[	426	]	=	714		ZHUZAO_LV	[	426	]	=	45		ZHUZAO_ID1	[	426	]	=	4032		ZHUZAO_ID2	[	426	]	=	3992		ZHUZAO_ID3	[	426	]	=	2641		ZHUZAO__Rad	[	426	]	=	1
+	ZHUZAO_ID	[	427	]	=	667		ZHUZAO_LV	[	427	]	=	45		ZHUZAO_ID1	[	427	]	=	4032		ZHUZAO_ID2	[	427	]	=	1715		ZHUZAO_ID3	[	427	]	=	2641		ZHUZAO__Rad	[	427	]	=	1
+	ZHUZAO_ID	[	428	]	=	740		ZHUZAO_LV	[	428	]	=	45		ZHUZAO_ID1	[	428	]	=	4032		ZHUZAO_ID2	[	428	]	=	3992		ZHUZAO_ID3	[	428	]	=	2641		ZHUZAO__Rad	[	428	]	=	1
+	ZHUZAO_ID	[	429	]	=	730		ZHUZAO_LV	[	429	]	=	45		ZHUZAO_ID1	[	429	]	=	4032		ZHUZAO_ID2	[	429	]	=	1715		ZHUZAO_ID3	[	429	]	=	2641		ZHUZAO__Rad	[	429	]	=	1
+	ZHUZAO_ID	[	430	]	=	727		ZHUZAO_LV	[	430	]	=	45		ZHUZAO_ID1	[	430	]	=	4032		ZHUZAO_ID2	[	430	]	=	3992		ZHUZAO_ID3	[	430	]	=	2641		ZHUZAO__Rad	[	430	]	=	1
+	ZHUZAO_ID	[	431	]	=	654		ZHUZAO_LV	[	431	]	=	45		ZHUZAO_ID1	[	431	]	=	4032		ZHUZAO_ID2	[	431	]	=	1715		ZHUZAO_ID3	[	431	]	=	2641		ZHUZAO__Rad	[	431	]	=	1
+	ZHUZAO_ID	[	432	]	=	694		ZHUZAO_LV	[	432	]	=	45		ZHUZAO_ID1	[	432	]	=	4032		ZHUZAO_ID2	[	432	]	=	3992		ZHUZAO_ID3	[	432	]	=	2641		ZHUZAO__Rad	[	432	]	=	1
+	ZHUZAO_ID	[	433	]	=	708		ZHUZAO_LV	[	433	]	=	45		ZHUZAO_ID1	[	433	]	=	4032		ZHUZAO_ID2	[	433	]	=	1715		ZHUZAO_ID3	[	433	]	=	2641		ZHUZAO__Rad	[	433	]	=	1
+	ZHUZAO_ID	[	434	]	=	653		ZHUZAO_LV	[	434	]	=	45		ZHUZAO_ID1	[	434	]	=	4032		ZHUZAO_ID2	[	434	]	=	3992		ZHUZAO_ID3	[	434	]	=	2641		ZHUZAO__Rad	[	434	]	=	1
+	ZHUZAO_ID	[	435	]	=	4701		ZHUZAO_LV	[	435	]	=	50		ZHUZAO_ID1	[	435	]	=	4033		ZHUZAO_ID2	[	435	]	=	1683		ZHUZAO_ID3	[	435	]	=	2642		ZHUZAO__Rad	[	435	]	=	1
+	ZHUZAO_ID	[	436	]	=	4702		ZHUZAO_LV	[	436	]	=	50		ZHUZAO_ID1	[	436	]	=	4033		ZHUZAO_ID2	[	436	]	=	3993		ZHUZAO_ID3	[	436	]	=	2642		ZHUZAO__Rad	[	436	]	=	1
+	ZHUZAO_ID	[	437	]	=	4703		ZHUZAO_LV	[	437	]	=	50		ZHUZAO_ID1	[	437	]	=	4033		ZHUZAO_ID2	[	437	]	=	1683		ZHUZAO_ID3	[	437	]	=	2642		ZHUZAO__Rad	[	437	]	=	1
+	ZHUZAO_ID	[	438	]	=	4704		ZHUZAO_LV	[	438	]	=	50		ZHUZAO_ID1	[	438	]	=	4033		ZHUZAO_ID2	[	438	]	=	3993		ZHUZAO_ID3	[	438	]	=	2642		ZHUZAO__Rad	[	438	]	=	1
+	ZHUZAO_ID	[	439	]	=	4705		ZHUZAO_LV	[	439	]	=	50		ZHUZAO_ID1	[	439	]	=	4033		ZHUZAO_ID2	[	439	]	=	1683		ZHUZAO_ID3	[	439	]	=	2642		ZHUZAO__Rad	[	439	]	=	1
+	ZHUZAO_ID	[	440	]	=	4646		ZHUZAO_LV	[	440	]	=	50		ZHUZAO_ID1	[	440	]	=	4033		ZHUZAO_ID2	[	440	]	=	3993		ZHUZAO_ID3	[	440	]	=	2642		ZHUZAO__Rad	[	440	]	=	1
+	ZHUZAO_ID	[	441	]	=	4647		ZHUZAO_LV	[	441	]	=	50		ZHUZAO_ID1	[	441	]	=	4033		ZHUZAO_ID2	[	441	]	=	1683		ZHUZAO_ID3	[	441	]	=	2642		ZHUZAO__Rad	[	441	]	=	1
+	ZHUZAO_ID	[	442	]	=	4648		ZHUZAO_LV	[	442	]	=	50		ZHUZAO_ID1	[	442	]	=	4033		ZHUZAO_ID2	[	442	]	=	3993		ZHUZAO_ID3	[	442	]	=	2642		ZHUZAO__Rad	[	442	]	=	1
+	ZHUZAO_ID	[	443	]	=	4649		ZHUZAO_LV	[	443	]	=	50		ZHUZAO_ID1	[	443	]	=	4033		ZHUZAO_ID2	[	443	]	=	1683		ZHUZAO_ID3	[	443	]	=	2642		ZHUZAO__Rad	[	443	]	=	1
+	ZHUZAO_ID	[	444	]	=	4650		ZHUZAO_LV	[	444	]	=	50		ZHUZAO_ID1	[	444	]	=	4033		ZHUZAO_ID2	[	444	]	=	3993		ZHUZAO_ID3	[	444	]	=	2642		ZHUZAO__Rad	[	444	]	=	1
+	ZHUZAO_ID	[	445	]	=	639		ZHUZAO_LV	[	445	]	=	50		ZHUZAO_ID1	[	445	]	=	4033		ZHUZAO_ID2	[	445	]	=	1683		ZHUZAO_ID3	[	445	]	=	2642		ZHUZAO__Rad	[	445	]	=	1
+	ZHUZAO_ID	[	446	]	=	821		ZHUZAO_LV	[	446	]	=	50		ZHUZAO_ID1	[	446	]	=	4033		ZHUZAO_ID2	[	446	]	=	3993		ZHUZAO_ID3	[	446	]	=	2642		ZHUZAO__Rad	[	446	]	=	1
+	ZHUZAO_ID	[	447	]	=	871		ZHUZAO_LV	[	447	]	=	50		ZHUZAO_ID1	[	447	]	=	4033		ZHUZAO_ID2	[	447	]	=	1683		ZHUZAO_ID3	[	447	]	=	2642		ZHUZAO__Rad	[	447	]	=	1
+	ZHUZAO_ID	[	448	]	=	876		ZHUZAO_LV	[	448	]	=	50		ZHUZAO_ID1	[	448	]	=	4033		ZHUZAO_ID2	[	448	]	=	3993		ZHUZAO_ID3	[	448	]	=	2642		ZHUZAO__Rad	[	448	]	=	1
+	ZHUZAO_ID	[	449	]	=	881		ZHUZAO_LV	[	449	]	=	50		ZHUZAO_ID1	[	449	]	=	4033		ZHUZAO_ID2	[	449	]	=	1683		ZHUZAO_ID3	[	449	]	=	2642		ZHUZAO__Rad	[	449	]	=	1
+	ZHUZAO_ID	[	450	]	=	882		ZHUZAO_LV	[	450	]	=	50		ZHUZAO_ID1	[	450	]	=	4033		ZHUZAO_ID2	[	450	]	=	3993		ZHUZAO_ID3	[	450	]	=	2642		ZHUZAO__Rad	[	450	]	=	1
+	ZHUZAO_ID	[	451	]	=	883		ZHUZAO_LV	[	451	]	=	50		ZHUZAO_ID1	[	451	]	=	4033		ZHUZAO_ID2	[	451	]	=	1683		ZHUZAO_ID3	[	451	]	=	2642		ZHUZAO__Rad	[	451	]	=	1
+	ZHUZAO_ID	[	452	]	=	884		ZHUZAO_LV	[	452	]	=	50		ZHUZAO_ID1	[	452	]	=	4033		ZHUZAO_ID2	[	452	]	=	3993		ZHUZAO_ID3	[	452	]	=	2642		ZHUZAO__Rad	[	452	]	=	1
+	ZHUZAO_ID	[	453	]	=	887		ZHUZAO_LV	[	453	]	=	50		ZHUZAO_ID1	[	453	]	=	4033		ZHUZAO_ID2	[	453	]	=	1683		ZHUZAO_ID3	[	453	]	=	2642		ZHUZAO__Rad	[	453	]	=	1
+	ZHUZAO_ID	[	454	]	=	5		ZHUZAO_LV	[	454	]	=	50		ZHUZAO_ID1	[	454	]	=	4033		ZHUZAO_ID2	[	454	]	=	3993		ZHUZAO_ID3	[	454	]	=	2642		ZHUZAO__Rad	[	454	]	=	1
+	ZHUZAO_ID	[	455	]	=	1392		ZHUZAO_LV	[	455	]	=	50		ZHUZAO_ID1	[	455	]	=	4033		ZHUZAO_ID2	[	455	]	=	1683		ZHUZAO_ID3	[	455	]	=	2642		ZHUZAO__Rad	[	455	]	=	1
+	ZHUZAO_ID	[	456	]	=	3800		ZHUZAO_LV	[	456	]	=	50		ZHUZAO_ID1	[	456	]	=	4033		ZHUZAO_ID2	[	456	]	=	3993		ZHUZAO_ID3	[	456	]	=	2642		ZHUZAO__Rad	[	456	]	=	1
+	ZHUZAO_ID	[	457	]	=	16		ZHUZAO_LV	[	457	]	=	50		ZHUZAO_ID1	[	457	]	=	4033		ZHUZAO_ID2	[	457	]	=	1683		ZHUZAO_ID3	[	457	]	=	2642		ZHUZAO__Rad	[	457	]	=	1
+	ZHUZAO_ID	[	458	]	=	1373		ZHUZAO_LV	[	458	]	=	50		ZHUZAO_ID1	[	458	]	=	4033		ZHUZAO_ID2	[	458	]	=	3993		ZHUZAO_ID3	[	458	]	=	2642		ZHUZAO__Rad	[	458	]	=	1
+	ZHUZAO_ID	[	459	]	=	1382		ZHUZAO_LV	[	459	]	=	50		ZHUZAO_ID1	[	459	]	=	4033		ZHUZAO_ID2	[	459	]	=	1683		ZHUZAO_ID3	[	459	]	=	2642		ZHUZAO__Rad	[	459	]	=	1
+	ZHUZAO_ID	[	460	]	=	3803		ZHUZAO_LV	[	460	]	=	50		ZHUZAO_ID1	[	460	]	=	4033		ZHUZAO_ID2	[	460	]	=	3993		ZHUZAO_ID3	[	460	]	=	2642		ZHUZAO__Rad	[	460	]	=	1
+	ZHUZAO_ID	[	461	]	=	40		ZHUZAO_LV	[	461	]	=	50		ZHUZAO_ID1	[	461	]	=	4033		ZHUZAO_ID2	[	461	]	=	1683		ZHUZAO_ID3	[	461	]	=	2642		ZHUZAO__Rad	[	461	]	=	1
+	ZHUZAO_ID	[	462	]	=	1409		ZHUZAO_LV	[	462	]	=	50		ZHUZAO_ID1	[	462	]	=	4033		ZHUZAO_ID2	[	462	]	=	3993		ZHUZAO_ID3	[	462	]	=	2642		ZHUZAO__Rad	[	462	]	=	1
+	ZHUZAO_ID	[	463	]	=	3807		ZHUZAO_LV	[	463	]	=	50		ZHUZAO_ID1	[	463	]	=	4033		ZHUZAO_ID2	[	463	]	=	1683		ZHUZAO_ID3	[	463	]	=	2642		ZHUZAO__Rad	[	463	]	=	1
+	ZHUZAO_ID	[	464	]	=	77		ZHUZAO_LV	[	464	]	=	50		ZHUZAO_ID1	[	464	]	=	4033		ZHUZAO_ID2	[	464	]	=	3993		ZHUZAO_ID3	[	464	]	=	2642		ZHUZAO__Rad	[	464	]	=	1
+	ZHUZAO_ID	[	465	]	=	1419		ZHUZAO_LV	[	465	]	=	50		ZHUZAO_ID1	[	465	]	=	4033		ZHUZAO_ID2	[	465	]	=	1683		ZHUZAO_ID3	[	465	]	=	2642		ZHUZAO__Rad	[	465	]	=	1
+	ZHUZAO_ID	[	466	]	=	1447		ZHUZAO_LV	[	466	]	=	50		ZHUZAO_ID1	[	466	]	=	4033		ZHUZAO_ID2	[	466	]	=	3993		ZHUZAO_ID3	[	466	]	=	2642		ZHUZAO__Rad	[	466	]	=	1
+	ZHUZAO_ID	[	467	]	=	3818		ZHUZAO_LV	[	467	]	=	50		ZHUZAO_ID1	[	467	]	=	4033		ZHUZAO_ID2	[	467	]	=	1683		ZHUZAO_ID3	[	467	]	=	2642		ZHUZAO__Rad	[	467	]	=	1
+	ZHUZAO_ID	[	468	]	=	102		ZHUZAO_LV	[	468	]	=	50		ZHUZAO_ID1	[	468	]	=	4033		ZHUZAO_ID2	[	468	]	=	3993		ZHUZAO_ID3	[	468	]	=	2642		ZHUZAO__Rad	[	468	]	=	1
+	ZHUZAO_ID	[	469	]	=	103		ZHUZAO_LV	[	469	]	=	50		ZHUZAO_ID1	[	469	]	=	4033		ZHUZAO_ID2	[	469	]	=	1683		ZHUZAO_ID3	[	469	]	=	2642		ZHUZAO__Rad	[	469	]	=	1
+	ZHUZAO_ID	[	470	]	=	1432		ZHUZAO_LV	[	470	]	=	50		ZHUZAO_ID1	[	470	]	=	4033		ZHUZAO_ID2	[	470	]	=	3993		ZHUZAO_ID3	[	470	]	=	2642		ZHUZAO__Rad	[	470	]	=	1
+	ZHUZAO_ID	[	471	]	=	1433		ZHUZAO_LV	[	471	]	=	50		ZHUZAO_ID1	[	471	]	=	4033		ZHUZAO_ID2	[	471	]	=	1683		ZHUZAO_ID3	[	471	]	=	2642		ZHUZAO__Rad	[	471	]	=	1
+	ZHUZAO_ID	[	472	]	=	1467		ZHUZAO_LV	[	472	]	=	50		ZHUZAO_ID1	[	472	]	=	4033		ZHUZAO_ID2	[	472	]	=	3993		ZHUZAO_ID3	[	472	]	=	2642		ZHUZAO__Rad	[	472	]	=	1
+	ZHUZAO_ID	[	473	]	=	1468		ZHUZAO_LV	[	473	]	=	50		ZHUZAO_ID1	[	473	]	=	4033		ZHUZAO_ID2	[	473	]	=	1683		ZHUZAO_ID3	[	473	]	=	2642		ZHUZAO__Rad	[	473	]	=	1
+	ZHUZAO_ID	[	474	]	=	3811		ZHUZAO_LV	[	474	]	=	50		ZHUZAO_ID1	[	474	]	=	4033		ZHUZAO_ID2	[	474	]	=	3993		ZHUZAO_ID3	[	474	]	=	2642		ZHUZAO__Rad	[	474	]	=	1
+	ZHUZAO_ID	[	475	]	=	3814		ZHUZAO_LV	[	475	]	=	50		ZHUZAO_ID1	[	475	]	=	4033		ZHUZAO_ID2	[	475	]	=	1683		ZHUZAO_ID3	[	475	]	=	2642		ZHUZAO__Rad	[	475	]	=	1
+	ZHUZAO_ID	[	476	]	=	2207		ZHUZAO_LV	[	476	]	=	50		ZHUZAO_ID1	[	476	]	=	4033		ZHUZAO_ID2	[	476	]	=	3993		ZHUZAO_ID3	[	476	]	=	2642		ZHUZAO__Rad	[	476	]	=	1
+	ZHUZAO_ID	[	477	]	=	2204		ZHUZAO_LV	[	477	]	=	50		ZHUZAO_ID1	[	477	]	=	4033		ZHUZAO_ID2	[	477	]	=	1683		ZHUZAO_ID3	[	477	]	=	2642		ZHUZAO__Rad	[	477	]	=	1
+	ZHUZAO_ID	[	478	]	=	2192		ZHUZAO_LV	[	478	]	=	50		ZHUZAO_ID1	[	478	]	=	4033		ZHUZAO_ID2	[	478	]	=	3993		ZHUZAO_ID3	[	478	]	=	2642		ZHUZAO__Rad	[	478	]	=	1
+	ZHUZAO_ID	[	479	]	=	312		ZHUZAO_LV	[	479	]	=	50		ZHUZAO_ID1	[	479	]	=	4033		ZHUZAO_ID2	[	479	]	=	1683		ZHUZAO_ID3	[	479	]	=	2642		ZHUZAO__Rad	[	479	]	=	1
+	ZHUZAO_ID	[	480	]	=	1945		ZHUZAO_LV	[	480	]	=	50		ZHUZAO_ID1	[	480	]	=	4033		ZHUZAO_ID2	[	480	]	=	3993		ZHUZAO_ID3	[	480	]	=	2642		ZHUZAO__Rad	[	480	]	=	1
+	ZHUZAO_ID	[	481	]	=	385		ZHUZAO_LV	[	481	]	=	50		ZHUZAO_ID1	[	481	]	=	4033		ZHUZAO_ID2	[	481	]	=	1683		ZHUZAO_ID3	[	481	]	=	2642		ZHUZAO__Rad	[	481	]	=	1
+	ZHUZAO_ID	[	482	]	=	382		ZHUZAO_LV	[	482	]	=	50		ZHUZAO_ID1	[	482	]	=	4033		ZHUZAO_ID2	[	482	]	=	3993		ZHUZAO_ID3	[	482	]	=	2642		ZHUZAO__Rad	[	482	]	=	1
+	ZHUZAO_ID	[	483	]	=	369		ZHUZAO_LV	[	483	]	=	50		ZHUZAO_ID1	[	483	]	=	4033		ZHUZAO_ID2	[	483	]	=	1683		ZHUZAO_ID3	[	483	]	=	2642		ZHUZAO__Rad	[	483	]	=	1
+	ZHUZAO_ID	[	484	]	=	1957		ZHUZAO_LV	[	484	]	=	50		ZHUZAO_ID1	[	484	]	=	4033		ZHUZAO_ID2	[	484	]	=	3993		ZHUZAO_ID3	[	484	]	=	2642		ZHUZAO__Rad	[	484	]	=	1
+	ZHUZAO_ID	[	485	]	=	345		ZHUZAO_LV	[	485	]	=	50		ZHUZAO_ID1	[	485	]	=	4033		ZHUZAO_ID2	[	485	]	=	1683		ZHUZAO_ID3	[	485	]	=	2642		ZHUZAO__Rad	[	485	]	=	1
+	ZHUZAO_ID	[	486	]	=	1978		ZHUZAO_LV	[	486	]	=	50		ZHUZAO_ID1	[	486	]	=	4033		ZHUZAO_ID2	[	486	]	=	3993		ZHUZAO_ID3	[	486	]	=	2642		ZHUZAO__Rad	[	486	]	=	1
+	ZHUZAO_ID	[	487	]	=	299		ZHUZAO_LV	[	487	]	=	50		ZHUZAO_ID1	[	487	]	=	4033		ZHUZAO_ID2	[	487	]	=	1683		ZHUZAO_ID3	[	487	]	=	2642		ZHUZAO__Rad	[	487	]	=	1
+	ZHUZAO_ID	[	488	]	=	355		ZHUZAO_LV	[	488	]	=	50		ZHUZAO_ID1	[	488	]	=	4033		ZHUZAO_ID2	[	488	]	=	3993		ZHUZAO_ID3	[	488	]	=	2642		ZHUZAO__Rad	[	488	]	=	1
+	ZHUZAO_ID	[	489	]	=	1960		ZHUZAO_LV	[	489	]	=	50		ZHUZAO_ID1	[	489	]	=	4033		ZHUZAO_ID2	[	489	]	=	1683		ZHUZAO_ID3	[	489	]	=	2642		ZHUZAO__Rad	[	489	]	=	1
+	ZHUZAO_ID	[	490	]	=	1930		ZHUZAO_LV	[	490	]	=	50		ZHUZAO_ID1	[	490	]	=	4033		ZHUZAO_ID2	[	490	]	=	3993		ZHUZAO_ID3	[	490	]	=	2642		ZHUZAO__Rad	[	490	]	=	1
+	ZHUZAO_ID	[	491	]	=	371		ZHUZAO_LV	[	491	]	=	50		ZHUZAO_ID1	[	491	]	=	4033		ZHUZAO_ID2	[	491	]	=	1683		ZHUZAO_ID3	[	491	]	=	2642		ZHUZAO__Rad	[	491	]	=	1
+	ZHUZAO_ID	[	492	]	=	488		ZHUZAO_LV	[	492	]	=	50		ZHUZAO_ID1	[	492	]	=	4033		ZHUZAO_ID2	[	492	]	=	3993		ZHUZAO_ID3	[	492	]	=	2642		ZHUZAO__Rad	[	492	]	=	1
+	ZHUZAO_ID	[	493	]	=	1949		ZHUZAO_LV	[	493	]	=	50		ZHUZAO_ID1	[	493	]	=	4033		ZHUZAO_ID2	[	493	]	=	1683		ZHUZAO_ID3	[	493	]	=	2642		ZHUZAO__Rad	[	493	]	=	1
+	ZHUZAO_ID	[	494	]	=	561		ZHUZAO_LV	[	494	]	=	50		ZHUZAO_ID1	[	494	]	=	4033		ZHUZAO_ID2	[	494	]	=	3993		ZHUZAO_ID3	[	494	]	=	2642		ZHUZAO__Rad	[	494	]	=	1
+	ZHUZAO_ID	[	495	]	=	545		ZHUZAO_LV	[	495	]	=	50		ZHUZAO_ID1	[	495	]	=	4033		ZHUZAO_ID2	[	495	]	=	1683		ZHUZAO_ID3	[	495	]	=	2642		ZHUZAO__Rad	[	495	]	=	1
+	ZHUZAO_ID	[	496	]	=	558		ZHUZAO_LV	[	496	]	=	50		ZHUZAO_ID1	[	496	]	=	4033		ZHUZAO_ID2	[	496	]	=	3993		ZHUZAO_ID3	[	496	]	=	2642		ZHUZAO__Rad	[	496	]	=	1
+	ZHUZAO_ID	[	497	]	=	1964		ZHUZAO_LV	[	497	]	=	50		ZHUZAO_ID1	[	497	]	=	4033		ZHUZAO_ID2	[	497	]	=	1683		ZHUZAO_ID3	[	497	]	=	2642		ZHUZAO__Rad	[	497	]	=	1
+	ZHUZAO_ID	[	498	]	=	521		ZHUZAO_LV	[	498	]	=	50		ZHUZAO_ID1	[	498	]	=	4033		ZHUZAO_ID2	[	498	]	=	3993		ZHUZAO_ID3	[	498	]	=	2642		ZHUZAO__Rad	[	498	]	=	1
+	ZHUZAO_ID	[	499	]	=	1982		ZHUZAO_LV	[	499	]	=	50		ZHUZAO_ID1	[	499	]	=	4033		ZHUZAO_ID2	[	499	]	=	1683		ZHUZAO_ID3	[	499	]	=	2642		ZHUZAO__Rad	[	499	]	=	1
+	ZHUZAO_ID	[	500	]	=	475		ZHUZAO_LV	[	500	]	=	50		ZHUZAO_ID1	[	500	]	=	4033		ZHUZAO_ID2	[	500	]	=	3993		ZHUZAO_ID3	[	500	]	=	2642		ZHUZAO__Rad	[	500	]	=	1
+	ZHUZAO_ID	[	501	]	=	531		ZHUZAO_LV	[	501	]	=	50		ZHUZAO_ID1	[	501	]	=	4033		ZHUZAO_ID2	[	501	]	=	1683		ZHUZAO_ID3	[	501	]	=	2642		ZHUZAO__Rad	[	501	]	=	1
+	ZHUZAO_ID	[	502	]	=	1967		ZHUZAO_LV	[	502	]	=	50		ZHUZAO_ID1	[	502	]	=	4033		ZHUZAO_ID2	[	502	]	=	3993		ZHUZAO_ID3	[	502	]	=	2642		ZHUZAO__Rad	[	502	]	=	1
+	ZHUZAO_ID	[	503	]	=	547		ZHUZAO_LV	[	503	]	=	50		ZHUZAO_ID1	[	503	]	=	4033		ZHUZAO_ID2	[	503	]	=	1683		ZHUZAO_ID3	[	503	]	=	2642		ZHUZAO__Rad	[	503	]	=	1
+	ZHUZAO_ID	[	504	]	=	1937		ZHUZAO_LV	[	504	]	=	50		ZHUZAO_ID1	[	504	]	=	4033		ZHUZAO_ID2	[	504	]	=	3993		ZHUZAO_ID3	[	504	]	=	2642		ZHUZAO__Rad	[	504	]	=	1
+	ZHUZAO_ID	[	505	]	=	664		ZHUZAO_LV	[	505	]	=	50		ZHUZAO_ID1	[	505	]	=	4033		ZHUZAO_ID2	[	505	]	=	1683		ZHUZAO_ID3	[	505	]	=	2642		ZHUZAO__Rad	[	505	]	=	1
+	ZHUZAO_ID	[	506	]	=	737		ZHUZAO_LV	[	506	]	=	50		ZHUZAO_ID1	[	506	]	=	4033		ZHUZAO_ID2	[	506	]	=	3993		ZHUZAO_ID3	[	506	]	=	2642		ZHUZAO__Rad	[	506	]	=	1
+	ZHUZAO_ID	[	507	]	=	721		ZHUZAO_LV	[	507	]	=	50		ZHUZAO_ID1	[	507	]	=	4033		ZHUZAO_ID2	[	507	]	=	1683		ZHUZAO_ID3	[	507	]	=	2642		ZHUZAO__Rad	[	507	]	=	1
+	ZHUZAO_ID	[	508	]	=	1953		ZHUZAO_LV	[	508	]	=	50		ZHUZAO_ID1	[	508	]	=	4033		ZHUZAO_ID2	[	508	]	=	3993		ZHUZAO_ID3	[	508	]	=	2642		ZHUZAO__Rad	[	508	]	=	1
+	ZHUZAO_ID	[	509	]	=	734		ZHUZAO_LV	[	509	]	=	50		ZHUZAO_ID1	[	509	]	=	4033		ZHUZAO_ID2	[	509	]	=	1683		ZHUZAO_ID3	[	509	]	=	2642		ZHUZAO__Rad	[	509	]	=	1
+	ZHUZAO_ID	[	510	]	=	697		ZHUZAO_LV	[	510	]	=	50		ZHUZAO_ID1	[	510	]	=	4033		ZHUZAO_ID2	[	510	]	=	3993		ZHUZAO_ID3	[	510	]	=	2642		ZHUZAO__Rad	[	510	]	=	1
+	ZHUZAO_ID	[	511	]	=	1986		ZHUZAO_LV	[	511	]	=	50		ZHUZAO_ID1	[	511	]	=	4033		ZHUZAO_ID2	[	511	]	=	1683		ZHUZAO_ID3	[	511	]	=	2642		ZHUZAO__Rad	[	511	]	=	1
+	ZHUZAO_ID	[	512	]	=	1971		ZHUZAO_LV	[	512	]	=	50		ZHUZAO_ID1	[	512	]	=	4033		ZHUZAO_ID2	[	512	]	=	3993		ZHUZAO_ID3	[	512	]	=	2642		ZHUZAO__Rad	[	512	]	=	1
+	ZHUZAO_ID	[	513	]	=	707		ZHUZAO_LV	[	513	]	=	50		ZHUZAO_ID1	[	513	]	=	4033		ZHUZAO_ID2	[	513	]	=	1683		ZHUZAO_ID3	[	513	]	=	2642		ZHUZAO__Rad	[	513	]	=	1
+	ZHUZAO_ID	[	514	]	=	1974		ZHUZAO_LV	[	514	]	=	50		ZHUZAO_ID1	[	514	]	=	4033		ZHUZAO_ID2	[	514	]	=	3993		ZHUZAO_ID3	[	514	]	=	2642		ZHUZAO__Rad	[	514	]	=	1
+	ZHUZAO_ID	[	515	]	=	651		ZHUZAO_LV	[	515	]	=	50		ZHUZAO_ID1	[	515	]	=	4033		ZHUZAO_ID2	[	515	]	=	1683		ZHUZAO_ID3	[	515	]	=	2642		ZHUZAO__Rad	[	515	]	=	1
+	ZHUZAO_ID	[	516	]	=	1941		ZHUZAO_LV	[	516	]	=	50		ZHUZAO_ID1	[	516	]	=	4033		ZHUZAO_ID2	[	516	]	=	3993		ZHUZAO_ID3	[	516	]	=	2642		ZHUZAO__Rad	[	516	]	=	1
+	ZHUZAO_ID	[	517	]	=	723		ZHUZAO_LV	[	517	]	=	50		ZHUZAO_ID1	[	517	]	=	4033		ZHUZAO_ID2	[	517	]	=	1683		ZHUZAO_ID3	[	517	]	=	2642		ZHUZAO__Rad	[	517	]	=	1
+	ZHUZAO_ID	[	518	]	=	1933		ZHUZAO_LV	[	518	]	=	50		ZHUZAO_ID1	[	518	]	=	4033		ZHUZAO_ID2	[	518	]	=	3993		ZHUZAO_ID3	[	518	]	=	2642		ZHUZAO__Rad	[	518	]	=	1
+	ZHUZAO_ID	[	519	]	=	229		ZHUZAO_LV	[	519	]	=	50		ZHUZAO_ID1	[	519	]	=	4033		ZHUZAO_ID2	[	519	]	=	1683		ZHUZAO_ID3	[	519	]	=	2642		ZHUZAO__Rad	[	519	]	=	1
+	ZHUZAO_ID	[	520	]	=	30		ZHUZAO_LV	[	520	]	=	55		ZHUZAO_ID1	[	520	]	=	4033		ZHUZAO_ID2	[	520	]	=	3993		ZHUZAO_ID3	[	520	]	=	2642		ZHUZAO__Rad	[	520	]	=	1
+	ZHUZAO_ID	[	521	]	=	4706		ZHUZAO_LV	[	521	]	=	55		ZHUZAO_ID1	[	521	]	=	4033		ZHUZAO_ID2	[	521	]	=	1683		ZHUZAO_ID3	[	521	]	=	2642		ZHUZAO__Rad	[	521	]	=	1
+	ZHUZAO_ID	[	522	]	=	4707		ZHUZAO_LV	[	522	]	=	55		ZHUZAO_ID1	[	522	]	=	4033		ZHUZAO_ID2	[	522	]	=	3993		ZHUZAO_ID3	[	522	]	=	2642		ZHUZAO__Rad	[	522	]	=	1
+	ZHUZAO_ID	[	523	]	=	4708		ZHUZAO_LV	[	523	]	=	55		ZHUZAO_ID1	[	523	]	=	4033		ZHUZAO_ID2	[	523	]	=	1683		ZHUZAO_ID3	[	523	]	=	2642		ZHUZAO__Rad	[	523	]	=	1
+	ZHUZAO_ID	[	524	]	=	4709		ZHUZAO_LV	[	524	]	=	55		ZHUZAO_ID1	[	524	]	=	4033		ZHUZAO_ID2	[	524	]	=	3993		ZHUZAO_ID3	[	524	]	=	2642		ZHUZAO__Rad	[	524	]	=	1
+	ZHUZAO_ID	[	525	]	=	4651		ZHUZAO_LV	[	525	]	=	55		ZHUZAO_ID1	[	525	]	=	4033		ZHUZAO_ID2	[	525	]	=	1683		ZHUZAO_ID3	[	525	]	=	2642		ZHUZAO__Rad	[	525	]	=	1
+	ZHUZAO_ID	[	526	]	=	4652		ZHUZAO_LV	[	526	]	=	55		ZHUZAO_ID1	[	526	]	=	4033		ZHUZAO_ID2	[	526	]	=	3993		ZHUZAO_ID3	[	526	]	=	2642		ZHUZAO__Rad	[	526	]	=	1
+	ZHUZAO_ID	[	527	]	=	4653		ZHUZAO_LV	[	527	]	=	55		ZHUZAO_ID1	[	527	]	=	4033		ZHUZAO_ID2	[	527	]	=	1683		ZHUZAO_ID3	[	527	]	=	2642		ZHUZAO__Rad	[	527	]	=	1
+	ZHUZAO_ID	[	528	]	=	4654		ZHUZAO_LV	[	528	]	=	55		ZHUZAO_ID1	[	528	]	=	4033		ZHUZAO_ID2	[	528	]	=	3993		ZHUZAO_ID3	[	528	]	=	2642		ZHUZAO__Rad	[	528	]	=	1
+	ZHUZAO_ID	[	529	]	=	4655		ZHUZAO_LV	[	529	]	=	55		ZHUZAO_ID1	[	529	]	=	4033		ZHUZAO_ID2	[	529	]	=	1683		ZHUZAO_ID3	[	529	]	=	2642		ZHUZAO__Rad	[	529	]	=	1
+	ZHUZAO_ID	[	530	]	=	23		ZHUZAO_LV	[	530	]	=	55		ZHUZAO_ID1	[	530	]	=	4033		ZHUZAO_ID2	[	530	]	=	3993		ZHUZAO_ID3	[	530	]	=	2642		ZHUZAO__Rad	[	530	]	=	1
+	ZHUZAO_ID	[	531	]	=	775		ZHUZAO_LV	[	531	]	=	55		ZHUZAO_ID1	[	531	]	=	4033		ZHUZAO_ID2	[	531	]	=	1683		ZHUZAO_ID3	[	531	]	=	2642		ZHUZAO__Rad	[	531	]	=	1
+	ZHUZAO_ID	[	532	]	=	1399		ZHUZAO_LV	[	532	]	=	55		ZHUZAO_ID1	[	532	]	=	4033		ZHUZAO_ID2	[	532	]	=	3993		ZHUZAO_ID3	[	532	]	=	2642		ZHUZAO__Rad	[	532	]	=	1
+	ZHUZAO_ID	[	533	]	=	21		ZHUZAO_LV	[	533	]	=	55		ZHUZAO_ID1	[	533	]	=	4033		ZHUZAO_ID2	[	533	]	=	1683		ZHUZAO_ID3	[	533	]	=	2642		ZHUZAO__Rad	[	533	]	=	1
+	ZHUZAO_ID	[	534	]	=	772		ZHUZAO_LV	[	534	]	=	55		ZHUZAO_ID1	[	534	]	=	4033		ZHUZAO_ID2	[	534	]	=	3993		ZHUZAO_ID3	[	534	]	=	2642		ZHUZAO__Rad	[	534	]	=	1
+	ZHUZAO_ID	[	535	]	=	1378		ZHUZAO_LV	[	535	]	=	55		ZHUZAO_ID1	[	535	]	=	4033		ZHUZAO_ID2	[	535	]	=	1683		ZHUZAO_ID3	[	535	]	=	2642		ZHUZAO__Rad	[	535	]	=	1
+	ZHUZAO_ID	[	536	]	=	1387		ZHUZAO_LV	[	536	]	=	55		ZHUZAO_ID1	[	536	]	=	4033		ZHUZAO_ID2	[	536	]	=	3993		ZHUZAO_ID3	[	536	]	=	2642		ZHUZAO__Rad	[	536	]	=	1
+	ZHUZAO_ID	[	537	]	=	45		ZHUZAO_LV	[	537	]	=	55		ZHUZAO_ID1	[	537	]	=	4033		ZHUZAO_ID2	[	537	]	=	1683		ZHUZAO_ID3	[	537	]	=	2642		ZHUZAO__Rad	[	537	]	=	1
+	ZHUZAO_ID	[	538	]	=	783		ZHUZAO_LV	[	538	]	=	55		ZHUZAO_ID1	[	538	]	=	4033		ZHUZAO_ID2	[	538	]	=	3993		ZHUZAO_ID3	[	538	]	=	2642		ZHUZAO__Rad	[	538	]	=	1
+	ZHUZAO_ID	[	539	]	=	1414		ZHUZAO_LV	[	539	]	=	55		ZHUZAO_ID1	[	539	]	=	4033		ZHUZAO_ID2	[	539	]	=	1683		ZHUZAO_ID3	[	539	]	=	2642		ZHUZAO__Rad	[	539	]	=	1
+	ZHUZAO_ID	[	540	]	=	84		ZHUZAO_LV	[	540	]	=	55		ZHUZAO_ID1	[	540	]	=	4033		ZHUZAO_ID2	[	540	]	=	3993		ZHUZAO_ID3	[	540	]	=	2642		ZHUZAO__Rad	[	540	]	=	1
+	ZHUZAO_ID	[	541	]	=	801		ZHUZAO_LV	[	541	]	=	55		ZHUZAO_ID1	[	541	]	=	4033		ZHUZAO_ID2	[	541	]	=	1683		ZHUZAO_ID3	[	541	]	=	2642		ZHUZAO__Rad	[	541	]	=	1
+	ZHUZAO_ID	[	542	]	=	1426		ZHUZAO_LV	[	542	]	=	55		ZHUZAO_ID1	[	542	]	=	4033		ZHUZAO_ID2	[	542	]	=	3993		ZHUZAO_ID3	[	542	]	=	2642		ZHUZAO__Rad	[	542	]	=	1
+	ZHUZAO_ID	[	543	]	=	1461		ZHUZAO_LV	[	543	]	=	55		ZHUZAO_ID1	[	543	]	=	4033		ZHUZAO_ID2	[	543	]	=	1683		ZHUZAO_ID3	[	543	]	=	2642		ZHUZAO__Rad	[	543	]	=	1
+	ZHUZAO_ID	[	544	]	=	108		ZHUZAO_LV	[	544	]	=	55		ZHUZAO_ID1	[	544	]	=	4033		ZHUZAO_ID2	[	544	]	=	3993		ZHUZAO_ID3	[	544	]	=	2642		ZHUZAO__Rad	[	544	]	=	1
+	ZHUZAO_ID	[	545	]	=	787		ZHUZAO_LV	[	545	]	=	55		ZHUZAO_ID1	[	545	]	=	4033		ZHUZAO_ID2	[	545	]	=	1683		ZHUZAO_ID3	[	545	]	=	2642		ZHUZAO__Rad	[	545	]	=	1
+	ZHUZAO_ID	[	546	]	=	794		ZHUZAO_LV	[	546	]	=	55		ZHUZAO_ID1	[	546	]	=	4033		ZHUZAO_ID2	[	546	]	=	3993		ZHUZAO_ID3	[	546	]	=	2642		ZHUZAO__Rad	[	546	]	=	1
+	ZHUZAO_ID	[	547	]	=	1438		ZHUZAO_LV	[	547	]	=	55		ZHUZAO_ID1	[	547	]	=	4033		ZHUZAO_ID2	[	547	]	=	1683		ZHUZAO_ID3	[	547	]	=	2642		ZHUZAO__Rad	[	547	]	=	1
+	ZHUZAO_ID	[	548	]	=	1441		ZHUZAO_LV	[	548	]	=	55		ZHUZAO_ID1	[	548	]	=	4033		ZHUZAO_ID2	[	548	]	=	3993		ZHUZAO_ID3	[	548	]	=	2642		ZHUZAO__Rad	[	548	]	=	1
+	ZHUZAO_ID	[	549	]	=	1473		ZHUZAO_LV	[	549	]	=	55		ZHUZAO_ID1	[	549	]	=	4033		ZHUZAO_ID2	[	549	]	=	1683		ZHUZAO_ID3	[	549	]	=	2642		ZHUZAO__Rad	[	549	]	=	1
+	ZHUZAO_ID	[	550	]	=	1476		ZHUZAO_LV	[	550	]	=	55		ZHUZAO_ID1	[	550	]	=	4033		ZHUZAO_ID2	[	550	]	=	3993		ZHUZAO_ID3	[	550	]	=	2642		ZHUZAO__Rad	[	550	]	=	1
+	ZHUZAO_ID	[	551	]	=	4302		ZHUZAO_LV	[	551	]	=	55		ZHUZAO_ID1	[	551	]	=	4033		ZHUZAO_ID2	[	551	]	=	1683		ZHUZAO_ID3	[	551	]	=	2642		ZHUZAO__Rad	[	551	]	=	1
+	ZHUZAO_ID	[	552	]	=	126		ZHUZAO_LV	[	552	]	=	55		ZHUZAO_ID1	[	552	]	=	4033		ZHUZAO_ID2	[	552	]	=	3993		ZHUZAO_ID3	[	552	]	=	2642		ZHUZAO__Rad	[	552	]	=	1
+	ZHUZAO_ID	[	553	]	=	2200		ZHUZAO_LV	[	553	]	=	55		ZHUZAO_ID1	[	553	]	=	4033		ZHUZAO_ID2	[	553	]	=	1683		ZHUZAO_ID3	[	553	]	=	2642		ZHUZAO__Rad	[	553	]	=	1
+	ZHUZAO_ID	[	554	]	=	2194		ZHUZAO_LV	[	554	]	=	55		ZHUZAO_ID1	[	554	]	=	4033		ZHUZAO_ID2	[	554	]	=	3993		ZHUZAO_ID3	[	554	]	=	2642		ZHUZAO__Rad	[	554	]	=	1
+	ZHUZAO_ID	[	555	]	=	2213		ZHUZAO_LV	[	555	]	=	55		ZHUZAO_ID1	[	555	]	=	4033		ZHUZAO_ID2	[	555	]	=	1683		ZHUZAO_ID3	[	555	]	=	2642		ZHUZAO__Rad	[	555	]	=	1
+	ZHUZAO_ID	[	556	]	=	316		ZHUZAO_LV	[	556	]	=	55		ZHUZAO_ID1	[	556	]	=	4033		ZHUZAO_ID2	[	556	]	=	3993		ZHUZAO_ID3	[	556	]	=	2642		ZHUZAO__Rad	[	556	]	=	1
+	ZHUZAO_ID	[	557	]	=	363		ZHUZAO_LV	[	557	]	=	55		ZHUZAO_ID1	[	557	]	=	4033		ZHUZAO_ID2	[	557	]	=	1683		ZHUZAO_ID3	[	557	]	=	2642		ZHUZAO__Rad	[	557	]	=	1
+	ZHUZAO_ID	[	558	]	=	797		ZHUZAO_LV	[	558	]	=	55		ZHUZAO_ID1	[	558	]	=	4033		ZHUZAO_ID2	[	558	]	=	3993		ZHUZAO_ID3	[	558	]	=	2642		ZHUZAO__Rad	[	558	]	=	1
+	ZHUZAO_ID	[	559	]	=	779		ZHUZAO_LV	[	559	]	=	55		ZHUZAO_ID1	[	559	]	=	4033		ZHUZAO_ID2	[	559	]	=	1683		ZHUZAO_ID3	[	559	]	=	2642		ZHUZAO__Rad	[	559	]	=	1
+	ZHUZAO_ID	[	560	]	=	357		ZHUZAO_LV	[	560	]	=	55		ZHUZAO_ID1	[	560	]	=	4033		ZHUZAO_ID2	[	560	]	=	3993		ZHUZAO_ID3	[	560	]	=	2642		ZHUZAO__Rad	[	560	]	=	1
+	ZHUZAO_ID	[	561	]	=	303		ZHUZAO_LV	[	561	]	=	55		ZHUZAO_ID1	[	561	]	=	4033		ZHUZAO_ID2	[	561	]	=	1683		ZHUZAO_ID3	[	561	]	=	2642		ZHUZAO__Rad	[	561	]	=	1
+	ZHUZAO_ID	[	562	]	=	768		ZHUZAO_LV	[	562	]	=	55		ZHUZAO_ID1	[	562	]	=	4033		ZHUZAO_ID2	[	562	]	=	3993		ZHUZAO_ID3	[	562	]	=	2642		ZHUZAO__Rad	[	562	]	=	1
+	ZHUZAO_ID	[	563	]	=	391		ZHUZAO_LV	[	563	]	=	55		ZHUZAO_ID1	[	563	]	=	4033		ZHUZAO_ID2	[	563	]	=	1683		ZHUZAO_ID3	[	563	]	=	2642		ZHUZAO__Rad	[	563	]	=	1
+	ZHUZAO_ID	[	564	]	=	805		ZHUZAO_LV	[	564	]	=	55		ZHUZAO_ID1	[	564	]	=	4033		ZHUZAO_ID2	[	564	]	=	3993		ZHUZAO_ID3	[	564	]	=	2642		ZHUZAO__Rad	[	564	]	=	1
+	ZHUZAO_ID	[	565	]	=	343		ZHUZAO_LV	[	565	]	=	55		ZHUZAO_ID1	[	565	]	=	4033		ZHUZAO_ID2	[	565	]	=	1683		ZHUZAO_ID3	[	565	]	=	2642		ZHUZAO__Rad	[	565	]	=	1
+	ZHUZAO_ID	[	566	]	=	791		ZHUZAO_LV	[	566	]	=	55		ZHUZAO_ID1	[	566	]	=	4033		ZHUZAO_ID2	[	566	]	=	3993		ZHUZAO_ID3	[	566	]	=	2642		ZHUZAO__Rad	[	566	]	=	1
+	ZHUZAO_ID	[	567	]	=	379		ZHUZAO_LV	[	567	]	=	55		ZHUZAO_ID1	[	567	]	=	4033		ZHUZAO_ID2	[	567	]	=	1683		ZHUZAO_ID3	[	567	]	=	2642		ZHUZAO__Rad	[	567	]	=	1
+	ZHUZAO_ID	[	568	]	=	376		ZHUZAO_LV	[	568	]	=	55		ZHUZAO_ID1	[	568	]	=	4033		ZHUZAO_ID2	[	568	]	=	3993		ZHUZAO_ID3	[	568	]	=	2642		ZHUZAO__Rad	[	568	]	=	1
+	ZHUZAO_ID	[	569	]	=	492		ZHUZAO_LV	[	569	]	=	55		ZHUZAO_ID1	[	569	]	=	4033		ZHUZAO_ID2	[	569	]	=	1683		ZHUZAO_ID3	[	569	]	=	2642		ZHUZAO__Rad	[	569	]	=	1
+	ZHUZAO_ID	[	570	]	=	539		ZHUZAO_LV	[	570	]	=	55		ZHUZAO_ID1	[	570	]	=	4033		ZHUZAO_ID2	[	570	]	=	3993		ZHUZAO_ID3	[	570	]	=	2642		ZHUZAO__Rad	[	570	]	=	1
+	ZHUZAO_ID	[	571	]	=	811		ZHUZAO_LV	[	571	]	=	55		ZHUZAO_ID1	[	571	]	=	4033		ZHUZAO_ID2	[	571	]	=	1683		ZHUZAO_ID3	[	571	]	=	2642		ZHUZAO__Rad	[	571	]	=	1
+	ZHUZAO_ID	[	572	]	=	809		ZHUZAO_LV	[	572	]	=	55		ZHUZAO_ID1	[	572	]	=	4033		ZHUZAO_ID2	[	572	]	=	3993		ZHUZAO_ID3	[	572	]	=	2642		ZHUZAO__Rad	[	572	]	=	1
+	ZHUZAO_ID	[	573	]	=	533		ZHUZAO_LV	[	573	]	=	55		ZHUZAO_ID1	[	573	]	=	4033		ZHUZAO_ID2	[	573	]	=	1683		ZHUZAO_ID3	[	573	]	=	2642		ZHUZAO__Rad	[	573	]	=	1
+	ZHUZAO_ID	[	574	]	=	479		ZHUZAO_LV	[	574	]	=	55		ZHUZAO_ID1	[	574	]	=	4033		ZHUZAO_ID2	[	574	]	=	3993		ZHUZAO_ID3	[	574	]	=	2642		ZHUZAO__Rad	[	574	]	=	1
+	ZHUZAO_ID	[	575	]	=	807		ZHUZAO_LV	[	575	]	=	55		ZHUZAO_ID1	[	575	]	=	4033		ZHUZAO_ID2	[	575	]	=	1683		ZHUZAO_ID3	[	575	]	=	2642		ZHUZAO__Rad	[	575	]	=	1
+	ZHUZAO_ID	[	576	]	=	567		ZHUZAO_LV	[	576	]	=	55		ZHUZAO_ID1	[	576	]	=	4033		ZHUZAO_ID2	[	576	]	=	3993		ZHUZAO_ID3	[	576	]	=	2642		ZHUZAO__Rad	[	576	]	=	1
+	ZHUZAO_ID	[	577	]	=	815		ZHUZAO_LV	[	577	]	=	55		ZHUZAO_ID1	[	577	]	=	4033		ZHUZAO_ID2	[	577	]	=	1683		ZHUZAO_ID3	[	577	]	=	2642		ZHUZAO__Rad	[	577	]	=	1
+	ZHUZAO_ID	[	578	]	=	519		ZHUZAO_LV	[	578	]	=	55		ZHUZAO_ID1	[	578	]	=	4033		ZHUZAO_ID2	[	578	]	=	3993		ZHUZAO_ID3	[	578	]	=	2642		ZHUZAO__Rad	[	578	]	=	1
+	ZHUZAO_ID	[	579	]	=	552		ZHUZAO_LV	[	579	]	=	55		ZHUZAO_ID1	[	579	]	=	4033		ZHUZAO_ID2	[	579	]	=	1683		ZHUZAO_ID3	[	579	]	=	2642		ZHUZAO__Rad	[	579	]	=	1
+	ZHUZAO_ID	[	580	]	=	812		ZHUZAO_LV	[	580	]	=	55		ZHUZAO_ID1	[	580	]	=	4033		ZHUZAO_ID2	[	580	]	=	3993		ZHUZAO_ID3	[	580	]	=	2642		ZHUZAO__Rad	[	580	]	=	1
+	ZHUZAO_ID	[	581	]	=	555		ZHUZAO_LV	[	581	]	=	55		ZHUZAO_ID1	[	581	]	=	4033		ZHUZAO_ID2	[	581	]	=	1683		ZHUZAO_ID3	[	581	]	=	2642		ZHUZAO__Rad	[	581	]	=	1
+	ZHUZAO_ID	[	582	]	=	668		ZHUZAO_LV	[	582	]	=	55		ZHUZAO_ID1	[	582	]	=	4033		ZHUZAO_ID2	[	582	]	=	3993		ZHUZAO_ID3	[	582	]	=	2642		ZHUZAO__Rad	[	582	]	=	1
+	ZHUZAO_ID	[	583	]	=	715		ZHUZAO_LV	[	583	]	=	55		ZHUZAO_ID1	[	583	]	=	4033		ZHUZAO_ID2	[	583	]	=	1683		ZHUZAO_ID3	[	583	]	=	2642		ZHUZAO__Rad	[	583	]	=	1
+	ZHUZAO_ID	[	584	]	=	813		ZHUZAO_LV	[	584	]	=	55		ZHUZAO_ID1	[	584	]	=	4033		ZHUZAO_ID2	[	584	]	=	3993		ZHUZAO_ID3	[	584	]	=	2642		ZHUZAO__Rad	[	584	]	=	1
+	ZHUZAO_ID	[	585	]	=	810		ZHUZAO_LV	[	585	]	=	55		ZHUZAO_ID1	[	585	]	=	4033		ZHUZAO_ID2	[	585	]	=	1683		ZHUZAO_ID3	[	585	]	=	2642		ZHUZAO__Rad	[	585	]	=	1
+	ZHUZAO_ID	[	586	]	=	709		ZHUZAO_LV	[	586	]	=	55		ZHUZAO_ID1	[	586	]	=	4033		ZHUZAO_ID2	[	586	]	=	3993		ZHUZAO_ID3	[	586	]	=	2642		ZHUZAO__Rad	[	586	]	=	1
+	ZHUZAO_ID	[	587	]	=	655		ZHUZAO_LV	[	587	]	=	55		ZHUZAO_ID1	[	587	]	=	4033		ZHUZAO_ID2	[	587	]	=	1683		ZHUZAO_ID3	[	587	]	=	2642		ZHUZAO__Rad	[	587	]	=	1
+	ZHUZAO_ID	[	588	]	=	808		ZHUZAO_LV	[	588	]	=	55		ZHUZAO_ID1	[	588	]	=	4033		ZHUZAO_ID2	[	588	]	=	3993		ZHUZAO_ID3	[	588	]	=	2642		ZHUZAO__Rad	[	588	]	=	1
+	ZHUZAO_ID	[	589	]	=	743		ZHUZAO_LV	[	589	]	=	55		ZHUZAO_ID1	[	589	]	=	4033		ZHUZAO_ID2	[	589	]	=	1683		ZHUZAO_ID3	[	589	]	=	2642		ZHUZAO__Rad	[	589	]	=	1
+	ZHUZAO_ID	[	590	]	=	877		ZHUZAO_LV	[	590	]	=	55		ZHUZAO_ID1	[	590	]	=	4033		ZHUZAO_ID2	[	590	]	=	3993		ZHUZAO_ID3	[	590	]	=	2642		ZHUZAO__Rad	[	590	]	=	1
+	ZHUZAO_ID	[	591	]	=	695		ZHUZAO_LV	[	591	]	=	55		ZHUZAO_ID1	[	591	]	=	4033		ZHUZAO_ID2	[	591	]	=	1683		ZHUZAO_ID3	[	591	]	=	2642		ZHUZAO__Rad	[	591	]	=	1
+	ZHUZAO_ID	[	592	]	=	728		ZHUZAO_LV	[	592	]	=	55		ZHUZAO_ID1	[	592	]	=	4033		ZHUZAO_ID2	[	592	]	=	3993		ZHUZAO_ID3	[	592	]	=	2642		ZHUZAO__Rad	[	592	]	=	1
+	ZHUZAO_ID	[	593	]	=	814		ZHUZAO_LV	[	593	]	=	55		ZHUZAO_ID1	[	593	]	=	4033		ZHUZAO_ID2	[	593	]	=	1683		ZHUZAO_ID3	[	593	]	=	2642		ZHUZAO__Rad	[	593	]	=	1
+	ZHUZAO_ID	[	594	]	=	731		ZHUZAO_LV	[	594	]	=	55		ZHUZAO_ID1	[	594	]	=	4033		ZHUZAO_ID2	[	594	]	=	3993		ZHUZAO_ID3	[	594	]	=	2642		ZHUZAO__Rad	[	594	]	=	1
+	ZHUZAO_ID	[	595	]	=	765		ZHUZAO_LV	[	595	]	=	55		ZHUZAO_ID1	[	595	]	=	4033		ZHUZAO_ID2	[	595	]	=	1683		ZHUZAO_ID3	[	595	]	=	2642		ZHUZAO__Rad	[	595	]	=	1
+	ZHUZAO_ID	[	596	]	=	228		ZHUZAO_LV	[	596	]	=	55		ZHUZAO_ID1	[	596	]	=	4033		ZHUZAO_ID2	[	596	]	=	3993		ZHUZAO_ID3	[	596	]	=	2642		ZHUZAO__Rad	[	596	]	=	1
+	ZHUZAO_ID	[	597	]	=	495		ZHUZAO_LV	[	597	]	=	60		ZHUZAO_ID1	[	597	]	=	4034		ZHUZAO_ID2	[	597	]	=	3994		ZHUZAO_ID3	[	597	]	=	2643		ZHUZAO__Rad	[	597	]	=	1
+	ZHUZAO_ID	[	598	]	=	497		ZHUZAO_LV	[	598	]	=	60		ZHUZAO_ID1	[	598	]	=	4034		ZHUZAO_ID2	[	598	]	=	1684		ZHUZAO_ID3	[	598	]	=	8318		ZHUZAO__Rad	[	598	]	=	1
+	ZHUZAO_ID	[	599	]	=	4711		ZHUZAO_LV	[	599	]	=	60		ZHUZAO_ID1	[	599	]	=	4034		ZHUZAO_ID2	[	599	]	=	3994		ZHUZAO_ID3	[	599	]	=	2643		ZHUZAO__Rad	[	599	]	=	1
+	ZHUZAO_ID	[	600	]	=	4712		ZHUZAO_LV	[	600	]	=	60		ZHUZAO_ID1	[	600	]	=	4034		ZHUZAO_ID2	[	600	]	=	1684		ZHUZAO_ID3	[	600	]	=	2643		ZHUZAO__Rad	[	600	]	=	1
+	ZHUZAO_ID	[	601	]	=	4713		ZHUZAO_LV	[	601	]	=	60		ZHUZAO_ID1	[	601	]	=	4034		ZHUZAO_ID2	[	601	]	=	3994		ZHUZAO_ID3	[	601	]	=	2643		ZHUZAO__Rad	[	601	]	=	1
+	ZHUZAO_ID	[	602	]	=	4714		ZHUZAO_LV	[	602	]	=	60		ZHUZAO_ID1	[	602	]	=	4034		ZHUZAO_ID2	[	602	]	=	1684		ZHUZAO_ID3	[	602	]	=	8318		ZHUZAO__Rad	[	602	]	=	1
+	ZHUZAO_ID	[	603	]	=	4715		ZHUZAO_LV	[	603	]	=	60		ZHUZAO_ID1	[	603	]	=	4034		ZHUZAO_ID2	[	603	]	=	3994		ZHUZAO_ID3	[	603	]	=	2643		ZHUZAO__Rad	[	603	]	=	1
+	ZHUZAO_ID	[	604	]	=	4656		ZHUZAO_LV	[	604	]	=	60		ZHUZAO_ID1	[	604	]	=	4034		ZHUZAO_ID2	[	604	]	=	1684		ZHUZAO_ID3	[	604	]	=	6532		ZHUZAO__Rad	[	604	]	=	1
+	ZHUZAO_ID	[	605	]	=	4657		ZHUZAO_LV	[	605	]	=	60		ZHUZAO_ID1	[	605	]	=	4034		ZHUZAO_ID2	[	605	]	=	3994		ZHUZAO_ID3	[	605	]	=	2643		ZHUZAO__Rad	[	605	]	=	1
+	ZHUZAO_ID	[	606	]	=	4658		ZHUZAO_LV	[	606	]	=	60		ZHUZAO_ID1	[	606	]	=	4034		ZHUZAO_ID2	[	606	]	=	1684		ZHUZAO_ID3	[	606	]	=	2643		ZHUZAO__Rad	[	606	]	=	1
+	ZHUZAO_ID	[	607	]	=	4659		ZHUZAO_LV	[	607	]	=	60		ZHUZAO_ID1	[	607	]	=	4034		ZHUZAO_ID2	[	607	]	=	3994		ZHUZAO_ID3	[	607	]	=	2643		ZHUZAO__Rad	[	607	]	=	1
+	ZHUZAO_ID	[	608	]	=	4660		ZHUZAO_LV	[	608	]	=	60		ZHUZAO_ID1	[	608	]	=	4034		ZHUZAO_ID2	[	608	]	=	1684		ZHUZAO_ID3	[	608	]	=	8318		ZHUZAO__Rad	[	608	]	=	1
+	ZHUZAO_ID	[	609	]	=	878		ZHUZAO_LV	[	609	]	=	60		ZHUZAO_ID1	[	609	]	=	4034		ZHUZAO_ID2	[	609	]	=	3994		ZHUZAO_ID3	[	609	]	=	2643		ZHUZAO__Rad	[	609	]	=	1
+	ZHUZAO_ID	[	610	]	=	879		ZHUZAO_LV	[	610	]	=	60		ZHUZAO_ID1	[	610	]	=	4034		ZHUZAO_ID2	[	610	]	=	1684		ZHUZAO_ID3	[	610	]	=	2643		ZHUZAO__Rad	[	610	]	=	1
+	ZHUZAO_ID	[	611	]	=	880		ZHUZAO_LV	[	611	]	=	60		ZHUZAO_ID1	[	611	]	=	4034		ZHUZAO_ID2	[	611	]	=	3994		ZHUZAO_ID3	[	611	]	=	8318		ZHUZAO__Rad	[	611	]	=	1
+	ZHUZAO_ID	[	612	]	=	8081		ZHUZAO_LV	[	612	]	=	60		ZHUZAO_ID1	[	612	]	=	4034		ZHUZAO_ID2	[	612	]	=	1684		ZHUZAO_ID3	[	612	]	=	2643		ZHUZAO__Rad	[	612	]	=	1
+	ZHUZAO_ID	[	613	]	=	8082		ZHUZAO_LV	[	613	]	=	60		ZHUZAO_ID1	[	613	]	=	4034		ZHUZAO_ID2	[	613	]	=	3994		ZHUZAO_ID3	[	613	]	=	2643		ZHUZAO__Rad	[	613	]	=	1
+	ZHUZAO_ID	[	614	]	=	8083		ZHUZAO_LV	[	614	]	=	60		ZHUZAO_ID1	[	614	]	=	4034		ZHUZAO_ID2	[	614	]	=	1684		ZHUZAO_ID3	[	614	]	=	2643		ZHUZAO__Rad	[	614	]	=	1
+	ZHUZAO_ID	[	615	]	=	8084		ZHUZAO_LV	[	615	]	=	60		ZHUZAO_ID1	[	615	]	=	4034		ZHUZAO_ID2	[	615	]	=	3994		ZHUZAO_ID3	[	615	]	=	6532		ZHUZAO__Rad	[	615	]	=	1
+	ZHUZAO_ID	[	616	]	=	8085		ZHUZAO_LV	[	616	]	=	60		ZHUZAO_ID1	[	616	]	=	4034		ZHUZAO_ID2	[	616	]	=	1684		ZHUZAO_ID3	[	616	]	=	2643		ZHUZAO__Rad	[	616	]	=	1
+	ZHUZAO_ID	[	617	]	=	8086		ZHUZAO_LV	[	617	]	=	60		ZHUZAO_ID1	[	617	]	=	4034		ZHUZAO_ID2	[	617	]	=	3994		ZHUZAO_ID3	[	617	]	=	8318		ZHUZAO__Rad	[	617	]	=	1
+	ZHUZAO_ID	[	618	]	=	8087		ZHUZAO_LV	[	618	]	=	60		ZHUZAO_ID1	[	618	]	=	4034		ZHUZAO_ID2	[	618	]	=	1684		ZHUZAO_ID3	[	618	]	=	2643		ZHUZAO__Rad	[	618	]	=	1
+	ZHUZAO_ID	[	619	]	=	8088		ZHUZAO_LV	[	619	]	=	60		ZHUZAO_ID1	[	619	]	=	4034		ZHUZAO_ID2	[	619	]	=	3994		ZHUZAO_ID3	[	619	]	=	2643		ZHUZAO__Rad	[	619	]	=	1
+	ZHUZAO_ID	[	620	]	=	8089		ZHUZAO_LV	[	620	]	=	60		ZHUZAO_ID1	[	620	]	=	4034		ZHUZAO_ID2	[	620	]	=	1684		ZHUZAO_ID3	[	620	]	=	2643		ZHUZAO__Rad	[	620	]	=	1
+	ZHUZAO_ID	[	621	]	=	8090		ZHUZAO_LV	[	621	]	=	60		ZHUZAO_ID1	[	621	]	=	4034		ZHUZAO_ID2	[	621	]	=	3994		ZHUZAO_ID3	[	621	]	=	8318		ZHUZAO__Rad	[	621	]	=	1
+	ZHUZAO_ID	[	622	]	=	8091		ZHUZAO_LV	[	622	]	=	60		ZHUZAO_ID1	[	622	]	=	4034		ZHUZAO_ID2	[	622	]	=	1684		ZHUZAO_ID3	[	622	]	=	2643		ZHUZAO__Rad	[	622	]	=	1
+	ZHUZAO_ID	[	623	]	=	8092		ZHUZAO_LV	[	623	]	=	60		ZHUZAO_ID1	[	623	]	=	4034		ZHUZAO_ID2	[	623	]	=	3994		ZHUZAO_ID3	[	623	]	=	2643		ZHUZAO__Rad	[	623	]	=	1
+	ZHUZAO_ID	[	624	]	=	8093		ZHUZAO_LV	[	624	]	=	60		ZHUZAO_ID1	[	624	]	=	4034		ZHUZAO_ID2	[	624	]	=	1684		ZHUZAO_ID3	[	624	]	=	8318		ZHUZAO__Rad	[	624	]	=	1
+	ZHUZAO_ID	[	625	]	=	8094		ZHUZAO_LV	[	625	]	=	60		ZHUZAO_ID1	[	625	]	=	4034		ZHUZAO_ID2	[	625	]	=	3994		ZHUZAO_ID3	[	625	]	=	2643		ZHUZAO__Rad	[	625	]	=	1
+	ZHUZAO_ID	[	626	]	=	8095		ZHUZAO_LV	[	626	]	=	60		ZHUZAO_ID1	[	626	]	=	4034		ZHUZAO_ID2	[	626	]	=	1684		ZHUZAO_ID3	[	626	]	=	2643		ZHUZAO__Rad	[	626	]	=	1
+	ZHUZAO_ID	[	627	]	=	8096		ZHUZAO_LV	[	627	]	=	60		ZHUZAO_ID1	[	627	]	=	4034		ZHUZAO_ID2	[	627	]	=	3994		ZHUZAO_ID3	[	627	]	=	2643		ZHUZAO__Rad	[	627	]	=	1
+	ZHUZAO_ID	[	628	]	=	8097		ZHUZAO_LV	[	628	]	=	60		ZHUZAO_ID1	[	628	]	=	4034		ZHUZAO_ID2	[	628	]	=	1684		ZHUZAO_ID3	[	628	]	=	8318		ZHUZAO__Rad	[	628	]	=	1
+	ZHUZAO_ID	[	629	]	=	8098		ZHUZAO_LV	[	629	]	=	60		ZHUZAO_ID1	[	629	]	=	4034		ZHUZAO_ID2	[	629	]	=	3994		ZHUZAO_ID3	[	629	]	=	2643		ZHUZAO__Rad	[	629	]	=	1
+	ZHUZAO_ID	[	630	]	=	8099		ZHUZAO_LV	[	630	]	=	60		ZHUZAO_ID1	[	630	]	=	4034		ZHUZAO_ID2	[	630	]	=	1684		ZHUZAO_ID3	[	630	]	=	8318		ZHUZAO__Rad	[	630	]	=	1
+	ZHUZAO_ID	[	631	]	=	8100		ZHUZAO_LV	[	631	]	=	60		ZHUZAO_ID1	[	631	]	=	4034		ZHUZAO_ID2	[	631	]	=	3994		ZHUZAO_ID3	[	631	]	=	2643		ZHUZAO__Rad	[	631	]	=	1
+	ZHUZAO_ID	[	632	]	=	8101		ZHUZAO_LV	[	632	]	=	60		ZHUZAO_ID1	[	632	]	=	4034		ZHUZAO_ID2	[	632	]	=	1684		ZHUZAO_ID3	[	632	]	=	2643		ZHUZAO__Rad	[	632	]	=	1
+	ZHUZAO_ID	[	633	]	=	8102		ZHUZAO_LV	[	633	]	=	60		ZHUZAO_ID1	[	633	]	=	4034		ZHUZAO_ID2	[	633	]	=	3994		ZHUZAO_ID3	[	633	]	=	6532		ZHUZAO__Rad	[	633	]	=	1
+	ZHUZAO_ID	[	634	]	=	8103		ZHUZAO_LV	[	634	]	=	60		ZHUZAO_ID1	[	634	]	=	4034		ZHUZAO_ID2	[	634	]	=	1684		ZHUZAO_ID3	[	634	]	=	8318		ZHUZAO__Rad	[	634	]	=	1
+	ZHUZAO_ID	[	635	]	=	8104		ZHUZAO_LV	[	635	]	=	60		ZHUZAO_ID1	[	635	]	=	4034		ZHUZAO_ID2	[	635	]	=	3994		ZHUZAO_ID3	[	635	]	=	2643		ZHUZAO__Rad	[	635	]	=	1
+	ZHUZAO_ID	[	636	]	=	8105		ZHUZAO_LV	[	636	]	=	60		ZHUZAO_ID1	[	636	]	=	4034		ZHUZAO_ID2	[	636	]	=	1684		ZHUZAO_ID3	[	636	]	=	2643		ZHUZAO__Rad	[	636	]	=	1
+	ZHUZAO_ID	[	637	]	=	8106		ZHUZAO_LV	[	637	]	=	60		ZHUZAO_ID1	[	637	]	=	4034		ZHUZAO_ID2	[	637	]	=	3994		ZHUZAO_ID3	[	637	]	=	2643		ZHUZAO__Rad	[	637	]	=	1
+	ZHUZAO_ID	[	638	]	=	8107		ZHUZAO_LV	[	638	]	=	60		ZHUZAO_ID1	[	638	]	=	4034		ZHUZAO_ID2	[	638	]	=	1684		ZHUZAO_ID3	[	638	]	=	2643		ZHUZAO__Rad	[	638	]	=	1
+	ZHUZAO_ID	[	639	]	=	8108		ZHUZAO_LV	[	639	]	=	60		ZHUZAO_ID1	[	639	]	=	4034		ZHUZAO_ID2	[	639	]	=	3994		ZHUZAO_ID3	[	639	]	=	2643		ZHUZAO__Rad	[	639	]	=	1
+	ZHUZAO_ID	[	640	]	=	8109		ZHUZAO_LV	[	640	]	=	60		ZHUZAO_ID1	[	640	]	=	4034		ZHUZAO_ID2	[	640	]	=	1684		ZHUZAO_ID3	[	640	]	=	2643		ZHUZAO__Rad	[	640	]	=	1
+	ZHUZAO_ID	[	641	]	=	8110		ZHUZAO_LV	[	641	]	=	60		ZHUZAO_ID1	[	641	]	=	4034		ZHUZAO_ID2	[	641	]	=	3994		ZHUZAO_ID3	[	641	]	=	2643		ZHUZAO__Rad	[	641	]	=	1
+	ZHUZAO_ID	[	642	]	=	8111		ZHUZAO_LV	[	642	]	=	60		ZHUZAO_ID1	[	642	]	=	4034		ZHUZAO_ID2	[	642	]	=	1684		ZHUZAO_ID3	[	642	]	=	6532		ZHUZAO__Rad	[	642	]	=	1
+	ZHUZAO_ID	[	643	]	=	8112		ZHUZAO_LV	[	643	]	=	60		ZHUZAO_ID1	[	643	]	=	4034		ZHUZAO_ID2	[	643	]	=	3994		ZHUZAO_ID3	[	643	]	=	2643		ZHUZAO__Rad	[	643	]	=	1
+	ZHUZAO_ID	[	644	]	=	8113		ZHUZAO_LV	[	644	]	=	60		ZHUZAO_ID1	[	644	]	=	4034		ZHUZAO_ID2	[	644	]	=	1684		ZHUZAO_ID3	[	644	]	=	2643		ZHUZAO__Rad	[	644	]	=	1
+	ZHUZAO_ID	[	645	]	=	8114		ZHUZAO_LV	[	645	]	=	60		ZHUZAO_ID1	[	645	]	=	4034		ZHUZAO_ID2	[	645	]	=	3994		ZHUZAO_ID3	[	645	]	=	2643		ZHUZAO__Rad	[	645	]	=	1
+	ZHUZAO_ID	[	646	]	=	8115		ZHUZAO_LV	[	646	]	=	60		ZHUZAO_ID1	[	646	]	=	4034		ZHUZAO_ID2	[	646	]	=	1684		ZHUZAO_ID3	[	646	]	=	8318		ZHUZAO__Rad	[	646	]	=	1
+	ZHUZAO_ID	[	647	]	=	8116		ZHUZAO_LV	[	647	]	=	60		ZHUZAO_ID1	[	647	]	=	4034		ZHUZAO_ID2	[	647	]	=	3994		ZHUZAO_ID3	[	647	]	=	2643		ZHUZAO__Rad	[	647	]	=	1
+	ZHUZAO_ID	[	648	]	=	8117		ZHUZAO_LV	[	648	]	=	60		ZHUZAO_ID1	[	648	]	=	4034		ZHUZAO_ID2	[	648	]	=	1684		ZHUZAO_ID3	[	648	]	=	8318		ZHUZAO__Rad	[	648	]	=	1
+	ZHUZAO_ID	[	649	]	=	8118		ZHUZAO_LV	[	649	]	=	60		ZHUZAO_ID1	[	649	]	=	4034		ZHUZAO_ID2	[	649	]	=	3994		ZHUZAO_ID3	[	649	]	=	2643		ZHUZAO__Rad	[	649	]	=	1
+	ZHUZAO_ID	[	650	]	=	8119		ZHUZAO_LV	[	650	]	=	60		ZHUZAO_ID1	[	650	]	=	4034		ZHUZAO_ID2	[	650	]	=	1684		ZHUZAO_ID3	[	650	]	=	2643		ZHUZAO__Rad	[	650	]	=	1
+	ZHUZAO_ID	[	651	]	=	8120		ZHUZAO_LV	[	651	]	=	60		ZHUZAO_ID1	[	651	]	=	4034		ZHUZAO_ID2	[	651	]	=	3994		ZHUZAO_ID3	[	651	]	=	2643		ZHUZAO__Rad	[	651	]	=	1
+	ZHUZAO_ID	[	652	]	=	8121		ZHUZAO_LV	[	652	]	=	60		ZHUZAO_ID1	[	652	]	=	4034		ZHUZAO_ID2	[	652	]	=	1684		ZHUZAO_ID3	[	652	]	=	8318		ZHUZAO__Rad	[	652	]	=	1
+	ZHUZAO_ID	[	653	]	=	8122		ZHUZAO_LV	[	653	]	=	60		ZHUZAO_ID1	[	653	]	=	4034		ZHUZAO_ID2	[	653	]	=	3994		ZHUZAO_ID3	[	653	]	=	2643		ZHUZAO__Rad	[	653	]	=	1
+	ZHUZAO_ID	[	654	]	=	8123		ZHUZAO_LV	[	654	]	=	60		ZHUZAO_ID1	[	654	]	=	4034		ZHUZAO_ID2	[	654	]	=	1684		ZHUZAO_ID3	[	654	]	=	2643		ZHUZAO__Rad	[	654	]	=	1
+	ZHUZAO_ID	[	655	]	=	8124		ZHUZAO_LV	[	655	]	=	60		ZHUZAO_ID1	[	655	]	=	4034		ZHUZAO_ID2	[	655	]	=	3994		ZHUZAO_ID3	[	655	]	=	6532		ZHUZAO__Rad	[	655	]	=	1
+	ZHUZAO_ID	[	656	]	=	8125		ZHUZAO_LV	[	656	]	=	60		ZHUZAO_ID1	[	656	]	=	4034		ZHUZAO_ID2	[	656	]	=	1684		ZHUZAO_ID3	[	656	]	=	6532		ZHUZAO__Rad	[	656	]	=	1
+	ZHUZAO_ID	[	657	]	=	8126		ZHUZAO_LV	[	657	]	=	60		ZHUZAO_ID1	[	657	]	=	4034		ZHUZAO_ID2	[	657	]	=	3994		ZHUZAO_ID3	[	657	]	=	8318		ZHUZAO__Rad	[	657	]	=	1
+	ZHUZAO_ID	[	658	]	=	8127		ZHUZAO_LV	[	658	]	=	60		ZHUZAO_ID1	[	658	]	=	4034		ZHUZAO_ID2	[	658	]	=	1684		ZHUZAO_ID3	[	658	]	=	2643		ZHUZAO__Rad	[	658	]	=	1
+	ZHUZAO_ID	[	659	]	=	8128		ZHUZAO_LV	[	659	]	=	60		ZHUZAO_ID1	[	659	]	=	4034		ZHUZAO_ID2	[	659	]	=	3994		ZHUZAO_ID3	[	659	]	=	2643		ZHUZAO__Rad	[	659	]	=	1
+	ZHUZAO_ID	[	660	]	=	8129		ZHUZAO_LV	[	660	]	=	60		ZHUZAO_ID1	[	660	]	=	4034		ZHUZAO_ID2	[	660	]	=	1684		ZHUZAO_ID3	[	660	]	=	2643		ZHUZAO__Rad	[	660	]	=	1
+	ZHUZAO_ID	[	661	]	=	8130		ZHUZAO_LV	[	661	]	=	60		ZHUZAO_ID1	[	661	]	=	4034		ZHUZAO_ID2	[	661	]	=	3994		ZHUZAO_ID3	[	661	]	=	8318		ZHUZAO__Rad	[	661	]	=	1
+	ZHUZAO_ID	[	662	]	=	8131		ZHUZAO_LV	[	662	]	=	60		ZHUZAO_ID1	[	662	]	=	4034		ZHUZAO_ID2	[	662	]	=	1684		ZHUZAO_ID3	[	662	]	=	2643		ZHUZAO__Rad	[	662	]	=	1
+	ZHUZAO_ID	[	663	]	=	8132		ZHUZAO_LV	[	663	]	=	60		ZHUZAO_ID1	[	663	]	=	4034		ZHUZAO_ID2	[	663	]	=	3994		ZHUZAO_ID3	[	663	]	=	8318		ZHUZAO__Rad	[	663	]	=	1
+	ZHUZAO_ID	[	664	]	=	8133		ZHUZAO_LV	[	664	]	=	60		ZHUZAO_ID1	[	664	]	=	4034		ZHUZAO_ID2	[	664	]	=	1684		ZHUZAO_ID3	[	664	]	=	2643		ZHUZAO__Rad	[	664	]	=	1
+	ZHUZAO_ID	[	665	]	=	8134		ZHUZAO_LV	[	665	]	=	60		ZHUZAO_ID1	[	665	]	=	4034		ZHUZAO_ID2	[	665	]	=	3994		ZHUZAO_ID3	[	665	]	=	2643		ZHUZAO__Rad	[	665	]	=	1
+	ZHUZAO_ID	[	666	]	=	8135		ZHUZAO_LV	[	666	]	=	60		ZHUZAO_ID1	[	666	]	=	4034		ZHUZAO_ID2	[	666	]	=	1684		ZHUZAO_ID3	[	666	]	=	2643		ZHUZAO__Rad	[	666	]	=	1
+	ZHUZAO_ID	[	667	]	=	8136		ZHUZAO_LV	[	667	]	=	60		ZHUZAO_ID1	[	667	]	=	4034		ZHUZAO_ID2	[	667	]	=	3994		ZHUZAO_ID3	[	667	]	=	8318		ZHUZAO__Rad	[	667	]	=	1
+	ZHUZAO_ID	[	668	]	=	8137		ZHUZAO_LV	[	668	]	=	60		ZHUZAO_ID1	[	668	]	=	4034		ZHUZAO_ID2	[	668	]	=	1684		ZHUZAO_ID3	[	668	]	=	6532		ZHUZAO__Rad	[	668	]	=	1
+	ZHUZAO_ID	[	669	]	=	8138		ZHUZAO_LV	[	669	]	=	60		ZHUZAO_ID1	[	669	]	=	4034		ZHUZAO_ID2	[	669	]	=	3994		ZHUZAO_ID3	[	669	]	=	2643		ZHUZAO__Rad	[	669	]	=	1
+	ZHUZAO_ID	[	670	]	=	8139		ZHUZAO_LV	[	670	]	=	60		ZHUZAO_ID1	[	670	]	=	4034		ZHUZAO_ID2	[	670	]	=	1684		ZHUZAO_ID3	[	670	]	=	2643		ZHUZAO__Rad	[	670	]	=	1
+	ZHUZAO_ID	[	671	]	=	8140		ZHUZAO_LV	[	671	]	=	60		ZHUZAO_ID1	[	671	]	=	4034		ZHUZAO_ID2	[	671	]	=	3994		ZHUZAO_ID3	[	671	]	=	2643		ZHUZAO__Rad	[	671	]	=	1
+	ZHUZAO_ID	[	672	]	=	8141		ZHUZAO_LV	[	672	]	=	60		ZHUZAO_ID1	[	672	]	=	4034		ZHUZAO_ID2	[	672	]	=	1684		ZHUZAO_ID3	[	672	]	=	2643		ZHUZAO__Rad	[	672	]	=	1
+	ZHUZAO_ID	[	673	]	=	8142		ZHUZAO_LV	[	673	]	=	60		ZHUZAO_ID1	[	673	]	=	4034		ZHUZAO_ID2	[	673	]	=	3994		ZHUZAO_ID3	[	673	]	=	8318		ZHUZAO__Rad	[	673	]	=	1
+	ZHUZAO_ID	[	674	]	=	8143		ZHUZAO_LV	[	674	]	=	60		ZHUZAO_ID1	[	674	]	=	4034		ZHUZAO_ID2	[	674	]	=	1684		ZHUZAO_ID3	[	674	]	=	2643		ZHUZAO__Rad	[	674	]	=	1
+	ZHUZAO_ID	[	675	]	=	8144		ZHUZAO_LV	[	675	]	=	60		ZHUZAO_ID1	[	675	]	=	4034		ZHUZAO_ID2	[	675	]	=	3994		ZHUZAO_ID3	[	675	]	=	2643		ZHUZAO__Rad	[	675	]	=	1
+	ZHUZAO_ID	[	676	]	=	8145		ZHUZAO_LV	[	676	]	=	60		ZHUZAO_ID1	[	676	]	=	4034		ZHUZAO_ID2	[	676	]	=	1684		ZHUZAO_ID3	[	676	]	=	2643		ZHUZAO__Rad	[	676	]	=	1
+	ZHUZAO_ID	[	677	]	=	8146		ZHUZAO_LV	[	677	]	=	60		ZHUZAO_ID1	[	677	]	=	4034		ZHUZAO_ID2	[	677	]	=	3994		ZHUZAO_ID3	[	677	]	=	2643		ZHUZAO__Rad	[	677	]	=	1
+	ZHUZAO_ID	[	678	]	=	8147		ZHUZAO_LV	[	678	]	=	65		ZHUZAO_ID1	[	678	]	=	4034		ZHUZAO_ID2	[	678	]	=	1684		ZHUZAO_ID3	[	678	]	=	8318		ZHUZAO__Rad	[	678	]	=	1
+	ZHUZAO_ID	[	679	]	=	8148		ZHUZAO_LV	[	679	]	=	65		ZHUZAO_ID1	[	679	]	=	4034		ZHUZAO_ID2	[	679	]	=	3994		ZHUZAO_ID3	[	679	]	=	2643		ZHUZAO__Rad	[	679	]	=	1
+	ZHUZAO_ID	[	680	]	=	8149		ZHUZAO_LV	[	680	]	=	65		ZHUZAO_ID1	[	680	]	=	4034		ZHUZAO_ID2	[	680	]	=	1684		ZHUZAO_ID3	[	680	]	=	2643		ZHUZAO__Rad	[	680	]	=	1
+	ZHUZAO_ID	[	681	]	=	8150		ZHUZAO_LV	[	681	]	=	65		ZHUZAO_ID1	[	681	]	=	4034		ZHUZAO_ID2	[	681	]	=	3994		ZHUZAO_ID3	[	681	]	=	6532		ZHUZAO__Rad	[	681	]	=	1
+	ZHUZAO_ID	[	682	]	=	8151		ZHUZAO_LV	[	682	]	=	65		ZHUZAO_ID1	[	682	]	=	4034		ZHUZAO_ID2	[	682	]	=	1684		ZHUZAO_ID3	[	682	]	=	8318		ZHUZAO__Rad	[	682	]	=	1
+	ZHUZAO_ID	[	683	]	=	8152		ZHUZAO_LV	[	683	]	=	65		ZHUZAO_ID1	[	683	]	=	4034		ZHUZAO_ID2	[	683	]	=	3994		ZHUZAO_ID3	[	683	]	=	2643		ZHUZAO__Rad	[	683	]	=	1
+	ZHUZAO_ID	[	684	]	=	8153		ZHUZAO_LV	[	684	]	=	65		ZHUZAO_ID1	[	684	]	=	4034		ZHUZAO_ID2	[	684	]	=	1684		ZHUZAO_ID3	[	684	]	=	8318		ZHUZAO__Rad	[	684	]	=	1
+	ZHUZAO_ID	[	685	]	=	8154		ZHUZAO_LV	[	685	]	=	65		ZHUZAO_ID1	[	685	]	=	4034		ZHUZAO_ID2	[	685	]	=	3994		ZHUZAO_ID3	[	685	]	=	2643		ZHUZAO__Rad	[	685	]	=	1
+	ZHUZAO_ID	[	686	]	=	8155		ZHUZAO_LV	[	686	]	=	65		ZHUZAO_ID1	[	686	]	=	4034		ZHUZAO_ID2	[	686	]	=	1684		ZHUZAO_ID3	[	686	]	=	2643		ZHUZAO__Rad	[	686	]	=	1
+	ZHUZAO_ID	[	687	]	=	8156		ZHUZAO_LV	[	687	]	=	65		ZHUZAO_ID1	[	687	]	=	4034		ZHUZAO_ID2	[	687	]	=	3994		ZHUZAO_ID3	[	687	]	=	2643		ZHUZAO__Rad	[	687	]	=	1
+	ZHUZAO_ID	[	688	]	=	8157		ZHUZAO_LV	[	688	]	=	65		ZHUZAO_ID1	[	688	]	=	4034		ZHUZAO_ID2	[	688	]	=	1684		ZHUZAO_ID3	[	688	]	=	8318		ZHUZAO__Rad	[	688	]	=	1
+	ZHUZAO_ID	[	689	]	=	8158		ZHUZAO_LV	[	689	]	=	65		ZHUZAO_ID1	[	689	]	=	4034		ZHUZAO_ID2	[	689	]	=	3994		ZHUZAO_ID3	[	689	]	=	2643		ZHUZAO__Rad	[	689	]	=	1
+	ZHUZAO_ID	[	690	]	=	8159		ZHUZAO_LV	[	690	]	=	65		ZHUZAO_ID1	[	690	]	=	4034		ZHUZAO_ID2	[	690	]	=	1684		ZHUZAO_ID3	[	690	]	=	2643		ZHUZAO__Rad	[	690	]	=	1
+	ZHUZAO_ID	[	691	]	=	8160		ZHUZAO_LV	[	691	]	=	65		ZHUZAO_ID1	[	691	]	=	4034		ZHUZAO_ID2	[	691	]	=	3994		ZHUZAO_ID3	[	691	]	=	2643		ZHUZAO__Rad	[	691	]	=	1
+	ZHUZAO_ID	[	692	]	=	8161		ZHUZAO_LV	[	692	]	=	65		ZHUZAO_ID1	[	692	]	=	4034		ZHUZAO_ID2	[	692	]	=	1684		ZHUZAO_ID3	[	692	]	=	8318		ZHUZAO__Rad	[	692	]	=	1
+	ZHUZAO_ID	[	693	]	=	8162		ZHUZAO_LV	[	693	]	=	65		ZHUZAO_ID1	[	693	]	=	4034		ZHUZAO_ID2	[	693	]	=	3994		ZHUZAO_ID3	[	693	]	=	2643		ZHUZAO__Rad	[	693	]	=	1
+	ZHUZAO_ID	[	694	]	=	8163		ZHUZAO_LV	[	694	]	=	65		ZHUZAO_ID1	[	694	]	=	4034		ZHUZAO_ID2	[	694	]	=	1684		ZHUZAO_ID3	[	694	]	=	8318		ZHUZAO__Rad	[	694	]	=	1
+	ZHUZAO_ID	[	695	]	=	8164		ZHUZAO_LV	[	695	]	=	65		ZHUZAO_ID1	[	695	]	=	4034		ZHUZAO_ID2	[	695	]	=	3994		ZHUZAO_ID3	[	695	]	=	2643		ZHUZAO__Rad	[	695	]	=	1
+	ZHUZAO_ID	[	696	]	=	8165		ZHUZAO_LV	[	696	]	=	65		ZHUZAO_ID1	[	696	]	=	4034		ZHUZAO_ID2	[	696	]	=	1684		ZHUZAO_ID3	[	696	]	=	2643		ZHUZAO__Rad	[	696	]	=	1
+	ZHUZAO_ID	[	697	]	=	8166		ZHUZAO_LV	[	697	]	=	65		ZHUZAO_ID1	[	697	]	=	4034		ZHUZAO_ID2	[	697	]	=	3994		ZHUZAO_ID3	[	697	]	=	2643		ZHUZAO__Rad	[	697	]	=	1
+	ZHUZAO_ID	[	698	]	=	8167		ZHUZAO_LV	[	698	]	=	65		ZHUZAO_ID1	[	698	]	=	4034		ZHUZAO_ID2	[	698	]	=	1684		ZHUZAO_ID3	[	698	]	=	8318		ZHUZAO__Rad	[	698	]	=	1
+	ZHUZAO_ID	[	699	]	=	8168		ZHUZAO_LV	[	699	]	=	65		ZHUZAO_ID1	[	699	]	=	4034		ZHUZAO_ID2	[	699	]	=	3994		ZHUZAO_ID3	[	699	]	=	2643		ZHUZAO__Rad	[	699	]	=	1
+	ZHUZAO_ID	[	700	]	=	8169		ZHUZAO_LV	[	700	]	=	65		ZHUZAO_ID1	[	700	]	=	4034		ZHUZAO_ID2	[	700	]	=	1684		ZHUZAO_ID3	[	700	]	=	6532		ZHUZAO__Rad	[	700	]	=	1
+	ZHUZAO_ID	[	701	]	=	8170		ZHUZAO_LV	[	701	]	=	65		ZHUZAO_ID1	[	701	]	=	4034		ZHUZAO_ID2	[	701	]	=	3994		ZHUZAO_ID3	[	701	]	=	2643		ZHUZAO__Rad	[	701	]	=	1
+	ZHUZAO_ID	[	702	]	=	8171		ZHUZAO_LV	[	702	]	=	65		ZHUZAO_ID1	[	702	]	=	4034		ZHUZAO_ID2	[	702	]	=	1684		ZHUZAO_ID3	[	702	]	=	8318		ZHUZAO__Rad	[	702	]	=	1
+	ZHUZAO_ID	[	703	]	=	8172		ZHUZAO_LV	[	703	]	=	65		ZHUZAO_ID1	[	703	]	=	4034		ZHUZAO_ID2	[	703	]	=	3994		ZHUZAO_ID3	[	703	]	=	2643		ZHUZAO__Rad	[	703	]	=	1
+	ZHUZAO_ID	[	704	]	=	8173		ZHUZAO_LV	[	704	]	=	65		ZHUZAO_ID1	[	704	]	=	4034		ZHUZAO_ID2	[	704	]	=	1684		ZHUZAO_ID3	[	704	]	=	2643		ZHUZAO__Rad	[	704	]	=	1
+	ZHUZAO_ID	[	705	]	=	8174		ZHUZAO_LV	[	705	]	=	65		ZHUZAO_ID1	[	705	]	=	4034		ZHUZAO_ID2	[	705	]	=	3994		ZHUZAO_ID3	[	705	]	=	2643		ZHUZAO__Rad	[	705	]	=	1
+	ZHUZAO_ID	[	706	]	=	8175		ZHUZAO_LV	[	706	]	=	65		ZHUZAO_ID1	[	706	]	=	4034		ZHUZAO_ID2	[	706	]	=	1684		ZHUZAO_ID3	[	706	]	=	8318		ZHUZAO__Rad	[	706	]	=	1
+	ZHUZAO_ID	[	707	]	=	8176		ZHUZAO_LV	[	707	]	=	65		ZHUZAO_ID1	[	707	]	=	4034		ZHUZAO_ID2	[	707	]	=	3994		ZHUZAO_ID3	[	707	]	=	2643		ZHUZAO__Rad	[	707	]	=	1
+	ZHUZAO_ID	[	708	]	=	8177		ZHUZAO_LV	[	708	]	=	65		ZHUZAO_ID1	[	708	]	=	4034		ZHUZAO_ID2	[	708	]	=	1684		ZHUZAO_ID3	[	708	]	=	8318		ZHUZAO__Rad	[	708	]	=	1
+	ZHUZAO_ID	[	709	]	=	8178		ZHUZAO_LV	[	709	]	=	65		ZHUZAO_ID1	[	709	]	=	4034		ZHUZAO_ID2	[	709	]	=	3994		ZHUZAO_ID3	[	709	]	=	2643		ZHUZAO__Rad	[	709	]	=	1
+	ZHUZAO_ID	[	710	]	=	8179		ZHUZAO_LV	[	710	]	=	65		ZHUZAO_ID1	[	710	]	=	4034		ZHUZAO_ID2	[	710	]	=	1684		ZHUZAO_ID3	[	710	]	=	2643		ZHUZAO__Rad	[	710	]	=	1
+	ZHUZAO_ID	[	711	]	=	8180		ZHUZAO_LV	[	711	]	=	65		ZHUZAO_ID1	[	711	]	=	4034		ZHUZAO_ID2	[	711	]	=	3994		ZHUZAO_ID3	[	711	]	=	2643		ZHUZAO__Rad	[	711	]	=	1
+	ZHUZAO_ID	[	712	]	=	8181		ZHUZAO_LV	[	712	]	=	65		ZHUZAO_ID1	[	712	]	=	4034		ZHUZAO_ID2	[	712	]	=	1684		ZHUZAO_ID3	[	712	]	=	8318		ZHUZAO__Rad	[	712	]	=	1
+	ZHUZAO_ID	[	713	]	=	8182		ZHUZAO_LV	[	713	]	=	65		ZHUZAO_ID1	[	713	]	=	4034		ZHUZAO_ID2	[	713	]	=	3994		ZHUZAO_ID3	[	713	]	=	2643		ZHUZAO__Rad	[	713	]	=	1
+	ZHUZAO_ID	[	714	]	=	8183		ZHUZAO_LV	[	714	]	=	65		ZHUZAO_ID1	[	714	]	=	4034		ZHUZAO_ID2	[	714	]	=	1684		ZHUZAO_ID3	[	714	]	=	2643		ZHUZAO__Rad	[	714	]	=	1
+	ZHUZAO_ID	[	715	]	=	8184		ZHUZAO_LV	[	715	]	=	65		ZHUZAO_ID1	[	715	]	=	4034		ZHUZAO_ID2	[	715	]	=	3994		ZHUZAO_ID3	[	715	]	=	2643		ZHUZAO__Rad	[	715	]	=	1
+	ZHUZAO_ID	[	716	]	=	8185		ZHUZAO_LV	[	716	]	=	65		ZHUZAO_ID1	[	716	]	=	4034		ZHUZAO_ID2	[	716	]	=	1684		ZHUZAO_ID3	[	716	]	=	8318		ZHUZAO__Rad	[	716	]	=	1
+	ZHUZAO_ID	[	717	]	=	8186		ZHUZAO_LV	[	717	]	=	65		ZHUZAO_ID1	[	717	]	=	4034		ZHUZAO_ID2	[	717	]	=	3994		ZHUZAO_ID3	[	717	]	=	6532		ZHUZAO__Rad	[	717	]	=	1
+	ZHUZAO_ID	[	718	]	=	8187		ZHUZAO_LV	[	718	]	=	65		ZHUZAO_ID1	[	718	]	=	4034		ZHUZAO_ID2	[	718	]	=	1684		ZHUZAO_ID3	[	718	]	=	2643		ZHUZAO__Rad	[	718	]	=	1
+	ZHUZAO_ID	[	719	]	=	8188		ZHUZAO_LV	[	719	]	=	65		ZHUZAO_ID1	[	719	]	=	4034		ZHUZAO_ID2	[	719	]	=	3994		ZHUZAO_ID3	[	719	]	=	2643		ZHUZAO__Rad	[	719	]	=	1
+	ZHUZAO_ID	[	720	]	=	8189		ZHUZAO_LV	[	720	]	=	65		ZHUZAO_ID1	[	720	]	=	4034		ZHUZAO_ID2	[	720	]	=	1684		ZHUZAO_ID3	[	720	]	=	8318		ZHUZAO__Rad	[	720	]	=	1
+	ZHUZAO_ID	[	721	]	=	8190		ZHUZAO_LV	[	721	]	=	65		ZHUZAO_ID1	[	721	]	=	4034		ZHUZAO_ID2	[	721	]	=	3994		ZHUZAO_ID3	[	721	]	=	2643		ZHUZAO__Rad	[	721	]	=	1
+	ZHUZAO_ID	[	722	]	=	8191		ZHUZAO_LV	[	722	]	=	65		ZHUZAO_ID1	[	722	]	=	4034		ZHUZAO_ID2	[	722	]	=	1684		ZHUZAO_ID3	[	722	]	=	8318		ZHUZAO__Rad	[	722	]	=	1
+	ZHUZAO_ID	[	723	]	=	8192		ZHUZAO_LV	[	723	]	=	65		ZHUZAO_ID1	[	723	]	=	4034		ZHUZAO_ID2	[	723	]	=	3994		ZHUZAO_ID3	[	723	]	=	2643		ZHUZAO__Rad	[	723	]	=	1
+	ZHUZAO_ID	[	724	]	=	8193		ZHUZAO_LV	[	724	]	=	65		ZHUZAO_ID1	[	724	]	=	4034		ZHUZAO_ID2	[	724	]	=	1684		ZHUZAO_ID3	[	724	]	=	8318		ZHUZAO__Rad	[	724	]	=	1
+	ZHUZAO_ID	[	725	]	=	8194		ZHUZAO_LV	[	725	]	=	65		ZHUZAO_ID1	[	725	]	=	4034		ZHUZAO_ID2	[	725	]	=	3994		ZHUZAO_ID3	[	725	]	=	2643		ZHUZAO__Rad	[	725	]	=	1
+	ZHUZAO_ID	[	726	]	=	8195		ZHUZAO_LV	[	726	]	=	65		ZHUZAO_ID1	[	726	]	=	4034		ZHUZAO_ID2	[	726	]	=	1684		ZHUZAO_ID3	[	726	]	=	6532		ZHUZAO__Rad	[	726	]	=	1
+	ZHUZAO_ID	[	727	]	=	8196		ZHUZAO_LV	[	727	]	=	65		ZHUZAO_ID1	[	727	]	=	4034		ZHUZAO_ID2	[	727	]	=	3994		ZHUZAO_ID3	[	727	]	=	2643		ZHUZAO__Rad	[	727	]	=	1
+	ZHUZAO_ID	[	728	]	=	8197		ZHUZAO_LV	[	728	]	=	65		ZHUZAO_ID1	[	728	]	=	4034		ZHUZAO_ID2	[	728	]	=	1684		ZHUZAO_ID3	[	728	]	=	8318		ZHUZAO__Rad	[	728	]	=	1
+	ZHUZAO_ID	[	729	]	=	8198		ZHUZAO_LV	[	729	]	=	65		ZHUZAO_ID1	[	729	]	=	4034		ZHUZAO_ID2	[	729	]	=	3994		ZHUZAO_ID3	[	729	]	=	2643		ZHUZAO__Rad	[	729	]	=	1
+	ZHUZAO_ID	[	730	]	=	8199		ZHUZAO_LV	[	730	]	=	65		ZHUZAO_ID1	[	730	]	=	4034		ZHUZAO_ID2	[	730	]	=	1684		ZHUZAO_ID3	[	730	]	=	8318		ZHUZAO__Rad	[	730	]	=	1
+	ZHUZAO_ID	[	731	]	=	8200		ZHUZAO_LV	[	731	]	=	65		ZHUZAO_ID1	[	731	]	=	4034		ZHUZAO_ID2	[	731	]	=	3994		ZHUZAO_ID3	[	731	]	=	2643		ZHUZAO__Rad	[	731	]	=	1
+	ZHUZAO_ID	[	732	]	=	8201		ZHUZAO_LV	[	732	]	=	65		ZHUZAO_ID1	[	732	]	=	4034		ZHUZAO_ID2	[	732	]	=	1684		ZHUZAO_ID3	[	732	]	=	2643		ZHUZAO__Rad	[	732	]	=	1
+	ZHUZAO_ID	[	733	]	=	8202		ZHUZAO_LV	[	733	]	=	70		ZHUZAO_ID1	[	733	]	=	4035		ZHUZAO_ID2	[	733	]	=	2419		ZHUZAO_ID3	[	733	]	=	8319		ZHUZAO__Rad	[	733	]	=	1
+	ZHUZAO_ID	[	734	]	=	8203		ZHUZAO_LV	[	734	]	=	70		ZHUZAO_ID1	[	734	]	=	4035		ZHUZAO_ID2	[	734	]	=	3995		ZHUZAO_ID3	[	734	]	=	2644		ZHUZAO__Rad	[	734	]	=	1
+	ZHUZAO_ID	[	735	]	=	8204		ZHUZAO_LV	[	735	]	=	70		ZHUZAO_ID1	[	735	]	=	4035		ZHUZAO_ID2	[	735	]	=	2419		ZHUZAO_ID3	[	735	]	=	2644		ZHUZAO__Rad	[	735	]	=	1
+	ZHUZAO_ID	[	736	]	=	8205		ZHUZAO_LV	[	736	]	=	70		ZHUZAO_ID1	[	736	]	=	4035		ZHUZAO_ID2	[	736	]	=	3995		ZHUZAO_ID3	[	736	]	=	8319		ZHUZAO__Rad	[	736	]	=	1
+	ZHUZAO_ID	[	737	]	=	8206		ZHUZAO_LV	[	737	]	=	70		ZHUZAO_ID1	[	737	]	=	4035		ZHUZAO_ID2	[	737	]	=	2419		ZHUZAO_ID3	[	737	]	=	2644		ZHUZAO__Rad	[	737	]	=	1
+	ZHUZAO_ID	[	738	]	=	8207		ZHUZAO_LV	[	738	]	=	70		ZHUZAO_ID1	[	738	]	=	4035		ZHUZAO_ID2	[	738	]	=	3995		ZHUZAO_ID3	[	738	]	=	8319		ZHUZAO__Rad	[	738	]	=	1
+	ZHUZAO_ID	[	739	]	=	8208		ZHUZAO_LV	[	739	]	=	70		ZHUZAO_ID1	[	739	]	=	4035		ZHUZAO_ID2	[	739	]	=	2419		ZHUZAO_ID3	[	739	]	=	8319		ZHUZAO__Rad	[	739	]	=	1
+	ZHUZAO_ID	[	740	]	=	8209		ZHUZAO_LV	[	740	]	=	70		ZHUZAO_ID1	[	740	]	=	4035		ZHUZAO_ID2	[	740	]	=	3995		ZHUZAO_ID3	[	740	]	=	2644		ZHUZAO__Rad	[	740	]	=	1
+	ZHUZAO_ID	[	741	]	=	8210		ZHUZAO_LV	[	741	]	=	70		ZHUZAO_ID1	[	741	]	=	4035		ZHUZAO_ID2	[	741	]	=	2419		ZHUZAO_ID3	[	741	]	=	2644		ZHUZAO__Rad	[	741	]	=	1
+	ZHUZAO_ID	[	742	]	=	8211		ZHUZAO_LV	[	742	]	=	70		ZHUZAO_ID1	[	742	]	=	4035		ZHUZAO_ID2	[	742	]	=	3995		ZHUZAO_ID3	[	742	]	=	8319		ZHUZAO__Rad	[	742	]	=	1
+	ZHUZAO_ID	[	743	]	=	8212		ZHUZAO_LV	[	743	]	=	70		ZHUZAO_ID1	[	743	]	=	4035		ZHUZAO_ID2	[	743	]	=	2419		ZHUZAO_ID3	[	743	]	=	2644		ZHUZAO__Rad	[	743	]	=	1
+	ZHUZAO_ID	[	744	]	=	8213		ZHUZAO_LV	[	744	]	=	70		ZHUZAO_ID1	[	744	]	=	4035		ZHUZAO_ID2	[	744	]	=	3995		ZHUZAO_ID3	[	744	]	=	6532		ZHUZAO__Rad	[	744	]	=	1
+	ZHUZAO_ID	[	745	]	=	8214		ZHUZAO_LV	[	745	]	=	70		ZHUZAO_ID1	[	745	]	=	4035		ZHUZAO_ID2	[	745	]	=	2419		ZHUZAO_ID3	[	745	]	=	8319		ZHUZAO__Rad	[	745	]	=	1
+	ZHUZAO_ID	[	746	]	=	8215		ZHUZAO_LV	[	746	]	=	70		ZHUZAO_ID1	[	746	]	=	4035		ZHUZAO_ID2	[	746	]	=	3995		ZHUZAO_ID3	[	746	]	=	2644		ZHUZAO__Rad	[	746	]	=	1
+	ZHUZAO_ID	[	747	]	=	8216		ZHUZAO_LV	[	747	]	=	70		ZHUZAO_ID1	[	747	]	=	4035		ZHUZAO_ID2	[	747	]	=	2419		ZHUZAO_ID3	[	747	]	=	2644		ZHUZAO__Rad	[	747	]	=	1
+	ZHUZAO_ID	[	748	]	=	8217		ZHUZAO_LV	[	748	]	=	70		ZHUZAO_ID1	[	748	]	=	4035		ZHUZAO_ID2	[	748	]	=	3995		ZHUZAO_ID3	[	748	]	=	8319		ZHUZAO__Rad	[	748	]	=	1
+	ZHUZAO_ID	[	749	]	=	8218		ZHUZAO_LV	[	749	]	=	70		ZHUZAO_ID1	[	749	]	=	4035		ZHUZAO_ID2	[	749	]	=	2419		ZHUZAO_ID3	[	749	]	=	8319		ZHUZAO__Rad	[	749	]	=	1
+	ZHUZAO_ID	[	750	]	=	8219		ZHUZAO_LV	[	750	]	=	70		ZHUZAO_ID1	[	750	]	=	4035		ZHUZAO_ID2	[	750	]	=	3995		ZHUZAO_ID3	[	750	]	=	2644		ZHUZAO__Rad	[	750	]	=	1
+	ZHUZAO_ID	[	751	]	=	8220		ZHUZAO_LV	[	751	]	=	70		ZHUZAO_ID1	[	751	]	=	4035		ZHUZAO_ID2	[	751	]	=	2419		ZHUZAO_ID3	[	751	]	=	2644		ZHUZAO__Rad	[	751	]	=	1
+	ZHUZAO_ID	[	752	]	=	8221		ZHUZAO_LV	[	752	]	=	70		ZHUZAO_ID1	[	752	]	=	4035		ZHUZAO_ID2	[	752	]	=	3995		ZHUZAO_ID3	[	752	]	=	8319		ZHUZAO__Rad	[	752	]	=	1
+	ZHUZAO_ID	[	753	]	=	8222		ZHUZAO_LV	[	753	]	=	70		ZHUZAO_ID1	[	753	]	=	4035		ZHUZAO_ID2	[	753	]	=	2419		ZHUZAO_ID3	[	753	]	=	2644		ZHUZAO__Rad	[	753	]	=	1
+	ZHUZAO_ID	[	754	]	=	8223		ZHUZAO_LV	[	754	]	=	70		ZHUZAO_ID1	[	754	]	=	4035		ZHUZAO_ID2	[	754	]	=	3995		ZHUZAO_ID3	[	754	]	=	8318		ZHUZAO__Rad	[	754	]	=	1
+	ZHUZAO_ID	[	755	]	=	8224		ZHUZAO_LV	[	755	]	=	70		ZHUZAO_ID1	[	755	]	=	4035		ZHUZAO_ID2	[	755	]	=	2419		ZHUZAO_ID3	[	755	]	=	8319		ZHUZAO__Rad	[	755	]	=	1
+	ZHUZAO_ID	[	756	]	=	8225		ZHUZAO_LV	[	756	]	=	70		ZHUZAO_ID1	[	756	]	=	4035		ZHUZAO_ID2	[	756	]	=	3995		ZHUZAO_ID3	[	756	]	=	2644		ZHUZAO__Rad	[	756	]	=	1
+	ZHUZAO_ID	[	757	]	=	8226		ZHUZAO_LV	[	757	]	=	70		ZHUZAO_ID1	[	757	]	=	4035		ZHUZAO_ID2	[	757	]	=	2419		ZHUZAO_ID3	[	757	]	=	2644		ZHUZAO__Rad	[	757	]	=	1
+	ZHUZAO_ID	[	758	]	=	8227		ZHUZAO_LV	[	758	]	=	70		ZHUZAO_ID1	[	758	]	=	4035		ZHUZAO_ID2	[	758	]	=	3995		ZHUZAO_ID3	[	758	]	=	8319		ZHUZAO__Rad	[	758	]	=	1
+	ZHUZAO_ID	[	759	]	=	8228		ZHUZAO_LV	[	759	]	=	70		ZHUZAO_ID1	[	759	]	=	4035		ZHUZAO_ID2	[	759	]	=	2419		ZHUZAO_ID3	[	759	]	=	2644		ZHUZAO__Rad	[	759	]	=	1
+	ZHUZAO_ID	[	760	]	=	8229		ZHUZAO_LV	[	760	]	=	70		ZHUZAO_ID1	[	760	]	=	4035		ZHUZAO_ID2	[	760	]	=	3995		ZHUZAO_ID3	[	760	]	=	8319		ZHUZAO__Rad	[	760	]	=	1
+	ZHUZAO_ID	[	761	]	=	8230		ZHUZAO_LV	[	761	]	=	70		ZHUZAO_ID1	[	761	]	=	4035		ZHUZAO_ID2	[	761	]	=	2419		ZHUZAO_ID3	[	761	]	=	2644		ZHUZAO__Rad	[	761	]	=	1
+	ZHUZAO_ID	[	762	]	=	8231		ZHUZAO_LV	[	762	]	=	70		ZHUZAO_ID1	[	762	]	=	4035		ZHUZAO_ID2	[	762	]	=	3995		ZHUZAO_ID3	[	762	]	=	2644		ZHUZAO__Rad	[	762	]	=	1
+	ZHUZAO_ID	[	763	]	=	8232		ZHUZAO_LV	[	763	]	=	70		ZHUZAO_ID1	[	763	]	=	4035		ZHUZAO_ID2	[	763	]	=	2419		ZHUZAO_ID3	[	763	]	=	8319		ZHUZAO__Rad	[	763	]	=	1
+	ZHUZAO_ID	[	764	]	=	8233		ZHUZAO_LV	[	764	]	=	70		ZHUZAO_ID1	[	764	]	=	4035		ZHUZAO_ID2	[	764	]	=	3995		ZHUZAO_ID3	[	764	]	=	6532		ZHUZAO__Rad	[	764	]	=	1
+	ZHUZAO_ID	[	765	]	=	8234		ZHUZAO_LV	[	765	]	=	70		ZHUZAO_ID1	[	765	]	=	4035		ZHUZAO_ID2	[	765	]	=	2419		ZHUZAO_ID3	[	765	]	=	2644		ZHUZAO__Rad	[	765	]	=	1
+	ZHUZAO_ID	[	766	]	=	8235		ZHUZAO_LV	[	766	]	=	70		ZHUZAO_ID1	[	766	]	=	4035		ZHUZAO_ID2	[	766	]	=	3995		ZHUZAO_ID3	[	766	]	=	2644		ZHUZAO__Rad	[	766	]	=	1
+	ZHUZAO_ID	[	767	]	=	8236		ZHUZAO_LV	[	767	]	=	70		ZHUZAO_ID1	[	767	]	=	4035		ZHUZAO_ID2	[	767	]	=	2419		ZHUZAO_ID3	[	767	]	=	8319		ZHUZAO__Rad	[	767	]	=	1
+	ZHUZAO_ID	[	768	]	=	8237		ZHUZAO_LV	[	768	]	=	70		ZHUZAO_ID1	[	768	]	=	4035		ZHUZAO_ID2	[	768	]	=	3995		ZHUZAO_ID3	[	768	]	=	2644		ZHUZAO__Rad	[	768	]	=	1
+	ZHUZAO_ID	[	769	]	=	8238		ZHUZAO_LV	[	769	]	=	70		ZHUZAO_ID1	[	769	]	=	4035		ZHUZAO_ID2	[	769	]	=	2419		ZHUZAO_ID3	[	769	]	=	8319		ZHUZAO__Rad	[	769	]	=	1
+	ZHUZAO_ID	[	770	]	=	8239		ZHUZAO_LV	[	770	]	=	70		ZHUZAO_ID1	[	770	]	=	4035		ZHUZAO_ID2	[	770	]	=	3995		ZHUZAO_ID3	[	770	]	=	8319		ZHUZAO__Rad	[	770	]	=	1
+	ZHUZAO_ID	[	771	]	=	8240		ZHUZAO_LV	[	771	]	=	70		ZHUZAO_ID1	[	771	]	=	4035		ZHUZAO_ID2	[	771	]	=	2419		ZHUZAO_ID3	[	771	]	=	2644		ZHUZAO__Rad	[	771	]	=	1
+	ZHUZAO_ID	[	772	]	=	8241		ZHUZAO_LV	[	772	]	=	70		ZHUZAO_ID1	[	772	]	=	4035		ZHUZAO_ID2	[	772	]	=	3995		ZHUZAO_ID3	[	772	]	=	6532		ZHUZAO__Rad	[	772	]	=	1
+	ZHUZAO_ID	[	773	]	=	8242		ZHUZAO_LV	[	773	]	=	70		ZHUZAO_ID1	[	773	]	=	4035		ZHUZAO_ID2	[	773	]	=	2419		ZHUZAO_ID3	[	773	]	=	8319		ZHUZAO__Rad	[	773	]	=	1
+	ZHUZAO_ID	[	774	]	=	8243		ZHUZAO_LV	[	774	]	=	70		ZHUZAO_ID1	[	774	]	=	4035		ZHUZAO_ID2	[	774	]	=	3995		ZHUZAO_ID3	[	774	]	=	2644		ZHUZAO__Rad	[	774	]	=	1
+	ZHUZAO_ID	[	775	]	=	8244		ZHUZAO_LV	[	775	]	=	70		ZHUZAO_ID1	[	775	]	=	4035		ZHUZAO_ID2	[	775	]	=	2419		ZHUZAO_ID3	[	775	]	=	2644		ZHUZAO__Rad	[	775	]	=	1
+	ZHUZAO_ID	[	776	]	=	8245		ZHUZAO_LV	[	776	]	=	70		ZHUZAO_ID1	[	776	]	=	4035		ZHUZAO_ID2	[	776	]	=	3995		ZHUZAO_ID3	[	776	]	=	8319		ZHUZAO__Rad	[	776	]	=	1
+	ZHUZAO_ID	[	777	]	=	8246		ZHUZAO_LV	[	777	]	=	70		ZHUZAO_ID1	[	777	]	=	4035		ZHUZAO_ID2	[	777	]	=	2419		ZHUZAO_ID3	[	777	]	=	2644		ZHUZAO__Rad	[	777	]	=	1
+	ZHUZAO_ID	[	778	]	=	8247		ZHUZAO_LV	[	778	]	=	70		ZHUZAO_ID1	[	778	]	=	4035		ZHUZAO_ID2	[	778	]	=	3995		ZHUZAO_ID3	[	778	]	=	8319		ZHUZAO__Rad	[	778	]	=	1
+	ZHUZAO_ID	[	779	]	=	8248		ZHUZAO_LV	[	779	]	=	70		ZHUZAO_ID1	[	779	]	=	4035		ZHUZAO_ID2	[	779	]	=	2419		ZHUZAO_ID3	[	779	]	=	8319		ZHUZAO__Rad	[	779	]	=	1
+	ZHUZAO_ID	[	780	]	=	8249		ZHUZAO_LV	[	780	]	=	70		ZHUZAO_ID1	[	780	]	=	4035		ZHUZAO_ID2	[	780	]	=	3995		ZHUZAO_ID3	[	780	]	=	2644		ZHUZAO__Rad	[	780	]	=	1
+	ZHUZAO_ID	[	781	]	=	8250		ZHUZAO_LV	[	781	]	=	70		ZHUZAO_ID1	[	781	]	=	4035		ZHUZAO_ID2	[	781	]	=	2419		ZHUZAO_ID3	[	781	]	=	2644		ZHUZAO__Rad	[	781	]	=	1
+	ZHUZAO_ID	[	782	]	=	8251		ZHUZAO_LV	[	782	]	=	70		ZHUZAO_ID1	[	782	]	=	4035		ZHUZAO_ID2	[	782	]	=	3995		ZHUZAO_ID3	[	782	]	=	8319		ZHUZAO__Rad	[	782	]	=	1
+	ZHUZAO_ID	[	783	]	=	8252		ZHUZAO_LV	[	783	]	=	70		ZHUZAO_ID1	[	783	]	=	4035		ZHUZAO_ID2	[	783	]	=	2419		ZHUZAO_ID3	[	783	]	=	2644		ZHUZAO__Rad	[	783	]	=	1
+	ZHUZAO_ID	[	784	]	=	8253		ZHUZAO_LV	[	784	]	=	70		ZHUZAO_ID1	[	784	]	=	4035		ZHUZAO_ID2	[	784	]	=	3995		ZHUZAO_ID3	[	784	]	=	2644		ZHUZAO__Rad	[	784	]	=	1
+	ZHUZAO_ID	[	785	]	=	8254		ZHUZAO_LV	[	785	]	=	70		ZHUZAO_ID1	[	785	]	=	4035		ZHUZAO_ID2	[	785	]	=	2419		ZHUZAO_ID3	[	785	]	=	8319		ZHUZAO__Rad	[	785	]	=	1
+	ZHUZAO_ID	[	786	]	=	8255		ZHUZAO_LV	[	786	]	=	70		ZHUZAO_ID1	[	786	]	=	4035		ZHUZAO_ID2	[	786	]	=	3995		ZHUZAO_ID3	[	786	]	=	8319		ZHUZAO__Rad	[	786	]	=	1
+	ZHUZAO_ID	[	787	]	=	8256		ZHUZAO_LV	[	787	]	=	70		ZHUZAO_ID1	[	787	]	=	4035		ZHUZAO_ID2	[	787	]	=	2419		ZHUZAO_ID3	[	787	]	=	2644		ZHUZAO__Rad	[	787	]	=	1
+	ZHUZAO_ID	[	788	]	=	8257		ZHUZAO_LV	[	788	]	=	70		ZHUZAO_ID1	[	788	]	=	4035		ZHUZAO_ID2	[	788	]	=	3995		ZHUZAO_ID3	[	788	]	=	2644		ZHUZAO__Rad	[	788	]	=	1
+	ZHUZAO_ID	[	789	]	=	8258		ZHUZAO_LV	[	789	]	=	70		ZHUZAO_ID1	[	789	]	=	4035		ZHUZAO_ID2	[	789	]	=	2419		ZHUZAO_ID3	[	789	]	=	8319		ZHUZAO__Rad	[	789	]	=	1
+	ZHUZAO_ID	[	790	]	=	8259		ZHUZAO_LV	[	790	]	=	70		ZHUZAO_ID1	[	790	]	=	4035		ZHUZAO_ID2	[	790	]	=	3995		ZHUZAO_ID3	[	790	]	=	2644		ZHUZAO__Rad	[	790	]	=	1
+	ZHUZAO_ID	[	791	]	=	8260		ZHUZAO_LV	[	791	]	=	70		ZHUZAO_ID1	[	791	]	=	4035		ZHUZAO_ID2	[	791	]	=	2419		ZHUZAO_ID3	[	791	]	=	8319		ZHUZAO__Rad	[	791	]	=	1
+	ZHUZAO_ID	[	792	]	=	8261		ZHUZAO_LV	[	792	]	=	70		ZHUZAO_ID1	[	792	]	=	4035		ZHUZAO_ID2	[	792	]	=	3995		ZHUZAO_ID3	[	792	]	=	8319		ZHUZAO__Rad	[	792	]	=	1
+	ZHUZAO_ID	[	793	]	=	8262		ZHUZAO_LV	[	793	]	=	70		ZHUZAO_ID1	[	793	]	=	4035		ZHUZAO_ID2	[	793	]	=	2419		ZHUZAO_ID3	[	793	]	=	2644		ZHUZAO__Rad	[	793	]	=	1
+	ZHUZAO_ID	[	794	]	=	8263		ZHUZAO_LV	[	794	]	=	70		ZHUZAO_ID1	[	794	]	=	4035		ZHUZAO_ID2	[	794	]	=	3995		ZHUZAO_ID3	[	794	]	=	6532		ZHUZAO__Rad	[	794	]	=	1
+	ZHUZAO_ID	[	795	]	=	8264		ZHUZAO_LV	[	795	]	=	70		ZHUZAO_ID1	[	795	]	=	4035		ZHUZAO_ID2	[	795	]	=	2419		ZHUZAO_ID3	[	795	]	=	8319		ZHUZAO__Rad	[	795	]	=	1
+	ZHUZAO_ID	[	796	]	=	8265		ZHUZAO_LV	[	796	]	=	70		ZHUZAO_ID1	[	796	]	=	4035		ZHUZAO_ID2	[	796	]	=	3995		ZHUZAO_ID3	[	796	]	=	2644		ZHUZAO__Rad	[	796	]	=	1
+	ZHUZAO_ID	[	797	]	=	8266		ZHUZAO_LV	[	797	]	=	70		ZHUZAO_ID1	[	797	]	=	4035		ZHUZAO_ID2	[	797	]	=	2419		ZHUZAO_ID3	[	797	]	=	8319		ZHUZAO__Rad	[	797	]	=	1
+	ZHUZAO_ID	[	798	]	=	8267		ZHUZAO_LV	[	798	]	=	70		ZHUZAO_ID1	[	798	]	=	4035		ZHUZAO_ID2	[	798	]	=	3995		ZHUZAO_ID3	[	798	]	=	8319		ZHUZAO__Rad	[	798	]	=	1
+	ZHUZAO_ID	[	799	]	=	8268		ZHUZAO_LV	[	799	]	=	70		ZHUZAO_ID1	[	799	]	=	4035		ZHUZAO_ID2	[	799	]	=	2419		ZHUZAO_ID3	[	799	]	=	2644		ZHUZAO__Rad	[	799	]	=	1
+	ZHUZAO_ID	[	800	]	=	8269		ZHUZAO_LV	[	800	]	=	70		ZHUZAO_ID1	[	800	]	=	4035		ZHUZAO_ID2	[	800	]	=	3995		ZHUZAO_ID3	[	800	]	=	2644		ZHUZAO__Rad	[	800	]	=	1
+	ZHUZAO_ID	[	801	]	=	8270		ZHUZAO_LV	[	801	]	=	70		ZHUZAO_ID1	[	801	]	=	4035		ZHUZAO_ID2	[	801	]	=	2419		ZHUZAO_ID3	[	801	]	=	8319		ZHUZAO__Rad	[	801	]	=	1
+	ZHUZAO_ID	[	802	]	=	8271		ZHUZAO_LV	[	802	]	=	70		ZHUZAO_ID1	[	802	]	=	4035		ZHUZAO_ID2	[	802	]	=	3995		ZHUZAO_ID3	[	802	]	=	2644		ZHUZAO__Rad	[	802	]	=	1
+	ZHUZAO_ID	[	803	]	=	8272		ZHUZAO_LV	[	803	]	=	70		ZHUZAO_ID1	[	803	]	=	4035		ZHUZAO_ID2	[	803	]	=	2419		ZHUZAO_ID3	[	803	]	=	8319		ZHUZAO__Rad	[	803	]	=	1
+	ZHUZAO_ID	[	804	]	=	8273		ZHUZAO_LV	[	804	]	=	70		ZHUZAO_ID1	[	804	]	=	4035		ZHUZAO_ID2	[	804	]	=	3995		ZHUZAO_ID3	[	804	]	=	8319		ZHUZAO__Rad	[	804	]	=	1
+	ZHUZAO_ID	[	805	]	=	8274		ZHUZAO_LV	[	805	]	=	70		ZHUZAO_ID1	[	805	]	=	4035		ZHUZAO_ID2	[	805	]	=	2419		ZHUZAO_ID3	[	805	]	=	2644		ZHUZAO__Rad	[	805	]	=	1
+	ZHUZAO_ID	[	806	]	=	8275		ZHUZAO_LV	[	806	]	=	70		ZHUZAO_ID1	[	806	]	=	4035		ZHUZAO_ID2	[	806	]	=	3995		ZHUZAO_ID3	[	806	]	=	2644		ZHUZAO__Rad	[	806	]	=	1
+	ZHUZAO_ID	[	807	]	=	8276		ZHUZAO_LV	[	807	]	=	70		ZHUZAO_ID1	[	807	]	=	4035		ZHUZAO_ID2	[	807	]	=	2419		ZHUZAO_ID3	[	807	]	=	8319		ZHUZAO__Rad	[	807	]	=	1
+	ZHUZAO_ID	[	808	]	=	8277		ZHUZAO_LV	[	808	]	=	70		ZHUZAO_ID1	[	808	]	=	4035		ZHUZAO_ID2	[	808	]	=	3995		ZHUZAO_ID3	[	808	]	=	2644		ZHUZAO__Rad	[	808	]	=	1
+	ZHUZAO_ID	[	809	]	=	8278		ZHUZAO_LV	[	809	]	=	70		ZHUZAO_ID1	[	809	]	=	4035		ZHUZAO_ID2	[	809	]	=	2419		ZHUZAO_ID3	[	809	]	=	8319		ZHUZAO__Rad	[	809	]	=	1
+	ZHUZAO_ID	[	810	]	=	8279		ZHUZAO_LV	[	810	]	=	70		ZHUZAO_ID1	[	810	]	=	4035		ZHUZAO_ID2	[	810	]	=	3995		ZHUZAO_ID3	[	810	]	=	8319		ZHUZAO__Rad	[	810	]	=	1
+	ZHUZAO_ID	[	811	]	=	8280		ZHUZAO_LV	[	811	]	=	70		ZHUZAO_ID1	[	811	]	=	4035		ZHUZAO_ID2	[	811	]	=	2419		ZHUZAO_ID3	[	811	]	=	8319		ZHUZAO__Rad	[	811	]	=	1
+	ZHUZAO_ID	[	812	]	=	8281		ZHUZAO_LV	[	812	]	=	70		ZHUZAO_ID1	[	812	]	=	4035		ZHUZAO_ID2	[	812	]	=	3995		ZHUZAO_ID3	[	812	]	=	8319		ZHUZAO__Rad	[	812	]	=	1
+	ZHUZAO_ID	[	813	]	=	8282		ZHUZAO_LV	[	813	]	=	70		ZHUZAO_ID1	[	813	]	=	4035		ZHUZAO_ID2	[	813	]	=	2419		ZHUZAO_ID3	[	813	]	=	2644		ZHUZAO__Rad	[	813	]	=	1
+	ZHUZAO_ID	[	814	]	=	8283		ZHUZAO_LV	[	814	]	=	70		ZHUZAO_ID1	[	814	]	=	4035		ZHUZAO_ID2	[	814	]	=	3995		ZHUZAO_ID3	[	814	]	=	6532		ZHUZAO__Rad	[	814	]	=	1
+	ZHUZAO_ID	[	815	]	=	8284		ZHUZAO_LV	[	815	]	=	70		ZHUZAO_ID1	[	815	]	=	4035		ZHUZAO_ID2	[	815	]	=	2419		ZHUZAO_ID3	[	815	]	=	8319		ZHUZAO__Rad	[	815	]	=	1
+	ZHUZAO_ID	[	816	]	=	8285		ZHUZAO_LV	[	816	]	=	70		ZHUZAO_ID1	[	816	]	=	4035		ZHUZAO_ID2	[	816	]	=	3995		ZHUZAO_ID3	[	816	]	=	2644		ZHUZAO__Rad	[	816	]	=	1
+	ZHUZAO_ID	[	817	]	=	8286		ZHUZAO_LV	[	817	]	=	70		ZHUZAO_ID1	[	817	]	=	4035		ZHUZAO_ID2	[	817	]	=	2419		ZHUZAO_ID3	[	817	]	=	8319		ZHUZAO__Rad	[	817	]	=	1
+	ZHUZAO_ID	[	818	]	=	8287		ZHUZAO_LV	[	818	]	=	70		ZHUZAO_ID1	[	818	]	=	4035		ZHUZAO_ID2	[	818	]	=	3995		ZHUZAO_ID3	[	818	]	=	8319		ZHUZAO__Rad	[	818	]	=	1
+	ZHUZAO_ID	[	819	]	=	8288		ZHUZAO_LV	[	819	]	=	70		ZHUZAO_ID1	[	819	]	=	4035		ZHUZAO_ID2	[	819	]	=	2419		ZHUZAO_ID3	[	819	]	=	2644		ZHUZAO__Rad	[	819	]	=	1
+	ZHUZAO_ID	[	820	]	=	8289		ZHUZAO_LV	[	820	]	=	70		ZHUZAO_ID1	[	820	]	=	4035		ZHUZAO_ID2	[	820	]	=	3995		ZHUZAO_ID3	[	820	]	=	8319		ZHUZAO__Rad	[	820	]	=	1
+	ZHUZAO_ID	[	821	]	=	8290		ZHUZAO_LV	[	821	]	=	70		ZHUZAO_ID1	[	821	]	=	4035		ZHUZAO_ID2	[	821	]	=	2419		ZHUZAO_ID3	[	821	]	=	8319		ZHUZAO__Rad	[	821	]	=	1
+	ZHUZAO_ID	[	822	]	=	8291		ZHUZAO_LV	[	822	]	=	70		ZHUZAO_ID1	[	822	]	=	4035		ZHUZAO_ID2	[	822	]	=	3995		ZHUZAO_ID3	[	822	]	=	2644		ZHUZAO__Rad	[	822	]	=	1
+	ZHUZAO_ID	[	823	]	=	8292		ZHUZAO_LV	[	823	]	=	70		ZHUZAO_ID1	[	823	]	=	4035		ZHUZAO_ID2	[	823	]	=	2419		ZHUZAO_ID3	[	823	]	=	2644		ZHUZAO__Rad	[	823	]	=	1
+	ZHUZAO_ID	[	824	]	=	8293		ZHUZAO_LV	[	824	]	=	70		ZHUZAO_ID1	[	824	]	=	4035		ZHUZAO_ID2	[	824	]	=	3995		ZHUZAO_ID3	[	824	]	=	8319		ZHUZAO__Rad	[	824	]	=	1
+	ZHUZAO_ID	[	825	]	=	8294		ZHUZAO_LV	[	825	]	=	70		ZHUZAO_ID1	[	825	]	=	4035		ZHUZAO_ID2	[	825	]	=	2419		ZHUZAO_ID3	[	825	]	=	2644		ZHUZAO__Rad	[	825	]	=	1
+	ZHUZAO_ID	[	826	]	=	8295		ZHUZAO_LV	[	826	]	=	70		ZHUZAO_ID1	[	826	]	=	4035		ZHUZAO_ID2	[	826	]	=	3995		ZHUZAO_ID3	[	826	]	=	8319		ZHUZAO__Rad	[	826	]	=	1
+	ZHUZAO_ID	[	827	]	=	8296		ZHUZAO_LV	[	827	]	=	70		ZHUZAO_ID1	[	827	]	=	4035		ZHUZAO_ID2	[	827	]	=	2419		ZHUZAO_ID3	[	827	]	=	8319		ZHUZAO__Rad	[	827	]	=	1
+	ZHUZAO_ID	[	828	]	=	8297		ZHUZAO_LV	[	828	]	=	70		ZHUZAO_ID1	[	828	]	=	4035		ZHUZAO_ID2	[	828	]	=	3995		ZHUZAO_ID3	[	828	]	=	2644		ZHUZAO__Rad	[	828	]	=	1
+	ZHUZAO_ID	[	829	]	=	8298		ZHUZAO_LV	[	829	]	=	70		ZHUZAO_ID1	[	829	]	=	4035		ZHUZAO_ID2	[	829	]	=	2419		ZHUZAO_ID3	[	829	]	=	8319		ZHUZAO__Rad	[	829	]	=	1
+	ZHUZAO_ID	[	830	]	=	8299		ZHUZAO_LV	[	830	]	=	70		ZHUZAO_ID1	[	830	]	=	4035		ZHUZAO_ID2	[	830	]	=	3995		ZHUZAO_ID3	[	830	]	=	6532		ZHUZAO__Rad	[	830	]	=	1
+	ZHUZAO_ID	[	831	]	=	8300		ZHUZAO_LV	[	831	]	=	70		ZHUZAO_ID1	[	831	]	=	4035		ZHUZAO_ID2	[	831	]	=	2419		ZHUZAO_ID3	[	831	]	=	2644		ZHUZAO__Rad	[	831	]	=	1
+	ZHUZAO_ID	[	832	]	=	8301		ZHUZAO_LV	[	832	]	=	70		ZHUZAO_ID1	[	832	]	=	4035		ZHUZAO_ID2	[	832	]	=	3995		ZHUZAO_ID3	[	832	]	=	2644		ZHUZAO__Rad	[	832	]	=	1
+	ZHUZAO_ID	[	833	]	=	8302		ZHUZAO_LV	[	833	]	=	70		ZHUZAO_ID1	[	833	]	=	4035		ZHUZAO_ID2	[	833	]	=	2419		ZHUZAO_ID3	[	833	]	=	8319		ZHUZAO__Rad	[	833	]	=	1
+	ZHUZAO_ID	[	834	]	=	8303		ZHUZAO_LV	[	834	]	=	70		ZHUZAO_ID1	[	834	]	=	4035		ZHUZAO_ID2	[	834	]	=	3995		ZHUZAO_ID3	[	834	]	=	2644		ZHUZAO__Rad	[	834	]	=	1
+	ZHUZAO_ID	[	835	]	=	8304		ZHUZAO_LV	[	835	]	=	70		ZHUZAO_ID1	[	835	]	=	4035		ZHUZAO_ID2	[	835	]	=	2419		ZHUZAO_ID3	[	835	]	=	6532		ZHUZAO__Rad	[	835	]	=	1
+	ZHUZAO_ID	[	836	]	=	8305		ZHUZAO_LV	[	836	]	=	70		ZHUZAO_ID1	[	836	]	=	4035		ZHUZAO_ID2	[	836	]	=	3995		ZHUZAO_ID3	[	836	]	=	8319		ZHUZAO__Rad	[	836	]	=	1
+	ZHUZAO_ID	[	837	]	=	860		ZHUZAO_LV	[	836	]	=	70		ZHUZAO_ID1	[	837	]	=	4035		ZHUZAO_ID2	[	837	]	=	2419		ZHUZAO_ID3	[	837	]	=	8319		ZHUZAO__Rad	[	837	]	=	1
+	ZHUZAO_ID	[	838	]	=	861		ZHUZAO_LV	[	836	]	=	70		ZHUZAO_ID1	[	838	]	=	4035		ZHUZAO_ID2	[	838	]	=	2419		ZHUZAO_ID3	[	838	]	=	8319		ZHUZAO__Rad	[	838	]	=	1
+	ZHUZAO_ID	[	839	]	=	862		ZHUZAO_LV	[	836	]	=	70		ZHUZAO_ID1	[	839	]	=	4035		ZHUZAO_ID2	[	839	]	=	2419		ZHUZAO_ID3	[	839	]	=	8319		ZHUZAO__Rad	[	839	]	=	1
+	ZHUZAO_ID	[	840	]	=	863		ZHUZAO_LV	[	836	]	=	70		ZHUZAO_ID1	[	840	]	=	4035		ZHUZAO_ID2	[	840	]	=	2419		ZHUZAO_ID3	[	840	]	=	8319		ZHUZAO__Rad	[	840	]	=	1
+	-- ZHUZAO_ID	[	841	]	=	112		ZHUZAO_LV	[	841	]	=	75		ZHUZAO_ID1	[	841	]	=	1363		ZHUZAO_ID2	[	841	]	=	1775		ZHUZAO_ID3	[	841	]	=	2601		ZHUZAO__Rad	[	841	]	=	1
+	-- ZHUZAO_ID	[	842	]	=	2223		ZHUZAO_LV	[	842	]	=	75		ZHUZAO_ID1	[	842	]	=	1360		ZHUZAO_ID2	[	842	]	=	1734		ZHUZAO_ID3	[	842	]	=	2598		ZHUZAO__Rad	[	842	]	=	1
+	-- ZHUZAO_ID	[	843	]	=	2219		ZHUZAO_LV	[	843	]	=	75		ZHUZAO_ID1	[	843	]	=	1363		ZHUZAO_ID2	[	843	]	=	1734		ZHUZAO_ID3	[	843	]	=	2601		ZHUZAO__Rad	[	843	]	=	1
+	-- ZHUZAO_ID	[	844	]	=	2221		ZHUZAO_LV	[	844	]	=	75		ZHUZAO_ID1	[	844	]	=	1360		ZHUZAO_ID2	[	844	]	=	1734		ZHUZAO_ID3	[	844	]	=	2601		ZHUZAO__Rad	[	844	]	=	1
+	-- ZHUZAO_ID	[	845	]	=	400		ZHUZAO_LV	[	845	]	=	75		ZHUZAO_ID1	[	845	]	=	1355		ZHUZAO_ID2	[	845	]	=	1734		ZHUZAO_ID3	[	845	]	=	2595		ZHUZAO__Rad	[	845	]	=	1
+	-- ZHUZAO_ID	[	846	]	=	406		ZHUZAO_LV	[	846	]	=	75		ZHUZAO_ID1	[	846	]	=	1355		ZHUZAO_ID2	[	846	]	=	1734		ZHUZAO_ID3	[	846	]	=	2601		ZHUZAO__Rad	[	846	]	=	1
+	-- ZHUZAO_ID	[	847	]	=	411		ZHUZAO_LV	[	847	]	=	75		ZHUZAO_ID1	[	847	]	=	1352		ZHUZAO_ID2	[	847	]	=	1734		ZHUZAO_ID3	[	847	]	=	2598		ZHUZAO__Rad	[	847	]	=	1
+	-- ZHUZAO_ID	[	848	]	=	413		ZHUZAO_LV	[	848	]	=	75		ZHUZAO_ID1	[	848	]	=	3367		ZHUZAO_ID2	[	848	]	=	1734		ZHUZAO_ID3	[	848	]	=	2598		ZHUZAO__Rad	[	848	]	=	1
+	-- ZHUZAO_ID	[	849	]	=	404		ZHUZAO_LV	[	849	]	=	75		ZHUZAO_ID1	[	849	]	=	3379		ZHUZAO_ID2	[	849	]	=	1734		ZHUZAO_ID3	[	849	]	=	2601		ZHUZAO__Rad	[	849	]	=	1
+	-- ZHUZAO_ID	[	850	]	=	402		ZHUZAO_LV	[	850	]	=	75		ZHUZAO_ID1	[	850	]	=	4038		ZHUZAO_ID2	[	850	]	=	1734		ZHUZAO_ID3	[	850	]	=	2601		ZHUZAO__Rad	[	850	]	=	1
+	-- ZHUZAO_ID	[	851	]	=	408		ZHUZAO_LV	[	851	]	=	75		ZHUZAO_ID1	[	851	]	=	4047		ZHUZAO_ID2	[	851	]	=	1734		ZHUZAO_ID3	[	851	]	=	2601		ZHUZAO__Rad	[	851	]	=	1
+	-- ZHUZAO_ID	[	852	]	=	396		ZHUZAO_LV	[	852	]	=	75		ZHUZAO_ID1	[	852	]	=	4037		ZHUZAO_ID2	[	852	]	=	1734		ZHUZAO_ID3	[	852	]	=	2592		ZHUZAO__Rad	[	852	]	=	1
+	-- ZHUZAO_ID	[	853	]	=	590		ZHUZAO_LV	[	853	]	=	75		ZHUZAO_ID1	[	853	]	=	1674		ZHUZAO_ID2	[	853	]	=	1734		ZHUZAO_ID3	[	853	]	=	2595		ZHUZAO__Rad	[	853	]	=	1
+	-- ZHUZAO_ID	[	854	]	=	600		ZHUZAO_LV	[	854	]	=	75		ZHUZAO_ID1	[	854	]	=	4038		ZHUZAO_ID2	[	854	]	=	1734		ZHUZAO_ID3	[	854	]	=	2598		ZHUZAO__Rad	[	854	]	=	1
+	-- ZHUZAO_ID	[	855	]	=	596		ZHUZAO_LV	[	855	]	=	75		ZHUZAO_ID1	[	855	]	=	2901		ZHUZAO_ID2	[	855	]	=	1734		ZHUZAO_ID3	[	855	]	=	2601		ZHUZAO__Rad	[	855	]	=	1
+	-- ZHUZAO_ID	[	856	]	=	602		ZHUZAO_LV	[	856	]	=	75		ZHUZAO_ID1	[	856	]	=	4832		ZHUZAO_ID2	[	856	]	=	1734		ZHUZAO_ID3	[	856	]	=	2598		ZHUZAO__Rad	[	856	]	=	1
+	-- ZHUZAO_ID	[	857	]	=	588		ZHUZAO_LV	[	857	]	=	75		ZHUZAO_ID1	[	857	]	=	4048		ZHUZAO_ID2	[	857	]	=	1734		ZHUZAO_ID3	[	857	]	=	2592		ZHUZAO__Rad	[	857	]	=	1
+	-- ZHUZAO_ID	[	858	]	=	594		ZHUZAO_LV	[	858	]	=	75		ZHUZAO_ID1	[	858	]	=	4832		ZHUZAO_ID2	[	858	]	=	1734		ZHUZAO_ID3	[	858	]	=	2601		ZHUZAO__Rad	[	858	]	=	1
+	-- ZHUZAO_ID	[	859	]	=	604		ZHUZAO_LV	[	859	]	=	75		ZHUZAO_ID1	[	859	]	=	4048		ZHUZAO_ID2	[	859	]	=	1734		ZHUZAO_ID3	[	859	]	=	2592		ZHUZAO__Rad	[	859	]	=	1
+	-- ZHUZAO_ID	[	860	]	=	592		ZHUZAO_LV	[	860	]	=	75		ZHUZAO_ID1	[	860	]	=	4047		ZHUZAO_ID2	[	860	]	=	1734		ZHUZAO_ID3	[	860	]	=	2601		ZHUZAO__Rad	[	860	]	=	1
+	-- ZHUZAO_ID	[	861	]	=	598		ZHUZAO_LV	[	861	]	=	75		ZHUZAO_ID1	[	861	]	=	1674		ZHUZAO_ID2	[	861	]	=	1734		ZHUZAO_ID3	[	861	]	=	2601		ZHUZAO__Rad	[	861	]	=	1
+	-- ZHUZAO_ID	[	862	]	=	760		ZHUZAO_LV	[	862	]	=	75		ZHUZAO_ID1	[	862	]	=	4037		ZHUZAO_ID2	[	862	]	=	4756		ZHUZAO_ID3	[	862	]	=	2598		ZHUZAO__Rad	[	862	]	=	1
+	-- ZHUZAO_ID	[	863	]	=	756		ZHUZAO_LV	[	863	]	=	75		ZHUZAO_ID1	[	863	]	=	4038		ZHUZAO_ID2	[	863	]	=	4756		ZHUZAO_ID3	[	863	]	=	2601		ZHUZAO__Rad	[	863	]	=	1
+	-- ZHUZAO_ID	[	864	]	=	824		ZHUZAO_LV	[	864	]	=	75		ZHUZAO_ID1	[	864	]	=	1360		ZHUZAO_ID2	[	864	]	=	4756		ZHUZAO_ID3	[	864	]	=	2598		ZHUZAO__Rad	[	864	]	=	1
+	-- ZHUZAO_ID	[	865	]	=	750		ZHUZAO_LV	[	865	]	=	75		ZHUZAO_ID1	[	865	]	=	1352		ZHUZAO_ID2	[	865	]	=	1712		ZHUZAO_ID3	[	865	]	=	2595		ZHUZAO__Rad	[	865	]	=	1
+	-- ZHUZAO_ID	[	866	]	=	748		ZHUZAO_LV	[	866	]	=	75		ZHUZAO_ID1	[	866	]	=	4037		ZHUZAO_ID2	[	866	]	=	4993		ZHUZAO_ID3	[	866	]	=	2592		ZHUZAO__Rad	[	866	]	=	1
+	-- ZHUZAO_ID	[	867	]	=	830		ZHUZAO_LV	[	867	]	=	75		ZHUZAO_ID1	[	867	]	=	1780		ZHUZAO_ID2	[	867	]	=	4756		ZHUZAO_ID3	[	867	]	=	2592		ZHUZAO__Rad	[	867	]	=	1
+	-- ZHUZAO_ID	[	868	]	=	754		ZHUZAO_LV	[	868	]	=	75		ZHUZAO_ID1	[	868	]	=	4037		ZHUZAO_ID2	[	868	]	=	1712		ZHUZAO_ID3	[	868	]	=	2601		ZHUZAO__Rad	[	868	]	=	1
+	-- ZHUZAO_ID	[	869	]	=	752		ZHUZAO_LV	[	869	]	=	75		ZHUZAO_ID1	[	869	]	=	1363		ZHUZAO_ID2	[	869	]	=	4993		ZHUZAO_ID3	[	869	]	=	2601		ZHUZAO__Rad	[	869	]	=	1
+	-- ZHUZAO_ID	[	870	]	=	758		ZHUZAO_LV	[	870	]	=	75		ZHUZAO_ID1	[	870	]	=	2901		ZHUZAO_ID2	[	870	]	=	4993		ZHUZAO_ID3	[	870	]	=	2601		ZHUZAO__Rad	[	870	]	=	1
+	-- ZHUZAO_ID	[	871	]	=	398		ZHUZAO_LV	[	871	]	=	75		ZHUZAO_ID1	[	871	]	=	4832		ZHUZAO_ID2	[	871	]	=	1734		ZHUZAO_ID3	[	871	]	=	2592		ZHUZAO__Rad	[	871	]	=	1
+	-- ZHUZAO_ID	[	872	]	=	2368		ZHUZAO_LV	[	872	]	=	75		ZHUZAO_ID1	[	872	]	=	4038		ZHUZAO_ID2	[	872	]	=	1712		ZHUZAO_ID3	[	872	]	=	2665		ZHUZAO__Rad	[	872	]	=	1
+	-- ZHUZAO_ID	[	873	]	=	1098		ZHUZAO_LV	[	873	]	=	75		ZHUZAO_ID1	[	873	]	=	1626		ZHUZAO_ID2	[	873	]	=	1703		ZHUZAO_ID3	[	873	]	=	2665		ZHUZAO__Rad	[	873	]	=	1
+	-- ZHUZAO_ID	[	874	]	=	1111		ZHUZAO_LV	[	874	]	=	75		ZHUZAO_ID1	[	874	]	=	1626		ZHUZAO_ID2	[	874	]	=	1703		ZHUZAO_ID3	[	874	]	=	2665		ZHUZAO__Rad	[	874	]	=	1
+	-- ZHUZAO_ID	[	875	]	=	1104		ZHUZAO_LV	[	875	]	=	75		ZHUZAO_ID1	[	875	]	=	1626		ZHUZAO_ID2	[	875	]	=	1621		ZHUZAO_ID3	[	875	]	=	2665		ZHUZAO__Rad	[	875	]	=	1
+	-- ZHUZAO_ID	[	876	]	=	1114		ZHUZAO_LV	[	876	]	=	75		ZHUZAO_ID1	[	876	]	=	2490		ZHUZAO_ID2	[	876	]	=	1734		ZHUZAO_ID3	[	876	]	=	2665		ZHUZAO__Rad	[	876	]	=	1
+	-- ZHUZAO_ID	[	877	]	=	1107		ZHUZAO_LV	[	877	]	=	75		ZHUZAO_ID1	[	877	]	=	2490		ZHUZAO_ID2	[	877	]	=	1621		ZHUZAO_ID3	[	877	]	=	2665		ZHUZAO__Rad	[	877	]	=	1
+	-- ZHUZAO_ID	[	878	]	=	1101		ZHUZAO_LV	[	878	]	=	75		ZHUZAO_ID1	[	878	]	=	2490		ZHUZAO_ID2	[	878	]	=	3385		ZHUZAO_ID3	[	878	]	=	2665		ZHUZAO__Rad	[	878	]	=	1
+	-- ZHUZAO_ID	[	879	]	=	1108		ZHUZAO_LV	[	879	]	=	75		ZHUZAO_ID1	[	879	]	=	2490		ZHUZAO_ID2	[	879	]	=	1734		ZHUZAO_ID3	[	879	]	=	2665		ZHUZAO__Rad	[	879	]	=	1
+	-- ZHUZAO_ID	[	880	]	=	2369		ZHUZAO_LV	[	880	]	=	75		ZHUZAO_ID1	[	880	]	=	2490		ZHUZAO_ID2	[	880	]	=	1734		ZHUZAO_ID3	[	880	]	=	2665		ZHUZAO__Rad	[	880	]	=	1
+	-- ZHUZAO_ID	[	881	]	=	2553		ZHUZAO_LV	[	881	]	=	75		ZHUZAO_ID1	[	881	]	=	4048		ZHUZAO_ID2	[	881	]	=	1703		ZHUZAO_ID3	[	881	]	=	2665		ZHUZAO__Rad	[	881	]	=	1
+	-- ZHUZAO_ID	[	882	]	=	2370		ZHUZAO_LV	[	882	]	=	75		ZHUZAO_ID1	[	882	]	=	4047		ZHUZAO_ID2	[	882	]	=	1621		ZHUZAO_ID3	[	882	]	=	2665		ZHUZAO__Rad	[	882	]	=	1
+	-- ZHUZAO_ID	[	883	]	=	1102		ZHUZAO_LV	[	883	]	=	75		ZHUZAO_ID1	[	883	]	=	1674		ZHUZAO_ID2	[	883	]	=	1703		ZHUZAO_ID3	[	883	]	=	2665		ZHUZAO__Rad	[	883	]	=	1
+	-- ZHUZAO_ID	[	884	]	=	1109		ZHUZAO_LV	[	884	]	=	75		ZHUZAO_ID1	[	884	]	=	4037		ZHUZAO_ID2	[	884	]	=	4756		ZHUZAO_ID3	[	884	]	=	2665		ZHUZAO__Rad	[	884	]	=	1
+	-- ZHUZAO_ID	[	885	]	=	2367		ZHUZAO_LV	[	885	]	=	75		ZHUZAO_ID1	[	885	]	=	4038		ZHUZAO_ID2	[	885	]	=	1621		ZHUZAO_ID3	[	885	]	=	2665		ZHUZAO__Rad	[	885	]	=	1
+	-- ZHUZAO_ID	[	886	]	=	2371		ZHUZAO_LV	[	886	]	=	75		ZHUZAO_ID1	[	886	]	=	1360		ZHUZAO_ID2	[	886	]	=	1621		ZHUZAO_ID3	[	886	]	=	2665		ZHUZAO__Rad	[	886	]	=	1
+	-- ZHUZAO_ID	[	887	]	=	1103		ZHUZAO_LV	[	887	]	=	75		ZHUZAO_ID1	[	887	]	=	1352		ZHUZAO_ID2	[	887	]	=	1621		ZHUZAO_ID3	[	887	]	=	2665		ZHUZAO__Rad	[	887	]	=	1
+	-- ZHUZAO_ID	[	888	]	=	1110		ZHUZAO_LV	[	888	]	=	75		ZHUZAO_ID1	[	888	]	=	4037		ZHUZAO_ID2	[	888	]	=	1621		ZHUZAO_ID3	[	888	]	=	2665		ZHUZAO__Rad	[	888	]	=	1
+	-- ZHUZAO_ID	[	889	]	=	1100		ZHUZAO_LV	[	889	]	=	75		ZHUZAO_ID1	[	889	]	=	1780		ZHUZAO_ID2	[	889	]	=	1621		ZHUZAO_ID3	[	889	]	=	2665		ZHUZAO__Rad	[	889	]	=	1
+	-- ZHUZAO_ID	[	890	]	=	1106		ZHUZAO_LV	[	890	]	=	75		ZHUZAO_ID1	[	890	]	=	4037		ZHUZAO_ID2	[	890	]	=	1734		ZHUZAO_ID3	[	890	]	=	2665		ZHUZAO__Rad	[	890	]	=	1
+	--ZHUZAO_ID	[	891	]	=	8306		ZHUZAO_LV	[	891	]	=	80		ZHUZAO_ID1	[	891	]	=	4037		ZHUZAO_ID2	[	891	]	=	4038		ZHUZAO_ID3	[	891	]	=	8320		ZHUZAO__Rad	[	891	]	=	1
+	--ZHUZAO_ID	[	892	]	=	8308		ZHUZAO_LV	[	892	]	=	80		ZHUZAO_ID1	[	892	]	=	4037		ZHUZAO_ID2	[	892	]	=	1758		ZHUZAO_ID3	[	892	]	=	8320		ZHUZAO__Rad	[	892	]	=	1
+	ZHUZAO_ID	[	893	]	=	8307		ZHUZAO_LV	[	893	]	=	80		ZHUZAO_ID1	[	893	]	=	4037		ZHUZAO_ID2	[	893	]	=	4038		ZHUZAO_ID3	[	893	]	=	8320		ZHUZAO__Rad	[	893	]	=	1
+	ZHUZAO_ID	[	894	]	=	8309		ZHUZAO_LV	[	894	]	=	80		ZHUZAO_ID1	[	894	]	=	4037		ZHUZAO_ID2	[	894	]	=	2649		ZHUZAO_ID3	[	894	]	=	8320		ZHUZAO__Rad	[	894	]	=	1
+	ZHUZAO_ID	[	895	]	=	8310		ZHUZAO_LV	[	895	]	=	80		ZHUZAO_ID1	[	895	]	=	4036		ZHUZAO_ID2	[	895	]	=	2649		ZHUZAO_ID3	[	895	]	=	8320		ZHUZAO__Rad	[	895	]	=	1
+	ZHUZAO_ID	[	896	]	=	8311		ZHUZAO_LV	[	896	]	=	80		ZHUZAO_ID1	[	896	]	=	4036		ZHUZAO_ID2	[	896	]	=	2649		ZHUZAO_ID3	[	896	]	=	8320		ZHUZAO__Rad	[	896	]	=	1
+	ZHUZAO_ID	[	897	]	=	8312		ZHUZAO_LV	[	897	]	=	80		ZHUZAO_ID1	[	897	]	=	4036		ZHUZAO_ID2	[	897	]	=	4037		ZHUZAO_ID3	[	897	]	=	8320		ZHUZAO__Rad	[	897	]	=	1
+	ZHUZAO_ID	[	898	]	=	8313		ZHUZAO_LV	[	898	]	=	80		ZHUZAO_ID1	[	898	]	=	4036		ZHUZAO_ID2	[	898	]	=	2649		ZHUZAO_ID3	[	898	]	=	8320		ZHUZAO__Rad	[	898	]	=	1
+	ZHUZAO_ID	[	899	]	=	8314		ZHUZAO_LV	[	899	]	=	80		ZHUZAO_ID1	[	899	]	=	4036		ZHUZAO_ID2	[	899	]	=	3997		ZHUZAO_ID3	[	899	]	=	8320		ZHUZAO__Rad	[	899	]	=	1
+	ZHUZAO_ID	[	900	]	=	8315		ZHUZAO_LV	[	900	]	=	80		ZHUZAO_ID1	[	900	]	=	4036		ZHUZAO_ID2	[	900	]	=	2649		ZHUZAO_ID3	[	900	]	=	8320		ZHUZAO__Rad	[	900	]	=	1
+	ZHUZAO_ID	[	901	]	=	8316		ZHUZAO_LV	[	901	]	=	80		ZHUZAO_ID1	[	901	]	=	4036		ZHUZAO_ID2	[	901	]	=	1758		ZHUZAO_ID3	[	901	]	=	8320		ZHUZAO__Rad	[	901	]	=	1
+	ZHUZAO_ID	[	902	]	=	8317		ZHUZAO_LV	[	902	]	=	80		ZHUZAO_ID1	[	902	]	=	4036		ZHUZAO_ID2	[	902	]	=	2649		ZHUZAO_ID3	[	902	]	=	8320		ZHUZAO__Rad	[	902	]	=	1
+	ZHUZAO_ID	[	903	]	=	866		ZHUZAO_LV	[	903	]	=	80		ZHUZAO_ID1	[	903	]	=	4036		ZHUZAO_ID2	[	903	]	=	2649		ZHUZAO_ID3	[	903	]	=	8320		ZHUZAO__Rad	[	903	]	=	1
+	--ZHUZAO_ID	[	904	]	=	865		ZHUZAO_LV	[	904	]	=	80		ZHUZAO_ID1	[	904	]	=	4036		ZHUZAO_ID2	[	904	]	=	4037		ZHUZAO_ID3	[	904	]	=	8320		ZHUZAO__Rad	[	904	]	=	1
+	--ZHUZAO_ID	[	905	]	=	864		ZHUZAO_LV	[	905	]	=	80		ZHUZAO_ID1	[	905	]	=	4036		ZHUZAO_ID2	[	905	]	=	1758		ZHUZAO_ID3	[	905	]	=	8320		ZHUZAO__Rad	[	905	]	=	1
+	
+		
+																																	
+																																									
+--	??																																								
+--	????							??????																																	
+	PENGREN_Qua	=	5	 				PENGREN_Mxcount	=	40																															
+	PENGREN_ID	=	{}					PENGREN_LV	=	{}					PENGREN_ID1	=	{}					PENGREN_ID2	=	{}					PENGREN_ID3	=	{}					PENGREN__Rad	=	{}			
+	PENGREN_ID	[	1	]	=	1848		PENGREN_LV	[	1	]	=	0		PENGREN_ID1	[	1	]	=	4315		PENGREN_ID2	[	1	]	=	4397		PENGREN_ID3	[	1	]	=	3116		PENGREN__Rad	[	1	]	=	1
+	PENGREN_ID	[	2	]	=	3133		PENGREN_LV	[	2	]	=	0		PENGREN_ID1	[	2	]	=	4315		PENGREN_ID2	[	2	]	=	4397		PENGREN_ID3	[	2	]	=	3116		PENGREN__Rad	[	2	]	=	1
+	PENGREN_ID	[	3	]	=	4019		PENGREN_LV	[	3	]	=	10		PENGREN_ID1	[	3	]	=	4009		PENGREN_ID2	[	3	]	=	1847		PENGREN_ID3	[	3	]	=	3116		PENGREN__Rad	[	3	]	=	1
+	PENGREN_ID	[	4	]	=	6532		PENGREN_LV	[	4	]	=	10		PENGREN_ID1	[	4	]	=	4009		PENGREN_ID2	[	4	]	=	1847		PENGREN_ID3	[	4	]	=	3116		PENGREN__Rad	[	4	]	=	1
+	PENGREN_ID	[	5	]	=	6532		PENGREN_LV	[	5	]	=	10		PENGREN_ID1	[	5	]	=	4009		PENGREN_ID2	[	5	]	=	1847		PENGREN_ID3	[	5	]	=	3116		PENGREN__Rad	[	5	]	=	1
+	PENGREN_ID	[	6	]	=	3134		PENGREN_LV	[	6	]	=	10		PENGREN_ID1	[	6	]	=	4315		PENGREN_ID2	[	6	]	=	1847		PENGREN_ID3	[	6	]	=	3116		PENGREN__Rad	[	6	]	=	1
+	PENGREN_ID	[	7	]	=	3135		PENGREN_LV	[	7	]	=	10		PENGREN_ID1	[	7	]	=	4009		PENGREN_ID2	[	7	]	=	1847		PENGREN_ID3	[	7	]	=	3116		PENGREN__Rad	[	7	]	=	1
+	PENGREN_ID	[	8	]	=	4020		PENGREN_LV	[	8	]	=	20		PENGREN_ID1	[	8	]	=	4010		PENGREN_ID2	[	8	]	=	1847		PENGREN_ID3	[	8	]	=	3116		PENGREN__Rad	[	8	]	=	1
+	PENGREN_ID	[	9	]	=	6532		PENGREN_LV	[	9	]	=	20		PENGREN_ID1	[	9	]	=	4010		PENGREN_ID2	[	9	]	=	1847		PENGREN_ID3	[	9	]	=	3116		PENGREN__Rad	[	9	]	=	1
+	PENGREN_ID	[	10	]	=	6532		PENGREN_LV	[	10	]	=	20		PENGREN_ID1	[	10	]	=	4010		PENGREN_ID2	[	10	]	=	1847		PENGREN_ID3	[	10	]	=	3116		PENGREN__Rad	[	10	]	=	1
+	PENGREN_ID	[	11	]	=	3136		PENGREN_LV	[	11	]	=	20		PENGREN_ID1	[	11	]	=	4010		PENGREN_ID2	[	11	]	=	1847		PENGREN_ID3	[	11	]	=	3116		PENGREN__Rad	[	11	]	=	1
+	PENGREN_ID	[	12	]	=	3137		PENGREN_LV	[	12	]	=	20		PENGREN_ID1	[	12	]	=	4010		PENGREN_ID2	[	12	]	=	1847		PENGREN_ID3	[	12	]	=	3116		PENGREN__Rad	[	12	]	=	1
+	PENGREN_ID	[	13	]	=	4021		PENGREN_LV	[	13	]	=	30		PENGREN_ID1	[	13	]	=	4011		PENGREN_ID2	[	13	]	=	1847		PENGREN_ID3	[	13	]	=	3116		PENGREN__Rad	[	13	]	=	1
+	PENGREN_ID	[	14	]	=	3125		PENGREN_LV	[	14	]	=	30		PENGREN_ID1	[	14	]	=	4011		PENGREN_ID2	[	14	]	=	1847		PENGREN_ID3	[	14	]	=	3116		PENGREN__Rad	[	14	]	=	1
+	PENGREN_ID	[	15	]	=	3126		PENGREN_LV	[	15	]	=	30		PENGREN_ID1	[	15	]	=	4011		PENGREN_ID2	[	15	]	=	1847		PENGREN_ID3	[	15	]	=	3116		PENGREN__Rad	[	15	]	=	1
+	PENGREN_ID	[	16	]	=	3138		PENGREN_LV	[	16	]	=	30		PENGREN_ID1	[	16	]	=	4011		PENGREN_ID2	[	16	]	=	1847		PENGREN_ID3	[	16	]	=	3116		PENGREN__Rad	[	16	]	=	1
+	PENGREN_ID	[	17	]	=	3139		PENGREN_LV	[	17	]	=	30		PENGREN_ID1	[	17	]	=	4011		PENGREN_ID2	[	17	]	=	1847		PENGREN_ID3	[	17	]	=	3116		PENGREN__Rad	[	17	]	=	1
+	PENGREN_ID	[	18	]	=	4022		PENGREN_LV	[	18	]	=	40		PENGREN_ID1	[	18	]	=	4012		PENGREN_ID2	[	18	]	=	1848		PENGREN_ID3	[	18	]	=	3116		PENGREN__Rad	[	18	]	=	1
+	PENGREN_ID	[	19	]	=	1078		PENGREN_LV	[	19	]	=	40		PENGREN_ID1	[	19	]	=	4012		PENGREN_ID2	[	19	]	=	1848		PENGREN_ID3	[	19	]	=	3116		PENGREN__Rad	[	19	]	=	1
+	PENGREN_ID	[	20	]	=	1079		PENGREN_LV	[	20	]	=	40		PENGREN_ID1	[	20	]	=	4012		PENGREN_ID2	[	20	]	=	1848		PENGREN_ID3	[	20	]	=	3116		PENGREN__Rad	[	20	]	=	1
+	PENGREN_ID	[	21	]	=	1084		PENGREN_LV	[	21	]	=	40		PENGREN_ID1	[	21	]	=	4012		PENGREN_ID2	[	21	]	=	1848		PENGREN_ID3	[	21	]	=	3116		PENGREN__Rad	[	21	]	=	1
+	PENGREN_ID	[	22	]	=	1085		PENGREN_LV	[	22	]	=	40		PENGREN_ID1	[	22	]	=	4012		PENGREN_ID2	[	22	]	=	1848		PENGREN_ID3	[	22	]	=	3116		PENGREN__Rad	[	22	]	=	1
+	PENGREN_ID	[	23	]	=	3127		PENGREN_LV	[	23	]	=	40		PENGREN_ID1	[	23	]	=	4012		PENGREN_ID2	[	23	]	=	1848		PENGREN_ID3	[	23	]	=	3116		PENGREN__Rad	[	23	]	=	1
+	PENGREN_ID	[	24	]	=	3128		PENGREN_LV	[	24	]	=	40		PENGREN_ID1	[	24	]	=	4012		PENGREN_ID2	[	24	]	=	1848		PENGREN_ID3	[	24	]	=	3116		PENGREN__Rad	[	24	]	=	1
+	PENGREN_ID	[	25	]	=	3099		PENGREN_LV	[	25	]	=	40		PENGREN_ID1	[	25	]	=	4012		PENGREN_ID2	[	25	]	=	1848		PENGREN_ID3	[	25	]	=	3116		PENGREN__Rad	[	25	]	=	1
+	PENGREN_ID	[	26	]	=	3140		PENGREN_LV	[	26	]	=	40		PENGREN_ID1	[	26	]	=	4012		PENGREN_ID2	[	26	]	=	1848		PENGREN_ID3	[	26	]	=	3116		PENGREN__Rad	[	26	]	=	1
+	PENGREN_ID	[	27	]	=	4023		PENGREN_LV	[	27	]	=	50		PENGREN_ID1	[	27	]	=	4013		PENGREN_ID2	[	27	]	=	1849		PENGREN_ID3	[	27	]	=	2617		PENGREN__Rad	[	27	]	=	1
+	PENGREN_ID	[	28	]	=	1080		PENGREN_LV	[	28	]	=	50		PENGREN_ID1	[	28	]	=	4013		PENGREN_ID2	[	28	]	=	1849		PENGREN_ID3	[	28	]	=	2617		PENGREN__Rad	[	28	]	=	1
+	PENGREN_ID	[	29	]	=	1082		PENGREN_LV	[	29	]	=	50		PENGREN_ID1	[	29	]	=	4013		PENGREN_ID2	[	29	]	=	1849		PENGREN_ID3	[	29	]	=	2617		PENGREN__Rad	[	29	]	=	1
+	PENGREN_ID	[	30	]	=	1088		PENGREN_LV	[	30	]	=	50		PENGREN_ID1	[	30	]	=	4013		PENGREN_ID2	[	30	]	=	1849		PENGREN_ID3	[	30	]	=	2617		PENGREN__Rad	[	30	]	=	1
+	PENGREN_ID	[	31	]	=	1087		PENGREN_LV	[	31	]	=	50		PENGREN_ID1	[	31	]	=	4013		PENGREN_ID2	[	31	]	=	1849		PENGREN_ID3	[	31	]	=	2617		PENGREN__Rad	[	31	]	=	1
+	PENGREN_ID	[	32	]	=	4024		PENGREN_LV	[	32	]	=	60		PENGREN_ID1	[	32	]	=	4014		PENGREN_ID2	[	32	]	=	1849		PENGREN_ID3	[	32	]	=	2619		PENGREN__Rad	[	32	]	=	1
+	PENGREN_ID	[	33	]	=	1083		PENGREN_LV	[	33	]	=	60		PENGREN_ID1	[	33	]	=	4014		PENGREN_ID2	[	33	]	=	1849		PENGREN_ID3	[	33	]	=	2619		PENGREN__Rad	[	33	]	=	1
+	PENGREN_ID	[	34	]	=	1089		PENGREN_LV	[	34	]	=	60		PENGREN_ID1	[	34	]	=	4014		PENGREN_ID2	[	34	]	=	1849		PENGREN_ID3	[	34	]	=	2619		PENGREN__Rad	[	34	]	=	1
+	PENGREN_ID	[	35	]	=	1090		PENGREN_LV	[	35	]	=	60		PENGREN_ID1	[	35	]	=	4014		PENGREN_ID2	[	35	]	=	1849		PENGREN_ID3	[	35	]	=	2619		PENGREN__Rad	[	35	]	=	1
+	PENGREN_ID	[	36	]	=	4025		PENGREN_LV	[	36	]	=	70		PENGREN_ID1	[	36	]	=	4015		PENGREN_ID2	[	36	]	=	6533		PENGREN_ID3	[	36	]	=	2622		PENGREN__Rad	[	36	]	=	1
+	PENGREN_ID	[	37	]	=	4026		PENGREN_LV	[	37	]	=	70		PENGREN_ID1	[	37	]	=	4016		PENGREN_ID2	[	37	]	=	6533		PENGREN_ID3	[	37	]	=	2622		PENGREN__Rad	[	37	]	=	1
+	PENGREN_ID	[	38	]	=	4027		PENGREN_LV	[	38	]	=	70		PENGREN_ID1	[	38	]	=	4017		PENGREN_ID2	[	38	]	=	6533		PENGREN_ID3	[	38	]	=	2622		PENGREN__Rad	[	38	]	=	1
+	PENGREN_ID	[	39	]	=	4028		PENGREN_LV	[	39	]	=	80		PENGREN_ID1	[	39	]	=	4018		PENGREN_ID2	[	39	]	=	6533		PENGREN_ID3	[	39	]	=	2624		PENGREN__Rad	[	39	]	=	1
+	--PENGREN_ID	[	40	]	=	1860		PENGREN_LV	[	40	]	=	80		PENGREN_ID1	[	40	]	=	4018		PENGREN_ID2	[	40	]	=	6533		PENGREN_ID3	[	40	]	=	2624		PENGREN__Rad	[	40	]	=	1
+
+
+--------------------?????????ID
 A1	=	1849
 A2 	=	1849
 A3 	=	1849
@@ -10301,6 +3760,7 @@ A22	=	1849
 A23	=	1849
 A24	=	1849
 
+--------------------????????ID?????
 B1	=	1 
 B2 	=	1 
 B3 	=	1 
@@ -10325,49 +3785,104 @@ B21	=	1
 B22	=	1 
 B23	=	1 
 B24	=	1 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---                                                    Массивы для предмета Кровожадный Сундук (ID 0459) (Конец)                                                        --
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---                                                    Массивы для предмета Суп Перерождения (ID 2315) (Начало)                                                         --
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------????????ID
 C1=183
+---------------------------------??????????
 N1=5
 N2=5
 N3=5
 N4=5
 N5=5
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---                                                    Массивы для предмета Суп Перерождения (ID 2315) (Конец)                                                          --
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------??????????
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---                                                    Массивы для предмета Пагона Реинкарнации (ID 0240) (Начало)                                                      --
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------???????????
 
+---------------------------------?????????ID
 SI=183
+---------------------------------???????????
 SN=1
+--------------------------------?????????
 SA1=5
 SA2=5
 SA3=5
 SA4=5
 SA5=5
-SE=15
-			
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---                                                      Массивы для предмета Камень памяти (ID 2314) (Начало)                                                          --
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-STONE_ID			= 0878
-STONE_LV			= 2
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---                                                      Массивы для предмета Камень памяти (ID 2314) (Конец)                                                           --
--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------????????????
+SE=15			-----??
+--SE=2			-----??
+--SE=12			-----??
+--SE=13			-----??
+--SE=14			-----??
+--SE=15			-----??
+--SE=16			-----??
+--SE=17			-----??
+--SE=18			-----??
+--SE=19			-----??
+--SE=20			-----????
+-----------------------???
+STONE_ID				=		0878
+STONE_LV				=		2
 
-RYZ_Rongyu_Min = -300  -- Минимальное кол-во очков чести
-RYZ_Rongyu_Max = 30000 -- Максимальное кол-во очков чести
 
---ЖХНЁ№ЦОп
+
+---?????? 				-- ??????				---????????? ( 0??? )						--??????				--????????
+StoneTpye_ID_Num = 48			StoneEff_Num = 48	StoneAttrType_Num = 48	
+StoneTpye_ID = {}	StoneEffType = {}	StoneItemType ={}	StoneEff = {}	StoneAttrType= {}	
+StoneTpye_ID[0] = 0	StoneEffType[0] = 0	StoneItemType[0] ={ 0 }	StoneEff[0] =0	StoneAttrType[0] =0   	
+StoneTpye_ID[1] = 878	StoneEffType[1] = 1	StoneItemType[1] ={ 1,0 }	StoneEff[1] =4	StoneAttrType[1] =ITEMATTR_VAL_MNATK      	--???
+StoneTpye_ID[2] = 879	StoneEffType[2] = 1	StoneItemType[2] ={ 2,3,7,9,0 }	StoneEff[2] =6	StoneAttrType[2] =ITEMATTR_VAL_MNATK      	--???
+StoneTpye_ID[3] = 880	StoneEffType[3] = 1	StoneItemType[3] ={ 4,0 }	StoneEff[3] =10	StoneAttrType[3] =ITEMATTR_VAL_MNATK      	--???
+StoneTpye_ID[4] = 881	StoneEffType[4] = 1	StoneItemType[4] ={ 1,2,3,4,7,9,23,0 }	StoneEff[4] =5	StoneAttrType[4] =ITEMATTR_VAL_HIT        	--???
+StoneTpye_ID[5] = 882	StoneEffType[5] = 2	StoneItemType[5] ={ 11,22,27,0 }	StoneEff[5] =5	StoneAttrType[5] =ITEMATTR_VAL_DEF        	--??
+StoneTpye_ID[6] = 883	StoneEffType[6] = 2	StoneItemType[6] ={ 11,22,27,0 }	StoneEff[6] =100	StoneAttrType[6] =ITEMATTR_VAL_MXHP       	--???
+StoneTpye_ID[7] = 884	StoneEffType[7] = 2	StoneItemType[7] ={ 1,2,3,4,7,9,24,0 }	StoneEff[7] =2	StoneAttrType[7] =ITEMATTR_VAL_FLEE       	--???
+StoneTpye_ID[8] = 887	StoneEffType[8] = 4	StoneItemType[8] ={ 1,2,3,4,7,9,24,0 }	StoneEff[8] =1	StoneAttrType[8] =ITEMATTR_VAL_STA        	--???
+StoneTpye_ID[9] = 860	StoneEffType[9] = 4	StoneItemType[9] ={ 24,0 }	StoneEff[9] =5	StoneAttrType[9] =ITEMATTR_VAL_AGI        	--???
+StoneTpye_ID[10] = 861	StoneEffType[10] = 4	StoneItemType[10] ={ 23,0 }	StoneEff[10] =5	StoneAttrType[10] =ITEMATTR_VAL_DEX        	--???
+StoneTpye_ID[11] = 862	StoneEffType[11] = 4	StoneItemType[11] ={ 11,22,27,0 }	StoneEff[11] =5	StoneAttrType[11] =ITEMATTR_VAL_CON        	--??
+StoneTpye_ID[12] = 863	StoneEffType[12] = 4	StoneItemType[12] ={ 1,2,3,4,7,9,0 }	StoneEff[12] =5	StoneAttrType[12] =ITEMATTR_VAL_STR        	--??
+StoneTpye_ID[13] = 864	StoneEffType[13] = 1	StoneItemType[13] ={ 1,2,3,4,7,9,0 }	StoneEff[13] =50	StoneAttrType[13] =ITEMATTR_VAL_MNATK      	--????
+StoneTpye_ID[14] = 865	StoneEffType[14] = 2	StoneItemType[14] ={ 11,22,27,0 }	StoneEff[14] =3	StoneAttrType[14] =ITEMATTR_VAL_PDEF       	--????
+StoneTpye_ID[15] = 866	StoneEffType[15] = 2	StoneItemType[15] ={ 23,24,0 }	StoneEff[15] =500	StoneAttrType[15] =ITEMATTR_VAL_MXHP       	--????
+StoneTpye_ID[16] = 1012	StoneEffType[16] = 4	StoneItemType[16] ={ 1,2,3,4,7,9,0 }	StoneEff[16] =5	StoneAttrType[16] =ITEMATTR_VAL_STA        	--????
+StoneTpye_ID[17] = 5750	StoneEffType[17] = 2	StoneItemType[17] ={ 20,0 }	StoneEff[17] =10	StoneAttrType[17] =ITEMATTR_VAL_DEF        	--??
+StoneTpye_ID[18] = 5751	StoneEffType[18] = 2	StoneItemType[18] ={ 20,0 }	StoneEff[18] =200	StoneAttrType[18] =ITEMATTR_VAL_MXHP       	--??
+StoneTpye_ID[19] = 5752	StoneEffType[19] = 2	StoneItemType[19] ={ 20,0 }	StoneEff[19] =200	StoneAttrType[19] =ITEMATTR_VAL_MXSP       	--??
+StoneTpye_ID[20] = 5771	StoneEffType[20] = 1	StoneItemType[20] ={ 20,0 }	StoneEff[20] =10	StoneAttrType[20] =ITEMATTR_VAL_CRT        	--?????
+StoneTpye_ID[21] = 5772	StoneEffType[21] = 1	StoneItemType[21] ={ 23,0 }	StoneEff[21] =10	StoneAttrType[21] =ITEMATTR_VAL_HIT        	--?????
+StoneTpye_ID[22] = 5773	StoneEffType[22] = 2	StoneItemType[22] ={ 24,0 }	StoneEff[22] =10	StoneAttrType[22] =ITEMATTR_VAL_FLEE       	--?????
+StoneTpye_ID[23] = 5774	StoneEffType[23] = 2	StoneItemType[23] ={ 22,0 }	StoneEff[23] =15	StoneAttrType[23] =ITEMATTR_VAL_DEF        	--?????
+StoneTpye_ID[24] = 5775	StoneEffType[24] = 4	StoneItemType[24] ={ 22,11,0 }	StoneEff[24] =300	StoneAttrType[24] =ITEMATTR_VAL_MXHP       	--?????
+StoneTpye_ID[25] = 5845	StoneEffType[25] = 1	StoneItemType[25] ={ 1,2,3,4,7,9,0 }	StoneEff[25] =8	StoneAttrType[25] =ITEMATTR_VAL_STR        	--????
+StoneTpye_ID[26] = 5846	StoneEffType[26] = 2	StoneItemType[26] ={ 22,27,0 }	StoneEff[26] =8	StoneAttrType[26] =ITEMATTR_VAL_CON        	--????
+StoneTpye_ID[27] = 5847	StoneEffType[27] = 1	StoneItemType[27] ={ 1,2,3,4,7,9,22,27,0 }	StoneEff[27] =8	StoneAttrType[27] =ITEMATTR_VAL_STA        	--????
+StoneTpye_ID[28] = 5848	StoneEffType[28] = 1	StoneItemType[28] ={ 1,2,3,4,7,9,23,0 }	StoneEff[28] =8	StoneAttrType[28] =ITEMATTR_VAL_DEX        	--????
+StoneTpye_ID[29] = 5849	StoneEffType[29] = 4	StoneItemType[29] ={ 24,0 }	StoneEff[29] =8	StoneAttrType[29] =ITEMATTR_VAL_AGI        	--????
+StoneTpye_ID[30] = 5878	StoneEffType[30] = 1	StoneItemType[30] ={ 1,2,3,4,7,9,0 }	StoneEff[30] =50	StoneAttrType[30] =ITEMATTR_VAL_PDEF       	--??????
+StoneTpye_ID[31] = 5879	StoneEffType[31] = 2	StoneItemType[31] ={ 11,22,27,0 }	StoneEff[31] =3	StoneAttrType[31] =ITEMATTR_VAL_MXHP       	--??????
+StoneTpye_ID[32] = 5880	StoneEffType[32] = 2	StoneItemType[32] ={ 23,24,0 }	StoneEff[32] =500	StoneAttrType[32] =ITEMATTR_VAL_STA        	--??????
+StoneTpye_ID[33] = 6718	StoneEffType[33] = 2	StoneItemType[33] ={ 22,27,0 }	StoneEff[33] =1	StoneAttrType[33] =ITEMATTR_VAL_CON        	--???????
+StoneTpye_ID[34] = 6817	StoneEffType[34] = 4	StoneItemType[34] ={ 24,0 }	StoneEff[34] =2	StoneAttrType[34] =ITEMATTR_VAL_AGI        	--???
+StoneTpye_ID[35] = 6818	StoneEffType[35] = 4	StoneItemType[35] ={ 24,0 }	StoneEff[35] =3	StoneAttrType[35] =ITEMATTR_VAL_AGI        	--???
+StoneTpye_ID[36] = 6819	StoneEffType[36] = 4	StoneItemType[36] ={ 24,0 }	StoneEff[36] =4	StoneAttrType[36] =ITEMATTR_VAL_AGI        	--???
+StoneTpye_ID[37] = 6820	StoneEffType[37] = 4	StoneItemType[37] ={ 23,0 }	StoneEff[37] =2	StoneAttrType[37] =ITEMATTR_VAL_DEX        	--???
+StoneTpye_ID[38] = 6821	StoneEffType[38] = 4	StoneItemType[38] ={ 23,0 }	StoneEff[38] =3	StoneAttrType[38] =ITEMATTR_VAL_DEX        	--???
+StoneTpye_ID[39] = 6822	StoneEffType[39] = 4	StoneItemType[39] ={ 23,0 }	StoneEff[39] =4	StoneAttrType[39] =ITEMATTR_VAL_DEX        	--???
+StoneTpye_ID[40] = 6823	StoneEffType[40] = 4	StoneItemType[40] ={ 11,22,27,0 }	StoneEff[40] =2	StoneAttrType[40] =ITEMATTR_VAL_CON        	--???
+StoneTpye_ID[41] = 6824	StoneEffType[41] = 4	StoneItemType[41] ={ 11,22,27,0 }	StoneEff[41] =3	StoneAttrType[41] =ITEMATTR_VAL_CON        	--???
+StoneTpye_ID[42] = 6825	StoneEffType[42] = 4	StoneItemType[42] ={ 11,22,27,0 }	StoneEff[42] =4	StoneAttrType[42] =ITEMATTR_VAL_CON        	--???
+StoneTpye_ID[43] = 6826	StoneEffType[43] = 4	StoneItemType[43] ={ 1,2,3,4,7,9,0 }	StoneEff[43] =2	StoneAttrType[43] =ITEMATTR_VAL_STR        	--???
+StoneTpye_ID[44] = 6827	StoneEffType[44] = 4	StoneItemType[44] ={ 1,2,3,4,7,9,0 }	StoneEff[44] =3	StoneAttrType[44] =ITEMATTR_VAL_STR        	--???
+StoneTpye_ID[45] = 6828	StoneEffType[45] = 4	StoneItemType[45] ={ 1,2,3,4,7,9,0 }	StoneEff[45] =4	StoneAttrType[45] =ITEMATTR_VAL_STR        	--???
+StoneTpye_ID[46] = 6829	StoneEffType[46] = 4	StoneItemType[46] ={ 1,2,3,4,7,9,0 }	StoneEff[46] =2	StoneAttrType[46] =ITEMATTR_VAL_STA        	--???
+StoneTpye_ID[47] = 6830	StoneEffType[47] = 4	StoneItemType[47] ={ 1,2,3,4,7,9,0 }	StoneEff[47] =3	StoneAttrType[47] =ITEMATTR_VAL_STA        	--???
+StoneTpye_ID[48] = 6831	StoneEffType[48] = 4	StoneItemType[48] ={ 1,2,3,4,7,9,0 }	StoneEff[48] =4	StoneAttrType[48] =ITEMATTR_VAL_STA        	--???
+
+--????????
+RYZ_Rongyu_Min = -300
+RYZ_Rongyu_Max = 30000
+
+--????
 UnNormalMonster_Num =		13
 UnNormalMonster_ID = { }
 UnNormalMonster_ID [0]	=	1
@@ -10385,11 +3900,11 @@ UnNormalMonster_ID [11]	=	743
 UnNormalMonster_ID [12]	=	744
 UnNormalMonster_ID [13]	=	745
 
---PKµє№Ш±ХјЖКэ-----------
+--PK?????-----------
 PK_Win_CountNum		=	60
 
 ----------------------------------------------------------------------------------------------------
---PKµєРиТЄЙѕіэµДµАѕЯ
+--PK????????
 PK_BagItemDelCheckNum = 6
 PK_BagItemDelCheck_ID = { }
 PK_BagItemDelCheck_ID [0] = 1854
@@ -10403,7 +3918,7 @@ PK_BagItemDelCheck_ID [6] = 1860
 
 
 
---КҐХЅ№Ш±Х-----------
+--????-----------
 SZ_Win_CountNum		=	60
 SZ_Win_CountNum2	=	60
 GUILDNOTICE = 6
@@ -10429,22 +3944,22 @@ GUILDWARCLOSETIME2 = 10800
  
 
 
---НЛіцКҐХЅµШНј»бЙѕіэµДµАѕЯ
+--????????????
 SZ_BagItemDelCheckNum = 4
 SZ_BagItemDelCheck_ID = { }
 SZ_BagItemDelCheck_ID [0] = 4661
 SZ_BagItemDelCheck_ID [1] = 2964
 SZ_BagItemDelCheck_ID [2] = 3001
-SZ_BagItemDelCheck_ID [3] = 2381 ---КШ»¤ЙсХЩ»ЅИЇ
+SZ_BagItemDelCheck_ID [3] = 2381 ---??????
 
 
 
 
---ЛАЙс№ҐВФЦРТЄЙѕіэµДµАѕЯ--ЛАЙсЧЁКфІї·ЦїЄКј
+--???????????--????????
 SS_BagItemDelCheckNum = 2
 SS_BagItemDelCheck_ID = { }
-SS_BagItemDelCheck_ID [1] = 1855		--ЅшИлУАєгµШУьµДГЕЖ±
-SS_BagItemDelCheck_ID [2] = 1856		--Й±ЛАЙс±ШРлК№УГµДµАѕЯ
+SS_BagItemDelCheck_ID [1] = 1855		--?????????
+SS_BagItemDelCheck_ID [2] = 1856		--??????????
 
 CRY = {}
 CRY[5]=0
@@ -10508,54 +4023,56 @@ NOTICETIME[15] = 3
 NOTICETIME[16] = 2
 NOTICETIME[17] = 1
 
---ЛАЙсЧЁКфІї·Ц
+--??????
 
 
---µАѕЯКµАэ»ЇКВјюАаРН
-NPC_SALE		=	0	--npcВтВф
-MONSTER_BAOLIAO		=	1	--№ЦОп±©БП
-PLAYER_HECHENG		=	2	--НжјТєПіЙ
-QUEST_AWARD_1		=	3	--ИООс»сИЎ1
-QUEST_AWARD_2		=	4	--ИООс»сИЎ2
-QUEST_AWARD_3		=	5	--ИООс»сИЎ3
-QUEST_AWARD_4		=	6	--ИООс»сИЎ4
-QUEST_AWARD_5		=	7	--ИООс»сИЎ5
-QUEST_AWARD_6		=	8	--ИООс»сИЎ6
-QUEST_AWARD_7		=	9	--ИООс»сИЎ7
-QUEST_AWARD_8		=	10	--ИООс»сИЎ8
-PLAYER_XSBOX		=	11	--РВКЦ±¦Пд
+--?????????
+NPC_SALE				=	0	--npc??
+MONSTER_BAOLIAO		=	1	--????
+PLAYER_HECHENG		=	2	--????
+QUEST_AWARD_1		=	3	--????1
+QUEST_AWARD_2		=	4	--????2
+QUEST_AWARD_3		=	5	--????3
+QUEST_AWARD_4		=	6	--????4
+QUEST_AWARD_5		=	7	--????5
+QUEST_AWARD_6		=	8	--????6
+QUEST_AWARD_7		=	9	--????7
+QUEST_AWARD_8		=	10	--????8
+PLAYER_XSBOX			=	11	--????
 
 PLAYER_CCFSBOXA		=	12
 PLAYER_CCFSBOXB		=	13
 PLAYER_CCFSBOXC		=	14
 PLAYER_CCFSBOXD		=	15
 PLAYER_CCFSBOXE		=	16
-PLAYER_CCFSBOXF 	=	17
+PLAYER_CCFSBOXF 		=	17
 PLAYER_CCFSBOXG		=	18
 PLAYER_CCFSBOXH		=	19
 PLAYER_CCFSBOXI		=	20
-PLAYER_ZSITEM		=	22	--ЧПЙ«Ч°±ё
-PLAYER_HSSR		=	23	--єЪКРЙМИЛ
-PLAYER_HSSRA		=	24	--єЪКРЙМИЛA
+PLAYER_ZSITEM			=	22	--????
+PLAYER_HSSR			=	23	--????
+PLAYER_HSSRA			=	24	--????A
 
-QUEST_AWARD_SCBOX	=	95	--ЙМіЗПдЧУ
-QUEST_AWARD_SDJ		=	96	--КҐµ®»»ИЎАсЖ·
-QUEST_AWARD_RYZ		=	97	--ИЩУюЦ¤»сµГ
-QUEST_AWARD_WZX		=	98	--Ц°ТµИООс±¦Пд
-QUEST_AWARD_RAND	=	99	--Лж»ъЦ°ТµИООс
+ATTRRESET = 27
+QUEST_AWARD_GODBOX	=	94	--???????????????                                                  --------------kokora
+QUEST_AWARD_SCBOX	=	95	--????
+QUEST_AWARD_SDJ		=	96	--??????
+QUEST_AWARD_RYZ		=	97	--?????
+QUEST_AWARD_WZX		=	98	--??????
+QUEST_AWARD_RAND		=	99	--??????
 
 
 
 
---ёЅјУКфРФМЧЧ°ГыіЖ¶ФУ¦ЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄ
+--??????????������������������������������������
 
-ITEMSERIES_DRAGON	=  1		--ѕЮБъМЧЧ°ЈЁБ¦БїЈ©
-ITEMSERIES_TAITAN	=  2		--М©М№МЧЧ°ЈЁМеЦКЈ©
-ITEMSERIES_HUNTER	=  3		--БФКЦМЧЧ°ЈЁЧЁЧўЈ©
-ITEMSERIES_DELIVER	=  4		--РЕК№МЧЧ°ЈЁГфЅЭЈ©
-ITEMSERIES_HOLY		=  5		--ЙсКҐМЧЧ°ЈЁѕ«ЙсЈ©
+ITEMSERIES_DRAGON		=  1							--????(??)
+ITEMSERIES_TAITAN       =  2							--????(??)
+ITEMSERIES_HUNTER      =  3							--????(??)
+ITEMSERIES_DELIVER      =  4							--????(??)
+ITEMSERIES_HOLY   =  5							--????(??)
 
---ёЅјУКфРФёЕВКЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄ
+--??????�����������������������������������������
 
 Itemattr_Baoliao  =  { }
 
@@ -10563,69 +4080,69 @@ Itemattr_Baoliao  =  { }
 
 
 
---µАѕЯЖ·ЦКЛж»ъёЕВКЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄ
+--????????����������������������������������������������������������
 
-Item_Baoliao = { }				--№ЦОп±©БП --ґУЧоёЯј¶Ж·ЦКїЄКјЛж»ъЈ¬ёЯј¶ОпЖ·УЕПИЈ¬ПаБЪµИј¶µДКэЦµІоЦµОЄКµјКёЕВК
-Item_Baoliao [0]	=		0	--
-Item_Baoliao [1]	=		0	--
-Item_Baoliao [2]	=		0	--
-Item_Baoliao [3]	=		0	--
-Item_Baoliao [4]	=		0	--
-Item_Baoliao [5]	=		1	--ЙсУчЦ®...
-Item_Baoliao [6]	=		5	--НхХЯЦ®...	
-Item_Baoliao [7]	=		10	--НіЛ§Ц®...
-Item_Baoliao [8]	=		40	--ЧїФЅЦ®...
-Item_Baoliao [9]	=		80	--ЖХНЁРН...
+Item_Baoliao = { }									--???? --??????????,??????,??????????????
+Item_Baoliao [0]		=		0						--
+Item_Baoliao [1]		=		0						--
+Item_Baoliao [2]		=		0						--
+Item_Baoliao [3]		=		0						--
+Item_Baoliao [4]		=		0						--
+Item_Baoliao [5]		=		1						--???...
+Item_Baoliao [6]		=		5						--???...	
+Item_Baoliao [7]		=		10						--???...
+Item_Baoliao [8]		=		40						--???...
+Item_Baoliao [9]		=		80						--???...
 
 Item_Attr_0 = { }					
-Item_Attr_0 [0]		=		0	--5ёцёЅјУКфРФ
-Item_Attr_0 [1]		=		0	--4ёцёЅјУКфРФ
-Item_Attr_0 [2]		=		1	--3ёцёЅјУКфРФ
-Item_Attr_0 [3]		=		4	--2ёцёЅјУКфРФ
-Item_Attr_0 [4]		=		50	--1ёцёЅјУКфРФ
+Item_Attr_0 [0]		=		0						--5?????
+Item_Attr_0 [1]		=		0						--4?????
+Item_Attr_0 [2]		=		1						--3?????
+Item_Attr_0 [3]		=		4						--2?????
+Item_Attr_0 [4]		=		50						--1?????
 
 
 Item_Mission_1 = { }					
-Item_Mission_1 [0]	=		0	--
-Item_Mission_1 [1]	=		0	--
-Item_Mission_1 [2]	=		0	--
-Item_Mission_1 [3]	=		0	--
-Item_Mission_1 [4]	=		0	-- 
-Item_Mission_1 [5]	=		0	--ЙсУчЦ®... 
-Item_Mission_1 [6]	=		0	--НхХЯЦ®... 
-Item_Mission_1 [7]	=		1	--НіЛ§Ц®... 
-Item_Mission_1 [8]	=		10	--ЧїФЅЦ®... 
-Item_Mission_1 [9]	=		50	--ЖХНЁРН... 
+Item_Mission_1 [0]		=		0						--
+Item_Mission_1 [1]		=		0						--
+Item_Mission_1 [2]		=		0						--
+Item_Mission_1 [3]		=		0						--
+Item_Mission_1 [4]		=		0						-- 
+Item_Mission_1 [5]		=		0						--???... 
+Item_Mission_1 [6]		=		0						--???... 
+Item_Mission_1 [7]		=		1						--???... 
+Item_Mission_1 [8]		=		10						--???... 
+Item_Mission_1 [9]		=		50						--???... 
 
 Item_Attr_1 = { }					
-Item_Attr_1 [0]		=		0						--5ёцёЅјУКфРФ      
-Item_Attr_1 [1]		=		0						--4ёцёЅјУКфРФ      
-Item_Attr_1 [2]		=		0						--3ёцёЅјУКфРФ      
-Item_Attr_1 [3]		=		0						--2ёцёЅјУКфРФ      
-Item_Attr_1 [4]		=		0						--1ёцёЅјУКфРФ      
+Item_Attr_1 [0]		=		0						--5?????      
+Item_Attr_1 [1]		=		0						--4?????      
+Item_Attr_1 [2]		=		0						--3?????      
+Item_Attr_1 [3]		=		0						--2?????      
+Item_Attr_1 [4]		=		0						--1?????      
 
 
 
 
 
 Item_Mission_2 = { }					                                                          
-Item_Mission_2 [0]	=		0						--                
-Item_Mission_2 [1]	=		0						--                
-Item_Mission_2 [2]	=		0						--                
-Item_Mission_2 [3]	=		0						--                
-Item_Mission_2 [4]	=		0						--                
-Item_Mission_2 [5]	=		0						--ЙсУчЦ®...    
-Item_Mission_2 [6]	=		1						--НхХЯЦ®...    
-Item_Mission_2 [7]	=		5						--НіЛ§Ц®...    
-Item_Mission_2 [8]	=		20						--ЧїФЅЦ®...    
-Item_Mission_2 [9]	=		80						--ЖХНЁРН...    
+Item_Mission_2 [0]		=		0						--                
+Item_Mission_2 [1]		=		0						--                
+Item_Mission_2 [2]		=		0						--                
+Item_Mission_2 [3]		=		0						--                
+Item_Mission_2 [4]		=		0						--                
+Item_Mission_2 [5]		=		0						--???...    
+Item_Mission_2 [6]		=		1						--???...    
+Item_Mission_2 [7]		=		5						--???...    
+Item_Mission_2 [8]		=		20						--???...    
+Item_Mission_2 [9]		=		80						--???...    
 
 Item_Attr_2 = { }							
-Item_Attr_2 [0]		=		0						--5ёцёЅјУКфРФ      
-Item_Attr_2 [1]		=		0						--4ёцёЅјУКфРФ      
-Item_Attr_2 [2]		=		0						--3ёцёЅјУКфРФ      
-Item_Attr_2 [3]		=		10						--2ёцёЅјУКфРФ      
-Item_Attr_2 [4]		=		30						--1ёцёЅјУКфРФ      
+Item_Attr_2 [0]		=		0						--5?????      
+Item_Attr_2 [1]		=		0						--4?????      
+Item_Attr_2 [2]		=		0						--3?????      
+Item_Attr_2 [3]		=		10						--2?????      
+Item_Attr_2 [4]		=		30						--1?????      
 
 
 
@@ -10635,18 +4152,18 @@ Item_Mission_3 [1]		=		0						--
 Item_Mission_3 [2]		=		0						--                
 Item_Mission_3 [3]		=		0						--                
 Item_Mission_3 [4]		=		0						--                
-Item_Mission_3 [5]		=		0						--ЙсУчЦ®...    
-Item_Mission_3 [6]		=		1						--НхХЯЦ®...    
-Item_Mission_3 [7]		=		5						--НіЛ§Ц®...    
-Item_Mission_3 [8]		=		50						--ЧїФЅЦ®...    
-Item_Mission_3 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_3 [5]		=		0						--???...    
+Item_Mission_3 [6]		=		1						--???...    
+Item_Mission_3 [7]		=		5						--???...    
+Item_Mission_3 [8]		=		50						--???...    
+Item_Mission_3 [9]		=		100						--???...    
 
 Item_Attr_3 = { }									
-Item_Attr_3 [0]		=		0						--5ёцёЅјУКфРФ 
-Item_Attr_3 [1]		=		0						--4ёцёЅјУКфРФ 
-Item_Attr_3 [2]		=		0						--3ёцёЅјУКфРФ 
-Item_Attr_3 [3]		=		10						--2ёцёЅјУКфРФ 
-Item_Attr_3 [4]		=		60						--1ёцёЅјУКфРФ 
+Item_Attr_3 [0]		=		0						--5????? 
+Item_Attr_3 [1]		=		0						--4????? 
+Item_Attr_3 [2]		=		0						--3????? 
+Item_Attr_3 [3]		=		10						--2????? 
+Item_Attr_3 [4]		=		60						--1????? 
 												                              
 												                              
 
@@ -10658,18 +4175,18 @@ Item_Mission_4 [1]		=		0						--
 Item_Mission_4 [2]		=		0						--                
 Item_Mission_4 [3]		=		0						--                
 Item_Mission_4 [4]		=		0						--                
-Item_Mission_4 [5]		=		1						--ЙсУчЦ®...    
-Item_Mission_4 [6]		=		5						--НхХЯЦ®...    
-Item_Mission_4 [7]		=		15						--НіЛ§Ц®...    
-Item_Mission_4 [8]		=		90						--ЧїФЅЦ®...    
-Item_Mission_4 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_4 [5]		=		1						--???...    
+Item_Mission_4 [6]		=		5						--???...    
+Item_Mission_4 [7]		=		15						--???...    
+Item_Mission_4 [8]		=		90						--???...    
+Item_Mission_4 [9]		=		100						--???...    
 
 Item_Attr_4 = { }					
-Item_Attr_4 [0]		=		0						--5ёцёЅјУКфРФ      
-Item_Attr_4 [1]		=		0						--4ёцёЅјУКфРФ      
-Item_Attr_4 [2]		=		1						--3ёцёЅјУКфРФ      
-Item_Attr_4 [3]		=		20						--2ёцёЅјУКфРФ      
-Item_Attr_4 [4]		=		100						--1ёцёЅјУКфРФ      
+Item_Attr_4 [0]		=		0						--5?????      
+Item_Attr_4 [1]		=		0						--4?????      
+Item_Attr_4 [2]		=		1						--3?????      
+Item_Attr_4 [3]		=		20						--2?????      
+Item_Attr_4 [4]		=		100						--1?????      
 
 
 Item_Mission_5 = { }					                                                          
@@ -10678,18 +4195,18 @@ Item_Mission_5 [1]		=		0						--
 Item_Mission_5 [2]		=		0						--                
 Item_Mission_5 [3]		=		0						--                
 Item_Mission_5 [4]		=		0						--                
-Item_Mission_5 [5]		=		1						--ЙсУчЦ®...    
-Item_Mission_5 [6]		=		15						--НхХЯЦ®...    
-Item_Mission_5 [7]		=		100						--НіЛ§Ц®...    
-Item_Mission_5 [8]		=		100						--ЧїФЅЦ®...    
-Item_Mission_5 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_5 [5]		=		1						--???...    
+Item_Mission_5 [6]		=		15						--???...    
+Item_Mission_5 [7]		=		100						--???...    
+Item_Mission_5 [8]		=		100						--???...    
+Item_Mission_5 [9]		=		100						--???...    
 
 Item_Attr_5 = { }					
-Item_Attr_5 [0]		=		0						--5ёцёЅјУКфРФ      
-Item_Attr_5 [1]		=		0						--4ёцёЅјУКфРФ      
-Item_Attr_5 [2]		=		1						--3ёцёЅјУКфРФ      
-Item_Attr_5 [3]		=		5						--2ёцёЅјУКфРФ      
-Item_Attr_5 [4]		=		100						--1ёцёЅјУКфРФ
+Item_Attr_5 [0]		=		0						--5?????      
+Item_Attr_5 [1]		=		0						--4?????      
+Item_Attr_5 [2]		=		1						--3?????      
+Item_Attr_5 [3]		=		5						--2?????      
+Item_Attr_5 [4]		=		100						--1?????
 
 Item_Mission_94 = { }					                                                                -----------------kokora   
 Item_Mission_94 [0]		=		0						--                
@@ -10697,18 +4214,18 @@ Item_Mission_94 [1]		=		0						--
 Item_Mission_94 [2]		=		0						--                
 Item_Mission_94 [3]		=		0						--                
 Item_Mission_94 [4]		=		0						--                
-Item_Mission_94 [5]		=		0						--ЙсУчЦ®...    
-Item_Mission_94 [6]		=		1						--НхХЯЦ®...    
-Item_Mission_94 [7]		=		100						--НіЛ§Ц®...    
-Item_Mission_94 [8]		=		100						--ЧїФЅЦ®...    
-Item_Mission_94 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_94 [5]		=		0						--???...    
+Item_Mission_94 [6]		=		1						--???...    
+Item_Mission_94 [7]		=		100						--???...    
+Item_Mission_94 [8]		=		100						--???...    
+Item_Mission_94 [9]		=		100						--???...    
 
 Item_Attr_94 = { }					
-Item_Attr_94 [0]		=		0						--5ёцёЅјУКфРФ      
-Item_Attr_94 [1]		=		0						--4ёцёЅјУКфРФ      
-Item_Attr_94 [2]		=		1						--3ёцёЅјУКфРФ      
-Item_Attr_94 [3]		=		20						--2ёцёЅјУКфРФ      
-Item_Attr_94 [4]		=		90						--1ёцёЅјУКфРФ
+Item_Attr_94 [0]		=		0						--5?????      
+Item_Attr_94 [1]		=		0						--4?????      
+Item_Attr_94 [2]		=		1						--3?????      
+Item_Attr_94 [3]		=		20						--2?????      
+Item_Attr_94 [4]		=		90						--1?????
 
 Item_Mission_95 = { }					                                                          
 Item_Mission_95 [0]		=		0						--                
@@ -10716,18 +4233,18 @@ Item_Mission_95 [1]		=		0						--
 Item_Mission_95 [2]		=		0						--                
 Item_Mission_95 [3]		=		0						--                
 Item_Mission_95 [4]		=		0						--                
-Item_Mission_95 [5]		=		0						--ЙсУчЦ®...    
-Item_Mission_95 [6]		=		0						--НхХЯЦ®...    
-Item_Mission_95 [7]		=		100						--НіЛ§Ц®...    
-Item_Mission_95 [8]		=		100						--ЧїФЅЦ®...    
-Item_Mission_95 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_95 [5]		=		0						--???...    
+Item_Mission_95 [6]		=		0						--???...    
+Item_Mission_95 [7]		=		100						--???...    
+Item_Mission_95 [8]		=		100						--???...    
+Item_Mission_95 [9]		=		100						--???...    
 
 Item_Attr_95 = { }					
-Item_Attr_95 [0]		=		0						--5ёцёЅјУКфРФ      
-Item_Attr_95 [1]		=		0						--4ёцёЅјУКфРФ      
-Item_Attr_95 [2]		=		1						--3ёцёЅјУКфРФ      
-Item_Attr_95 [3]		=		4						--2ёцёЅјУКфРФ      
-Item_Attr_95 [4]		=		50						--1ёцёЅјУКфРФ
+Item_Attr_95 [0]		=		0						--5?????      
+Item_Attr_95 [1]		=		0						--4?????      
+Item_Attr_95 [2]		=		1						--3?????      
+Item_Attr_95 [3]		=		4						--2?????      
+Item_Attr_95 [4]		=		50						--1?????
 
 Item_Mission_96 = { }					                                                          
 Item_Mission_96 [0]		=		0						--                
@@ -10735,18 +4252,18 @@ Item_Mission_96 [1]		=		0						--
 Item_Mission_96 [2]		=		0						--                
 Item_Mission_96 [3]		=		0						--                
 Item_Mission_96 [4]		=		0						--                
-Item_Mission_96 [5]		=		10						--ЙсУчЦ®...    
-Item_Mission_96 [6]		=		20						--НхХЯЦ®...    
-Item_Mission_96 [7]		=		50						--НіЛ§Ц®...    
-Item_Mission_96 [8]		=		90						--ЧїФЅЦ®...    
-Item_Mission_96 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_96 [5]		=		10						--???...    
+Item_Mission_96 [6]		=		20						--???...    
+Item_Mission_96 [7]		=		50						--???...    
+Item_Mission_96 [8]		=		90						--???...    
+Item_Mission_96 [9]		=		100						--???...    
 
 Item_Attr_96 = { }					
-Item_Attr_96 [0]		=		0						--5ёцёЅјУКфРФ      
-Item_Attr_96 [1]		=		0						--4ёцёЅјУКфРФ      
-Item_Attr_96 [2]		=		2						--3ёцёЅјУКфРФ      
-Item_Attr_96 [3]		=		20						--2ёцёЅјУКфРФ      
-Item_Attr_96 [4]		=		100						--1ёцёЅјУКфРФ 
+Item_Attr_96 [0]		=		0						--5?????      
+Item_Attr_96 [1]		=		0						--4?????      
+Item_Attr_96 [2]		=		2						--3?????      
+Item_Attr_96 [3]		=		20						--2?????      
+Item_Attr_96 [4]		=		100						--1????? 
 
 
 Item_Mission_97 = { }					                                                          
@@ -10755,18 +4272,18 @@ Item_Mission_97 [1]		=		0						--
 Item_Mission_97 [2]		=		0						--                
 Item_Mission_97 [3]		=		0						--                
 Item_Mission_97 [4]		=		0						--                
-Item_Mission_97 [5]		=		0						--ЙсУчЦ®...    
-Item_Mission_97 [6]		=		0						--НхХЯЦ®...    
-Item_Mission_97 [7]		=		0						--НіЛ§Ц®...    
-Item_Mission_97 [8]		=		0						--ЧїФЅЦ®...    
-Item_Mission_97 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_97 [5]		=		0						--???...    
+Item_Mission_97 [6]		=		0						--???...    
+Item_Mission_97 [7]		=		0						--???...    
+Item_Mission_97 [8]		=		0						--???...    
+Item_Mission_97 [9]		=		100						--???...    
 
 Item_Attr_97 = { }					
-Item_Attr_97 [0]		=		100						--5ёцёЅјУКфРФ      
-Item_Attr_97 [1]		=		100						--4ёцёЅјУКфРФ      
-Item_Attr_97 [2]		=		100						--3ёцёЅјУКфРФ      
-Item_Attr_97 [3]		=		100						--2ёцёЅјУКфРФ      
-Item_Attr_97 [4]		=		100						--1ёцёЅјУКфРФ 
+Item_Attr_97 [0]		=		100						--5?????      
+Item_Attr_97 [1]		=		100						--4?????      
+Item_Attr_97 [2]		=		100						--3?????      
+Item_Attr_97 [3]		=		100						--2?????      
+Item_Attr_97 [4]		=		100						--1????? 
 
 
 Item_Mission_98 = { }					                                                          
@@ -10775,18 +4292,18 @@ Item_Mission_98 [1]		=		0						--
 Item_Mission_98 [2]		=		0						--                
 Item_Mission_98 [3]		=		0						--                
 Item_Mission_98 [4]		=		0						--                
-Item_Mission_98 [5]		=		10						--ЙсУчЦ®...    
-Item_Mission_98 [6]		=		20						--НхХЯЦ®...    
-Item_Mission_98 [7]		=		50						--НіЛ§Ц®...    
-Item_Mission_98 [8]		=		90						--ЧїФЅЦ®...    
-Item_Mission_98 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_98 [5]		=		10						--???...    
+Item_Mission_98 [6]		=		20						--???...    
+Item_Mission_98 [7]		=		50						--???...    
+Item_Mission_98 [8]		=		90						--???...    
+Item_Mission_98 [9]		=		100						--???...    
 
 Item_Attr_98 = { }					
-Item_Attr_98 [0]		=		0						--5ёцёЅјУКфРФ      
-Item_Attr_98 [1]		=		0						--4ёцёЅјУКфРФ      
-Item_Attr_98 [2]		=		2						--3ёцёЅјУКфРФ      
-Item_Attr_98 [3]		=		20						--2ёцёЅјУКфРФ      
-Item_Attr_98 [4]		=		100						--1ёцёЅјУКфРФ 
+Item_Attr_98 [0]		=		0						--5?????      
+Item_Attr_98 [1]		=		0						--4?????      
+Item_Attr_98 [2]		=		2						--3?????      
+Item_Attr_98 [3]		=		20						--2?????      
+Item_Attr_98 [4]		=		100						--1????? 
 
 
 
@@ -10796,18 +4313,18 @@ Item_Mission_99 [1]		=		0						--
 Item_Mission_99 [2]		=		0						--                
 Item_Mission_99 [3]		=		0						--                
 Item_Mission_99 [4]		=		0						--                
-Item_Mission_99 [5]		=		1						--ЙсУчЦ®...    
-Item_Mission_99 [6]		=		5						--НхХЯЦ®...    
-Item_Mission_99 [7]		=		20						--НіЛ§Ц®...    
-Item_Mission_99 [8]		=		50						--ЧїФЅЦ®...    
-Item_Mission_99 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_99 [5]		=		1						--???...    
+Item_Mission_99 [6]		=		5						--???...    
+Item_Mission_99 [7]		=		20						--???...    
+Item_Mission_99 [8]		=		50						--???...    
+Item_Mission_99 [9]		=		100						--???...    
 
 Item_Attr_99 = { }					
-Item_Attr_99 [0]		=		0						--5ёцёЅјУКфРФ      
-Item_Attr_99 [1]		=		0						--4ёцёЅјУКфРФ      
-Item_Attr_99 [2]		=		2						--3ёцёЅјУКфРФ      
-Item_Attr_99 [3]		=		20						--2ёцёЅјУКфРФ      
-Item_Attr_99 [4]		=		100						--1ёцёЅјУКфРФ      
+Item_Attr_99 [0]		=		0						--5?????      
+Item_Attr_99 [1]		=		0						--4?????      
+Item_Attr_99 [2]		=		2						--3?????      
+Item_Attr_99 [3]		=		20						--2?????      
+Item_Attr_99 [4]		=		100						--1?????      
 
 Item_Mission_11 = { }
 Item_Mission_11 [0]		=		0						--                
@@ -10815,18 +4332,18 @@ Item_Mission_11 [1]		=		0						--
 Item_Mission_11 [2]		=		0						--                
 Item_Mission_11 [3]		=		0						--                
 Item_Mission_11 [4]		=		0						--                
-Item_Mission_11 [5]		=		0						--ЙсУчЦ®...    
-Item_Mission_11 [6]		=		0						--НхХЯЦ®...    
-Item_Mission_11 [7]		=		100						--НіЛ§Ц®...    
-Item_Mission_11 [8]		=		100						--ЧїФЅЦ®...    
-Item_Mission_11 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_11 [5]		=		0						--???...    
+Item_Mission_11 [6]		=		0						--???...    
+Item_Mission_11 [7]		=		100						--???...    
+Item_Mission_11 [8]		=		100						--???...    
+Item_Mission_11 [9]		=		100						--???...    
 
 Item_Attr_11 = { }					
-Item_Attr_11 [0]		=		0						--5ёцёЅјУКфРФ
-Item_Attr_11 [1]		=		0						--4ёцёЅјУКфРФ
-Item_Attr_11 [2]		=		1						--3ёцёЅјУКфРФ
-Item_Attr_11 [3]		=		4						--2ёцёЅјУКфРФ
-Item_Attr_11 [4]		=		50						--1ёцёЅјУКфРФ    
+Item_Attr_11 [0]		=		0						--5?????
+Item_Attr_11 [1]		=		0						--4?????
+Item_Attr_11 [2]		=		1						--3?????
+Item_Attr_11 [3]		=		4						--2?????
+Item_Attr_11 [4]		=		50						--1?????    
 
 
 
@@ -10836,18 +4353,18 @@ Item_Mission_12 [1]		=		0						--
 Item_Mission_12 [2]		=		0						--                
 Item_Mission_12 [3]		=		0						--                
 Item_Mission_12 [4]		=		0						--                
-Item_Mission_12 [5]		=		0						--ЙсУчЦ®...    
-Item_Mission_12 [6]		=		0						--НхХЯЦ®...    
-Item_Mission_12 [7]		=		0						--НіЛ§Ц®...    
-Item_Mission_12 [8]		=		0						--ЧїФЅЦ®...    
-Item_Mission_12 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_12 [5]		=		0						--???...    
+Item_Mission_12 [6]		=		0						--???...    
+Item_Mission_12 [7]		=		0						--???...    
+Item_Mission_12 [8]		=		0						--???...    
+Item_Mission_12 [9]		=		100						--???...    
 
 Item_Attr_12 = { }					
-Item_Attr_12 [0]		=		0						--5ёцёЅјУКфРФ
-Item_Attr_12 [1]		=		0						--4ёцёЅјУКфРФ
-Item_Attr_12 [2]		=		0						--3ёцёЅјУКфРФ
-Item_Attr_12 [3]		=		0						--2ёцёЅјУКфРФ
-Item_Attr_12 [4]		=		0						--1ёцёЅјУКфРФ    
+Item_Attr_12 [0]		=		0						--5?????
+Item_Attr_12 [1]		=		0						--4?????
+Item_Attr_12 [2]		=		0						--3?????
+Item_Attr_12 [3]		=		0						--2?????
+Item_Attr_12 [4]		=		0						--1?????    
 
 
 
@@ -10858,18 +4375,18 @@ Item_Mission_13 [1]		=		0						--
 Item_Mission_13 [2]		=		0						--                
 Item_Mission_13 [3]		=		0						--                
 Item_Mission_13 [4]		=		0						--                
-Item_Mission_13 [5]		=		0						--ЙсУчЦ®...    
-Item_Mission_13 [6]		=		0						--НхХЯЦ®...    
-Item_Mission_13 [7]		=		0						--НіЛ§Ц®...    
-Item_Mission_13 [8]		=		100						--ЧїФЅЦ®...    
-Item_Mission_13 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_13 [5]		=		0						--???...    
+Item_Mission_13 [6]		=		0						--???...    
+Item_Mission_13 [7]		=		0						--???...    
+Item_Mission_13 [8]		=		100						--???...    
+Item_Mission_13 [9]		=		100						--???...    
 
 Item_Attr_13 = { }					
-Item_Attr_13 [0]		=		0						--5ёцёЅјУКфРФ
-Item_Attr_13 [1]		=		0						--4ёцёЅјУКфРФ
-Item_Attr_13 [2]		=		0						--3ёцёЅјУКфРФ
-Item_Attr_13 [3]		=		0						--2ёцёЅјУКфРФ
-Item_Attr_13 [4]		=		0						--1ёцёЅјУКфРФ   
+Item_Attr_13 [0]		=		0						--5?????
+Item_Attr_13 [1]		=		0						--4?????
+Item_Attr_13 [2]		=		0						--3?????
+Item_Attr_13 [3]		=		0						--2?????
+Item_Attr_13 [4]		=		0						--1?????   
 
 
 Item_Mission_14 = { }
@@ -10878,18 +4395,18 @@ Item_Mission_14 [1]		=		0						--
 Item_Mission_14 [2]		=		0						--                
 Item_Mission_14 [3]		=		0						--                
 Item_Mission_14 [4]		=		0						--                
-Item_Mission_14 [5]		=		0						--ЙсУчЦ®...    
-Item_Mission_14 [6]		=		0						--НхХЯЦ®...    
-Item_Mission_14 [7]		=		100						--НіЛ§Ц®...    
-Item_Mission_14 [8]		=		100						--ЧїФЅЦ®...    
-Item_Mission_14 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_14 [5]		=		0						--???...    
+Item_Mission_14 [6]		=		0						--???...    
+Item_Mission_14 [7]		=		100						--???...    
+Item_Mission_14 [8]		=		100						--???...    
+Item_Mission_14 [9]		=		100						--???...    
 
 Item_Attr_14 = { }					
-Item_Attr_14 [0]		=		0						--5ёцёЅјУКфРФ
-Item_Attr_14 [1]		=		0						--4ёцёЅјУКфРФ
-Item_Attr_14 [2]		=		0						--3ёцёЅјУКфРФ
-Item_Attr_14 [3]		=		0						--2ёцёЅјУКфРФ
-Item_Attr_14 [4]		=		0						--1ёцёЅјУКфРФ   
+Item_Attr_14 [0]		=		0						--5?????
+Item_Attr_14 [1]		=		0						--4?????
+Item_Attr_14 [2]		=		0							--3?????
+Item_Attr_14 [3]		=		0							--2?????
+Item_Attr_14 [4]		=		0						--1?????   
 
 
 Item_Mission_15 = { }
@@ -10898,18 +4415,18 @@ Item_Mission_15 [1]		=		0						--
 Item_Mission_15 [2]		=		0						--                
 Item_Mission_15 [3]		=		0						--                
 Item_Mission_15 [4]		=		0						--                
-Item_Mission_15 [5]		=		0						--ЙсУчЦ®...    
-Item_Mission_15 [6]		=		100						--НхХЯЦ®...    
-Item_Mission_15 [7]		=		100						--НіЛ§Ц®...    
-Item_Mission_15 [8]		=		100						--ЧїФЅЦ®...    
-Item_Mission_15 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_15 [5]		=		0						--???...    
+Item_Mission_15 [6]		=		100						--???...    
+Item_Mission_15 [7]		=		100						--???...    
+Item_Mission_15 [8]		=		100						--???...    
+Item_Mission_15 [9]		=		100						--???...    
 
 Item_Attr_15 = { }					
-Item_Attr_15 [0]		=		0						--5ёцёЅјУКфРФ
-Item_Attr_15 [1]		=		0						--4ёцёЅјУКфРФ
-Item_Attr_15 [2]		=		0						--3ёцёЅјУКфРФ
-Item_Attr_15 [3]		=		0						--2ёцёЅјУКфРФ
-Item_Attr_15 [4]		=		0						--1ёцёЅјУКфРФ  
+Item_Attr_15 [0]		=		0						--5?????
+Item_Attr_15 [1]		=		0						--4?????
+Item_Attr_15 [2]		=		0						--3?????
+Item_Attr_15 [3]		=		0						--2?????
+Item_Attr_15 [4]		=		0						--1?????  
 
 
 Item_Mission_16 = { }
@@ -10918,18 +4435,18 @@ Item_Mission_16 [1]		=		0						--
 Item_Mission_16 [2]		=		0						--                
 Item_Mission_16 [3]		=		0						--                
 Item_Mission_16 [4]		=		0						--                
-Item_Mission_16 [5]		=		100						--ЙсУчЦ®...    
-Item_Mission_16 [6]		=		100						--НхХЯЦ®...    
-Item_Mission_16 [7]		=		100						--НіЛ§Ц®...    
-Item_Mission_16 [8]		=		100						--ЧїФЅЦ®...    
-Item_Mission_16 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_16 [5]		=		100						--???...    
+Item_Mission_16 [6]		=		100						--???...    
+Item_Mission_16 [7]		=		100						--???...    
+Item_Mission_16 [8]		=		100						--???...    
+Item_Mission_16 [9]		=		100						--???...    
 
 Item_Attr_16 = { }					
-Item_Attr_16 [0]		=		0					--5ёцёЅјУКфРФ
-Item_Attr_16 [1]		=		0					--4ёцёЅјУКфРФ
-Item_Attr_16 [2]		=		0					--3ёцёЅјУКфРФ
-Item_Attr_16 [3]		=		0					--2ёцёЅјУКфРФ
-Item_Attr_16 [4]		=		0						--1ёцёЅјУКфРФ  
+Item_Attr_16 [0]		=		0					--5?????
+Item_Attr_16 [1]		=		0					--4?????
+Item_Attr_16 [2]		=		0					--3?????
+Item_Attr_16 [3]		=		0					--2?????
+Item_Attr_16 [4]		=		0						--1?????  
 
 Item_Mission_17 = { }
 Item_Mission_17 [0]		=		0						--                
@@ -10937,18 +4454,18 @@ Item_Mission_17 [1]		=		0						--
 Item_Mission_17 [2]		=		0						--                
 Item_Mission_17 [3]		=		0						--                
 Item_Mission_17 [4]		=		100						--                
-Item_Mission_17 [5]		=		100						--ЙсУчЦ®...    
-Item_Mission_17 [6]		=		100						--НхХЯЦ®...    
-Item_Mission_17 [7]		=		100						--НіЛ§Ц®...    
-Item_Mission_17 [8]		=		100						--ЧїФЅЦ®...    
-Item_Mission_17 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_17 [5]		=		100						--???...    
+Item_Mission_17 [6]		=		100						--???...    
+Item_Mission_17 [7]		=		100						--???...    
+Item_Mission_17 [8]		=		100						--???...    
+Item_Mission_17 [9]		=		100						--???...    
 	     
 Item_Attr_17 = { }					
-Item_Attr_17 [0]		=		0					--5ёцёЅјУКфРФ
-Item_Attr_17 [1]		=		0					--4ёцёЅјУКфРФ
-Item_Attr_17 [2]		=		0					--3ёцёЅјУКфРФ
-Item_Attr_17 [3]		=		0					--2ёцёЅјУКфРФ
-Item_Attr_17 [4]		=		0						--1ёцёЅјУКфРФ  
+Item_Attr_17 [0]		=		0					--5?????
+Item_Attr_17 [1]		=		0					--4?????
+Item_Attr_17 [2]		=		0					--3?????
+Item_Attr_17 [3]		=		0					--2?????
+Item_Attr_17 [4]		=		0						--1?????  
 
 
 Item_Mission_18 = { }
@@ -10957,18 +4474,18 @@ Item_Mission_18 [1]		=		0						--
 Item_Mission_18 [2]		=		0						--                
 Item_Mission_18 [3]		=		100						--                
 Item_Mission_18 [4]		=		100						--                
-Item_Mission_18 [5]		=		100						--ЙсУчЦ®...    
-Item_Mission_18 [6]		=		100						--НхХЯЦ®...    
-Item_Mission_18 [7]		=		100						--НіЛ§Ц®...    
-Item_Mission_18 [8]		=		100						--ЧїФЅЦ®...    
-Item_Mission_18 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_18 [5]		=		100						--???...    
+Item_Mission_18 [6]		=		100						--???...    
+Item_Mission_18 [7]		=		100						--???...    
+Item_Mission_18 [8]		=		100						--???...    
+Item_Mission_18 [9]		=		100						--???...    
 	     
 Item_Attr_18 = { }					
-Item_Attr_18 [0]		=		0					--5ёцёЅјУКфРФ
-Item_Attr_18 [1]		=		0					--4ёцёЅјУКфРФ
-Item_Attr_18 [2]		=		0					--3ёцёЅјУКфРФ
-Item_Attr_18 [3]		=		0					--2ёцёЅјУКфРФ
-Item_Attr_18 [4]		=		0						--1ёцёЅјУКфРФ  
+Item_Attr_18 [0]		=		0					--5?????
+Item_Attr_18 [1]		=		0					--4?????
+Item_Attr_18 [2]		=		0					--3?????
+Item_Attr_18 [3]		=		0					--2?????
+Item_Attr_18 [4]		=		0						--1?????  
 
 Item_Mission_19 = { }
 Item_Mission_19 [0]		=		0						--                
@@ -10976,18 +4493,18 @@ Item_Mission_19 [1]		=		0						--
 Item_Mission_19 [2]		=		100						--                
 Item_Mission_19 [3]		=		100						--                
 Item_Mission_19 [4]		=		100						--                
-Item_Mission_19 [5]		=		100						--ЙсУчЦ®...    
-Item_Mission_19 [6]		=		100						--НхХЯЦ®...    
-Item_Mission_19 [7]		=		100						--НіЛ§Ц®...    
-Item_Mission_19 [8]		=		100						--ЧїФЅЦ®...    
-Item_Mission_19 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_19 [5]		=		100						--???...    
+Item_Mission_19 [6]		=		100						--???...    
+Item_Mission_19 [7]		=		100						--???...    
+Item_Mission_19 [8]		=		100						--???...    
+Item_Mission_19 [9]		=		100						--???...    
 	     
 Item_Attr_19 = { }					
-Item_Attr_19 [0]		=		0					--5ёцёЅјУКфРФ
-Item_Attr_19 [1]		=		0					--4ёцёЅјУКфРФ
-Item_Attr_19 [2]		=		0					--3ёцёЅјУКфРФ
-Item_Attr_19 [3]		=		0					--2ёцёЅјУКфРФ
-Item_Attr_19 [4]		=		0						--1ёцёЅјУКфРФ  
+Item_Attr_19 [0]		=		0					--5?????
+Item_Attr_19 [1]		=		0					--4?????
+Item_Attr_19 [2]		=		0					--3?????
+Item_Attr_19 [3]		=		0					--2?????
+Item_Attr_19 [4]		=		0						--1?????  
 
 
 Item_Mission_20 = { }
@@ -10996,18 +4513,18 @@ Item_Mission_20 [1]		=		100						--
 Item_Mission_20 [2]		=		100						--                
 Item_Mission_20 [3]		=		100						--                
 Item_Mission_20 [4]		=		100						--                
-Item_Mission_20 [5]		=		100						--ЙсУчЦ®...    
-Item_Mission_20 [6]		=		100						--НхХЯЦ®...    
-Item_Mission_20 [7]		=		100						--НіЛ§Ц®...    
-Item_Mission_20 [8]		=		100						--ЧїФЅЦ®...    
-Item_Mission_20 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_20 [5]		=		100						--???...    
+Item_Mission_20 [6]		=		100						--???...    
+Item_Mission_20 [7]		=		100						--???...    
+Item_Mission_20 [8]		=		100						--???...    
+Item_Mission_20 [9]		=		100						--???...    
 	     
 Item_Attr_20 = { }					
-Item_Attr_20 [0]		=		0						--5ёцёЅјУКфРФ
-Item_Attr_20 [1]		=		0						--4ёцёЅјУКфРФ
-Item_Attr_20 [2]		=		0						--3ёцёЅјУКфРФ
-Item_Attr_20 [3]		=		0						--2ёцёЅјУКфРФ
-Item_Attr_20 [4]		=		0						--1ёцёЅјУКфРФ
+Item_Attr_20 [0]		=		0						--5?????
+Item_Attr_20 [1]		=		0						--4?????
+Item_Attr_20 [2]		=		0						--3?????
+Item_Attr_20 [3]		=		0						--2?????
+Item_Attr_20 [4]		=		0						--1?????
 
 Item_Mission_22 = { }
 Item_Mission_22 [0]		=		0						--                
@@ -11015,18 +4532,18 @@ Item_Mission_22 [1]		=		0						--
 Item_Mission_22 [2]		=		0						--                
 Item_Mission_22 [3]		=		0						--                
 Item_Mission_22 [4]		=		100						--                
-Item_Mission_22 [5]		=		100						--ЙсУчЦ®...    
-Item_Mission_22 [6]		=		100						--НхХЯЦ®...    
-Item_Mission_22 [7]		=		100						--НіЛ§Ц®...    
-Item_Mission_22 [8]		=		100						--ЧїФЅЦ®...    
-Item_Mission_22 [9]		=		100						--ЖХНЁРН...    
+Item_Mission_22 [5]		=		100						--???...    
+Item_Mission_22 [6]		=		100						--???...    
+Item_Mission_22 [7]		=		100						--???...    
+Item_Mission_22 [8]		=		100						--???...    
+Item_Mission_22 [9]		=		100						--???...    
 	     
 Item_Attr_22 = { }					
-Item_Attr_22 [0]		=		0							--5ёцёЅјУКфРФ
-Item_Attr_22 [1]		=		0							--4ёцёЅјУКфРФ
-Item_Attr_22 [2]		=		1							--3ёцёЅјУКфРФ
-Item_Attr_22 [3]		=		4							--2ёцёЅјУКфРФ
-Item_Attr_22 [4]		=		50							--1ёцёЅјУКфРФ
+Item_Attr_22 [0]		=		0							--5?????
+Item_Attr_22 [1]		=		0							--4?????
+Item_Attr_22 [2]		=		1							--3?????
+Item_Attr_22 [3]		=		4							--2?????
+Item_Attr_22 [4]		=		50							--1?????
 
 Item_Mission_23 = { }
 Item_Mission_23 [0]		=		0							--                
@@ -11034,18 +4551,18 @@ Item_Mission_23 [1]		=		0							--
 Item_Mission_23 [2]		=		0							--                
 Item_Mission_23 [3]		=		0							--                
 Item_Mission_23 [4]		=		3							--                
-Item_Mission_23 [5]		=		6							--ЙсУчЦ®...    
-Item_Mission_23 [6]		=		25							--НхХЯЦ®...    
-Item_Mission_23 [7]		=		50							--НіЛ§Ц®...    
-Item_Mission_23 [8]		=		70							--ЧїФЅЦ®...    
-Item_Mission_23 [9]		=		100							--ЖХНЁРН...    
+Item_Mission_23 [5]		=		6							--???...    
+Item_Mission_23 [6]		=		25							--???...    
+Item_Mission_23 [7]		=		50							--???...    
+Item_Mission_23 [8]		=		70							--???...    
+Item_Mission_23 [9]		=		100							--???...    
 	     
 Item_Attr_23 = { }					
-Item_Attr_23 [0]		=		0							--5ёцёЅјУКфРФ
-Item_Attr_23 [1]		=		0							--4ёцёЅјУКфРФ
-Item_Attr_23 [2]		=		1							--3ёцёЅјУКфРФ
-Item_Attr_23 [3]		=		5							--2ёцёЅјУКфРФ
-Item_Attr_23 [4]		=		60							--1ёцёЅјУКфРФ
+Item_Attr_23 [0]		=		0							--5?????
+Item_Attr_23 [1]		=		0							--4?????
+Item_Attr_23 [2]		=		1							--3?????
+Item_Attr_23 [3]		=		5							--2?????
+Item_Attr_23 [4]		=		60							--1?????
 
 Item_Mission_24 = { }
 Item_Mission_24 [0]		=		0							--                
@@ -11053,44 +4570,62 @@ Item_Mission_24 [1]		=		0							--
 Item_Mission_24 [2]		=		0							--                
 Item_Mission_24 [3]		=		0							--                
 Item_Mission_24 [4]		=		0							--                
-Item_Mission_24 [5]		=		1							--ЙсУчЦ®...    
-Item_Mission_24 [6]		=		5							--НхХЯЦ®...    
-Item_Mission_24 [7]		=		20							--НіЛ§Ц®...    
-Item_Mission_24 [8]		=		65							--ЧїФЅЦ®...    
-Item_Mission_24 [9]		=		99							--ЖХНЁРН...    
+Item_Mission_24 [5]		=		1							--???...    
+Item_Mission_24 [6]		=		5							--???...    
+Item_Mission_24 [7]		=		20							--???...    
+Item_Mission_24 [8]		=		65							--???...    
+Item_Mission_24 [9]		=		99							--???...    
 	     
 Item_Attr_24 = { }					
-Item_Attr_24 [0]		=		0							--5ёцёЅјУКфРФ
-Item_Attr_24 [1]		=		0							--4ёцёЅјУКфРФ
-Item_Attr_24 [2]		=		1							--3ёцёЅјУКфРФ
-Item_Attr_24 [3]		=		4							--2ёцёЅјУКфРФ
-Item_Attr_24 [4]		=		50							--1ёцёЅјУКфРФ
+Item_Attr_24 [0]		=		0							--5?????
+Item_Attr_24 [1]		=		0							--4?????
+Item_Attr_24 [2]		=		1							--3?????
+Item_Attr_24 [3]		=		4							--2?????
+Item_Attr_24 [4]		=		50							--1?????
 
---ЙиЦГЧ°±ё»сµГїЧКэµДёЕВК
+Item_Mission_AttrReset = { }
+Item_Mission_AttrReset [0]		=		0							--                
+Item_Mission_AttrReset [1]		=		0							--                
+Item_Mission_AttrReset [2]		=		0							--                
+Item_Mission_AttrReset [3]		=		0							--                
+Item_Mission_AttrReset [4]		=		0							--                
+Item_Mission_AttrReset [5]		=		10							--???...    
+Item_Mission_AttrReset [6]		=		25							--???...    
+Item_Mission_AttrReset [7]		=		50							--???...    
+Item_Mission_AttrReset [8]		=		90							--???...    
+Item_Mission_AttrReset [9]		=		100							--???...    
+	     
+Item_Attr_AttrReset = { }					
+Item_Attr_AttrReset [0]		=		0							--5?????
+Item_Attr_AttrReset [1]		=		0							--4?????
+Item_Attr_AttrReset [2]		=		10							--3?????
+Item_Attr_AttrReset [3]		=		50							--2?????
+Item_Attr_AttrReset [4]		=		100							--1?????
+--???????????
 
 Item_HoleNum_Monster = { }
-Item_HoleNum_Monster [0]		=		75						--0ёц¶ґ
-Item_HoleNum_Monster [1]		=		99						--1ёц¶ґ
-Item_HoleNum_Monster [2]		=		100				--2ёц¶ґ						
-Item_HoleNum_Monster [3]		=		100						--3ёц¶ґ
+Item_HoleNum_Monster [0]		=		75						--0??
+Item_HoleNum_Monster [1]		=		99						--1??
+Item_HoleNum_Monster [2]		=		100				--2??						
+Item_HoleNum_Monster [3]		=		100						--3??
 
 Item_HoleNum_Hecheng = { }
-Item_HoleNum_Hecheng [0]		=		25						--0ёц¶ґ
-Item_HoleNum_Hecheng [1]		=		75						--1ёц¶ґ
-Item_HoleNum_Hecheng [2]		=		100						--2ёц¶ґ						
-Item_HoleNum_Hecheng [3]		=		100						--3ёц¶ґ
+Item_HoleNum_Hecheng [0]		=		25						--0??
+Item_HoleNum_Hecheng [1]		=		75						--1??
+Item_HoleNum_Hecheng [2]		=		100						--2??						
+Item_HoleNum_Hecheng [3]		=		100						--3??
 
 Item_HoleNum_Mission_1 = { }
-Item_HoleNum_Mission_1 [0]		=		25						--0ёц¶ґ
-Item_HoleNum_Mission_1 [1]		=		75						--1ёц¶ґ
-Item_HoleNum_Mission_1 [2]		=		100						--2ёц¶ґ						
-Item_HoleNum_Mission_1 [3]		=		100						--3ёц¶ґ
+Item_HoleNum_Mission_1 [0]		=		25						--0??
+Item_HoleNum_Mission_1 [1]		=		75						--1??
+Item_HoleNum_Mission_1 [2]		=		100						--2??						
+Item_HoleNum_Mission_1 [3]		=		100						--3??
 
 
 
 
---єЅєЈјјДЬПыєДєЅєЈѕ­СйЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄ
---јјДЬјЧ°ејУ№МЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄ
+--??????????������������������������������������������������������������������
+--??????��������������������������������
 sk_jbjg = { } 
 sk_jbjg [1]				=		625
 sk_jbjg [2]				=		3439    
@@ -11103,7 +4638,7 @@ sk_jbjg [8]				=		246559
 sk_jbjg [9]				=		352529 
 sk_jbjg [10]			=		485199 
 
---јјДЬ»рЕЪКмБ·ЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄ
+--??????��������������������������������
 sk_hpsl = { } 
 sk_hpsl [1]				=		671
 sk_hpsl [2]				=		4641            
@@ -11116,7 +4651,7 @@ sk_hpsl [8]				=		265761
 sk_hpsl [9]				=		376831         
 sk_hpsl [10]			=		515201         
 
---јјДЬґ¬МеЗї»ЇЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄ
+--??????��������������������������������
 sk_ctqh = { } 
 sk_ctqh [1]			=		1105
 sk_ctqh [2]			=		6095      
@@ -11129,7 +4664,7 @@ sk_ctqh [8]			=		285935
 sk_ctqh [9]			=		402225   
 sk_ctqh [10]			=		546415   
 
---јјДЬІЩ·«КхЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄ
+--?????��������������������������������
 sk_cfs = { } 
 sk_cfs [1]				=		1695
 sk_cfs [2]				=		7825         
@@ -11143,7 +4678,7 @@ sk_cfs [9]				=		428735
 sk_cfs [10]				=		578865      
 
 
---јјДЬІ№ёшА©ИЭЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄЎЄ
+--??????��������������������������������
 sk_bjkr = { } 
 sk_bjkr [1]				=		2465
 sk_bjkr [2]				=		9855         
@@ -11165,472 +4700,496 @@ sk_bjkr [10]			=		612575
 
 
 
---ґґЅЁєЈѕь№¤»бЛщРиОпЖ·
+--??????????
 Guild1_ItemMax		=	1
 
 Guild1_item = {}
 Guild1_count = {}
 								Guild1_fame	=	0
-								Guild1_Gold	=	100000000
+								Guild1_Gold	=	100000
 Guild1_item[1]	=	1780				Guild1_count[1]	=	1
 Guild1_item[2]	=	-1				Guild1_count[2]	=	-1
 Guild1_item[3]	=	-1				Guild1_count[3]	=	-1
 Guild1_item[4]	=	-1				Guild1_count[4]	=	-1
 Guild1_item[5]	=	-1				Guild1_count[5]	=	-1
 
---ґґЅЁєЈµБ№¤»бЛщРиОпЖ·
+--??????????
 Guild2_ItemMax		=	1
 
 Guild2_item = {}
 Guild2_count = {}
 								Guild2_fame	=	0
-								Guild2_Gold	=	100000000
+								Guild2_Gold	=	100000
 Guild2_item[1]	=	1780				Guild2_count[1]	=	1
 Guild2_item[2]	=	-1				Guild2_count[2]	=	-1
 Guild2_item[3]	=	-1				Guild2_count[3]	=	-1
 Guild2_item[4]	=	-1				Guild2_count[4]	=	-1
 Guild2_item[5]	=	-1				Guild2_count[5]	=	-1
 
-----јУИлєЈѕь№¤»бЛщРиМхјю
-	JOINGUILD_NAVY_FAME	=	0			--јУИлєЈѕьГыЙщ
+----??????????
+	JOINGUILD_NAVY_FAME	=	0			--??????
 
-  --јУИлєЈµБ№¤»бЛщРиМхјю
-	JOINGUILD_PIRATE_FAME	=	0			--јУИлєЈµБГыЙщ
+  --??????????
+	JOINGUILD_PIRATE_FAME	=	0			--??????
 --
 --
 
 
-SK_DPSL		=	73					--јјДЬ¶ЬЕЖКмБ·
-SK_LZJ		=	90					--јјДЬБ¬»чјэ
-SK_LXJY		=	112					--јјДЬБчРЗјэУк
-SK_LH		=	107					--јјДЬАЗєї
-SK_SSD		=	114					--јјДЬЙўЙдµЇ
-SK_CTD		=	115					--јјДЬґ©НёµЇ
-SK_DZY		=	117					--јјДЬґуЦОУъ
-SK_HX		=	127					--јјДЬ»ўРҐ
-SK_RSD		=	113					--јјДЬИјЙХ
-SK_JJSL		=	67					--јјДЬѕЮЅЈКмБ·
-SK_KB		=	84					--јјДЬїс±©
-SK_FSZ		=	109					--јјДЬЛ«КЦЅЈјУіЙ.............
-SK_XZFY		=	104					--јјДЬПНХЯ·вУЎ
-SK_YMSL		=	108					--јјДЬТ°ВщЛйБС
---SK_BC		=	84					--јјДЬ±іґМ
-SK_CLXZ		=	76					--јјДЬґФБЦРРХЯ
-SK_FZLZ		=	101					--јјДЬ·зЦ®БмЦч
-SK_GJSL		=	74					--јјДЬ№­јэКмБ·
+SK_DPSL		=	73					--??????
+SK_LZJ		=	90					--?????
+SK_LXJY		=	112					--??????
+SK_LH		=	107					--????
+SK_SSD		=	114					--?????
+SK_CTD		=	115					--?????
+SK_DZY		=	117					--?????
+SK_HX		=	127					--????
+SK_RSD		=	113					--????
+SK_JJSL		=	67					--??????
+SK_KB		=	84					--????
+SK_FSZ		=	109					--???????.............
+SK_XZFY		=	104					--??????
+SK_YMSL		=	108					--??????
+--SK_BC		=	84					--????
+SK_CLXZ		=	76					--??????
+SK_FZLZ		=	101					--??????
+SK_GJSL		=	74					--??????
 
-SK_HFWQ		=	122					--јјДЬ»ШёґОВИЄ
-SK_JSFB		=	102					--јјДЬј«ЛЩ·з±©
-SK_JFZ		=	64					--јјДЬјІ·зХ¶
-SK_QXYJ		=	65					--јјДЬЗ№РµСРѕї
-SK_SHTZ		=	71					--јјДЬКЮ»ЇМеЦК
-SK_TSHD		=	103					--јјДЬМмК№»¤¶Ь
-SK_TSQY		=	45					--јјДЬМмК№ЖнФё
-SK_TJ		=	94					--јјДЬНИѕС
-SK_XZY		=	97					--јјДЬРЎЦОУъ
-SK_XLZH		=	100					--јјДЬРДБйЦ®»р
-SK_ZZZH		=	119					--јјДЬЧзЦдЦ®»р
-SK_SMYB		=	73					--јјДЬЙбГьТ»І«
-SK_YS		=	123					--јјДЬТюЙн
---SK_GZ		=	86					--јјДЬ№нХ¶
-SK_MB		=	88					--јјДЬВй±Ф
-SK_DB		=	87					--јјДЬ¶ѕпЪ
---SK_JD		=	78					јјДЬЅв¶ѕ
---SK_ZJCM		=	79					јјДЬЦХј«ґМГ¤
---SK_ZHZD		=	80					јјДЬХЪ»¤Ц®¶Ь
-SK_ZJFT		=	110					--јјДЬѕЈј¬Ц®¶Ь
---SK_BSHD		=	82					јјДЬ±щЛЄ»¤¶Ь
-SK_HXDJ		=	111					--јјДЬ»ШРэ¶Ь»ч
-SK_HXQJ		=	92					--јјДЬезРЗЗї»ч
-SK_HQSL		=	78					--јјДЬ»рЗ№КмБ·
---SK_JLHY		=	86					--јјДЬѕ«Б¶»рТ©
---SK_RDGJ		=	87					--јјДЬИхµг№Ґ»ч
-SK_BT		=	96					--јјДЬ±©Н·
-SK_SY		=	80					--јјДЬЙсУУ
---SK_QY		=	90					јјДЬЖнФё
-SK_ZF		=	91					--јјДЬЧЈёЈ
-SK_HFS		=	98					--јјДЬ»ШёґКх
-SK_DHFS		=	118					--јјДЬґу»ШёґКх
---SK_LYZY		=	94					јјДЬБТСжЦ®Тн
---SK_SHZG		=	95					јјДЬКҐ»рЦ®№в
---SK_SZWZ		=	96					јјДЬКҐЦ°ОЖХВ
---SK_XYZG		=	97					јјДЬРТФЛЦ®№в
+SK_HFWQ		=	122					--??????
+SK_JSFB		=	102					--??????
+SK_JFZ		=	64					--?????
+SK_QXYJ		=	65					--??????
+SK_SHTZ		=	71					--??????
+SK_TSHD		=	103					--??????
+SK_TSQY		=	45					--??????
+SK_TJ		=	94					--????
+SK_XZY		=	97					--?????
+SK_XLZH		=	100					--??????
+SK_ZZZH		=	119					--??????
+SK_SMYB		=	73					--??????
+SK_YS		=	123					--????
+--SK_GZ		=	86					--????
+SK_MB		=	88					--????
+SK_DB		=	87					--????
+--SK_JD		=	78					????
+--SK_ZJCM		=	79					??????
+--SK_ZHZD		=	80					??????
+SK_ZJFT		=	110					--??????
+--SK_BSHD		=	82					??????
+SK_HXDJ		=	111					--??????
+SK_HXQJ		=	92					--??????
+SK_HQSL		=	78					--??????
+--SK_JLHY		=	86					--??????
+--SK_RDGJ		=	87					--??????
+SK_BT		=	96					--????
+SK_SY		=	80					--????
+--SK_QY		=	90					????
+SK_ZF		=	91					--????
+SK_HFS		=	98					--?????
+SK_DHFS		=	118					--??????
+--SK_LYZY		=	94					??????
+--SK_SHZG		=	95					??????
+--SK_SZWZ		=	96					??????
+--SK_XYZG		=	97					??????
 
-SK_SYZY		=	116					--јјДЬКҐСЫЦ®Тн
-SK_AYZZ		=	105					--јјДЬ°µУ°Ц®ХВ
---SK_CLCY		=	101					јјДЬґФБЦґ©ФЅ
---SK_HYPS		=	102					јјДЬ»рСжЕзЙд
-SK_JSSL		=	62					--јјДЬЅЈКхКмБ·
-SK_GTYZ		=	63					--јјДЬёЦМъТвЦѕ
-SK_QHTZ		=	64					--јјДЬЗї»ЇМеЦК
-SK_LQHB		=	65					--јјДЬБйЗЙ»Ш±Ь
-SK_JDZZ		=	66					--јјДЬЅЈµАЧЁЧў
-SK_HYZ		=	81					--јјДЬ»ГУ°Х¶
-SK_ZJ		=	82					--јјДЬЦШ»ч
-SK_MNRX		=	68					--јјДЬВщЕЈИИСЄ
-SK_SWZQ		=	83					--јјДЬКЮНхЦ®И­
-SK_HYS		=	69					--јјДЬ»ГУ°ЙБ
-SK_PXKG		=	70					--јјДЬЖЖСЄїс№Ґ
-SK_GWZ		=	86					--јјДЬ№нОиХ¶
-SK_TZHF		=	72					--јјДЬМеЦК»Шёґ
-SK_JFB		=	75					--јјДЬјІ·зІЅ
-SK_YY		=	89					--јјДЬУҐСЫ
-SK_LDC		=	91					--јјДЬБФµ¶ґМ
-SK_JSJC		=	79					--јјДЬѕ«ЙсјУіЦ
-SK_XLCZ		=	99					--јјДЬРДБйіеЧІ
-SK_BDJ		=	93					--јјДЬ±щ¶іјэ
-SK_LRWZ		=	77					--јјДЬБФИЛО±Ч°
-SK_SJ		=	95					--јјДЬКЦѕС
-SK_SDBZ		=	120					--јјДЬЙБ¶г±ЪХП
-SK_SYNZ		=	121					--јјДЬЙоФЁДаХУ
-SK_XLPZ		=	106					--јјДЬРДБйЖБХП
-SK_FH		=	124					--јјДЬёґ»о
-ITEM_RELIFE	=	3143						--ёґ»ојјДЬПыєДОпЖ·
+SK_SYZY		=	116					--??????
+SK_AYZZ		=	105					--??????
+--SK_CLCY		=	101					??????
+--SK_HYPS		=	102					??????
+SK_JSSL		=	62					--??????
+SK_GTYZ		=	63					--??????
+SK_QHTZ		=	64					--??????
+SK_LQHB		=	65					--??????
+SK_JDZZ		=	66					--??????
+SK_HYZ		=	81					--?????
+SK_ZJ		=	82					--????
+SK_MNRX		=	68					--??????
+SK_SWZQ		=	83					--??????
+SK_HYS		=	69					--?????
+SK_PXKG		=	70					--??????
+SK_GWZ		=	86					--?????
+SK_TZHF		=	72					--??????
+SK_JFB		=	75					--?????
+SK_YY		=	89					--????
+SK_LDC		=	91					--?????
+SK_JSJC		=	79					--??????
+SK_XLCZ		=	99					--??????
+SK_BDJ		=	93					--?????
+SK_LRWZ		=	77					--??????
+SK_SJ		=	95					--????
+SK_SDBZ		=	120					--??????
+SK_SYNZ		=	121					--??????
+SK_XLPZ		=	106					--??????
+SK_FH		=	124					--????
+ITEM_RELIFE	=	3143						--????????
 
-SK_TTCB		=	125					--јјДЬНјМЪіз°Э
-SK_DYYJ		=	126					--јјДЬµЇТ©СРѕї
-SK_JR		=	210					--јјДЬјбИН
-SK_SL		=	211					--јјДЬЛіБч
-SK_BKZJ		=	212					--јјДЬ±ґїЗЧ°јЧ
-SK_JF		=	213					--јјДЬм«·з
-SK_LJ		=	214					--јјДЬАЧ»ч
-SK_HZCR		=	215					--јјДЬєЈФеІшИЖ
-SK_BKCJ		=	216					--јјДЬ±ґїЗіе»ч
-SK_SF		=	217					--јјДЬЛі·з
-SK_XW		=	218					--јјДЬдцОР
-SK_MW		=	219					--јјДЬГФОн
-SK_LM		=	220					--јјДЬАЧД»
-SK_PJ		=	222					--јјДЬЖЖјЧ
-SK_FNQ		=	223					--јјДЬ·ЬЖр
-SK_DJ		=	224					--јјДЬ¶ѕјэ
-SK_SHPF		=	225					--јјДЬКЇ»ЇЖ¤·ф
-SK_HPSL		=	226					--јјДЬ»рЕЪКмБ·
-SK_JBJG		=	227					--јјДЬјЧ°ејУ№М
-SK_CFS		=	228					--јјДЬІЩ·«Кх
-SK_CTQH		=	229					--јјДЬґ¬МеЗї»Ї
-SK_BJCR		=	230					--јјДЬІ№ёшА©ИЭ
-SK_BY		=	231					--јјДЬІ¶Уг
-SK_DL		=	232					--јјДЬґтАМ
-SK_SWCX		=	234						--јјДЬЛАНці°Р¦
-SK_XN		=	235					--јјДЬСЄЕ­
-SK_NT		=	236					--јјДЬДаМ¶
-SK_DIZ		=	237					--јјДЬµШХр
-SK_XIK		=	238					--јјДЬРЧїі
-SK_BIW		=	239					--јјДЬ±щОЗ
-SK_Fer		=	240					--јјДЬ·зИР
-SK_BAT		=	241					--јјДЬ°ЪМЇ
-SK_CHF		=	242					--јјДЬі°·н
-SK_PAX		=	243					--јјДЬЕШПш
-SK_FUZ		=	244					--јјДЬёґЦЖ
-SK_HZTX		=	245					--јјДЬєЈФеН»П®
-SK_SMDJ		=	246					--јјДЬЛ®Дёµз»ч
-SK_WZXF		=	247					--јјДЬОЪФфРэ·з
-SK_SYZM		=	248					--јјДЬциУгЦВГьТ»»ч
-SK_KDZB		=	249					--јјДЬтттЅЧФ±¬
-SK_SHJNY	=	250					--јјДЬЙП№Е1
-SK_SHJNE	=	251					--јјДЬЙП№Е2
-SK_BOMB  	=	252					--јјДЬ±¬ХЁ
+SK_TTCB		=	125					--??????
+SK_DYYJ		=	126					--??????
+SK_JR		=	210					--????
+SK_SL		=	211					--????
+SK_BKZJ		=	212					--??????
+SK_JF		=	213					--????
+SK_LJ		=	214					--????
+SK_HZCR		=	215					--??????
+SK_BKCJ		=	216					--??????
+SK_SF		=	217					--????
+SK_XW		=	218					--????
+SK_MW		=	219					--????
+SK_LM		=	220					--????
+SK_PJ		=	222					--????
+SK_FNQ		=	223					--????
+SK_DJ		=	224					--????
+SK_SHPF		=	225					--??????
+SK_HPSL		=	226					--??????
+SK_JBJG		=	227					--??????
+SK_CFS		=	228					--?????
+SK_CTQH		=	229					--??????
+SK_BJCR		=	230					--??????
+SK_BY		=	231					--????
+SK_DL		=	232					--????
+SK_SWCX		=	234					--??????
+SK_XN		=	235					--????
+SK_NT		=	236					--????
+SK_DIZ		=	237					--????
+SK_XIK		=	238					--????
+SK_BIW		=	239					--????
+SK_Fer		=	240					--????
+SK_BAT		=	241					--????
+SK_CHF		=	242					--????
+SK_PAX		=	243					--????
+SK_FUZ		=	244					--????
+SK_HZTX		=	245					--??????
+SK_SMDJ		=	246					--??????
+SK_WZXF		=	247					--??????
+SK_SYZM		=	248					--????????
+SK_KDZB		=	249					--??????
+SK_SHJNY	=	250					--????1
+SK_SHJNE	=	251					--????2
+SK_BOMB  	=	252					--????
 
-SK_BLYZ		=	255					--±щБйУУЧф
-SK_MLCH		=	256					--Д§Б¦ґЯ»Ї
-
-
-SK_JSDD		=	257					--Ѕ©К¬ЖХНЁ№Ґ»ч
-SK_JSMF		=	258					--Ѕ©К¬Ф¶іМ№Ґ»ч 
-SK_HDSMF	=       259					--єьµАКїД§·Ё
-SK_HYMF		=       260					--єьСэД§·Ё                                                        
-SK_HYMH		=	261					--єьСэД§·Ё-чИ»у                       
-SK_HXMF		=	262					--єьПЙД§·Ё
-SK_HXFWMF	=	263					--єьПЙ·¶О§Д§·Ё
-SK_TZJSMagic	=	264					--јАК¦Д§·Ё№Ґ»ч
-SK_QZMF		=	265					--Зхі¤Д§·Ё
-SK_XZSB		=	266					--РэЧЄ»УОиКЦ±Ы
-SK_QX		=	267					--И®РҐ
-SK_SD		=	268					--К¬¶ѕ
-SK_BLGJ		=	269					--±щБъ№Ґ»ч
-
-SK_JXJBFW	=	270					--»ъРµѕЮ±ш·¶О§
-SK_CRXSF	=	271					--і¤Р·ИЮКшёї
-SK_SXZZZ	=	272					--Л®ПЙЧУЧзЦд
-SK_XBLBD	=	273					--РЎ±щБъ±щ¶і
-SK_BHSD		=	274					--±щБъИєМе±щ¶і
-SK_HLKJ		=	275					--єЪБъїЦѕе
-SK_HLLM		=	276					--єЪБъ-БъГщ
-SK_BlackLY	=	277					--єЪБъ-БъТн
-SK_BlackLX	=	278					--єЪБъ-БъПў
-SK_BlackHeal	=	279					--ЖрЛА»ШЙъ
-SK_JLFT	=	280					--ѕ«БйёЅМе
-SK_SHAR		=	284					--јјДЬ»ГУ°Х¶
-SK_JGS =	290					--ѕ«БйёЅМе
-SK_JLZB	=	311					--ѕ«БйЧФ±¬	
-SK_JLTX1			=	312				--ѕ«БйМШР§1	
-SK_JLTX2			=	313				--ѕ«БйМШР§2	
-SK_JLTX3			=	314				--ѕ«БйМШР§3	
-SK_JLTX4			=	315				--ѕ«БйМШР§4	
-SK_JLTX5			=	316				--ѕ«БйМШР§5	
-SK_JLTX6			=	317				--ѕ«БйМШР§6	
-SK_JLTX7			=	318				--ѕ«БйМШР§7	
-SK_JLTX8			=	319				--ѕ«БйМШР§8	
+SK_BLYZ		=	255					--????
+SK_MLCH		=	256					--????
 
 
-SK_KS			=	200					--јјДЬїіКч
-SK_WK			=	201					--јјДЬНЪїу
-SK_PKQX			=	254					--јјДЬЗАРЮ
-SK_ZHIZAO		=	338				----------------ЦЖФм
-SK_PENGREN		=	339				----------------ЦэФм
-SK_ZHUZAO		=	340				----------------Елвї
-SK_FENJIE		=	341				----------------·ЦЅв
-SK_WYZ			=	453				----------------rebirth skills
-SK_CYN			=	454				----------------rebirth skills
-SK_BSJ			=	455				----------------rebirth skills
-SK_HLP			=	456				---------------rebirth skills
-SK_EMZZ			=	457				----------------rebirth skills
-SK_SSSP			=	458				----------------rebirth skills
-SK_ZSSL			=	459				----------------ЧЄЙъЙсБ¦
-SK_DS			=	461				----------------јјДЬ¶БКй
-SK_QLZX			=	467				----------------З§АпЧ·С°
-SK_MLCJ		=	494
-SK_FNZ 		=	496
-SK_HW 		=	497
-SK_NLD	 	=	498
-SK_NLSFW	=	499
+SK_JSDD		=	257					--??????
+SK_JSMF		=	258					--?????? 
+SK_HDSMF	=       259					--?????
+SK_HYMF		=       260					--????                                                        
+SK_HYMH		=	261					--????-??                       
+SK_HXMF		=	262					--????
+SK_HXFWMF	=	263					--??????
+SK_TZJSMagic	=	264					--??????
+SK_QZMF		=	265					--????
+SK_XZSB		=	266					--??????
+SK_QX		=	267					--??
+SK_SD		=	268					--??
+SK_BLGJ		=	269					--????
+
+SK_JXJBFW	=	270					--??????
+SK_CRXSF	=	271					--?????
+SK_SXZZZ	=	272					--?????
+SK_XBLBD	=	273					--?????
+SK_BHSD		=	274					--??????
+SK_HLKJ		=	275					--????
+SK_HLLM		=	276					--??-??
+SK_BlackLY	=	277					--??-??
+SK_BlackLX	=	278					--??-??
+SK_BlackHeal	=	279					--????
+SK_JLFT	=	280					--????
+SK_JLZB	=	311					--????	
+SK_JLTX1			=	312				--????1	
+SK_JLTX2			=	313				--????2	
+SK_JLTX3			=	314				--????3	
+SK_JLTX4			=	315				--????4	
+SK_JLTX5			=	316				--????5	
+SK_JLTX6			=	317				--????6	
+SK_JLTX7			=	318				--????7	
+SK_JLTX8			=	319				--????8	
 
 
-FCARDID 	=	7470
+SK_KS			=	200					--????
+SK_WK			=	201					--????
+SK_PKQX			=	254					--????
+SK_ZHIZAO		=	338				----------------??
+SK_PENGREN		=	339				----------------??
+SK_ZHUZAO		=	340				----------------??
+SK_FENJIE			=	341				----------------??
+SK_WYZ			=	453				----------------???
+SK_CYN			=	454				----------------???
+SK_BSJ			=	455				----------------???
+SK_HLP			=	456				----------------???
+SK_EMZZ			=	457				----------------????
+SK_SSSP			=	458				----------------????
+SK_ZSSL			=	459				----------------????
+SK_DS			=	461				----------------????
+SK_QLZX			=	467				----------------????
+SK_ZSZB			=	468				----------------????
+SK_NEW			=	475				----------------??????
+SK_WB			=	491				----------------??
+SK_YJWB			=	492				----------------????
+SK_XUNBAO		=	495				----------------??(????)
+
+SK_FNZ		=	504				------???
+SK_HW		=	505				------??
+SK_NLD		=	506				------???
+SK_NLSFW        =	507				------?????
+SK_MLCJ		=	508				------????
 
 
-STATE_RS	=	1					--burn 33 per sec
-STATE_HFWQ	=	2					-- healing springИЄ
-STATE_ZZZH	=	3					--cursed fire
-STATE_ZD	=	4					--poison 12 damage
-STATE_SDBZ	=	5					--counterguard ( watever that is)
-STATE_SYZY	=	6					--true sight
-STATE_SYNZ	=	7					--abyss mire
-STATE_LQ	=	9					--lignting curtain
-STATE_WQ	=	10					--fog 
-STATE_FQ	=	11					--pretty but not as bright
-STATE_XW	=	12					--whirlpool
-STATE_MW	=	13					--fog
-STATE_LM	=	14					--lightning curtain 100 dam
-STATE_CHF	=	15					--taunt
-STATE_BOMB	=	16					--watermine explosion
-STATE_PKMNYS	=	17					--Bull Potion
+STATE_RS		=	1					--????
+STATE_HFWQ	=	2					--??????
+STATE_ZZZH	=	3					--??????
+STATE_ZD		=	4					--????
+STATE_SDBZ	=	5					--??????
+STATE_SYZY	=	6					--??????
+STATE_SYNZ	=	7					--??????
+STATE_LQ		=	9					--????
+STATE_WQ	=	10					--???? 
+STATE_FQ		=	11					--????
+STATE_XW	=	12					--????
+STATE_MW	=	13					--????
+STATE_LM		=	14					--????
+STATE_CHF		=	15				--????
+STATE_BOMB		=	16				--????
+STATE_PKMNYS		=	17				--??????
 
-STATE_PKZDYS	=	19					--Battle Potion
-STATE_PKKBYS	=	20					--Beserk Potion
-STATE_DPSL	=	21					--Sheild Mastery
-STATE_HX	=	22					--Tiger Roar
-STATE_JJSL	=	23					--Great Sword Mastery
-STATE_KB	=	24					--berserk
-STATE_FSZ	=	84					--dual hand weapon bonus
-STATE_JNJZ	=	26					--ЧґМ¬јјДЬЅыЦ№
-STATE_ZMYJ	=	27					--ЧґМ¬ЦВГьТ»»ч
-STATE_CLXZ	=	28					--ЧґМ¬ґФБЦРРХЯ
-STATE_FZLZ	=	29					--ЧґМ¬·зЦ®БмЦч
-STATE_GJSL	=	30					--ЧґМ¬№­јэКмБ·
-STATE_HYS	=	31					--ЧґМ¬»ГУ°ЙБ
+STATE_PKZDYS		=	19				--??????
+STATE_PKKBYS		=	20				--??????
+STATE_DPSL	=	21					--??????
+STATE_HX		=	22					--????	
+STATE_JJSL	=	23					--??????
+STATE_KB		=	24					--????
+STATE_FSZ	=	84					--????????
+STATE_JNJZ	=	26					--??????
+STATE_ZMYJ	=	27					--??????
+STATE_CLXZ	=	28					--??????
+STATE_FZLZ	=	29					--??????
+STATE_GJSL	=	30					--??????
+STATE_HYS	=	31					--?????
 
-STATE_JSFB	=	33					--ЧґМ¬ј«ЛЩ·з±©
-STATE_JFZ	=	34					--ЧґМ¬јІ·зХ¶
-STATE_QXYJ	=	35					--ЧґМ¬З№РµСРѕї
-STATE_SHTZ	=	36					--ЧґМ¬КЮ»ЇМеЦК
-STATE_TSHD	=	37					--ЧґМ¬МмК№»¤¶Ь
-STATE_TSQY	=	38					--ЧґМ¬МмК№ЖнФё
-STATE_TJ	=	39					--ЧґМ¬НИѕС
-STATE_XLZH	=	40					--ЧґМ¬РДБйЦ®»р
-STATE_PKJSYS	=	41					--ЧґМ¬ѕ«ЙсТ©Л®
-STATE_PKSFYS	=	42					--ЧґМ¬КЇ·фТ©Л®
-STATE_YS	=	43					--ЧґМ¬ТюЙн
-STATE_PKJZYS	=	44					--ЧґМ¬ѕ«ЧјТ©Л®
-STATE_XY	=	45					--ЧґМ¬СЈФО
-STATE_MB	=	46					--ЧґМ¬Вй±Ф
-STATE_PKWD	=	47					--ЧґМ¬ОЮµР
-STATE_SBJYGZ	=	48				--ЧґМ¬ѕ­Сй№ыЧУ
-STATE_SBBLGZ	=	49				--ЧґМ¬µфБП№ыЧУ
-STATE_MLCH	=	50				--ЧґМ¬Д§Б¦ґЯ»Ї
-STATE_BSHD	=	51					--ЧґМ¬±щЛЄ»¤¶Ь
-STATE_BD	=	52					--ЧґМ¬±щ¶і
+STATE_JSFB	=	33					--??????
+STATE_JFZ		=	34					--?????
+STATE_QXYJ	=	35					--??????
+STATE_SHTZ	=	36					--??????
+STATE_TSHD	=	37					--??????
+STATE_TSQY	=	38					--??????
+STATE_TJ		=	39					--????
+STATE_XLZH	=	40					--??????
+STATE_PKJSYS	=	41					--??????
+STATE_PKSFYS	=	42					--??????
+STATE_YS		=	43					--????
+STATE_PKJZYS		=	44					--??????
+STATE_XY		=	45					--????
+STATE_MB		=	46					--????
+STATE_PKWD		=	47					--????
+STATE_SBJYGZ		=	48				--??????
+STATE_SBBLGZ		=	49				--??????
+STATE_MLCH		=	50				--??????
+STATE_BSHD	=	51					--??????
+STATE_BD		=	52					--????
 
-STATE_HQSL	=	53					--ЧґМ¬»рЗ№КмБ·
-STATE_JLHY	=	54					--ЧґМ¬ѕ«Б¶»рТ©
-STATE_RDGJ	=	55					--ЧґМ¬Ихµг№Ґ»ч
-STATE_SY	=	56					--ЧґМ¬ЙсУУ
-STATE_QY	=	57					--ЧґМ¬ЖнФё
-STATE_ZF	=	58					--ЧґМ¬ЧЈёЈ
-STATE_LYZY	=	59					--ЧґМ¬БТСжЦ®Тн
-STATE_SHZG	=	60					--ЧґМ¬КҐ»рЦ®№в
-STATE_SZWZ	=	61					--ЧґМ¬КҐЦ°ОЖХВ
-STATE_XYZG	=	62					--ЧґМ¬РТФЛЦ®№в
-STATE_PKDYK	=	63					--ЧґМ¬µЇТ©ївГ»АІ
-STATE_PKLC	=	64					--ЧґМ¬БёІЦГ»АІ
-STATE_GJJZ	=	65					--ЧґМ¬№Ґ»чЅыЦ№
-STATE_CLCY	=	66					--ЧґМ¬ґФБЦґ©ФЅ
+STATE_HQSL	=	53					--??????
+STATE_JLHY	=	54					--??????
+STATE_RDGJ	=	55					--??????
+STATE_SY		=	56					--????
+STATE_QY		=	57					--????
+STATE_ZF		=	58					--????
+STATE_LYZY	=	59					--??????
+STATE_SHZG	=	60					--??????
+STATE_SZWZ	=	61					--??????
+STATE_XYZG	=	62					--??????
+STATE_PKDYK	=	63					--???????
+STATE_PKLC	=	64					--??????
+STATE_GJJZ	=	65					--??????
+STATE_CLCY	=	66					--??????
 
-STATE_SJ	=	68					--ЧґМ¬КЦѕС
-STATE_JSSL	=	69					--ЧґМ¬ЅЈКхКмБ·
-STATE_GTYZ	=	70					--ЧґМ¬ёЦМъТвЦѕ
-STATE_QHTZ	=	71					--ЧґМ¬Зї»ЇМеЦК
-STATE_LQHB	=	72					--ЧґМ¬БйЗЙ»Ш±Ь
-STATE_JDZZ	=	73					--ЧґМ¬ЅЈµАЧЁЧў
-STATE_MNRX	=	74					--ЧґМ¬ВщЕЈИИСЄ
-STATE_HYS	=	75					--ЧґМ¬»ГУ°ЙБ
-STATE_PXKG	=	76					--ЧґМ¬ЖЖСЄїс№Ґ
-STATE_TZHF	=	77					--ЧґМ¬МеЦК»Шёґ
-STATE_JFB	=	78					--ЧґМ¬јІ·зІЅ
-STATE_YY	=	79					--ЧґМ¬УҐСЫ
-STATE_JSJC	=	80					--ЧґМ¬ѕ«ЙсјУіЦ
-STATE_BDJ	=	81					--ЧґМ¬±щ¶іјэ
-STATE_LRWZ	=	82					--ЧґМ¬БФИЛО±Ч°
+STATE_SJ		=	68					--????
+STATE_JSSL	=	69					--??????
+STATE_GTYZ	=	70					--??????
+STATE_QHTZ	=	71					--??????
+STATE_LQHB	=	72					--??????
+STATE_JDZZ	=	73					--??????
+STATE_MNRX	=	74					--??????
+STATE_HYS	=	75					--?????
+STATE_PXKG	=	76					--??????
+STATE_TZHF	=	77					--??????
+STATE_JFB		=	78					--?????
+STATE_YY		=	79					--????
+STATE_JSJC	=	80					--??????
+STATE_BDJ	=	81					--?????
+STATE_LRWZ	=	82					--??????
 
-STATE_MFD	=	83					--ЧґМ¬Д§·Ё¶Ь
-STATE_JY	=	85					--ЧґМ¬Ѕ»ТЧ
-STATE_JF	=	86					--ЧґМ¬м«·з
-STATE_HZCR	=	87					--ЧґМ¬єЈФеІшИЖ
-STATE_SF	=	88					--ЧґМ¬Лі·з
-STATE_PJ	=	89				--ЧґМ¬ЖЖјЧ
-STATE_FNQ	=	90				--ЧґМ¬·ЬЖр
-STATE_DJ	=	91				--ЧґМ¬¶ѕјэ
-STATE_SHPF	=	92				--ЧґМ¬КЇ»ЇЖ¤·ф
-STATE_XN	=	93				--ЧґМ¬СЄЕ­
-STATE_NT	=	94				--ЧґМ¬ДаМ¶
-STATE_DIZ	=	95				--ЧґМ¬µШХр
-STATE_BIW	=	96				--ЧґМ¬±щОЗ
-STATE_MCK	=	97				--ЧґМ¬К№УГДѕІДА¦
-STATE_SWCX	=	98				--ЧґМ¬ЛАНці°Р¦
-STATE_BAT	=	99				--ЧґМ¬°ЪМЇ
-
-
-STATE_YSLLQH		=	102				--Т©Л®Б¦БїјУіЙ
-STATE_YSMJQH		=	103				--Т©Л®ГфЅЭјУіЙ
-STATE_YSLQQH		=	104				--Т©Л®ЧЁЧўјУіЙ
-STATE_YSTZQH		=	105				--Т©Л®МеЦКјУіЙ
-STATE_YSJSQH		=	106				--Т©Л®ѕ«ЙсјУіЙ
-STATE_JLGLJB		=	107				--ѕ«Б¶іЙ№¦ВКјУ±¶
-STATE_HCGLJB		=	108				--єПіЙіЙ№¦ВКјУ±¶
-STATE_DENGLONG		=	109				--µЖБэЧґМ¬
-STATE_MEIGUI		=	110				--Гµ№е»ЁЧґМ¬
-STATE_YPCXHFSM		=	111				--Т©Ж·іЦРш»ШёґЙъГь
-STATE_CFZJiu1		=	112				--ґє·зХтѕЖ1
-STATE_CFZJiu2		=	113				--ґє·зХтѕЖ2
-STATE_JSDD		=	114				--Ѕ©К¬ґш¶ѕ
-STATE_HYMH		=	115				--єьСэД§·Ё-чИ»у
-STATE_HLKJ		=	116				--єЪБъ-їЦѕе
-STATE_HLLM		=	117				--єЪБъ-БъГщ
-STATE_CRXSF		=	118				--і¤ИЮР·-Кшёї
-STATE_MarchElf		=	119				--ИэФВѕ«Бй
-STATE_YSMspd		=	120				--Т©Л®ЛЩ¶ИЗї»Ї
-STATE_YSBoatMspd	=	121				--Т©Л®ґ¬Ц»ЛЩ¶ИЗї»Ї
-STATE_YSBoatDEF		=	122				--Т©Л®ґ¬Ц»·АУщЗї»Ї
-STATE_TTISW		=	123				--ґє·зХтЧґМ¬
-STATE_PKSBYS		=	124				--ЧґМ¬°¬ІЭЈЁЙБ±ЬТ©Л®Ј©
-STATE_BlackHX		=	125				--єЪБъ»ўРҐ
-STATE_ZDSBJYGZ		=	127				--Чй¶Уѕ­СйЧґМ¬
-STATE_KUANGZ			=	128				--їсХЅКх
-STATE_QUANS			=	129				--И«ЙнЧ°јЧ
-STATE_QINGZ			=	130				--ЗбЧ°Т©Л®
-STATE_JLDS			=	131				--іиОп¶ѕКЙ
-STATE_JLFT1			=	132				--ѕ«БйёЅМе
-STATE_CJBBT			=	133				--і¬ИЛ°ф°фМЗ
-STATE_JRQKL			=	134				--ѕЮИЛЗЙїЛБ¦
-STATE_WLRSD			=	135				--НцБйИјЙХµЇ
-STATE_WLJS			=	136				--НцБйјУЛЩ
-STATE_YWGJ			=	142				--СМОн№Ґ»ч
-STATE_KLCS			=	138				--чјчГІшЙн
-STATE_KLHD			=	139				--чјчГ»¤¶Ь
-STATE_WLCX			=	140				--НцБйі°Р¦
-STATE_ZZZX			=	141				--ЧзЦдЦ®СЄ
-STATE_WLDB			=	142				--НцБй¶ѕпЪ
-STATE_WLJY			=	143				--НцБй»чФО
-STATE_WLXW			=	137				--НцБйдцОР
-STATE_WLNH			=	146				--НцБйЕ­єр
-STATE_JLJSGZ			=	147				--ѕ«БйЛ«±¶іЙі¤	
-STATE_JLTX1			=	148				--ѕ«БйМШР§1	
-STATE_JLTX2			=	149				--ѕ«БйМШР§2	
-STATE_JLTX3			=	150				--ѕ«БйМШР§3	
-STATE_JLTX4			=	151				--ѕ«БйМШР§4	
-STATE_JLTX5			=	152				--ѕ«БйМШР§5	
-STATE_JLTX6			=	153				--ѕ«БйМШР§6	
-STATE_JLTX7			=	154				--ѕ«БйМШР§7	
-STATE_JLTX8			=	155				--ѕ«БйМШР§8	
-STATE_CZZX			=	156				--ґїХжЦ®РД
-STATE_KALA			=	157				--їЁА­µДК¤Аы
-STATE_5MBS			=	158				--5Гл±ШЛА
-STATE_ShanGD			=	159				--ЙБ№вµЇ
-STATE_FuShe			=	160				--·шЙд
-STATE_PSQ			=	161				--ґ¬Ц»ЕзЙдЖч
-STATE_PRD			=	162				--ЖЖИРµЇ
-STATE_CZRSD			=	163				--ґ¬Ц»ИјЙХµЇ
-STATE_XUEYU			=	165				--ЧоґуHPОпАнµЦї№Аа
-STATE_MANTOU			=	166				--ВшН·јУ№ҐАа
-STATE_NVER			=	167				--Е®¶щємјУѕ«Аа
-STATE_JLFT2			=	168				--fairy of str
-STATE_JLFT3			=	169				--fairy of con
-STATE_JLFT4			=	170				--fairy of spr
-STATE_JLFT5			=	171				--fairy of acc
-STATE_JLFT6			=	172				--fairy of agi
-STATE_JLFT7			=	173				--fairy
-STATE_JLFT8			=	174				--fairy
-STATE_FSZQ                      =       176                             --break armour
-STATE_ZYZZ                      =       177                             --deaf
-STATE_DZFS                      =       178                             --earthquake
-STATE_LD                        =       179                             --electricity, slows movement
-STATE_HYFS                      =       180                             --red circle and dots with crossbones, makes me untouchable
-STATE_CZQX                      =       181                             --invisible
-STATE_LEIDA                     =       182                             --true sight
-STATE_FSD                       =       183                             --poison no damage
-STATE_Slrs                      =       184                             --burn (like magma)
-STATE_Myrs                      =       185                             --burn again
-STATE_LST                       =       186                             --slow, from baby ice dragons, ice around feet
-STATE_HFZQ                      =       187                             --rebirth cleric skill
-STATE_EMYY                      =       188                             --rebirth sm skill? cant get animation to work
-STATE_YNZL                      =       189                             --rebirth voy skill
-STATE_JHKML                     =       190                             --rebirth champ skill
-STATE_BDH                       =       191                             --±щ¶і»·
-STATE_DHZ			=	194				--µ°»ЖфХјУ·АУщ
-STATE_DSZ			=	195				--¶№ЙіфХјУЛЩ
-STATE_APPLE			=	196					----------------Л«±¶¶БКйР§ВК
-STATE_GOLD			=	197					--------------АПЧУ°®ёёЗЧ
-MEDAL_STATE			=	198
-STATE_SPHMHF			=	199				--»єВэ»Шёґ·ЁБ¦Аа
-STATE_BBRING1			=	200				--85BBЕЈЅдјУіЙ
-STATE_BBRING2    		= 	201
-STATE_BBRING3    		= 	202
-STATE_BBRING4     		= 	203
-STATE_BBRING5  			= 	204
-STATE_BBRING6   	  	=	205
-STATE_PET_SHARPSHOOTER = 206
-STATE_RAPIDDRUG			=	207				--ЗбЧ°Т©Л®
-STATE_WARSIT			=	208				--ХЅїсТ©јБ
-STATE_DARKDRESS			=	209				--РюБъЧ°јЧ
-STATE_DEMON			=	210				--ёЅД§ХлјБ
-STATE_GREATSH			=	211				--ѕЮјЧХлјБ
-STATE_MIRAGE			=	212				--»ГБйХлјБ
-STATE_DEVOTE			=	213				--ЧЁЧўХлјБ
-STATE_VIGOUR			=	214				--Б¦їсХлјБ
-STATE_SHIPDRIVE			=	215				--ґ¬Ц»¶ЇБ¦·«
-STATE_SHIPRECOVER		=	216				--ґ¬Ц»·АУщјЧ
-STATE_BKDB			=	217				--І»їЙИлУь
-STATE_XZDLL			=	218				--The Strenght in the Heart
-
-STATE_MOWQ			=	219				-- devils curse part b
-STATE_TELF			=	221				-- Thunder Spirit
-STATE_LELF			=	222				-- Light Spirit
-STATE_DELF			=	223				-- Darkness Spirit
-STATE_CAPE1			=	234				
-STATE_CAPE2			=	235				
-STATE_CAPE3			=	236				
-STATE_CAPE4			=	237		
-VIPNECKY	=	238
-STATE_CAPE5			=	239				
-STATE_CAPE6			=	240				
-STATE_CAPE7			=	241				
-STATE_CAPE8			=	242
-STATE_CAPE9			=	243				
-STATE_CAPE10			=	244				
-STATE_CAPE11			=	245				
-STATE_CAPE12			=	246		
+STATE_MFD	=	83					--?????
+STATE_JY	=	85					--????
+STATE_JF		=	86					--????
+STATE_HZCR	=	87					--??????
+STATE_SF		=	88					--????
+STATE_PJ		=	89				--????
+STATE_FNQ		=	90				--????
+STATE_DJ		=	91				--????
+STATE_SHPF		=	92				--??????
+STATE_XN		=	93				--????
+STATE_NT		=	94				--????
+STATE_DIZ		=	95				--????
+STATE_BIW		=	96				--????
+STATE_MCK		=	97				--???????
+STATE_SWCX		=	98				--??????
+STATE_BAT		=	99				--????
 
 
+STATE_YSLLQH		=	102				--??????
+STATE_YSMJQH		=	103				--??????
+STATE_YSLQQH		=	104				--??????
+STATE_YSTZQH		=	105				--??????
+STATE_YSJSQH		=	106				--??????
+STATE_JLGLJB		=	107				--???????
+STATE_HCGLJB		=	108				--???????
+STATE_DENGLONG		=	109				--????
+STATE_MEIGUI		=	110				--?????
+STATE_YPCXHFSM		=	111				--????????
+STATE_CFZJiu1		=	112				--????1
+STATE_CFZJiu2		=	113				--????2
+STATE_JSDD		=	114				--????
+STATE_HYMH		=	115				--????-??
+STATE_HLKJ		=	116				--??-??
+STATE_HLLM		=	117				--??-??
+STATE_CRXSF		=	118				--???-??
+STATE_MarchElf		=	119				--????
+STATE_YSMspd		=	120				--??????
+STATE_YSBoatMspd	=	121				--????????
+STATE_YSBoatDEF		=	122				--????????
+STATE_TTISW		=	123				--?????
+STATE_PKSBYS		=	124				--????(????)
+STATE_BlackHX		=	125				--????
+STATE_ZDSBJYGZ		=	127				--??????
+STATE_KUANGZ			=	128				--???
+STATE_QUANS			=	129				--????
+STATE_QINGZ			=	130				--????
+STATE_JLDS			=	131				--????
+STATE_JLFT1			=	132				--????
+STATE_CJBBT			=	133				--?????
+STATE_JRQKL			=	134				--?????
+STATE_WLRSD			=	135				--?????
+STATE_WLJS			=	136				--????
+STATE_YWGJ			=	142				--????
+STATE_KLCS			=	138				--????
+STATE_KLHD			=	139				--????
+STATE_WLCX			=	140				--????
+STATE_ZZZX			=	141				--????
+STATE_WLDB			=	142				--????
+STATE_WLJY			=	143				--????
+STATE_WLXW			=	137				--????
+STATE_WLNH			=	146				--????
+STATE_JLJSGZ			=	147				--??????	
+STATE_JLTX1			=	148				--????1	
+STATE_JLTX2			=	149				--????2	
+STATE_JLTX3			=	150				--????3	
+STATE_JLTX4			=	151				--????4	
+STATE_JLTX5			=	152				--????5	
+STATE_JLTX6			=	153				--????6	
+STATE_JLTX7			=	154				--????7	
+STATE_JLTX8			=	155				--????8	
+STATE_CZZX			=	156				--????
+STATE_KALA			=	157				--?????
+STATE_5MBS			=	158				--5???
+STATE_ShanGD			=	159				--???
+STATE_FuShe			=	160				--??
+STATE_PSQ			=	161				--?????
+STATE_PRD			=	162				--???
+STATE_CZRSD			=	163				--?????
+STATE_XUEYU			=	165				--??HP?????
+STATE_MANTOU			=	166				--?????
+STATE_NVER			=	167				--??????
+STATE_JLFT2			=	168				--????
+STATE_JLFT3			=	169				--????
+STATE_JLFT4			=	170				--????
+STATE_JLFT5			=	171				--????
+STATE_JLFT6			=	172				--????
+STATE_JLFT7			=	173				--????
+STATE_JLFT8			=	174				--????
+STATE_FSZQ                      =       176                             --????
+STATE_ZYZZ                      =       177                             --?????
+STATE_DZFS                      =       178                             --?????
+STATE_LD                        =       179                             --??
+STATE_HYFS                      =       180                             --?????
+STATE_CZQX                      =       181                             --????
+STATE_LEIDA                     =       182                             --??
+STATE_FSD                       =       183                             --???
+STATE_Slrs                      =       184                             --???? 
+STATE_Myrs                      =       185                             --????
+STATE_LST                       =       186                             --???
+STATE_HFZQ                      =       187                             --????
+STATE_EMYY                      =       188                             --????
+STATE_YNZL                      =       189                             --????
+STATE_JHKML                     =       190                             --?????
+STATE_BDH                       =       191                             --???
+STATE_DHZ		=	194				--??????
+STATE_DSZ		=	195				--?????
+STATE_APPLE			=	196					----------------??????
+STATE_ILOVEDAD			=	197					--------------?????
+STATE_HPHMHF		=	198				--???????
+STATE_SPHMHF		=	199				--???????
+STATE_BBRING1		=	 200				--85BB????
+STATE_BBRING2		=	 201				--85BB????
+STATE_BBRING3		=	 202				--85BB????
+STATE_BBRING4		=	 203				--85BB????
+STATE_BBRING5		=	 204				--85BB????
+STATE_BBRING6		=	 205				--85BB????
+STATE_LANTERN		=	206				--????
+STATE_RAPIDDRUG		=	207				--????
+STATE_WARSIT		=	208				--????
+STATE_DARKDRESS		=	209				--????
+STATE_DEMON		=	210				--????
+STATE_GREATSH		=	211				--????
+STATE_MIRAGE		=	212				--????
+STATE_DEVOTE		=	213				--????
+STATE_VIGOUR	=	214				--????
+STATE_SHIPDRIVE	=	215				--?????
+STATE_SHIPRECOVER	=	216				--?????
+STATE_BKDB	=	217				--????
+STATE_XZDLL	=	218				--???????
+STATE_XTMFS	=	219				--??????        by peter 2008.7.1   ????
+STATE_MWMXJ	=	220				--??????        by peter 2008.7.1   ????
+STATE_FFJGD	=	221				--??????        by peter 2008.7.1   ????
+STATE_YSYS	=	43				--???????              by peter 2008.7.1  ??30?
+STATE_CD		=	199				--???????              by peter 2008.7.1   ?????,??????
+STATE_XLTX			=	224				--?????              by Chaos 2008.7.3   
+STATE_ZSZB			=	225			----------------????
+STATE_CJRS		=	226					--????
+STATE_JLBYS		=	227					--100%??
+STATE_HCBYS		=	228					--100%??
+STATE_zhongshen		=	229					--95BB??
+STATE_LEIPI	=	230				--????
+STATE_XIANRENJIAO = 231			--?????
+STATE_CUSI = 232				--????
+STATE_GANMAO	=	233			--??????
+STATE_ZBMAXHP	= 234			--???HP??
+STATE_ZBHP	= 235			--???HP??
+STATE_ZBSP	= 236			--SP??
+STATE_ZBMOVE	= 237			--????
+STATE_GUOMIN	= 238			--????
+STATE_QB	= 239			--????
+STATE_XZK1=240			--???
+STATE_XZK2=241
+STATE_XZK3=242
+STATE_XZK4=243
+STATE_XZK5=244
+STATE_XZK6=245
+STATE_XZK7=246
+STATE_XZK8=247
+STATE_XZK9=248
+STATE_XZK10=249
+STATE_XZK11=250
+STATE_XZK12=251					--???
+STATE_HAIDAOQI=253	
+STATE_Abhl = 8 		----???
+STATE_Lbhl = 32		----???
+STATE_Gbhl = 192	----???
+STATE_CUSI2 = 25	----??2
+STATE_BHLHP = 52	----?????HP
+STATE_BHLZD = 175	----?????
+STATE_BHLXY = 193   ----?????
+STATE_HFHP  =  226  
+STATE_XLZD  =  225
 
 
 
@@ -11638,39 +5197,36 @@ STATE_CAPE12			=	246
 
 
 
-
-
-
-dmg = 0					--ЙЛє¦
-sus = 1					--№Ґ»чЧґМ¬
-hpdmg = 0					--hpЙЛє¦
-dmgsa = 1					--ЙЛє¦±¶Кэ
-dis = 0					--ѕаАл
-dis_eff = 0					--ѕаАлР§№ы
-sklv = 0					--јјДЬµИј¶
+dmg = 0					--??
+sus = 1					--????
+hpdmg = 0					--hp??
+dmgsa = 1					--????
+dis = 0					--??
+dis_eff = 0					--????
+sklv = 0					--????
 
 ItemAttr_Rad	=	 { } 
-ItemAttr_Rad	[	0	]	=	0	--	-1	ОЮМШКвКфРФјУіЙ
-ItemAttr_Rad	[	1	]	=	10	--	ВщБ¦Ц®	+str
-ItemAttr_Rad	[	2	]	=	10	--	±ШЦРЦ®	+dex
-ItemAttr_Rad	[	3	]	=	10	--	ЗїМеЦ®	+con
-ItemAttr_Rad	[	4	]	=	5	--	јІ·зЦ®	+agi
-ItemAttr_Rad	[	5	]	=	10	--	КҐПНЦ®	+sta
+ItemAttr_Rad	[	0	]	=	0	--	-1	???????
+ItemAttr_Rad	[	1	]	=	10	--	???	+str
+ItemAttr_Rad	[	2	]	=	10	--	???	+dex
+ItemAttr_Rad	[	3	]	=	10	--	???	+con
+ItemAttr_Rad	[	4	]	=	5	--	???	+agi
+ItemAttr_Rad	[	5	]	=	10	--	???	+sta
 ItemAttr_Rad	[	6	]	=	0	--	-1	0
 ItemAttr_Rad	[	7	]	=	0	--	-1	0
 ItemAttr_Rad	[	8	]	=	0	--	-1	0
 ItemAttr_Rad	[	9	]	=	0	--	-1	0
 ItemAttr_Rad	[	10	]	=	0	--	-1	0
-ItemAttr_Rad	[	11	]	=	10	--	єЪБъЦ®	+str +dex
-ItemAttr_Rad	[	12	]	=	10	--	ємБъЦ®	+str +con
-ItemAttr_Rad	[	13	]	=	5	--	А¶БъЦ®	+str +agi 
-ItemAttr_Rad	[	14	]	=	10	--	ТшБъЦ®	+str +sta
-ItemAttr_Rad	[	15	]	=	10	--	°ЩБъЦ®	+dex +con
-ItemAttr_Rad	[	16	]	=	5	--	ВМБъЦ®	+dex +agi
-ItemAttr_Rad	[	17	]	=	10	--	»ЖБъЦ®	+dex +sta
-ItemAttr_Rad	[	18	]	=	5	--	ЅрБъЦ®	+con +agi
-ItemAttr_Rad	[	19	]	=	10	--	КҐБъЦ®	+con +sta
-ItemAttr_Rad	[	20	]	=	5	--	Д§БъЦ®	+agi +sta
+ItemAttr_Rad	[	11	]	=	10	--	???	+str +dex
+ItemAttr_Rad	[	12	]	=	10	--	???	+str +con
+ItemAttr_Rad	[	13	]	=	5	--	???	+str +agi 
+ItemAttr_Rad	[	14	]	=	10	--	???	+str +sta
+ItemAttr_Rad	[	15	]	=	10	--	???	+dex +con
+ItemAttr_Rad	[	16	]	=	5	--	???	+dex +agi
+ItemAttr_Rad	[	17	]	=	10	--	???	+dex +sta
+ItemAttr_Rad	[	18	]	=	5	--	???	+con +agi
+ItemAttr_Rad	[	19	]	=	10	--	???	+con +sta
+ItemAttr_Rad	[	20	]	=	5	--	???	+agi +sta
 ItemAttr_Rad	[	21	]	=	0	--	-1	0
 ItemAttr_Rad	[	22	]	=	0	--	-1	0
 ItemAttr_Rad	[	23	]	=	0	--	-1	0
@@ -11700,16 +5256,16 @@ ItemAttr_Rad	[	46	]	=	0	--	-1	0
 ItemAttr_Rad	[	47	]	=	0	--	-1	0
 ItemAttr_Rad	[	48	]	=	0	--	-1	0
 ItemAttr_Rad	[	49	]	=	0	--	-1	0
-ItemAttr_Rad	[	50	]	=	10	--	їЁА­Ц®	+str +dex +con
-ItemAttr_Rad	[	51	]	=	5	--	їЁА­Ц®	+str +dex +agi
-ItemAttr_Rad	[	52	]	=	10	--	їЁА­Ц®	+str +dex +sta
-ItemAttr_Rad	[	53	]	=	5	--	їЁА­Ц®	+str +con +agi
-ItemAttr_Rad	[	54	]	=	10	--	їЁА­Ц®	+str +con +sta
-ItemAttr_Rad	[	55	]	=	5	--	їЁА­Ц®	+str +agi +sta
-ItemAttr_Rad	[	56	]	=	5	--	їЁА­Ц®	+dex +con +agi
-ItemAttr_Rad	[	57	]	=	10	--	їЁА­Ц®	+dex +con +sta
-ItemAttr_Rad	[	58	]	=	5	--	їЁА­Ц®	+dex +agi +sta
-ItemAttr_Rad	[	59	]	=	5	--	їЁА­Ц®	+con +agi +sta
+ItemAttr_Rad	[	50	]	=	10	--	???	+str +dex +con
+ItemAttr_Rad	[	51	]	=	5	--	???	+str +dex +agi
+ItemAttr_Rad	[	52	]	=	10	--	???	+str +dex +sta
+ItemAttr_Rad	[	53	]	=	5	--	???	+str +con +agi
+ItemAttr_Rad	[	54	]	=	10	--	???	+str +con +sta
+ItemAttr_Rad	[	55	]	=	5	--	???	+str +agi +sta
+ItemAttr_Rad	[	56	]	=	5	--	???	+dex +con +agi
+ItemAttr_Rad	[	57	]	=	10	--	???	+dex +con +sta
+ItemAttr_Rad	[	58	]	=	5	--	???	+dex +agi +sta
+ItemAttr_Rad	[	59	]	=	5	--	???	+con +agi +sta
 ItemAttr_Rad	[	60	]	=	0	--	-1	0
 ItemAttr_Rad	[	61	]	=	0	--	-1	0
 ItemAttr_Rad	[	62	]	=	0	--	-1	0
@@ -11740,25 +5296,106 @@ ItemAttr_Rad	[	86	]	=	0	--	-1	0
 ItemAttr_Rad	[	87	]	=	0	--	-1	0
 ItemAttr_Rad	[	88	]	=	0	--	-1	0
 ItemAttr_Rad	[	89	]	=	0	--	-1	0
-ItemAttr_Rad	[	90	]	=	10	--	О¬¶ыЦ®	 +str +dex +con +agi
-ItemAttr_Rad	[	91	]	=	10	--	О¬¶ыЦ®	 +str +dex +con +sta
-ItemAttr_Rad	[	92	]	=	10	--	О¬¶ыЦ®	 +str +dex +agi +sta
-ItemAttr_Rad	[	93	]	=	10	--	О¬¶ыЦ®	 +str +con +agi +sta
-ItemAttr_Rad	[	94	]	=	10	--	О¬¶ыЦ®	 +dex +con +agi +sta
+ItemAttr_Rad	[	90	]	=	10	--	???	 +str +dex +con +agi
+ItemAttr_Rad	[	91	]	=	10	--	???	 +str +dex +con +sta
+ItemAttr_Rad	[	92	]	=	10	--	???	 +str +dex +agi +sta
+ItemAttr_Rad	[	93	]	=	10	--	???	 +str +con +agi +sta
+ItemAttr_Rad	[	94	]	=	10	--	???	 +dex +con +agi +sta
 ItemAttr_Rad	[	95	]	=	0	--	-1	0
 ItemAttr_Rad	[	96	]	=	0	--	-1	0
 ItemAttr_Rad	[	97	]	=	0	--	-1	0
 ItemAttr_Rad	[	98	]	=	0	--	-1	0
 ItemAttr_Rad	[	99	]	=	0	--	-1	0
 
+--????????
+
+--????
+NewBox_Maxcount = 68
+
+NewBox_Id={}		NewBox_ItemEffect={}	
+NewBox_Id[1]=	5710	NewBox_ItemEffect[1]=	ItemUse_purplebox
+NewBox_Id[2]=	5711	NewBox_ItemEffect[2]=	ItemUse_greenbox
+NewBox_Id[3]=	5712	NewBox_ItemEffect[3]=	ItemUse_turebox
+NewBox_Id[4]=	5713	NewBox_ItemEffect[4]=	ItemUse_respectbox
+NewBox_Id[5]=	5714	NewBox_ItemEffect[5]=	ItemUse_peerlessbox
+NewBox_Id[6]=	0580	NewBox_ItemEffect[6]=	ItemUse_Sjz
+NewBox_Id[7]=	0581	NewBox_ItemEffect[7]=	ItemUse_Sxl
+NewBox_Id[8]=	0582	NewBox_ItemEffect[8]=	ItemUse_Sbk
+NewBox_Id[9]=	2515	NewBox_ItemEffect[9]=	ItemUse_hjjz
+NewBox_Id[10]=	2516	NewBox_ItemEffect[10]=	ItemUse_zsjz
+NewBox_Id[11]=	2517	NewBox_ItemEffect[11]=	ItemUse_bjxl
+NewBox_Id[12]=	2518	NewBox_ItemEffect[12]=	ItemUse_hjxl
+NewBox_Id[13]=	2519	NewBox_ItemEffect[13]=	ItemUse_gjxl
+NewBox_Id[14]=	6663	NewBox_ItemEffect[14]=	ItemUse_65JZDH
+NewBox_Id[15]=	6664	NewBox_ItemEffect[15]=	ItemUse_75JZDH
+NewBox_Id[16]=	0242	NewBox_ItemEffect[16]=	ItemUse_byjz
+NewBox_Id[17]=	6719	NewBox_ItemEffect[17]=	ItemUse_XianHe1Box
+NewBox_Id[18]=	6720	NewBox_ItemEffect[18]=	ItemUse_XianHe2Box
+NewBox_Id[19]=	6721	NewBox_ItemEffect[19]=	ItemUse_XianHe3Box
+NewBox_Id[20]=	6722	NewBox_ItemEffect[20]=	ItemUse_XianHe4Box
+NewBox_Id[21]=	6723	NewBox_ItemEffect[21]=	ItemUse_XianHe5Box
+NewBox_Id[22]=	6724	NewBox_ItemEffect[22]=	ItemUse_XianHe6Box
+NewBox_Id[23]=	6725	NewBox_ItemEffect[23]=	ItemUse_XianHe7Box
+NewBox_Id[24]=	6726	NewBox_ItemEffect[24]=	ItemUse_XianHe8Box
+NewBox_Id[25]=	6727	NewBox_ItemEffect[25]=	ItemUse_XianHe9Box
+NewBox_Id[26]=	6728	NewBox_ItemEffect[26]=	ItemUse_XianHe10Box
+NewBox_Id[27]=	6729	NewBox_ItemEffect[27]=	ItemUse_XianHe11Box
+NewBox_Id[28]=	6730	NewBox_ItemEffect[28]=	ItemUse_XianHe12Box
+NewBox_Id[29]=	6731	NewBox_ItemEffect[29]=	ItemUse_XianHe13Box
+NewBox_Id[30]=	6732	NewBox_ItemEffect[30]=	ItemUse_XianHe14Box
+NewBox_Id[31]=	6733	NewBox_ItemEffect[31]=	ItemUse_XianHe15Box
+NewBox_Id[32]=	6734	NewBox_ItemEffect[32]=	ItemUse_XianHe16Box
+NewBox_Id[33]=	6735	NewBox_ItemEffect[33]=	ItemUse_XianHe17Box
+NewBox_Id[34]=	6736	NewBox_ItemEffect[34]=	ItemUse_XianHe18Box
+NewBox_Id[35]=	6737	NewBox_ItemEffect[35]=	ItemUse_XianHe19Box
+NewBox_Id[36]=	6738	NewBox_ItemEffect[36]=	ItemUse_XianHe20Box
+NewBox_Id[37]=	6739	NewBox_ItemEffect[37]=	ItemUse_XianHe21Box
+NewBox_Id[38]=	6740	NewBox_ItemEffect[38]=	ItemUse_XianHe22Box
+NewBox_Id[39]=	6741	NewBox_ItemEffect[39]=	ItemUse_ShenHe1Box
+NewBox_Id[40]=	6742	NewBox_ItemEffect[40]=	ItemUse_ShenHe2Box
+NewBox_Id[41]=	6743	NewBox_ItemEffect[41]=	ItemUse_ShenHe3Box
+NewBox_Id[42]=	6744	NewBox_ItemEffect[42]=	ItemUse_ShenHe4Box
+NewBox_Id[43]=	6745	NewBox_ItemEffect[43]=	ItemUse_ShenHe5Box
+NewBox_Id[44]=	6746	NewBox_ItemEffect[44]=	ItemUse_ShenHe6Box
+NewBox_Id[45]=	6747	NewBox_ItemEffect[45]=	ItemUse_ShenHe7Box
+NewBox_Id[46]=	6748	NewBox_ItemEffect[46]=	ItemUse_ShenHe8Box
+NewBox_Id[47]=	6749	NewBox_ItemEffect[47]=	ItemUse_ShenHe9Box
+NewBox_Id[48]=	6750	NewBox_ItemEffect[48]=	ItemUse_ShenHe10Box
+NewBox_Id[49]=	6751	NewBox_ItemEffect[49]=	ItemUse_ShenHe11Box
+NewBox_Id[50]=	6752	NewBox_ItemEffect[50]=	ItemUse_ShenHe12Box
+NewBox_Id[51]=	6753	NewBox_ItemEffect[51]=	ItemUse_ShenHe13Box
+NewBox_Id[52]=	6754	NewBox_ItemEffect[52]=	ItemUse_ShenHe14Box
+NewBox_Id[53]=	6755	NewBox_ItemEffect[53]=	ItemUse_ShenHe15Box
+NewBox_Id[54]=	6756	NewBox_ItemEffect[54]=	ItemUse_ShenHe16Box
+NewBox_Id[55]=	6757	NewBox_ItemEffect[55]=	ItemUse_ShenHe17Box
+NewBox_Id[56]=	6758	NewBox_ItemEffect[56]=	ItemUse_ShenHe18Box
+NewBox_Id[57]=	6759	NewBox_ItemEffect[57]=	ItemUse_ShenHe19Box
+NewBox_Id[58]=	6760	NewBox_ItemEffect[58]=	ItemUse_ShenHe20Box
+NewBox_Id[59]=	6761	NewBox_ItemEffect[59]=	ItemUse_ShenHe21Box
+NewBox_Id[60]=	6762	NewBox_ItemEffect[60]=	ItemUse_ShenHe22Box
+NewBox_Id[61]=	5611	NewBox_ItemEffect[61]=	ItemUse_superticket
+NewBox_Id[62]=	5612	NewBox_ItemEffect[62]=	ItemUse_supergodness
+NewBox_Id[63]=	5613	NewBox_ItemEffect[63]=	ItemUse_platinadress
+NewBox_Id[64]=	5614	NewBox_ItemEffect[64]=	ItemUse_platinayear
+NewBox_Id[65]=	5615	NewBox_ItemEffect[65]=	ItemUse_platinareful
+NewBox_Id[66]=	1019	NewBox_ItemEffect[66]=	ItemUse_minibh
+NewBox_Id[67]=	6808	NewBox_ItemEffect[67]=	ItemUse_MagicBox2
+NewBox_Id[68]=	6472	NewBox_ItemEffect[68]=	ItemUse_MagicBox
+
+--??ID
+NewKey_Id={}	
+NewKey_Id[1]=	5702
+NewKey_Id[2]=	5703
+NewKey_Id[3]=	5704
+NewKey_Id[4]=	5705
+NewKey_Id[5]=	5706
 
 
-
---	»ЄАц±¦Пд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????																			
+--	????							??????												
 	BaoXiang_HLBX_Qua	=	7	 				BaoXiang_HLBX_Mxcount	=	109										
 
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_HLBX	=	{}					BaoXiang_HLBX_Rad	=	{}					BaoXiang_HLBX_Count	=	{}			
 	BaoXiang_HLBX	[	1	]	=	0004		BaoXiang_HLBX_Rad	[	1	]	=	1		BaoXiang_HLBX_Count	[	1	]	=	1
 	BaoXiang_HLBX	[	2	]	=	0005		BaoXiang_HLBX_Rad	[	2	]	=	1		BaoXiang_HLBX_Count	[	2	]	=	1
@@ -11871,11 +5508,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_HLBX	[	109	]	=	0455		BaoXiang_HLBX_Rad	[	109	]	=	20 		BaoXiang_HLBX_Count	[	109	]	=	1
 																			
 																				
---	ЙсГШ±¦Пд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????																			
+--	????							??????												
 	BaoXiang_SMBX_Qua	=	7	 				BaoXiang_SMBX_Mxcount	=	166										
 
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_SMBX	=	{}					BaoXiang_SMBX_Rad	=	{}					BaoXiang_SMBX_Count	=	{}			
 	BaoXiang_SMBX	[	1	]	=	4636		BaoXiang_SMBX_Rad	[	1	]	=	1		BaoXiang_SMBX_Count	[	1	]	=	1
 	BaoXiang_SMBX	[	2	]	=	4637		BaoXiang_SMBX_Rad	[	2	]	=	1		BaoXiang_SMBX_Count	[	2	]	=	1
@@ -12044,11 +5681,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_SMBX	[	165	]	=	2201		BaoXiang_SMBX_Rad	[	165	]	=	1		BaoXiang_SMBX_Count	[	165	]	=	1
 	BaoXiang_SMBX	[	166	]	=	2215		BaoXiang_SMBX_Rad	[	166	]	=	1		BaoXiang_SMBX_Count	[	166	]	=	1
 																				
---	ОпЧКПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	???																			
+--	????							??????												
 	BaoXiang_WZX_Qua	=	98	 				BaoXiang_WZX_Mxcount	=	153									
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_WZX	=	{}					BaoXiang_WZX_Rad	=	{}					BaoXiang_WZX_Count	=	{}			
 	BaoXiang_WZX	[	1	]	=	0004		BaoXiang_WZX_Rad	[	1	]	=	1		BaoXiang_WZX_Count	[	1	]	=	1
 	BaoXiang_WZX	[	2	]	=	0005		BaoXiang_WZX_Rad	[	2	]	=	1		BaoXiang_WZX_Count	[	2	]	=	1
@@ -12206,11 +5843,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 																		
 																				
 																				
---	чјчГЦ®ЅЈКїЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????????																			
+--	????							??????												
 	BaoXiang_KLJS_Qua	=	5	 				BaoXiang_KLJS_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_KLJS	=	{}					BaoXiang_KLJS_Rad	=	{}					BaoXiang_KLJS_Count	=	{}			
 	BaoXiang_KLJS	[	1	]	=	1928		BaoXiang_KLJS_Rad	[	1	]	=	1		BaoXiang_KLJS_Count	[	1	]	=	1
 	BaoXiang_KLJS	[	2	]	=	1935		BaoXiang_KLJS_Rad	[	2	]	=	1		BaoXiang_KLJS_Count	[	2	]	=	1
@@ -12218,11 +5855,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_KLJS	[	4	]	=	3798		BaoXiang_KLJS_Rad	[	4	]	=	1		BaoXiang_KLJS_Count	[	4	]	=	1
 																				
 																				
---	чјчГЦ®БФИЛЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????????																			
+--	????							??????												
 	BaoXiang_KLLR_Qua	=	5	 				BaoXiang_KLLR_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_KLLR	=	{}					BaoXiang_KLLR_Rad	=	{}					BaoXiang_KLLR_Count	=	{}			
 	BaoXiang_KLLR	[	1	]	=	1943		BaoXiang_KLLR_Rad	[	1	]	=	1		BaoXiang_KLLR_Count	[	1	]	=	1
 	BaoXiang_KLLR	[	2	]	=	1947		BaoXiang_KLLR_Rad	[	2	]	=	1		BaoXiang_KLLR_Count	[	2	]	=	1
@@ -12230,11 +5867,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_KLLR	[	4	]	=	3805		BaoXiang_KLLR_Rad	[	4	]	=	1		BaoXiang_KLLR_Count	[	4	]	=	1
 																				
 																				
---	чјчГЦ®ТЅЙъЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????????																			
+--	????							??????												
 	BaoXiang_KLYS_Qua	=	5	 				BaoXiang_KLYS_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_KLYS	=	{}					BaoXiang_KLYS_Rad	=	{}					BaoXiang_KLYS_Count	=	{}			
 	BaoXiang_KLYS	[	1	]	=	1955		BaoXiang_KLYS_Rad	[	1	]	=	1		BaoXiang_KLYS_Count	[	1	]	=	1
 	BaoXiang_KLYS	[	2	]	=	1962		BaoXiang_KLYS_Rad	[	2	]	=	1		BaoXiang_KLYS_Count	[	2	]	=	1
@@ -12242,11 +5879,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_KLYS	[	4	]	=	3809		BaoXiang_KLYS_Rad	[	4	]	=	1		BaoXiang_KLYS_Count	[	4	]	=	1
 																				
 																				
---	чјчГЦ®Г°ПХХЯЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	?????????																			
+--	????							??????												
 	BaoXiang_KLMX_Qua	=	5	 				BaoXiang_KLMX_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_KLMX	=	{}					BaoXiang_KLMX_Rad	=	{}					BaoXiang_KLMX_Count	=	{}			
 	BaoXiang_KLMX	[	1	]	=	1976		BaoXiang_KLMX_Rad	[	1	]	=	1		BaoXiang_KLMX_Count	[	1	]	=	1
 	BaoXiang_KLMX	[	2	]	=	1980		BaoXiang_KLMX_Rad	[	2	]	=	1		BaoXiang_KLMX_Count	[	2	]	=	1
@@ -12254,11 +5891,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_KLMX	[	4	]	=	3816		BaoXiang_KLMX_Rad	[	4	]	=	1		BaoXiang_KLMX_Count	[	4	]	=	1
 																				
 																				
---	ЦдКхЦ®Л«ЅЈКїЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	?????????																			
+--	????							??????												
 	BaoXiang_ZSSJ_Qua	=	5	 				BaoXiang_ZSSJ_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_ZSSJ	=	{}					BaoXiang_ZSSJ_Rad	=	{}					BaoXiang_ZSSJ_Count	=	{}			
 	BaoXiang_ZSSJ	[	1	]	=	1929		BaoXiang_ZSSJ_Rad	[	1	]	=	1		BaoXiang_ZSSJ_Count	[	1	]	=	1
 	BaoXiang_ZSSJ	[	2	]	=	1936		BaoXiang_ZSSJ_Rad	[	2	]	=	1		BaoXiang_ZSSJ_Count	[	2	]	=	1
@@ -12266,21 +5903,21 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_ZSSJ	[	4	]	=	3799		BaoXiang_ZSSJ_Rad	[	4	]	=	1		BaoXiang_ZSSJ_Count	[	4	]	=	1
 																				
 																				
---	ЦдКхЦ®ѕЮЅЈКїЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	?????????																			
+--	????							??????												
 	BaoXiang_ZSJS_Qua	=	5	 				BaoXiang_ZSJS_Mxcount	=	2										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_ZSJS	=	{}					BaoXiang_ZSJS_Rad	=	{}					BaoXiang_ZSJS_Count	=	{}			
 	BaoXiang_ZSJS	[	1	]	=	3802		BaoXiang_ZSJS_Rad	[	1	]	=	1		BaoXiang_ZSJS_Count	[	1	]	=	1
 	BaoXiang_ZSJS	[	2	]	=	1932		BaoXiang_ZSJS_Rad	[	2	]	=	1		BaoXiang_ZSJS_Count	[	2	]	=	1
 																				
 																				
---	ЦдКхЦ®ѕС»чКЦЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	?????????																			
+--	????							??????												
 	BaoXiang_ZSJJ_Qua	=	5	 				BaoXiang_ZSJJ_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_ZSJJ	=	{}					BaoXiang_ZSJJ_Rad	=	{}					BaoXiang_ZSJJ_Count	=	{}			
 	BaoXiang_ZSJJ	[	1	]	=	1944		BaoXiang_ZSJJ_Rad	[	1	]	=	1		BaoXiang_ZSJJ_Count	[	1	]	=	1
 	BaoXiang_ZSJJ	[	2	]	=	1948		BaoXiang_ZSJJ_Rad	[	2	]	=	1		BaoXiang_ZSJJ_Count	[	2	]	=	1
@@ -12288,11 +5925,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_ZSJJ	[	4	]	=	3806		BaoXiang_ZSJJ_Rad	[	4	]	=	1		BaoXiang_ZSJJ_Count	[	4	]	=	1
 																				
 																				
---	ЦдКхЦ®КҐЦ°ХЯЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	?????????																			
+--	????							??????												
 	BaoXiang_ZSSZ_Qua	=	5	 				BaoXiang_ZSSZ_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_ZSSZ	=	{}					BaoXiang_ZSSZ_Rad	=	{}					BaoXiang_ZSSZ_Count	=	{}			
 	BaoXiang_ZSSZ	[	1	]	=	1959		BaoXiang_ZSSZ_Rad	[	1	]	=	1		BaoXiang_ZSSZ_Count	[	1	]	=	1
 	BaoXiang_ZSSZ	[	2	]	=	1966		BaoXiang_ZSSZ_Rad	[	2	]	=	1		BaoXiang_ZSSZ_Count	[	2	]	=	1
@@ -12300,11 +5937,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_ZSSZ	[	4	]	=	3813		BaoXiang_ZSSZ_Rad	[	4	]	=	1		BaoXiang_ZSSZ_Count	[	4	]	=	1
 																				
 																				
---	ЦдКхЦ®·вУЎК¦Ч°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	?????????																			
+--	????							??????												
 	BaoXiang_ZSFY_Qua	=	5	 				BaoXiang_ZSFY_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_ZSFY	=	{}					BaoXiang_ZSFY_Rad	=	{}					BaoXiang_ZSFY_Count	=	{}			
 	BaoXiang_ZSFY	[	1	]	=	3810		BaoXiang_ZSFY_Rad	[	1	]	=	1		BaoXiang_ZSFY_Count	[	1	]	=	1
 	BaoXiang_ZSFY	[	2	]	=	1956		BaoXiang_ZSFY_Rad	[	2	]	=	1		BaoXiang_ZSFY_Count	[	2	]	=	1
@@ -12312,11 +5949,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_ZSFY	[	4	]	=	1970		BaoXiang_ZSFY_Rad	[	4	]	=	1		BaoXiang_ZSFY_Count	[	4	]	=	1
 																				
 																				
---	ЦдКхЦ®єЅєЈКїЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	?????????																			
+--	????							??????												
 	BaoXiang_ZSHH_Qua	=	5	 				BaoXiang_ZSHH_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_ZSHH	=	{}					BaoXiang_ZSHH_Rad	=	{}					BaoXiang_ZSHH_Count	=	{}			
 	BaoXiang_ZSHH	[	1	]	=	1977		BaoXiang_ZSHH_Rad	[	1	]	=	1		BaoXiang_ZSHH_Count	[	1	]	=	1
 	BaoXiang_ZSHH	[	2	]	=	1981		BaoXiang_ZSHH_Rad	[	2	]	=	1		BaoXiang_ZSHH_Count	[	2	]	=	1
@@ -12324,11 +5961,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_ZSHH	[	4	]	=	3817		BaoXiang_ZSHH_Rad	[	4	]	=	1		BaoXiang_ZSHH_Count	[	4	]	=	1
 																				
 																				
---	»ГБйЦ®Л«ЅЈКїЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	?????????																			
+--	????							??????												
 	BaoXiang_HLSJ_Qua	=	5	 				BaoXiang_HLSJ_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_HLSJ	=	{}					BaoXiang_HLSJ_Rad	=	{}					BaoXiang_HLSJ_Count	=	{}			
 	BaoXiang_HLSJ	[	1	]	=	1930		BaoXiang_HLSJ_Rad	[	1	]	=	1		BaoXiang_HLSJ_Count	[	1	]	=	1
 	BaoXiang_HLSJ	[	2	]	=	1937		BaoXiang_HLSJ_Rad	[	2	]	=	1		BaoXiang_HLSJ_Count	[	2	]	=	1
@@ -12336,21 +5973,21 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_HLSJ	[	4	]	=	3800		BaoXiang_HLSJ_Rad	[	4	]	=	1		BaoXiang_HLSJ_Count	[	4	]	=	1
 																				
 																				
---	»ГБйЦ®ѕЮЅЈКїЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	?????????																			
+--	????							??????												
 	BaoXiang_HLJS_Qua	=	5	 				BaoXiang_HLJS_Mxcount	=	2										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_HLJS	=	{}					BaoXiang_HLJS_Rad	=	{}					BaoXiang_HLJS_Count	=	{}			
 	BaoXiang_HLJS	[	1	]	=	1933		BaoXiang_HLJS_Rad	[	1	]	=	1		BaoXiang_HLJS_Count	[	1	]	=	1
 	BaoXiang_HLJS	[	2	]	=	3803		BaoXiang_HLJS_Rad	[	2	]	=	1		BaoXiang_HLJS_Count	[	2	]	=	1
 																				
 																				
---	»ГБйЦ®ѕС»чКЦЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	?????????																			
+--	????							??????												
 	BaoXiang_HLJJ_Qua	=	5	 				BaoXiang_HLJJ_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_HLJJ	=	{}					BaoXiang_HLJJ_Rad	=	{}					BaoXiang_HLJJ_Count	=	{}			
 	BaoXiang_HLJJ	[	1	]	=	1945		BaoXiang_HLJJ_Rad	[	1	]	=	1		BaoXiang_HLJJ_Count	[	1	]	=	1
 	BaoXiang_HLJJ	[	2	]	=	1949		BaoXiang_HLJJ_Rad	[	2	]	=	1		BaoXiang_HLJJ_Count	[	2	]	=	1
@@ -12358,11 +5995,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_HLJJ	[	4	]	=	3807		BaoXiang_HLJJ_Rad	[	4	]	=	1		BaoXiang_HLJJ_Count	[	4	]	=	1
 																				
 																				
---	»ГБйЦ®КҐЦ°ХЯЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	?????????																			
+--	????							??????												
 	BaoXiang_HLSZ_Qua	=	5	 				BaoXiang_HLSZ_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_HLSZ	=	{}					BaoXiang_HLSZ_Rad	=	{}					BaoXiang_HLSZ_Count	=	{}			
 	BaoXiang_HLSZ	[	1	]	=	1960		BaoXiang_HLSZ_Rad	[	1	]	=	1		BaoXiang_HLSZ_Count	[	1	]	=	1
 	BaoXiang_HLSZ	[	2	]	=	1967		BaoXiang_HLSZ_Rad	[	2	]	=	1		BaoXiang_HLSZ_Count	[	2	]	=	1
@@ -12370,11 +6007,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_HLSZ	[	4	]	=	3814		BaoXiang_HLSZ_Rad	[	4	]	=	1		BaoXiang_HLSZ_Count	[	4	]	=	1
 																				
 																				
---	»ГБйЦ®·вУЎК¦Ч°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	?????????																			
+--	????							??????												
 	BaoXiang_HLFY_Qua	=	5	 				BaoXiang_HLFY_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_HLFY	=	{}					BaoXiang_HLFY_Rad	=	{}					BaoXiang_HLFY_Count	=	{}			
 	BaoXiang_HLFY	[	1	]	=	1957		BaoXiang_HLFY_Rad	[	1	]	=	1		BaoXiang_HLFY_Count	[	1	]	=	1
 	BaoXiang_HLFY	[	2	]	=	1964		BaoXiang_HLFY_Rad	[	2	]	=	1		BaoXiang_HLFY_Count	[	2	]	=	1
@@ -12382,11 +6019,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_HLFY	[	4	]	=	3811		BaoXiang_HLFY_Rad	[	4	]	=	1		BaoXiang_HLFY_Count	[	4	]	=	1
 																				
 																				
---	»ГБйЦ®єЅєЈКїЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	?????????																			
+--	????							??????												
 	BaoXiang_HLHH_Qua	=	5	 				BaoXiang_HLHH_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_HLHH	=	{}					BaoXiang_HLHH_Rad	=	{}					BaoXiang_HLHH_Count	=	{}			
 	BaoXiang_HLHH	[	1	]	=	1978		BaoXiang_HLHH_Rad	[	1	]	=	1		BaoXiang_HLHH_Count	[	1	]	=	1
 	BaoXiang_HLHH	[	2	]	=	1982		BaoXiang_HLHH_Rad	[	2	]	=	1		BaoXiang_HLHH_Count	[	2	]	=	1
@@ -12394,11 +6031,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_HLHH	[	4	]	=	3818		BaoXiang_HLHH_Rad	[	4	]	=	1		BaoXiang_HLHH_Count	[	4	]	=	1
 																				
 																				
---	ГФЦ®Л«ЅЈКїЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????????																			
+--	????							??????												
 	BaoXiang_MSJ_Qua	=	5	 				BaoXiang_MSJ_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_MSJ	=	{}					BaoXiang_MSJ_Rad	=	{}					BaoXiang_MSJ_Count	=	{}			
 	BaoXiang_MSJ	[	1	]	=	1931		BaoXiang_MSJ_Rad	[	1	]	=	1		BaoXiang_MSJ_Count	[	1	]	=	1
 	BaoXiang_MSJ	[	2	]	=	1938		BaoXiang_MSJ_Rad	[	2	]	=	1		BaoXiang_MSJ_Count	[	2	]	=	1
@@ -12406,21 +6043,21 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_MSJ	[	4	]	=	3801		BaoXiang_MSJ_Rad	[	4	]	=	1		BaoXiang_MSJ_Count	[	4	]	=	1
 																				
 																				
---	ГФЦ®ѕЮЅЈКїЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????????																			
+--	????							??????												
 	BaoXiang_MJS_Qua	=	5	 				BaoXiang_MJS_Mxcount	=	2										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_MJS	=	{}					BaoXiang_MJS_Rad	=	{}					BaoXiang_MJS_Count	=	{}			
 	BaoXiang_MJS	[	1	]	=	1934		BaoXiang_MJS_Rad	[	1	]	=	1		BaoXiang_MJS_Count	[	1	]	=	1
 	BaoXiang_MJS	[	2	]	=	3804		BaoXiang_MJS_Rad	[	2	]	=	1		BaoXiang_MJS_Count	[	2	]	=	1
 																				
 																				
---	ГФЦ®ѕС»чКЦЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????????																			
+--	????							??????												
 	BaoXiang_MJJ_Qua	=	5	 				BaoXiang_MJJ_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_MJJ	=	{}					BaoXiang_MJJ_Rad	=	{}					BaoXiang_MJJ_Count	=	{}			
 	BaoXiang_MJJ	[	1	]	=	1946		BaoXiang_MJJ_Rad	[	1	]	=	1		BaoXiang_MJJ_Count	[	1	]	=	1
 	BaoXiang_MJJ	[	2	]	=	1950		BaoXiang_MJJ_Rad	[	2	]	=	1		BaoXiang_MJJ_Count	[	2	]	=	1
@@ -12428,11 +6065,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_MJJ	[	4	]	=	3808		BaoXiang_MJJ_Rad	[	4	]	=	1		BaoXiang_MJJ_Count	[	4	]	=	1
 																				
 																				
---	ГФЦ®КҐЦ°ХЯЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????????																			
+--	????							??????												
 	BaoXiang_MSZ_Qua	=	5	 				BaoXiang_MSZ_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_MSZ	=	{}					BaoXiang_MSZ_Rad	=	{}					BaoXiang_MSZ_Count	=	{}			
 	BaoXiang_MSZ	[	1	]	=	1961		BaoXiang_MSZ_Rad	[	1	]	=	1		BaoXiang_MSZ_Count	[	1	]	=	1
 	BaoXiang_MSZ	[	2	]	=	1968		BaoXiang_MSZ_Rad	[	2	]	=	1		BaoXiang_MSZ_Count	[	2	]	=	1
@@ -12440,11 +6077,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_MSZ	[	4	]	=	3815		BaoXiang_MSZ_Rad	[	4	]	=	1		BaoXiang_MSZ_Count	[	4	]	=	1
 																				
 																				
---	ГФЦ®·вУЎК¦Ч°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????????																			
+--	????							??????												
 	BaoXiang_MFY_Qua	=	5	 				BaoXiang_MFY_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_MFY	=	{}					BaoXiang_MFY_Rad	=	{}					BaoXiang_MFY_Count	=	{}			
 	BaoXiang_MFY	[	1	]	=	1958		BaoXiang_MFY_Rad	[	1	]	=	1		BaoXiang_MFY_Count	[	1	]	=	1
 	BaoXiang_MFY	[	2	]	=	1965		BaoXiang_MFY_Rad	[	2	]	=	1		BaoXiang_MFY_Count	[	2	]	=	1
@@ -12452,11 +6089,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_MFY	[	4	]	=	3812		BaoXiang_MFY_Rad	[	4	]	=	1		BaoXiang_MFY_Count	[	4	]	=	1
 																				
 																				
---	ГФЦ®єЅєЈКїЧ°±ёПд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????????																			
+--	????							??????												
 	BaoXiang_MHH_Qua	=	5	 				BaoXiang_MHH_Mxcount	=	4										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_MHH	=	{}					BaoXiang_MHH_Rad	=	{}					BaoXiang_MHH_Count	=	{}			
 	BaoXiang_MHH	[	1	]	=	1979		BaoXiang_MHH_Rad	[	1	]	=	1		BaoXiang_MHH_Count	[	1	]	=	1
 	BaoXiang_MHH	[	2	]	=	1983		BaoXiang_MHH_Rad	[	2	]	=	1		BaoXiang_MHH_Count	[	2	]	=	1
@@ -12464,11 +6101,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_MHH	[	4	]	=	3819		BaoXiang_MHH_Rad	[	4	]	=	1		BaoXiang_MHH_Count	[	4	]	=	1
 																				
 																				
---	·ПБй±¦Пд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????																			
+--	????							??????												
 	BaoXiang_FLBX_Qua	=	5	 				BaoXiang_FLBX_Mxcount	=	8										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_FLBX	=	{}					BaoXiang_FLBX_Rad	=	{}					BaoXiang_FLBX_Count	=	{}			
 	BaoXiang_FLBX	[	1	]	=	1884		BaoXiang_FLBX_Rad	[	1	]	=	1		BaoXiang_FLBX_Count	[	1	]	=	1
 	BaoXiang_FLBX	[	2	]	=	1891		BaoXiang_FLBX_Rad	[	2	]	=	1		BaoXiang_FLBX_Count	[	2	]	=	1
@@ -12480,11 +6117,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_FLBX	[	8	]	=	1924		BaoXiang_FLBX_Rad	[	8	]	=	1		BaoXiang_FLBX_Count	[	8	]	=	1
 																				
 																				
---	ХУФу±¦Пд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????																			
+--	????							??????												
 	BaoXiang_ZZBX_Qua	=	5	 				BaoXiang_ZZBX_Mxcount	=	12										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_ZZBX	=	{}					BaoXiang_ZZBX_Rad	=	{}					BaoXiang_ZZBX_Count	=	{}			
 	BaoXiang_ZZBX	[	1	]	=	1907		BaoXiang_ZZBX_Rad	[	1	]	=	1		BaoXiang_ZZBX_Count	[	1	]	=	1
 	BaoXiang_ZZBX	[	2	]	=	1911		BaoXiang_ZZBX_Rad	[	2	]	=	1		BaoXiang_ZZBX_Count	[	2	]	=	1
@@ -12500,11 +6137,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_ZZBX	[	12	]	=	1903		BaoXiang_ZZBX_Rad	[	12	]	=	1		BaoXiang_ZZBX_Count	[	12	]	=	1
 																				
 																				
---	Д§·Ѕ±¦Пд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????																			
+--	????							??????												
 	BaoXiang_MFBX_Qua	=	5	 				BaoXiang_MFBX_Mxcount	=	22										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_MFBX	=	{}					BaoXiang_MFBX_Rad	=	{}					BaoXiang_MFBX_Count	=	{}			
 	BaoXiang_MFBX	[	1	]	=	1908		BaoXiang_MFBX_Rad	[	1	]	=	1		BaoXiang_MFBX_Count	[	1	]	=	1
 	BaoXiang_MFBX	[	2	]	=	1912		BaoXiang_MFBX_Rad	[	2	]	=	1		BaoXiang_MFBX_Count	[	2	]	=	1
@@ -12530,11 +6167,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_MFBX	[	22	]	=	1997		BaoXiang_MFBX_Rad	[	22	]	=	1		BaoXiang_MFBX_Count	[	22	]	=	1
 																				
 																				
---	ГФЦ®±¦Пд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????																			
+--	????							??????												
 	BaoXiang_MZBX_Qua	=	5	 				BaoXiang_MZBX_Mxcount	=	12										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_MZBX	=	{}					BaoXiang_MZBX_Rad	=	{}					BaoXiang_MZBX_Count	=	{}			
 	BaoXiang_MZBX	[	1	]	=	1887		BaoXiang_MZBX_Rad	[	1	]	=	1		BaoXiang_MZBX_Count	[	1	]	=	1
 	BaoXiang_MZBX	[	2	]	=	1890		BaoXiang_MZBX_Rad	[	2	]	=	1		BaoXiang_MZBX_Count	[	2	]	=	1
@@ -12549,11 +6186,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_MZBX	[	11	]	=	1927		BaoXiang_MZBX_Rad	[	11	]	=	1		BaoXiang_MZBX_Count	[	11	]	=	1
 	BaoXiang_MZBX	[	12	]	=	1919		BaoXiang_MZBX_Rad	[	12	]	=	1		BaoXiang_MZBX_Count	[	12	]	=	1
 
---	КҐµ®НаЧУ±¦Пд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	??????																			
+--	????							??????												
 	BaoXiang_SDWZBOX_Qua	=	5	 				BaoXiang_SDWZBOX_Mxcount	=	19										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_SDWZBOX	=	{}					BaoXiang_SDWZBOX_Rad	=	{}					BaoXiang_SDWZBOX_Count	=	{}			
 	BaoXiang_SDWZBOX	[	1	]	=	0863		BaoXiang_SDWZBOX_Rad	[	1	]	=	1		BaoXiang_SDWZBOX_Count	[	1	]	=	1
 	BaoXiang_SDWZBOX	[	2	]	=	0862		BaoXiang_SDWZBOX_Rad	[	2	]	=	1		BaoXiang_SDWZBOX_Count	[	2	]	=	1
@@ -12575,11 +6212,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_SDWZBOX	[	17	]	=	0884		BaoXiang_SDWZBOX_Rad	[	18	]	=	8		BaoXiang_SDWZBOX_Count	[	18	]	=	1
 	BaoXiang_SDWZBOX	[	19	]	=	0887		BaoXiang_SDWZBOX_Rad	[	19	]	=	8		BaoXiang_SDWZBOX_Count	[	19	]	=	1
 																				
---	КҐµ®АсєР±¦Пд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	??????																			
+--	????							??????												
 	BaoXiang_SDLHBOX_Qua	=	5	 				BaoXiang_SDLHBOX_Mxcount	=	150										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК							ОпЖ·КэДї					
+--	????							????							????					
 	BaoXiang_SDLHBOX	=	{}					BaoXiang_SDLHBOX_Rad	=	{}					BaoXiang_SDLHBOX_Count	=	{}			
 	BaoXiang_SDLHBOX	[	1	]	=	0004		BaoXiang_SDLHBOX_Rad	[	1	]	=	1		BaoXiang_SDLHBOX_Count	[	1	]	=	1
 	BaoXiang_SDLHBOX	[	2	]	=	0005		BaoXiang_SDLHBOX_Rad	[	2	]	=	1		BaoXiang_SDLHBOX_Count	[	2	]	=	1
@@ -12733,11 +6370,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_SDLHBOX	[	150	]	=	1478		BaoXiang_SDLHBOX_Rad	[	150	]	=	20		BaoXiang_SDLHBOX_Count	[	150	]	=	10
 
 
---	єГФЛ°ь±¦Пд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	?????																			
+--	????							??????												
 	BaoXiang_HYBOX_Qua	=	5	 				BaoXiang_HYBOX_Mxcount	=	22										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК												
+--	????							????												
 	BaoXiang_HYBOX	=	{}					BaoXiang_HYBOX_Rad	=	{}					BaoXiang_HYBOX_Count	=	{}			
 	BaoXiang_HYBOX	[	1	]	=	3851		BaoXiang_HYBOX_Rad	[	1	]	=	1 		BaoXiang_HYBOX_Count	[	1	]	=	1
 	BaoXiang_HYBOX	[	2	]	=	3852		BaoXiang_HYBOX_Rad	[	2	]	=	1 		BaoXiang_HYBOX_Count	[	2	]	=	1
@@ -12766,11 +6403,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 																				
 																				
 																				
---	єиФЛ°ь±¦Пд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	?????																			
+--	????							??????												
 	BaoXiang_HYUNBOX_Qua	=	5	 				BaoXiang_HYUNBOX_Mxcount	=	53										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК												
+--	????							????												
 	BaoXiang_HYUNBOX	=	{}					BaoXiang_HYUNBOX_Rad	=	{}					BaoXiang_HYUNBOX_Count	=	{}			
 	BaoXiang_HYUNBOX	[	1	]	=	3851		BaoXiang_HYUNBOX_Rad	[	1	]	=	200 		BaoXiang_HYUNBOX_Count	[	1	]	=	1
 	BaoXiang_HYUNBOX	[	2	]	=	3852		BaoXiang_HYUNBOX_Rad	[	2	]	=	300 		BaoXiang_HYUNBOX_Count	[	2	]	=	1
@@ -12831,11 +6468,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 																				
 																				
 																				
---	ё»№у°ь±¦Пд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	?????																			
+--	????							??????												
 	BaoXiang_FGBOX_Qua	=	5	 				BaoXiang_FGBOX_Mxcount	=	41										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК												
+--	????							????												
 	BaoXiang_FGBOX	=	{}					BaoXiang_FGBOX_Rad	=	{}					BaoXiang_FGBOX_Count	=	{}			
 	BaoXiang_FGBOX	[	1	]	=	3828		BaoXiang_FGBOX_Rad	[	1	]	=	32 		BaoXiang_FGBOX_Count	[	1	]	=	1
 	BaoXiang_FGBOX	[	2	]	=	3829		BaoXiang_FGBOX_Rad	[	2	]	=	32 		BaoXiang_FGBOX_Count	[	2	]	=	1
@@ -12881,11 +6518,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 																				
 																				
 																				
---	°µµ­РнФёКЇ±¦Пд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	???????																			
+--	????							??????												
 	BaoXiang_ADBOX_Qua	=	5	 				BaoXiang_ADBOX_Mxcount	=	139										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК												
+--	????							????												
 	BaoXiang_ADBOX	=	{}					BaoXiang_ADBOX_Rad	=	{}					BaoXiang_ADBOX_Count	=	{}			
 	BaoXiang_ADBOX	[	1	]	=	3909		BaoXiang_ADBOX_Rad	[	1	]	=	600 		BaoXiang_ADBOX_Count	[	1	]	=	1
 	BaoXiang_ADBOX	[	2	]	=	3345		BaoXiang_ADBOX_Rad	[	2	]	=	300 		BaoXiang_ADBOX_Count	[	2	]	=	1
@@ -13038,11 +6675,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 																				
 																				
 																				
---	ЙБ№вРнФёКЇ±¦Пд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	???????																			
+--	????							??????												
 	BaoXiang_SGBOX_Qua	=	5	 				BaoXiang_SGBOX_Mxcount	=	78										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК												
+--	????							????												
 	BaoXiang_SGBOX	=	{}					BaoXiang_SGBOX_Rad	=	{}					BaoXiang_SGBOX_Count	=	{}			
 	BaoXiang_SGBOX	[	1	]	=	3909		BaoXiang_SGBOX_Rad	[	1	]	=	60000 		BaoXiang_SGBOX_Count	[	1	]	=	1
 	BaoXiang_SGBOX	[	2	]	=	3345		BaoXiang_SGBOX_Rad	[	2	]	=	10000 		BaoXiang_SGBOX_Count	[	2	]	=	1
@@ -13124,11 +6761,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_SGBOX	[	78	]	=	3125		BaoXiang_SGBOX_Rad	[	78	]	=	12711 		BaoXiang_SGBOX_Count	[	78	]	=	1
 																				
 
---	ІШ±¦Нј±¦Пд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	?????																			
+--	????							??????												
 	BaoXiang_CBTBOX_Qua	=	5	 				BaoXiang_CBTBOX_Mxcount	=	222										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК												
+--	????							????												
 	BaoXiang_CBTBOX	=	{}					BaoXiang_CBTBOX_Rad	=	{}					BaoXiang_CBTBOX_Count	=	{}			
 	BaoXiang_CBTBOX	[	1	]	=	0396		BaoXiang_CBTBOX_Rad	[	1	]	=	1 		BaoXiang_CBTBOX_Count	[	1	]	=	1
 	BaoXiang_CBTBOX	[	2	]	=	0398		BaoXiang_CBTBOX_Rad	[	2	]	=	1 		BaoXiang_CBTBOX_Count	[	2	]	=	1
@@ -13355,11 +6992,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 
 
 
---	іиіи±¦Пд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????																			
+--	????							??????												
 	BaoXiang_SYBOX_Qua	=	5					BaoXiang_SYBOX_Mxcount	=	15										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК												
+--	????							????												
 	BaoXiang_SYBOX	=	{}					BaoXiang_SYBOX_Rad	=	{}					BaoXiang_SYBOX_Count	=	{}			
 	BaoXiang_SYBOX	[	1	]	=	0183		BaoXiang_SYBOX_Rad	[	1	]	=	1 		BaoXiang_SYBOX_Count	[	1	]	=	1
 	BaoXiang_SYBOX	[	2	]	=	0184		BaoXiang_SYBOX_Rad	[	2	]	=	1 		BaoXiang_SYBOX_Count	[	2	]	=	1
@@ -13378,29 +7015,26 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_SYBOX	[	15	]	=	3342		BaoXiang_SYBOX_Rad	[	15	]	=	200 		BaoXiang_SYBOX_Count	[	15	]	=	1
 
 
---	ѕ«БйАсЖ·єР																				
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ													
-	BaoXiang_JingLingBOX_Qua	=	5					BaoXiang_JingLingBOX_Mxcount	=	10											
+--	?????																				
+--	????							??????													
+	BaoXiang_JingLingBOX_Qua	=	5					BaoXiang_JingLingBOX_Mxcount	=	7											
 																					
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК													
+--	????							????													
 	BaoXiang_JingLingBOX	=	{}					BaoXiang_JingLingBOX_Rad	=	{}					BaoXiang_JingLingBOX_Count	=	{}				
-	BaoXiang_JingLingBOX	[	1	]	=	0183		BaoXiang_JingLingBOX_Rad	[	1	]	=	1		BaoXiang_JingLingBOX_Count	[	1	]	=	1	
-	BaoXiang_JingLingBOX	[	2	]	=	0189		BaoXiang_JingLingBOX_Rad	[	2	]	=	1		BaoXiang_JingLingBOX_Count	[	2	]	=	1	
-	BaoXiang_JingLingBOX	[	3	]	=	0185		BaoXiang_JingLingBOX_Rad	[	3	]	=	1		BaoXiang_JingLingBOX_Count	[	3	]	=	1	
+	BaoXiang_JingLingBOX	[	1	]	=	0183		BaoXiang_JingLingBOX_Rad	[	1	]	=	32		BaoXiang_JingLingBOX_Count	[	1	]	=	1	
+	BaoXiang_JingLingBOX	[	2	]	=	0189		BaoXiang_JingLingBOX_Rad	[	2	]	=	32		BaoXiang_JingLingBOX_Count	[	2	]	=	1	
+	BaoXiang_JingLingBOX	[	3	]	=	0185		BaoXiang_JingLingBOX_Rad	[	3	]	=	32		BaoXiang_JingLingBOX_Count	[	3	]	=	1	
 	BaoXiang_JingLingBOX	[	4	]	=	0186		BaoXiang_JingLingBOX_Rad	[	4	]	=	1		BaoXiang_JingLingBOX_Count	[	4	]	=	1	
 	BaoXiang_JingLingBOX	[	5	]	=	0187		BaoXiang_JingLingBOX_Rad	[	5	]	=	1		BaoXiang_JingLingBOX_Count	[	5	]	=	1	
 	BaoXiang_JingLingBOX	[	6	]	=	0188		BaoXiang_JingLingBOX_Rad	[	6	]	=	1		BaoXiang_JingLingBOX_Count	[	6	]	=	1	
 	BaoXiang_JingLingBOX	[	7	]	=	0184		BaoXiang_JingLingBOX_Rad	[	7	]	=	1		BaoXiang_JingLingBOX_Count	[	7	]	=	1	
-	BaoXiang_JingLingBOX	[	8	]	=	0190		BaoXiang_JingLingBOX_Rad	[	8	]	=	1		BaoXiang_JingLingBOX_Count	[	8	]	=	1	
-	BaoXiang_JingLingBOX	[	9	]	=	0191		BaoXiang_JingLingBOX_Rad	[	9	]	=	1		BaoXiang_JingLingBOX_Count	[	9	]	=	1	
-	BaoXiang_JingLingBOX	[	10	]	=	0680		BaoXiang_JingLingBOX_Rad	[	10	]	=	1		BaoXiang_JingLingBOX_Count	[	10	]	=	1	
 
 
---	·зАЧ±¦Пд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????																			
+--	????							??????												
 	BoxXiang_FLeiBOX_Qua	=	5					BoxXiang_FLeiBOX_Mxcount	=	12										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК												
+--	????							????												
 	BoxXiang_FLeiBOX	=	{}	 	 	 		BoxXiang_FLeiBOX_Rad	=	{}	 	 			BoxXiang_FLeiBOX_Count	=	{}			
 	BoxXiang_FLeiBOX	[	1	]	=	5001		BoxXiang_FLeiBOX_Rad	[	1	]	=	1		BoxXiang_FLeiBOX_Count	[	1	]	=	1
 	BoxXiang_FLeiBOX	[	2	]	=	5002		BoxXiang_FLeiBOX_Rad	[	2	]	=	1		BoxXiang_FLeiBOX_Count	[	2	]	=	1
@@ -13416,11 +7050,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BoxXiang_FLeiBOX	[	12	]	=	5012		BoxXiang_FLeiBOX_Rad	[	12	]	=	1		BoxXiang_FLeiBOX_Count	[	12	]	=	1
 
 																				
---	Т»ФЄєГФЛ°ь																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	?????																			
+--	????							??????												
 	BoxXiang_YiYuanBOX_Qua	=	5					BoxXiang_YiYuanBOX_Mxcount	=	32										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК												
+--	????							????												
 	BoxXiang_YiYuanBOX	=	{}					BoxXiang_YiYuanBOX_Rad	=	{}					BoxXiang_YiYuanBOX_Count	=	{}			
 	BoxXiang_YiYuanBOX	[	1	]	=	3098		BoxXiang_YiYuanBOX_Rad	[	1	]	=	150 		BoxXiang_YiYuanBOX_Count	[	1	]	=	4
 	BoxXiang_YiYuanBOX	[	2	]	=	3054		BoxXiang_YiYuanBOX_Rad	[	2	]	=	150 		BoxXiang_YiYuanBOX_Count	[	2	]	=	4
@@ -13456,11 +7090,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BoxXiang_YiYuanBOX	[	32	]	=	3085		BoxXiang_YiYuanBOX_Rad	[	32	]	=	1 		BoxXiang_YiYuanBOX_Count	[	32	]	=	1
 
 
---	99±¬ХЁ°ь																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	99???																			
+--	????							??????												
 	BoxXiang_baozhabao_Qua	=	5					BoxXiang_baozhabao_Mxcount	=	35										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК												
+--	????							????												
 	BoxXiang_BaoZhaBOX	=	{}					BoxXiang_BaoZhaBOX_Rad	=	{}					BoxXiang_BaoZhaBOX_Count	=	{}			
 	BoxXiang_BaoZhaBOX	[	1	]	=	3077		BoxXiang_BaoZhaBOX_Rad	[	1	]	=	566 		BoxXiang_BaoZhaBOX_Count	[	1	]	=	10
 	BoxXiang_BaoZhaBOX	[	2	]	=	3094		BoxXiang_BaoZhaBOX_Rad	[	2	]	=	566 		BoxXiang_BaoZhaBOX_Count	[	2	]	=	2
@@ -13499,11 +7133,11 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BoxXiang_BaoZhaBOX	[	35	]	=	271		BoxXiang_BaoZhaBOX_Rad	[	35	]	=	5 		BoxXiang_BaoZhaBOX_Count	[	35	]	=	1
 
 
---	єЈµБНхЦЬЛк°Щ±¦Пд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????????																			
+--	????							??????												
 	BoxXiang_ZhouSui_Qua	=	5					BoxXiang_ZhouSui_Mxcount	=	16										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК												
+--	????							????												
 	BoxXiang_ZhousSuiBOX	=	{}					BoxXiang_ZhousSuiBOX_Rad	=	{}					BoxXiang_ZhousSuiBOX_Count	=	{}			
 	BoxXiang_ZhousSuiBOX	[	1	]	=	0853		BoxXiang_ZhousSuiBOX_Rad	[	1	]	=	2 		BoxXiang_ZhousSuiBOX_Count	[	1	]	=	1
 	BoxXiang_ZhousSuiBOX	[	2	]	=	3047		BoxXiang_ZhousSuiBOX_Rad	[	2	]	=	5 		BoxXiang_ZhousSuiBOX_Count	[	2	]	=	5
@@ -13525,199 +7159,202 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 
 
 
---	јУАХ±ИІШ±¦Нј±¦Пд																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	????????																			
+--	????							??????												
 	BaoXiang_JLBCBTBOX_Qua	=	5	 				BaoXiang_JLBCBTBOX_Mxcount	=	183										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК												
+--	????							????												
 	BaoXiang_JLBCBTBOX	=	{}					BaoXiang_JLBCBTBOX_Rad	=	{}					BaoXiang_JLBCBTBOX_Count	=	{}			
-	BaoXiang_JLBCBTBOX	[	1	]	=	7622		BaoXiang_JLBCBTBOX_Rad	[	1	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	1	]	=	1
-	BaoXiang_JLBCBTBOX	[	2	]	=	7623		BaoXiang_JLBCBTBOX_Rad	[	2	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	2	]	=	1
-	BaoXiang_JLBCBTBOX	[	3	]	=	7620		BaoXiang_JLBCBTBOX_Rad	[	3	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	3	]	=	1
-	BaoXiang_JLBCBTBOX	[	4	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	4	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	4	]	=	1
-	BaoXiang_JLBCBTBOX	[	5	]	=	7484		BaoXiang_JLBCBTBOX_Rad	[	5	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	5	]	=	1
-	BaoXiang_JLBCBTBOX	[	6	]	=	7502		BaoXiang_JLBCBTBOX_Rad	[	6	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	6	]	=	1
-	BaoXiang_JLBCBTBOX	[	7	]	=	7489		BaoXiang_JLBCBTBOX_Rad	[	7	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	7	]	=	1
-	BaoXiang_JLBCBTBOX	[	8	]	=	7624		BaoXiang_JLBCBTBOX_Rad	[	8	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	8	]	=	1
-	BaoXiang_JLBCBTBOX	[	9	]	=	7477		BaoXiang_JLBCBTBOX_Rad	[	9	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	9	]	=	1
-	BaoXiang_JLBCBTBOX	[	10	]	=	7478		BaoXiang_JLBCBTBOX_Rad	[	10	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	10	]	=	1
-	BaoXiang_JLBCBTBOX	[	11	]	=	7479		BaoXiang_JLBCBTBOX_Rad	[	11	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	11	]	=	1
-	BaoXiang_JLBCBTBOX	[	12	]	=	7480		BaoXiang_JLBCBTBOX_Rad	[	12	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	12	]	=	1
-	BaoXiang_JLBCBTBOX	[	13	]	=	7481		BaoXiang_JLBCBTBOX_Rad	[	13	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	13	]	=	1
-	BaoXiang_JLBCBTBOX	[	14	]	=	7483		BaoXiang_JLBCBTBOX_Rad	[	14	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	14	]	=	1
-	BaoXiang_JLBCBTBOX	[	15	]	=	7485		BaoXiang_JLBCBTBOX_Rad	[	15	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	15	]	=	1
-	BaoXiang_JLBCBTBOX	[	16	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	16	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	16	]	=	1
-	BaoXiang_JLBCBTBOX	[	17	]	=	7491		BaoXiang_JLBCBTBOX_Rad	[	17	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	17	]	=	1
-	BaoXiang_JLBCBTBOX	[	18	]	=	7492		BaoXiang_JLBCBTBOX_Rad	[	18	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	18	]	=	1
-	BaoXiang_JLBCBTBOX	[	19	]	=	7493		BaoXiang_JLBCBTBOX_Rad	[	19	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	19	]	=	1
-	BaoXiang_JLBCBTBOX	[	20	]	=	7494		BaoXiang_JLBCBTBOX_Rad	[	20	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	20	]	=	1
-	BaoXiang_JLBCBTBOX	[	21	]	=	7510		BaoXiang_JLBCBTBOX_Rad	[	21	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	21	]	=	1
-	BaoXiang_JLBCBTBOX	[	22	]	=	1145		BaoXiang_JLBCBTBOX_Rad	[	22	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	22	]	=	1
-	BaoXiang_JLBCBTBOX	[	23	]	=	2729		BaoXiang_JLBCBTBOX_Rad	[	23	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	23	]	=	1
-	BaoXiang_JLBCBTBOX	[	24	]	=	7450		BaoXiang_JLBCBTBOX_Rad	[	24	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	24	]	=	1
-	BaoXiang_JLBCBTBOX	[	25	]	=	7467		BaoXiang_JLBCBTBOX_Rad	[	25	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	25	]	=	1
-	BaoXiang_JLBCBTBOX	[	26	]	=	7456		BaoXiang_JLBCBTBOX_Rad	[	26	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	26	]	=	1
-	BaoXiang_JLBCBTBOX	[	27	]	=	7444		BaoXiang_JLBCBTBOX_Rad	[	27	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	27	]	=	1
-	BaoXiang_JLBCBTBOX	[	28	]	=	7483		BaoXiang_JLBCBTBOX_Rad	[	28	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	28	]	=	1
-	BaoXiang_JLBCBTBOX	[	29	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	29	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	29	]	=	1
-	BaoXiang_JLBCBTBOX	[	30	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	30	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	30	]	=	1
-	BaoXiang_JLBCBTBOX	[	31	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	31	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	31	]	=	1
-	BaoXiang_JLBCBTBOX	[	32	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	32	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	32	]	=	1
-	BaoXiang_JLBCBTBOX	[	33	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	33	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	33	]	=	1
-	BaoXiang_JLBCBTBOX	[	34	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	34	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	34	]	=	1
-	BaoXiang_JLBCBTBOX	[	35	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	35	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	35	]	=	1
-	BaoXiang_JLBCBTBOX	[	36	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	36	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	36	]	=	1
-	BaoXiang_JLBCBTBOX	[	37	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	37	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	37	]	=	1
-	BaoXiang_JLBCBTBOX	[	38	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	38	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	38	]	=	1
-	BaoXiang_JLBCBTBOX	[	39	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	39	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	39	]	=	1
-	BaoXiang_JLBCBTBOX	[	40	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	40	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	40	]	=	1
-	BaoXiang_JLBCBTBOX	[	41	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	41	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	41	]	=	1
-	BaoXiang_JLBCBTBOX	[	42	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	42	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	42	]	=	1
-	BaoXiang_JLBCBTBOX	[	43	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	43	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	43	]	=	1
-	BaoXiang_JLBCBTBOX	[	44	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	44	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	44	]	=	1
-	BaoXiang_JLBCBTBOX	[	45	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	45	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	45	]	=	1
-	BaoXiang_JLBCBTBOX	[	46	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	46	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	46	]	=	1
-	BaoXiang_JLBCBTBOX	[	47	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	47	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	47	]	=	1
-	BaoXiang_JLBCBTBOX	[	48	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	48	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	48	]	=	1
-	BaoXiang_JLBCBTBOX	[	49	]	=	7622		BaoXiang_JLBCBTBOX_Rad	[	49	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	49	]	=	1
-	BaoXiang_JLBCBTBOX	[	50	]	=	7623		BaoXiang_JLBCBTBOX_Rad	[	50	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	50	]	=	1
-	BaoXiang_JLBCBTBOX	[	51	]	=	7620		BaoXiang_JLBCBTBOX_Rad	[	51	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	51	]	=	1
-	BaoXiang_JLBCBTBOX	[	52	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	52	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	52	]	=	1
-	BaoXiang_JLBCBTBOX	[	53	]	=	7484		BaoXiang_JLBCBTBOX_Rad	[	53	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	53	]	=	1
-	BaoXiang_JLBCBTBOX	[	54	]	=	7502		BaoXiang_JLBCBTBOX_Rad	[	54	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	54	]	=	1
-	BaoXiang_JLBCBTBOX	[	55	]	=	7489		BaoXiang_JLBCBTBOX_Rad	[	55	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	55	]	=	1
-	BaoXiang_JLBCBTBOX	[	56	]	=	7624		BaoXiang_JLBCBTBOX_Rad	[	56	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	56	]	=	1
-	BaoXiang_JLBCBTBOX	[	57	]	=	7477		BaoXiang_JLBCBTBOX_Rad	[	57	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	57	]	=	1
-	BaoXiang_JLBCBTBOX	[	58	]	=	7478		BaoXiang_JLBCBTBOX_Rad	[	58	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	58	]	=	1
-	BaoXiang_JLBCBTBOX	[	59	]	=	7479		BaoXiang_JLBCBTBOX_Rad	[	59	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	59	]	=	1
-	BaoXiang_JLBCBTBOX	[	60	]	=	7480		BaoXiang_JLBCBTBOX_Rad	[	60	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	60	]	=	1
-	BaoXiang_JLBCBTBOX	[	61	]	=	7481		BaoXiang_JLBCBTBOX_Rad	[	61	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	61	]	=	1
-	BaoXiang_JLBCBTBOX	[	62	]	=	7483		BaoXiang_JLBCBTBOX_Rad	[	62	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	62	]	=	1
-	BaoXiang_JLBCBTBOX	[	63	]	=	7485		BaoXiang_JLBCBTBOX_Rad	[	63	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	63	]	=	1
-	BaoXiang_JLBCBTBOX	[	64	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	64	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	64	]	=	1
-	BaoXiang_JLBCBTBOX	[	65	]	=	7491		BaoXiang_JLBCBTBOX_Rad	[	65	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	65	]	=	1
-	BaoXiang_JLBCBTBOX	[	66	]	=	7492		BaoXiang_JLBCBTBOX_Rad	[	66	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	66	]	=	1
-	BaoXiang_JLBCBTBOX	[	67	]	=	7493		BaoXiang_JLBCBTBOX_Rad	[	67	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	67	]	=	1
-	BaoXiang_JLBCBTBOX	[	68	]	=	7494		BaoXiang_JLBCBTBOX_Rad	[	68	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	68	]	=	1
-	BaoXiang_JLBCBTBOX	[	69	]	=	7510		BaoXiang_JLBCBTBOX_Rad	[	69	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	69	]	=	1
-	BaoXiang_JLBCBTBOX	[	70	]	=	1145		BaoXiang_JLBCBTBOX_Rad	[	70	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	70	]	=	1
-	BaoXiang_JLBCBTBOX	[	71	]	=	2729		BaoXiang_JLBCBTBOX_Rad	[	71	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	71	]	=	1
-	BaoXiang_JLBCBTBOX	[	72	]	=	7450		BaoXiang_JLBCBTBOX_Rad	[	72	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	72	]	=	1
-	BaoXiang_JLBCBTBOX	[	73	]	=	7467		BaoXiang_JLBCBTBOX_Rad	[	73	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	73	]	=	1
-	BaoXiang_JLBCBTBOX	[	74	]	=	7456		BaoXiang_JLBCBTBOX_Rad	[	74	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	74	]	=	1
-	BaoXiang_JLBCBTBOX	[	75	]	=	7444		BaoXiang_JLBCBTBOX_Rad	[	75	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	75	]	=	1
-	BaoXiang_JLBCBTBOX	[	76	]	=	7510		BaoXiang_JLBCBTBOX_Rad	[	76	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	76	]	=	1
-	BaoXiang_JLBCBTBOX	[	77	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	78	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	78	]	=	1
-	BaoXiang_JLBCBTBOX	[	79	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	79	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	79	]	=	1
-	BaoXiang_JLBCBTBOX	[	80	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	80	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	80	]	=	1
-	BaoXiang_JLBCBTBOX	[	81	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	81	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	81	]	=	1
-	BaoXiang_JLBCBTBOX	[	82	]	=	7622		BaoXiang_JLBCBTBOX_Rad	[	82	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	82	]	=	1
-	BaoXiang_JLBCBTBOX	[	83	]	=	7623		BaoXiang_JLBCBTBOX_Rad	[	83	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	83	]	=	1
-	BaoXiang_JLBCBTBOX	[	84	]	=	7620		BaoXiang_JLBCBTBOX_Rad	[	84	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	84	]	=	1
-	BaoXiang_JLBCBTBOX	[	85	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	85	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	85	]	=	1
-	BaoXiang_JLBCBTBOX	[	86	]	=	7484		BaoXiang_JLBCBTBOX_Rad	[	86	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	86	]	=	1
-	BaoXiang_JLBCBTBOX	[	87	]	=	7502		BaoXiang_JLBCBTBOX_Rad	[	87	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	87	]	=	1
-	BaoXiang_JLBCBTBOX	[	88	]	=	7489		BaoXiang_JLBCBTBOX_Rad	[	88	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	88	]	=	1
-	BaoXiang_JLBCBTBOX	[	89	]	=	7624		BaoXiang_JLBCBTBOX_Rad	[	89	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	89	]	=	1
-	BaoXiang_JLBCBTBOX	[	90	]	=	7477		BaoXiang_JLBCBTBOX_Rad	[	90	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	90	]	=	1
-	BaoXiang_JLBCBTBOX	[	91	]	=	7478		BaoXiang_JLBCBTBOX_Rad	[	91	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	91	]	=	1
-	BaoXiang_JLBCBTBOX	[	92	]	=	7479		BaoXiang_JLBCBTBOX_Rad	[	92	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	92	]	=	1
-	BaoXiang_JLBCBTBOX	[	93	]	=	7480		BaoXiang_JLBCBTBOX_Rad	[	93	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	93	]	=	1
-	BaoXiang_JLBCBTBOX	[	94	]	=	7481		BaoXiang_JLBCBTBOX_Rad	[	94	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	94	]	=	1
-	BaoXiang_JLBCBTBOX	[	95	]	=	7483		BaoXiang_JLBCBTBOX_Rad	[	95	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	95	]	=	1
-	BaoXiang_JLBCBTBOX	[	96	]	=	7485		BaoXiang_JLBCBTBOX_Rad	[	96	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	96	]	=	1
-	BaoXiang_JLBCBTBOX	[	97	]	=	7485		BaoXiang_JLBCBTBOX_Rad	[	97	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	97	]	=	1
-	BaoXiang_JLBCBTBOX	[	98	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	98	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	98	]	=	1
-	BaoXiang_JLBCBTBOX	[	99	]	=	7491		BaoXiang_JLBCBTBOX_Rad	[	99	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	99	]	=	1
-	BaoXiang_JLBCBTBOX	[	100	]	=	7492		BaoXiang_JLBCBTBOX_Rad	[	100	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	100	]	=	1
-	BaoXiang_JLBCBTBOX	[	101	]	=	7493		BaoXiang_JLBCBTBOX_Rad	[	101	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	101	]	=	1
-	BaoXiang_JLBCBTBOX	[	102	]	=	7494		BaoXiang_JLBCBTBOX_Rad	[	102	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	102	]	=	1
-	BaoXiang_JLBCBTBOX	[	103	]	=	7510		BaoXiang_JLBCBTBOX_Rad	[	103	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	103	]	=	1
-	BaoXiang_JLBCBTBOX	[	104	]	=	1145		BaoXiang_JLBCBTBOX_Rad	[	104	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	104	]	=	1
-	BaoXiang_JLBCBTBOX	[	105	]	=	2729		BaoXiang_JLBCBTBOX_Rad	[	105	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	105	]	=	1
-	BaoXiang_JLBCBTBOX	[	106	]	=	7450		BaoXiang_JLBCBTBOX_Rad	[	106	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	106	]	=	1
-	BaoXiang_JLBCBTBOX	[	107	]	=	7467		BaoXiang_JLBCBTBOX_Rad	[	107	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	107	]	=	1
-	BaoXiang_JLBCBTBOX	[	108	]	=	7456		BaoXiang_JLBCBTBOX_Rad	[	108	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	108	]	=	1
-	BaoXiang_JLBCBTBOX	[	109	]	=	7444		BaoXiang_JLBCBTBOX_Rad	[	109	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	109	]	=	1
-	BaoXiang_JLBCBTBOX	[	110	]	=	7476		BaoXiang_JLBCBTBOX_Rad	[	110	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	110	]	=	1
-	BaoXiang_JLBCBTBOX	[	111	]	=	7510		BaoXiang_JLBCBTBOX_Rad	[	111	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	111	]	=	1
-	BaoXiang_JLBCBTBOX	[	112	]	=	7483		BaoXiang_JLBCBTBOX_Rad	[	112	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	112	]	=	1
-	BaoXiang_JLBCBTBOX	[	113	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	113	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	113	]	=	1
-	BaoXiang_JLBCBTBOX	[	114	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	114	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	114	]	=	1
-	BaoXiang_JLBCBTBOX	[	115	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	115	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	115	]	=	1
-	BaoXiang_JLBCBTBOX	[	116	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	116	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	116	]	=	1
-	BaoXiang_JLBCBTBOX	[	117	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	117	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	117	]	=	1
-	BaoXiang_JLBCBTBOX	[	118	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	119	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	119	]	=	1
-	BaoXiang_JLBCBTBOX	[	120	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	120	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	120	]	=	1
-	BaoXiang_JLBCBTBOX	[	121	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	121	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	121	]	=	1
-	BaoXiang_JLBCBTBOX	[	122	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	122	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	122	]	=	1
-	BaoXiang_JLBCBTBOX	[	123	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	123	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	123	]	=	1
-	BaoXiang_JLBCBTBOX	[	124	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	124	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	124	]	=	1
-	BaoXiang_JLBCBTBOX	[	125	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	125	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	125	]	=	1
-	BaoXiang_JLBCBTBOX	[	126	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	126	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	126	]	=	1
-	BaoXiang_JLBCBTBOX	[	127	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	127	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	127	]	=	1
-	BaoXiang_JLBCBTBOX	[	128	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	128	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	128	]	=	1
-	BaoXiang_JLBCBTBOX	[	129	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	129	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	129	]	=	1
-	BaoXiang_JLBCBTBOX	[	130	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	130	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	130	]	=	1
-	BaoXiang_JLBCBTBOX	[	131	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	131	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	131	]	=	1
-	BaoXiang_JLBCBTBOX	[	132	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	132	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	132	]	=	1
-	BaoXiang_JLBCBTBOX	[	133	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	133	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	133	]	=	1
-	BaoXiang_JLBCBTBOX	[	134	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	134	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	134	]	=	1
-	BaoXiang_JLBCBTBOX	[	135	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	135	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	135	]	=	1
-	BaoXiang_JLBCBTBOX	[	136	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	137	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	137	]	=	1
-	BaoXiang_JLBCBTBOX	[	138	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	138	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	138	]	=	1
-	BaoXiang_JLBCBTBOX	[	139	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	139	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	139	]	=	1
-	BaoXiang_JLBCBTBOX	[	140	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	140	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	140	]	=	1
-	BaoXiang_JLBCBTBOX	[	141	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	141	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	141	]	=	1
-	BaoXiang_JLBCBTBOX	[	142	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	142	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	142	]	=	1
-	BaoXiang_JLBCBTBOX	[	143	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	143	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	143	]	=	1
-	BaoXiang_JLBCBTBOX	[	144	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	144	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	144	]	=	1
-	BaoXiang_JLBCBTBOX	[	145	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	145	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	145	]	=	1
-	BaoXiang_JLBCBTBOX	[	146	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	146	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	146	]	=	1
-	BaoXiang_JLBCBTBOX	[	147	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	147	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	147	]	=	1
-	BaoXiang_JLBCBTBOX	[	148	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	148	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	148	]	=	1
-	BaoXiang_JLBCBTBOX	[	149	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	149	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	149	]	=	1
-	BaoXiang_JLBCBTBOX	[	150	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	150	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	150	]	=	1
-	BaoXiang_JLBCBTBOX	[	151	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	151	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	151	]	=	1
-	BaoXiang_JLBCBTBOX	[	152	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	152	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	152	]	=	1
-	BaoXiang_JLBCBTBOX	[	153	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	153	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	153	]	=	1
-	BaoXiang_JLBCBTBOX	[	154	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	154	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	154	]	=	1
-	BaoXiang_JLBCBTBOX	[	155	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	155	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	155	]	=	1
-	BaoXiang_JLBCBTBOX	[	156	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	156	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	156	]	=	1
-	BaoXiang_JLBCBTBOX	[	157	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	157	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	157	]	=	1
-	BaoXiang_JLBCBTBOX	[	158	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	158	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	158	]	=	1
-	BaoXiang_JLBCBTBOX	[	159	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	159	]	=	20 		BaoXiang_JLBCBTBOX_Count	[	159	]	=	1
-	BaoXiang_JLBCBTBOX	[	160	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	160	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	160	]	=	1
-	BaoXiang_JLBCBTBOX	[	161	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	161	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	161	]	=	1
-	BaoXiang_JLBCBTBOX	[	162	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	162	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	162	]	=	1
-	BaoXiang_JLBCBTBOX	[	163	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	163	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	163	]	=	1
-	BaoXiang_JLBCBTBOX	[	164	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	164	]	=	20 		BaoXiang_JLBCBTBOX_Count	[	164	]	=	1
-	BaoXiang_JLBCBTBOX	[	165	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	165	]	=	10 		BaoXiang_JLBCBTBOX_Count	[	165	]	=	1
-	BaoXiang_JLBCBTBOX	[	166	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	166	]	=	10 		BaoXiang_JLBCBTBOX_Count	[	166	]	=	1
-	BaoXiang_JLBCBTBOX	[	167	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	167	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	167	]	=	1
-	BaoXiang_JLBCBTBOX	[	168	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	168	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	168	]	=	1
-	BaoXiang_JLBCBTBOX	[	169	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	169	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	169	]	=	1
-	BaoXiang_JLBCBTBOX	[	170	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	170	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	170	]	=	1
-	BaoXiang_JLBCBTBOX	[	171	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	171	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	171	]	=	1
-	BaoXiang_JLBCBTBOX	[	172	]	=	3877		BaoXiang_JLBCBTBOX_Rad	[	172	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	172	]	=	1
-	BaoXiang_JLBCBTBOX	[	173	]	=	7503		BaoXiang_JLBCBTBOX_Rad	[	173	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	173	]	=	1
-	BaoXiang_JLBCBTBOX	[	174	]	=	7504		BaoXiang_JLBCBTBOX_Rad	[	174	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	174	]	=	1
-	BaoXiang_JLBCBTBOX	[	175	]	=	7505		BaoXiang_JLBCBTBOX_Rad	[	175	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	175	]	=	1
-	BaoXiang_JLBCBTBOX	[	176	]	=	7506		BaoXiang_JLBCBTBOX_Rad	[	176	]	=	5 		BaoXiang_JLBCBTBOX_Count	[	176	]	=	1
-	BaoXiang_JLBCBTBOX	[	177	]	=	7507		BaoXiang_JLBCBTBOX_Rad	[	177	]	=	5 		BaoXiang_JLBCBTBOX_Count	[	177	]	=	1
-	BaoXiang_JLBCBTBOX	[	178	]	=	7508		BaoXiang_JLBCBTBOX_Rad	[	178	]	=	5 		BaoXiang_JLBCBTBOX_Count	[	178	]	=	1
-	BaoXiang_JLBCBTBOX	[	179	]	=	7469		BaoXiang_JLBCBTBOX_Rad	[	179	]	=	5 		BaoXiang_JLBCBTBOX_Count	[	179	]	=	1
-	BaoXiang_JLBCBTBOX	[	180	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	180	]	=	5 		BaoXiang_JLBCBTBOX_Count	[	180	]	=	1
-	BaoXiang_JLBCBTBOX	[	181	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	181	]	=	100 		BaoXiang_JLBCBTBOX_Count	[	181	]	=	1
-	BaoXiang_JLBCBTBOX	[	182	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	182	]	=	100 		BaoXiang_JLBCBTBOX_Count	[	182	]	=	1
-	BaoXiang_JLBCBTBOX	[	183	]	=	7482		BaoXiang_JLBCBTBOX_Rad	[	183	]	=	100 		BaoXiang_JLBCBTBOX_Count	[	183	]	=	1
+	BaoXiang_JLBCBTBOX	[	1	]	=	0291		BaoXiang_JLBCBTBOX_Rad	[	1	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	1	]	=	1
+	BaoXiang_JLBCBTBOX	[	2	]	=	0293		BaoXiang_JLBCBTBOX_Rad	[	2	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	2	]	=	1
+	BaoXiang_JLBCBTBOX	[	3	]	=	0295		BaoXiang_JLBCBTBOX_Rad	[	3	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	3	]	=	1
+	BaoXiang_JLBCBTBOX	[	4	]	=	0297		BaoXiang_JLBCBTBOX_Rad	[	4	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	4	]	=	1
+	BaoXiang_JLBCBTBOX	[	5	]	=	0298		BaoXiang_JLBCBTBOX_Rad	[	5	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	5	]	=	1
+	BaoXiang_JLBCBTBOX	[	6	]	=	0300		BaoXiang_JLBCBTBOX_Rad	[	6	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	6	]	=	1
+	BaoXiang_JLBCBTBOX	[	7	]	=	0306		BaoXiang_JLBCBTBOX_Rad	[	7	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	7	]	=	1
+	BaoXiang_JLBCBTBOX	[	8	]	=	0307		BaoXiang_JLBCBTBOX_Rad	[	8	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	8	]	=	1
+	BaoXiang_JLBCBTBOX	[	9	]	=	0311		BaoXiang_JLBCBTBOX_Rad	[	9	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	9	]	=	1
+	BaoXiang_JLBCBTBOX	[	10	]	=	0313		BaoXiang_JLBCBTBOX_Rad	[	10	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	10	]	=	1
+	BaoXiang_JLBCBTBOX	[	11	]	=	0314		BaoXiang_JLBCBTBOX_Rad	[	11	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	11	]	=	1
+	BaoXiang_JLBCBTBOX	[	12	]	=	0336		BaoXiang_JLBCBTBOX_Rad	[	12	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	12	]	=	1
+	BaoXiang_JLBCBTBOX	[	13	]	=	0337		BaoXiang_JLBCBTBOX_Rad	[	13	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	13	]	=	1
+	BaoXiang_JLBCBTBOX	[	14	]	=	0338		BaoXiang_JLBCBTBOX_Rad	[	14	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	14	]	=	1
+	BaoXiang_JLBCBTBOX	[	15	]	=	0339		BaoXiang_JLBCBTBOX_Rad	[	15	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	15	]	=	1
+	BaoXiang_JLBCBTBOX	[	16	]	=	0340		BaoXiang_JLBCBTBOX_Rad	[	16	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	16	]	=	1
+	BaoXiang_JLBCBTBOX	[	17	]	=	0341		BaoXiang_JLBCBTBOX_Rad	[	17	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	17	]	=	1
+	BaoXiang_JLBCBTBOX	[	18	]	=	0352		BaoXiang_JLBCBTBOX_Rad	[	18	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	18	]	=	1
+	BaoXiang_JLBCBTBOX	[	19	]	=	0353		BaoXiang_JLBCBTBOX_Rad	[	19	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	19	]	=	1
+	BaoXiang_JLBCBTBOX	[	20	]	=	0354		BaoXiang_JLBCBTBOX_Rad	[	20	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	20	]	=	1
+	BaoXiang_JLBCBTBOX	[	21	]	=	0350		BaoXiang_JLBCBTBOX_Rad	[	21	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	21	]	=	1
+	BaoXiang_JLBCBTBOX	[	22	]	=	0360		BaoXiang_JLBCBTBOX_Rad	[	22	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	22	]	=	1
+	BaoXiang_JLBCBTBOX	[	23	]	=	0361		BaoXiang_JLBCBTBOX_Rad	[	23	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	23	]	=	1
+	BaoXiang_JLBCBTBOX	[	24	]	=	0362		BaoXiang_JLBCBTBOX_Rad	[	24	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	24	]	=	1
+	BaoXiang_JLBCBTBOX	[	25	]	=	0467		BaoXiang_JLBCBTBOX_Rad	[	25	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	25	]	=	1
+	BaoXiang_JLBCBTBOX	[	26	]	=	0469		BaoXiang_JLBCBTBOX_Rad	[	26	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	26	]	=	1
+	BaoXiang_JLBCBTBOX	[	27	]	=	0471		BaoXiang_JLBCBTBOX_Rad	[	27	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	27	]	=	1
+	BaoXiang_JLBCBTBOX	[	28	]	=	0473		BaoXiang_JLBCBTBOX_Rad	[	28	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	28	]	=	1
+	BaoXiang_JLBCBTBOX	[	29	]	=	0474		BaoXiang_JLBCBTBOX_Rad	[	29	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	29	]	=	1
+	BaoXiang_JLBCBTBOX	[	30	]	=	0476		BaoXiang_JLBCBTBOX_Rad	[	30	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	30	]	=	1
+	BaoXiang_JLBCBTBOX	[	31	]	=	0482		BaoXiang_JLBCBTBOX_Rad	[	31	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	31	]	=	1
+	BaoXiang_JLBCBTBOX	[	32	]	=	0483		BaoXiang_JLBCBTBOX_Rad	[	32	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	32	]	=	1
+	BaoXiang_JLBCBTBOX	[	33	]	=	0486		BaoXiang_JLBCBTBOX_Rad	[	33	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	33	]	=	1
+	BaoXiang_JLBCBTBOX	[	34	]	=	0487		BaoXiang_JLBCBTBOX_Rad	[	34	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	34	]	=	1
+	BaoXiang_JLBCBTBOX	[	35	]	=	0490		BaoXiang_JLBCBTBOX_Rad	[	35	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	35	]	=	1
+	BaoXiang_JLBCBTBOX	[	36	]	=	0513		BaoXiang_JLBCBTBOX_Rad	[	36	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	36	]	=	1
+	BaoXiang_JLBCBTBOX	[	37	]	=	0514		BaoXiang_JLBCBTBOX_Rad	[	37	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	37	]	=	1
+	BaoXiang_JLBCBTBOX	[	38	]	=	0515		BaoXiang_JLBCBTBOX_Rad	[	38	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	38	]	=	1
+	BaoXiang_JLBCBTBOX	[	39	]	=	0516		BaoXiang_JLBCBTBOX_Rad	[	39	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	39	]	=	1
+	BaoXiang_JLBCBTBOX	[	40	]	=	0517		BaoXiang_JLBCBTBOX_Rad	[	40	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	40	]	=	1
+	BaoXiang_JLBCBTBOX	[	41	]	=	0536		BaoXiang_JLBCBTBOX_Rad	[	41	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	41	]	=	1
+	BaoXiang_JLBCBTBOX	[	42	]	=	0537		BaoXiang_JLBCBTBOX_Rad	[	42	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	42	]	=	1
+	BaoXiang_JLBCBTBOX	[	43	]	=	0542		BaoXiang_JLBCBTBOX_Rad	[	43	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	43	]	=	1
+	BaoXiang_JLBCBTBOX	[	44	]	=	0543		BaoXiang_JLBCBTBOX_Rad	[	44	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	44	]	=	1
+	BaoXiang_JLBCBTBOX	[	45	]	=	0544		BaoXiang_JLBCBTBOX_Rad	[	45	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	45	]	=	1
+	BaoXiang_JLBCBTBOX	[	46	]	=	0546		BaoXiang_JLBCBTBOX_Rad	[	46	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	46	]	=	1
+	BaoXiang_JLBCBTBOX	[	47	]	=	0549		BaoXiang_JLBCBTBOX_Rad	[	47	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	47	]	=	1
+	BaoXiang_JLBCBTBOX	[	48	]	=	0550		BaoXiang_JLBCBTBOX_Rad	[	48	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	48	]	=	1
+	BaoXiang_JLBCBTBOX	[	49	]	=	0557		BaoXiang_JLBCBTBOX_Rad	[	49	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	49	]	=	1
+	BaoXiang_JLBCBTBOX	[	50	]	=	0562		BaoXiang_JLBCBTBOX_Rad	[	50	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	50	]	=	1
+	BaoXiang_JLBCBTBOX	[	51	]	=	0565		BaoXiang_JLBCBTBOX_Rad	[	51	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	51	]	=	1
+	BaoXiang_JLBCBTBOX	[	52	]	=	0566		BaoXiang_JLBCBTBOX_Rad	[	52	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	52	]	=	1
+	BaoXiang_JLBCBTBOX	[	53	]	=	0568		BaoXiang_JLBCBTBOX_Rad	[	53	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	53	]	=	1
+	BaoXiang_JLBCBTBOX	[	54	]	=	0649		BaoXiang_JLBCBTBOX_Rad	[	54	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	54	]	=	1
+	BaoXiang_JLBCBTBOX	[	55	]	=	0650		BaoXiang_JLBCBTBOX_Rad	[	55	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	55	]	=	1
+	BaoXiang_JLBCBTBOX	[	56	]	=	0652		BaoXiang_JLBCBTBOX_Rad	[	56	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	56	]	=	1
+	BaoXiang_JLBCBTBOX	[	57	]	=	0658		BaoXiang_JLBCBTBOX_Rad	[	57	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	57	]	=	1
+	BaoXiang_JLBCBTBOX	[	58	]	=	0659		BaoXiang_JLBCBTBOX_Rad	[	58	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	58	]	=	1
+	BaoXiang_JLBCBTBOX	[	59	]	=	0662		BaoXiang_JLBCBTBOX_Rad	[	59	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	59	]	=	1
+	BaoXiang_JLBCBTBOX	[	60	]	=	0665		BaoXiang_JLBCBTBOX_Rad	[	60	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	60	]	=	1
+	BaoXiang_JLBCBTBOX	[	61	]	=	0666		BaoXiang_JLBCBTBOX_Rad	[	61	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	61	]	=	1
+	BaoXiang_JLBCBTBOX	[	62	]	=	0689		BaoXiang_JLBCBTBOX_Rad	[	62	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	62	]	=	1
+	BaoXiang_JLBCBTBOX	[	63	]	=	0690		BaoXiang_JLBCBTBOX_Rad	[	63	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	63	]	=	1
+	BaoXiang_JLBCBTBOX	[	64	]	=	0691		BaoXiang_JLBCBTBOX_Rad	[	64	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	64	]	=	1
+	BaoXiang_JLBCBTBOX	[	65	]	=	0692		BaoXiang_JLBCBTBOX_Rad	[	65	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	65	]	=	1
+	BaoXiang_JLBCBTBOX	[	66	]	=	0693		BaoXiang_JLBCBTBOX_Rad	[	66	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	66	]	=	1
+	BaoXiang_JLBCBTBOX	[	67	]	=	0702		BaoXiang_JLBCBTBOX_Rad	[	67	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	67	]	=	1
+	BaoXiang_JLBCBTBOX	[	68	]	=	0704		BaoXiang_JLBCBTBOX_Rad	[	68	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	68	]	=	1
+	BaoXiang_JLBCBTBOX	[	69	]	=	0705		BaoXiang_JLBCBTBOX_Rad	[	69	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	69	]	=	1
+	BaoXiang_JLBCBTBOX	[	70	]	=	0706		BaoXiang_JLBCBTBOX_Rad	[	70	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	70	]	=	1
+	BaoXiang_JLBCBTBOX	[	71	]	=	0712		BaoXiang_JLBCBTBOX_Rad	[	71	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	71	]	=	1
+	BaoXiang_JLBCBTBOX	[	72	]	=	0713		BaoXiang_JLBCBTBOX_Rad	[	72	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	72	]	=	1
+	BaoXiang_JLBCBTBOX	[	73	]	=	0718		BaoXiang_JLBCBTBOX_Rad	[	73	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	73	]	=	1
+	BaoXiang_JLBCBTBOX	[	74	]	=	0719		BaoXiang_JLBCBTBOX_Rad	[	74	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	74	]	=	1
+	BaoXiang_JLBCBTBOX	[	75	]	=	0720		BaoXiang_JLBCBTBOX_Rad	[	75	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	75	]	=	1
+	BaoXiang_JLBCBTBOX	[	76	]	=	0722		BaoXiang_JLBCBTBOX_Rad	[	76	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	76	]	=	1
+	BaoXiang_JLBCBTBOX	[	77	]	=	0725		BaoXiang_JLBCBTBOX_Rad	[	77	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	77	]	=	1
+	BaoXiang_JLBCBTBOX	[	78	]	=	0726		BaoXiang_JLBCBTBOX_Rad	[	78	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	78	]	=	1
+	BaoXiang_JLBCBTBOX	[	79	]	=	0733		BaoXiang_JLBCBTBOX_Rad	[	79	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	79	]	=	1
+	BaoXiang_JLBCBTBOX	[	80	]	=	0738		BaoXiang_JLBCBTBOX_Rad	[	80	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	80	]	=	1
+	BaoXiang_JLBCBTBOX	[	81	]	=	0741		BaoXiang_JLBCBTBOX_Rad	[	81	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	81	]	=	1
+	BaoXiang_JLBCBTBOX	[	82	]	=	0742		BaoXiang_JLBCBTBOX_Rad	[	82	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	82	]	=	1
+	BaoXiang_JLBCBTBOX	[	83	]	=	0744		BaoXiang_JLBCBTBOX_Rad	[	83	]	=	50 		BaoXiang_JLBCBTBOX_Count	[	83	]	=	1
+	BaoXiang_JLBCBTBOX	[	84	]	=	0763		BaoXiang_JLBCBTBOX_Rad	[	84	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	84	]	=	1
+	BaoXiang_JLBCBTBOX	[	85	]	=	0770		BaoXiang_JLBCBTBOX_Rad	[	85	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	85	]	=	1
+	BaoXiang_JLBCBTBOX	[	86	]	=	0777		BaoXiang_JLBCBTBOX_Rad	[	86	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	86	]	=	1
+	BaoXiang_JLBCBTBOX	[	87	]	=	0781		BaoXiang_JLBCBTBOX_Rad	[	87	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	87	]	=	1
+	BaoXiang_JLBCBTBOX	[	88	]	=	0785		BaoXiang_JLBCBTBOX_Rad	[	88	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	88	]	=	1
+	BaoXiang_JLBCBTBOX	[	89	]	=	0789		BaoXiang_JLBCBTBOX_Rad	[	89	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	89	]	=	1
+	BaoXiang_JLBCBTBOX	[	90	]	=	0799		BaoXiang_JLBCBTBOX_Rad	[	90	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	90	]	=	1
+	BaoXiang_JLBCBTBOX	[	91	]	=	0803		BaoXiang_JLBCBTBOX_Rad	[	91	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	91	]	=	1
+	BaoXiang_JLBCBTBOX	[	92	]	=	0230		BaoXiang_JLBCBTBOX_Rad	[	92	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	92	]	=	1
+	BaoXiang_JLBCBTBOX	[	93	]	=	0304		BaoXiang_JLBCBTBOX_Rad	[	93	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	93	]	=	1
+	BaoXiang_JLBCBTBOX	[	94	]	=	0317		BaoXiang_JLBCBTBOX_Rad	[	94	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	94	]	=	1
+	BaoXiang_JLBCBTBOX	[	95	]	=	0344		BaoXiang_JLBCBTBOX_Rad	[	95	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	95	]	=	1
+	BaoXiang_JLBCBTBOX	[	96	]	=	0358		BaoXiang_JLBCBTBOX_Rad	[	96	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	96	]	=	1
+	BaoXiang_JLBCBTBOX	[	97	]	=	0364		BaoXiang_JLBCBTBOX_Rad	[	97	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	97	]	=	1
+	BaoXiang_JLBCBTBOX	[	98	]	=	0377		BaoXiang_JLBCBTBOX_Rad	[	98	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	98	]	=	1
+	BaoXiang_JLBCBTBOX	[	99	]	=	0393		BaoXiang_JLBCBTBOX_Rad	[	99	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	99	]	=	1
+	BaoXiang_JLBCBTBOX	[	100	]	=	0394		BaoXiang_JLBCBTBOX_Rad	[	100	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	100	]	=	1
+	BaoXiang_JLBCBTBOX	[	101	]	=	0480		BaoXiang_JLBCBTBOX_Rad	[	101	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	101	]	=	1
+	BaoXiang_JLBCBTBOX	[	102	]	=	0493		BaoXiang_JLBCBTBOX_Rad	[	102	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	102	]	=	1
+	BaoXiang_JLBCBTBOX	[	103	]	=	0520		BaoXiang_JLBCBTBOX_Rad	[	103	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	103	]	=	1
+	BaoXiang_JLBCBTBOX	[	104	]	=	0534		BaoXiang_JLBCBTBOX_Rad	[	104	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	104	]	=	1
+	BaoXiang_JLBCBTBOX	[	105	]	=	0540		BaoXiang_JLBCBTBOX_Rad	[	105	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	105	]	=	1
+	BaoXiang_JLBCBTBOX	[	106	]	=	0553		BaoXiang_JLBCBTBOX_Rad	[	106	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	106	]	=	1
+	BaoXiang_JLBCBTBOX	[	107	]	=	0569		BaoXiang_JLBCBTBOX_Rad	[	107	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	107	]	=	1
+	BaoXiang_JLBCBTBOX	[	108	]	=	0570		BaoXiang_JLBCBTBOX_Rad	[	108	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	108	]	=	1
+	BaoXiang_JLBCBTBOX	[	109	]	=	0656		BaoXiang_JLBCBTBOX_Rad	[	109	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	109	]	=	1
+	BaoXiang_JLBCBTBOX	[	110	]	=	0669		BaoXiang_JLBCBTBOX_Rad	[	110	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	110	]	=	1
+	BaoXiang_JLBCBTBOX	[	111	]	=	0696		BaoXiang_JLBCBTBOX_Rad	[	111	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	111	]	=	1
+	BaoXiang_JLBCBTBOX	[	112	]	=	0710		BaoXiang_JLBCBTBOX_Rad	[	112	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	112	]	=	1
+	BaoXiang_JLBCBTBOX	[	113	]	=	0716		BaoXiang_JLBCBTBOX_Rad	[	113	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	113	]	=	1
+	BaoXiang_JLBCBTBOX	[	114	]	=	0729		BaoXiang_JLBCBTBOX_Rad	[	114	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	114	]	=	1
+	BaoXiang_JLBCBTBOX	[	115	]	=	0745		BaoXiang_JLBCBTBOX_Rad	[	115	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	115	]	=	1
+	BaoXiang_JLBCBTBOX	[	116	]	=	0746		BaoXiang_JLBCBTBOX_Rad	[	116	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	116	]	=	1
+	BaoXiang_JLBCBTBOX	[	117	]	=	3425		BaoXiang_JLBCBTBOX_Rad	[	117	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	117	]	=	1
+	BaoXiang_JLBCBTBOX	[	118	]	=	3426		BaoXiang_JLBCBTBOX_Rad	[	118	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	118	]	=	1
+	BaoXiang_JLBCBTBOX	[	119	]	=	3427		BaoXiang_JLBCBTBOX_Rad	[	119	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	119	]	=	1
+	BaoXiang_JLBCBTBOX	[	120	]	=	3428		BaoXiang_JLBCBTBOX_Rad	[	120	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	120	]	=	1
+	BaoXiang_JLBCBTBOX	[	121	]	=	3429		BaoXiang_JLBCBTBOX_Rad	[	121	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	121	]	=	1
+	BaoXiang_JLBCBTBOX	[	122	]	=	3430		BaoXiang_JLBCBTBOX_Rad	[	122	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	122	]	=	1
+	BaoXiang_JLBCBTBOX	[	123	]	=	3431		BaoXiang_JLBCBTBOX_Rad	[	123	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	123	]	=	1
+	BaoXiang_JLBCBTBOX	[	124	]	=	3432		BaoXiang_JLBCBTBOX_Rad	[	124	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	124	]	=	1
+	BaoXiang_JLBCBTBOX	[	125	]	=	3433		BaoXiang_JLBCBTBOX_Rad	[	125	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	125	]	=	1
+	BaoXiang_JLBCBTBOX	[	126	]	=	3138		BaoXiang_JLBCBTBOX_Rad	[	126	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	126	]	=	1
+	BaoXiang_JLBCBTBOX	[	127	]	=	3139		BaoXiang_JLBCBTBOX_Rad	[	127	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	127	]	=	1
+	BaoXiang_JLBCBTBOX	[	128	]	=	3136		BaoXiang_JLBCBTBOX_Rad	[	128	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	128	]	=	1
+	BaoXiang_JLBCBTBOX	[	129	]	=	3140		BaoXiang_JLBCBTBOX_Rad	[	129	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	129	]	=	1
+	BaoXiang_JLBCBTBOX	[	130	]	=	3123		BaoXiang_JLBCBTBOX_Rad	[	130	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	130	]	=	1
+	BaoXiang_JLBCBTBOX	[	131	]	=	3125		BaoXiang_JLBCBTBOX_Rad	[	131	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	131	]	=	1
+	BaoXiang_JLBCBTBOX	[	132	]	=	3122		BaoXiang_JLBCBTBOX_Rad	[	132	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	132	]	=	1
+	BaoXiang_JLBCBTBOX	[	133	]	=	3126		BaoXiang_JLBCBTBOX_Rad	[	133	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	133	]	=	1
+	BaoXiang_JLBCBTBOX	[	134	]	=	3127		BaoXiang_JLBCBTBOX_Rad	[	134	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	134	]	=	1
+	BaoXiang_JLBCBTBOX	[	135	]	=	3138		BaoXiang_JLBCBTBOX_Rad	[	135	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	135	]	=	1
+	BaoXiang_JLBCBTBOX	[	136	]	=	3135		BaoXiang_JLBCBTBOX_Rad	[	136	]	=	30 		BaoXiang_JLBCBTBOX_Count	[	136	]	=	1
+	BaoXiang_JLBCBTBOX	[	137	]	=	3828		BaoXiang_JLBCBTBOX_Rad	[	137	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	137	]	=	1
+	BaoXiang_JLBCBTBOX	[	138	]	=	3829		BaoXiang_JLBCBTBOX_Rad	[	138	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	138	]	=	1
+	BaoXiang_JLBCBTBOX	[	139	]	=	3830		BaoXiang_JLBCBTBOX_Rad	[	139	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	139	]	=	1
+	BaoXiang_JLBCBTBOX	[	140	]	=	3831		BaoXiang_JLBCBTBOX_Rad	[	140	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	140	]	=	1
+	BaoXiang_JLBCBTBOX	[	141	]	=	3832		BaoXiang_JLBCBTBOX_Rad	[	141	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	141	]	=	1
+	BaoXiang_JLBCBTBOX	[	142	]	=	3833		BaoXiang_JLBCBTBOX_Rad	[	142	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	142	]	=	1
+	BaoXiang_JLBCBTBOX	[	143	]	=	3834		BaoXiang_JLBCBTBOX_Rad	[	143	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	143	]	=	1
+	BaoXiang_JLBCBTBOX	[	144	]	=	3835		BaoXiang_JLBCBTBOX_Rad	[	144	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	144	]	=	1
+	BaoXiang_JLBCBTBOX	[	145	]	=	3836		BaoXiang_JLBCBTBOX_Rad	[	145	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	145	]	=	1
+	BaoXiang_JLBCBTBOX	[	146	]	=	3837		BaoXiang_JLBCBTBOX_Rad	[	146	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	146	]	=	1
+	BaoXiang_JLBCBTBOX	[	147	]	=	3838		BaoXiang_JLBCBTBOX_Rad	[	147	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	147	]	=	1
+	BaoXiang_JLBCBTBOX	[	148	]	=	3839		BaoXiang_JLBCBTBOX_Rad	[	148	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	148	]	=	1
+	BaoXiang_JLBCBTBOX	[	149	]	=	3840		BaoXiang_JLBCBTBOX_Rad	[	149	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	149	]	=	1
+	BaoXiang_JLBCBTBOX	[	150	]	=	3841		BaoXiang_JLBCBTBOX_Rad	[	150	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	150	]	=	1
+	BaoXiang_JLBCBTBOX	[	151	]	=	3842		BaoXiang_JLBCBTBOX_Rad	[	151	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	151	]	=	1
+	BaoXiang_JLBCBTBOX	[	152	]	=	3843		BaoXiang_JLBCBTBOX_Rad	[	152	]	=	25 		BaoXiang_JLBCBTBOX_Count	[	152	]	=	1
+	BaoXiang_JLBCBTBOX	[	153	]	=	0899		BaoXiang_JLBCBTBOX_Rad	[	153	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	153	]	=	1
+	BaoXiang_JLBCBTBOX	[	154	]	=	0900		BaoXiang_JLBCBTBOX_Rad	[	154	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	154	]	=	1
+	BaoXiang_JLBCBTBOX	[	155	]	=	0901		BaoXiang_JLBCBTBOX_Rad	[	155	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	155	]	=	1
+	BaoXiang_JLBCBTBOX	[	156	]	=	0902		BaoXiang_JLBCBTBOX_Rad	[	156	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	156	]	=	1
+	BaoXiang_JLBCBTBOX	[	157	]	=	0903		BaoXiang_JLBCBTBOX_Rad	[	157	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	157	]	=	1
+	BaoXiang_JLBCBTBOX	[	158	]	=	3846		BaoXiang_JLBCBTBOX_Rad	[	158	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	158	]	=	1
+	BaoXiang_JLBCBTBOX	[	159	]	=	3462		BaoXiang_JLBCBTBOX_Rad	[	159	]	=	20 		BaoXiang_JLBCBTBOX_Count	[	159	]	=	1
+	BaoXiang_JLBCBTBOX	[	160	]	=	0860		BaoXiang_JLBCBTBOX_Rad	[	160	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	160	]	=	1
+	BaoXiang_JLBCBTBOX	[	161	]	=	0861		BaoXiang_JLBCBTBOX_Rad	[	161	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	161	]	=	1
+	BaoXiang_JLBCBTBOX	[	162	]	=	0862		BaoXiang_JLBCBTBOX_Rad	[	162	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	162	]	=	1
+	BaoXiang_JLBCBTBOX	[	163	]	=	0863		BaoXiang_JLBCBTBOX_Rad	[	163	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	163	]	=	1
+	BaoXiang_JLBCBTBOX	[	164	]	=	3463		BaoXiang_JLBCBTBOX_Rad	[	164	]	=	20 		BaoXiang_JLBCBTBOX_Count	[	164	]	=	1
+	BaoXiang_JLBCBTBOX	[	165	]	=	3844		BaoXiang_JLBCBTBOX_Rad	[	165	]	=	10 		BaoXiang_JLBCBTBOX_Count	[	165	]	=	1
+	BaoXiang_JLBCBTBOX	[	166	]	=	3845		BaoXiang_JLBCBTBOX_Rad	[	166	]	=	10 		BaoXiang_JLBCBTBOX_Count	[	166	]	=	1
+	BaoXiang_JLBCBTBOX	[	167	]	=	0878		BaoXiang_JLBCBTBOX_Rad	[	167	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	167	]	=	1
+	BaoXiang_JLBCBTBOX	[	168	]	=	0879		BaoXiang_JLBCBTBOX_Rad	[	168	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	168	]	=	1
+	BaoXiang_JLBCBTBOX	[	169	]	=	0880		BaoXiang_JLBCBTBOX_Rad	[	169	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	169	]	=	1
+	BaoXiang_JLBCBTBOX	[	170	]	=	0881		BaoXiang_JLBCBTBOX_Rad	[	170	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	170	]	=	1
+	BaoXiang_JLBCBTBOX	[	171	]	=	0882		BaoXiang_JLBCBTBOX_Rad	[	171	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	171	]	=	1
+	BaoXiang_JLBCBTBOX	[	172	]	=	0883		BaoXiang_JLBCBTBOX_Rad	[	172	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	172	]	=	1
+	BaoXiang_JLBCBTBOX	[	173	]	=	0884		BaoXiang_JLBCBTBOX_Rad	[	173	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	173	]	=	1
+	BaoXiang_JLBCBTBOX	[	174	]	=	0885		BaoXiang_JLBCBTBOX_Rad	[	174	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	174	]	=	1
+	BaoXiang_JLBCBTBOX	[	175	]	=	0887		BaoXiang_JLBCBTBOX_Rad	[	175	]	=	1 		BaoXiang_JLBCBTBOX_Count	[	175	]	=	1
+	BaoXiang_JLBCBTBOX	[	176	]	=	0893		BaoXiang_JLBCBTBOX_Rad	[	176	]	=	5 		BaoXiang_JLBCBTBOX_Count	[	176	]	=	1
+	BaoXiang_JLBCBTBOX	[	177	]	=	0894		BaoXiang_JLBCBTBOX_Rad	[	177	]	=	5 		BaoXiang_JLBCBTBOX_Count	[	177	]	=	1
+	BaoXiang_JLBCBTBOX	[	178	]	=	0895		BaoXiang_JLBCBTBOX_Rad	[	178	]	=	5 		BaoXiang_JLBCBTBOX_Count	[	178	]	=	1
+	BaoXiang_JLBCBTBOX	[	179	]	=	0896		BaoXiang_JLBCBTBOX_Rad	[	179	]	=	5 		BaoXiang_JLBCBTBOX_Count	[	179	]	=	1
+	BaoXiang_JLBCBTBOX	[	180	]	=	0897		BaoXiang_JLBCBTBOX_Rad	[	180	]	=	5 		BaoXiang_JLBCBTBOX_Count	[	180	]	=	1
+	BaoXiang_JLBCBTBOX	[	181	]	=	0453		BaoXiang_JLBCBTBOX_Rad	[	181	]	=	100 		BaoXiang_JLBCBTBOX_Count	[	181	]	=	1
+	BaoXiang_JLBCBTBOX	[	182	]	=	0455		BaoXiang_JLBCBTBOX_Rad	[	182	]	=	100 		BaoXiang_JLBCBTBOX_Count	[	182	]	=	1
+	BaoXiang_JLBCBTBOX	[	183	]	=	0938		BaoXiang_JLBCBTBOX_Rad	[	183	]	=	100 		BaoXiang_JLBCBTBOX_Count	[	183	]	=	1
 
 
---	98°ь																			
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ												
+--	98?																			
+--	????							??????												
 	BaoXiang_98BOX_Qua	=	5	 				BaoXiang_98BOX_Mxcount	=	22										
 																				
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК												
+--	????							????												
 	BaoXiang_98BOX	=	{}					BaoXiang_98BOX_Rad	=	{}					BaoXiang_98BOX_Count	=	{}			
 	BaoXiang_98BOX	[	1	]	=	2440		BaoXiang_98BOX_Rad	[	1	]	=	100 		BaoXiang_98BOX_Count	[	1	]	=	30
 	BaoXiang_98BOX	[	2	]	=	3098		BaoXiang_98BOX_Rad	[	2	]	=	100 		BaoXiang_98BOX_Count	[	2	]	=	6
@@ -13742,1167 +7379,1378 @@ ItemAttr_Rad	[	99	]	=	0	--	-1	0
 	BaoXiang_98BOX	[	21	]	=	2490		BaoXiang_98BOX_Rad	[	21	]	=	2 		BaoXiang_98BOX_Count	[	21	]	=	1
 	BaoXiang_98BOX	[	22	]	=	2436		BaoXiang_98BOX_Rad	[	22	]	=	2 		BaoXiang_98BOX_Count	[	22	]	=	1
 																						
---      єЪКРЙМИЛ±¦Пд--Leo																				
+--      ??????--Leo																				
 																						
 																						
 																						
---	УОБъ±¦Пд24РН												w0289									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	????24?												w0289									
+--	????							??????														
 	BaoXiang_jsyla_Qua	=	24	 				BaoXiang_jsyla_Mxcount	=	19												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsyla	=	{}					BaoXiang_jsyla_Rad	=	{}					BaoXiang_jsyla_Count	=	{}					
-	BaoXiang_jsyla	[	1	]	=	0114		BaoXiang_jsyla_Rad	[	1	]	=	1 		BaoXiang_jsyla_Count	[	1	]	=	1	--	УОБъ
-	BaoXiang_jsyla	[	2	]	=	3302		BaoXiang_jsyla_Rad	[	2	]	=	30 		BaoXiang_jsyla_Count	[	2	]	=	1	--	УОБъ±¦Пд24РН
-	BaoXiang_jsyla	[	3	]	=	0007		BaoXiang_jsyla_Rad	[	3	]	=	30 		BaoXiang_jsyla_Count	[	3	]	=	1	--	КҐЅЈ
-	BaoXiang_jsyla	[	4	]	=	1394		BaoXiang_jsyla_Rad	[	4	]	=	30 		BaoXiang_jsyla_Count	[	4	]	=	1	--	АиГчЅЈ
-	BaoXiang_jsyla	[	5	]	=	0006		BaoXiang_jsyla_Rad	[	5	]	=	180 		BaoXiang_jsyla_Count	[	5	]	=	1	--	Х¶БъЅЈ
-	BaoXiang_jsyla	[	6	]	=	1393		BaoXiang_jsyla_Rad	[	6	]	=	180 		BaoXiang_jsyla_Count	[	6	]	=	1	--	БъГщЅЈ
-	BaoXiang_jsyla	[	7	]	=	3801		BaoXiang_jsyla_Rad	[	7	]	=	180 		BaoXiang_jsyla_Count	[	7	]	=	1	--	чичлЅЈ
-	BaoXiang_jsyla	[	8	]	=	4212		BaoXiang_jsyla_Rad	[	8	]	=	180 		BaoXiang_jsyla_Count	[	8	]	=	1	--	»рєЫ
-	BaoXiang_jsyla	[	9	]	=	4213		BaoXiang_jsyla_Rad	[	9	]	=	180 		BaoXiang_jsyla_Count	[	9	]	=	1	--	Ч·µз
-	BaoXiang_jsyla	[	10	]	=	0003		BaoXiang_jsyla_Rad	[	10	]	=	9000 		BaoXiang_jsyla_Count	[	10	]	=	1	--	ОчСуЅЈ
-	BaoXiang_jsyla	[	11	]	=	0004		BaoXiang_jsyla_Rad	[	11	]	=	9000 		BaoXiang_jsyla_Count	[	11	]	=	1	--	ЙЯЅЈ
-	BaoXiang_jsyla	[	12	]	=	0005		BaoXiang_jsyla_Rad	[	12	]	=	9000 		BaoXiang_jsyla_Count	[	12	]	=	1	--	ѕ«ёЦЅЈ
-	BaoXiang_jsyla	[	13	]	=	1390		BaoXiang_jsyla_Rad	[	13	]	=	9000 		BaoXiang_jsyla_Count	[	13	]	=	1	--	ПёґМЅЈ
-	BaoXiang_jsyla	[	14	]	=	1391		BaoXiang_jsyla_Rad	[	14	]	=	9000 		BaoXiang_jsyla_Count	[	14	]	=	1	--	±М№вґМИР
-	BaoXiang_jsyla	[	15	]	=	1392		BaoXiang_jsyla_Rad	[	15	]	=	9000 		BaoXiang_jsyla_Count	[	15	]	=	1	--	ёЦЦЖЕеЅЈ
-	BaoXiang_jsyla	[	16	]	=	1397		BaoXiang_jsyla_Rad	[	16	]	=	9000 		BaoXiang_jsyla_Count	[	16	]	=	1	--	ґМЙ±ЅЈ
-	BaoXiang_jsyla	[	17	]	=	1398		BaoXiang_jsyla_Rad	[	17	]	=	9000 		BaoXiang_jsyla_Count	[	17	]	=	1	--	ТмЧеЅЈ
-	BaoXiang_jsyla	[	18	]	=	1399		BaoXiang_jsyla_Rad	[	18	]	=	9000 		BaoXiang_jsyla_Count	[	18	]	=	1	--	зъзкЅЈ
-	BaoXiang_jsyla	[	19	]	=	0022		BaoXiang_jsyla_Rad	[	19	]	=	9000 		BaoXiang_jsyla_Count	[	19	]	=	1	--	НдИРЅЈ
+	BaoXiang_jsyla	[	1	]	=	0114		BaoXiang_jsyla_Rad	[	1	]	=	1 		BaoXiang_jsyla_Count	[	1	]	=	1	--	??
+	BaoXiang_jsyla	[	2	]	=	3302		BaoXiang_jsyla_Rad	[	2	]	=	30 		BaoXiang_jsyla_Count	[	2	]	=	1	--	????24?
+	BaoXiang_jsyla	[	3	]	=	0007		BaoXiang_jsyla_Rad	[	3	]	=	30 		BaoXiang_jsyla_Count	[	3	]	=	1	--	??
+	BaoXiang_jsyla	[	4	]	=	1394		BaoXiang_jsyla_Rad	[	4	]	=	30 		BaoXiang_jsyla_Count	[	4	]	=	1	--	???
+	BaoXiang_jsyla	[	5	]	=	0006		BaoXiang_jsyla_Rad	[	5	]	=	180 		BaoXiang_jsyla_Count	[	5	]	=	1	--	???
+	BaoXiang_jsyla	[	6	]	=	1393		BaoXiang_jsyla_Rad	[	6	]	=	180 		BaoXiang_jsyla_Count	[	6	]	=	1	--	???
+	BaoXiang_jsyla	[	7	]	=	3801		BaoXiang_jsyla_Rad	[	7	]	=	180 		BaoXiang_jsyla_Count	[	7	]	=	1	--	???
+	BaoXiang_jsyla	[	8	]	=	4212		BaoXiang_jsyla_Rad	[	8	]	=	180 		BaoXiang_jsyla_Count	[	8	]	=	1	--	??
+	BaoXiang_jsyla	[	9	]	=	4213		BaoXiang_jsyla_Rad	[	9	]	=	180 		BaoXiang_jsyla_Count	[	9	]	=	1	--	??
+	BaoXiang_jsyla	[	10	]	=	0003		BaoXiang_jsyla_Rad	[	10	]	=	9000 		BaoXiang_jsyla_Count	[	10	]	=	1	--	???
+	BaoXiang_jsyla	[	11	]	=	0004		BaoXiang_jsyla_Rad	[	11	]	=	9000 		BaoXiang_jsyla_Count	[	11	]	=	1	--	??
+	BaoXiang_jsyla	[	12	]	=	0005		BaoXiang_jsyla_Rad	[	12	]	=	9000 		BaoXiang_jsyla_Count	[	12	]	=	1	--	???
+	BaoXiang_jsyla	[	13	]	=	1390		BaoXiang_jsyla_Rad	[	13	]	=	9000 		BaoXiang_jsyla_Count	[	13	]	=	1	--	???
+	BaoXiang_jsyla	[	14	]	=	1391		BaoXiang_jsyla_Rad	[	14	]	=	9000 		BaoXiang_jsyla_Count	[	14	]	=	1	--	????
+	BaoXiang_jsyla	[	15	]	=	1392		BaoXiang_jsyla_Rad	[	15	]	=	9000 		BaoXiang_jsyla_Count	[	15	]	=	1	--	????
+	BaoXiang_jsyla	[	16	]	=	1397		BaoXiang_jsyla_Rad	[	16	]	=	9000 		BaoXiang_jsyla_Count	[	16	]	=	1	--	???
+	BaoXiang_jsyla	[	17	]	=	1398		BaoXiang_jsyla_Rad	[	17	]	=	9000 		BaoXiang_jsyla_Count	[	17	]	=	1	--	???
+	BaoXiang_jsyla	[	18	]	=	1399		BaoXiang_jsyla_Rad	[	18	]	=	9000 		BaoXiang_jsyla_Count	[	18	]	=	1	--	???
+	BaoXiang_jsyla	[	19	]	=	0022		BaoXiang_jsyla_Rad	[	19	]	=	9000 		BaoXiang_jsyla_Count	[	19	]	=	1	--	???
 																						
 																						
---	УОБъ±¦Пд23РН												w0289									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	????23?												w0289									
+--	????							??????														
 	BaoXiang_jsylb_Qua	=	23	 				BaoXiang_jsylb_Mxcount	=	19												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsylb	=	{}					BaoXiang_jsylb_Rad	=	{}					BaoXiang_jsylb_Count	=	{}					
-	BaoXiang_jsylb	[	1	]	=	0114		BaoXiang_jsylb_Rad	[	1	]	=	5 		BaoXiang_jsylb_Count	[	1	]	=	1	--	УОБъ
-	BaoXiang_jsylb	[	2	]	=	3303		BaoXiang_jsylb_Rad	[	2	]	=	15 		BaoXiang_jsylb_Count	[	2	]	=	1	--	УОБъ±¦Пд23РН
-	BaoXiang_jsylb	[	3	]	=	0007		BaoXiang_jsylb_Rad	[	3	]	=	15 		BaoXiang_jsylb_Count	[	3	]	=	1	--	КҐЅЈ
-	BaoXiang_jsylb	[	4	]	=	1394		BaoXiang_jsylb_Rad	[	4	]	=	15 		BaoXiang_jsylb_Count	[	4	]	=	1	--	АиГчЅЈ
-	BaoXiang_jsylb	[	5	]	=	0006		BaoXiang_jsylb_Rad	[	5	]	=	150 		BaoXiang_jsylb_Count	[	5	]	=	1	--	Х¶БъЅЈ
-	BaoXiang_jsylb	[	6	]	=	1393		BaoXiang_jsylb_Rad	[	6	]	=	150 		BaoXiang_jsylb_Count	[	6	]	=	1	--	БъГщЅЈ
-	BaoXiang_jsylb	[	7	]	=	3801		BaoXiang_jsylb_Rad	[	7	]	=	150 		BaoXiang_jsylb_Count	[	7	]	=	1	--	чичлЅЈ
-	BaoXiang_jsylb	[	8	]	=	4212		BaoXiang_jsylb_Rad	[	8	]	=	150 		BaoXiang_jsylb_Count	[	8	]	=	1	--	»рєЫ
-	BaoXiang_jsylb	[	9	]	=	4213		BaoXiang_jsylb_Rad	[	9	]	=	150 		BaoXiang_jsylb_Count	[	9	]	=	1	--	Ч·µз
-	BaoXiang_jsylb	[	10	]	=	0003		BaoXiang_jsylb_Rad	[	10	]	=	9200 		BaoXiang_jsylb_Count	[	10	]	=	1	--	ОчСуЅЈ
-	BaoXiang_jsylb	[	11	]	=	0004		BaoXiang_jsylb_Rad	[	11	]	=	9200 		BaoXiang_jsylb_Count	[	11	]	=	1	--	ЙЯЅЈ
-	BaoXiang_jsylb	[	12	]	=	0005		BaoXiang_jsylb_Rad	[	12	]	=	9200 		BaoXiang_jsylb_Count	[	12	]	=	1	--	ѕ«ёЦЅЈ
-	BaoXiang_jsylb	[	13	]	=	1390		BaoXiang_jsylb_Rad	[	13	]	=	9200 		BaoXiang_jsylb_Count	[	13	]	=	1	--	ПёґМЅЈ
-	BaoXiang_jsylb	[	14	]	=	1391		BaoXiang_jsylb_Rad	[	14	]	=	9200 		BaoXiang_jsylb_Count	[	14	]	=	1	--	±М№вґМИР
-	BaoXiang_jsylb	[	15	]	=	1392		BaoXiang_jsylb_Rad	[	15	]	=	9200 		BaoXiang_jsylb_Count	[	15	]	=	1	--	ёЦЦЖЕеЅЈ
-	BaoXiang_jsylb	[	16	]	=	1397		BaoXiang_jsylb_Rad	[	16	]	=	9200 		BaoXiang_jsylb_Count	[	16	]	=	1	--	ґМЙ±ЅЈ
-	BaoXiang_jsylb	[	17	]	=	1398		BaoXiang_jsylb_Rad	[	17	]	=	9200 		BaoXiang_jsylb_Count	[	17	]	=	1	--	ТмЧеЅЈ
-	BaoXiang_jsylb	[	18	]	=	1399		BaoXiang_jsylb_Rad	[	18	]	=	9200 		BaoXiang_jsylb_Count	[	18	]	=	1	--	зъзкЅЈ
-	BaoXiang_jsylb	[	19	]	=	0022		BaoXiang_jsylb_Rad	[	19	]	=	9200 		BaoXiang_jsylb_Count	[	19	]	=	1	--	НдИРЅЈ
+	BaoXiang_jsylb	[	1	]	=	0114		BaoXiang_jsylb_Rad	[	1	]	=	5 		BaoXiang_jsylb_Count	[	1	]	=	1	--	??
+	BaoXiang_jsylb	[	2	]	=	3303		BaoXiang_jsylb_Rad	[	2	]	=	15 		BaoXiang_jsylb_Count	[	2	]	=	1	--	????23?
+	BaoXiang_jsylb	[	3	]	=	0007		BaoXiang_jsylb_Rad	[	3	]	=	15 		BaoXiang_jsylb_Count	[	3	]	=	1	--	??
+	BaoXiang_jsylb	[	4	]	=	1394		BaoXiang_jsylb_Rad	[	4	]	=	15 		BaoXiang_jsylb_Count	[	4	]	=	1	--	???
+	BaoXiang_jsylb	[	5	]	=	0006		BaoXiang_jsylb_Rad	[	5	]	=	150 		BaoXiang_jsylb_Count	[	5	]	=	1	--	???
+	BaoXiang_jsylb	[	6	]	=	1393		BaoXiang_jsylb_Rad	[	6	]	=	150 		BaoXiang_jsylb_Count	[	6	]	=	1	--	???
+	BaoXiang_jsylb	[	7	]	=	3801		BaoXiang_jsylb_Rad	[	7	]	=	150 		BaoXiang_jsylb_Count	[	7	]	=	1	--	???
+	BaoXiang_jsylb	[	8	]	=	4212		BaoXiang_jsylb_Rad	[	8	]	=	150 		BaoXiang_jsylb_Count	[	8	]	=	1	--	??
+	BaoXiang_jsylb	[	9	]	=	4213		BaoXiang_jsylb_Rad	[	9	]	=	150 		BaoXiang_jsylb_Count	[	9	]	=	1	--	??
+	BaoXiang_jsylb	[	10	]	=	0003		BaoXiang_jsylb_Rad	[	10	]	=	9200 		BaoXiang_jsylb_Count	[	10	]	=	1	--	???
+	BaoXiang_jsylb	[	11	]	=	0004		BaoXiang_jsylb_Rad	[	11	]	=	9200 		BaoXiang_jsylb_Count	[	11	]	=	1	--	??
+	BaoXiang_jsylb	[	12	]	=	0005		BaoXiang_jsylb_Rad	[	12	]	=	9200 		BaoXiang_jsylb_Count	[	12	]	=	1	--	???
+	BaoXiang_jsylb	[	13	]	=	1390		BaoXiang_jsylb_Rad	[	13	]	=	9200 		BaoXiang_jsylb_Count	[	13	]	=	1	--	???
+	BaoXiang_jsylb	[	14	]	=	1391		BaoXiang_jsylb_Rad	[	14	]	=	9200 		BaoXiang_jsylb_Count	[	14	]	=	1	--	????
+	BaoXiang_jsylb	[	15	]	=	1392		BaoXiang_jsylb_Rad	[	15	]	=	9200 		BaoXiang_jsylb_Count	[	15	]	=	1	--	????
+	BaoXiang_jsylb	[	16	]	=	1397		BaoXiang_jsylb_Rad	[	16	]	=	9200 		BaoXiang_jsylb_Count	[	16	]	=	1	--	???
+	BaoXiang_jsylb	[	17	]	=	1398		BaoXiang_jsylb_Rad	[	17	]	=	9200 		BaoXiang_jsylb_Count	[	17	]	=	1	--	???
+	BaoXiang_jsylb	[	18	]	=	1399		BaoXiang_jsylb_Rad	[	18	]	=	9200 		BaoXiang_jsylb_Count	[	18	]	=	1	--	???
+	BaoXiang_jsylb	[	19	]	=	0022		BaoXiang_jsylb_Rad	[	19	]	=	9200 		BaoXiang_jsylb_Count	[	19	]	=	1	--	???
 
 
 																						
---	ГФЦ®АыИР±¦Пд24РН												w0007									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????24?												w0007									
+--	????							??????														
 	BaoXiang_jsmzlra_Qua	=	24	 				BaoXiang_jsmzlra_Mxcount	=	18												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsmzlra	=	{}					BaoXiang_jsmzlra_Rad	=	{}					BaoXiang_jsmzlra_Count	=	{}					
-	BaoXiang_jsmzlra	[	1	]	=	1895		BaoXiang_jsmzlra_Rad	[	1	]	=	30 		BaoXiang_jsmzlra_Count	[	1	]	=	1	--	ОЫДа·вУЎµДЦдОЖґМЅЈ
-	BaoXiang_jsmzlra	[	2	]	=	1896		BaoXiang_jsmzlra_Rad	[	2	]	=	20 		BaoXiang_jsmzlra_Count	[	2	]	=	1	--	БТСж·вУЎµД»ГБйЦ®Ои
-	BaoXiang_jsmzlra	[	3	]	=	1897		BaoXiang_jsmzlra_Rad	[	3	]	=	1 		BaoXiang_jsmzlra_Count	[	3	]	=	1	--	є®±щ·вУЎµДГФЦ®АыИР
-	BaoXiang_jsmzlra	[	4	]	=	0006		BaoXiang_jsmzlra_Rad	[	4	]	=	200 		BaoXiang_jsmzlra_Count	[	4	]	=	1	--	Х¶БъЅЈ
-	BaoXiang_jsmzlra	[	5	]	=	1393		BaoXiang_jsmzlra_Rad	[	5	]	=	200 		BaoXiang_jsmzlra_Count	[	5	]	=	1	--	БъГщЅЈ
-	BaoXiang_jsmzlra	[	6	]	=	3801		BaoXiang_jsmzlra_Rad	[	6	]	=	200 		BaoXiang_jsmzlra_Count	[	6	]	=	1	--	чичлЅЈ
-	BaoXiang_jsmzlra	[	7	]	=	4212		BaoXiang_jsmzlra_Rad	[	7	]	=	200 		BaoXiang_jsmzlra_Count	[	7	]	=	1	--	»рєЫ
-	BaoXiang_jsmzlra	[	8	]	=	4213		BaoXiang_jsmzlra_Rad	[	8	]	=	200 		BaoXiang_jsmzlra_Count	[	8	]	=	1	--	Ч·µз
-	BaoXiang_jsmzlra	[	9	]	=	0003		BaoXiang_jsmzlra_Rad	[	9	]	=	9000		BaoXiang_jsmzlra_Count	[	9	]	=	1	--	ОчСуЅЈ
-	BaoXiang_jsmzlra	[	10	]	=	0004		BaoXiang_jsmzlra_Rad	[	10	]	=	9000 		BaoXiang_jsmzlra_Count	[	10	]	=	1	--	ЙЯЅЈ
-	BaoXiang_jsmzlra	[	11	]	=	0005		BaoXiang_jsmzlra_Rad	[	11	]	=	9000 		BaoXiang_jsmzlra_Count	[	11	]	=	1	--	ѕ«ёЦЅЈ
-	BaoXiang_jsmzlra	[	12	]	=	1390		BaoXiang_jsmzlra_Rad	[	12	]	=	9000 		BaoXiang_jsmzlra_Count	[	12	]	=	1	--	ПёґМЅЈ
-	BaoXiang_jsmzlra	[	13	]	=	1391		BaoXiang_jsmzlra_Rad	[	13	]	=	9000 		BaoXiang_jsmzlra_Count	[	13	]	=	1	--	±М№вґМИР
-	BaoXiang_jsmzlra	[	14	]	=	1392		BaoXiang_jsmzlra_Rad	[	14	]	=	9000 		BaoXiang_jsmzlra_Count	[	14	]	=	1	--	ёЦЦЖЕеЅЈ
-	BaoXiang_jsmzlra	[	15	]	=	1397		BaoXiang_jsmzlra_Rad	[	15	]	=	9000 		BaoXiang_jsmzlra_Count	[	15	]	=	1	--	ґМЙ±ЅЈ
-	BaoXiang_jsmzlra	[	16	]	=	1398		BaoXiang_jsmzlra_Rad	[	16	]	=	9000 		BaoXiang_jsmzlra_Count	[	16	]	=	1	--	ТмЧеЅЈ
-	BaoXiang_jsmzlra	[	17	]	=	1399		BaoXiang_jsmzlra_Rad	[	17	]	=	9000		BaoXiang_jsmzlra_Count	[	17	]	=	1	--	зъзкЅЈ
-	BaoXiang_jsmzlra	[	18	]	=	0022		BaoXiang_jsmzlra_Rad	[	18	]	=	9000 		BaoXiang_jsmzlra_Count	[	18	]	=	1	--	НдИРЅЈ
+	BaoXiang_jsmzlra	[	1	]	=	1895		BaoXiang_jsmzlra_Rad	[	1	]	=	30 		BaoXiang_jsmzlra_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jsmzlra	[	2	]	=	1896		BaoXiang_jsmzlra_Rad	[	2	]	=	20 		BaoXiang_jsmzlra_Count	[	2	]	=	1	--	?????????
+	BaoXiang_jsmzlra	[	3	]	=	1897		BaoXiang_jsmzlra_Rad	[	3	]	=	1 		BaoXiang_jsmzlra_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jsmzlra	[	4	]	=	0006		BaoXiang_jsmzlra_Rad	[	4	]	=	200 		BaoXiang_jsmzlra_Count	[	4	]	=	1	--	???
+	BaoXiang_jsmzlra	[	5	]	=	1393		BaoXiang_jsmzlra_Rad	[	5	]	=	200 		BaoXiang_jsmzlra_Count	[	5	]	=	1	--	???
+	BaoXiang_jsmzlra	[	6	]	=	3801		BaoXiang_jsmzlra_Rad	[	6	]	=	200 		BaoXiang_jsmzlra_Count	[	6	]	=	1	--	???
+	BaoXiang_jsmzlra	[	7	]	=	4212		BaoXiang_jsmzlra_Rad	[	7	]	=	200 		BaoXiang_jsmzlra_Count	[	7	]	=	1	--	??
+	BaoXiang_jsmzlra	[	8	]	=	4213		BaoXiang_jsmzlra_Rad	[	8	]	=	200 		BaoXiang_jsmzlra_Count	[	8	]	=	1	--	??
+	BaoXiang_jsmzlra	[	9	]	=	0003		BaoXiang_jsmzlra_Rad	[	9	]	=	9000		BaoXiang_jsmzlra_Count	[	9	]	=	1	--	???
+	BaoXiang_jsmzlra	[	10	]	=	0004		BaoXiang_jsmzlra_Rad	[	10	]	=	9000 		BaoXiang_jsmzlra_Count	[	10	]	=	1	--	??
+	BaoXiang_jsmzlra	[	11	]	=	0005		BaoXiang_jsmzlra_Rad	[	11	]	=	9000 		BaoXiang_jsmzlra_Count	[	11	]	=	1	--	???
+	BaoXiang_jsmzlra	[	12	]	=	1390		BaoXiang_jsmzlra_Rad	[	12	]	=	9000 		BaoXiang_jsmzlra_Count	[	12	]	=	1	--	???
+	BaoXiang_jsmzlra	[	13	]	=	1391		BaoXiang_jsmzlra_Rad	[	13	]	=	9000 		BaoXiang_jsmzlra_Count	[	13	]	=	1	--	????
+	BaoXiang_jsmzlra	[	14	]	=	1392		BaoXiang_jsmzlra_Rad	[	14	]	=	9000 		BaoXiang_jsmzlra_Count	[	14	]	=	1	--	????
+	BaoXiang_jsmzlra	[	15	]	=	1397		BaoXiang_jsmzlra_Rad	[	15	]	=	9000 		BaoXiang_jsmzlra_Count	[	15	]	=	1	--	???
+	BaoXiang_jsmzlra	[	16	]	=	1398		BaoXiang_jsmzlra_Rad	[	16	]	=	9000 		BaoXiang_jsmzlra_Count	[	16	]	=	1	--	???
+	BaoXiang_jsmzlra	[	17	]	=	1399		BaoXiang_jsmzlra_Rad	[	17	]	=	9000		BaoXiang_jsmzlra_Count	[	17	]	=	1	--	???
+	BaoXiang_jsmzlra	[	18	]	=	0022		BaoXiang_jsmzlra_Rad	[	18	]	=	9000 		BaoXiang_jsmzlra_Count	[	18	]	=	1	--	???
 
 																						
---	ГФЦ®АыИР±¦Пд23РН												w0007									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????23?												w0007									
+--	????							??????														
 	BaoXiang_jsmzlrb_Qua	=	23	 				BaoXiang_jsmzlrb_Mxcount	=	18												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsmzlrb	=	{}					BaoXiang_jsmzlrb_Rad	=	{}					BaoXiang_jsmzlrb_Count	=	{}					
-	BaoXiang_jsmzlrb	[	1	]	=	1895		BaoXiang_jsmzlrb_Rad	[	1	]	=	30 		BaoXiang_jsmzlrb_Count	[	1	]	=	1	--	ОЫДа·вУЎµДЦдОЖґМЅЈ
-	BaoXiang_jsmzlrb	[	2	]	=	1896		BaoXiang_jsmzlrb_Rad	[	2	]	=	10 		BaoXiang_jsmzlrb_Count	[	2	]	=	1	--	БТСж·вУЎµД»ГБйЦ®Ои
-	BaoXiang_jsmzlrb	[	3	]	=	1897		BaoXiang_jsmzlrb_Rad	[	3	]	=	5 		BaoXiang_jsmzlrb_Count	[	3	]	=	1	--	є®±щ·вУЎµДГФЦ®АыИР
-	BaoXiang_jsmzlrb	[	4	]	=	0006		BaoXiang_jsmzlrb_Rad	[	4	]	=	175 		BaoXiang_jsmzlrb_Count	[	4	]	=	1	--	Х¶БъЅЈ
-	BaoXiang_jsmzlrb	[	5	]	=	1393		BaoXiang_jsmzlrb_Rad	[	5	]	=	175 		BaoXiang_jsmzlrb_Count	[	5	]	=	1	--	БъГщЅЈ
-	BaoXiang_jsmzlrb	[	6	]	=	3801		BaoXiang_jsmzlrb_Rad	[	6	]	=	175 		BaoXiang_jsmzlrb_Count	[	6	]	=	1	--	чичлЅЈ
-	BaoXiang_jsmzlrb	[	7	]	=	4212		BaoXiang_jsmzlrb_Rad	[	7	]	=	175 		BaoXiang_jsmzlrb_Count	[	7	]	=	1	--	»рєЫ
-	BaoXiang_jsmzlrb	[	8	]	=	4213		BaoXiang_jsmzlrb_Rad	[	8	]	=	175 		BaoXiang_jsmzlrb_Count	[	8	]	=	1	--	Ч·µз
-	BaoXiang_jsmzlrb	[	9	]	=	0003		BaoXiang_jsmzlrb_Rad	[	9	]	=	9100 		BaoXiang_jsmzlrb_Count	[	9	]	=	1	--	ОчСуЅЈ
-	BaoXiang_jsmzlrb	[	10	]	=	0004		BaoXiang_jsmzlrb_Rad	[	10	]	=	9100 		BaoXiang_jsmzlrb_Count	[	10	]	=	1	--	ЙЯЅЈ
-	BaoXiang_jsmzlrb	[	11	]	=	0005		BaoXiang_jsmzlrb_Rad	[	11	]	=	9100 		BaoXiang_jsmzlrb_Count	[	11	]	=	1	--	ѕ«ёЦЅЈ
-	BaoXiang_jsmzlrb	[	12	]	=	1390		BaoXiang_jsmzlrb_Rad	[	12	]	=	9100 		BaoXiang_jsmzlrb_Count	[	12	]	=	1	--	ПёґМЅЈ
-	BaoXiang_jsmzlrb	[	13	]	=	1391		BaoXiang_jsmzlrb_Rad	[	13	]	=	9100 		BaoXiang_jsmzlrb_Count	[	13	]	=	1	--	±М№вґМИР
-	BaoXiang_jsmzlrb	[	14	]	=	1392		BaoXiang_jsmzlrb_Rad	[	14	]	=	9100 		BaoXiang_jsmzlrb_Count	[	14	]	=	1	--	ёЦЦЖЕеЅЈ
-	BaoXiang_jsmzlrb	[	15	]	=	1397		BaoXiang_jsmzlrb_Rad	[	15	]	=	9100 		BaoXiang_jsmzlrb_Count	[	15	]	=	1	--	ґМЙ±ЅЈ
-	BaoXiang_jsmzlrb	[	16	]	=	1398		BaoXiang_jsmzlrb_Rad	[	16	]	=	9100 		BaoXiang_jsmzlrb_Count	[	16	]	=	1	--	ТмЧеЅЈ
-	BaoXiang_jsmzlrb	[	17	]	=	1399		BaoXiang_jsmzlrb_Rad	[	17	]	=	9100 		BaoXiang_jsmzlrb_Count	[	17	]	=	1	--	зъзкЅЈ
-	BaoXiang_jsmzlrb	[	18	]	=	0022		BaoXiang_jsmzlrb_Rad	[	18	]	=	9100 		BaoXiang_jsmzlrb_Count	[	18	]	=	1	--	НдИРЅЈ
+	BaoXiang_jsmzlrb	[	1	]	=	1895		BaoXiang_jsmzlrb_Rad	[	1	]	=	30 		BaoXiang_jsmzlrb_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jsmzlrb	[	2	]	=	1896		BaoXiang_jsmzlrb_Rad	[	2	]	=	10 		BaoXiang_jsmzlrb_Count	[	2	]	=	1	--	?????????
+	BaoXiang_jsmzlrb	[	3	]	=	1897		BaoXiang_jsmzlrb_Rad	[	3	]	=	5 		BaoXiang_jsmzlrb_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jsmzlrb	[	4	]	=	0006		BaoXiang_jsmzlrb_Rad	[	4	]	=	175 		BaoXiang_jsmzlrb_Count	[	4	]	=	1	--	???
+	BaoXiang_jsmzlrb	[	5	]	=	1393		BaoXiang_jsmzlrb_Rad	[	5	]	=	175 		BaoXiang_jsmzlrb_Count	[	5	]	=	1	--	???
+	BaoXiang_jsmzlrb	[	6	]	=	3801		BaoXiang_jsmzlrb_Rad	[	6	]	=	175 		BaoXiang_jsmzlrb_Count	[	6	]	=	1	--	???
+	BaoXiang_jsmzlrb	[	7	]	=	4212		BaoXiang_jsmzlrb_Rad	[	7	]	=	175 		BaoXiang_jsmzlrb_Count	[	7	]	=	1	--	??
+	BaoXiang_jsmzlrb	[	8	]	=	4213		BaoXiang_jsmzlrb_Rad	[	8	]	=	175 		BaoXiang_jsmzlrb_Count	[	8	]	=	1	--	??
+	BaoXiang_jsmzlrb	[	9	]	=	0003		BaoXiang_jsmzlrb_Rad	[	9	]	=	9100 		BaoXiang_jsmzlrb_Count	[	9	]	=	1	--	???
+	BaoXiang_jsmzlrb	[	10	]	=	0004		BaoXiang_jsmzlrb_Rad	[	10	]	=	9100 		BaoXiang_jsmzlrb_Count	[	10	]	=	1	--	??
+	BaoXiang_jsmzlrb	[	11	]	=	0005		BaoXiang_jsmzlrb_Rad	[	11	]	=	9100 		BaoXiang_jsmzlrb_Count	[	11	]	=	1	--	???
+	BaoXiang_jsmzlrb	[	12	]	=	1390		BaoXiang_jsmzlrb_Rad	[	12	]	=	9100 		BaoXiang_jsmzlrb_Count	[	12	]	=	1	--	???
+	BaoXiang_jsmzlrb	[	13	]	=	1391		BaoXiang_jsmzlrb_Rad	[	13	]	=	9100 		BaoXiang_jsmzlrb_Count	[	13	]	=	1	--	????
+	BaoXiang_jsmzlrb	[	14	]	=	1392		BaoXiang_jsmzlrb_Rad	[	14	]	=	9100 		BaoXiang_jsmzlrb_Count	[	14	]	=	1	--	????
+	BaoXiang_jsmzlrb	[	15	]	=	1397		BaoXiang_jsmzlrb_Rad	[	15	]	=	9100 		BaoXiang_jsmzlrb_Count	[	15	]	=	1	--	???
+	BaoXiang_jsmzlrb	[	16	]	=	1398		BaoXiang_jsmzlrb_Rad	[	16	]	=	9100 		BaoXiang_jsmzlrb_Count	[	16	]	=	1	--	???
+	BaoXiang_jsmzlrb	[	17	]	=	1399		BaoXiang_jsmzlrb_Rad	[	17	]	=	9100 		BaoXiang_jsmzlrb_Count	[	17	]	=	1	--	???
+	BaoXiang_jsmzlrb	[	18	]	=	0022		BaoXiang_jsmzlrb_Rad	[	18	]	=	9100 		BaoXiang_jsmzlrb_Count	[	18	]	=	1	--	???
 
 
 																						
---	ѕЮгЪ±¦Пд24РН												w0210									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	????24?												w0210									
+--	????							??????														
 	BaoXiang_jsjqa_Qua	=	24	 				BaoXiang_jsjqa_Mxcount	=	17												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsjqa	=	{}					BaoXiang_jsjqa_Rad	=	{}					BaoXiang_jsjqa_Count	=	{}					
-	BaoXiang_jsjqa	[	1	]	=	0116		BaoXiang_jsjqa_Rad	[	1	]	=	1 		BaoXiang_jsjqa_Count	[	1	]	=	1	--	--ѕЮгЪ
-	BaoXiang_jsjqa	[	2	]	=	3306		BaoXiang_jsjqa_Rad	[	2	]	=	23 		BaoXiang_jsjqa_Count	[	2	]	=	1	--	ѕЮгЪ±¦Пд24РН
-	BaoXiang_jsjqa	[	3	]	=	1375		BaoXiang_jsjqa_Rad	[	3	]	=	23 		BaoXiang_jsjqa_Count	[	3	]	=	1	--	КЮНхё«
-	BaoXiang_jsjqa	[	4	]	=	1384		BaoXiang_jsjqa_Rad	[	4	]	=	23 		BaoXiang_jsjqa_Count	[	4	]	=	1	--	ЛАНцЦ®·з
-	BaoXiang_jsjqa	[	5	]	=	0018		BaoXiang_jsjqa_Rad	[	5	]	=	23 		BaoXiang_jsjqa_Count	[	5	]	=	1	--	АЧИР
-	BaoXiang_jsjqa	[	6	]	=	1374		BaoXiang_jsjqa_Rad	[	6	]	=	180 		BaoXiang_jsjqa_Count	[	6	]	=	1	--	ІФБъЅЈ
-	BaoXiang_jsjqa	[	7	]	=	0017		BaoXiang_jsjqa_Rad	[	7	]	=	180 		BaoXiang_jsjqa_Count	[	7	]	=	1	--	Бъ№ЗЅЈ
-	BaoXiang_jsjqa	[	8	]	=	1383		BaoXiang_jsjqa_Rad	[	8	]	=	180 		BaoXiang_jsjqa_Count	[	8	]	=	1	--	Бъ»кЅЈ
-	BaoXiang_jsjqa	[	9	]	=	0021		BaoXiang_jsjqa_Rad	[	9	]	=	180 		BaoXiang_jsjqa_Count	[	9	]	=	1	--	іе·жЅЈ
-	BaoXiang_jsjqa	[	10	]	=	1378		BaoXiang_jsjqa_Rad	[	10	]	=	180 		BaoXiang_jsjqa_Count	[	10	]	=	1	--	»рБъЅЈ
-	BaoXiang_jsjqa	[	11	]	=	0020		BaoXiang_jsjqa_Rad	[	11	]	=	1300 		BaoXiang_jsjqa_Count	[	11	]	=	1	--	ХЅКїЅЈ
-	BaoXiang_jsjqa	[	12	]	=	1372		BaoXiang_jsjqa_Rad	[	12	]	=	1300 		BaoXiang_jsjqa_Count	[	12	]	=	1	--	тЇіПЅЈ
-	BaoXiang_jsjqa	[	13	]	=	1373		BaoXiang_jsjqa_Rad	[	13	]	=	1300 		BaoXiang_jsjqa_Count	[	13	]	=	1	--	Жп±шЕеЅЈ
-	BaoXiang_jsjqa	[	14	]	=	1377		BaoXiang_jsjqa_Rad	[	14	]	=	1300 		BaoXiang_jsjqa_Count	[	14	]	=	1	--	БїІъХЅКїЅЈ
-	BaoXiang_jsjqa	[	15	]	=	1381		BaoXiang_jsjqa_Rad	[	15	]	=	1300 		BaoXiang_jsjqa_Count	[	15	]	=	1	--	КҐХЯЅЈ
-	BaoXiang_jsjqa	[	16	]	=	1382		BaoXiang_jsjqa_Rad	[	16	]	=	1300 		BaoXiang_jsjqa_Count	[	16	]	=	1	--	НЛµРЅЈ
-	BaoXiang_jsjqa	[	17	]	=	1386		BaoXiang_jsjqa_Rad	[	17	]	=	1300 		BaoXiang_jsjqa_Count	[	17	]	=	1	--	Зї»ЇХЅКїЅЈ
+	BaoXiang_jsjqa	[	1	]	=	0116		BaoXiang_jsjqa_Rad	[	1	]	=	1 		BaoXiang_jsjqa_Count	[	1	]	=	1	--	--??
+	BaoXiang_jsjqa	[	2	]	=	3306		BaoXiang_jsjqa_Rad	[	2	]	=	23 		BaoXiang_jsjqa_Count	[	2	]	=	1	--	????24?
+	BaoXiang_jsjqa	[	3	]	=	1375		BaoXiang_jsjqa_Rad	[	3	]	=	23 		BaoXiang_jsjqa_Count	[	3	]	=	1	--	???
+	BaoXiang_jsjqa	[	4	]	=	1384		BaoXiang_jsjqa_Rad	[	4	]	=	23 		BaoXiang_jsjqa_Count	[	4	]	=	1	--	????
+	BaoXiang_jsjqa	[	5	]	=	0018		BaoXiang_jsjqa_Rad	[	5	]	=	23 		BaoXiang_jsjqa_Count	[	5	]	=	1	--	??
+	BaoXiang_jsjqa	[	6	]	=	1374		BaoXiang_jsjqa_Rad	[	6	]	=	180 		BaoXiang_jsjqa_Count	[	6	]	=	1	--	???
+	BaoXiang_jsjqa	[	7	]	=	0017		BaoXiang_jsjqa_Rad	[	7	]	=	180 		BaoXiang_jsjqa_Count	[	7	]	=	1	--	???
+	BaoXiang_jsjqa	[	8	]	=	1383		BaoXiang_jsjqa_Rad	[	8	]	=	180 		BaoXiang_jsjqa_Count	[	8	]	=	1	--	???
+	BaoXiang_jsjqa	[	9	]	=	0021		BaoXiang_jsjqa_Rad	[	9	]	=	180 		BaoXiang_jsjqa_Count	[	9	]	=	1	--	???
+	BaoXiang_jsjqa	[	10	]	=	1378		BaoXiang_jsjqa_Rad	[	10	]	=	180 		BaoXiang_jsjqa_Count	[	10	]	=	1	--	???
+	BaoXiang_jsjqa	[	11	]	=	0020		BaoXiang_jsjqa_Rad	[	11	]	=	1300 		BaoXiang_jsjqa_Count	[	11	]	=	1	--	???
+	BaoXiang_jsjqa	[	12	]	=	1372		BaoXiang_jsjqa_Rad	[	12	]	=	1300 		BaoXiang_jsjqa_Count	[	12	]	=	1	--	???
+	BaoXiang_jsjqa	[	13	]	=	1373		BaoXiang_jsjqa_Rad	[	13	]	=	1300 		BaoXiang_jsjqa_Count	[	13	]	=	1	--	????
+	BaoXiang_jsjqa	[	14	]	=	1377		BaoXiang_jsjqa_Rad	[	14	]	=	1300 		BaoXiang_jsjqa_Count	[	14	]	=	1	--	?????
+	BaoXiang_jsjqa	[	15	]	=	1381		BaoXiang_jsjqa_Rad	[	15	]	=	1300 		BaoXiang_jsjqa_Count	[	15	]	=	1	--	???
+	BaoXiang_jsjqa	[	16	]	=	1382		BaoXiang_jsjqa_Rad	[	16	]	=	1300 		BaoXiang_jsjqa_Count	[	16	]	=	1	--	???
+	BaoXiang_jsjqa	[	17	]	=	1386		BaoXiang_jsjqa_Rad	[	17	]	=	1300 		BaoXiang_jsjqa_Count	[	17	]	=	1	--	?????
 																						
 
 																						
---	ѕЮгЪ±¦Пд23РН												w0210									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	????23?												w0210									
+--	????							??????														
 	BaoXiang_jsjqb_Qua	=	23	 				BaoXiang_jsjqb_Mxcount	=	17												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsjqb	=	{}					BaoXiang_jsjqb_Rad	=	{}					BaoXiang_jsjqb_Count	=	{}					
-	BaoXiang_jsjqb	[	1	]	=	0116		BaoXiang_jsjqb_Rad	[	1	]	=	5 		BaoXiang_jsjqb_Count	[	1	]	=	1	--	--ѕЮгЪ
-	BaoXiang_jsjqb	[	2	]	=	3307		BaoXiang_jsjqb_Rad	[	2	]	=	10 		BaoXiang_jsjqb_Count	[	2	]	=	1	--	ѕЮгЪ±¦Пд24РН
-	BaoXiang_jsjqb	[	3	]	=	1375		BaoXiang_jsjqb_Rad	[	3	]	=	10 		BaoXiang_jsjqb_Count	[	3	]	=	1	--	КЮНхё«
-	BaoXiang_jsjqb	[	4	]	=	1384		BaoXiang_jsjqb_Rad	[	4	]	=	10 		BaoXiang_jsjqb_Count	[	4	]	=	1	--	ЛАНцЦ®·з
-	BaoXiang_jsjqb	[	5	]	=	0018		BaoXiang_jsjqb_Rad	[	5	]	=	10 		BaoXiang_jsjqb_Count	[	5	]	=	1	--	АЧИР
-	BaoXiang_jsjqb	[	6	]	=	1374		BaoXiang_jsjqb_Rad	[	6	]	=	155 		BaoXiang_jsjqb_Count	[	6	]	=	1	--	ІФБъЅЈ
-	BaoXiang_jsjqb	[	7	]	=	0017		BaoXiang_jsjqb_Rad	[	7	]	=	155 		BaoXiang_jsjqb_Count	[	7	]	=	1	--	Бъ№ЗЅЈ
-	BaoXiang_jsjqb	[	8	]	=	1383		BaoXiang_jsjqb_Rad	[	8	]	=	155 		BaoXiang_jsjqb_Count	[	8	]	=	1	--	Бъ»кЅЈ
-	BaoXiang_jsjqb	[	9	]	=	0021		BaoXiang_jsjqb_Rad	[	9	]	=	155 		BaoXiang_jsjqb_Count	[	9	]	=	1	--	іе·жЅЈ
-	BaoXiang_jsjqb	[	10	]	=	1378		BaoXiang_jsjqb_Rad	[	10	]	=	155 		BaoXiang_jsjqb_Count	[	10	]	=	1	--	»рБъЅЈ
-	BaoXiang_jsjqb	[	11	]	=	0020		BaoXiang_jsjqb_Rad	[	11	]	=	14000 		BaoXiang_jsjqb_Count	[	11	]	=	1	--	ХЅКїЅЈ
-	BaoXiang_jsjqb	[	12	]	=	1372		BaoXiang_jsjqb_Rad	[	12	]	=	14000 		BaoXiang_jsjqb_Count	[	12	]	=	1	--	тЇіПЅЈ
-	BaoXiang_jsjqb	[	13	]	=	1373		BaoXiang_jsjqb_Rad	[	13	]	=	14000 		BaoXiang_jsjqb_Count	[	13	]	=	1	--	Жп±шЕеЅЈ
-	BaoXiang_jsjqb	[	14	]	=	1377		BaoXiang_jsjqb_Rad	[	14	]	=	14000 		BaoXiang_jsjqb_Count	[	14	]	=	1	--	БїІъХЅКїЅЈ
-	BaoXiang_jsjqb	[	15	]	=	1381		BaoXiang_jsjqb_Rad	[	15	]	=	14000 		BaoXiang_jsjqb_Count	[	15	]	=	1	--	КҐХЯЅЈ
-	BaoXiang_jsjqb	[	16	]	=	1382		BaoXiang_jsjqb_Rad	[	16	]	=	14000 		BaoXiang_jsjqb_Count	[	16	]	=	1	--	НЛµРЅЈ
-	BaoXiang_jsjqb	[	17	]	=	1386		BaoXiang_jsjqb_Rad	[	17	]	=	14000 		BaoXiang_jsjqb_Count	[	17	]	=	1	--	Зї»ЇХЅКїЅЈ
+	BaoXiang_jsjqb	[	1	]	=	0116		BaoXiang_jsjqb_Rad	[	1	]	=	5 		BaoXiang_jsjqb_Count	[	1	]	=	1	--	--??
+	BaoXiang_jsjqb	[	2	]	=	3307		BaoXiang_jsjqb_Rad	[	2	]	=	10 		BaoXiang_jsjqb_Count	[	2	]	=	1	--	????24?
+	BaoXiang_jsjqb	[	3	]	=	1375		BaoXiang_jsjqb_Rad	[	3	]	=	10 		BaoXiang_jsjqb_Count	[	3	]	=	1	--	???
+	BaoXiang_jsjqb	[	4	]	=	1384		BaoXiang_jsjqb_Rad	[	4	]	=	10 		BaoXiang_jsjqb_Count	[	4	]	=	1	--	????
+	BaoXiang_jsjqb	[	5	]	=	0018		BaoXiang_jsjqb_Rad	[	5	]	=	10 		BaoXiang_jsjqb_Count	[	5	]	=	1	--	??
+	BaoXiang_jsjqb	[	6	]	=	1374		BaoXiang_jsjqb_Rad	[	6	]	=	155 		BaoXiang_jsjqb_Count	[	6	]	=	1	--	???
+	BaoXiang_jsjqb	[	7	]	=	0017		BaoXiang_jsjqb_Rad	[	7	]	=	155 		BaoXiang_jsjqb_Count	[	7	]	=	1	--	???
+	BaoXiang_jsjqb	[	8	]	=	1383		BaoXiang_jsjqb_Rad	[	8	]	=	155 		BaoXiang_jsjqb_Count	[	8	]	=	1	--	???
+	BaoXiang_jsjqb	[	9	]	=	0021		BaoXiang_jsjqb_Rad	[	9	]	=	155 		BaoXiang_jsjqb_Count	[	9	]	=	1	--	???
+	BaoXiang_jsjqb	[	10	]	=	1378		BaoXiang_jsjqb_Rad	[	10	]	=	155 		BaoXiang_jsjqb_Count	[	10	]	=	1	--	???
+	BaoXiang_jsjqb	[	11	]	=	0020		BaoXiang_jsjqb_Rad	[	11	]	=	14000 		BaoXiang_jsjqb_Count	[	11	]	=	1	--	???
+	BaoXiang_jsjqb	[	12	]	=	1372		BaoXiang_jsjqb_Rad	[	12	]	=	14000 		BaoXiang_jsjqb_Count	[	12	]	=	1	--	???
+	BaoXiang_jsjqb	[	13	]	=	1373		BaoXiang_jsjqb_Rad	[	13	]	=	14000 		BaoXiang_jsjqb_Count	[	13	]	=	1	--	????
+	BaoXiang_jsjqb	[	14	]	=	1377		BaoXiang_jsjqb_Rad	[	14	]	=	14000 		BaoXiang_jsjqb_Count	[	14	]	=	1	--	?????
+	BaoXiang_jsjqb	[	15	]	=	1381		BaoXiang_jsjqb_Rad	[	15	]	=	14000 		BaoXiang_jsjqb_Count	[	15	]	=	1	--	???
+	BaoXiang_jsjqb	[	16	]	=	1382		BaoXiang_jsjqb_Rad	[	16	]	=	14000 		BaoXiang_jsjqb_Count	[	16	]	=	1	--	???
+	BaoXiang_jsjqb	[	17	]	=	1386		BaoXiang_jsjqb_Rad	[	17	]	=	14000 		BaoXiang_jsjqb_Count	[	17	]	=	1	--	?????
 																						
 
 
 																						
---	ГФЦ®ІГѕц±¦Пд24РН												w0013									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????24?												w0013									
+--	????							??????														
 	BaoXiang_jsmzcja_Qua	=	24	 				BaoXiang_jsmzcja_Mxcount	=	19												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsmzcja	=	{}					BaoXiang_jsmzcja_Rad	=	{}					BaoXiang_jsmzcja_Count	=	{}					
-	BaoXiang_jsmzcja	[	1	]	=	1892		BaoXiang_jsmzcja_Rad	[	1	]	=	30 		BaoXiang_jsmzcja_Count	[	1	]	=	1	--	--ОЫДа·вУЎµДЦдОЖЦШЅЈ
-	BaoXiang_jsmzcja	[	2	]	=	1893		BaoXiang_jsmzcja_Rad	[	2	]	=	20 		BaoXiang_jsmzcja_Count	[	2	]	=	1	--	--БТСж·вУЎµД»ГБйЦ®ЕШПш
-	BaoXiang_jsmzcja	[	3	]	=	1894		BaoXiang_jsmzcja_Rad	[	3	]	=	1 		BaoXiang_jsmzcja_Count	[	3	]	=	1	--	є®±щ·вУЎµДГФЦ®ІГѕц
-	BaoXiang_jsmzcja	[	4	]	=	3308		BaoXiang_jsmzcja_Rad	[	4	]	=	23 		BaoXiang_jsmzcja_Count	[	4	]	=	1	--	ГФЦ®ІГѕц±¦Пд24РН
-	BaoXiang_jsmzcja	[	5	]	=	1375		BaoXiang_jsmzcja_Rad	[	5	]	=	23 		BaoXiang_jsmzcja_Count	[	5	]	=	1	--	КЮНхё«
-	BaoXiang_jsmzcja	[	6	]	=	1384		BaoXiang_jsmzcja_Rad	[	6	]	=	23 		BaoXiang_jsmzcja_Count	[	6	]	=	1	--	ЛАНцЦ®·з
-	BaoXiang_jsmzcja	[	7	]	=	0018		BaoXiang_jsmzcja_Rad	[	7	]	=	23 		BaoXiang_jsmzcja_Count	[	7	]	=	1	--	АЧИР
-	BaoXiang_jsmzcja	[	8	]	=	1374		BaoXiang_jsmzcja_Rad	[	8	]	=	180 		BaoXiang_jsmzcja_Count	[	8	]	=	1	--	ІФБъЅЈ
-	BaoXiang_jsmzcja	[	9	]	=	0017		BaoXiang_jsmzcja_Rad	[	9	]	=	180 		BaoXiang_jsmzcja_Count	[	9	]	=	1	--	Бъ№ЗЅЈ
-	BaoXiang_jsmzcja	[	10	]	=	1383		BaoXiang_jsmzcja_Rad	[	10	]	=	180 		BaoXiang_jsmzcja_Count	[	10	]	=	1	--	Бъ»кЅЈ
-	BaoXiang_jsmzcja	[	11	]	=	0021		BaoXiang_jsmzcja_Rad	[	11	]	=	180 		BaoXiang_jsmzcja_Count	[	11	]	=	1	--	іе·жЅЈ
-	BaoXiang_jsmzcja	[	12	]	=	1378		BaoXiang_jsmzcja_Rad	[	12	]	=	180 		BaoXiang_jsmzcja_Count	[	12	]	=	1	--	»рБъЅЈ
-	BaoXiang_jsmzcja	[	13	]	=	0020		BaoXiang_jsmzcja_Rad	[	13	]	=	13000 		BaoXiang_jsmzcja_Count	[	13	]	=	1	--	ХЅКїЅЈ
-	BaoXiang_jsmzcja	[	14	]	=	1372		BaoXiang_jsmzcja_Rad	[	14	]	=	13000 		BaoXiang_jsmzcja_Count	[	14	]	=	1	--	тЇіПЅЈ
-	BaoXiang_jsmzcja	[	15	]	=	1373		BaoXiang_jsmzcja_Rad	[	15	]	=	13000 		BaoXiang_jsmzcja_Count	[	15	]	=	1	--	Жп±шЕеЅЈ
-	BaoXiang_jsmzcja	[	16	]	=	1377		BaoXiang_jsmzcja_Rad	[	16	]	=	13000 		BaoXiang_jsmzcja_Count	[	16	]	=	1	--	БїІъХЅКїЅЈ
-	BaoXiang_jsmzcja	[	17	]	=	1381		BaoXiang_jsmzcja_Rad	[	17	]	=	13000 		BaoXiang_jsmzcja_Count	[	17	]	=	1	--	КҐХЯЅЈ
-	BaoXiang_jsmzcja	[	18	]	=	1382		BaoXiang_jsmzcja_Rad	[	18	]	=	13000 		BaoXiang_jsmzcja_Count	[	18	]	=	1	--	НЛµРЅЈ
-	BaoXiang_jsmzcja	[	19	]	=	1386		BaoXiang_jsmzcja_Rad	[	19	]	=	13000 		BaoXiang_jsmzcja_Count	[	19	]	=	1	--	Зї»ЇХЅКїЅЈ
+	BaoXiang_jsmzcja	[	1	]	=	1892		BaoXiang_jsmzcja_Rad	[	1	]	=	30 		BaoXiang_jsmzcja_Count	[	1	]	=	1	--	--?????????
+	BaoXiang_jsmzcja	[	2	]	=	1893		BaoXiang_jsmzcja_Rad	[	2	]	=	20 		BaoXiang_jsmzcja_Count	[	2	]	=	1	--	--??????????
+	BaoXiang_jsmzcja	[	3	]	=	1894		BaoXiang_jsmzcja_Rad	[	3	]	=	1 		BaoXiang_jsmzcja_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jsmzcja	[	4	]	=	3308		BaoXiang_jsmzcja_Rad	[	4	]	=	23 		BaoXiang_jsmzcja_Count	[	4	]	=	1	--	??????24?
+	BaoXiang_jsmzcja	[	5	]	=	1375		BaoXiang_jsmzcja_Rad	[	5	]	=	23 		BaoXiang_jsmzcja_Count	[	5	]	=	1	--	???
+	BaoXiang_jsmzcja	[	6	]	=	1384		BaoXiang_jsmzcja_Rad	[	6	]	=	23 		BaoXiang_jsmzcja_Count	[	6	]	=	1	--	????
+	BaoXiang_jsmzcja	[	7	]	=	0018		BaoXiang_jsmzcja_Rad	[	7	]	=	23 		BaoXiang_jsmzcja_Count	[	7	]	=	1	--	??
+	BaoXiang_jsmzcja	[	8	]	=	1374		BaoXiang_jsmzcja_Rad	[	8	]	=	180 		BaoXiang_jsmzcja_Count	[	8	]	=	1	--	???
+	BaoXiang_jsmzcja	[	9	]	=	0017		BaoXiang_jsmzcja_Rad	[	9	]	=	180 		BaoXiang_jsmzcja_Count	[	9	]	=	1	--	???
+	BaoXiang_jsmzcja	[	10	]	=	1383		BaoXiang_jsmzcja_Rad	[	10	]	=	180 		BaoXiang_jsmzcja_Count	[	10	]	=	1	--	???
+	BaoXiang_jsmzcja	[	11	]	=	0021		BaoXiang_jsmzcja_Rad	[	11	]	=	180 		BaoXiang_jsmzcja_Count	[	11	]	=	1	--	???
+	BaoXiang_jsmzcja	[	12	]	=	1378		BaoXiang_jsmzcja_Rad	[	12	]	=	180 		BaoXiang_jsmzcja_Count	[	12	]	=	1	--	???
+	BaoXiang_jsmzcja	[	13	]	=	0020		BaoXiang_jsmzcja_Rad	[	13	]	=	13000 		BaoXiang_jsmzcja_Count	[	13	]	=	1	--	???
+	BaoXiang_jsmzcja	[	14	]	=	1372		BaoXiang_jsmzcja_Rad	[	14	]	=	13000 		BaoXiang_jsmzcja_Count	[	14	]	=	1	--	???
+	BaoXiang_jsmzcja	[	15	]	=	1373		BaoXiang_jsmzcja_Rad	[	15	]	=	13000 		BaoXiang_jsmzcja_Count	[	15	]	=	1	--	????
+	BaoXiang_jsmzcja	[	16	]	=	1377		BaoXiang_jsmzcja_Rad	[	16	]	=	13000 		BaoXiang_jsmzcja_Count	[	16	]	=	1	--	?????
+	BaoXiang_jsmzcja	[	17	]	=	1381		BaoXiang_jsmzcja_Rad	[	17	]	=	13000 		BaoXiang_jsmzcja_Count	[	17	]	=	1	--	???
+	BaoXiang_jsmzcja	[	18	]	=	1382		BaoXiang_jsmzcja_Rad	[	18	]	=	13000 		BaoXiang_jsmzcja_Count	[	18	]	=	1	--	???
+	BaoXiang_jsmzcja	[	19	]	=	1386		BaoXiang_jsmzcja_Rad	[	19	]	=	13000 		BaoXiang_jsmzcja_Count	[	19	]	=	1	--	?????
 
 																						
---	ГФЦ®ІГѕц±¦Пд23РН												w0013									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????23?												w0013									
+--	????							??????														
 	BaoXiang_jsmzcjb_Qua	=	23	 				BaoXiang_jsmzcjb_Mxcount	=	19												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsmzcjb	=	{}					BaoXiang_jsmzcjb_Rad	=	{}					BaoXiang_jsmzcjb_Count	=	{}					
-	BaoXiang_jsmzcjb	[	1	]	=	1892		BaoXiang_jsmzcjb_Rad	[	1	]	=	30 		BaoXiang_jsmzcjb_Count	[	1	]	=	1	--	--ОЫДа·вУЎµДЦдОЖЦШЅЈ
-	BaoXiang_jsmzcjb	[	2	]	=	1893		BaoXiang_jsmzcjb_Rad	[	2	]	=	10 		BaoXiang_jsmzcjb_Count	[	2	]	=	1	--	--БТСж·вУЎµД»ГБйЦ®ЕШПш
-	BaoXiang_jsmzcjb	[	3	]	=	1894		BaoXiang_jsmzcjb_Rad	[	3	]	=	5 		BaoXiang_jsmzcjb_Count	[	3	]	=	1	--	є®±щ·вУЎµДГФЦ®ІГѕц
-	BaoXiang_jsmzcjb	[	4	]	=	3309		BaoXiang_jsmzcjb_Rad	[	4	]	=	15 		BaoXiang_jsmzcjb_Count	[	4	]	=	1	--	ГФЦ®ІГѕц±¦Пд23РН
-	BaoXiang_jsmzcjb	[	5	]	=	1375		BaoXiang_jsmzcjb_Rad	[	5	]	=	15 		BaoXiang_jsmzcjb_Count	[	5	]	=	1	--	КЮНхё«
-	BaoXiang_jsmzcjb	[	6	]	=	1384		BaoXiang_jsmzcjb_Rad	[	6	]	=	15 		BaoXiang_jsmzcjb_Count	[	6	]	=	1	--	ЛАНцЦ®·з
-	BaoXiang_jsmzcjb	[	7	]	=	0018		BaoXiang_jsmzcjb_Rad	[	7	]	=	15 		BaoXiang_jsmzcjb_Count	[	7	]	=	1	--	АЧИР
-	BaoXiang_jsmzcjb	[	8	]	=	1374		BaoXiang_jsmzcjb_Rad	[	8	]	=	155 		BaoXiang_jsmzcjb_Count	[	8	]	=	1	--	ІФБъЅЈ
-	BaoXiang_jsmzcjb	[	9	]	=	0017		BaoXiang_jsmzcjb_Rad	[	9	]	=	155 		BaoXiang_jsmzcjb_Count	[	9	]	=	1	--	Бъ№ЗЅЈ
-	BaoXiang_jsmzcjb	[	10	]	=	1383		BaoXiang_jsmzcjb_Rad	[	10	]	=	155 		BaoXiang_jsmzcjb_Count	[	10	]	=	1	--	Бъ»кЅЈ
-	BaoXiang_jsmzcjb	[	11	]	=	0021		BaoXiang_jsmzcjb_Rad	[	11	]	=	155 		BaoXiang_jsmzcjb_Count	[	11	]	=	1	--	іе·жЅЈ
-	BaoXiang_jsmzcjb	[	12	]	=	1378		BaoXiang_jsmzcjb_Rad	[	12	]	=	155 		BaoXiang_jsmzcjb_Count	[	12	]	=	1	--	»рБъЅЈ
-	BaoXiang_jsmzcjb	[	13	]	=	0020		BaoXiang_jsmzcjb_Rad	[	13	]	=	14000 		BaoXiang_jsmzcjb_Count	[	13	]	=	1	--	ХЅКїЅЈ
-	BaoXiang_jsmzcjb	[	14	]	=	1372		BaoXiang_jsmzcjb_Rad	[	14	]	=	14000 		BaoXiang_jsmzcjb_Count	[	14	]	=	1	--	тЇіПЅЈ
-	BaoXiang_jsmzcjb	[	15	]	=	1373		BaoXiang_jsmzcjb_Rad	[	15	]	=	14000 		BaoXiang_jsmzcjb_Count	[	15	]	=	1	--	Жп±шЕеЅЈ
-	BaoXiang_jsmzcjb	[	16	]	=	1377		BaoXiang_jsmzcjb_Rad	[	16	]	=	14000 		BaoXiang_jsmzcjb_Count	[	16	]	=	1	--	БїІъХЅКїЅЈ
-	BaoXiang_jsmzcjb	[	17	]	=	1381		BaoXiang_jsmzcjb_Rad	[	17	]	=	14000 		BaoXiang_jsmzcjb_Count	[	17	]	=	1	--	КҐХЯЅЈ
-	BaoXiang_jsmzcjb	[	18	]	=	1382		BaoXiang_jsmzcjb_Rad	[	18	]	=	14000 		BaoXiang_jsmzcjb_Count	[	18	]	=	1	--	НЛµРЅЈ
-	BaoXiang_jsmzcjb	[	19	]	=	1386		BaoXiang_jsmzcjb_Rad	[	19	]	=	14000 		BaoXiang_jsmzcjb_Count	[	19	]	=	1	--	Зї»ЇХЅКїЅЈ
+	BaoXiang_jsmzcjb	[	1	]	=	1892		BaoXiang_jsmzcjb_Rad	[	1	]	=	30 		BaoXiang_jsmzcjb_Count	[	1	]	=	1	--	--?????????
+	BaoXiang_jsmzcjb	[	2	]	=	1893		BaoXiang_jsmzcjb_Rad	[	2	]	=	10 		BaoXiang_jsmzcjb_Count	[	2	]	=	1	--	--??????????
+	BaoXiang_jsmzcjb	[	3	]	=	1894		BaoXiang_jsmzcjb_Rad	[	3	]	=	5 		BaoXiang_jsmzcjb_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jsmzcjb	[	4	]	=	3309		BaoXiang_jsmzcjb_Rad	[	4	]	=	15 		BaoXiang_jsmzcjb_Count	[	4	]	=	1	--	??????23?
+	BaoXiang_jsmzcjb	[	5	]	=	1375		BaoXiang_jsmzcjb_Rad	[	5	]	=	15 		BaoXiang_jsmzcjb_Count	[	5	]	=	1	--	???
+	BaoXiang_jsmzcjb	[	6	]	=	1384		BaoXiang_jsmzcjb_Rad	[	6	]	=	15 		BaoXiang_jsmzcjb_Count	[	6	]	=	1	--	????
+	BaoXiang_jsmzcjb	[	7	]	=	0018		BaoXiang_jsmzcjb_Rad	[	7	]	=	15 		BaoXiang_jsmzcjb_Count	[	7	]	=	1	--	??
+	BaoXiang_jsmzcjb	[	8	]	=	1374		BaoXiang_jsmzcjb_Rad	[	8	]	=	155 		BaoXiang_jsmzcjb_Count	[	8	]	=	1	--	???
+	BaoXiang_jsmzcjb	[	9	]	=	0017		BaoXiang_jsmzcjb_Rad	[	9	]	=	155 		BaoXiang_jsmzcjb_Count	[	9	]	=	1	--	???
+	BaoXiang_jsmzcjb	[	10	]	=	1383		BaoXiang_jsmzcjb_Rad	[	10	]	=	155 		BaoXiang_jsmzcjb_Count	[	10	]	=	1	--	???
+	BaoXiang_jsmzcjb	[	11	]	=	0021		BaoXiang_jsmzcjb_Rad	[	11	]	=	155 		BaoXiang_jsmzcjb_Count	[	11	]	=	1	--	???
+	BaoXiang_jsmzcjb	[	12	]	=	1378		BaoXiang_jsmzcjb_Rad	[	12	]	=	155 		BaoXiang_jsmzcjb_Count	[	12	]	=	1	--	???
+	BaoXiang_jsmzcjb	[	13	]	=	0020		BaoXiang_jsmzcjb_Rad	[	13	]	=	14000 		BaoXiang_jsmzcjb_Count	[	13	]	=	1	--	???
+	BaoXiang_jsmzcjb	[	14	]	=	1372		BaoXiang_jsmzcjb_Rad	[	14	]	=	14000 		BaoXiang_jsmzcjb_Count	[	14	]	=	1	--	???
+	BaoXiang_jsmzcjb	[	15	]	=	1373		BaoXiang_jsmzcjb_Rad	[	15	]	=	14000 		BaoXiang_jsmzcjb_Count	[	15	]	=	1	--	????
+	BaoXiang_jsmzcjb	[	16	]	=	1377		BaoXiang_jsmzcjb_Rad	[	16	]	=	14000 		BaoXiang_jsmzcjb_Count	[	16	]	=	1	--	?????
+	BaoXiang_jsmzcjb	[	17	]	=	1381		BaoXiang_jsmzcjb_Rad	[	17	]	=	14000 		BaoXiang_jsmzcjb_Count	[	17	]	=	1	--	???
+	BaoXiang_jsmzcjb	[	18	]	=	1382		BaoXiang_jsmzcjb_Rad	[	18	]	=	14000 		BaoXiang_jsmzcjb_Count	[	18	]	=	1	--	???
+	BaoXiang_jsmzcjb	[	19	]	=	1386		BaoXiang_jsmzcjb_Rad	[	19	]	=	14000 		BaoXiang_jsmzcjb_Count	[	19	]	=	1	--	?????
 
 																						
---	Л«ЅЈїшјЧ±¦Пд24РН												e0106									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????24?												e0106									
+--	????							??????														
 	BaoXiang_jssjkja_Qua	=	24	 				BaoXiang_jssjkja_Mxcount	=	12												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jssjkja	=	{}					BaoXiang_jssjkja_Rad	=	{}					BaoXiang_jssjkja_Count	=	{}					
-	BaoXiang_jssjkja	[	1	]	=	1884		BaoXiang_jssjkja_Rad	[	1	]	=	10 		BaoXiang_jssjkja_Count	[	1	]	=	1	--	І»ЛА·вУЎµДУДБйошјЧ
-	BaoXiang_jssjkja	[	2	]	=	1888		BaoXiang_jssjkja_Rad	[	2	]	=	30 		BaoXiang_jssjkja_Count	[	2	]	=	1	--	ОЫДа·вУЎµДЧзЦдЦ®БйёЦјЧ
-	BaoXiang_jssjkja	[	3	]	=	1889		BaoXiang_jssjkja_Rad	[	3	]	=	20 		BaoXiang_jssjkja_Count	[	3	]	=	1	--	БТСж·вУЎµД»ГБйХЅјЧ
-	BaoXiang_jssjkja	[	4	]	=	1890		BaoXiang_jssjkja_Rad	[	4	]	=	1 		BaoXiang_jssjkja_Count	[	4	]	=	1	--	є®±щ·вУЎµДГФЦ®ХЅјЧ
-	BaoXiang_jssjkja	[	5	]	=	0396		BaoXiang_jssjkja_Rad	[	5	]	=	2000		BaoXiang_jssjkja_Count	[	5	]	=	1	--	ТюГШЦ®јЧ
-	BaoXiang_jssjkja	[	6	]	=	4150		BaoXiang_jssjkja_Rad	[	6	]	=	2000 		BaoXiang_jssjkja_Count	[	6	]	=	1	--	ЙсКҐХЅјЧ
-	BaoXiang_jssjkja	[	7	]	=	0304		BaoXiang_jssjkja_Rad	[	7	]	=	2500		BaoXiang_jssjkja_Count	[	7	]	=	1	--	µдАсёЦјЧ
-	BaoXiang_jssjkja	[	8	]	=	1931		BaoXiang_jssjkja_Rad	[	8	]	=	2500 		BaoXiang_jssjkja_Count	[	8	]	=	1	--	чичлХЅјЧ
-	BaoXiang_jssjkja	[	9	]	=	0302		BaoXiang_jssjkja_Rad	[	9	]	=	22400 		BaoXiang_jssjkja_Count	[	9	]	=	1	--	Зб±гёЦјЧ
-	BaoXiang_jssjkja	[	10	]	=	0303		BaoXiang_jssjkja_Rad	[	10	]	=	22400 		BaoXiang_jssjkja_Count	[	10	]	=	1	--	¶ЖТшёЦјЧ
-	BaoXiang_jssjkja	[	11	]	=	1929		BaoXiang_jssjkja_Rad	[	11	]	=	22400 		BaoXiang_jssjkja_Count	[	11	]	=	1	--	јІ·зХЅјЧ
-	BaoXiang_jssjkja	[	12	]	=	1930		BaoXiang_jssjkja_Rad	[	12	]	=	22400 		BaoXiang_jssjkja_Count	[	12	]	=	1	--	ОчЛ№ХЅјЧ
+	BaoXiang_jssjkja	[	1	]	=	1884		BaoXiang_jssjkja_Rad	[	1	]	=	10 		BaoXiang_jssjkja_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jssjkja	[	2	]	=	1888		BaoXiang_jssjkja_Rad	[	2	]	=	30 		BaoXiang_jssjkja_Count	[	2	]	=	1	--	???????????
+	BaoXiang_jssjkja	[	3	]	=	1889		BaoXiang_jssjkja_Rad	[	3	]	=	20 		BaoXiang_jssjkja_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jssjkja	[	4	]	=	1890		BaoXiang_jssjkja_Rad	[	4	]	=	1 		BaoXiang_jssjkja_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jssjkja	[	5	]	=	0396		BaoXiang_jssjkja_Rad	[	5	]	=	2000		BaoXiang_jssjkja_Count	[	5	]	=	1	--	????
+	BaoXiang_jssjkja	[	6	]	=	4150		BaoXiang_jssjkja_Rad	[	6	]	=	2000 		BaoXiang_jssjkja_Count	[	6	]	=	1	--	????
+	BaoXiang_jssjkja	[	7	]	=	0304		BaoXiang_jssjkja_Rad	[	7	]	=	2500		BaoXiang_jssjkja_Count	[	7	]	=	1	--	????
+	BaoXiang_jssjkja	[	8	]	=	1931		BaoXiang_jssjkja_Rad	[	8	]	=	2500 		BaoXiang_jssjkja_Count	[	8	]	=	1	--	????
+	BaoXiang_jssjkja	[	9	]	=	0302		BaoXiang_jssjkja_Rad	[	9	]	=	22400 		BaoXiang_jssjkja_Count	[	9	]	=	1	--	????
+	BaoXiang_jssjkja	[	10	]	=	0303		BaoXiang_jssjkja_Rad	[	10	]	=	22400 		BaoXiang_jssjkja_Count	[	10	]	=	1	--	????
+	BaoXiang_jssjkja	[	11	]	=	1929		BaoXiang_jssjkja_Rad	[	11	]	=	22400 		BaoXiang_jssjkja_Count	[	11	]	=	1	--	????
+	BaoXiang_jssjkja	[	12	]	=	1930		BaoXiang_jssjkja_Rad	[	12	]	=	22400 		BaoXiang_jssjkja_Count	[	12	]	=	1	--	????
 
 																						
---	Л«ЅЈїшјЧ±¦Пд23РН												e0106									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????23?												e0106									
+--	????							??????														
 	BaoXiang_jssjkjb_Qua	=	23	 				BaoXiang_jssjkjb_Mxcount	=	12												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jssjkjb	=	{}					BaoXiang_jssjkjb_Rad	=	{}					BaoXiang_jssjkjb_Count	=	{}					
-	BaoXiang_jssjkjb	[	1	]	=	1884		BaoXiang_jssjkjb_Rad	[	1	]	=	10 		BaoXiang_jssjkjb_Count	[	1	]	=	1	--	І»ЛА·вУЎµДУДБйошјЧ
-	BaoXiang_jssjkjb	[	2	]	=	1888		BaoXiang_jssjkjb_Rad	[	2	]	=	30 		BaoXiang_jssjkjb_Count	[	2	]	=	1	--	ОЫДа·вУЎµДЧзЦдЦ®БйёЦјЧ
-	BaoXiang_jssjkjb	[	3	]	=	1889		BaoXiang_jssjkjb_Rad	[	3	]	=	10 		BaoXiang_jssjkjb_Count	[	3	]	=	1	--	БТСж·вУЎµД»ГБйХЅјЧ
-	BaoXiang_jssjkjb	[	4	]	=	1890		BaoXiang_jssjkjb_Rad	[	4	]	=	5 		BaoXiang_jssjkjb_Count	[	4	]	=	1	--	є®±щ·вУЎµДГФЦ®ХЅјЧ
-	BaoXiang_jssjkjb	[	5	]	=	0396		BaoXiang_jssjkjb_Rad	[	5	]	=	1000 		BaoXiang_jssjkjb_Count	[	5	]	=	1	--	ТюГШЦ®јЧ
-	BaoXiang_jssjkjb	[	6	]	=	4150		BaoXiang_jssjkjb_Rad	[	6	]	=	1000 		BaoXiang_jssjkjb_Count	[	6	]	=	1	--	ЙсКҐХЅјЧ
-	BaoXiang_jssjkjb	[	7	]	=	0304		BaoXiang_jssjkjb_Rad	[	7	]	=	2000		BaoXiang_jssjkjb_Count	[	7	]	=	1	--	µдАсёЦјЧ
-	BaoXiang_jssjkjb	[	8	]	=	1931		BaoXiang_jssjkjb_Rad	[	8	]	=	2000 		BaoXiang_jssjkjb_Count	[	8	]	=	1	--	чичлХЅјЧ
-	BaoXiang_jssjkjb	[	9	]	=	0302		BaoXiang_jssjkjb_Rad	[	9	]	=	23000 		BaoXiang_jssjkjb_Count	[	9	]	=	1	--	Зб±гёЦјЧ
-	BaoXiang_jssjkjb	[	10	]	=	0303		BaoXiang_jssjkjb_Rad	[	10	]	=	23000 		BaoXiang_jssjkjb_Count	[	10	]	=	1	--	¶ЖТшёЦјЧ
-	BaoXiang_jssjkjb	[	11	]	=	1929		BaoXiang_jssjkjb_Rad	[	11	]	=	23000 		BaoXiang_jssjkjb_Count	[	11	]	=	1	--	јІ·зХЅјЧ
-	BaoXiang_jssjkjb	[	12	]	=	1930		BaoXiang_jssjkjb_Rad	[	12	]	=	23000 		BaoXiang_jssjkjb_Count	[	12	]	=	1	--	ОчЛ№ХЅјЧ
+	BaoXiang_jssjkjb	[	1	]	=	1884		BaoXiang_jssjkjb_Rad	[	1	]	=	10 		BaoXiang_jssjkjb_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jssjkjb	[	2	]	=	1888		BaoXiang_jssjkjb_Rad	[	2	]	=	30 		BaoXiang_jssjkjb_Count	[	2	]	=	1	--	???????????
+	BaoXiang_jssjkjb	[	3	]	=	1889		BaoXiang_jssjkjb_Rad	[	3	]	=	10 		BaoXiang_jssjkjb_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jssjkjb	[	4	]	=	1890		BaoXiang_jssjkjb_Rad	[	4	]	=	5 		BaoXiang_jssjkjb_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jssjkjb	[	5	]	=	0396		BaoXiang_jssjkjb_Rad	[	5	]	=	1000 		BaoXiang_jssjkjb_Count	[	5	]	=	1	--	????
+	BaoXiang_jssjkjb	[	6	]	=	4150		BaoXiang_jssjkjb_Rad	[	6	]	=	1000 		BaoXiang_jssjkjb_Count	[	6	]	=	1	--	????
+	BaoXiang_jssjkjb	[	7	]	=	0304		BaoXiang_jssjkjb_Rad	[	7	]	=	2000		BaoXiang_jssjkjb_Count	[	7	]	=	1	--	????
+	BaoXiang_jssjkjb	[	8	]	=	1931		BaoXiang_jssjkjb_Rad	[	8	]	=	2000 		BaoXiang_jssjkjb_Count	[	8	]	=	1	--	????
+	BaoXiang_jssjkjb	[	9	]	=	0302		BaoXiang_jssjkjb_Rad	[	9	]	=	23000 		BaoXiang_jssjkjb_Count	[	9	]	=	1	--	????
+	BaoXiang_jssjkjb	[	10	]	=	0303		BaoXiang_jssjkjb_Rad	[	10	]	=	23000 		BaoXiang_jssjkjb_Count	[	10	]	=	1	--	????
+	BaoXiang_jssjkjb	[	11	]	=	1929		BaoXiang_jssjkjb_Rad	[	11	]	=	23000 		BaoXiang_jssjkjb_Count	[	11	]	=	1	--	????
+	BaoXiang_jssjkjb	[	12	]	=	1930		BaoXiang_jssjkjb_Rad	[	12	]	=	23000 		BaoXiang_jssjkjb_Count	[	12	]	=	1	--	????
 																						
 
 																						
---	ѕС»чїшјЧ±¦Пд24РН												e0119									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????24?												e0119									
+--	????							??????														
 	BaoXiang_jszjkja_Qua	=	24	 				BaoXiang_jszjkja_Mxcount	=	13												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jszjkja	=	{}					BaoXiang_jszjkja_Rad	=	{}					BaoXiang_jszjkja_Count	=	{}					
-	BaoXiang_jszjkja	[	1	]	=	1898		BaoXiang_jszjkja_Rad	[	1	]	=	10 		BaoXiang_jszjkja_Count	[	1	]	=	1	--	І»ЛА·вУЎµДНцБй¶МЕЫ
-	BaoXiang_jszjkja	[	2	]	=	1899		BaoXiang_jszjkja_Rad	[	2	]	=	30 		BaoXiang_jszjkja_Count	[	2	]	=	1	--	ОЫДа·вУЎµДЦдОЖЅфЙнТВ
-	BaoXiang_jszjkja	[	3	]	=	1900		BaoXiang_jszjkja_Rad	[	3	]	=	20 		BaoXiang_jszjkja_Count	[	3	]	=	1	--	БТСж·вУЎµД»ГБйНвМЧ
-	BaoXiang_jszjkja	[	4	]	=	1901		BaoXiang_jszjkja_Rad	[	4	]	=	1 		BaoXiang_jszjkja_Count	[	4	]	=	1	--	є®±щ·вУЎµДГФЦ®¶·Ес
-	BaoXiang_jszjkja	[	5	]	=	3312		BaoXiang_jszjkja_Rad	[	5	]	=	1330 		BaoXiang_jszjkja_Count	[	5	]	=	1	--	ѕС»чїшјЧ±¦Пд24РН
-	BaoXiang_jszjkja	[	6	]	=	0400		BaoXiang_jszjkja_Rad	[	6	]	=	1330 		BaoXiang_jszjkja_Count	[	6	]	=	1	--	ЙдИХНвМЧ
-	BaoXiang_jszjkja	[	7	]	=	4152		BaoXiang_jszjkja_Rad	[	7	]	=	1330 		BaoXiang_jszjkja_Count	[	7	]	=	1	--	КЁрХТВ·ю
-	BaoXiang_jszjkja	[	8	]	=	0316		BaoXiang_jszjkja_Rad	[	8	]	=	2500 		BaoXiang_jszjkja_Count	[	8	]	=	1	--	°ЯрЇТВ·ю
-	BaoXiang_jszjkja	[	9	]	=	0317		BaoXiang_jszjkja_Rad	[	9	]	=	2500 		BaoXiang_jszjkja_Count	[	9	]	=	1	--	ГНЗЭТВ·ю
-	BaoXiang_jszjkja	[	10	]	=	4151		BaoXiang_jszjkja_Rad	[	10	]	=	5000 		BaoXiang_jszjkja_Count	[	10	]	=	1	--	СёУҐТВ·ю
-	BaoXiang_jszjkja	[	11	]	=	0317		BaoXiang_jszjkja_Rad	[	11	]	=	5000 		BaoXiang_jszjkja_Count	[	11	]	=	1	--	ГНЗЭТВ·ю
-	BaoXiang_jszjkja	[	12	]	=	0314		BaoXiang_jszjkja_Rad	[	12	]	=	40000 	BaoXiang_jszjkja_Count	[	12	]	=	1	--	ГфЅЭТВ·ю
-	BaoXiang_jszjkja	[	13	]	=	0315		BaoXiang_jszjkja_Rad	[	13	]	=	40000		BaoXiang_jszjkja_Count	[	13	]	=	1	--	ЙЅИёТВ·ю
+	BaoXiang_jszjkja	[	1	]	=	1898		BaoXiang_jszjkja_Rad	[	1	]	=	10 		BaoXiang_jszjkja_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jszjkja	[	2	]	=	1899		BaoXiang_jszjkja_Rad	[	2	]	=	30 		BaoXiang_jszjkja_Count	[	2	]	=	1	--	??????????
+	BaoXiang_jszjkja	[	3	]	=	1900		BaoXiang_jszjkja_Rad	[	3	]	=	20 		BaoXiang_jszjkja_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jszjkja	[	4	]	=	1901		BaoXiang_jszjkja_Rad	[	4	]	=	1 		BaoXiang_jszjkja_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jszjkja	[	5	]	=	3312		BaoXiang_jszjkja_Rad	[	5	]	=	1330 		BaoXiang_jszjkja_Count	[	5	]	=	1	--	??????24?
+	BaoXiang_jszjkja	[	6	]	=	0400		BaoXiang_jszjkja_Rad	[	6	]	=	1330 		BaoXiang_jszjkja_Count	[	6	]	=	1	--	????
+	BaoXiang_jszjkja	[	7	]	=	4152		BaoXiang_jszjkja_Rad	[	7	]	=	1330 		BaoXiang_jszjkja_Count	[	7	]	=	1	--	????
+	BaoXiang_jszjkja	[	8	]	=	0316		BaoXiang_jszjkja_Rad	[	8	]	=	2500 		BaoXiang_jszjkja_Count	[	8	]	=	1	--	????
+	BaoXiang_jszjkja	[	9	]	=	0317		BaoXiang_jszjkja_Rad	[	9	]	=	2500 		BaoXiang_jszjkja_Count	[	9	]	=	1	--	????
+	BaoXiang_jszjkja	[	10	]	=	4151		BaoXiang_jszjkja_Rad	[	10	]	=	5000 		BaoXiang_jszjkja_Count	[	10	]	=	1	--	????
+	BaoXiang_jszjkja	[	11	]	=	0317		BaoXiang_jszjkja_Rad	[	11	]	=	5000 		BaoXiang_jszjkja_Count	[	11	]	=	1	--	????
+	BaoXiang_jszjkja	[	12	]	=	0314		BaoXiang_jszjkja_Rad	[	12	]	=	40000 	BaoXiang_jszjkja_Count	[	12	]	=	1	--	????
+	BaoXiang_jszjkja	[	13	]	=	0315		BaoXiang_jszjkja_Rad	[	13	]	=	40000		BaoXiang_jszjkja_Count	[	13	]	=	1	--	????
 																						
 																						
 																						
---	ѕС»чїшјЧ±¦Пд23РН												e0119									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????23?												e0119									
+--	????							??????														
 	BaoXiang_jszjkjb_Qua	=	23	 				BaoXiang_jszjkjb_Mxcount	=	13												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jszjkjb	=	{}					BaoXiang_jszjkjb_Rad	=	{}					BaoXiang_jszjkjb_Count	=	{}					
-	BaoXiang_jszjkjb	[	1	]	=	1898		BaoXiang_jszjkjb_Rad	[	1	]	=	10		BaoXiang_jszjkjb_Count	[	1	]	=	1	--	І»ЛА·вУЎµДНцБй¶МЕЫ
-	BaoXiang_jszjkjb	[	2	]	=	1899		BaoXiang_jszjkjb_Rad	[	2	]	=	30 		BaoXiang_jszjkjb_Count	[	2	]	=	1	--	ОЫДа·вУЎµДЦдОЖЅфЙнТВ
-	BaoXiang_jszjkjb	[	3	]	=	1900		BaoXiang_jszjkjb_Rad	[	3	]	=	10 		BaoXiang_jszjkjb_Count	[	3	]	=	1	--	БТСж·вУЎµД»ГБйНвМЧ
-	BaoXiang_jszjkjb	[	4	]	=	1901		BaoXiang_jszjkjb_Rad	[	4	]	=	5 		BaoXiang_jszjkjb_Count	[	4	]	=	1	--	є®±щ·вУЎµДГФЦ®¶·Ес
-	BaoXiang_jszjkjb	[	5	]	=	3313		BaoXiang_jszjkjb_Rad	[	5	]	=	700 		BaoXiang_jszjkjb_Count	[	5	]	=	1	--	ѕС»чїшјЧ±¦Пд23РН
-	BaoXiang_jszjkjb	[	6	]	=	0400		BaoXiang_jszjkjb_Rad	[	6	]	=	700 		BaoXiang_jszjkjb_Count	[	6	]	=	1	--	ЙдИХНвМЧ
-	BaoXiang_jszjkjb	[	7	]	=	4152		BaoXiang_jszjkjb_Rad	[	7	]	=	700 		BaoXiang_jszjkjb_Count	[	7	]	=	1	--	КЁрХТВ·ю
-	BaoXiang_jszjkjb	[	8	]	=	0316		BaoXiang_jszjkjb_Rad	[	8	]	=	2000 		BaoXiang_jszjkjb_Count	[	8	]	=	1	--	°ЯрЇТВ·ю
-	BaoXiang_jszjkjb	[	9	]	=	0317		BaoXiang_jszjkjb_Rad	[	9	]	=	2000 		BaoXiang_jszjkjb_Count	[	9	]	=	1	--	ГНЗЭТВ·ю
-	BaoXiang_jszjkjb	[	10	]	=	4151		BaoXiang_jszjkjb_Rad	[	10	]	=	5000 		BaoXiang_jszjkjb_Count	[	10	]	=	1	--	СёУҐТВ·ю
-	BaoXiang_jszjkjb	[	11	]	=	0317		BaoXiang_jszjkjb_Rad	[	11	]	=	5000 		BaoXiang_jszjkjb_Count	[	11	]	=	1	--	ГНЗЭТВ·ю
-	BaoXiang_jszjkjb	[	12	]	=	0314		BaoXiang_jszjkjb_Rad	[	12	]	=	42000 	BaoXiang_jszjkjb_Count	[	12	]	=	1	--	ГфЅЭТВ·ю
-	BaoXiang_jszjkjb	[	13	]	=	0315		BaoXiang_jszjkjb_Rad	[	13	]	=	42000		BaoXiang_jszjkjb_Count	[	13	]	=	1	--	ЙЅИёТВ·ю
+	BaoXiang_jszjkjb	[	1	]	=	1898		BaoXiang_jszjkjb_Rad	[	1	]	=	10		BaoXiang_jszjkjb_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jszjkjb	[	2	]	=	1899		BaoXiang_jszjkjb_Rad	[	2	]	=	30 		BaoXiang_jszjkjb_Count	[	2	]	=	1	--	??????????
+	BaoXiang_jszjkjb	[	3	]	=	1900		BaoXiang_jszjkjb_Rad	[	3	]	=	10 		BaoXiang_jszjkjb_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jszjkjb	[	4	]	=	1901		BaoXiang_jszjkjb_Rad	[	4	]	=	5 		BaoXiang_jszjkjb_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jszjkjb	[	5	]	=	3313		BaoXiang_jszjkjb_Rad	[	5	]	=	700 		BaoXiang_jszjkjb_Count	[	5	]	=	1	--	??????23?
+	BaoXiang_jszjkjb	[	6	]	=	0400		BaoXiang_jszjkjb_Rad	[	6	]	=	700 		BaoXiang_jszjkjb_Count	[	6	]	=	1	--	????
+	BaoXiang_jszjkjb	[	7	]	=	4152		BaoXiang_jszjkjb_Rad	[	7	]	=	700 		BaoXiang_jszjkjb_Count	[	7	]	=	1	--	????
+	BaoXiang_jszjkjb	[	8	]	=	0316		BaoXiang_jszjkjb_Rad	[	8	]	=	2000 		BaoXiang_jszjkjb_Count	[	8	]	=	1	--	????
+	BaoXiang_jszjkjb	[	9	]	=	0317		BaoXiang_jszjkjb_Rad	[	9	]	=	2000 		BaoXiang_jszjkjb_Count	[	9	]	=	1	--	????
+	BaoXiang_jszjkjb	[	10	]	=	4151		BaoXiang_jszjkjb_Rad	[	10	]	=	5000 		BaoXiang_jszjkjb_Count	[	10	]	=	1	--	????
+	BaoXiang_jszjkjb	[	11	]	=	0317		BaoXiang_jszjkjb_Rad	[	11	]	=	5000 		BaoXiang_jszjkjb_Count	[	11	]	=	1	--	????
+	BaoXiang_jszjkjb	[	12	]	=	0314		BaoXiang_jszjkjb_Rad	[	12	]	=	42000 	BaoXiang_jszjkjb_Count	[	12	]	=	1	--	????
+	BaoXiang_jszjkjb	[	13	]	=	0315		BaoXiang_jszjkjb_Rad	[	13	]	=	42000		BaoXiang_jszjkjb_Count	[	13	]	=	1	--	????
 
 																						
 																						
---	КҐЦ°їшјЧ±¦Пд24РН												e0178									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????24?												e0178									
+--	????							??????														
 	BaoXiang_jsszkja_Qua	=	24	 				BaoXiang_jsszkja_Mxcount	=	19												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsszkja	=	{}					BaoXiang_jsszkja_Rad	=	{}					BaoXiang_jsszkja_Count	=	{}					
-	BaoXiang_jsszkja	[	1	]	=	1910		BaoXiang_jsszkja_Rad	[	1	]	=	10 		BaoXiang_jsszkja_Count	[	1	]	=	1	--	І»ЛА·вУЎµДОЧ¶ѕ·ЁЕЫ
-	BaoXiang_jsszkja	[	2	]	=	1911		BaoXiang_jsszkja_Rad	[	2	]	=	30 		BaoXiang_jsszkja_Count	[	2	]	=	1	--	ОЫДа·вУЎµД·ыОДНвТВ
-	BaoXiang_jsszkja	[	3	]	=	1912		BaoXiang_jsszkja_Rad	[	3	]	=	20 		BaoXiang_jsszkja_Count	[	3	]	=	1	--	БТСж·вУЎµД»Г·ЁЦ®ЕЫ
-	BaoXiang_jsszkja	[	4	]	=	1913		BaoXiang_jsszkja_Rad	[	4	]	=	1 		BaoXiang_jsszkja_Count	[	4	]	=	1	--	є®±щ·вУЎµДГФЦ®·ЁЕЫ
-	BaoXiang_jsszkja	[	5	]	=	0406		BaoXiang_jsszkja_Rad	[	5	]	=	700 		BaoXiang_jsszkja_Count	[	5	]	=	1	--	·ЙМмТВ·ю
-	BaoXiang_jsszkja	[	6	]	=	4158		BaoXiang_jsszkja_Rad	[	6	]	=	700 		BaoXiang_jsszkja_Count	[	6	]	=	1	--	Д§Б¦НГЧУТВ·ю
-	BaoXiang_jsszkja	[	7	]	=	4159		BaoXiang_jsszkja_Rad	[	7	]	=	700 		BaoXiang_jsszkja_Count	[	7	]	=	1	--	КҐ№вТВ·ю
-	BaoXiang_jsszkja	[	8	]	=	4160		BaoXiang_jsszkja_Rad	[	8	]	=	700 		BaoXiang_jsszkja_Count	[	8	]	=	1	--	ѕхРСНГЧУТВ·ю
-	BaoXiang_jsszkja	[	9	]	=	4157		BaoXiang_jsszkja_Rad	[	9	]	=	700 		BaoXiang_jsszkja_Count	[	9	]	=	1	--	КҐТфТВ·ю
-	BaoXiang_jsszkja	[	10	]	=	0391		BaoXiang_jsszkja_Rad	[	10	]	=	2500 		BaoXiang_jsszkja_Count	[	10	]	=	1	--	ёЯј¶НГТВ·ю
-	BaoXiang_jsszkja	[	11	]	=	0392		BaoXiang_jsszkja_Rad	[	11	]	=	2500 		BaoXiang_jsszkja_Count	[	11	]	=	1	--	±¦±ґНГТВ·ю
-	BaoXiang_jsszkja	[	12	]	=	0393		BaoXiang_jsszkja_Rad	[	12	]	=	2500 		BaoXiang_jsszkja_Count	[	12	]	=	1	--	ЧЈёЈНГТВ·ю
-	BaoXiang_jsszkja	[	13	]	=	0394		BaoXiang_jsszkja_Rad	[	13	]	=	2500 		BaoXiang_jsszkja_Count	[	13	]	=	1	--	МмґНТВ·ю
-	BaoXiang_jsszkja	[	14	]	=	1960		BaoXiang_jsszkja_Rad	[	14	]	=	2500 		BaoXiang_jsszkja_Count	[	14	]	=	1	--	ПЈ¶ыНвМЧ
-	BaoXiang_jsszkja	[	15	]	=	1961		BaoXiang_jsszkja_Rad	[	15	]	=	2500 		BaoXiang_jsszkja_Count	[	15	]	=	1	--	рЅ·пНвМЧ
-	BaoXiang_jsszkja	[	16	]	=	1959		BaoXiang_jsszkja_Rad	[	16	]	=	20000 	BaoXiang_jsszkja_Count	[	16	]	=	1	--	Т«ИХНвТВ
-	BaoXiang_jsszkja	[	17	]	=	0382		BaoXiang_jsszkja_Rad	[	17	]	=	20000 	BaoXiang_jsszkja_Count	[	17	]	=	1	--	і¤¶ъНГТВ·ю
-	BaoXiang_jsszkja	[	18	]	=	0388		BaoXiang_jsszkja_Rad	[	18	]	=	20000 	BaoXiang_jsszkja_Count	[	18	]	=	1	--	їмАЦНГТВ·ю
-	BaoXiang_jsszkja	[	19	]	=	0392		BaoXiang_jsszkja_Rad	[	19	]	=	20000 	BaoXiang_jsszkja_Count	[	19	]	=	1	--	±¦±ґНГТВ·ю
+	BaoXiang_jsszkja	[	1	]	=	1910		BaoXiang_jsszkja_Rad	[	1	]	=	10 		BaoXiang_jsszkja_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jsszkja	[	2	]	=	1911		BaoXiang_jsszkja_Rad	[	2	]	=	30 		BaoXiang_jsszkja_Count	[	2	]	=	1	--	?????????
+	BaoXiang_jsszkja	[	3	]	=	1912		BaoXiang_jsszkja_Rad	[	3	]	=	20 		BaoXiang_jsszkja_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jsszkja	[	4	]	=	1913		BaoXiang_jsszkja_Rad	[	4	]	=	1 		BaoXiang_jsszkja_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jsszkja	[	5	]	=	0406		BaoXiang_jsszkja_Rad	[	5	]	=	700 		BaoXiang_jsszkja_Count	[	5	]	=	1	--	????
+	BaoXiang_jsszkja	[	6	]	=	4158		BaoXiang_jsszkja_Rad	[	6	]	=	700 		BaoXiang_jsszkja_Count	[	6	]	=	1	--	??????
+	BaoXiang_jsszkja	[	7	]	=	4159		BaoXiang_jsszkja_Rad	[	7	]	=	700 		BaoXiang_jsszkja_Count	[	7	]	=	1	--	????
+	BaoXiang_jsszkja	[	8	]	=	4160		BaoXiang_jsszkja_Rad	[	8	]	=	700 		BaoXiang_jsszkja_Count	[	8	]	=	1	--	??????
+	BaoXiang_jsszkja	[	9	]	=	4157		BaoXiang_jsszkja_Rad	[	9	]	=	700 		BaoXiang_jsszkja_Count	[	9	]	=	1	--	????
+	BaoXiang_jsszkja	[	10	]	=	0391		BaoXiang_jsszkja_Rad	[	10	]	=	2500 		BaoXiang_jsszkja_Count	[	10	]	=	1	--	?????
+	BaoXiang_jsszkja	[	11	]	=	0392		BaoXiang_jsszkja_Rad	[	11	]	=	2500 		BaoXiang_jsszkja_Count	[	11	]	=	1	--	?????
+	BaoXiang_jsszkja	[	12	]	=	0393		BaoXiang_jsszkja_Rad	[	12	]	=	2500 		BaoXiang_jsszkja_Count	[	12	]	=	1	--	?????
+	BaoXiang_jsszkja	[	13	]	=	0394		BaoXiang_jsszkja_Rad	[	13	]	=	2500 		BaoXiang_jsszkja_Count	[	13	]	=	1	--	????
+	BaoXiang_jsszkja	[	14	]	=	1960		BaoXiang_jsszkja_Rad	[	14	]	=	2500 		BaoXiang_jsszkja_Count	[	14	]	=	1	--	????
+	BaoXiang_jsszkja	[	15	]	=	1961		BaoXiang_jsszkja_Rad	[	15	]	=	2500 		BaoXiang_jsszkja_Count	[	15	]	=	1	--	????
+	BaoXiang_jsszkja	[	16	]	=	1959		BaoXiang_jsszkja_Rad	[	16	]	=	20000 	BaoXiang_jsszkja_Count	[	16	]	=	1	--	????
+	BaoXiang_jsszkja	[	17	]	=	0382		BaoXiang_jsszkja_Rad	[	17	]	=	20000 	BaoXiang_jsszkja_Count	[	17	]	=	1	--	?????
+	BaoXiang_jsszkja	[	18	]	=	0388		BaoXiang_jsszkja_Rad	[	18	]	=	20000 	BaoXiang_jsszkja_Count	[	18	]	=	1	--	?????
+	BaoXiang_jsszkja	[	19	]	=	0392		BaoXiang_jsszkja_Rad	[	19	]	=	20000 	BaoXiang_jsszkja_Count	[	19	]	=	1	--	?????
 
 																						
---	КҐЦ°їшјЧ±¦Пд23РН												e0178									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????23?												e0178									
+--	????							??????														
 	BaoXiang_jsszkjb_Qua	=	23	 				BaoXiang_jsszkjb_Mxcount	=	19												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsszkjb	=	{}					BaoXiang_jsszkjb_Rad	=	{}					BaoXiang_jsszkjb_Count	=	{}					
-	BaoXiang_jsszkjb	[	1	]	=	1910		BaoXiang_jsszkjb_Rad	[	1	]	=	10 		BaoXiang_jsszkjb_Count	[	1	]	=	1	--	І»ЛА·вУЎµДОЧ¶ѕ·ЁЕЫ
-	BaoXiang_jsszkjb	[	2	]	=	1911		BaoXiang_jsszkjb_Rad	[	2	]	=	30 		BaoXiang_jsszkjb_Count	[	2	]	=	1	--	ОЫДа·вУЎµД·ыОДНвТВ
-	BaoXiang_jsszkjb	[	3	]	=	1912		BaoXiang_jsszkjb_Rad	[	3	]	=	10 		BaoXiang_jsszkjb_Count	[	3	]	=	1	--	БТСж·вУЎµД»Г·ЁЦ®ЕЫ
-	BaoXiang_jsszkjb	[	4	]	=	1913		BaoXiang_jsszkjb_Rad	[	4	]	=	5 		BaoXiang_jsszkjb_Count	[	4	]	=	1	--	є®±щ·вУЎµДГФЦ®·ЁЕЫ
-	BaoXiang_jsszkjb	[	5	]	=	0406		BaoXiang_jsszkjb_Rad	[	5	]	=	400 		BaoXiang_jsszkjb_Count	[	5	]	=	1	--	·ЙМмТВ·ю
-	BaoXiang_jsszkjb	[	6	]	=	4158		BaoXiang_jsszkjb_Rad	[	6	]	=	400 		BaoXiang_jsszkjb_Count	[	6	]	=	1	--	Д§Б¦НГЧУТВ·ю
-	BaoXiang_jsszkjb	[	7	]	=	4159		BaoXiang_jsszkjb_Rad	[	7	]	=	400 		BaoXiang_jsszkjb_Count	[	7	]	=	1	--	КҐ№вТВ·ю
-	BaoXiang_jsszkjb	[	8	]	=	4160		BaoXiang_jsszkjb_Rad	[	8	]	=	400 		BaoXiang_jsszkjb_Count	[	8	]	=	1	--	ѕхРСНГЧУТВ·ю
-	BaoXiang_jsszkjb	[	9	]	=	4157		BaoXiang_jsszkjb_Rad	[	9	]	=	400 		BaoXiang_jsszkjb_Count	[	9	]	=	1	--	КҐТфТВ·ю
-	BaoXiang_jsszkjb	[	10	]	=	0391		BaoXiang_jsszkjb_Rad	[	10	]	=	2000 		BaoXiang_jsszkjb_Count	[	10	]	=	1	--	ёЯј¶НГТВ·ю
-	BaoXiang_jsszkjb	[	11	]	=	0392		BaoXiang_jsszkjb_Rad	[	11	]	=	2000 		BaoXiang_jsszkjb_Count	[	11	]	=	1	--	±¦±ґНГТВ·ю
-	BaoXiang_jsszkjb	[	12	]	=	0393		BaoXiang_jsszkjb_Rad	[	12	]	=	2000 		BaoXiang_jsszkjb_Count	[	12	]	=	1	--	ЧЈёЈНГТВ·ю
-	BaoXiang_jsszkjb	[	13	]	=	0394		BaoXiang_jsszkjb_Rad	[	13	]	=	2000 		BaoXiang_jsszkjb_Count	[	13	]	=	1	--	МмґНТВ·ю
-	BaoXiang_jsszkjb	[	14	]	=	1960		BaoXiang_jsszkjb_Rad	[	14	]	=	2000		BaoXiang_jsszkjb_Count	[	14	]	=	1	--	ПЈ¶ыНвМЧ
-	BaoXiang_jsszkjb	[	15	]	=	1961		BaoXiang_jsszkjb_Rad	[	15	]	=	2000 		BaoXiang_jsszkjb_Count	[	15	]	=	1	--	рЅ·пНвМЧ
-	BaoXiang_jsszkjb	[	16	]	=	1959		BaoXiang_jsszkjb_Rad	[	16	]	=	21110 	BaoXiang_jsszkjb_Count	[	16	]	=	1	--	Т«ИХНвТВ
-	BaoXiang_jsszkjb	[	17	]	=	0382		BaoXiang_jsszkjb_Rad	[	17	]	=	21110 	BaoXiang_jsszkjb_Count	[	17	]	=	1	--	і¤¶ъНГТВ·ю
-	BaoXiang_jsszkjb	[	18	]	=	0388		BaoXiang_jsszkjb_Rad	[	18	]	=	21110 	BaoXiang_jsszkjb_Count	[	18	]	=	1	--	їмАЦНГТВ·ю
-	BaoXiang_jsszkjb	[	19	]	=	0392		BaoXiang_jsszkjb_Rad	[	19	]	=	21110 	BaoXiang_jsszkjb_Count	[	19	]	=	1	--	±¦±ґНГТВ·ю
+	BaoXiang_jsszkjb	[	1	]	=	1910		BaoXiang_jsszkjb_Rad	[	1	]	=	10 		BaoXiang_jsszkjb_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jsszkjb	[	2	]	=	1911		BaoXiang_jsszkjb_Rad	[	2	]	=	30 		BaoXiang_jsszkjb_Count	[	2	]	=	1	--	?????????
+	BaoXiang_jsszkjb	[	3	]	=	1912		BaoXiang_jsszkjb_Rad	[	3	]	=	10 		BaoXiang_jsszkjb_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jsszkjb	[	4	]	=	1913		BaoXiang_jsszkjb_Rad	[	4	]	=	5 		BaoXiang_jsszkjb_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jsszkjb	[	5	]	=	0406		BaoXiang_jsszkjb_Rad	[	5	]	=	400 		BaoXiang_jsszkjb_Count	[	5	]	=	1	--	????
+	BaoXiang_jsszkjb	[	6	]	=	4158		BaoXiang_jsszkjb_Rad	[	6	]	=	400 		BaoXiang_jsszkjb_Count	[	6	]	=	1	--	??????
+	BaoXiang_jsszkjb	[	7	]	=	4159		BaoXiang_jsszkjb_Rad	[	7	]	=	400 		BaoXiang_jsszkjb_Count	[	7	]	=	1	--	????
+	BaoXiang_jsszkjb	[	8	]	=	4160		BaoXiang_jsszkjb_Rad	[	8	]	=	400 		BaoXiang_jsszkjb_Count	[	8	]	=	1	--	??????
+	BaoXiang_jsszkjb	[	9	]	=	4157		BaoXiang_jsszkjb_Rad	[	9	]	=	400 		BaoXiang_jsszkjb_Count	[	9	]	=	1	--	????
+	BaoXiang_jsszkjb	[	10	]	=	0391		BaoXiang_jsszkjb_Rad	[	10	]	=	2000 		BaoXiang_jsszkjb_Count	[	10	]	=	1	--	?????
+	BaoXiang_jsszkjb	[	11	]	=	0392		BaoXiang_jsszkjb_Rad	[	11	]	=	2000 		BaoXiang_jsszkjb_Count	[	11	]	=	1	--	?????
+	BaoXiang_jsszkjb	[	12	]	=	0393		BaoXiang_jsszkjb_Rad	[	12	]	=	2000 		BaoXiang_jsszkjb_Count	[	12	]	=	1	--	?????
+	BaoXiang_jsszkjb	[	13	]	=	0394		BaoXiang_jsszkjb_Rad	[	13	]	=	2000 		BaoXiang_jsszkjb_Count	[	13	]	=	1	--	????
+	BaoXiang_jsszkjb	[	14	]	=	1960		BaoXiang_jsszkjb_Rad	[	14	]	=	2000		BaoXiang_jsszkjb_Count	[	14	]	=	1	--	????
+	BaoXiang_jsszkjb	[	15	]	=	1961		BaoXiang_jsszkjb_Rad	[	15	]	=	2000 		BaoXiang_jsszkjb_Count	[	15	]	=	1	--	????
+	BaoXiang_jsszkjb	[	16	]	=	1959		BaoXiang_jsszkjb_Rad	[	16	]	=	21110 	BaoXiang_jsszkjb_Count	[	16	]	=	1	--	????
+	BaoXiang_jsszkjb	[	17	]	=	0382		BaoXiang_jsszkjb_Rad	[	17	]	=	21110 	BaoXiang_jsszkjb_Count	[	17	]	=	1	--	?????
+	BaoXiang_jsszkjb	[	18	]	=	0388		BaoXiang_jsszkjb_Rad	[	18	]	=	21110 	BaoXiang_jsszkjb_Count	[	18	]	=	1	--	?????
+	BaoXiang_jsszkjb	[	19	]	=	0392		BaoXiang_jsszkjb_Rad	[	19	]	=	21110 	BaoXiang_jsszkjb_Count	[	19	]	=	1	--	?????
 
 
 																						
---	·вУЎїшјЧ±¦Пд24РН												e0176									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????24?												e0176									
+--	????							??????														
 	BaoXiang_jsfykja_Qua	=	24	 				BaoXiang_jsfykja_Mxcount	=	21												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsfykja	=	{}					BaoXiang_jsfykja_Rad	=	{}					BaoXiang_jsfykja_Count	=	{}					
-	BaoXiang_jsfykja	[	1	]	=	1910		BaoXiang_jsfykja_Rad	[	1	]	=	10 		BaoXiang_jsfykja_Count	[	1	]	=	1	--	І»ЛА·вУЎµДОЧ¶ѕ·ЁЕЫ
-	BaoXiang_jsfykja	[	2	]	=	1917		BaoXiang_jsfykja_Rad	[	2	]	=	30 		BaoXiang_jsfykja_Count	[	2	]	=	1	--	ОЫДа·вУЎµДЦдОДЦ®ЕЫ
-	BaoXiang_jsfykja	[	3	]	=	1918		BaoXiang_jsfykja_Rad	[	3	]	=	20 		BaoXiang_jsfykja_Count	[	3	]	=	1	--	БТСж·вУЎµД»ГЦдЦ®ЕЫ
-	BaoXiang_jsfykja	[	4	]	=	1919		BaoXiang_jsfykja_Rad	[	4	]	=	1 		BaoXiang_jsfykja_Count	[	4	]	=	1	--	є®±щ·вУЎµДГФЦд·ЁЕЫ
-	BaoXiang_jsfykja	[	5	]	=	0402		BaoXiang_jsfykja_Rad	[	5	]	=	700 		BaoXiang_jsfykja_Count	[	5	]	=	1	--	ЙсКїТВ·ю
-	BaoXiang_jsfykja	[	6	]	=	0404		BaoXiang_jsfykja_Rad	[	6	]	=	700 		BaoXiang_jsfykja_Count	[	6	]	=	1	--	ЙсЖжРЬГЁТВ·ю
-	BaoXiang_jsfykja	[	7	]	=	4161		BaoXiang_jsfykja_Rad	[	7	]	=	700 		BaoXiang_jsfykja_Count	[	7	]	=	1	--	ёґірТВ·ю
-	BaoXiang_jsfykja	[	8	]	=	4162		BaoXiang_jsfykja_Rad	[	8	]	=	700		BaoXiang_jsfykja_Count	[	8	]	=	1	--	Д§Б¦єЈМЎТВ·ю
-	BaoXiang_jsfykja	[	9	]	=	4163		BaoXiang_jsfykja_Rad	[	9	]	=	700 		BaoXiang_jsfykja_Count	[	9	]	=	1	--	іН·ЈХЯТВ·ю
-	BaoXiang_jsfykja	[	10	]	=	4164		BaoXiang_jsfykja_Rad	[	10	]	=	700 		BaoXiang_jsfykja_Count	[	10	]	=	1	--	ѕхРСєЈМЎТВ·ю
-	BaoXiang_jsfykja	[	11	]	=	0363		BaoXiang_jsfykja_Rad	[	11	]	=	2500 		BaoXiang_jsfykja_Count	[	11	]	=	1	--	ёЯј¶єЈМЎТВ·ю
-	BaoXiang_jsfykja	[	12	]	=	0364		BaoXiang_jsfykja_Rad	[	12	]	=	2500 		BaoXiang_jsfykja_Count	[	12	]	=	1	--	ЧЈёЈєЈМЎТВ·ю
-	BaoXiang_jsfykja	[	13	]	=	0376		BaoXiang_jsfykja_Rad	[	13	]	=	2500 		BaoXiang_jsfykja_Count	[	13	]	=	1	--	ЦОБЖХЯТВ·ю
-	BaoXiang_jsfykja	[	14	]	=	0377		BaoXiang_jsfykja_Rad	[	14	]	=	2500 		BaoXiang_jsfykja_Count	[	14	]	=	1	--	±Ј»¤ХЯТВ·ю
-	BaoXiang_jsfykja	[	15	]	=	1957		BaoXiang_jsfykja_Rad	[	15	]	=	2500 		BaoXiang_jsfykja_Count	[	15	]	=	1	--	УИµП°ІНвМЧ
-	BaoXiang_jsfykja	[	16	]	=	1958		BaoXiang_jsfykja_Rad	[	16	]	=	2500 		BaoXiang_jsfykja_Count	[	16	]	=	1	--	ЦмИёНвМЧ
-	BaoXiang_jsfykja	[	17	]	=	1956		BaoXiang_jsfykja_Rad	[	17	]	=	16000 	BaoXiang_jsfykja_Count	[	17	]	=	1	--	АдФВНвТВ
-	BaoXiang_jsfykja	[	18	]	=	0385		BaoXiang_jsfykja_Rad	[	18	]	=	16000 	BaoXiang_jsfykja_Count	[	18	]	=	1	--	єЈМЎТВ·ю
-	BaoXiang_jsfykja	[	19	]	=	0375		BaoXiang_jsfykja_Rad	[	19	]	=	16000 	BaoXiang_jsfykja_Count	[	19	]	=	1	--	Ф¶РРТВ·ю
-	BaoXiang_jsfykja	[	20	]	=	0369		BaoXiang_jsfykja_Rad	[	20	]	=	16000 	BaoXiang_jsfykja_Count	[	20	]	=	1	--	КМХЯТВ·ю
-	BaoXiang_jsfykja	[	21	]	=	0362		BaoXiang_jsfykja_Rad	[	21	]	=	16000 	BaoXiang_jsfykja_Count	[	21	]	=	1	--	±Д±ДКуТВ·ю
+	BaoXiang_jsfykja	[	1	]	=	1910		BaoXiang_jsfykja_Rad	[	1	]	=	10 		BaoXiang_jsfykja_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jsfykja	[	2	]	=	1917		BaoXiang_jsfykja_Rad	[	2	]	=	30 		BaoXiang_jsfykja_Count	[	2	]	=	1	--	?????????
+	BaoXiang_jsfykja	[	3	]	=	1918		BaoXiang_jsfykja_Rad	[	3	]	=	20 		BaoXiang_jsfykja_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jsfykja	[	4	]	=	1919		BaoXiang_jsfykja_Rad	[	4	]	=	1 		BaoXiang_jsfykja_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jsfykja	[	5	]	=	0402		BaoXiang_jsfykja_Rad	[	5	]	=	700 		BaoXiang_jsfykja_Count	[	5	]	=	1	--	????
+	BaoXiang_jsfykja	[	6	]	=	0404		BaoXiang_jsfykja_Rad	[	6	]	=	700 		BaoXiang_jsfykja_Count	[	6	]	=	1	--	??????
+	BaoXiang_jsfykja	[	7	]	=	4161		BaoXiang_jsfykja_Rad	[	7	]	=	700 		BaoXiang_jsfykja_Count	[	7	]	=	1	--	????
+	BaoXiang_jsfykja	[	8	]	=	4162		BaoXiang_jsfykja_Rad	[	8	]	=	700		BaoXiang_jsfykja_Count	[	8	]	=	1	--	??????
+	BaoXiang_jsfykja	[	9	]	=	4163		BaoXiang_jsfykja_Rad	[	9	]	=	700 		BaoXiang_jsfykja_Count	[	9	]	=	1	--	?????
+	BaoXiang_jsfykja	[	10	]	=	4164		BaoXiang_jsfykja_Rad	[	10	]	=	700 		BaoXiang_jsfykja_Count	[	10	]	=	1	--	??????
+	BaoXiang_jsfykja	[	11	]	=	0363		BaoXiang_jsfykja_Rad	[	11	]	=	2500 		BaoXiang_jsfykja_Count	[	11	]	=	1	--	??????
+	BaoXiang_jsfykja	[	12	]	=	0364		BaoXiang_jsfykja_Rad	[	12	]	=	2500 		BaoXiang_jsfykja_Count	[	12	]	=	1	--	??????
+	BaoXiang_jsfykja	[	13	]	=	0376		BaoXiang_jsfykja_Rad	[	13	]	=	2500 		BaoXiang_jsfykja_Count	[	13	]	=	1	--	?????
+	BaoXiang_jsfykja	[	14	]	=	0377		BaoXiang_jsfykja_Rad	[	14	]	=	2500 		BaoXiang_jsfykja_Count	[	14	]	=	1	--	?????
+	BaoXiang_jsfykja	[	15	]	=	1957		BaoXiang_jsfykja_Rad	[	15	]	=	2500 		BaoXiang_jsfykja_Count	[	15	]	=	1	--	?????
+	BaoXiang_jsfykja	[	16	]	=	1958		BaoXiang_jsfykja_Rad	[	16	]	=	2500 		BaoXiang_jsfykja_Count	[	16	]	=	1	--	????
+	BaoXiang_jsfykja	[	17	]	=	1956		BaoXiang_jsfykja_Rad	[	17	]	=	16000 	BaoXiang_jsfykja_Count	[	17	]	=	1	--	????
+	BaoXiang_jsfykja	[	18	]	=	0385		BaoXiang_jsfykja_Rad	[	18	]	=	16000 	BaoXiang_jsfykja_Count	[	18	]	=	1	--	????
+	BaoXiang_jsfykja	[	19	]	=	0375		BaoXiang_jsfykja_Rad	[	19	]	=	16000 	BaoXiang_jsfykja_Count	[	19	]	=	1	--	????
+	BaoXiang_jsfykja	[	20	]	=	0369		BaoXiang_jsfykja_Rad	[	20	]	=	16000 	BaoXiang_jsfykja_Count	[	20	]	=	1	--	????
+	BaoXiang_jsfykja	[	21	]	=	0362		BaoXiang_jsfykja_Rad	[	21	]	=	16000 	BaoXiang_jsfykja_Count	[	21	]	=	1	--	?????
 
 																						
---	·вУЎїшјЧ±¦Пд23РН												e0176									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????23?												e0176									
+--	????							??????														
 	BaoXiang_jsfykjb_Qua	=	23	 				BaoXiang_jsfykjb_Mxcount	=	21												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsfykjb	=	{}					BaoXiang_jsfykjb_Rad	=	{}					BaoXiang_jsfykjb_Count	=	{}					
-	BaoXiang_jsfykjb	[	1	]	=	1910		BaoXiang_jsfykjb_Rad	[	1	]	=	10 		BaoXiang_jsfykjb_Count	[	1	]	=	1	--	І»ЛА·вУЎµДОЧ¶ѕ·ЁЕЫ
-	BaoXiang_jsfykjb	[	2	]	=	1917		BaoXiang_jsfykjb_Rad	[	2	]	=	30 		BaoXiang_jsfykjb_Count	[	2	]	=	1	--	ОЫДа·вУЎµДЦдОДЦ®ЕЫ
-	BaoXiang_jsfykjb	[	3	]	=	1918		BaoXiang_jsfykjb_Rad	[	3	]	=	10 		BaoXiang_jsfykjb_Count	[	3	]	=	1	--	БТСж·вУЎµД»ГЦдЦ®ЕЫ
-	BaoXiang_jsfykjb	[	4	]	=	1919		BaoXiang_jsfykjb_Rad	[	4	]	=	5 		BaoXiang_jsfykjb_Count	[	4	]	=	1	--	є®±щ·вУЎµДГФЦд·ЁЕЫ
-	BaoXiang_jsfykjb	[	5	]	=	0402		BaoXiang_jsfykjb_Rad	[	5	]	=	400 		BaoXiang_jsfykjb_Count	[	5	]	=	1	--	ЙсКїТВ·ю
-	BaoXiang_jsfykjb	[	6	]	=	0404		BaoXiang_jsfykjb_Rad	[	6	]	=	400 		BaoXiang_jsfykjb_Count	[	6	]	=	1	--	ЙсЖжРЬГЁТВ·ю
-	BaoXiang_jsfykjb	[	7	]	=	4161		BaoXiang_jsfykjb_Rad	[	7	]	=	400 		BaoXiang_jsfykjb_Count	[	7	]	=	1	--	ёґірТВ·ю
-	BaoXiang_jsfykjb	[	8	]	=	4162		BaoXiang_jsfykjb_Rad	[	8	]	=	400 		BaoXiang_jsfykjb_Count	[	8	]	=	1	--	Д§Б¦єЈМЎТВ·ю
-	BaoXiang_jsfykjb	[	9	]	=	4163		BaoXiang_jsfykjb_Rad	[	9	]	=	400 		BaoXiang_jsfykjb_Count	[	9	]	=	1	--	іН·ЈХЯТВ·ю
-	BaoXiang_jsfykjb	[	10	]	=	4164		BaoXiang_jsfykjb_Rad	[	10	]	=	400 		BaoXiang_jsfykjb_Count	[	10	]	=	1	--	ѕхРСєЈМЎТВ·ю
-	BaoXiang_jsfykjb	[	11	]	=	0363		BaoXiang_jsfykjb_Rad	[	11	]	=	2000 		BaoXiang_jsfykjb_Count	[	11	]	=	1	--	ёЯј¶єЈМЎТВ·ю
-	BaoXiang_jsfykjb	[	12	]	=	0364		BaoXiang_jsfykjb_Rad	[	12	]	=	2000 		BaoXiang_jsfykjb_Count	[	12	]	=	1	--	ЧЈёЈєЈМЎТВ·ю
-	BaoXiang_jsfykjb	[	13	]	=	0376		BaoXiang_jsfykjb_Rad	[	13	]	=	2000 		BaoXiang_jsfykjb_Count	[	13	]	=	1	--	ЦОБЖХЯТВ·ю
-	BaoXiang_jsfykjb	[	14	]	=	0377		BaoXiang_jsfykjb_Rad	[	14	]	=	2000 		BaoXiang_jsfykjb_Count	[	14	]	=	1	--	±Ј»¤ХЯТВ·ю
-	BaoXiang_jsfykjb	[	15	]	=	1957		BaoXiang_jsfykjb_Rad	[	15	]	=	2000 		BaoXiang_jsfykjb_Count	[	15	]	=	1	--	УИµП°ІНвМЧ
-	BaoXiang_jsfykjb	[	16	]	=	1958		BaoXiang_jsfykjb_Rad	[	16	]	=	2000 		BaoXiang_jsfykjb_Count	[	16	]	=	1	--	ЦмИёНвМЧ
-	BaoXiang_jsfykjb	[	17	]	=	1956		BaoXiang_jsfykjb_Rad	[	17	]	=	17000 	BaoXiang_jsfykjb_Count	[	17	]	=	1	--	АдФВНвТВ
-	BaoXiang_jsfykjb	[	18	]	=	0385		BaoXiang_jsfykjb_Rad	[	18	]	=	17000 	BaoXiang_jsfykjb_Count	[	18	]	=	1	--	єЈМЎТВ·ю
-	BaoXiang_jsfykjb	[	19	]	=	0375		BaoXiang_jsfykjb_Rad	[	19	]	=	17000 	BaoXiang_jsfykjb_Count	[	19	]	=	1	--	Ф¶РРТВ·ю
-	BaoXiang_jsfykjb	[	20	]	=	0369		BaoXiang_jsfykjb_Rad	[	20	]	=	17000 	BaoXiang_jsfykjb_Count	[	20	]	=	1	--	КМХЯТВ·ю
-	BaoXiang_jsfykjb	[	21	]	=	0362		BaoXiang_jsfykjb_Rad	[	21	]	=	17000 	BaoXiang_jsfykjb_Count	[	21	]	=	1	--	±Д±ДКуТВ·ю
+	BaoXiang_jsfykjb	[	1	]	=	1910		BaoXiang_jsfykjb_Rad	[	1	]	=	10 		BaoXiang_jsfykjb_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jsfykjb	[	2	]	=	1917		BaoXiang_jsfykjb_Rad	[	2	]	=	30 		BaoXiang_jsfykjb_Count	[	2	]	=	1	--	?????????
+	BaoXiang_jsfykjb	[	3	]	=	1918		BaoXiang_jsfykjb_Rad	[	3	]	=	10 		BaoXiang_jsfykjb_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jsfykjb	[	4	]	=	1919		BaoXiang_jsfykjb_Rad	[	4	]	=	5 		BaoXiang_jsfykjb_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jsfykjb	[	5	]	=	0402		BaoXiang_jsfykjb_Rad	[	5	]	=	400 		BaoXiang_jsfykjb_Count	[	5	]	=	1	--	????
+	BaoXiang_jsfykjb	[	6	]	=	0404		BaoXiang_jsfykjb_Rad	[	6	]	=	400 		BaoXiang_jsfykjb_Count	[	6	]	=	1	--	??????
+	BaoXiang_jsfykjb	[	7	]	=	4161		BaoXiang_jsfykjb_Rad	[	7	]	=	400 		BaoXiang_jsfykjb_Count	[	7	]	=	1	--	????
+	BaoXiang_jsfykjb	[	8	]	=	4162		BaoXiang_jsfykjb_Rad	[	8	]	=	400 		BaoXiang_jsfykjb_Count	[	8	]	=	1	--	??????
+	BaoXiang_jsfykjb	[	9	]	=	4163		BaoXiang_jsfykjb_Rad	[	9	]	=	400 		BaoXiang_jsfykjb_Count	[	9	]	=	1	--	?????
+	BaoXiang_jsfykjb	[	10	]	=	4164		BaoXiang_jsfykjb_Rad	[	10	]	=	400 		BaoXiang_jsfykjb_Count	[	10	]	=	1	--	??????
+	BaoXiang_jsfykjb	[	11	]	=	0363		BaoXiang_jsfykjb_Rad	[	11	]	=	2000 		BaoXiang_jsfykjb_Count	[	11	]	=	1	--	??????
+	BaoXiang_jsfykjb	[	12	]	=	0364		BaoXiang_jsfykjb_Rad	[	12	]	=	2000 		BaoXiang_jsfykjb_Count	[	12	]	=	1	--	??????
+	BaoXiang_jsfykjb	[	13	]	=	0376		BaoXiang_jsfykjb_Rad	[	13	]	=	2000 		BaoXiang_jsfykjb_Count	[	13	]	=	1	--	?????
+	BaoXiang_jsfykjb	[	14	]	=	0377		BaoXiang_jsfykjb_Rad	[	14	]	=	2000 		BaoXiang_jsfykjb_Count	[	14	]	=	1	--	?????
+	BaoXiang_jsfykjb	[	15	]	=	1957		BaoXiang_jsfykjb_Rad	[	15	]	=	2000 		BaoXiang_jsfykjb_Count	[	15	]	=	1	--	?????
+	BaoXiang_jsfykjb	[	16	]	=	1958		BaoXiang_jsfykjb_Rad	[	16	]	=	2000 		BaoXiang_jsfykjb_Count	[	16	]	=	1	--	????
+	BaoXiang_jsfykjb	[	17	]	=	1956		BaoXiang_jsfykjb_Rad	[	17	]	=	17000 	BaoXiang_jsfykjb_Count	[	17	]	=	1	--	????
+	BaoXiang_jsfykjb	[	18	]	=	0385		BaoXiang_jsfykjb_Rad	[	18	]	=	17000 	BaoXiang_jsfykjb_Count	[	18	]	=	1	--	????
+	BaoXiang_jsfykjb	[	19	]	=	0375		BaoXiang_jsfykjb_Rad	[	19	]	=	17000 	BaoXiang_jsfykjb_Count	[	19	]	=	1	--	????
+	BaoXiang_jsfykjb	[	20	]	=	0369		BaoXiang_jsfykjb_Rad	[	20	]	=	17000 	BaoXiang_jsfykjb_Count	[	20	]	=	1	--	????
+	BaoXiang_jsfykjb	[	21	]	=	0362		BaoXiang_jsfykjb_Rad	[	21	]	=	17000 	BaoXiang_jsfykjb_Count	[	21	]	=	1	--	?????
 
 
 																						
---	єЅєЈїшјЧ±¦Пд24РН												e0152									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????24?												e0152									
+--	????							??????														
 	BaoXiang_jshhkja_Qua	=	24	 				BaoXiang_jshhkja_Mxcount	=	20												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jshhkja	=	{}					BaoXiang_jshhkja_Rad	=	{}					BaoXiang_jshhkja_Count	=	{}					
-	BaoXiang_jshhkja	[	1	]	=	1924		BaoXiang_jshhkja_Rad	[	1	]	=	10 		BaoXiang_jshhkja_Count	[	1	]	=	1	--	І»ЛА·вУЎµДєЈСэЕы·з
-	BaoXiang_jshhkja	[	2	]	=	1925		BaoXiang_jshhkja_Rad	[	2	]	=	30 		BaoXiang_jshhkja_Count	[	2	]	=	1	--	ОЫДа·вУЎµДЦд»р¶·Ес
-	BaoXiang_jshhkja	[	3	]	=	1926		BaoXiang_jshhkja_Rad	[	3	]	=	20 		BaoXiang_jshhkja_Count	[	3	]	=	1	--	БТСж·вУЎµД»ГБйЕы·з
-	BaoXiang_jshhkja	[	4	]	=	1927		BaoXiang_jshhkja_Rad	[	4	]	=	1 		BaoXiang_jshhkja_Count	[	4	]	=	1	--	є®±щ·вУЎµДГФ»Г¶·Ес
-	BaoXiang_jshhkja	[	5	]	=	0411		BaoXiang_jshhkja_Rad	[	5	]	=	700 		BaoXiang_jshhkja_Count	[	5	]	=	1	--	Е­МОТВ·ю
-	BaoXiang_jshhkja	[	6	]	=	0413		BaoXiang_jshhkja_Rad	[	6	]	=	700 		BaoXiang_jshhkja_Count	[	6	]	=	1	--	ИрКЮТВ·ю
-	BaoXiang_jshhkja	[	7	]	=	4153		BaoXiang_jshhkja_Rad	[	7	]	=	700 		BaoXiang_jshhkja_Count	[	7	]	=	1	--	БмєЅТВ·ю
-	BaoXiang_jshhkja	[	8	]	=	4154		BaoXiang_jshhkja_Rad	[	8	]	=	700 		BaoXiang_jshhkja_Count	[	8	]	=	1	--	Д§Б¦БъПєТВ·ю
-	BaoXiang_jshhkja	[	9	]	=	4155		BaoXiang_jshhkja_Rad	[	9	]	=	700 		BaoXiang_jshhkja_Count	[	9	]	=	1	--	М¤АЛТВ·ю
-	BaoXiang_jshhkja	[	10	]	=	4156		BaoXiang_jshhkja_Rad	[	10	]	=	700 		BaoXiang_jshhkja_Count	[	10	]	=	1	--	ѕхРСѕЮПєТВ·ю
-	BaoXiang_jshhkja	[	11	]	=	0357		BaoXiang_jshhkja_Rad	[	11	]	=	3000 		BaoXiang_jshhkja_Count	[	11	]	=	1	--	ґуєЈПєТВ·ю
-	BaoXiang_jshhkja	[	12	]	=	0358		BaoXiang_jshhkja_Rad	[	12	]	=	3000 		BaoXiang_jshhkja_Count	[	12	]	=	1	--	ѕЮЗЇєЈПєТВ·ю
-	BaoXiang_jshhkja	[	13	]	=	0343		BaoXiang_jshhkja_Rad	[	13	]	=	3000 		BaoXiang_jshhkja_Count	[	13	]	=	1	--	м«·зТВ·ю
-	BaoXiang_jshhkja	[	14	]	=	0344		BaoXiang_jshhkja_Rad	[	14	]	=	3000 		BaoXiang_jshhkja_Count	[	14	]	=	1	--	дцОРТВ·ю
-	BaoXiang_jshhkja	[	15	]	=	0345		BaoXiang_jshhkja_Rad	[	15	]	=	3000 		BaoXiang_jshhkja_Count	[	15	]	=	1	--	·зЦ®ТВ·ю
-	BaoXiang_jshhkja	[	16	]	=	0341		BaoXiang_jshhkja_Rad	[	16	]	=	16000 	BaoXiang_jshhkja_Count	[	16	]	=	1	--	јЧ°еТВ·ю
-	BaoXiang_jshhkja	[	17	]	=	0342		BaoXiang_jshhkja_Rad	[	17	]	=	16000 	BaoXiang_jshhkja_Count	[	17	]	=	1	--	О¦ёЛТВ·ю
-	BaoXiang_jshhkja	[	18	]	=	0353		BaoXiang_jshhkja_Rad	[	18	]	=	16000 	BaoXiang_jshhkja_Count	[	18	]	=	1	--	РЎСјТВ·ю
-	BaoXiang_jshhkja	[	19	]	=	0356		BaoXiang_jshhkja_Rad	[	19	]	=	16000 	BaoXiang_jshhkja_Count	[	19	]	=	1	--	ТЎ°ЪСјТВ·ю
-	BaoXiang_jshhkja	[	20	]	=	1977		BaoXiang_jshhkja_Rad	[	20	]	=	16000 	BaoXiang_jshhkja_Count	[	20	]	=	1	--	·з±©НвМЧ
+	BaoXiang_jshhkja	[	1	]	=	1924		BaoXiang_jshhkja_Rad	[	1	]	=	10 		BaoXiang_jshhkja_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jshhkja	[	2	]	=	1925		BaoXiang_jshhkja_Rad	[	2	]	=	30 		BaoXiang_jshhkja_Count	[	2	]	=	1	--	?????????
+	BaoXiang_jshhkja	[	3	]	=	1926		BaoXiang_jshhkja_Rad	[	3	]	=	20 		BaoXiang_jshhkja_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jshhkja	[	4	]	=	1927		BaoXiang_jshhkja_Rad	[	4	]	=	1 		BaoXiang_jshhkja_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jshhkja	[	5	]	=	0411		BaoXiang_jshhkja_Rad	[	5	]	=	700 		BaoXiang_jshhkja_Count	[	5	]	=	1	--	????
+	BaoXiang_jshhkja	[	6	]	=	0413		BaoXiang_jshhkja_Rad	[	6	]	=	700 		BaoXiang_jshhkja_Count	[	6	]	=	1	--	????
+	BaoXiang_jshhkja	[	7	]	=	4153		BaoXiang_jshhkja_Rad	[	7	]	=	700 		BaoXiang_jshhkja_Count	[	7	]	=	1	--	????
+	BaoXiang_jshhkja	[	8	]	=	4154		BaoXiang_jshhkja_Rad	[	8	]	=	700 		BaoXiang_jshhkja_Count	[	8	]	=	1	--	??????
+	BaoXiang_jshhkja	[	9	]	=	4155		BaoXiang_jshhkja_Rad	[	9	]	=	700 		BaoXiang_jshhkja_Count	[	9	]	=	1	--	????
+	BaoXiang_jshhkja	[	10	]	=	4156		BaoXiang_jshhkja_Rad	[	10	]	=	700 		BaoXiang_jshhkja_Count	[	10	]	=	1	--	??????
+	BaoXiang_jshhkja	[	11	]	=	0357		BaoXiang_jshhkja_Rad	[	11	]	=	3000 		BaoXiang_jshhkja_Count	[	11	]	=	1	--	?????
+	BaoXiang_jshhkja	[	12	]	=	0358		BaoXiang_jshhkja_Rad	[	12	]	=	3000 		BaoXiang_jshhkja_Count	[	12	]	=	1	--	??????
+	BaoXiang_jshhkja	[	13	]	=	0343		BaoXiang_jshhkja_Rad	[	13	]	=	3000 		BaoXiang_jshhkja_Count	[	13	]	=	1	--	????
+	BaoXiang_jshhkja	[	14	]	=	0344		BaoXiang_jshhkja_Rad	[	14	]	=	3000 		BaoXiang_jshhkja_Count	[	14	]	=	1	--	????
+	BaoXiang_jshhkja	[	15	]	=	0345		BaoXiang_jshhkja_Rad	[	15	]	=	3000 		BaoXiang_jshhkja_Count	[	15	]	=	1	--	????
+	BaoXiang_jshhkja	[	16	]	=	0341		BaoXiang_jshhkja_Rad	[	16	]	=	16000 	BaoXiang_jshhkja_Count	[	16	]	=	1	--	????
+	BaoXiang_jshhkja	[	17	]	=	0342		BaoXiang_jshhkja_Rad	[	17	]	=	16000 	BaoXiang_jshhkja_Count	[	17	]	=	1	--	????
+	BaoXiang_jshhkja	[	18	]	=	0353		BaoXiang_jshhkja_Rad	[	18	]	=	16000 	BaoXiang_jshhkja_Count	[	18	]	=	1	--	????
+	BaoXiang_jshhkja	[	19	]	=	0356		BaoXiang_jshhkja_Rad	[	19	]	=	16000 	BaoXiang_jshhkja_Count	[	19	]	=	1	--	?????
+	BaoXiang_jshhkja	[	20	]	=	1977		BaoXiang_jshhkja_Rad	[	20	]	=	16000 	BaoXiang_jshhkja_Count	[	20	]	=	1	--	????
 
 																						
---	єЅєЈїшјЧ±¦Пд23РН												e0152									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????23?												e0152									
+--	????							??????														
 	BaoXiang_jshhkjb_Qua	=	23	 				BaoXiang_jshhkjb_Mxcount	=	20												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jshhkjb	=	{}					BaoXiang_jshhkjb_Rad	=	{}					BaoXiang_jshhkjb_Count	=	{}					
-	BaoXiang_jshhkjb	[	1	]	=	1924		BaoXiang_jshhkjb_Rad	[	1	]	=	10 		BaoXiang_jshhkjb_Count	[	1	]	=	1	--	І»ЛА·вУЎµДєЈСэЕы·з
-	BaoXiang_jshhkjb	[	2	]	=	1925		BaoXiang_jshhkjb_Rad	[	2	]	=	30 		BaoXiang_jshhkjb_Count	[	2	]	=	1	--	ОЫДа·вУЎµДЦд»р¶·Ес
-	BaoXiang_jshhkjb	[	3	]	=	1926		BaoXiang_jshhkjb_Rad	[	3	]	=	10 		BaoXiang_jshhkjb_Count	[	3	]	=	1	--	БТСж·вУЎµД»ГБйЕы·з
-	BaoXiang_jshhkjb	[	4	]	=	1927		BaoXiang_jshhkjb_Rad	[	4	]	=	5 		BaoXiang_jshhkjb_Count	[	4	]	=	1	--	є®±щ·вУЎµДГФ»Г¶·Ес
-	BaoXiang_jshhkjb	[	5	]	=	0411		BaoXiang_jshhkjb_Rad	[	5	]	=	400 		BaoXiang_jshhkjb_Count	[	5	]	=	1	--	Е­МОТВ·ю
-	BaoXiang_jshhkjb	[	6	]	=	0413		BaoXiang_jshhkjb_Rad	[	6	]	=	400 		BaoXiang_jshhkjb_Count	[	6	]	=	1	--	ИрКЮТВ·ю
-	BaoXiang_jshhkjb	[	7	]	=	4153		BaoXiang_jshhkjb_Rad	[	7	]	=	400 		BaoXiang_jshhkjb_Count	[	7	]	=	1	--	БмєЅТВ·ю
-	BaoXiang_jshhkjb	[	8	]	=	4154		BaoXiang_jshhkjb_Rad	[	8	]	=	400 		BaoXiang_jshhkjb_Count	[	8	]	=	1	--	Д§Б¦БъПєТВ·ю
-	BaoXiang_jshhkjb	[	9	]	=	4155		BaoXiang_jshhkjb_Rad	[	9	]	=	400 		BaoXiang_jshhkjb_Count	[	9	]	=	1	--	М¤АЛТВ·ю
-	BaoXiang_jshhkjb	[	10	]	=	4156		BaoXiang_jshhkjb_Rad	[	10	]	=	400 		BaoXiang_jshhkjb_Count	[	10	]	=	1	--	ѕхРСѕЮПєТВ·ю
-	BaoXiang_jshhkjb	[	11	]	=	0357		BaoXiang_jshhkjb_Rad	[	11	]	=	2500 		BaoXiang_jshhkjb_Count	[	11	]	=	1	--	ґуєЈПєТВ·ю
-	BaoXiang_jshhkjb	[	12	]	=	0358		BaoXiang_jshhkjb_Rad	[	12	]	=	2500 		BaoXiang_jshhkjb_Count	[	12	]	=	1	--	ѕЮЗЇєЈПєТВ·ю
-	BaoXiang_jshhkjb	[	13	]	=	0343		BaoXiang_jshhkjb_Rad	[	13	]	=	2500 		BaoXiang_jshhkjb_Count	[	13	]	=	1	--	м«·зТВ·ю
-	BaoXiang_jshhkjb	[	14	]	=	0344		BaoXiang_jshhkjb_Rad	[	14	]	=	2500 		BaoXiang_jshhkjb_Count	[	14	]	=	1	--	дцОРТВ·ю
-	BaoXiang_jshhkjb	[	15	]	=	0345		BaoXiang_jshhkjb_Rad	[	15	]	=	2500 		BaoXiang_jshhkjb_Count	[	15	]	=	1	--	·зЦ®ТВ·ю
-	BaoXiang_jshhkjb	[	16	]	=	0341		BaoXiang_jshhkjb_Rad	[	16	]	=	17000 	BaoXiang_jshhkjb_Count	[	16	]	=	1	--	јЧ°еТВ·ю
-	BaoXiang_jshhkjb	[	17	]	=	0342		BaoXiang_jshhkjb_Rad	[	17	]	=	17000 	BaoXiang_jshhkjb_Count	[	17	]	=	1	--	О¦ёЛТВ·ю
-	BaoXiang_jshhkjb	[	18	]	=	0353		BaoXiang_jshhkjb_Rad	[	18	]	=	17000 	BaoXiang_jshhkjb_Count	[	18	]	=	1	--	РЎСјТВ·ю
-	BaoXiang_jshhkjb	[	19	]	=	0356		BaoXiang_jshhkjb_Rad	[	19	]	=	17000 	BaoXiang_jshhkjb_Count	[	19	]	=	1	--	ТЎ°ЪСјТВ·ю
-	BaoXiang_jshhkjb	[	20	]	=	1977		BaoXiang_jshhkjb_Rad	[	20	]	=	17000 	BaoXiang_jshhkjb_Count	[	20	]	=	1	--	·з±©НвМЧ
+	BaoXiang_jshhkjb	[	1	]	=	1924		BaoXiang_jshhkjb_Rad	[	1	]	=	10 		BaoXiang_jshhkjb_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jshhkjb	[	2	]	=	1925		BaoXiang_jshhkjb_Rad	[	2	]	=	30 		BaoXiang_jshhkjb_Count	[	2	]	=	1	--	?????????
+	BaoXiang_jshhkjb	[	3	]	=	1926		BaoXiang_jshhkjb_Rad	[	3	]	=	10 		BaoXiang_jshhkjb_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jshhkjb	[	4	]	=	1927		BaoXiang_jshhkjb_Rad	[	4	]	=	5 		BaoXiang_jshhkjb_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jshhkjb	[	5	]	=	0411		BaoXiang_jshhkjb_Rad	[	5	]	=	400 		BaoXiang_jshhkjb_Count	[	5	]	=	1	--	????
+	BaoXiang_jshhkjb	[	6	]	=	0413		BaoXiang_jshhkjb_Rad	[	6	]	=	400 		BaoXiang_jshhkjb_Count	[	6	]	=	1	--	????
+	BaoXiang_jshhkjb	[	7	]	=	4153		BaoXiang_jshhkjb_Rad	[	7	]	=	400 		BaoXiang_jshhkjb_Count	[	7	]	=	1	--	????
+	BaoXiang_jshhkjb	[	8	]	=	4154		BaoXiang_jshhkjb_Rad	[	8	]	=	400 		BaoXiang_jshhkjb_Count	[	8	]	=	1	--	??????
+	BaoXiang_jshhkjb	[	9	]	=	4155		BaoXiang_jshhkjb_Rad	[	9	]	=	400 		BaoXiang_jshhkjb_Count	[	9	]	=	1	--	????
+	BaoXiang_jshhkjb	[	10	]	=	4156		BaoXiang_jshhkjb_Rad	[	10	]	=	400 		BaoXiang_jshhkjb_Count	[	10	]	=	1	--	??????
+	BaoXiang_jshhkjb	[	11	]	=	0357		BaoXiang_jshhkjb_Rad	[	11	]	=	2500 		BaoXiang_jshhkjb_Count	[	11	]	=	1	--	?????
+	BaoXiang_jshhkjb	[	12	]	=	0358		BaoXiang_jshhkjb_Rad	[	12	]	=	2500 		BaoXiang_jshhkjb_Count	[	12	]	=	1	--	??????
+	BaoXiang_jshhkjb	[	13	]	=	0343		BaoXiang_jshhkjb_Rad	[	13	]	=	2500 		BaoXiang_jshhkjb_Count	[	13	]	=	1	--	????
+	BaoXiang_jshhkjb	[	14	]	=	0344		BaoXiang_jshhkjb_Rad	[	14	]	=	2500 		BaoXiang_jshhkjb_Count	[	14	]	=	1	--	????
+	BaoXiang_jshhkjb	[	15	]	=	0345		BaoXiang_jshhkjb_Rad	[	15	]	=	2500 		BaoXiang_jshhkjb_Count	[	15	]	=	1	--	????
+	BaoXiang_jshhkjb	[	16	]	=	0341		BaoXiang_jshhkjb_Rad	[	16	]	=	17000 	BaoXiang_jshhkjb_Count	[	16	]	=	1	--	????
+	BaoXiang_jshhkjb	[	17	]	=	0342		BaoXiang_jshhkjb_Rad	[	17	]	=	17000 	BaoXiang_jshhkjb_Count	[	17	]	=	1	--	????
+	BaoXiang_jshhkjb	[	18	]	=	0353		BaoXiang_jshhkjb_Rad	[	18	]	=	17000 	BaoXiang_jshhkjb_Count	[	18	]	=	1	--	????
+	BaoXiang_jshhkjb	[	19	]	=	0356		BaoXiang_jshhkjb_Rad	[	19	]	=	17000 	BaoXiang_jshhkjb_Count	[	19	]	=	1	--	?????
+	BaoXiang_jshhkjb	[	20	]	=	1977		BaoXiang_jshhkjb_Rad	[	20	]	=	17000 	BaoXiang_jshhkjb_Count	[	20	]	=	1	--	????
 
 																						
---	ѕЮЅЈїшјЧ±¦Пд24РН												h0124									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????24?												h0124									
+--	????							??????														
 	BaoXiang_jsjjkja_Qua	=	24	 				BaoXiang_jsjjkja_Mxcount	=	9												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsjjkja	=	{}					BaoXiang_jsjjkja_Rad	=	{}					BaoXiang_jsjjkja_Count	=	{}					
-	BaoXiang_jsjjkja	[	1	]	=	1885		BaoXiang_jsjjkja_Rad	[	1	]	=	50		BaoXiang_jsjjkja_Count	[	1	]	=	1	--	ОЫДа·вУЎµДОдКїЧзЦдОЖЙн
-	BaoXiang_jsjjkja	[	2	]	=	1886		BaoXiang_jsjjkja_Rad	[	2	]	=	20		BaoXiang_jsjjkja_Count	[	2	]	=	1	--	БТСж·вУЎµД»ГБйОЖЙн
-	BaoXiang_jsjjkja	[	3	]	=	1887		BaoXiang_jsjjkja_Rad	[	3	]	=	1 		BaoXiang_jsjjkja_Count	[	3	]	=	1	--	є®±щ·вУЎµДГФЦ®ОЖЙн
-	BaoXiang_jsjjkja	[	4	]	=	0398		BaoXiang_jsjjkja_Rad	[	4	]	=	1660 		BaoXiang_jsjjkja_Count	[	4	]	=	1	--	БйЙсошјЧ
-	BaoXiang_jsjjkja	[	5	]	=	4148		BaoXiang_jsjjkja_Rad	[	5	]	=	1660 		BaoXiang_jsjjkja_Count	[	5	]	=	1	--	»ГКЮОЖЙн
-	BaoXiang_jsjjkja	[	6	]	=	4147		BaoXiang_jsjjkja_Rad	[	6	]	=	1660 		BaoXiang_jsjjkja_Count	[	6	]	=	1	--	БйКЮОЖЙн
-	BaoXiang_jsjjkja	[	7	]	=	0228		BaoXiang_jsjjkja_Rad	[	7	]	=	32000		BaoXiang_jsjjkja_Count	[	7	]	=	1	--	Е­ЕЈОЖЙн
-	BaoXiang_jsjjkja	[	8	]	=	0230		BaoXiang_jsjjkja_Rad	[	8	]	=	32000		BaoXiang_jsjjkja_Count	[	8	]	=	1	--	КЮНхОЖЙн
-	BaoXiang_jsjjkja	[	9	]	=	0229		BaoXiang_jsjjkja_Rad	[	9	]	=	32000		BaoXiang_jsjjkja_Count	[	9	]	=	1	--	ВщЕЈОЖЙн
+	BaoXiang_jsjjkja	[	1	]	=	1885		BaoXiang_jsjjkja_Rad	[	1	]	=	50		BaoXiang_jsjjkja_Count	[	1	]	=	1	--	???????????
+	BaoXiang_jsjjkja	[	2	]	=	1886		BaoXiang_jsjjkja_Rad	[	2	]	=	20		BaoXiang_jsjjkja_Count	[	2	]	=	1	--	?????????
+	BaoXiang_jsjjkja	[	3	]	=	1887		BaoXiang_jsjjkja_Rad	[	3	]	=	1 		BaoXiang_jsjjkja_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jsjjkja	[	4	]	=	0398		BaoXiang_jsjjkja_Rad	[	4	]	=	1660 		BaoXiang_jsjjkja_Count	[	4	]	=	1	--	????
+	BaoXiang_jsjjkja	[	5	]	=	4148		BaoXiang_jsjjkja_Rad	[	5	]	=	1660 		BaoXiang_jsjjkja_Count	[	5	]	=	1	--	????
+	BaoXiang_jsjjkja	[	6	]	=	4147		BaoXiang_jsjjkja_Rad	[	6	]	=	1660 		BaoXiang_jsjjkja_Count	[	6	]	=	1	--	????
+	BaoXiang_jsjjkja	[	7	]	=	0228		BaoXiang_jsjjkja_Rad	[	7	]	=	32000		BaoXiang_jsjjkja_Count	[	7	]	=	1	--	????
+	BaoXiang_jsjjkja	[	8	]	=	0230		BaoXiang_jsjjkja_Rad	[	8	]	=	32000		BaoXiang_jsjjkja_Count	[	8	]	=	1	--	????
+	BaoXiang_jsjjkja	[	9	]	=	0229		BaoXiang_jsjjkja_Rad	[	9	]	=	32000		BaoXiang_jsjjkja_Count	[	9	]	=	1	--	????
 
 																						
---	ѕЮЅЈїшјЧ±¦Пд23РН												h0124									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????23?												h0124									
+--	????							??????														
 	BaoXiang_jsjjkjb_Qua	=	23	 				BaoXiang_jsjjkjb_Mxcount	=	9												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsjjkjb	=	{}					BaoXiang_jsjjkjb_Rad	=	{}					BaoXiang_jsjjkjb_Count	=	{}					
-	BaoXiang_jsjjkjb	[	1	]	=	1885		BaoXiang_jsjjkjb_Rad	[	1	]	=	50 		BaoXiang_jsjjkjb_Count	[	1	]	=	1	--	ОЫДа·вУЎµДОдКїЧзЦдОЖЙн
-	BaoXiang_jsjjkjb	[	2	]	=	1886		BaoXiang_jsjjkjb_Rad	[	2	]	=	10 		BaoXiang_jsjjkjb_Count	[	2	]	=	1	--	БТСж·вУЎµД»ГБйОЖЙн
-	BaoXiang_jsjjkjb	[	3	]	=	1887		BaoXiang_jsjjkjb_Rad	[	3	]	=	5 		BaoXiang_jsjjkjb_Count	[	3	]	=	1	--	є®±щ·вУЎµДГФЦ®ОЖЙн
-	BaoXiang_jsjjkjb	[	4	]	=	0398		BaoXiang_jsjjkjb_Rad	[	4	]	=	900 		BaoXiang_jsjjkjb_Count	[	4	]	=	1	--	БйЙсошјЧ
-	BaoXiang_jsjjkjb	[	5	]	=	4148		BaoXiang_jsjjkjb_Rad	[	5	]	=	900 		BaoXiang_jsjjkjb_Count	[	5	]	=	1	--	»ГКЮОЖЙн
-	BaoXiang_jsjjkjb	[	6	]	=	4147		BaoXiang_jsjjkjb_Rad	[	6	]	=	900 		BaoXiang_jsjjkjb_Count	[	6	]	=	1	--	БйКЮОЖЙн
-	BaoXiang_jsjjkjb	[	7	]	=	0228		BaoXiang_jsjjkjb_Rad	[	7	]	=	32500		BaoXiang_jsjjkjb_Count	[	7	]	=	1	--	Е­ЕЈОЖЙн
-	BaoXiang_jsjjkjb	[	8	]	=	0230		BaoXiang_jsjjkjb_Rad	[	8	]	=	32500		BaoXiang_jsjjkjb_Count	[	8	]	=	1	--	КЮНхОЖЙн
-	BaoXiang_jsjjkjb	[	9	]	=	0229		BaoXiang_jsjjkjb_Rad	[	9	]	=	32500		BaoXiang_jsjjkjb_Count	[	9	]	=	1	--	ВщЕЈОЖЙн
+	BaoXiang_jsjjkjb	[	1	]	=	1885		BaoXiang_jsjjkjb_Rad	[	1	]	=	50 		BaoXiang_jsjjkjb_Count	[	1	]	=	1	--	???????????
+	BaoXiang_jsjjkjb	[	2	]	=	1886		BaoXiang_jsjjkjb_Rad	[	2	]	=	10 		BaoXiang_jsjjkjb_Count	[	2	]	=	1	--	?????????
+	BaoXiang_jsjjkjb	[	3	]	=	1887		BaoXiang_jsjjkjb_Rad	[	3	]	=	5 		BaoXiang_jsjjkjb_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jsjjkjb	[	4	]	=	0398		BaoXiang_jsjjkjb_Rad	[	4	]	=	900 		BaoXiang_jsjjkjb_Count	[	4	]	=	1	--	????
+	BaoXiang_jsjjkjb	[	5	]	=	4148		BaoXiang_jsjjkjb_Rad	[	5	]	=	900 		BaoXiang_jsjjkjb_Count	[	5	]	=	1	--	????
+	BaoXiang_jsjjkjb	[	6	]	=	4147		BaoXiang_jsjjkjb_Rad	[	6	]	=	900 		BaoXiang_jsjjkjb_Count	[	6	]	=	1	--	????
+	BaoXiang_jsjjkjb	[	7	]	=	0228		BaoXiang_jsjjkjb_Rad	[	7	]	=	32500		BaoXiang_jsjjkjb_Count	[	7	]	=	1	--	????
+	BaoXiang_jsjjkjb	[	8	]	=	0230		BaoXiang_jsjjkjb_Rad	[	8	]	=	32500		BaoXiang_jsjjkjb_Count	[	8	]	=	1	--	????
+	BaoXiang_jsjjkjb	[	9	]	=	0229		BaoXiang_jsjjkjb_Rad	[	9	]	=	32500		BaoXiang_jsjjkjb_Count	[	9	]	=	1	--	????
 
 																						
---	єЪБъЦ®Зы±¦Пд24РН	1/100001											e0831									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????24?	1/100001											e0831									
+--	????							??????														
 	BaoXiang_jshlza_Qua	=	24	 				BaoXiang_jshlza_Mxcount	=	70												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jshlza	=	{}					BaoXiang_jshlza_Rad	=	{}					BaoXiang_jshlza_Count	=	{}					
-	BaoXiang_jshlza	[	1	]	=	0845		BaoXiang_jshlza_Rad	[	1	]	=	1 		BaoXiang_jshlza_Count	[	1	]	=	1	--	єЪБъЦ®Зы
-	BaoXiang_jshlza	[	2	]	=	0398		BaoXiang_jshlza_Rad	[	2	]	=	160 		BaoXiang_jshlza_Count	[	2	]	=	1	--	БйЙсошјЧ
-	BaoXiang_jshlza	[	3	]	=	4148		BaoXiang_jshlza_Rad	[	3	]	=	160 		BaoXiang_jshlza_Count	[	3	]	=	1	--	»ГКЮОЖЙн
-	BaoXiang_jshlza	[	4	]	=	4147		BaoXiang_jshlza_Rad	[	4	]	=	160 		BaoXiang_jshlza_Count	[	4	]	=	1	--	БйКЮОЖЙн
-	BaoXiang_jshlza	[	5	]	=	0411		BaoXiang_jshlza_Rad	[	5	]	=	160 		BaoXiang_jshlza_Count	[	5	]	=	1	--	Е­МОТВ·ю
-	BaoXiang_jshlza	[	6	]	=	0413		BaoXiang_jshlza_Rad	[	6	]	=	160 		BaoXiang_jshlza_Count	[	6	]	=	1	--	ИрКЮТВ·ю
-	BaoXiang_jshlza	[	7	]	=	4153		BaoXiang_jshlza_Rad	[	7	]	=	160 		BaoXiang_jshlza_Count	[	7	]	=	1	--	БмєЅТВ·ю
-	BaoXiang_jshlza	[	8	]	=	4154		BaoXiang_jshlza_Rad	[	8	]	=	160 		BaoXiang_jshlza_Count	[	8	]	=	1	--	Д§Б¦БъПєТВ·ю
-	BaoXiang_jshlza	[	9	]	=	4155		BaoXiang_jshlza_Rad	[	9	]	=	160 		BaoXiang_jshlza_Count	[	9	]	=	1	--	М¤АЛТВ·ю
-	BaoXiang_jshlza	[	10	]	=	4156		BaoXiang_jshlza_Rad	[	10	]	=	160 		BaoXiang_jshlza_Count	[	10	]	=	1	--	ѕхРСѕЮПєТВ·ю
-	BaoXiang_jshlza	[	11	]	=	0402		BaoXiang_jshlza_Rad	[	11	]	=	160 		BaoXiang_jshlza_Count	[	11	]	=	1	--	ЙсКїТВ·ю
-	BaoXiang_jshlza	[	12	]	=	0404		BaoXiang_jshlza_Rad	[	12	]	=	160 		BaoXiang_jshlza_Count	[	12	]	=	1	--	ЙсЖжРЬГЁТВ·ю
-	BaoXiang_jshlza	[	13	]	=	4161		BaoXiang_jshlza_Rad	[	13	]	=	160 		BaoXiang_jshlza_Count	[	13	]	=	1	--	ёґірТВ·ю
-	BaoXiang_jshlza	[	14	]	=	4162		BaoXiang_jshlza_Rad	[	14	]	=	160 		BaoXiang_jshlza_Count	[	14	]	=	1	--	Д§Б¦єЈМЎТВ·ю
-	BaoXiang_jshlza	[	15	]	=	4163		BaoXiang_jshlza_Rad	[	15	]	=	160 		BaoXiang_jshlza_Count	[	15	]	=	1	--	іН·ЈХЯТВ·ю
-	BaoXiang_jshlza	[	16	]	=	4164		BaoXiang_jshlza_Rad	[	16	]	=	160 		BaoXiang_jshlza_Count	[	16	]	=	1	--	ѕхРСєЈМЎТВ·ю
-	BaoXiang_jshlza	[	17	]	=	0406		BaoXiang_jshlza_Rad	[	17	]	=	160		BaoXiang_jshlza_Count	[	17	]	=	1	--	·ЙМмТВ·ю
-	BaoXiang_jshlza	[	18	]	=	4158		BaoXiang_jshlza_Rad	[	18	]	=	160 		BaoXiang_jshlza_Count	[	18	]	=	1	--	Д§Б¦НГЧУТВ·ю
-	BaoXiang_jshlza	[	19	]	=	4159		BaoXiang_jshlza_Rad	[	19	]	=	160 		BaoXiang_jshlza_Count	[	19	]	=	1	--	КҐ№вТВ·ю
-	BaoXiang_jshlza	[	20	]	=	4160		BaoXiang_jshlza_Rad	[	20	]	=	160 		BaoXiang_jshlza_Count	[	20	]	=	1	--	ѕхРСНГЧУТВ·ю
-	BaoXiang_jshlza	[	21	]	=	4157		BaoXiang_jshlza_Rad	[	21	]	=	160		BaoXiang_jshlza_Count	[	21	]	=	1	--	КҐТфТВ·ю
-	BaoXiang_jshlza	[	22	]	=	3322		BaoXiang_jshlza_Rad	[	22	]	=	160		BaoXiang_jshlza_Count	[	22	]	=	1	--	єЪБъЦ®Зы±¦Пд24РН
-	BaoXiang_jshlza	[	23	]	=	0400		BaoXiang_jshlza_Rad	[	23	]	=	160		BaoXiang_jshlza_Count	[	23	]	=	1	--	ЙдИХНвМЧ
-	BaoXiang_jshlza	[	24	]	=	4152		BaoXiang_jshlza_Rad	[	24	]	=	160		BaoXiang_jshlza_Count	[	24	]	=	1	--	КЁрХТВ·ю
-	BaoXiang_jshlza	[	25	]	=	0396		BaoXiang_jshlza_Rad	[	25	]	=	160 		BaoXiang_jshlza_Count	[	25	]	=	1	--	ТюГШЦ®јЧ
-	BaoXiang_jshlza	[	26	]	=	3322		BaoXiang_jshlza_Rad	[	26	]	=	160 		BaoXiang_jshlza_Count	[	26	]	=	1	--	єЪБъЦ®Зы±¦Пд24РН
-	BaoXiang_jshlza	[	27	]	=	0228		BaoXiang_jshlza_Rad	[	27	]	=	500		BaoXiang_jshlza_Count	[	27	]	=	1	--	Е­ЕЈОЖЙн
-	BaoXiang_jshlza	[	28	]	=	0230		BaoXiang_jshlza_Rad	[	28	]	=	500		BaoXiang_jshlza_Count	[	28	]	=	1	--	КЮНхОЖЙн
-	BaoXiang_jshlza	[	29	]	=	0765		BaoXiang_jshlza_Rad	[	29	]	=	500		BaoXiang_jshlza_Count	[	29	]	=	1	--	»ГБйОЖЙн
-	BaoXiang_jshlza	[	30	]	=	0357		BaoXiang_jshlza_Rad	[	30	]	=	500		BaoXiang_jshlza_Count	[	30	]	=	1	--	ґуєЈПєТВ·ю
-	BaoXiang_jshlza	[	31	]	=	0358		BaoXiang_jshlza_Rad	[	31	]	=	500		BaoXiang_jshlza_Count	[	31	]	=	1	--	ѕЮЗЇєЈПєТВ·ю
-	BaoXiang_jshlza	[	32	]	=	0343		BaoXiang_jshlza_Rad	[	32	]	=	500		BaoXiang_jshlza_Count	[	32	]	=	1	--	м«·зТВ·ю
-	BaoXiang_jshlza	[	33	]	=	0344		BaoXiang_jshlza_Rad	[	33	]	=	500		BaoXiang_jshlza_Count	[	33	]	=	1	--	дцОРТВ·ю
-	BaoXiang_jshlza	[	34	]	=	0345		BaoXiang_jshlza_Rad	[	34	]	=	500		BaoXiang_jshlza_Count	[	34	]	=	1	--	·зЦ®ТВ·ю
-	BaoXiang_jshlza	[	35	]	=	0363		BaoXiang_jshlza_Rad	[	35	]	=	500		BaoXiang_jshlza_Count	[	35	]	=	1	--	ёЯј¶єЈМЎТВ·ю
-	BaoXiang_jshlza	[	36	]	=	0364		BaoXiang_jshlza_Rad	[	36	]	=	500		BaoXiang_jshlza_Count	[	36	]	=	1	--	ЧЈёЈєЈМЎТВ·ю
-	BaoXiang_jshlza	[	37	]	=	0376		BaoXiang_jshlza_Rad	[	37	]	=	500		BaoXiang_jshlza_Count	[	37	]	=	1	--	ЦОБЖХЯТВ·ю
-	BaoXiang_jshlza	[	38	]	=	0377		BaoXiang_jshlza_Rad	[	38	]	=	500		BaoXiang_jshlza_Count	[	38	]	=	1	--	±Ј»¤ХЯТВ·ю
-	BaoXiang_jshlza	[	39	]	=	1957		BaoXiang_jshlza_Rad	[	39	]	=	500		BaoXiang_jshlza_Count	[	39	]	=	1	--	УИµП°ІНвМЧ
-	BaoXiang_jshlza	[	40	]	=	1958		BaoXiang_jshlza_Rad	[	40	]	=	500		BaoXiang_jshlza_Count	[	40	]	=	1	--	ЦмИёНвМЧ
-	BaoXiang_jshlza	[	41	]	=	0391		BaoXiang_jshlza_Rad	[	41	]	=	500		BaoXiang_jshlza_Count	[	41	]	=	1	--	ёЯј¶НГТВ·ю
-	BaoXiang_jshlza	[	42	]	=	0392		BaoXiang_jshlza_Rad	[	42	]	=	500		BaoXiang_jshlza_Count	[	42	]	=	1	--	±¦±ґНГТВ·ю
-	BaoXiang_jshlza	[	43	]	=	0393		BaoXiang_jshlza_Rad	[	43	]	=	500		BaoXiang_jshlza_Count	[	43	]	=	1	--	ЧЈёЈНГТВ·ю
-	BaoXiang_jshlza	[	44	]	=	0394		BaoXiang_jshlza_Rad	[	44	]	=	500		BaoXiang_jshlza_Count	[	44	]	=	1	--	МмґНТВ·ю
-	BaoXiang_jshlza	[	45	]	=	1960		BaoXiang_jshlza_Rad	[	45	]	=	500		BaoXiang_jshlza_Count	[	45	]	=	1	--	ПЈ¶ыНвМЧ
-	BaoXiang_jshlza	[	46	]	=	1961		BaoXiang_jshlza_Rad	[	46	]	=	500		BaoXiang_jshlza_Count	[	46	]	=	1	--	рЅ·пНвМЧ
-	BaoXiang_jshlza	[	47	]	=	0316		BaoXiang_jshlza_Rad	[	47	]	=	500		BaoXiang_jshlza_Count	[	47	]	=	1	--	°ЯрЇТВ·ю
-	BaoXiang_jshlza	[	48	]	=	0317		BaoXiang_jshlza_Rad	[	48	]	=	500		BaoXiang_jshlza_Count	[	48	]	=	1	--	ГНЗЭТВ·ю
-	BaoXiang_jshlza	[	49	]	=	0304		BaoXiang_jshlza_Rad	[	49	]	=	500		BaoXiang_jshlza_Count	[	49	]	=	1	--	µдАсёЦјЧ
-	BaoXiang_jshlza	[	50	]	=	1931		BaoXiang_jshlza_Rad	[	50	]	=	500		BaoXiang_jshlza_Count	[	50	]	=	1	--	чичлХЅјЧ
-	BaoXiang_jshlza	[	51	]	=	0341		BaoXiang_jshlza_Rad	[	51	]	=	4200 		BaoXiang_jshlza_Count	[	51	]	=	1	--	јЧ°еТВ·ю
-	BaoXiang_jshlza	[	52	]	=	0342		BaoXiang_jshlza_Rad	[	52	]	=	4200 		BaoXiang_jshlza_Count	[	52	]	=	1	--	О¦ёЛТВ·ю
-	BaoXiang_jshlza	[	53	]	=	0353		BaoXiang_jshlza_Rad	[	53	]	=	4200 		BaoXiang_jshlza_Count	[	53	]	=	1	--	РЎСјТВ·ю
-	BaoXiang_jshlza	[	54	]	=	0356		BaoXiang_jshlza_Rad	[	54	]	=	4200 		BaoXiang_jshlza_Count	[	54	]	=	1	--	ТЎ°ЪСјТВ·ю
-	BaoXiang_jshlza	[	55	]	=	1977		BaoXiang_jshlza_Rad	[	55	]	=	4200 		BaoXiang_jshlza_Count	[	55	]	=	1	--	·з±©НвМЧ
-	BaoXiang_jshlza	[	56	]	=	1956		BaoXiang_jshlza_Rad	[	56	]	=	4200 		BaoXiang_jshlza_Count	[	56	]	=	1	--	АдФВНвТВ
-	BaoXiang_jshlza	[	57	]	=	0385		BaoXiang_jshlza_Rad	[	57	]	=	4200 		BaoXiang_jshlza_Count	[	57	]	=	1	--	єЈМЎТВ·ю
-	BaoXiang_jshlza	[	58	]	=	0375		BaoXiang_jshlza_Rad	[	58	]	=	4200 		BaoXiang_jshlza_Count	[	58	]	=	1	--	Ф¶РРТВ·ю
-	BaoXiang_jshlza	[	59	]	=	0369		BaoXiang_jshlza_Rad	[	59	]	=	4200 		BaoXiang_jshlza_Count	[	59	]	=	1	--	КМХЯТВ·ю
-	BaoXiang_jshlza	[	60	]	=	0362		BaoXiang_jshlza_Rad	[	60	]	=	4200 		BaoXiang_jshlza_Count	[	60	]	=	1	--	±Д±ДКуТВ·ю
-	BaoXiang_jshlza	[	61	]	=	1959		BaoXiang_jshlza_Rad	[	61	]	=	4200 		BaoXiang_jshlza_Count	[	61	]	=	1	--	Т«ИХНвТВ
-	BaoXiang_jshlza	[	62	]	=	0382		BaoXiang_jshlza_Rad	[	62	]	=	4200 		BaoXiang_jshlza_Count	[	62	]	=	1	--	і¤¶ъНГТВ·ю
-	BaoXiang_jshlza	[	63	]	=	0388		BaoXiang_jshlza_Rad	[	63	]	=	4200 		BaoXiang_jshlza_Count	[	63	]	=	1	--	їмАЦНГТВ·ю
-	BaoXiang_jshlza	[	64	]	=	0392		BaoXiang_jshlza_Rad	[	64	]	=	4200 		BaoXiang_jshlza_Count	[	64	]	=	1	--	±¦±ґНГТВ·ю
-	BaoXiang_jshlza	[	65	]	=	0314		BaoXiang_jshlza_Rad	[	65	]	=	4200 		BaoXiang_jshlza_Count	[	65	]	=	1	--	ГфЅЭТВ·ю
-	BaoXiang_jshlza	[	66	]	=	0315		BaoXiang_jshlza_Rad	[	66	]	=	4200 		BaoXiang_jshlza_Count	[	66	]	=	1	--	ЙЅИёТВ·ю
-	BaoXiang_jshlza	[	67	]	=	0302		BaoXiang_jshlza_Rad	[	67	]	=	4200 		BaoXiang_jshlza_Count	[	67	]	=	1	--	Зб±гёЦјЧ
-	BaoXiang_jshlza	[	68	]	=	0303		BaoXiang_jshlza_Rad	[	68	]	=	4200 		BaoXiang_jshlza_Count	[	68	]	=	1	--	¶ЖТшёЦјЧ
-	BaoXiang_jshlza	[	69	]	=	1929		BaoXiang_jshlza_Rad	[	69	]	=	4200 		BaoXiang_jshlza_Count	[	69	]	=	1	--	јІ·зХЅјЧ
-	BaoXiang_jshlza	[	70	]	=	1930		BaoXiang_jshlza_Rad	[	70	]	=	4200 		BaoXiang_jshlza_Count	[	70	]	=	1	--	ОчЛ№ХЅјЧ
+	BaoXiang_jshlza	[	1	]	=	0845		BaoXiang_jshlza_Rad	[	1	]	=	1 		BaoXiang_jshlza_Count	[	1	]	=	1	--	????
+	BaoXiang_jshlza	[	2	]	=	0398		BaoXiang_jshlza_Rad	[	2	]	=	160 		BaoXiang_jshlza_Count	[	2	]	=	1	--	????
+	BaoXiang_jshlza	[	3	]	=	4148		BaoXiang_jshlza_Rad	[	3	]	=	160 		BaoXiang_jshlza_Count	[	3	]	=	1	--	????
+	BaoXiang_jshlza	[	4	]	=	4147		BaoXiang_jshlza_Rad	[	4	]	=	160 		BaoXiang_jshlza_Count	[	4	]	=	1	--	????
+	BaoXiang_jshlza	[	5	]	=	0411		BaoXiang_jshlza_Rad	[	5	]	=	160 		BaoXiang_jshlza_Count	[	5	]	=	1	--	????
+	BaoXiang_jshlza	[	6	]	=	0413		BaoXiang_jshlza_Rad	[	6	]	=	160 		BaoXiang_jshlza_Count	[	6	]	=	1	--	????
+	BaoXiang_jshlza	[	7	]	=	4153		BaoXiang_jshlza_Rad	[	7	]	=	160 		BaoXiang_jshlza_Count	[	7	]	=	1	--	????
+	BaoXiang_jshlza	[	8	]	=	4154		BaoXiang_jshlza_Rad	[	8	]	=	160 		BaoXiang_jshlza_Count	[	8	]	=	1	--	??????
+	BaoXiang_jshlza	[	9	]	=	4155		BaoXiang_jshlza_Rad	[	9	]	=	160 		BaoXiang_jshlza_Count	[	9	]	=	1	--	????
+	BaoXiang_jshlza	[	10	]	=	4156		BaoXiang_jshlza_Rad	[	10	]	=	160 		BaoXiang_jshlza_Count	[	10	]	=	1	--	??????
+	BaoXiang_jshlza	[	11	]	=	0402		BaoXiang_jshlza_Rad	[	11	]	=	160 		BaoXiang_jshlza_Count	[	11	]	=	1	--	????
+	BaoXiang_jshlza	[	12	]	=	0404		BaoXiang_jshlza_Rad	[	12	]	=	160 		BaoXiang_jshlza_Count	[	12	]	=	1	--	??????
+	BaoXiang_jshlza	[	13	]	=	4161		BaoXiang_jshlza_Rad	[	13	]	=	160 		BaoXiang_jshlza_Count	[	13	]	=	1	--	????
+	BaoXiang_jshlza	[	14	]	=	4162		BaoXiang_jshlza_Rad	[	14	]	=	160 		BaoXiang_jshlza_Count	[	14	]	=	1	--	??????
+	BaoXiang_jshlza	[	15	]	=	4163		BaoXiang_jshlza_Rad	[	15	]	=	160 		BaoXiang_jshlza_Count	[	15	]	=	1	--	?????
+	BaoXiang_jshlza	[	16	]	=	4164		BaoXiang_jshlza_Rad	[	16	]	=	160 		BaoXiang_jshlza_Count	[	16	]	=	1	--	??????
+	BaoXiang_jshlza	[	17	]	=	0406		BaoXiang_jshlza_Rad	[	17	]	=	160		BaoXiang_jshlza_Count	[	17	]	=	1	--	????
+	BaoXiang_jshlza	[	18	]	=	4158		BaoXiang_jshlza_Rad	[	18	]	=	160 		BaoXiang_jshlza_Count	[	18	]	=	1	--	??????
+	BaoXiang_jshlza	[	19	]	=	4159		BaoXiang_jshlza_Rad	[	19	]	=	160 		BaoXiang_jshlza_Count	[	19	]	=	1	--	????
+	BaoXiang_jshlza	[	20	]	=	4160		BaoXiang_jshlza_Rad	[	20	]	=	160 		BaoXiang_jshlza_Count	[	20	]	=	1	--	??????
+	BaoXiang_jshlza	[	21	]	=	4157		BaoXiang_jshlza_Rad	[	21	]	=	160		BaoXiang_jshlza_Count	[	21	]	=	1	--	????
+	BaoXiang_jshlza	[	22	]	=	3322		BaoXiang_jshlza_Rad	[	22	]	=	160		BaoXiang_jshlza_Count	[	22	]	=	1	--	??????24?
+	BaoXiang_jshlza	[	23	]	=	0400		BaoXiang_jshlza_Rad	[	23	]	=	160		BaoXiang_jshlza_Count	[	23	]	=	1	--	????
+	BaoXiang_jshlza	[	24	]	=	4152		BaoXiang_jshlza_Rad	[	24	]	=	160		BaoXiang_jshlza_Count	[	24	]	=	1	--	????
+	BaoXiang_jshlza	[	25	]	=	0396		BaoXiang_jshlza_Rad	[	25	]	=	160 		BaoXiang_jshlza_Count	[	25	]	=	1	--	????
+	BaoXiang_jshlza	[	26	]	=	3322		BaoXiang_jshlza_Rad	[	26	]	=	160 		BaoXiang_jshlza_Count	[	26	]	=	1	--	??????24?
+	BaoXiang_jshlza	[	27	]	=	0228		BaoXiang_jshlza_Rad	[	27	]	=	500		BaoXiang_jshlza_Count	[	27	]	=	1	--	????
+	BaoXiang_jshlza	[	28	]	=	0230		BaoXiang_jshlza_Rad	[	28	]	=	500		BaoXiang_jshlza_Count	[	28	]	=	1	--	????
+	BaoXiang_jshlza	[	29	]	=	0765		BaoXiang_jshlza_Rad	[	29	]	=	500		BaoXiang_jshlza_Count	[	29	]	=	1	--	????
+	BaoXiang_jshlza	[	30	]	=	0357		BaoXiang_jshlza_Rad	[	30	]	=	500		BaoXiang_jshlza_Count	[	30	]	=	1	--	?????
+	BaoXiang_jshlza	[	31	]	=	0358		BaoXiang_jshlza_Rad	[	31	]	=	500		BaoXiang_jshlza_Count	[	31	]	=	1	--	??????
+	BaoXiang_jshlza	[	32	]	=	0343		BaoXiang_jshlza_Rad	[	32	]	=	500		BaoXiang_jshlza_Count	[	32	]	=	1	--	????
+	BaoXiang_jshlza	[	33	]	=	0344		BaoXiang_jshlza_Rad	[	33	]	=	500		BaoXiang_jshlza_Count	[	33	]	=	1	--	????
+	BaoXiang_jshlza	[	34	]	=	0345		BaoXiang_jshlza_Rad	[	34	]	=	500		BaoXiang_jshlza_Count	[	34	]	=	1	--	????
+	BaoXiang_jshlza	[	35	]	=	0363		BaoXiang_jshlza_Rad	[	35	]	=	500		BaoXiang_jshlza_Count	[	35	]	=	1	--	??????
+	BaoXiang_jshlza	[	36	]	=	0364		BaoXiang_jshlza_Rad	[	36	]	=	500		BaoXiang_jshlza_Count	[	36	]	=	1	--	??????
+	BaoXiang_jshlza	[	37	]	=	0376		BaoXiang_jshlza_Rad	[	37	]	=	500		BaoXiang_jshlza_Count	[	37	]	=	1	--	?????
+	BaoXiang_jshlza	[	38	]	=	0377		BaoXiang_jshlza_Rad	[	38	]	=	500		BaoXiang_jshlza_Count	[	38	]	=	1	--	?????
+	BaoXiang_jshlza	[	39	]	=	1957		BaoXiang_jshlza_Rad	[	39	]	=	500		BaoXiang_jshlza_Count	[	39	]	=	1	--	?????
+	BaoXiang_jshlza	[	40	]	=	1958		BaoXiang_jshlza_Rad	[	40	]	=	500		BaoXiang_jshlza_Count	[	40	]	=	1	--	????
+	BaoXiang_jshlza	[	41	]	=	0391		BaoXiang_jshlza_Rad	[	41	]	=	500		BaoXiang_jshlza_Count	[	41	]	=	1	--	?????
+	BaoXiang_jshlza	[	42	]	=	0392		BaoXiang_jshlza_Rad	[	42	]	=	500		BaoXiang_jshlza_Count	[	42	]	=	1	--	?????
+	BaoXiang_jshlza	[	43	]	=	0393		BaoXiang_jshlza_Rad	[	43	]	=	500		BaoXiang_jshlza_Count	[	43	]	=	1	--	?????
+	BaoXiang_jshlza	[	44	]	=	0394		BaoXiang_jshlza_Rad	[	44	]	=	500		BaoXiang_jshlza_Count	[	44	]	=	1	--	????
+	BaoXiang_jshlza	[	45	]	=	1960		BaoXiang_jshlza_Rad	[	45	]	=	500		BaoXiang_jshlza_Count	[	45	]	=	1	--	????
+	BaoXiang_jshlza	[	46	]	=	1961		BaoXiang_jshlza_Rad	[	46	]	=	500		BaoXiang_jshlza_Count	[	46	]	=	1	--	????
+	BaoXiang_jshlza	[	47	]	=	0316		BaoXiang_jshlza_Rad	[	47	]	=	500		BaoXiang_jshlza_Count	[	47	]	=	1	--	????
+	BaoXiang_jshlza	[	48	]	=	0317		BaoXiang_jshlza_Rad	[	48	]	=	500		BaoXiang_jshlza_Count	[	48	]	=	1	--	????
+	BaoXiang_jshlza	[	49	]	=	0304		BaoXiang_jshlza_Rad	[	49	]	=	500		BaoXiang_jshlza_Count	[	49	]	=	1	--	????
+	BaoXiang_jshlza	[	50	]	=	1931		BaoXiang_jshlza_Rad	[	50	]	=	500		BaoXiang_jshlza_Count	[	50	]	=	1	--	????
+	BaoXiang_jshlza	[	51	]	=	0341		BaoXiang_jshlza_Rad	[	51	]	=	4200 		BaoXiang_jshlza_Count	[	51	]	=	1	--	????
+	BaoXiang_jshlza	[	52	]	=	0342		BaoXiang_jshlza_Rad	[	52	]	=	4200 		BaoXiang_jshlza_Count	[	52	]	=	1	--	????
+	BaoXiang_jshlza	[	53	]	=	0353		BaoXiang_jshlza_Rad	[	53	]	=	4200 		BaoXiang_jshlza_Count	[	53	]	=	1	--	????
+	BaoXiang_jshlza	[	54	]	=	0356		BaoXiang_jshlza_Rad	[	54	]	=	4200 		BaoXiang_jshlza_Count	[	54	]	=	1	--	?????
+	BaoXiang_jshlza	[	55	]	=	1977		BaoXiang_jshlza_Rad	[	55	]	=	4200 		BaoXiang_jshlza_Count	[	55	]	=	1	--	????
+	BaoXiang_jshlza	[	56	]	=	1956		BaoXiang_jshlza_Rad	[	56	]	=	4200 		BaoXiang_jshlza_Count	[	56	]	=	1	--	????
+	BaoXiang_jshlza	[	57	]	=	0385		BaoXiang_jshlza_Rad	[	57	]	=	4200 		BaoXiang_jshlza_Count	[	57	]	=	1	--	????
+	BaoXiang_jshlza	[	58	]	=	0375		BaoXiang_jshlza_Rad	[	58	]	=	4200 		BaoXiang_jshlza_Count	[	58	]	=	1	--	????
+	BaoXiang_jshlza	[	59	]	=	0369		BaoXiang_jshlza_Rad	[	59	]	=	4200 		BaoXiang_jshlza_Count	[	59	]	=	1	--	????
+	BaoXiang_jshlza	[	60	]	=	0362		BaoXiang_jshlza_Rad	[	60	]	=	4200 		BaoXiang_jshlza_Count	[	60	]	=	1	--	?????
+	BaoXiang_jshlza	[	61	]	=	1959		BaoXiang_jshlza_Rad	[	61	]	=	4200 		BaoXiang_jshlza_Count	[	61	]	=	1	--	????
+	BaoXiang_jshlza	[	62	]	=	0382		BaoXiang_jshlza_Rad	[	62	]	=	4200 		BaoXiang_jshlza_Count	[	62	]	=	1	--	?????
+	BaoXiang_jshlza	[	63	]	=	0388		BaoXiang_jshlza_Rad	[	63	]	=	4200 		BaoXiang_jshlza_Count	[	63	]	=	1	--	?????
+	BaoXiang_jshlza	[	64	]	=	0392		BaoXiang_jshlza_Rad	[	64	]	=	4200 		BaoXiang_jshlza_Count	[	64	]	=	1	--	?????
+	BaoXiang_jshlza	[	65	]	=	0314		BaoXiang_jshlza_Rad	[	65	]	=	4200 		BaoXiang_jshlza_Count	[	65	]	=	1	--	????
+	BaoXiang_jshlza	[	66	]	=	0315		BaoXiang_jshlza_Rad	[	66	]	=	4200 		BaoXiang_jshlza_Count	[	66	]	=	1	--	????
+	BaoXiang_jshlza	[	67	]	=	0302		BaoXiang_jshlza_Rad	[	67	]	=	4200 		BaoXiang_jshlza_Count	[	67	]	=	1	--	????
+	BaoXiang_jshlza	[	68	]	=	0303		BaoXiang_jshlza_Rad	[	68	]	=	4200 		BaoXiang_jshlza_Count	[	68	]	=	1	--	????
+	BaoXiang_jshlza	[	69	]	=	1929		BaoXiang_jshlza_Rad	[	69	]	=	4200 		BaoXiang_jshlza_Count	[	69	]	=	1	--	????
+	BaoXiang_jshlza	[	70	]	=	1930		BaoXiang_jshlza_Rad	[	70	]	=	4200 		BaoXiang_jshlza_Count	[	70	]	=	1	--	????
 
 																						
---	єЪБъЦ®Зы±¦Пд23РН	1/100101											e0831									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????23?	1/100101											e0831									
+--	????							??????														
 	BaoXiang_jshlzb_Qua	=	23	 				BaoXiang_jshlzb_Mxcount	=	70												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jshlzb	=	{}					BaoXiang_jshlzb_Rad	=	{}					BaoXiang_jshlzb_Count	=	{}					
-	BaoXiang_jshlzb	[	1	]	=	845		BaoXiang_jshlzb_Rad	[	1	]	=	1		BaoXiang_jshlzb_Count	[	1	]	=	1	--	єЪБъЦ®Зы
-	BaoXiang_jshlzb	[	2	]	=	398		BaoXiang_jshlzb_Rad	[	2	]	=	100		BaoXiang_jshlzb_Count	[	2	]	=	1	--	БйЙсошјЧ
-	BaoXiang_jshlzb	[	3	]	=	4148		BaoXiang_jshlzb_Rad	[	3	]	=	100		BaoXiang_jshlzb_Count	[	3	]	=	1	--	»ГКЮОЖЙн
-	BaoXiang_jshlzb	[	4	]	=	4147		BaoXiang_jshlzb_Rad	[	4	]	=	100		BaoXiang_jshlzb_Count	[	4	]	=	1	--	БйКЮОЖЙн
-	BaoXiang_jshlzb	[	5	]	=	411		BaoXiang_jshlzb_Rad	[	5	]	=	100		BaoXiang_jshlzb_Count	[	5	]	=	1	--	Е­МОТВ·ю
-	BaoXiang_jshlzb	[	6	]	=	413		BaoXiang_jshlzb_Rad	[	6	]	=	100		BaoXiang_jshlzb_Count	[	6	]	=	1	--	ИрКЮТВ·ю
-	BaoXiang_jshlzb	[	7	]	=	4153		BaoXiang_jshlzb_Rad	[	7	]	=	100		BaoXiang_jshlzb_Count	[	7	]	=	1	--	БмєЅТВ·ю
-	BaoXiang_jshlzb	[	8	]	=	4154		BaoXiang_jshlzb_Rad	[	8	]	=	100		BaoXiang_jshlzb_Count	[	8	]	=	1	--	Д§Б¦БъПєТВ·ю
-	BaoXiang_jshlzb	[	9	]	=	4155		BaoXiang_jshlzb_Rad	[	9	]	=	100		BaoXiang_jshlzb_Count	[	9	]	=	1	--	М¤АЛТВ·ю
-	BaoXiang_jshlzb	[	10	]	=	4156		BaoXiang_jshlzb_Rad	[	10	]	=	100		BaoXiang_jshlzb_Count	[	10	]	=	1	--	ѕхРСѕЮПєТВ·ю
-	BaoXiang_jshlzb	[	11	]	=	402		BaoXiang_jshlzb_Rad	[	11	]	=	100		BaoXiang_jshlzb_Count	[	11	]	=	1	--	ЙсКїТВ·ю
-	BaoXiang_jshlzb	[	12	]	=	404		BaoXiang_jshlzb_Rad	[	12	]	=	100		BaoXiang_jshlzb_Count	[	12	]	=	1	--	ЙсЖжРЬГЁТВ·ю
-	BaoXiang_jshlzb	[	13	]	=	4161		BaoXiang_jshlzb_Rad	[	13	]	=	100		BaoXiang_jshlzb_Count	[	13	]	=	1	--	ёґірТВ·ю
-	BaoXiang_jshlzb	[	14	]	=	4162		BaoXiang_jshlzb_Rad	[	14	]	=	100		BaoXiang_jshlzb_Count	[	14	]	=	1	--	Д§Б¦єЈМЎТВ·ю
-	BaoXiang_jshlzb	[	15	]	=	4163		BaoXiang_jshlzb_Rad	[	15	]	=	100		BaoXiang_jshlzb_Count	[	15	]	=	1	--	іН·ЈХЯТВ·ю
-	BaoXiang_jshlzb	[	16	]	=	4164		BaoXiang_jshlzb_Rad	[	16	]	=	100		BaoXiang_jshlzb_Count	[	16	]	=	1	--	ѕхРСєЈМЎТВ·ю
-	BaoXiang_jshlzb	[	17	]	=	406		BaoXiang_jshlzb_Rad	[	17	]	=	100		BaoXiang_jshlzb_Count	[	17	]	=	1	--	·ЙМмТВ·ю
-	BaoXiang_jshlzb	[	18	]	=	4158		BaoXiang_jshlzb_Rad	[	18	]	=	100		BaoXiang_jshlzb_Count	[	18	]	=	1	--	Д§Б¦НГЧУТВ·ю
-	BaoXiang_jshlzb	[	19	]	=	4159		BaoXiang_jshlzb_Rad	[	19	]	=	100		BaoXiang_jshlzb_Count	[	19	]	=	1	--	КҐ№вТВ·ю
-	BaoXiang_jshlzb	[	20	]	=	4160		BaoXiang_jshlzb_Rad	[	20	]	=	100		BaoXiang_jshlzb_Count	[	20	]	=	1	--	ѕхРСНГЧУТВ·ю
-	BaoXiang_jshlzb	[	21	]	=	4157		BaoXiang_jshlzb_Rad	[	21	]	=	100		BaoXiang_jshlzb_Count	[	21	]	=	1	--	КҐТфТВ·ю
-	BaoXiang_jshlzb	[	22	]	=	3323		BaoXiang_jshlzb_Rad	[	22	]	=	100		BaoXiang_jshlzb_Count	[	22	]	=	1	--	єЪБъЦ®Зы±¦Пд23РН
-	BaoXiang_jshlzb	[	23	]	=	400		BaoXiang_jshlzb_Rad	[	23	]	=	100		BaoXiang_jshlzb_Count	[	23	]	=	1	--	ЙдИХНвМЧ
-	BaoXiang_jshlzb	[	24	]	=	4152		BaoXiang_jshlzb_Rad	[	24	]	=	100		BaoXiang_jshlzb_Count	[	24	]	=	1	--	КЁрХТВ·ю
-	BaoXiang_jshlzb	[	25	]	=	396		BaoXiang_jshlzb_Rad	[	25	]	=	100		BaoXiang_jshlzb_Count	[	25	]	=	1	--	ТюГШЦ®јЧ
-	BaoXiang_jshlzb	[	26	]	=	3323		BaoXiang_jshlzb_Rad	[	26	]	=	100		BaoXiang_jshlzb_Count	[	26	]	=	1	--	єЪБъЦ®Зы±¦Пд23РН
-	BaoXiang_jshlzb	[	27	]	=	228		BaoXiang_jshlzb_Rad	[	27	]	=	400		BaoXiang_jshlzb_Count	[	27	]	=	1	--	Е­ЕЈОЖЙн
-	BaoXiang_jshlzb	[	28	]	=	230		BaoXiang_jshlzb_Rad	[	28	]	=	400		BaoXiang_jshlzb_Count	[	28	]	=	1	--	КЮНхОЖЙн
-	BaoXiang_jshlzb	[	29	]	=	765		BaoXiang_jshlzb_Rad	[	29	]	=	400		BaoXiang_jshlzb_Count	[	29	]	=	1	--	»ГБйОЖЙн
-	BaoXiang_jshlzb	[	30	]	=	357		BaoXiang_jshlzb_Rad	[	30	]	=	400		BaoXiang_jshlzb_Count	[	30	]	=	1	--	ґуєЈПєТВ·ю
-	BaoXiang_jshlzb	[	31	]	=	358		BaoXiang_jshlzb_Rad	[	31	]	=	400		BaoXiang_jshlzb_Count	[	31	]	=	1	--	ѕЮЗЇєЈПєТВ·ю
-	BaoXiang_jshlzb	[	32	]	=	343		BaoXiang_jshlzb_Rad	[	32	]	=	400		BaoXiang_jshlzb_Count	[	32	]	=	1	--	м«·зТВ·ю
-	BaoXiang_jshlzb	[	33	]	=	344		BaoXiang_jshlzb_Rad	[	33	]	=	400		BaoXiang_jshlzb_Count	[	33	]	=	1	--	дцОРТВ·ю
-	BaoXiang_jshlzb	[	34	]	=	345		BaoXiang_jshlzb_Rad	[	34	]	=	400		BaoXiang_jshlzb_Count	[	34	]	=	1	--	·зЦ®ТВ·ю
-	BaoXiang_jshlzb	[	35	]	=	363		BaoXiang_jshlzb_Rad	[	35	]	=	400		BaoXiang_jshlzb_Count	[	35	]	=	1	--	ёЯј¶єЈМЎТВ·ю
-	BaoXiang_jshlzb	[	36	]	=	364		BaoXiang_jshlzb_Rad	[	36	]	=	400		BaoXiang_jshlzb_Count	[	36	]	=	1	--	ЧЈёЈєЈМЎТВ·ю
-	BaoXiang_jshlzb	[	37	]	=	376		BaoXiang_jshlzb_Rad	[	37	]	=	400		BaoXiang_jshlzb_Count	[	37	]	=	1	--	ЦОБЖХЯТВ·ю
-	BaoXiang_jshlzb	[	38	]	=	377		BaoXiang_jshlzb_Rad	[	38	]	=	400		BaoXiang_jshlzb_Count	[	38	]	=	1	--	±Ј»¤ХЯТВ·ю
-	BaoXiang_jshlzb	[	39	]	=	1957		BaoXiang_jshlzb_Rad	[	39	]	=	400		BaoXiang_jshlzb_Count	[	39	]	=	1	--	УИµП°ІНвМЧ
-	BaoXiang_jshlzb	[	40	]	=	1958		BaoXiang_jshlzb_Rad	[	40	]	=	400		BaoXiang_jshlzb_Count	[	40	]	=	1	--	ЦмИёНвМЧ
-	BaoXiang_jshlzb	[	41	]	=	391		BaoXiang_jshlzb_Rad	[	41	]	=	400		BaoXiang_jshlzb_Count	[	41	]	=	1	--	ёЯј¶НГТВ·ю
-	BaoXiang_jshlzb	[	42	]	=	392		BaoXiang_jshlzb_Rad	[	42	]	=	400		BaoXiang_jshlzb_Count	[	42	]	=	1	--	±¦±ґНГТВ·ю
-	BaoXiang_jshlzb	[	43	]	=	393		BaoXiang_jshlzb_Rad	[	43	]	=	400		BaoXiang_jshlzb_Count	[	43	]	=	1	--	ЧЈёЈНГТВ·ю
-	BaoXiang_jshlzb	[	44	]	=	394		BaoXiang_jshlzb_Rad	[	44	]	=	400		BaoXiang_jshlzb_Count	[	44	]	=	1	--	МмґНТВ·ю
-	BaoXiang_jshlzb	[	45	]	=	1960		BaoXiang_jshlzb_Rad	[	45	]	=	400		BaoXiang_jshlzb_Count	[	45	]	=	1	--	ПЈ¶ыНвМЧ
-	BaoXiang_jshlzb	[	46	]	=	1961		BaoXiang_jshlzb_Rad	[	46	]	=	400		BaoXiang_jshlzb_Count	[	46	]	=	1	--	рЅ·пНвМЧ
-	BaoXiang_jshlzb	[	47	]	=	316		BaoXiang_jshlzb_Rad	[	47	]	=	400		BaoXiang_jshlzb_Count	[	47	]	=	1	--	°ЯрЇТВ·ю
-	BaoXiang_jshlzb	[	48	]	=	317		BaoXiang_jshlzb_Rad	[	48	]	=	400		BaoXiang_jshlzb_Count	[	48	]	=	1	--	ГНЗЭТВ·ю
-	BaoXiang_jshlzb	[	49	]	=	304		BaoXiang_jshlzb_Rad	[	49	]	=	400		BaoXiang_jshlzb_Count	[	49	]	=	1	--	µдАсёЦјЧ
-	BaoXiang_jshlzb	[	50	]	=	1931		BaoXiang_jshlzb_Rad	[	50	]	=	400		BaoXiang_jshlzb_Count	[	50	]	=	1	--	чичлХЅјЧ
-	BaoXiang_jshlzb	[	51	]	=	341		BaoXiang_jshlzb_Rad	[	51	]	=	4400		BaoXiang_jshlzb_Count	[	51	]	=	1	--	јЧ°еТВ·ю
-	BaoXiang_jshlzb	[	52	]	=	342		BaoXiang_jshlzb_Rad	[	52	]	=	4400		BaoXiang_jshlzb_Count	[	52	]	=	1	--	О¦ёЛТВ·ю
-	BaoXiang_jshlzb	[	53	]	=	353		BaoXiang_jshlzb_Rad	[	53	]	=	4400		BaoXiang_jshlzb_Count	[	53	]	=	1	--	РЎСјТВ·ю
-	BaoXiang_jshlzb	[	54	]	=	356		BaoXiang_jshlzb_Rad	[	54	]	=	4400		BaoXiang_jshlzb_Count	[	54	]	=	1	--	ТЎ°ЪСјТВ·ю
-	BaoXiang_jshlzb	[	55	]	=	1977		BaoXiang_jshlzb_Rad	[	55	]	=	4400		BaoXiang_jshlzb_Count	[	55	]	=	1	--	·з±©НвМЧ
-	BaoXiang_jshlzb	[	56	]	=	1956		BaoXiang_jshlzb_Rad	[	56	]	=	4400		BaoXiang_jshlzb_Count	[	56	]	=	1	--	АдФВНвТВ
-	BaoXiang_jshlzb	[	57	]	=	385		BaoXiang_jshlzb_Rad	[	57	]	=	4400		BaoXiang_jshlzb_Count	[	57	]	=	1	--	єЈМЎТВ·ю
-	BaoXiang_jshlzb	[	58	]	=	375		BaoXiang_jshlzb_Rad	[	58	]	=	4400		BaoXiang_jshlzb_Count	[	58	]	=	1	--	Ф¶РРТВ·ю
-	BaoXiang_jshlzb	[	59	]	=	369		BaoXiang_jshlzb_Rad	[	59	]	=	4400		BaoXiang_jshlzb_Count	[	59	]	=	1	--	КМХЯТВ·ю
-	BaoXiang_jshlzb	[	60	]	=	362		BaoXiang_jshlzb_Rad	[	60	]	=	4400		BaoXiang_jshlzb_Count	[	60	]	=	1	--	±Д±ДКуТВ·ю
-	BaoXiang_jshlzb	[	61	]	=	1959		BaoXiang_jshlzb_Rad	[	61	]	=	4400		BaoXiang_jshlzb_Count	[	61	]	=	1	--	Т«ИХНвТВ
-	BaoXiang_jshlzb	[	62	]	=	382		BaoXiang_jshlzb_Rad	[	62	]	=	4400		BaoXiang_jshlzb_Count	[	62	]	=	1	--	і¤¶ъНГТВ·ю
-	BaoXiang_jshlzb	[	63	]	=	388		BaoXiang_jshlzb_Rad	[	63	]	=	4400		BaoXiang_jshlzb_Count	[	63	]	=	1	--	їмАЦНГТВ·ю
-	BaoXiang_jshlzb	[	64	]	=	392		BaoXiang_jshlzb_Rad	[	64	]	=	4400		BaoXiang_jshlzb_Count	[	64	]	=	1	--	±¦±ґНГТВ·ю
-	BaoXiang_jshlzb	[	65	]	=	314		BaoXiang_jshlzb_Rad	[	65	]	=	4400		BaoXiang_jshlzb_Count	[	65	]	=	1	--	ГфЅЭТВ·ю
-	BaoXiang_jshlzb	[	66	]	=	315		BaoXiang_jshlzb_Rad	[	66	]	=	4400		BaoXiang_jshlzb_Count	[	66	]	=	1	--	ЙЅИёТВ·ю
-	BaoXiang_jshlzb	[	67	]	=	302		BaoXiang_jshlzb_Rad	[	67	]	=	4400		BaoXiang_jshlzb_Count	[	67	]	=	1	--	Зб±гёЦјЧ
-	BaoXiang_jshlzb	[	68	]	=	303		BaoXiang_jshlzb_Rad	[	68	]	=	4400		BaoXiang_jshlzb_Count	[	68	]	=	1	--	¶ЖТшёЦјЧ
-	BaoXiang_jshlzb	[	69	]	=	1929		BaoXiang_jshlzb_Rad	[	69	]	=	4400		BaoXiang_jshlzb_Count	[	69	]	=	1	--	јІ·зХЅјЧ
-	BaoXiang_jshlzb	[	70	]	=	1930		BaoXiang_jshlzb_Rad	[	70	]	=	4400		BaoXiang_jshlzb_Count	[	70	]	=	1	--	ОчЛ№ХЅјЧ
+	BaoXiang_jshlzb	[	1	]	=	845		BaoXiang_jshlzb_Rad	[	1	]	=	1		BaoXiang_jshlzb_Count	[	1	]	=	1	--	????
+	BaoXiang_jshlzb	[	2	]	=	398		BaoXiang_jshlzb_Rad	[	2	]	=	100		BaoXiang_jshlzb_Count	[	2	]	=	1	--	????
+	BaoXiang_jshlzb	[	3	]	=	4148		BaoXiang_jshlzb_Rad	[	3	]	=	100		BaoXiang_jshlzb_Count	[	3	]	=	1	--	????
+	BaoXiang_jshlzb	[	4	]	=	4147		BaoXiang_jshlzb_Rad	[	4	]	=	100		BaoXiang_jshlzb_Count	[	4	]	=	1	--	????
+	BaoXiang_jshlzb	[	5	]	=	411		BaoXiang_jshlzb_Rad	[	5	]	=	100		BaoXiang_jshlzb_Count	[	5	]	=	1	--	????
+	BaoXiang_jshlzb	[	6	]	=	413		BaoXiang_jshlzb_Rad	[	6	]	=	100		BaoXiang_jshlzb_Count	[	6	]	=	1	--	????
+	BaoXiang_jshlzb	[	7	]	=	4153		BaoXiang_jshlzb_Rad	[	7	]	=	100		BaoXiang_jshlzb_Count	[	7	]	=	1	--	????
+	BaoXiang_jshlzb	[	8	]	=	4154		BaoXiang_jshlzb_Rad	[	8	]	=	100		BaoXiang_jshlzb_Count	[	8	]	=	1	--	??????
+	BaoXiang_jshlzb	[	9	]	=	4155		BaoXiang_jshlzb_Rad	[	9	]	=	100		BaoXiang_jshlzb_Count	[	9	]	=	1	--	????
+	BaoXiang_jshlzb	[	10	]	=	4156		BaoXiang_jshlzb_Rad	[	10	]	=	100		BaoXiang_jshlzb_Count	[	10	]	=	1	--	??????
+	BaoXiang_jshlzb	[	11	]	=	402		BaoXiang_jshlzb_Rad	[	11	]	=	100		BaoXiang_jshlzb_Count	[	11	]	=	1	--	????
+	BaoXiang_jshlzb	[	12	]	=	404		BaoXiang_jshlzb_Rad	[	12	]	=	100		BaoXiang_jshlzb_Count	[	12	]	=	1	--	??????
+	BaoXiang_jshlzb	[	13	]	=	4161		BaoXiang_jshlzb_Rad	[	13	]	=	100		BaoXiang_jshlzb_Count	[	13	]	=	1	--	????
+	BaoXiang_jshlzb	[	14	]	=	4162		BaoXiang_jshlzb_Rad	[	14	]	=	100		BaoXiang_jshlzb_Count	[	14	]	=	1	--	??????
+	BaoXiang_jshlzb	[	15	]	=	4163		BaoXiang_jshlzb_Rad	[	15	]	=	100		BaoXiang_jshlzb_Count	[	15	]	=	1	--	?????
+	BaoXiang_jshlzb	[	16	]	=	4164		BaoXiang_jshlzb_Rad	[	16	]	=	100		BaoXiang_jshlzb_Count	[	16	]	=	1	--	??????
+	BaoXiang_jshlzb	[	17	]	=	406		BaoXiang_jshlzb_Rad	[	17	]	=	100		BaoXiang_jshlzb_Count	[	17	]	=	1	--	????
+	BaoXiang_jshlzb	[	18	]	=	4158		BaoXiang_jshlzb_Rad	[	18	]	=	100		BaoXiang_jshlzb_Count	[	18	]	=	1	--	??????
+	BaoXiang_jshlzb	[	19	]	=	4159		BaoXiang_jshlzb_Rad	[	19	]	=	100		BaoXiang_jshlzb_Count	[	19	]	=	1	--	????
+	BaoXiang_jshlzb	[	20	]	=	4160		BaoXiang_jshlzb_Rad	[	20	]	=	100		BaoXiang_jshlzb_Count	[	20	]	=	1	--	??????
+	BaoXiang_jshlzb	[	21	]	=	4157		BaoXiang_jshlzb_Rad	[	21	]	=	100		BaoXiang_jshlzb_Count	[	21	]	=	1	--	????
+	BaoXiang_jshlzb	[	22	]	=	3323		BaoXiang_jshlzb_Rad	[	22	]	=	100		BaoXiang_jshlzb_Count	[	22	]	=	1	--	??????23?
+	BaoXiang_jshlzb	[	23	]	=	400		BaoXiang_jshlzb_Rad	[	23	]	=	100		BaoXiang_jshlzb_Count	[	23	]	=	1	--	????
+	BaoXiang_jshlzb	[	24	]	=	4152		BaoXiang_jshlzb_Rad	[	24	]	=	100		BaoXiang_jshlzb_Count	[	24	]	=	1	--	????
+	BaoXiang_jshlzb	[	25	]	=	396		BaoXiang_jshlzb_Rad	[	25	]	=	100		BaoXiang_jshlzb_Count	[	25	]	=	1	--	????
+	BaoXiang_jshlzb	[	26	]	=	3323		BaoXiang_jshlzb_Rad	[	26	]	=	100		BaoXiang_jshlzb_Count	[	26	]	=	1	--	??????23?
+	BaoXiang_jshlzb	[	27	]	=	228		BaoXiang_jshlzb_Rad	[	27	]	=	400		BaoXiang_jshlzb_Count	[	27	]	=	1	--	????
+	BaoXiang_jshlzb	[	28	]	=	230		BaoXiang_jshlzb_Rad	[	28	]	=	400		BaoXiang_jshlzb_Count	[	28	]	=	1	--	????
+	BaoXiang_jshlzb	[	29	]	=	765		BaoXiang_jshlzb_Rad	[	29	]	=	400		BaoXiang_jshlzb_Count	[	29	]	=	1	--	????
+	BaoXiang_jshlzb	[	30	]	=	357		BaoXiang_jshlzb_Rad	[	30	]	=	400		BaoXiang_jshlzb_Count	[	30	]	=	1	--	?????
+	BaoXiang_jshlzb	[	31	]	=	358		BaoXiang_jshlzb_Rad	[	31	]	=	400		BaoXiang_jshlzb_Count	[	31	]	=	1	--	??????
+	BaoXiang_jshlzb	[	32	]	=	343		BaoXiang_jshlzb_Rad	[	32	]	=	400		BaoXiang_jshlzb_Count	[	32	]	=	1	--	????
+	BaoXiang_jshlzb	[	33	]	=	344		BaoXiang_jshlzb_Rad	[	33	]	=	400		BaoXiang_jshlzb_Count	[	33	]	=	1	--	????
+	BaoXiang_jshlzb	[	34	]	=	345		BaoXiang_jshlzb_Rad	[	34	]	=	400		BaoXiang_jshlzb_Count	[	34	]	=	1	--	????
+	BaoXiang_jshlzb	[	35	]	=	363		BaoXiang_jshlzb_Rad	[	35	]	=	400		BaoXiang_jshlzb_Count	[	35	]	=	1	--	??????
+	BaoXiang_jshlzb	[	36	]	=	364		BaoXiang_jshlzb_Rad	[	36	]	=	400		BaoXiang_jshlzb_Count	[	36	]	=	1	--	??????
+	BaoXiang_jshlzb	[	37	]	=	376		BaoXiang_jshlzb_Rad	[	37	]	=	400		BaoXiang_jshlzb_Count	[	37	]	=	1	--	?????
+	BaoXiang_jshlzb	[	38	]	=	377		BaoXiang_jshlzb_Rad	[	38	]	=	400		BaoXiang_jshlzb_Count	[	38	]	=	1	--	?????
+	BaoXiang_jshlzb	[	39	]	=	1957		BaoXiang_jshlzb_Rad	[	39	]	=	400		BaoXiang_jshlzb_Count	[	39	]	=	1	--	?????
+	BaoXiang_jshlzb	[	40	]	=	1958		BaoXiang_jshlzb_Rad	[	40	]	=	400		BaoXiang_jshlzb_Count	[	40	]	=	1	--	????
+	BaoXiang_jshlzb	[	41	]	=	391		BaoXiang_jshlzb_Rad	[	41	]	=	400		BaoXiang_jshlzb_Count	[	41	]	=	1	--	?????
+	BaoXiang_jshlzb	[	42	]	=	392		BaoXiang_jshlzb_Rad	[	42	]	=	400		BaoXiang_jshlzb_Count	[	42	]	=	1	--	?????
+	BaoXiang_jshlzb	[	43	]	=	393		BaoXiang_jshlzb_Rad	[	43	]	=	400		BaoXiang_jshlzb_Count	[	43	]	=	1	--	?????
+	BaoXiang_jshlzb	[	44	]	=	394		BaoXiang_jshlzb_Rad	[	44	]	=	400		BaoXiang_jshlzb_Count	[	44	]	=	1	--	????
+	BaoXiang_jshlzb	[	45	]	=	1960		BaoXiang_jshlzb_Rad	[	45	]	=	400		BaoXiang_jshlzb_Count	[	45	]	=	1	--	????
+	BaoXiang_jshlzb	[	46	]	=	1961		BaoXiang_jshlzb_Rad	[	46	]	=	400		BaoXiang_jshlzb_Count	[	46	]	=	1	--	????
+	BaoXiang_jshlzb	[	47	]	=	316		BaoXiang_jshlzb_Rad	[	47	]	=	400		BaoXiang_jshlzb_Count	[	47	]	=	1	--	????
+	BaoXiang_jshlzb	[	48	]	=	317		BaoXiang_jshlzb_Rad	[	48	]	=	400		BaoXiang_jshlzb_Count	[	48	]	=	1	--	????
+	BaoXiang_jshlzb	[	49	]	=	304		BaoXiang_jshlzb_Rad	[	49	]	=	400		BaoXiang_jshlzb_Count	[	49	]	=	1	--	????
+	BaoXiang_jshlzb	[	50	]	=	1931		BaoXiang_jshlzb_Rad	[	50	]	=	400		BaoXiang_jshlzb_Count	[	50	]	=	1	--	????
+	BaoXiang_jshlzb	[	51	]	=	341		BaoXiang_jshlzb_Rad	[	51	]	=	4400		BaoXiang_jshlzb_Count	[	51	]	=	1	--	????
+	BaoXiang_jshlzb	[	52	]	=	342		BaoXiang_jshlzb_Rad	[	52	]	=	4400		BaoXiang_jshlzb_Count	[	52	]	=	1	--	????
+	BaoXiang_jshlzb	[	53	]	=	353		BaoXiang_jshlzb_Rad	[	53	]	=	4400		BaoXiang_jshlzb_Count	[	53	]	=	1	--	????
+	BaoXiang_jshlzb	[	54	]	=	356		BaoXiang_jshlzb_Rad	[	54	]	=	4400		BaoXiang_jshlzb_Count	[	54	]	=	1	--	?????
+	BaoXiang_jshlzb	[	55	]	=	1977		BaoXiang_jshlzb_Rad	[	55	]	=	4400		BaoXiang_jshlzb_Count	[	55	]	=	1	--	????
+	BaoXiang_jshlzb	[	56	]	=	1956		BaoXiang_jshlzb_Rad	[	56	]	=	4400		BaoXiang_jshlzb_Count	[	56	]	=	1	--	????
+	BaoXiang_jshlzb	[	57	]	=	385		BaoXiang_jshlzb_Rad	[	57	]	=	4400		BaoXiang_jshlzb_Count	[	57	]	=	1	--	????
+	BaoXiang_jshlzb	[	58	]	=	375		BaoXiang_jshlzb_Rad	[	58	]	=	4400		BaoXiang_jshlzb_Count	[	58	]	=	1	--	????
+	BaoXiang_jshlzb	[	59	]	=	369		BaoXiang_jshlzb_Rad	[	59	]	=	4400		BaoXiang_jshlzb_Count	[	59	]	=	1	--	????
+	BaoXiang_jshlzb	[	60	]	=	362		BaoXiang_jshlzb_Rad	[	60	]	=	4400		BaoXiang_jshlzb_Count	[	60	]	=	1	--	?????
+	BaoXiang_jshlzb	[	61	]	=	1959		BaoXiang_jshlzb_Rad	[	61	]	=	4400		BaoXiang_jshlzb_Count	[	61	]	=	1	--	????
+	BaoXiang_jshlzb	[	62	]	=	382		BaoXiang_jshlzb_Rad	[	62	]	=	4400		BaoXiang_jshlzb_Count	[	62	]	=	1	--	?????
+	BaoXiang_jshlzb	[	63	]	=	388		BaoXiang_jshlzb_Rad	[	63	]	=	4400		BaoXiang_jshlzb_Count	[	63	]	=	1	--	?????
+	BaoXiang_jshlzb	[	64	]	=	392		BaoXiang_jshlzb_Rad	[	64	]	=	4400		BaoXiang_jshlzb_Count	[	64	]	=	1	--	?????
+	BaoXiang_jshlzb	[	65	]	=	314		BaoXiang_jshlzb_Rad	[	65	]	=	4400		BaoXiang_jshlzb_Count	[	65	]	=	1	--	????
+	BaoXiang_jshlzb	[	66	]	=	315		BaoXiang_jshlzb_Rad	[	66	]	=	4400		BaoXiang_jshlzb_Count	[	66	]	=	1	--	????
+	BaoXiang_jshlzb	[	67	]	=	302		BaoXiang_jshlzb_Rad	[	67	]	=	4400		BaoXiang_jshlzb_Count	[	67	]	=	1	--	????
+	BaoXiang_jshlzb	[	68	]	=	303		BaoXiang_jshlzb_Rad	[	68	]	=	4400		BaoXiang_jshlzb_Count	[	68	]	=	1	--	????
+	BaoXiang_jshlzb	[	69	]	=	1929		BaoXiang_jshlzb_Rad	[	69	]	=	4400		BaoXiang_jshlzb_Count	[	69	]	=	1	--	????
+	BaoXiang_jshlzb	[	70	]	=	1930		BaoXiang_jshlzb_Rad	[	70	]	=	4400		BaoXiang_jshlzb_Count	[	70	]	=	1	--	????
 
 																						
---	єЪБъЦ®КЧ±¦Пд24РН	1/100001											e0834									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????24?	1/100001											e0834									
+--	????							??????														
 	BaoXiang_jshlta_Qua	=	24	 				BaoXiang_jshlta_Mxcount	=	9												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jshlta	=	{}					BaoXiang_jshlta_Rad	=	{}					BaoXiang_jshlta_Count	=	{}					
-	BaoXiang_jshlta	[	1	]	=	0848		BaoXiang_jshlta_Rad	[	1	]	=	1 		BaoXiang_jshlta_Count	[	1	]	=	1	--	єЪБъЦ®КЧ
-	BaoXiang_jshlta	[	2	]	=	2215		BaoXiang_jshlta_Rad	[	2	]	=	1000		BaoXiang_jshlta_Count	[	2	]	=	1	--	ЧЈёЈНГГ±ЧУ
-	BaoXiang_jshlta	[	3	]	=	2201		BaoXiang_jshlta_Rad	[	3	]	=	1000		BaoXiang_jshlta_Count	[	3	]	=	1	--	ЧЈёЈєЈМЎГ±ЧУ
-	BaoXiang_jshlta	[	4	]	=	2200		BaoXiang_jshlta_Rad	[	4	]	=	4000		BaoXiang_jshlta_Count	[	4	]	=	1	--	ёЯј¶єЈМЎГ±ЧУ
-	BaoXiang_jshlta	[	5	]	=	2213		BaoXiang_jshlta_Rad	[	5	]	=	4000		BaoXiang_jshlta_Count	[	5	]	=	1	--	ёЯј¶НГГ±ЧУ
-	BaoXiang_jshlta	[	6	]	=	2207		BaoXiang_jshlta_Rad	[	6	]	=	22500	BaoXiang_jshlta_Count	[	6	]	=	1	--	єЈМЎГ±ЧУ
-	BaoXiang_jshlta	[	7	]	=	2210		BaoXiang_jshlta_Rad	[	7	]	=	22500	BaoXiang_jshlta_Count	[	7	]	=	1	--	їмАЦНГГ±ЧУ
-	BaoXiang_jshlta	[	8	]	=	2214		BaoXiang_jshlta_Rad	[	8	]	=	22500	BaoXiang_jshlta_Count	[	8	]	=	1	--	±¦±ґНГГ±ЧУ
-	BaoXiang_jshlta	[	9	]	=	2212		BaoXiang_jshlta_Rad	[	9	]	=	22500	BaoXiang_jshlta_Count	[	9	]	=	1	--	ґьКуГ±ЧУ
+	BaoXiang_jshlta	[	1	]	=	0848		BaoXiang_jshlta_Rad	[	1	]	=	1 		BaoXiang_jshlta_Count	[	1	]	=	1	--	????
+	BaoXiang_jshlta	[	2	]	=	2215		BaoXiang_jshlta_Rad	[	2	]	=	1000		BaoXiang_jshlta_Count	[	2	]	=	1	--	?????
+	BaoXiang_jshlta	[	3	]	=	2201		BaoXiang_jshlta_Rad	[	3	]	=	1000		BaoXiang_jshlta_Count	[	3	]	=	1	--	??????
+	BaoXiang_jshlta	[	4	]	=	2200		BaoXiang_jshlta_Rad	[	4	]	=	4000		BaoXiang_jshlta_Count	[	4	]	=	1	--	??????
+	BaoXiang_jshlta	[	5	]	=	2213		BaoXiang_jshlta_Rad	[	5	]	=	4000		BaoXiang_jshlta_Count	[	5	]	=	1	--	?????
+	BaoXiang_jshlta	[	6	]	=	2207		BaoXiang_jshlta_Rad	[	6	]	=	22500	BaoXiang_jshlta_Count	[	6	]	=	1	--	????
+	BaoXiang_jshlta	[	7	]	=	2210		BaoXiang_jshlta_Rad	[	7	]	=	22500	BaoXiang_jshlta_Count	[	7	]	=	1	--	?????
+	BaoXiang_jshlta	[	8	]	=	2214		BaoXiang_jshlta_Rad	[	8	]	=	22500	BaoXiang_jshlta_Count	[	8	]	=	1	--	?????
+	BaoXiang_jshlta	[	9	]	=	2212		BaoXiang_jshlta_Rad	[	9	]	=	22500	BaoXiang_jshlta_Count	[	9	]	=	1	--	????
 																						
 																						
---	єЪБъЦ®Ч¦±¦Пд24РН		1/100101										e0832									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????24?		1/100101										e0832									
+--	????							??????														
 	BaoXiang_jshlsa_Qua	=	24	 				BaoXiang_jshlsa_Mxcount	=	43												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jshlsa	=	{}					BaoXiang_jshlsa_Rad	=	{}					BaoXiang_jshlsa_Count	=	{}					
-	BaoXiang_jshlsa	[	1	]	=	0846		BaoXiang_jshlsa_Rad	[	1	]	=	1 		BaoXiang_jshlsa_Count	[	1	]	=	1	--	єЪБъЦ®Ч¦
-	BaoXiang_jshlsa	[	2	]	=	1988		BaoXiang_jshlsa_Rad	[	2	]	=	20 		BaoXiang_jshlsa_Count	[	2	]	=	1	--	БТСж·вУЎµД»ГБйХЅјЧКЦМЧ
-	BaoXiang_jshlsa	[	3	]	=	1990		BaoXiang_jshlsa_Rad	[	3	]	=	20 		BaoXiang_jshlsa_Count	[	3	]	=	1	--	БТСж·вУЎµД»ГБй»¤КЦ
-	BaoXiang_jshlsa	[	4	]	=	1992		BaoXiang_jshlsa_Rad	[	4	]	=	20 		BaoXiang_jshlsa_Count	[	4	]	=	1	--	БТСж·вУЎµД»ГЦдКЦМЧ
-	BaoXiang_jshlsa	[	5	]	=	1993		BaoXiang_jshlsa_Rad	[	5	]	=	20 		BaoXiang_jshlsa_Count	[	5	]	=	1	--	БТСж·вУЎµД»Г·ЁКЦМЧ
-	BaoXiang_jshlsa	[	6	]	=	1996		BaoXiang_jshlsa_Rad	[	6	]	=	20 		BaoXiang_jshlsa_Count	[	6	]	=	1	--	БТСж·вУЎµД»ГБйЖ¤КЦМЧ
-	BaoXiang_jshlsa	[	7	]	=	0588		BaoXiang_jshlsa_Rad	[	7	]	=	450 		BaoXiang_jshlsa_Count	[	7	]	=	1	--	ТюГШКЦМЧ
-	BaoXiang_jshlsa	[	8	]	=	0590		BaoXiang_jshlsa_Rad	[	8	]	=	450 		BaoXiang_jshlsa_Count	[	8	]	=	1	--	ЙдИХКЦМЧ
-	BaoXiang_jshlsa	[	9	]	=	0592		BaoXiang_jshlsa_Rad	[	9	]	=	450 		BaoXiang_jshlsa_Count	[	9	]	=	1	--	ЙсКїКЦМЧ
-	BaoXiang_jshlsa	[	10	]	=	0594		BaoXiang_jshlsa_Rad	[	10	]	=	450 		BaoXiang_jshlsa_Count	[	10	]	=	1	--	ЙсЖжРЬГЁКЦМЧ
-	BaoXiang_jshlsa	[	11	]	=	0596		BaoXiang_jshlsa_Rad	[	11	]	=	450 		BaoXiang_jshlsa_Count	[	11	]	=	1	--	·ЙМмКЦМЧ
-	BaoXiang_jshlsa	[	12	]	=	0598		BaoXiang_jshlsa_Rad	[	12	]	=	450 		BaoXiang_jshlsa_Count	[	12	]	=	1	--	УгПЙЧУКЦМЧ
-	BaoXiang_jshlsa	[	13	]	=	0600		BaoXiang_jshlsa_Rad	[	13	]	=	450 		BaoXiang_jshlsa_Count	[	13	]	=	1	--	Е­МОКЦМЧ
-	BaoXiang_jshlsa	[	14	]	=	1938		BaoXiang_jshlsa_Rad	[	14	]	=	750 		BaoXiang_jshlsa_Count	[	14	]	=	1	--	чичлКЦМЧ
-	BaoXiang_jshlsa	[	15	]	=	1950		BaoXiang_jshlsa_Rad	[	15	]	=	750 		BaoXiang_jshlsa_Count	[	15	]	=	1	--	°Ч»ўКЦМЧ
-	BaoXiang_jshlsa	[	16	]	=	1965		BaoXiang_jshlsa_Rad	[	16	]	=	750		BaoXiang_jshlsa_Count	[	16	]	=	1	--	ЦмИёКЦМЧ
-	BaoXiang_jshlsa	[	17	]	=	1968		BaoXiang_jshlsa_Rad	[	17	]	=	750 		BaoXiang_jshlsa_Count	[	17	]	=	1	--	рЅ·пКЦМЧ
-	BaoXiang_jshlsa	[	18	]	=	1983		BaoXiang_jshlsa_Rad	[	18	]	=	750 		BaoXiang_jshlsa_Count	[	18	]	=	1	--	ЗаБъКЦМЧ
-	BaoXiang_jshlsa	[	19	]	=	0540		BaoXiang_jshlsa_Rad	[	19	]	=	750 		BaoXiang_jshlsa_Count	[	19	]	=	1	--	ЧЈёЈєЈМЎКЦМЧ
-	BaoXiang_jshlsa	[	20	]	=	0539		BaoXiang_jshlsa_Rad	[	20	]	=	750 		BaoXiang_jshlsa_Count	[	20	]	=	1	--	ёЯј¶єЈМЎКЦМЧ
-	BaoXiang_jshlsa	[	21	]	=	0555		BaoXiang_jshlsa_Rad	[	21	]	=	750 		BaoXiang_jshlsa_Count	[	21	]	=	1	--	ЖнФёКЦМЧ		
-	BaoXiang_jshlsa	[	22	]	=	0567		BaoXiang_jshlsa_Rad	[	22	]	=	750 		BaoXiang_jshlsa_Count	[	22	]	=	1	--	ёЯј¶НГКЦМЧ		
-	BaoXiang_jshlsa	[	23	]	=	0569		BaoXiang_jshlsa_Rad	[	23	]	=	750 		BaoXiang_jshlsa_Count	[	23	]	=	1	--	ЧЈёЈНГКЦМЧ		
-	BaoXiang_jshlsa	[	24	]	=	0570		BaoXiang_jshlsa_Rad	[	24	]	=	750 		BaoXiang_jshlsa_Count	[	24	]	=	1	--	МмґНКЦМЧ		
-	BaoXiang_jshlsa	[	25	]	=	0545		BaoXiang_jshlsa_Rad	[	25	]	=	3400		BaoXiang_jshlsa_Count	[	25	]	=	1	--	КМХЯКЦМЧ		
-	BaoXiang_jshlsa	[	26	]	=	0547		BaoXiang_jshlsa_Rad	[	26	]	=	3400		BaoXiang_jshlsa_Count	[	26	]	=	1	--	РЕСцКЦМЧ		
-	BaoXiang_jshlsa	[	27	]	=	0551		BaoXiang_jshlsa_Rad	[	27	]	=	3400		BaoXiang_jshlsa_Count	[	27	]	=	1	--	Ф¶РРКЦМЧ		
-	BaoXiang_jshlsa	[	28	]	=	0554		BaoXiang_jshlsa_Rad	[	28	]	=	3400		BaoXiang_jshlsa_Count	[	28	]	=	1	--	тЇіПКЦМЧ		
-	BaoXiang_jshlsa	[	29	]	=	0558		BaoXiang_jshlsa_Rad	[	29	]	=	3400		BaoXiang_jshlsa_Count	[	29	]	=	1	--	і¤¶ъНГКЦМЧ		
-	BaoXiang_jshlsa	[	30	]	=	0561		BaoXiang_jshlsa_Rad	[	30	]	=	3400		BaoXiang_jshlsa_Count	[	30	]	=	1	--	єЈМЎКЦМЧ		
-	BaoXiang_jshlsa	[	31	]	=	0564		BaoXiang_jshlsa_Rad	[	31	]	=	3400		BaoXiang_jshlsa_Count	[	31	]	=	1	--	їмАЦНГКЦМЧ		
-	BaoXiang_jshlsa	[	32	]	=	0471		BaoXiang_jshlsa_Rad	[	32	]	=	5400		BaoXiang_jshlsa_Count	[	32	]	=	1	--	МъКЦМЧ		
-	BaoXiang_jshlsa	[	33	]	=	0476		BaoXiang_jshlsa_Rad	[	33	]	=	5400		BaoXiang_jshlsa_Count	[	33	]	=	1	--	ЛшКЦМЧ		
-	BaoXiang_jshlsa	[	34	]	=	0486		BaoXiang_jshlsa_Rad	[	34	]	=	5400		BaoXiang_jshlsa_Count	[	34	]	=	1	--	¶МУрКЦМЧ		
-	BaoXiang_jshlsa	[	35	]	=	0517		BaoXiang_jshlsa_Rad	[	35	]	=	5400		BaoXiang_jshlsa_Count	[	35	]	=	1	--	јЧ°еКЦМЧ		
-	BaoXiang_jshlsa	[	36	]	=	0529		BaoXiang_jshlsa_Rad	[	36	]	=	5400		BaoXiang_jshlsa_Count	[	36	]	=	1	--	РЎСјКЦМЧ		
-	BaoXiang_jshlsa	[	37	]	=	0543		BaoXiang_jshlsa_Rad	[	37	]	=	5400		BaoXiang_jshlsa_Count	[	37	]	=	1	--	ВГХЯКЦМЧ		
-	BaoXiang_jshlsa	[	38	]	=	0566		BaoXiang_jshlsa_Rad	[	38	]	=	5400		BaoXiang_jshlsa_Count	[	38	]	=	1	--	ґьКуКЦМЧ		
-	BaoXiang_jshlsa	[	39	]	=	1936		BaoXiang_jshlsa_Rad	[	39	]	=	5400		BaoXiang_jshlsa_Count	[	39	]	=	1	--	јІ·зКЦМЧ		
-	BaoXiang_jshlsa	[	40	]	=	1948		BaoXiang_jshlsa_Rad	[	40	]	=	5400		BaoXiang_jshlsa_Count	[	40	]	=	1	--	БТ»рКЦМЧ		
-	BaoXiang_jshlsa	[	41	]	=	1963		BaoXiang_jshlsa_Rad	[	41	]	=	5400		BaoXiang_jshlsa_Count	[	41	]	=	1	--	АдФВКЦМЧ		
-	BaoXiang_jshlsa	[	42	]	=	1966		BaoXiang_jshlsa_Rad	[	42	]	=	5400		BaoXiang_jshlsa_Count	[	42	]	=	1	--	Т«ИХКЦМЧ		
-	BaoXiang_jshlsa	[	43	]	=	1981		BaoXiang_jshlsa_Rad	[	43	]	=	5400		BaoXiang_jshlsa_Count	[	43	]	=	1	--	·з±©КЦМЧ		
+	BaoXiang_jshlsa	[	1	]	=	0846		BaoXiang_jshlsa_Rad	[	1	]	=	1 		BaoXiang_jshlsa_Count	[	1	]	=	1	--	????
+	BaoXiang_jshlsa	[	2	]	=	1988		BaoXiang_jshlsa_Rad	[	2	]	=	20 		BaoXiang_jshlsa_Count	[	2	]	=	1	--	???????????
+	BaoXiang_jshlsa	[	3	]	=	1990		BaoXiang_jshlsa_Rad	[	3	]	=	20 		BaoXiang_jshlsa_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jshlsa	[	4	]	=	1992		BaoXiang_jshlsa_Rad	[	4	]	=	20 		BaoXiang_jshlsa_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jshlsa	[	5	]	=	1993		BaoXiang_jshlsa_Rad	[	5	]	=	20 		BaoXiang_jshlsa_Count	[	5	]	=	1	--	?????????
+	BaoXiang_jshlsa	[	6	]	=	1996		BaoXiang_jshlsa_Rad	[	6	]	=	20 		BaoXiang_jshlsa_Count	[	6	]	=	1	--	??????????
+	BaoXiang_jshlsa	[	7	]	=	0588		BaoXiang_jshlsa_Rad	[	7	]	=	450 		BaoXiang_jshlsa_Count	[	7	]	=	1	--	????
+	BaoXiang_jshlsa	[	8	]	=	0590		BaoXiang_jshlsa_Rad	[	8	]	=	450 		BaoXiang_jshlsa_Count	[	8	]	=	1	--	????
+	BaoXiang_jshlsa	[	9	]	=	0592		BaoXiang_jshlsa_Rad	[	9	]	=	450 		BaoXiang_jshlsa_Count	[	9	]	=	1	--	????
+	BaoXiang_jshlsa	[	10	]	=	0594		BaoXiang_jshlsa_Rad	[	10	]	=	450 		BaoXiang_jshlsa_Count	[	10	]	=	1	--	??????
+	BaoXiang_jshlsa	[	11	]	=	0596		BaoXiang_jshlsa_Rad	[	11	]	=	450 		BaoXiang_jshlsa_Count	[	11	]	=	1	--	????
+	BaoXiang_jshlsa	[	12	]	=	0598		BaoXiang_jshlsa_Rad	[	12	]	=	450 		BaoXiang_jshlsa_Count	[	12	]	=	1	--	?????
+	BaoXiang_jshlsa	[	13	]	=	0600		BaoXiang_jshlsa_Rad	[	13	]	=	450 		BaoXiang_jshlsa_Count	[	13	]	=	1	--	????
+	BaoXiang_jshlsa	[	14	]	=	1938		BaoXiang_jshlsa_Rad	[	14	]	=	750 		BaoXiang_jshlsa_Count	[	14	]	=	1	--	????
+	BaoXiang_jshlsa	[	15	]	=	1950		BaoXiang_jshlsa_Rad	[	15	]	=	750 		BaoXiang_jshlsa_Count	[	15	]	=	1	--	????
+	BaoXiang_jshlsa	[	16	]	=	1965		BaoXiang_jshlsa_Rad	[	16	]	=	750		BaoXiang_jshlsa_Count	[	16	]	=	1	--	????
+	BaoXiang_jshlsa	[	17	]	=	1968		BaoXiang_jshlsa_Rad	[	17	]	=	750 		BaoXiang_jshlsa_Count	[	17	]	=	1	--	????
+	BaoXiang_jshlsa	[	18	]	=	1983		BaoXiang_jshlsa_Rad	[	18	]	=	750 		BaoXiang_jshlsa_Count	[	18	]	=	1	--	????
+	BaoXiang_jshlsa	[	19	]	=	0540		BaoXiang_jshlsa_Rad	[	19	]	=	750 		BaoXiang_jshlsa_Count	[	19	]	=	1	--	??????
+	BaoXiang_jshlsa	[	20	]	=	0539		BaoXiang_jshlsa_Rad	[	20	]	=	750 		BaoXiang_jshlsa_Count	[	20	]	=	1	--	??????
+	BaoXiang_jshlsa	[	21	]	=	0555		BaoXiang_jshlsa_Rad	[	21	]	=	750 		BaoXiang_jshlsa_Count	[	21	]	=	1	--	????		
+	BaoXiang_jshlsa	[	22	]	=	0567		BaoXiang_jshlsa_Rad	[	22	]	=	750 		BaoXiang_jshlsa_Count	[	22	]	=	1	--	?????		
+	BaoXiang_jshlsa	[	23	]	=	0569		BaoXiang_jshlsa_Rad	[	23	]	=	750 		BaoXiang_jshlsa_Count	[	23	]	=	1	--	?????		
+	BaoXiang_jshlsa	[	24	]	=	0570		BaoXiang_jshlsa_Rad	[	24	]	=	750 		BaoXiang_jshlsa_Count	[	24	]	=	1	--	????		
+	BaoXiang_jshlsa	[	25	]	=	0545		BaoXiang_jshlsa_Rad	[	25	]	=	3400		BaoXiang_jshlsa_Count	[	25	]	=	1	--	????		
+	BaoXiang_jshlsa	[	26	]	=	0547		BaoXiang_jshlsa_Rad	[	26	]	=	3400		BaoXiang_jshlsa_Count	[	26	]	=	1	--	????		
+	BaoXiang_jshlsa	[	27	]	=	0551		BaoXiang_jshlsa_Rad	[	27	]	=	3400		BaoXiang_jshlsa_Count	[	27	]	=	1	--	????		
+	BaoXiang_jshlsa	[	28	]	=	0554		BaoXiang_jshlsa_Rad	[	28	]	=	3400		BaoXiang_jshlsa_Count	[	28	]	=	1	--	????		
+	BaoXiang_jshlsa	[	29	]	=	0558		BaoXiang_jshlsa_Rad	[	29	]	=	3400		BaoXiang_jshlsa_Count	[	29	]	=	1	--	?????		
+	BaoXiang_jshlsa	[	30	]	=	0561		BaoXiang_jshlsa_Rad	[	30	]	=	3400		BaoXiang_jshlsa_Count	[	30	]	=	1	--	????		
+	BaoXiang_jshlsa	[	31	]	=	0564		BaoXiang_jshlsa_Rad	[	31	]	=	3400		BaoXiang_jshlsa_Count	[	31	]	=	1	--	?????		
+	BaoXiang_jshlsa	[	32	]	=	0471		BaoXiang_jshlsa_Rad	[	32	]	=	5400		BaoXiang_jshlsa_Count	[	32	]	=	1	--	???		
+	BaoXiang_jshlsa	[	33	]	=	0476		BaoXiang_jshlsa_Rad	[	33	]	=	5400		BaoXiang_jshlsa_Count	[	33	]	=	1	--	???		
+	BaoXiang_jshlsa	[	34	]	=	0486		BaoXiang_jshlsa_Rad	[	34	]	=	5400		BaoXiang_jshlsa_Count	[	34	]	=	1	--	????		
+	BaoXiang_jshlsa	[	35	]	=	0517		BaoXiang_jshlsa_Rad	[	35	]	=	5400		BaoXiang_jshlsa_Count	[	35	]	=	1	--	????		
+	BaoXiang_jshlsa	[	36	]	=	0529		BaoXiang_jshlsa_Rad	[	36	]	=	5400		BaoXiang_jshlsa_Count	[	36	]	=	1	--	????		
+	BaoXiang_jshlsa	[	37	]	=	0543		BaoXiang_jshlsa_Rad	[	37	]	=	5400		BaoXiang_jshlsa_Count	[	37	]	=	1	--	????		
+	BaoXiang_jshlsa	[	38	]	=	0566		BaoXiang_jshlsa_Rad	[	38	]	=	5400		BaoXiang_jshlsa_Count	[	38	]	=	1	--	????		
+	BaoXiang_jshlsa	[	39	]	=	1936		BaoXiang_jshlsa_Rad	[	39	]	=	5400		BaoXiang_jshlsa_Count	[	39	]	=	1	--	????		
+	BaoXiang_jshlsa	[	40	]	=	1948		BaoXiang_jshlsa_Rad	[	40	]	=	5400		BaoXiang_jshlsa_Count	[	40	]	=	1	--	????		
+	BaoXiang_jshlsa	[	41	]	=	1963		BaoXiang_jshlsa_Rad	[	41	]	=	5400		BaoXiang_jshlsa_Count	[	41	]	=	1	--	????		
+	BaoXiang_jshlsa	[	42	]	=	1966		BaoXiang_jshlsa_Rad	[	42	]	=	5400		BaoXiang_jshlsa_Count	[	42	]	=	1	--	????		
+	BaoXiang_jshlsa	[	43	]	=	1981		BaoXiang_jshlsa_Rad	[	43	]	=	5400		BaoXiang_jshlsa_Count	[	43	]	=	1	--	????		
 																								
 																								
 																								
---	єЪБъЦ®Ч¦±¦Пд23РН												e0832									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????23?												e0832									
+--	????							??????														
 	BaoXiang_jshlsb_Qua	=	23	 				BaoXiang_jshlsb_Mxcount	=	43												
 
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jshlsb	=	{}					BaoXiang_jshlsb_Rad	=	{}					BaoXiang_jshlsb_Count	=	{}					
-	BaoXiang_jshlsb	[	1	]	=	846		BaoXiang_jshlsb_Rad	[	1	]	=	1		BaoXiang_jshlsb_Count	[	1	]	=	1	--	єЪБъЦ®Ч¦
-	BaoXiang_jshlsb	[	2	]	=	1988		BaoXiang_jshlsb_Rad	[	2	]	=	60		BaoXiang_jshlsb_Count	[	2	]	=	1	--	БТСж·вУЎµД»ГБйХЅјЧКЦМЧ
-	BaoXiang_jshlsb	[	3	]	=	1990		BaoXiang_jshlsb_Rad	[	3	]	=	60		BaoXiang_jshlsb_Count	[	3	]	=	1	--	БТСж·вУЎµД»ГБй»¤КЦ
-	BaoXiang_jshlsb	[	4	]	=	1992		BaoXiang_jshlsb_Rad	[	4	]	=	60		BaoXiang_jshlsb_Count	[	4	]	=	1	--	БТСж·вУЎµД»ГЦдКЦМЧ
-	BaoXiang_jshlsb	[	5	]	=	1993		BaoXiang_jshlsb_Rad	[	5	]	=	60		BaoXiang_jshlsb_Count	[	5	]	=	1	--	БТСж·вУЎµД»Г·ЁКЦМЧ
-	BaoXiang_jshlsb	[	6	]	=	1996		BaoXiang_jshlsb_Rad	[	6	]	=	60		BaoXiang_jshlsb_Count	[	6	]	=	1	--	БТСж·вУЎµД»ГБйЖ¤КЦМЧ
-	BaoXiang_jshlsb	[	7	]	=	588		BaoXiang_jshlsb_Rad	[	7	]	=	400		BaoXiang_jshlsb_Count	[	7	]	=	1	--	ТюГШКЦМЧ
-	BaoXiang_jshlsb	[	8	]	=	590		BaoXiang_jshlsb_Rad	[	8	]	=	400		BaoXiang_jshlsb_Count	[	8	]	=	1	--	ЙдИХКЦМЧ
-	BaoXiang_jshlsb	[	9	]	=	592		BaoXiang_jshlsb_Rad	[	9	]	=	400		BaoXiang_jshlsb_Count	[	9	]	=	1	--	ЙсКїКЦМЧ
-	BaoXiang_jshlsb	[	10	]	=	594		BaoXiang_jshlsb_Rad	[	10	]	=	400		BaoXiang_jshlsb_Count	[	10	]	=	1	--	ЙсЖжРЬГЁКЦМЧ
-	BaoXiang_jshlsb	[	11	]	=	596		BaoXiang_jshlsb_Rad	[	11	]	=	400		BaoXiang_jshlsb_Count	[	11	]	=	1	--	·ЙМмКЦМЧ
-	BaoXiang_jshlsb	[	12	]	=	598		BaoXiang_jshlsb_Rad	[	12	]	=	400		BaoXiang_jshlsb_Count	[	12	]	=	1	--	УгПЙЧУКЦМЧ
-	BaoXiang_jshlsb	[	13	]	=	600		BaoXiang_jshlsb_Rad	[	13	]	=	400		BaoXiang_jshlsb_Count	[	13	]	=	1	--	Е­МОКЦМЧ
-	BaoXiang_jshlsb	[	14	]	=	1938		BaoXiang_jshlsb_Rad	[	14	]	=	700		BaoXiang_jshlsb_Count	[	14	]	=	1	--	чичлКЦМЧ
-	BaoXiang_jshlsb	[	15	]	=	1950		BaoXiang_jshlsb_Rad	[	15	]	=	700		BaoXiang_jshlsb_Count	[	15	]	=	1	--	°Ч»ўКЦМЧ
-	BaoXiang_jshlsb	[	16	]	=	1965		BaoXiang_jshlsb_Rad	[	16	]	=	700		BaoXiang_jshlsb_Count	[	16	]	=	1	--	ЦмИёКЦМЧ
-	BaoXiang_jshlsb	[	17	]	=	1968		BaoXiang_jshlsb_Rad	[	17	]	=	700		BaoXiang_jshlsb_Count	[	17	]	=	1	--	рЅ·пКЦМЧ
-	BaoXiang_jshlsb	[	18	]	=	1983		BaoXiang_jshlsb_Rad	[	18	]	=	700		BaoXiang_jshlsb_Count	[	18	]	=	1	--	ЗаБъКЦМЧ
-	BaoXiang_jshlsb	[	19	]	=	540		BaoXiang_jshlsb_Rad	[	19	]	=	700		BaoXiang_jshlsb_Count	[	19	]	=	1	--	ЧЈёЈєЈМЎКЦМЧ
-	BaoXiang_jshlsb	[	20	]	=	539		BaoXiang_jshlsb_Rad	[	20	]	=	700		BaoXiang_jshlsb_Count	[	20	]	=	1	--	ёЯј¶єЈМЎКЦМЧ
-	BaoXiang_jshlsb	[	21	]	=	555		BaoXiang_jshlsb_Rad	[	21	]	=	700		BaoXiang_jshlsb_Count	[	21	]	=	1	--	ЖнФёКЦМЧ
-	BaoXiang_jshlsb	[	22	]	=	567		BaoXiang_jshlsb_Rad	[	22	]	=	700		BaoXiang_jshlsb_Count	[	22	]	=	1	--	ёЯј¶НГКЦМЧ
-	BaoXiang_jshlsb	[	23	]	=	569		BaoXiang_jshlsb_Rad	[	23	]	=	700		BaoXiang_jshlsb_Count	[	23	]	=	1	--	ЧЈёЈНГКЦМЧ
-	BaoXiang_jshlsb	[	24	]	=	570		BaoXiang_jshlsb_Rad	[	24	]	=	700		BaoXiang_jshlsb_Count	[	24	]	=	1	--	МмґНКЦМЧ
-	BaoXiang_jshlsb	[	25	]	=	545		BaoXiang_jshlsb_Rad	[	25	]	=	3000		BaoXiang_jshlsb_Count	[	25	]	=	1	--	КМХЯКЦМЧ
-	BaoXiang_jshlsb	[	26	]	=	547		BaoXiang_jshlsb_Rad	[	26	]	=	3000		BaoXiang_jshlsb_Count	[	26	]	=	1	--	РЕСцКЦМЧ
-	BaoXiang_jshlsb	[	27	]	=	551		BaoXiang_jshlsb_Rad	[	27	]	=	3000		BaoXiang_jshlsb_Count	[	27	]	=	1	--	Ф¶РРКЦМЧ
-	BaoXiang_jshlsb	[	28	]	=	554		BaoXiang_jshlsb_Rad	[	28	]	=	3000		BaoXiang_jshlsb_Count	[	28	]	=	1	--	тЇіПКЦМЧ
-	BaoXiang_jshlsb	[	29	]	=	558		BaoXiang_jshlsb_Rad	[	29	]	=	3000		BaoXiang_jshlsb_Count	[	29	]	=	1	--	і¤¶ъНГКЦМЧ
-	BaoXiang_jshlsb	[	30	]	=	561		BaoXiang_jshlsb_Rad	[	30	]	=	3000		BaoXiang_jshlsb_Count	[	30	]	=	1	--	єЈМЎКЦМЧ
-	BaoXiang_jshlsb	[	31	]	=	564		BaoXiang_jshlsb_Rad	[	31	]	=	3000		BaoXiang_jshlsb_Count	[	31	]	=	1	--	їмАЦНГКЦМЧ
-	BaoXiang_jshlsb	[	32	]	=	471		BaoXiang_jshlsb_Rad	[	32	]	=	6000		BaoXiang_jshlsb_Count	[	32	]	=	1	--	МъКЦМЧ
-	BaoXiang_jshlsb	[	33	]	=	476		BaoXiang_jshlsb_Rad	[	33	]	=	6000		BaoXiang_jshlsb_Count	[	33	]	=	1	--	ЛшКЦМЧ
-	BaoXiang_jshlsb	[	34	]	=	486		BaoXiang_jshlsb_Rad	[	34	]	=	6000		BaoXiang_jshlsb_Count	[	34	]	=	1	--	¶МУрКЦМЧ
-	BaoXiang_jshlsb	[	35	]	=	517		BaoXiang_jshlsb_Rad	[	35	]	=	6000		BaoXiang_jshlsb_Count	[	35	]	=	1	--	јЧ°еКЦМЧ
-	BaoXiang_jshlsb	[	36	]	=	529		BaoXiang_jshlsb_Rad	[	36	]	=	6000		BaoXiang_jshlsb_Count	[	36	]	=	1	--	РЎСјКЦМЧ
-	BaoXiang_jshlsb	[	37	]	=	543		BaoXiang_jshlsb_Rad	[	37	]	=	6000		BaoXiang_jshlsb_Count	[	37	]	=	1	--	ВГХЯКЦМЧ
-	BaoXiang_jshlsb	[	38	]	=	566		BaoXiang_jshlsb_Rad	[	38	]	=	6000		BaoXiang_jshlsb_Count	[	38	]	=	1	--	ґьКуКЦМЧ
-	BaoXiang_jshlsb	[	39	]	=	1936		BaoXiang_jshlsb_Rad	[	39	]	=	6000		BaoXiang_jshlsb_Count	[	39	]	=	1	--	јІ·зКЦМЧ
-	BaoXiang_jshlsb	[	40	]	=	1948		BaoXiang_jshlsb_Rad	[	40	]	=	6000		BaoXiang_jshlsb_Count	[	40	]	=	1	--	БТ»рКЦМЧ
-	BaoXiang_jshlsb	[	41	]	=	1963		BaoXiang_jshlsb_Rad	[	41	]	=	6000		BaoXiang_jshlsb_Count	[	41	]	=	1	--	АдФВКЦМЧ
-	BaoXiang_jshlsb	[	42	]	=	1966		BaoXiang_jshlsb_Rad	[	42	]	=	6000		BaoXiang_jshlsb_Count	[	42	]	=	1	--	Т«ИХКЦМЧ
-	BaoXiang_jshlsb	[	43	]	=	1981		BaoXiang_jshlsb_Rad	[	43	]	=	6000		BaoXiang_jshlsb_Count	[	43	]	=	1	--	·з±©КЦМЧ
+	BaoXiang_jshlsb	[	1	]	=	846		BaoXiang_jshlsb_Rad	[	1	]	=	1		BaoXiang_jshlsb_Count	[	1	]	=	1	--	????
+	BaoXiang_jshlsb	[	2	]	=	1988		BaoXiang_jshlsb_Rad	[	2	]	=	60		BaoXiang_jshlsb_Count	[	2	]	=	1	--	???????????
+	BaoXiang_jshlsb	[	3	]	=	1990		BaoXiang_jshlsb_Rad	[	3	]	=	60		BaoXiang_jshlsb_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jshlsb	[	4	]	=	1992		BaoXiang_jshlsb_Rad	[	4	]	=	60		BaoXiang_jshlsb_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jshlsb	[	5	]	=	1993		BaoXiang_jshlsb_Rad	[	5	]	=	60		BaoXiang_jshlsb_Count	[	5	]	=	1	--	?????????
+	BaoXiang_jshlsb	[	6	]	=	1996		BaoXiang_jshlsb_Rad	[	6	]	=	60		BaoXiang_jshlsb_Count	[	6	]	=	1	--	??????????
+	BaoXiang_jshlsb	[	7	]	=	588		BaoXiang_jshlsb_Rad	[	7	]	=	400		BaoXiang_jshlsb_Count	[	7	]	=	1	--	????
+	BaoXiang_jshlsb	[	8	]	=	590		BaoXiang_jshlsb_Rad	[	8	]	=	400		BaoXiang_jshlsb_Count	[	8	]	=	1	--	????
+	BaoXiang_jshlsb	[	9	]	=	592		BaoXiang_jshlsb_Rad	[	9	]	=	400		BaoXiang_jshlsb_Count	[	9	]	=	1	--	????
+	BaoXiang_jshlsb	[	10	]	=	594		BaoXiang_jshlsb_Rad	[	10	]	=	400		BaoXiang_jshlsb_Count	[	10	]	=	1	--	??????
+	BaoXiang_jshlsb	[	11	]	=	596		BaoXiang_jshlsb_Rad	[	11	]	=	400		BaoXiang_jshlsb_Count	[	11	]	=	1	--	????
+	BaoXiang_jshlsb	[	12	]	=	598		BaoXiang_jshlsb_Rad	[	12	]	=	400		BaoXiang_jshlsb_Count	[	12	]	=	1	--	?????
+	BaoXiang_jshlsb	[	13	]	=	600		BaoXiang_jshlsb_Rad	[	13	]	=	400		BaoXiang_jshlsb_Count	[	13	]	=	1	--	????
+	BaoXiang_jshlsb	[	14	]	=	1938		BaoXiang_jshlsb_Rad	[	14	]	=	700		BaoXiang_jshlsb_Count	[	14	]	=	1	--	????
+	BaoXiang_jshlsb	[	15	]	=	1950		BaoXiang_jshlsb_Rad	[	15	]	=	700		BaoXiang_jshlsb_Count	[	15	]	=	1	--	????
+	BaoXiang_jshlsb	[	16	]	=	1965		BaoXiang_jshlsb_Rad	[	16	]	=	700		BaoXiang_jshlsb_Count	[	16	]	=	1	--	????
+	BaoXiang_jshlsb	[	17	]	=	1968		BaoXiang_jshlsb_Rad	[	17	]	=	700		BaoXiang_jshlsb_Count	[	17	]	=	1	--	????
+	BaoXiang_jshlsb	[	18	]	=	1983		BaoXiang_jshlsb_Rad	[	18	]	=	700		BaoXiang_jshlsb_Count	[	18	]	=	1	--	????
+	BaoXiang_jshlsb	[	19	]	=	540		BaoXiang_jshlsb_Rad	[	19	]	=	700		BaoXiang_jshlsb_Count	[	19	]	=	1	--	??????
+	BaoXiang_jshlsb	[	20	]	=	539		BaoXiang_jshlsb_Rad	[	20	]	=	700		BaoXiang_jshlsb_Count	[	20	]	=	1	--	??????
+	BaoXiang_jshlsb	[	21	]	=	555		BaoXiang_jshlsb_Rad	[	21	]	=	700		BaoXiang_jshlsb_Count	[	21	]	=	1	--	????
+	BaoXiang_jshlsb	[	22	]	=	567		BaoXiang_jshlsb_Rad	[	22	]	=	700		BaoXiang_jshlsb_Count	[	22	]	=	1	--	?????
+	BaoXiang_jshlsb	[	23	]	=	569		BaoXiang_jshlsb_Rad	[	23	]	=	700		BaoXiang_jshlsb_Count	[	23	]	=	1	--	?????
+	BaoXiang_jshlsb	[	24	]	=	570		BaoXiang_jshlsb_Rad	[	24	]	=	700		BaoXiang_jshlsb_Count	[	24	]	=	1	--	????
+	BaoXiang_jshlsb	[	25	]	=	545		BaoXiang_jshlsb_Rad	[	25	]	=	3000		BaoXiang_jshlsb_Count	[	25	]	=	1	--	????
+	BaoXiang_jshlsb	[	26	]	=	547		BaoXiang_jshlsb_Rad	[	26	]	=	3000		BaoXiang_jshlsb_Count	[	26	]	=	1	--	????
+	BaoXiang_jshlsb	[	27	]	=	551		BaoXiang_jshlsb_Rad	[	27	]	=	3000		BaoXiang_jshlsb_Count	[	27	]	=	1	--	????
+	BaoXiang_jshlsb	[	28	]	=	554		BaoXiang_jshlsb_Rad	[	28	]	=	3000		BaoXiang_jshlsb_Count	[	28	]	=	1	--	????
+	BaoXiang_jshlsb	[	29	]	=	558		BaoXiang_jshlsb_Rad	[	29	]	=	3000		BaoXiang_jshlsb_Count	[	29	]	=	1	--	?????
+	BaoXiang_jshlsb	[	30	]	=	561		BaoXiang_jshlsb_Rad	[	30	]	=	3000		BaoXiang_jshlsb_Count	[	30	]	=	1	--	????
+	BaoXiang_jshlsb	[	31	]	=	564		BaoXiang_jshlsb_Rad	[	31	]	=	3000		BaoXiang_jshlsb_Count	[	31	]	=	1	--	?????
+	BaoXiang_jshlsb	[	32	]	=	471		BaoXiang_jshlsb_Rad	[	32	]	=	6000		BaoXiang_jshlsb_Count	[	32	]	=	1	--	???
+	BaoXiang_jshlsb	[	33	]	=	476		BaoXiang_jshlsb_Rad	[	33	]	=	6000		BaoXiang_jshlsb_Count	[	33	]	=	1	--	???
+	BaoXiang_jshlsb	[	34	]	=	486		BaoXiang_jshlsb_Rad	[	34	]	=	6000		BaoXiang_jshlsb_Count	[	34	]	=	1	--	????
+	BaoXiang_jshlsb	[	35	]	=	517		BaoXiang_jshlsb_Rad	[	35	]	=	6000		BaoXiang_jshlsb_Count	[	35	]	=	1	--	????
+	BaoXiang_jshlsb	[	36	]	=	529		BaoXiang_jshlsb_Rad	[	36	]	=	6000		BaoXiang_jshlsb_Count	[	36	]	=	1	--	????
+	BaoXiang_jshlsb	[	37	]	=	543		BaoXiang_jshlsb_Rad	[	37	]	=	6000		BaoXiang_jshlsb_Count	[	37	]	=	1	--	????
+	BaoXiang_jshlsb	[	38	]	=	566		BaoXiang_jshlsb_Rad	[	38	]	=	6000		BaoXiang_jshlsb_Count	[	38	]	=	1	--	????
+	BaoXiang_jshlsb	[	39	]	=	1936		BaoXiang_jshlsb_Rad	[	39	]	=	6000		BaoXiang_jshlsb_Count	[	39	]	=	1	--	????
+	BaoXiang_jshlsb	[	40	]	=	1948		BaoXiang_jshlsb_Rad	[	40	]	=	6000		BaoXiang_jshlsb_Count	[	40	]	=	1	--	????
+	BaoXiang_jshlsb	[	41	]	=	1963		BaoXiang_jshlsb_Rad	[	41	]	=	6000		BaoXiang_jshlsb_Count	[	41	]	=	1	--	????
+	BaoXiang_jshlsb	[	42	]	=	1966		BaoXiang_jshlsb_Rad	[	42	]	=	6000		BaoXiang_jshlsb_Count	[	42	]	=	1	--	????
+	BaoXiang_jshlsb	[	43	]	=	1981		BaoXiang_jshlsb_Rad	[	43	]	=	6000		BaoXiang_jshlsb_Count	[	43	]	=	1	--	????
 
 
---	єЪБъЦ®Тн±¦Пд24РН												e0833									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????24?												e0833									
+--	????							??????														
 	BaoXiang_jshlya_Qua	=	24	 				BaoXiang_jshlya_Mxcount	=	65												
 
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jshlya	=	{}					BaoXiang_jshlya_Rad	=	{}					BaoXiang_jshlya_Count	=	{}					
-	BaoXiang_jshlya	[	1	]	=	847		BaoXiang_jshlya_Rad	[	1	]	=	1		BaoXiang_jshlya_Count	[	1	]	=	1	--	єЪБъЦ®Тн
-	BaoXiang_jshlya	[	2	]	=	1989		BaoXiang_jshlya_Rad	[	2	]	=	120		BaoXiang_jshlya_Count	[	2	]	=	1	--	БТСж·вУЎµД»ГБйХЅјЧСҐ
-	BaoXiang_jshlya	[	3	]	=	1991		BaoXiang_jshlya_Rad	[	3	]	=	120		BaoXiang_jshlya_Count	[	3	]	=	1	--	БТСж·вУЎµД»ГБй»¤НИ
-	BaoXiang_jshlya	[	4	]	=	1994		BaoXiang_jshlya_Rad	[	4	]	=	120		BaoXiang_jshlya_Count	[	4	]	=	1	--	БТСж·вУЎµД»ГЦдСҐ
-	BaoXiang_jshlya	[	5	]	=	1995		BaoXiang_jshlya_Rad	[	5	]	=	120		BaoXiang_jshlya_Count	[	5	]	=	1	--	БТСж·вУЎµД»Г·ЁСҐ
-	BaoXiang_jshlya	[	6	]	=	1997		BaoXiang_jshlya_Rad	[	6	]	=	120		BaoXiang_jshlya_Count	[	6	]	=	1	--	БТСж·вУЎµД»ГБйЖ¤СҐ
-	BaoXiang_jshlya	[	7	]	=	748		BaoXiang_jshlya_Rad	[	7	]	=	100		BaoXiang_jshlya_Count	[	7	]	=	1	--	ТюГШСҐ
-	BaoXiang_jshlya	[	8	]	=	750		BaoXiang_jshlya_Rad	[	8	]	=	100		BaoXiang_jshlya_Count	[	8	]	=	1	--	ЙдИХСҐ
-	BaoXiang_jshlya	[	9	]	=	752		BaoXiang_jshlya_Rad	[	9	]	=	100		BaoXiang_jshlya_Count	[	9	]	=	1	--	ЙсКїСҐ
-	BaoXiang_jshlya	[	10	]	=	754		BaoXiang_jshlya_Rad	[	10	]	=	100		BaoXiang_jshlya_Count	[	10	]	=	1	--	ЙсЖжРЬГЁСҐ
-	BaoXiang_jshlya	[	11	]	=	756		BaoXiang_jshlya_Rad	[	11	]	=	100		BaoXiang_jshlya_Count	[	11	]	=	1	--	·ЙМмСҐ
-	BaoXiang_jshlya	[	12	]	=	758		BaoXiang_jshlya_Rad	[	12	]	=	100		BaoXiang_jshlya_Count	[	12	]	=	1	--	УгПЙЧУСҐ
-	BaoXiang_jshlya	[	13	]	=	760		BaoXiang_jshlya_Rad	[	13	]	=	100		BaoXiang_jshlya_Count	[	13	]	=	1	--	Е­МОСҐ
-	BaoXiang_jshlya	[	14	]	=	830		BaoXiang_jshlya_Rad	[	14	]	=	100		BaoXiang_jshlya_Count	[	14	]	=	1	--	БйЙсСҐ
-	BaoXiang_jshlya	[	15	]	=	669		BaoXiang_jshlya_Rad	[	15	]	=	450		BaoXiang_jshlya_Count	[	15	]	=	1	--	ГНЗЭСҐ
-	BaoXiang_jshlya	[	16	]	=	696		BaoXiang_jshlya_Rad	[	16	]	=	450		BaoXiang_jshlya_Count	[	16	]	=	1	--	дцОРСҐ
-	BaoXiang_jshlya	[	17	]	=	710		BaoXiang_jshlya_Rad	[	17	]	=	450		BaoXiang_jshlya_Count	[	17	]	=	1	--	ѕЮЗЇєЈПєСҐ
-	BaoXiang_jshlya	[	18	]	=	716		BaoXiang_jshlya_Rad	[	18	]	=	450		BaoXiang_jshlya_Count	[	18	]	=	1	--	ЧЈёЈєЈМЎСҐ
-	BaoXiang_jshlya	[	19	]	=	729		BaoXiang_jshlya_Rad	[	19	]	=	450		BaoXiang_jshlya_Count	[	19	]	=	1	--	±Ј»¤ХЯСҐ
-	BaoXiang_jshlya	[	20	]	=	746		BaoXiang_jshlya_Rad	[	20	]	=	450		BaoXiang_jshlya_Count	[	20	]	=	1	--	МмґНСҐ
-	BaoXiang_jshlya	[	21	]	=	1942		BaoXiang_jshlya_Rad	[	21	]	=	450		BaoXiang_jshlya_Count	[	21	]	=	1	--	чичлСҐ
-	BaoXiang_jshlya	[	22	]	=	1954		BaoXiang_jshlya_Rad	[	22	]	=	450		BaoXiang_jshlya_Count	[	22	]	=	1	--	°Ч»ўСҐ
-	BaoXiang_jshlya	[	23	]	=	1972		BaoXiang_jshlya_Rad	[	23	]	=	450		BaoXiang_jshlya_Count	[	23	]	=	1	--	ЦмИёСҐ
-	BaoXiang_jshlya	[	24	]	=	1975		BaoXiang_jshlya_Rad	[	24	]	=	450		BaoXiang_jshlya_Count	[	24	]	=	1	--	рЅ·пСҐ
-	BaoXiang_jshlya	[	25	]	=	1987		BaoXiang_jshlya_Rad	[	25	]	=	450		BaoXiang_jshlya_Count	[	25	]	=	1	--	ЗаБъСҐ
-	BaoXiang_jshlya	[	26	]	=	651		BaoXiang_jshlya_Rad	[	26	]	=	900		BaoXiang_jshlya_Count	[	26	]	=	1	--	ЅрёХСҐ
-	BaoXiang_jshlya	[	27	]	=	655		BaoXiang_jshlya_Rad	[	27	]	=	900		BaoXiang_jshlya_Count	[	27	]	=	1	--	¶ЖТшёЦСҐ
-	BaoXiang_jshlya	[	28	]	=	668		BaoXiang_jshlya_Rad	[	28	]	=	900		BaoXiang_jshlya_Count	[	28	]	=	1	--	°ЯрЇСҐ
-	BaoXiang_jshlya	[	29	]	=	695		BaoXiang_jshlya_Rad	[	29	]	=	900		BaoXiang_jshlya_Count	[	29	]	=	1	--	м«·зСҐ
-	BaoXiang_jshlya	[	30	]	=	707		BaoXiang_jshlya_Rad	[	30	]	=	900		BaoXiang_jshlya_Count	[	30	]	=	1	--	БъПєСҐ
-	BaoXiang_jshlya	[	31	]	=	709		BaoXiang_jshlya_Rad	[	31	]	=	900		BaoXiang_jshlya_Count	[	31	]	=	1	--	ґуєЈПєСҐ
-	BaoXiang_jshlya	[	32	]	=	715		BaoXiang_jshlya_Rad	[	32	]	=	900		BaoXiang_jshlya_Count	[	32	]	=	1	--	ёЯј¶єЈМЎСҐ
-	BaoXiang_jshlya	[	33	]	=	728		BaoXiang_jshlya_Rad	[	33	]	=	900		BaoXiang_jshlya_Count	[	33	]	=	1	--	ЦОБЖХЯСҐ
-	BaoXiang_jshlya	[	34	]	=	731		BaoXiang_jshlya_Rad	[	34	]	=	900		BaoXiang_jshlya_Count	[	34	]	=	1	--	ЖнФёСҐ
-	BaoXiang_jshlya	[	35	]	=	734		BaoXiang_jshlya_Rad	[	35	]	=	900		BaoXiang_jshlya_Count	[	35	]	=	1	--	і¤¶ъНГСҐ
-	BaoXiang_jshlya	[	36	]	=	737		BaoXiang_jshlya_Rad	[	36	]	=	900		BaoXiang_jshlya_Count	[	36	]	=	1	--	єЈМЎСҐ
-	BaoXiang_jshlya	[	37	]	=	743		BaoXiang_jshlya_Rad	[	37	]	=	900		BaoXiang_jshlya_Count	[	37	]	=	1	--	ёЯј¶НГСҐ
-	BaoXiang_jshlya	[	38	]	=	1941		BaoXiang_jshlya_Rad	[	38	]	=	900		BaoXiang_jshlya_Count	[	38	]	=	1	--	ОчЛ№СҐ
-	BaoXiang_jshlya	[	39	]	=	1953		BaoXiang_jshlya_Rad	[	39	]	=	900		BaoXiang_jshlya_Count	[	39	]	=	1	--	µП¶ыНЯДИСҐ
-	BaoXiang_jshlya	[	40	]	=	1971		BaoXiang_jshlya_Rad	[	40	]	=	900		BaoXiang_jshlya_Count	[	40	]	=	1	--	УИµП°ІСҐ
-	BaoXiang_jshlya	[	41	]	=	1974		BaoXiang_jshlya_Rad	[	41	]	=	900		BaoXiang_jshlya_Count	[	41	]	=	1	--	ПЈ¶ыСҐ
-	BaoXiang_jshlya	[	42	]	=	1986		BaoXiang_jshlya_Rad	[	42	]	=	900		BaoXiang_jshlya_Count	[	42	]	=	1	--	ёҐАы°ІСҐ
-	BaoXiang_jshlya	[	43	]	=	652		BaoXiang_jshlya_Rad	[	43	]	=	3500		BaoXiang_jshlya_Count	[	43	]	=	1	--	ЛшСҐ
-	BaoXiang_jshlya	[	44	]	=	653		BaoXiang_jshlya_Rad	[	44	]	=	3500		BaoXiang_jshlya_Count	[	44	]	=	1	--	ЦШРНёЦСҐ
-	BaoXiang_jshlya	[	45	]	=	654		BaoXiang_jshlya_Rad	[	45	]	=	3500		BaoXiang_jshlya_Count	[	45	]	=	1	--	Зб±гёЦСҐ
-	BaoXiang_jshlya	[	46	]	=	662		BaoXiang_jshlya_Rad	[	46	]	=	3500		BaoXiang_jshlya_Count	[	46	]	=	1	--	¶МУрСҐ
-	BaoXiang_jshlya	[	47	]	=	667		BaoXiang_jshlya_Rad	[	47	]	=	3500		BaoXiang_jshlya_Count	[	47	]	=	1	--	ЙЅИёСҐ
-	BaoXiang_jshlya	[	48	]	=	693		BaoXiang_jshlya_Rad	[	48	]	=	3500		BaoXiang_jshlya_Count	[	48	]	=	1	--	јЧ°еСҐ
-	BaoXiang_jshlya	[	49	]	=	694		BaoXiang_jshlya_Rad	[	49	]	=	3500		BaoXiang_jshlya_Count	[	49	]	=	1	--	О¦ёЛСҐ
-	BaoXiang_jshlya	[	50	]	=	705		BaoXiang_jshlya_Rad	[	50	]	=	3500		BaoXiang_jshlya_Count	[	50	]	=	1	--	РЎСјСҐ
-	BaoXiang_jshlya	[	51	]	=	708		BaoXiang_jshlya_Rad	[	51	]	=	3500		BaoXiang_jshlya_Count	[	51	]	=	1	--	ТЎ°ЪСјСҐ
-	BaoXiang_jshlya	[	52	]	=	714		BaoXiang_jshlya_Rad	[	52	]	=	3500		BaoXiang_jshlya_Count	[	52	]	=	1	--	±Д±ДКуСҐ
-	BaoXiang_jshlya	[	53	]	=	719		BaoXiang_jshlya_Rad	[	53	]	=	3500		BaoXiang_jshlya_Count	[	53	]	=	1	--	ВГХЯСҐ
-	BaoXiang_jshlya	[	54	]	=	720		BaoXiang_jshlya_Rad	[	54	]	=	3500		BaoXiang_jshlya_Count	[	54	]	=	1	--	»¤КїСҐ
-	BaoXiang_jshlya	[	55	]	=	722		BaoXiang_jshlya_Rad	[	55	]	=	3500		BaoXiang_jshlya_Count	[	55	]	=	1	--	КҐЦ°СҐ
-	BaoXiang_jshlya	[	56	]	=	727		BaoXiang_jshlya_Rad	[	56	]	=	3500		BaoXiang_jshlya_Count	[	56	]	=	1	--	Ф¶РРСҐ
-	BaoXiang_jshlya	[	57	]	=	730		BaoXiang_jshlya_Rad	[	57	]	=	3500		BaoXiang_jshlya_Count	[	57	]	=	1	--	тЇіПСҐ
-	BaoXiang_jshlya	[	58	]	=	740		BaoXiang_jshlya_Rad	[	58	]	=	3500		BaoXiang_jshlya_Count	[	58	]	=	1	--	їмАЦНГСҐ
-	BaoXiang_jshlya	[	59	]	=	742		BaoXiang_jshlya_Rad	[	59	]	=	3500		BaoXiang_jshlya_Count	[	59	]	=	1	--	ґьКуСҐ
-	BaoXiang_jshlya	[	60	]	=	744		BaoXiang_jshlya_Rad	[	60	]	=	3500		BaoXiang_jshlya_Count	[	60	]	=	1	--	±¦±ґНГСҐ
-	BaoXiang_jshlya	[	61	]	=	1940		BaoXiang_jshlya_Rad	[	61	]	=	3500		BaoXiang_jshlya_Count	[	61	]	=	1	--	јІ·зСҐ
-	BaoXiang_jshlya	[	62	]	=	1952		BaoXiang_jshlya_Rad	[	62	]	=	3500		BaoXiang_jshlya_Count	[	62	]	=	1	--	БТ»рСҐ
-	BaoXiang_jshlya	[	63	]	=	1970		BaoXiang_jshlya_Rad	[	63	]	=	3500		BaoXiang_jshlya_Count	[	63	]	=	1	--	АдФВСҐ
-	BaoXiang_jshlya	[	64	]	=	1973		BaoXiang_jshlya_Rad	[	64	]	=	3500		BaoXiang_jshlya_Count	[	64	]	=	1	--	Т«ИХСҐ
-	BaoXiang_jshlya	[	65	]	=	1985		BaoXiang_jshlya_Rad	[	65	]	=	3500		BaoXiang_jshlya_Count	[	65	]	=	1	--	·з±©СҐ
+	BaoXiang_jshlya	[	1	]	=	847		BaoXiang_jshlya_Rad	[	1	]	=	1		BaoXiang_jshlya_Count	[	1	]	=	1	--	????
+	BaoXiang_jshlya	[	2	]	=	1989		BaoXiang_jshlya_Rad	[	2	]	=	120		BaoXiang_jshlya_Count	[	2	]	=	1	--	??????????
+	BaoXiang_jshlya	[	3	]	=	1991		BaoXiang_jshlya_Rad	[	3	]	=	120		BaoXiang_jshlya_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jshlya	[	4	]	=	1994		BaoXiang_jshlya_Rad	[	4	]	=	120		BaoXiang_jshlya_Count	[	4	]	=	1	--	????????
+	BaoXiang_jshlya	[	5	]	=	1995		BaoXiang_jshlya_Rad	[	5	]	=	120		BaoXiang_jshlya_Count	[	5	]	=	1	--	????????
+	BaoXiang_jshlya	[	6	]	=	1997		BaoXiang_jshlya_Rad	[	6	]	=	120		BaoXiang_jshlya_Count	[	6	]	=	1	--	?????????
+	BaoXiang_jshlya	[	7	]	=	748		BaoXiang_jshlya_Rad	[	7	]	=	100		BaoXiang_jshlya_Count	[	7	]	=	1	--	???
+	BaoXiang_jshlya	[	8	]	=	750		BaoXiang_jshlya_Rad	[	8	]	=	100		BaoXiang_jshlya_Count	[	8	]	=	1	--	???
+	BaoXiang_jshlya	[	9	]	=	752		BaoXiang_jshlya_Rad	[	9	]	=	100		BaoXiang_jshlya_Count	[	9	]	=	1	--	???
+	BaoXiang_jshlya	[	10	]	=	754		BaoXiang_jshlya_Rad	[	10	]	=	100		BaoXiang_jshlya_Count	[	10	]	=	1	--	?????
+	BaoXiang_jshlya	[	11	]	=	756		BaoXiang_jshlya_Rad	[	11	]	=	100		BaoXiang_jshlya_Count	[	11	]	=	1	--	???
+	BaoXiang_jshlya	[	12	]	=	758		BaoXiang_jshlya_Rad	[	12	]	=	100		BaoXiang_jshlya_Count	[	12	]	=	1	--	????
+	BaoXiang_jshlya	[	13	]	=	760		BaoXiang_jshlya_Rad	[	13	]	=	100		BaoXiang_jshlya_Count	[	13	]	=	1	--	???
+	BaoXiang_jshlya	[	14	]	=	830		BaoXiang_jshlya_Rad	[	14	]	=	100		BaoXiang_jshlya_Count	[	14	]	=	1	--	???
+	BaoXiang_jshlya	[	15	]	=	669		BaoXiang_jshlya_Rad	[	15	]	=	450		BaoXiang_jshlya_Count	[	15	]	=	1	--	???
+	BaoXiang_jshlya	[	16	]	=	696		BaoXiang_jshlya_Rad	[	16	]	=	450		BaoXiang_jshlya_Count	[	16	]	=	1	--	???
+	BaoXiang_jshlya	[	17	]	=	710		BaoXiang_jshlya_Rad	[	17	]	=	450		BaoXiang_jshlya_Count	[	17	]	=	1	--	?????
+	BaoXiang_jshlya	[	18	]	=	716		BaoXiang_jshlya_Rad	[	18	]	=	450		BaoXiang_jshlya_Count	[	18	]	=	1	--	?????
+	BaoXiang_jshlya	[	19	]	=	729		BaoXiang_jshlya_Rad	[	19	]	=	450		BaoXiang_jshlya_Count	[	19	]	=	1	--	????
+	BaoXiang_jshlya	[	20	]	=	746		BaoXiang_jshlya_Rad	[	20	]	=	450		BaoXiang_jshlya_Count	[	20	]	=	1	--	???
+	BaoXiang_jshlya	[	21	]	=	1942		BaoXiang_jshlya_Rad	[	21	]	=	450		BaoXiang_jshlya_Count	[	21	]	=	1	--	???
+	BaoXiang_jshlya	[	22	]	=	1954		BaoXiang_jshlya_Rad	[	22	]	=	450		BaoXiang_jshlya_Count	[	22	]	=	1	--	???
+	BaoXiang_jshlya	[	23	]	=	1972		BaoXiang_jshlya_Rad	[	23	]	=	450		BaoXiang_jshlya_Count	[	23	]	=	1	--	???
+	BaoXiang_jshlya	[	24	]	=	1975		BaoXiang_jshlya_Rad	[	24	]	=	450		BaoXiang_jshlya_Count	[	24	]	=	1	--	???
+	BaoXiang_jshlya	[	25	]	=	1987		BaoXiang_jshlya_Rad	[	25	]	=	450		BaoXiang_jshlya_Count	[	25	]	=	1	--	???
+	BaoXiang_jshlya	[	26	]	=	651		BaoXiang_jshlya_Rad	[	26	]	=	900		BaoXiang_jshlya_Count	[	26	]	=	1	--	???
+	BaoXiang_jshlya	[	27	]	=	655		BaoXiang_jshlya_Rad	[	27	]	=	900		BaoXiang_jshlya_Count	[	27	]	=	1	--	????
+	BaoXiang_jshlya	[	28	]	=	668		BaoXiang_jshlya_Rad	[	28	]	=	900		BaoXiang_jshlya_Count	[	28	]	=	1	--	???
+	BaoXiang_jshlya	[	29	]	=	695		BaoXiang_jshlya_Rad	[	29	]	=	900		BaoXiang_jshlya_Count	[	29	]	=	1	--	???
+	BaoXiang_jshlya	[	30	]	=	707		BaoXiang_jshlya_Rad	[	30	]	=	900		BaoXiang_jshlya_Count	[	30	]	=	1	--	???
+	BaoXiang_jshlya	[	31	]	=	709		BaoXiang_jshlya_Rad	[	31	]	=	900		BaoXiang_jshlya_Count	[	31	]	=	1	--	????
+	BaoXiang_jshlya	[	32	]	=	715		BaoXiang_jshlya_Rad	[	32	]	=	900		BaoXiang_jshlya_Count	[	32	]	=	1	--	?????
+	BaoXiang_jshlya	[	33	]	=	728		BaoXiang_jshlya_Rad	[	33	]	=	900		BaoXiang_jshlya_Count	[	33	]	=	1	--	????
+	BaoXiang_jshlya	[	34	]	=	731		BaoXiang_jshlya_Rad	[	34	]	=	900		BaoXiang_jshlya_Count	[	34	]	=	1	--	???
+	BaoXiang_jshlya	[	35	]	=	734		BaoXiang_jshlya_Rad	[	35	]	=	900		BaoXiang_jshlya_Count	[	35	]	=	1	--	????
+	BaoXiang_jshlya	[	36	]	=	737		BaoXiang_jshlya_Rad	[	36	]	=	900		BaoXiang_jshlya_Count	[	36	]	=	1	--	???
+	BaoXiang_jshlya	[	37	]	=	743		BaoXiang_jshlya_Rad	[	37	]	=	900		BaoXiang_jshlya_Count	[	37	]	=	1	--	????
+	BaoXiang_jshlya	[	38	]	=	1941		BaoXiang_jshlya_Rad	[	38	]	=	900		BaoXiang_jshlya_Count	[	38	]	=	1	--	???
+	BaoXiang_jshlya	[	39	]	=	1953		BaoXiang_jshlya_Rad	[	39	]	=	900		BaoXiang_jshlya_Count	[	39	]	=	1	--	?????
+	BaoXiang_jshlya	[	40	]	=	1971		BaoXiang_jshlya_Rad	[	40	]	=	900		BaoXiang_jshlya_Count	[	40	]	=	1	--	????
+	BaoXiang_jshlya	[	41	]	=	1974		BaoXiang_jshlya_Rad	[	41	]	=	900		BaoXiang_jshlya_Count	[	41	]	=	1	--	???
+	BaoXiang_jshlya	[	42	]	=	1986		BaoXiang_jshlya_Rad	[	42	]	=	900		BaoXiang_jshlya_Count	[	42	]	=	1	--	????
+	BaoXiang_jshlya	[	43	]	=	652		BaoXiang_jshlya_Rad	[	43	]	=	3500		BaoXiang_jshlya_Count	[	43	]	=	1	--	??
+	BaoXiang_jshlya	[	44	]	=	653		BaoXiang_jshlya_Rad	[	44	]	=	3500		BaoXiang_jshlya_Count	[	44	]	=	1	--	????
+	BaoXiang_jshlya	[	45	]	=	654		BaoXiang_jshlya_Rad	[	45	]	=	3500		BaoXiang_jshlya_Count	[	45	]	=	1	--	????
+	BaoXiang_jshlya	[	46	]	=	662		BaoXiang_jshlya_Rad	[	46	]	=	3500		BaoXiang_jshlya_Count	[	46	]	=	1	--	???
+	BaoXiang_jshlya	[	47	]	=	667		BaoXiang_jshlya_Rad	[	47	]	=	3500		BaoXiang_jshlya_Count	[	47	]	=	1	--	???
+	BaoXiang_jshlya	[	48	]	=	693		BaoXiang_jshlya_Rad	[	48	]	=	3500		BaoXiang_jshlya_Count	[	48	]	=	1	--	???
+	BaoXiang_jshlya	[	49	]	=	694		BaoXiang_jshlya_Rad	[	49	]	=	3500		BaoXiang_jshlya_Count	[	49	]	=	1	--	???
+	BaoXiang_jshlya	[	50	]	=	705		BaoXiang_jshlya_Rad	[	50	]	=	3500		BaoXiang_jshlya_Count	[	50	]	=	1	--	???
+	BaoXiang_jshlya	[	51	]	=	708		BaoXiang_jshlya_Rad	[	51	]	=	3500		BaoXiang_jshlya_Count	[	51	]	=	1	--	????
+	BaoXiang_jshlya	[	52	]	=	714		BaoXiang_jshlya_Rad	[	52	]	=	3500		BaoXiang_jshlya_Count	[	52	]	=	1	--	????
+	BaoXiang_jshlya	[	53	]	=	719		BaoXiang_jshlya_Rad	[	53	]	=	3500		BaoXiang_jshlya_Count	[	53	]	=	1	--	???
+	BaoXiang_jshlya	[	54	]	=	720		BaoXiang_jshlya_Rad	[	54	]	=	3500		BaoXiang_jshlya_Count	[	54	]	=	1	--	???
+	BaoXiang_jshlya	[	55	]	=	722		BaoXiang_jshlya_Rad	[	55	]	=	3500		BaoXiang_jshlya_Count	[	55	]	=	1	--	???
+	BaoXiang_jshlya	[	56	]	=	727		BaoXiang_jshlya_Rad	[	56	]	=	3500		BaoXiang_jshlya_Count	[	56	]	=	1	--	???
+	BaoXiang_jshlya	[	57	]	=	730		BaoXiang_jshlya_Rad	[	57	]	=	3500		BaoXiang_jshlya_Count	[	57	]	=	1	--	???
+	BaoXiang_jshlya	[	58	]	=	740		BaoXiang_jshlya_Rad	[	58	]	=	3500		BaoXiang_jshlya_Count	[	58	]	=	1	--	????
+	BaoXiang_jshlya	[	59	]	=	742		BaoXiang_jshlya_Rad	[	59	]	=	3500		BaoXiang_jshlya_Count	[	59	]	=	1	--	???
+	BaoXiang_jshlya	[	60	]	=	744		BaoXiang_jshlya_Rad	[	60	]	=	3500		BaoXiang_jshlya_Count	[	60	]	=	1	--	????
+	BaoXiang_jshlya	[	61	]	=	1940		BaoXiang_jshlya_Rad	[	61	]	=	3500		BaoXiang_jshlya_Count	[	61	]	=	1	--	???
+	BaoXiang_jshlya	[	62	]	=	1952		BaoXiang_jshlya_Rad	[	62	]	=	3500		BaoXiang_jshlya_Count	[	62	]	=	1	--	???
+	BaoXiang_jshlya	[	63	]	=	1970		BaoXiang_jshlya_Rad	[	63	]	=	3500		BaoXiang_jshlya_Count	[	63	]	=	1	--	???
+	BaoXiang_jshlya	[	64	]	=	1973		BaoXiang_jshlya_Rad	[	64	]	=	3500		BaoXiang_jshlya_Count	[	64	]	=	1	--	???
+	BaoXiang_jshlya	[	65	]	=	1985		BaoXiang_jshlya_Rad	[	65	]	=	3500		BaoXiang_jshlya_Count	[	65	]	=	1	--	???
 
 
---	єЪБъЦ®Тн±¦Пд23РН												e0833									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????23?												e0833									
+--	????							??????														
 	BaoXiang_jshlyb_Qua	=	23	 				BaoXiang_jshlyb_Mxcount	=	65												
 
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jshlyb	=	{}					BaoXiang_jshlyb_Rad	=	{}					BaoXiang_jshlyb_Count	=	{}					
-	BaoXiang_jshlyb	[	1	]	=	847		BaoXiang_jshlyb_Rad	[	1	]	=	1		BaoXiang_jshlyb_Count	[	1	]	=	1	--	єЪБъЦ®Тн
-	BaoXiang_jshlyb	[	2	]	=	1989		BaoXiang_jshlyb_Rad	[	2	]	=	80		BaoXiang_jshlyb_Count	[	2	]	=	1	--	БТСж·вУЎµД»ГБйХЅјЧСҐ
-	BaoXiang_jshlyb	[	3	]	=	1991		BaoXiang_jshlyb_Rad	[	3	]	=	80		BaoXiang_jshlyb_Count	[	3	]	=	1	--	БТСж·вУЎµД»ГБй»¤НИ
-	BaoXiang_jshlyb	[	4	]	=	1994		BaoXiang_jshlyb_Rad	[	4	]	=	80		BaoXiang_jshlyb_Count	[	4	]	=	1	--	БТСж·вУЎµД»ГЦдСҐ
-	BaoXiang_jshlyb	[	5	]	=	1995		BaoXiang_jshlyb_Rad	[	5	]	=	80		BaoXiang_jshlyb_Count	[	5	]	=	1	--	БТСж·вУЎµД»Г·ЁСҐ
-	BaoXiang_jshlyb	[	6	]	=	1997		BaoXiang_jshlyb_Rad	[	6	]	=	80		BaoXiang_jshlyb_Count	[	6	]	=	1	--	БТСж·вУЎµД»ГБйЖ¤СҐ
-	BaoXiang_jshlyb	[	7	]	=	748		BaoXiang_jshlyb_Rad	[	7	]	=	60		BaoXiang_jshlyb_Count	[	7	]	=	1	--	ТюГШСҐ
-	BaoXiang_jshlyb	[	8	]	=	750		BaoXiang_jshlyb_Rad	[	8	]	=	60		BaoXiang_jshlyb_Count	[	8	]	=	1	--	ЙдИХСҐ
-	BaoXiang_jshlyb	[	9	]	=	752		BaoXiang_jshlyb_Rad	[	9	]	=	60		BaoXiang_jshlyb_Count	[	9	]	=	1	--	ЙсКїСҐ
-	BaoXiang_jshlyb	[	10	]	=	754		BaoXiang_jshlyb_Rad	[	10	]	=	60		BaoXiang_jshlyb_Count	[	10	]	=	1	--	ЙсЖжРЬГЁСҐ
-	BaoXiang_jshlyb	[	11	]	=	756		BaoXiang_jshlyb_Rad	[	11	]	=	60		BaoXiang_jshlyb_Count	[	11	]	=	1	--	·ЙМмСҐ
-	BaoXiang_jshlyb	[	12	]	=	758		BaoXiang_jshlyb_Rad	[	12	]	=	60		BaoXiang_jshlyb_Count	[	12	]	=	1	--	УгПЙЧУСҐ
-	BaoXiang_jshlyb	[	13	]	=	760		BaoXiang_jshlyb_Rad	[	13	]	=	60		BaoXiang_jshlyb_Count	[	13	]	=	1	--	Е­МОСҐ
-	BaoXiang_jshlyb	[	14	]	=	830		BaoXiang_jshlyb_Rad	[	14	]	=	60		BaoXiang_jshlyb_Count	[	14	]	=	1	--	БйЙсСҐ
-	BaoXiang_jshlyb	[	15	]	=	669		BaoXiang_jshlyb_Rad	[	15	]	=	300		BaoXiang_jshlyb_Count	[	15	]	=	1	--	ГНЗЭСҐ
-	BaoXiang_jshlyb	[	16	]	=	696		BaoXiang_jshlyb_Rad	[	16	]	=	300		BaoXiang_jshlyb_Count	[	16	]	=	1	--	дцОРСҐ
-	BaoXiang_jshlyb	[	17	]	=	710		BaoXiang_jshlyb_Rad	[	17	]	=	300		BaoXiang_jshlyb_Count	[	17	]	=	1	--	ѕЮЗЇєЈПєСҐ
-	BaoXiang_jshlyb	[	18	]	=	716		BaoXiang_jshlyb_Rad	[	18	]	=	300		BaoXiang_jshlyb_Count	[	18	]	=	1	--	ЧЈёЈєЈМЎСҐ
-	BaoXiang_jshlyb	[	19	]	=	729		BaoXiang_jshlyb_Rad	[	19	]	=	300		BaoXiang_jshlyb_Count	[	19	]	=	1	--	±Ј»¤ХЯСҐ
-	BaoXiang_jshlyb	[	20	]	=	746		BaoXiang_jshlyb_Rad	[	20	]	=	300		BaoXiang_jshlyb_Count	[	20	]	=	1	--	МмґНСҐ
-	BaoXiang_jshlyb	[	21	]	=	1942		BaoXiang_jshlyb_Rad	[	21	]	=	300		BaoXiang_jshlyb_Count	[	21	]	=	1	--	чичлСҐ
-	BaoXiang_jshlyb	[	22	]	=	1954		BaoXiang_jshlyb_Rad	[	22	]	=	300		BaoXiang_jshlyb_Count	[	22	]	=	1	--	°Ч»ўСҐ
-	BaoXiang_jshlyb	[	23	]	=	1972		BaoXiang_jshlyb_Rad	[	23	]	=	300		BaoXiang_jshlyb_Count	[	23	]	=	1	--	ЦмИёСҐ
-	BaoXiang_jshlyb	[	24	]	=	1975		BaoXiang_jshlyb_Rad	[	24	]	=	300		BaoXiang_jshlyb_Count	[	24	]	=	1	--	рЅ·пСҐ
-	BaoXiang_jshlyb	[	25	]	=	1987		BaoXiang_jshlyb_Rad	[	25	]	=	300		BaoXiang_jshlyb_Count	[	25	]	=	1	--	ЗаБъСҐ
-	BaoXiang_jshlyb	[	26	]	=	651		BaoXiang_jshlyb_Rad	[	26	]	=	900		BaoXiang_jshlyb_Count	[	26	]	=	1	--	ЅрёХСҐ
-	BaoXiang_jshlyb	[	27	]	=	655		BaoXiang_jshlyb_Rad	[	27	]	=	900		BaoXiang_jshlyb_Count	[	27	]	=	1	--	¶ЖТшёЦСҐ
-	BaoXiang_jshlyb	[	28	]	=	668		BaoXiang_jshlyb_Rad	[	28	]	=	900		BaoXiang_jshlyb_Count	[	28	]	=	1	--	°ЯрЇСҐ
-	BaoXiang_jshlyb	[	29	]	=	695		BaoXiang_jshlyb_Rad	[	29	]	=	900		BaoXiang_jshlyb_Count	[	29	]	=	1	--	м«·зСҐ
-	BaoXiang_jshlyb	[	30	]	=	707		BaoXiang_jshlyb_Rad	[	30	]	=	900		BaoXiang_jshlyb_Count	[	30	]	=	1	--	БъПєСҐ
-	BaoXiang_jshlyb	[	31	]	=	709		BaoXiang_jshlyb_Rad	[	31	]	=	900		BaoXiang_jshlyb_Count	[	31	]	=	1	--	ґуєЈПєСҐ
-	BaoXiang_jshlyb	[	32	]	=	715		BaoXiang_jshlyb_Rad	[	32	]	=	900		BaoXiang_jshlyb_Count	[	32	]	=	1	--	ёЯј¶єЈМЎСҐ
-	BaoXiang_jshlyb	[	33	]	=	728		BaoXiang_jshlyb_Rad	[	33	]	=	900		BaoXiang_jshlyb_Count	[	33	]	=	1	--	ЦОБЖХЯСҐ
-	BaoXiang_jshlyb	[	34	]	=	731		BaoXiang_jshlyb_Rad	[	34	]	=	900		BaoXiang_jshlyb_Count	[	34	]	=	1	--	ЖнФёСҐ
-	BaoXiang_jshlyb	[	35	]	=	734		BaoXiang_jshlyb_Rad	[	35	]	=	900		BaoXiang_jshlyb_Count	[	35	]	=	1	--	і¤¶ъНГСҐ
-	BaoXiang_jshlyb	[	36	]	=	737		BaoXiang_jshlyb_Rad	[	36	]	=	900		BaoXiang_jshlyb_Count	[	36	]	=	1	--	єЈМЎСҐ
-	BaoXiang_jshlyb	[	37	]	=	743		BaoXiang_jshlyb_Rad	[	37	]	=	900		BaoXiang_jshlyb_Count	[	37	]	=	1	--	ёЯј¶НГСҐ
-	BaoXiang_jshlyb	[	38	]	=	1941		BaoXiang_jshlyb_Rad	[	38	]	=	900		BaoXiang_jshlyb_Count	[	38	]	=	1	--	ОчЛ№СҐ
-	BaoXiang_jshlyb	[	39	]	=	1953		BaoXiang_jshlyb_Rad	[	39	]	=	900		BaoXiang_jshlyb_Count	[	39	]	=	1	--	µП¶ыНЯДИСҐ
-	BaoXiang_jshlyb	[	40	]	=	1971		BaoXiang_jshlyb_Rad	[	40	]	=	900		BaoXiang_jshlyb_Count	[	40	]	=	1	--	УИµП°ІСҐ
-	BaoXiang_jshlyb	[	41	]	=	1974		BaoXiang_jshlyb_Rad	[	41	]	=	900		BaoXiang_jshlyb_Count	[	41	]	=	1	--	ПЈ¶ыСҐ
-	BaoXiang_jshlyb	[	42	]	=	1986		BaoXiang_jshlyb_Rad	[	42	]	=	900		BaoXiang_jshlyb_Count	[	42	]	=	1	--	ёҐАы°ІСҐ
-	BaoXiang_jshlyb	[	43	]	=	652		BaoXiang_jshlyb_Rad	[	43	]	=	3700		BaoXiang_jshlyb_Count	[	43	]	=	1	--	ЛшСҐ
-	BaoXiang_jshlyb	[	44	]	=	653		BaoXiang_jshlyb_Rad	[	44	]	=	3700		BaoXiang_jshlyb_Count	[	44	]	=	1	--	ЦШРНёЦСҐ
-	BaoXiang_jshlyb	[	45	]	=	654		BaoXiang_jshlyb_Rad	[	45	]	=	3700		BaoXiang_jshlyb_Count	[	45	]	=	1	--	Зб±гёЦСҐ
-	BaoXiang_jshlyb	[	46	]	=	662		BaoXiang_jshlyb_Rad	[	46	]	=	3700		BaoXiang_jshlyb_Count	[	46	]	=	1	--	¶МУрСҐ
-	BaoXiang_jshlyb	[	47	]	=	667		BaoXiang_jshlyb_Rad	[	47	]	=	3700		BaoXiang_jshlyb_Count	[	47	]	=	1	--	ЙЅИёСҐ
-	BaoXiang_jshlyb	[	48	]	=	693		BaoXiang_jshlyb_Rad	[	48	]	=	3700		BaoXiang_jshlyb_Count	[	48	]	=	1	--	јЧ°еСҐ
-	BaoXiang_jshlyb	[	49	]	=	694		BaoXiang_jshlyb_Rad	[	49	]	=	3700		BaoXiang_jshlyb_Count	[	49	]	=	1	--	О¦ёЛСҐ
-	BaoXiang_jshlyb	[	50	]	=	705		BaoXiang_jshlyb_Rad	[	50	]	=	3700		BaoXiang_jshlyb_Count	[	50	]	=	1	--	РЎСјСҐ
-	BaoXiang_jshlyb	[	51	]	=	708		BaoXiang_jshlyb_Rad	[	51	]	=	3700		BaoXiang_jshlyb_Count	[	51	]	=	1	--	ТЎ°ЪСјСҐ
-	BaoXiang_jshlyb	[	52	]	=	714		BaoXiang_jshlyb_Rad	[	52	]	=	3700		BaoXiang_jshlyb_Count	[	52	]	=	1	--	±Д±ДКуСҐ
-	BaoXiang_jshlyb	[	53	]	=	719		BaoXiang_jshlyb_Rad	[	53	]	=	3700		BaoXiang_jshlyb_Count	[	53	]	=	1	--	ВГХЯСҐ
-	BaoXiang_jshlyb	[	54	]	=	720		BaoXiang_jshlyb_Rad	[	54	]	=	3700		BaoXiang_jshlyb_Count	[	54	]	=	1	--	»¤КїСҐ
-	BaoXiang_jshlyb	[	55	]	=	722		BaoXiang_jshlyb_Rad	[	55	]	=	3700		BaoXiang_jshlyb_Count	[	55	]	=	1	--	КҐЦ°СҐ
-	BaoXiang_jshlyb	[	56	]	=	727		BaoXiang_jshlyb_Rad	[	56	]	=	3700		BaoXiang_jshlyb_Count	[	56	]	=	1	--	Ф¶РРСҐ
-	BaoXiang_jshlyb	[	57	]	=	730		BaoXiang_jshlyb_Rad	[	57	]	=	3700		BaoXiang_jshlyb_Count	[	57	]	=	1	--	тЇіПСҐ
-	BaoXiang_jshlyb	[	58	]	=	740		BaoXiang_jshlyb_Rad	[	58	]	=	3700		BaoXiang_jshlyb_Count	[	58	]	=	1	--	їмАЦНГСҐ
-	BaoXiang_jshlyb	[	59	]	=	742		BaoXiang_jshlyb_Rad	[	59	]	=	3700		BaoXiang_jshlyb_Count	[	59	]	=	1	--	ґьКуСҐ
-	BaoXiang_jshlyb	[	60	]	=	744		BaoXiang_jshlyb_Rad	[	60	]	=	3700		BaoXiang_jshlyb_Count	[	60	]	=	1	--	±¦±ґНГСҐ
-	BaoXiang_jshlyb	[	61	]	=	1940		BaoXiang_jshlyb_Rad	[	61	]	=	3700		BaoXiang_jshlyb_Count	[	61	]	=	1	--	јІ·зСҐ
-	BaoXiang_jshlyb	[	62	]	=	1952		BaoXiang_jshlyb_Rad	[	62	]	=	3700		BaoXiang_jshlyb_Count	[	62	]	=	1	--	БТ»рСҐ
-	BaoXiang_jshlyb	[	63	]	=	1970		BaoXiang_jshlyb_Rad	[	63	]	=	3700		BaoXiang_jshlyb_Count	[	63	]	=	1	--	АдФВСҐ
-	BaoXiang_jshlyb	[	64	]	=	1973		BaoXiang_jshlyb_Rad	[	64	]	=	3700		BaoXiang_jshlyb_Count	[	64	]	=	1	--	Т«ИХСҐ
-	BaoXiang_jshlyb	[	65	]	=	1985		BaoXiang_jshlyb_Rad	[	65	]	=	3700		BaoXiang_jshlyb_Count	[	65	]	=	1	--	·з±©СҐ
+	BaoXiang_jshlyb	[	1	]	=	847		BaoXiang_jshlyb_Rad	[	1	]	=	1		BaoXiang_jshlyb_Count	[	1	]	=	1	--	????
+	BaoXiang_jshlyb	[	2	]	=	1989		BaoXiang_jshlyb_Rad	[	2	]	=	80		BaoXiang_jshlyb_Count	[	2	]	=	1	--	??????????
+	BaoXiang_jshlyb	[	3	]	=	1991		BaoXiang_jshlyb_Rad	[	3	]	=	80		BaoXiang_jshlyb_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jshlyb	[	4	]	=	1994		BaoXiang_jshlyb_Rad	[	4	]	=	80		BaoXiang_jshlyb_Count	[	4	]	=	1	--	????????
+	BaoXiang_jshlyb	[	5	]	=	1995		BaoXiang_jshlyb_Rad	[	5	]	=	80		BaoXiang_jshlyb_Count	[	5	]	=	1	--	????????
+	BaoXiang_jshlyb	[	6	]	=	1997		BaoXiang_jshlyb_Rad	[	6	]	=	80		BaoXiang_jshlyb_Count	[	6	]	=	1	--	?????????
+	BaoXiang_jshlyb	[	7	]	=	748		BaoXiang_jshlyb_Rad	[	7	]	=	60		BaoXiang_jshlyb_Count	[	7	]	=	1	--	???
+	BaoXiang_jshlyb	[	8	]	=	750		BaoXiang_jshlyb_Rad	[	8	]	=	60		BaoXiang_jshlyb_Count	[	8	]	=	1	--	???
+	BaoXiang_jshlyb	[	9	]	=	752		BaoXiang_jshlyb_Rad	[	9	]	=	60		BaoXiang_jshlyb_Count	[	9	]	=	1	--	???
+	BaoXiang_jshlyb	[	10	]	=	754		BaoXiang_jshlyb_Rad	[	10	]	=	60		BaoXiang_jshlyb_Count	[	10	]	=	1	--	?????
+	BaoXiang_jshlyb	[	11	]	=	756		BaoXiang_jshlyb_Rad	[	11	]	=	60		BaoXiang_jshlyb_Count	[	11	]	=	1	--	???
+	BaoXiang_jshlyb	[	12	]	=	758		BaoXiang_jshlyb_Rad	[	12	]	=	60		BaoXiang_jshlyb_Count	[	12	]	=	1	--	????
+	BaoXiang_jshlyb	[	13	]	=	760		BaoXiang_jshlyb_Rad	[	13	]	=	60		BaoXiang_jshlyb_Count	[	13	]	=	1	--	???
+	BaoXiang_jshlyb	[	14	]	=	830		BaoXiang_jshlyb_Rad	[	14	]	=	60		BaoXiang_jshlyb_Count	[	14	]	=	1	--	???
+	BaoXiang_jshlyb	[	15	]	=	669		BaoXiang_jshlyb_Rad	[	15	]	=	300		BaoXiang_jshlyb_Count	[	15	]	=	1	--	???
+	BaoXiang_jshlyb	[	16	]	=	696		BaoXiang_jshlyb_Rad	[	16	]	=	300		BaoXiang_jshlyb_Count	[	16	]	=	1	--	???
+	BaoXiang_jshlyb	[	17	]	=	710		BaoXiang_jshlyb_Rad	[	17	]	=	300		BaoXiang_jshlyb_Count	[	17	]	=	1	--	?????
+	BaoXiang_jshlyb	[	18	]	=	716		BaoXiang_jshlyb_Rad	[	18	]	=	300		BaoXiang_jshlyb_Count	[	18	]	=	1	--	?????
+	BaoXiang_jshlyb	[	19	]	=	729		BaoXiang_jshlyb_Rad	[	19	]	=	300		BaoXiang_jshlyb_Count	[	19	]	=	1	--	????
+	BaoXiang_jshlyb	[	20	]	=	746		BaoXiang_jshlyb_Rad	[	20	]	=	300		BaoXiang_jshlyb_Count	[	20	]	=	1	--	???
+	BaoXiang_jshlyb	[	21	]	=	1942		BaoXiang_jshlyb_Rad	[	21	]	=	300		BaoXiang_jshlyb_Count	[	21	]	=	1	--	???
+	BaoXiang_jshlyb	[	22	]	=	1954		BaoXiang_jshlyb_Rad	[	22	]	=	300		BaoXiang_jshlyb_Count	[	22	]	=	1	--	???
+	BaoXiang_jshlyb	[	23	]	=	1972		BaoXiang_jshlyb_Rad	[	23	]	=	300		BaoXiang_jshlyb_Count	[	23	]	=	1	--	???
+	BaoXiang_jshlyb	[	24	]	=	1975		BaoXiang_jshlyb_Rad	[	24	]	=	300		BaoXiang_jshlyb_Count	[	24	]	=	1	--	???
+	BaoXiang_jshlyb	[	25	]	=	1987		BaoXiang_jshlyb_Rad	[	25	]	=	300		BaoXiang_jshlyb_Count	[	25	]	=	1	--	???
+	BaoXiang_jshlyb	[	26	]	=	651		BaoXiang_jshlyb_Rad	[	26	]	=	900		BaoXiang_jshlyb_Count	[	26	]	=	1	--	???
+	BaoXiang_jshlyb	[	27	]	=	655		BaoXiang_jshlyb_Rad	[	27	]	=	900		BaoXiang_jshlyb_Count	[	27	]	=	1	--	????
+	BaoXiang_jshlyb	[	28	]	=	668		BaoXiang_jshlyb_Rad	[	28	]	=	900		BaoXiang_jshlyb_Count	[	28	]	=	1	--	???
+	BaoXiang_jshlyb	[	29	]	=	695		BaoXiang_jshlyb_Rad	[	29	]	=	900		BaoXiang_jshlyb_Count	[	29	]	=	1	--	???
+	BaoXiang_jshlyb	[	30	]	=	707		BaoXiang_jshlyb_Rad	[	30	]	=	900		BaoXiang_jshlyb_Count	[	30	]	=	1	--	???
+	BaoXiang_jshlyb	[	31	]	=	709		BaoXiang_jshlyb_Rad	[	31	]	=	900		BaoXiang_jshlyb_Count	[	31	]	=	1	--	????
+	BaoXiang_jshlyb	[	32	]	=	715		BaoXiang_jshlyb_Rad	[	32	]	=	900		BaoXiang_jshlyb_Count	[	32	]	=	1	--	?????
+	BaoXiang_jshlyb	[	33	]	=	728		BaoXiang_jshlyb_Rad	[	33	]	=	900		BaoXiang_jshlyb_Count	[	33	]	=	1	--	????
+	BaoXiang_jshlyb	[	34	]	=	731		BaoXiang_jshlyb_Rad	[	34	]	=	900		BaoXiang_jshlyb_Count	[	34	]	=	1	--	???
+	BaoXiang_jshlyb	[	35	]	=	734		BaoXiang_jshlyb_Rad	[	35	]	=	900		BaoXiang_jshlyb_Count	[	35	]	=	1	--	????
+	BaoXiang_jshlyb	[	36	]	=	737		BaoXiang_jshlyb_Rad	[	36	]	=	900		BaoXiang_jshlyb_Count	[	36	]	=	1	--	???
+	BaoXiang_jshlyb	[	37	]	=	743		BaoXiang_jshlyb_Rad	[	37	]	=	900		BaoXiang_jshlyb_Count	[	37	]	=	1	--	????
+	BaoXiang_jshlyb	[	38	]	=	1941		BaoXiang_jshlyb_Rad	[	38	]	=	900		BaoXiang_jshlyb_Count	[	38	]	=	1	--	???
+	BaoXiang_jshlyb	[	39	]	=	1953		BaoXiang_jshlyb_Rad	[	39	]	=	900		BaoXiang_jshlyb_Count	[	39	]	=	1	--	?????
+	BaoXiang_jshlyb	[	40	]	=	1971		BaoXiang_jshlyb_Rad	[	40	]	=	900		BaoXiang_jshlyb_Count	[	40	]	=	1	--	????
+	BaoXiang_jshlyb	[	41	]	=	1974		BaoXiang_jshlyb_Rad	[	41	]	=	900		BaoXiang_jshlyb_Count	[	41	]	=	1	--	???
+	BaoXiang_jshlyb	[	42	]	=	1986		BaoXiang_jshlyb_Rad	[	42	]	=	900		BaoXiang_jshlyb_Count	[	42	]	=	1	--	????
+	BaoXiang_jshlyb	[	43	]	=	652		BaoXiang_jshlyb_Rad	[	43	]	=	3700		BaoXiang_jshlyb_Count	[	43	]	=	1	--	??
+	BaoXiang_jshlyb	[	44	]	=	653		BaoXiang_jshlyb_Rad	[	44	]	=	3700		BaoXiang_jshlyb_Count	[	44	]	=	1	--	????
+	BaoXiang_jshlyb	[	45	]	=	654		BaoXiang_jshlyb_Rad	[	45	]	=	3700		BaoXiang_jshlyb_Count	[	45	]	=	1	--	????
+	BaoXiang_jshlyb	[	46	]	=	662		BaoXiang_jshlyb_Rad	[	46	]	=	3700		BaoXiang_jshlyb_Count	[	46	]	=	1	--	???
+	BaoXiang_jshlyb	[	47	]	=	667		BaoXiang_jshlyb_Rad	[	47	]	=	3700		BaoXiang_jshlyb_Count	[	47	]	=	1	--	???
+	BaoXiang_jshlyb	[	48	]	=	693		BaoXiang_jshlyb_Rad	[	48	]	=	3700		BaoXiang_jshlyb_Count	[	48	]	=	1	--	???
+	BaoXiang_jshlyb	[	49	]	=	694		BaoXiang_jshlyb_Rad	[	49	]	=	3700		BaoXiang_jshlyb_Count	[	49	]	=	1	--	???
+	BaoXiang_jshlyb	[	50	]	=	705		BaoXiang_jshlyb_Rad	[	50	]	=	3700		BaoXiang_jshlyb_Count	[	50	]	=	1	--	???
+	BaoXiang_jshlyb	[	51	]	=	708		BaoXiang_jshlyb_Rad	[	51	]	=	3700		BaoXiang_jshlyb_Count	[	51	]	=	1	--	????
+	BaoXiang_jshlyb	[	52	]	=	714		BaoXiang_jshlyb_Rad	[	52	]	=	3700		BaoXiang_jshlyb_Count	[	52	]	=	1	--	????
+	BaoXiang_jshlyb	[	53	]	=	719		BaoXiang_jshlyb_Rad	[	53	]	=	3700		BaoXiang_jshlyb_Count	[	53	]	=	1	--	???
+	BaoXiang_jshlyb	[	54	]	=	720		BaoXiang_jshlyb_Rad	[	54	]	=	3700		BaoXiang_jshlyb_Count	[	54	]	=	1	--	???
+	BaoXiang_jshlyb	[	55	]	=	722		BaoXiang_jshlyb_Rad	[	55	]	=	3700		BaoXiang_jshlyb_Count	[	55	]	=	1	--	???
+	BaoXiang_jshlyb	[	56	]	=	727		BaoXiang_jshlyb_Rad	[	56	]	=	3700		BaoXiang_jshlyb_Count	[	56	]	=	1	--	???
+	BaoXiang_jshlyb	[	57	]	=	730		BaoXiang_jshlyb_Rad	[	57	]	=	3700		BaoXiang_jshlyb_Count	[	57	]	=	1	--	???
+	BaoXiang_jshlyb	[	58	]	=	740		BaoXiang_jshlyb_Rad	[	58	]	=	3700		BaoXiang_jshlyb_Count	[	58	]	=	1	--	????
+	BaoXiang_jshlyb	[	59	]	=	742		BaoXiang_jshlyb_Rad	[	59	]	=	3700		BaoXiang_jshlyb_Count	[	59	]	=	1	--	???
+	BaoXiang_jshlyb	[	60	]	=	744		BaoXiang_jshlyb_Rad	[	60	]	=	3700		BaoXiang_jshlyb_Count	[	60	]	=	1	--	????
+	BaoXiang_jshlyb	[	61	]	=	1940		BaoXiang_jshlyb_Rad	[	61	]	=	3700		BaoXiang_jshlyb_Count	[	61	]	=	1	--	???
+	BaoXiang_jshlyb	[	62	]	=	1952		BaoXiang_jshlyb_Rad	[	62	]	=	3700		BaoXiang_jshlyb_Count	[	62	]	=	1	--	???
+	BaoXiang_jshlyb	[	63	]	=	1970		BaoXiang_jshlyb_Rad	[	63	]	=	3700		BaoXiang_jshlyb_Count	[	63	]	=	1	--	???
+	BaoXiang_jshlyb	[	64	]	=	1973		BaoXiang_jshlyb_Rad	[	64	]	=	3700		BaoXiang_jshlyb_Count	[	64	]	=	1	--	???
+	BaoXiang_jshlyb	[	65	]	=	1985		BaoXiang_jshlyb_Rad	[	65	]	=	3700		BaoXiang_jshlyb_Count	[	65	]	=	1	--	???
 																								
 																								
---	ГФ»ГЦ®ґМ±¦Пд24РН												w0049											
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????24?												w0049											
+--	????							??????														
 	BaoXiang_jsmhzca_Qua	=	24	 				BaoXiang_jsmhzca_Mxcount	=	19												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsmhzca	=	{}					BaoXiang_jsmhzca_Rad	=	{}					BaoXiang_jsmhzca_Count	=	{}					
-	BaoXiang_jsmhzca	[	1	]	=	1920		BaoXiang_jsmhzca_Rad	[	1	]	=	10 		BaoXiang_jsmhzca_Count	[	1	]	=	1	--	І»ЛА·вУЎµД°µУ°Ц®СА
-	BaoXiang_jsmhzca	[	2	]	=	1921		BaoXiang_jsmhzca_Rad	[	2	]	=	30		BaoXiang_jsmhzca_Count	[	2	]	=	1	--	ОЫДа·вУЎµДЧзЦдЦ®ґМ
-	BaoXiang_jsmhzca	[	3	]	=	1922		BaoXiang_jsmhzca_Rad	[	3	]	=	20		BaoXiang_jsmhzca_Count	[	3	]	=	1	--	БТСж·вУЎµД»ГБйЦ®СА
-	BaoXiang_jsmhzca	[	4	]	=	1923		BaoXiang_jsmhzca_Rad	[	4	]	=	1		BaoXiang_jsmhzca_Count	[	4	]	=	1	--	є®±щ·вУЎµДГФ»ГЦ®ґМ
-	BaoXiang_jsmhzca	[	5	]	=	0151		BaoXiang_jsmhzca_Rad	[	5	]	=	50		BaoXiang_jsmhzca_Count	[	5	]	=	1	--	¶П»к
-	BaoXiang_jsmhzca	[	6	]	=	0079		BaoXiang_jsmhzca_Rad	[	6	]	=	50		BaoXiang_jsmhzca_Count	[	6	]	=	1	--	єЈЙскЄ
-	BaoXiang_jsmhzca	[	7	]	=	0078		BaoXiang_jsmhzca_Rad	[	7	]	=	100		BaoXiang_jsmhzca_Count	[	7	]	=	1	--	БъНхШ°КЧ
-	BaoXiang_jsmhzca	[	8	]	=	1448		BaoXiang_jsmhzca_Rad	[	8	]	=	100		BaoXiang_jsmhzca_Count	[	8	]	=	1	--	ѕэНхШ°КЧ
-	BaoXiang_jsmhzca	[	9	]	=	0077		BaoXiang_jsmhzca_Rad	[	9	]	=	110		BaoXiang_jsmhzca_Count	[	9	]	=	1	--	АЗСАґМ
-	BaoXiang_jsmhzca	[	10	]	=	0084		BaoXiang_jsmhzca_Rad	[	10	]	=	110		BaoXiang_jsmhzca_Count	[	10	]	=	1	--	КИСЄАыИР
-	BaoXiang_jsmhzca	[	11	]	=	1419		BaoXiang_jsmhzca_Rad	[	11	]	=	110		BaoXiang_jsmhzca_Count	[	11	]	=	1	--	Й±ЙЛИР
-	BaoXiang_jsmhzca	[	12	]	=	1426		BaoXiang_jsmhzca_Rad	[	12	]	=	110		BaoXiang_jsmhzca_Count	[	12	]	=	1	--	Ш¬ГОШ°КЧ
-	BaoXiang_jsmhzca	[	13	]	=	1447		BaoXiang_jsmhzca_Rad	[	13	]	=	110		BaoXiang_jsmhzca_Count	[	13	]	=	1	--	єЈµБШ°КЧ
-	BaoXiang_jsmhzca	[	14	]	=	1461		BaoXiang_jsmhzca_Rad	[	14	]	=	110		BaoXiang_jsmhzca_Count	[	14	]	=	1	--	ЧзЦдШ°КЧ
-	BaoXiang_jsmhzca	[	15	]	=	0076		BaoXiang_jsmhzca_Rad	[	15	]	=	18000		BaoXiang_jsmhzca_Count	[	15	]	=	1	--	ФВСАґМ
-	BaoXiang_jsmhzca	[	16	]	=	1418		BaoXiang_jsmhzca_Rad	[	16	]	=	18000		BaoXiang_jsmhzca_Count	[	16	]	=	1	--	РЗ№вґМ
-	BaoXiang_jsmhzca	[	17	]	=	1425		BaoXiang_jsmhzca_Rad	[	17	]	=	18000		BaoXiang_jsmhzca_Count	[	17	]	=	1	--	КЇУўШ°КЧ
-	BaoXiang_jsmhzca	[	18	]	=	1446		BaoXiang_jsmhzca_Rad	[	18	]	=	18000		BaoXiang_jsmhzca_Count	[	18	]	=	1	--	ЙБЛёґМ
-	BaoXiang_jsmhzca	[	19	]	=	1460		BaoXiang_jsmhzca_Rad	[	19	]	=	18000		BaoXiang_jsmhzca_Count	[	19	]	=	1	--	±¦КЇШ°КЧ
+	BaoXiang_jsmhzca	[	1	]	=	1920		BaoXiang_jsmhzca_Rad	[	1	]	=	10 		BaoXiang_jsmhzca_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jsmhzca	[	2	]	=	1921		BaoXiang_jsmhzca_Rad	[	2	]	=	30		BaoXiang_jsmhzca_Count	[	2	]	=	1	--	?????????
+	BaoXiang_jsmhzca	[	3	]	=	1922		BaoXiang_jsmhzca_Rad	[	3	]	=	20		BaoXiang_jsmhzca_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jsmhzca	[	4	]	=	1923		BaoXiang_jsmhzca_Rad	[	4	]	=	1		BaoXiang_jsmhzca_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jsmhzca	[	5	]	=	0151		BaoXiang_jsmhzca_Rad	[	5	]	=	50		BaoXiang_jsmhzca_Count	[	5	]	=	1	--	??
+	BaoXiang_jsmhzca	[	6	]	=	0079		BaoXiang_jsmhzca_Rad	[	6	]	=	50		BaoXiang_jsmhzca_Count	[	6	]	=	1	--	???
+	BaoXiang_jsmhzca	[	7	]	=	0078		BaoXiang_jsmhzca_Rad	[	7	]	=	100		BaoXiang_jsmhzca_Count	[	7	]	=	1	--	????
+	BaoXiang_jsmhzca	[	8	]	=	1448		BaoXiang_jsmhzca_Rad	[	8	]	=	100		BaoXiang_jsmhzca_Count	[	8	]	=	1	--	????
+	BaoXiang_jsmhzca	[	9	]	=	0077		BaoXiang_jsmhzca_Rad	[	9	]	=	110		BaoXiang_jsmhzca_Count	[	9	]	=	1	--	???
+	BaoXiang_jsmhzca	[	10	]	=	0084		BaoXiang_jsmhzca_Rad	[	10	]	=	110		BaoXiang_jsmhzca_Count	[	10	]	=	1	--	????
+	BaoXiang_jsmhzca	[	11	]	=	1419		BaoXiang_jsmhzca_Rad	[	11	]	=	110		BaoXiang_jsmhzca_Count	[	11	]	=	1	--	???
+	BaoXiang_jsmhzca	[	12	]	=	1426		BaoXiang_jsmhzca_Rad	[	12	]	=	110		BaoXiang_jsmhzca_Count	[	12	]	=	1	--	????
+	BaoXiang_jsmhzca	[	13	]	=	1447		BaoXiang_jsmhzca_Rad	[	13	]	=	110		BaoXiang_jsmhzca_Count	[	13	]	=	1	--	????
+	BaoXiang_jsmhzca	[	14	]	=	1461		BaoXiang_jsmhzca_Rad	[	14	]	=	110		BaoXiang_jsmhzca_Count	[	14	]	=	1	--	????
+	BaoXiang_jsmhzca	[	15	]	=	0076		BaoXiang_jsmhzca_Rad	[	15	]	=	18000		BaoXiang_jsmhzca_Count	[	15	]	=	1	--	???
+	BaoXiang_jsmhzca	[	16	]	=	1418		BaoXiang_jsmhzca_Rad	[	16	]	=	18000		BaoXiang_jsmhzca_Count	[	16	]	=	1	--	???
+	BaoXiang_jsmhzca	[	17	]	=	1425		BaoXiang_jsmhzca_Rad	[	17	]	=	18000		BaoXiang_jsmhzca_Count	[	17	]	=	1	--	????
+	BaoXiang_jsmhzca	[	18	]	=	1446		BaoXiang_jsmhzca_Rad	[	18	]	=	18000		BaoXiang_jsmhzca_Count	[	18	]	=	1	--	???
+	BaoXiang_jsmhzca	[	19	]	=	1460		BaoXiang_jsmhzca_Rad	[	19	]	=	18000		BaoXiang_jsmhzca_Count	[	19	]	=	1	--	????
 
 																						
---	ГФ»ГЦ®ґМ±¦Пд23РН												w0049									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????23?												w0049									
+--	????							??????														
 	BaoXiang_jsmhzcb_Qua	=	23	 				BaoXiang_jsmhzcb_Mxcount	=	19												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsmhzcb	=	{}					BaoXiang_jsmhzcb_Rad	=	{}					BaoXiang_jsmhzcb_Count	=	{}					
-	BaoXiang_jsmhzcb	[	1	]	=	1920		BaoXiang_jsmhzcb_Rad	[	1	]	=	20 		BaoXiang_jsmhzcb_Count	[	1	]	=	1	--	І»ЛА·вУЎµД°µУ°Ц®СА
-	BaoXiang_jsmhzcb	[	2	]	=	1921		BaoXiang_jsmhzcb_Rad	[	2	]	=	30		BaoXiang_jsmhzcb_Count	[	2	]	=	1	--	ОЫДа·вУЎµДЧзЦдЦ®ґМ
-	BaoXiang_jsmhzcb	[	3	]	=	1922		BaoXiang_jsmhzcb_Rad	[	3	]	=	10		BaoXiang_jsmhzcb_Count	[	3	]	=	1	--	БТСж·вУЎµД»ГБйЦ®СА
-	BaoXiang_jsmhzcb	[	4	]	=	1923		BaoXiang_jsmhzcb_Rad	[	4	]	=	5		BaoXiang_jsmhzcb_Count	[	4	]	=	1	--	є®±щ·вУЎµДГФ»ГЦ®ґМ
-	BaoXiang_jsmhzcb	[	5	]	=	0151		BaoXiang_jsmhzcb_Rad	[	5	]	=	30		BaoXiang_jsmhzcb_Count	[	5	]	=	1	--	¶П»к
-	BaoXiang_jsmhzcb	[	6	]	=	0079		BaoXiang_jsmhzcb_Rad	[	6	]	=	30		BaoXiang_jsmhzcb_Count	[	6	]	=	1	--	єЈЙскЄ
-	BaoXiang_jsmhzcb	[	7	]	=	0078		BaoXiang_jsmhzcb_Rad	[	7	]	=	70		BaoXiang_jsmhzcb_Count	[	7	]	=	1	--	БъНхШ°КЧ
-	BaoXiang_jsmhzcb	[	8	]	=	1448		BaoXiang_jsmhzcb_Rad	[	8	]	=	70		BaoXiang_jsmhzcb_Count	[	8	]	=	1	--	ѕэНхШ°КЧ
-	BaoXiang_jsmhzcb	[	9	]	=	0077		BaoXiang_jsmhzcb_Rad	[	9	]	=	100		BaoXiang_jsmhzcb_Count	[	9	]	=	1	--	АЗСАґМ
-	BaoXiang_jsmhzcb	[	10	]	=	0084		BaoXiang_jsmhzcb_Rad	[	10	]	=	100		BaoXiang_jsmhzcb_Count	[	10	]	=	1	--	КИСЄАыИР
-	BaoXiang_jsmhzcb	[	11	]	=	1419		BaoXiang_jsmhzcb_Rad	[	11	]	=	100		BaoXiang_jsmhzcb_Count	[	11	]	=	1	--	Й±ЙЛИР
-	BaoXiang_jsmhzcb	[	12	]	=	1426		BaoXiang_jsmhzcb_Rad	[	12	]	=	100		BaoXiang_jsmhzcb_Count	[	12	]	=	1	--	Ш¬ГОШ°КЧ
-	BaoXiang_jsmhzcb	[	13	]	=	1447		BaoXiang_jsmhzcb_Rad	[	13	]	=	100		BaoXiang_jsmhzcb_Count	[	13	]	=	1	--	єЈµБШ°КЧ
-	BaoXiang_jsmhzcb	[	14	]	=	1461		BaoXiang_jsmhzcb_Rad	[	14	]	=	100		BaoXiang_jsmhzcb_Count	[	14	]	=	1	--	ЧзЦдШ°КЧ
-	BaoXiang_jsmhzcb	[	15	]	=	0076		BaoXiang_jsmhzcb_Rad	[	15	]	=	18500		BaoXiang_jsmhzcb_Count	[	15	]	=	1	--	ФВСАґМ
-	BaoXiang_jsmhzcb	[	16	]	=	1418		BaoXiang_jsmhzcb_Rad	[	16	]	=	18500		BaoXiang_jsmhzcb_Count	[	16	]	=	1	--	РЗ№вґМ
-	BaoXiang_jsmhzcb	[	17	]	=	1425		BaoXiang_jsmhzcb_Rad	[	17	]	=	18500		BaoXiang_jsmhzcb_Count	[	17	]	=	1	--	КЇУўШ°КЧ
-	BaoXiang_jsmhzcb	[	18	]	=	1446		BaoXiang_jsmhzcb_Rad	[	18	]	=	18500		BaoXiang_jsmhzcb_Count	[	18	]	=	1	--	ЙБЛёґМ
-	BaoXiang_jsmhzcb	[	19	]	=	1460		BaoXiang_jsmhzcb_Rad	[	19	]	=	18500		BaoXiang_jsmhzcb_Count	[	19	]	=	1	--	±¦КЇШ°КЧ
+	BaoXiang_jsmhzcb	[	1	]	=	1920		BaoXiang_jsmhzcb_Rad	[	1	]	=	20 		BaoXiang_jsmhzcb_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jsmhzcb	[	2	]	=	1921		BaoXiang_jsmhzcb_Rad	[	2	]	=	30		BaoXiang_jsmhzcb_Count	[	2	]	=	1	--	?????????
+	BaoXiang_jsmhzcb	[	3	]	=	1922		BaoXiang_jsmhzcb_Rad	[	3	]	=	10		BaoXiang_jsmhzcb_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jsmhzcb	[	4	]	=	1923		BaoXiang_jsmhzcb_Rad	[	4	]	=	5		BaoXiang_jsmhzcb_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jsmhzcb	[	5	]	=	0151		BaoXiang_jsmhzcb_Rad	[	5	]	=	30		BaoXiang_jsmhzcb_Count	[	5	]	=	1	--	??
+	BaoXiang_jsmhzcb	[	6	]	=	0079		BaoXiang_jsmhzcb_Rad	[	6	]	=	30		BaoXiang_jsmhzcb_Count	[	6	]	=	1	--	???
+	BaoXiang_jsmhzcb	[	7	]	=	0078		BaoXiang_jsmhzcb_Rad	[	7	]	=	70		BaoXiang_jsmhzcb_Count	[	7	]	=	1	--	????
+	BaoXiang_jsmhzcb	[	8	]	=	1448		BaoXiang_jsmhzcb_Rad	[	8	]	=	70		BaoXiang_jsmhzcb_Count	[	8	]	=	1	--	????
+	BaoXiang_jsmhzcb	[	9	]	=	0077		BaoXiang_jsmhzcb_Rad	[	9	]	=	100		BaoXiang_jsmhzcb_Count	[	9	]	=	1	--	???
+	BaoXiang_jsmhzcb	[	10	]	=	0084		BaoXiang_jsmhzcb_Rad	[	10	]	=	100		BaoXiang_jsmhzcb_Count	[	10	]	=	1	--	????
+	BaoXiang_jsmhzcb	[	11	]	=	1419		BaoXiang_jsmhzcb_Rad	[	11	]	=	100		BaoXiang_jsmhzcb_Count	[	11	]	=	1	--	???
+	BaoXiang_jsmhzcb	[	12	]	=	1426		BaoXiang_jsmhzcb_Rad	[	12	]	=	100		BaoXiang_jsmhzcb_Count	[	12	]	=	1	--	????
+	BaoXiang_jsmhzcb	[	13	]	=	1447		BaoXiang_jsmhzcb_Rad	[	13	]	=	100		BaoXiang_jsmhzcb_Count	[	13	]	=	1	--	????
+	BaoXiang_jsmhzcb	[	14	]	=	1461		BaoXiang_jsmhzcb_Rad	[	14	]	=	100		BaoXiang_jsmhzcb_Count	[	14	]	=	1	--	????
+	BaoXiang_jsmhzcb	[	15	]	=	0076		BaoXiang_jsmhzcb_Rad	[	15	]	=	18500		BaoXiang_jsmhzcb_Count	[	15	]	=	1	--	???
+	BaoXiang_jsmhzcb	[	16	]	=	1418		BaoXiang_jsmhzcb_Rad	[	16	]	=	18500		BaoXiang_jsmhzcb_Count	[	16	]	=	1	--	???
+	BaoXiang_jsmhzcb	[	17	]	=	1425		BaoXiang_jsmhzcb_Rad	[	17	]	=	18500		BaoXiang_jsmhzcb_Count	[	17	]	=	1	--	????
+	BaoXiang_jsmhzcb	[	18	]	=	1446		BaoXiang_jsmhzcb_Rad	[	18	]	=	18500		BaoXiang_jsmhzcb_Count	[	18	]	=	1	--	???
+	BaoXiang_jsmhzcb	[	19	]	=	1460		BaoXiang_jsmhzcb_Rad	[	19	]	=	18500		BaoXiang_jsmhzcb_Count	[	19	]	=	1	--	????
 
 																						
---	ГФЦд·ЁХИ±¦Пд24РН												w0062									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????24?												w0062									
+--	????							??????														
 	BaoXiang_jsmzfza_Qua	=	24	 				BaoXiang_jsmzfza_Mxcount	=	18												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsmzfza	=	{}					BaoXiang_jsmzfza_Rad	=	{}					BaoXiang_jsmzfza_Count	=	{}					
-	BaoXiang_jsmzfza	[	1	]	=	1906		BaoXiang_jsmzfza_Rad	[	1	]	=	10 		BaoXiang_jsmzfza_Count	[	1	]	=	1	--	І»ЛА·вУЎµДЖЖД§·ЁХИ
-	BaoXiang_jsmzfza	[	2	]	=	1914		BaoXiang_jsmzfza_Rad	[	2	]	=	30		BaoXiang_jsmzfza_Count	[	2	]	=	1	--	ОЫДа·вУЎµДЦдОД·ЁХИ
-	BaoXiang_jsmzfza	[	3	]	=	1915		BaoXiang_jsmzfza_Rad	[	3	]	=	20		BaoXiang_jsmzfza_Count	[	3	]	=	1	--	БТСж·вУЎµД»Г»ЇЦ®ХИ
-	BaoXiang_jsmzfza	[	4	]	=	1916		BaoXiang_jsmzfza_Rad	[	4	]	=	1		BaoXiang_jsmzfza_Count	[	4	]	=	1	--	є®±щ·вУЎµДГФЦд·ЁХИ
-	BaoXiang_jsmzfza	[	5	]	=	0112		BaoXiang_jsmzfza_Rad	[	5	]	=	50		BaoXiang_jsmzfza_Count	[	5	]	=	1	--	КФБ¶Ц®иЖ
-	BaoXiang_jsmzfza	[	6	]	=	1439		BaoXiang_jsmzfza_Rad	[	6	]	=	100		BaoXiang_jsmzfza_Count	[	6	]	=	1	--	ЙсЗґЦ®ХИ
-	BaoXiang_jsmzfza	[	7	]	=	1474		BaoXiang_jsmzfza_Rad	[	7	]	=	100		BaoXiang_jsmzfza_Count	[	7	]	=	1	--	ЗзМмЦ®ХИ
-	BaoXiang_jsmzfza	[	8	]	=	3812		BaoXiang_jsmzfza_Rad	[	8	]	=	100		BaoXiang_jsmzfza_Count	[	8	]	=	1	--	ЦмИё·ЁХИ
-	BaoXiang_jsmzfza	[	9	]	=	4300		BaoXiang_jsmzfza_Rad	[	9	]	=	100		BaoXiang_jsmzfza_Count	[	9	]	=	1	--	іН·ЈЦ®ХИ
-	BaoXiang_jsmzfza	[	10	]	=	1432		BaoXiang_jsmzfza_Rad	[	10	]	=	200		BaoXiang_jsmzfza_Count	[	10	]	=	1	--	ЕщцЁ·ЁХИ
-	BaoXiang_jsmzfza	[	11	]	=	1438		BaoXiang_jsmzfza_Rad	[	11	]	=	200		BaoXiang_jsmzfza_Count	[	11	]	=	1	--	Е­СЧ·ЁХИ
-	BaoXiang_jsmzfza	[	12	]	=	1467		BaoXiang_jsmzfza_Rad	[	12	]	=	200		BaoXiang_jsmzfza_Count	[	12	]	=	1	--	КҐХЯ·ЁХИ
-	BaoXiang_jsmzfza	[	13	]	=	1473		BaoXiang_jsmzfza_Rad	[	13	]	=	200		BaoXiang_jsmzfza_Count	[	13	]	=	1	--	БТ»р·ЁХИ
-	BaoXiang_jsmzfza	[	14	]	=	3811		BaoXiang_jsmzfza_Rad	[	14	]	=	200		BaoXiang_jsmzfza_Count	[	14	]	=	1	--	УИµП°ІЦ®ХИ
-	BaoXiang_jsmzfza	[	15	]	=	1431		BaoXiang_jsmzfza_Rad	[	15	]	=	2100		BaoXiang_jsmzfza_Count	[	15	]	=	1	--	Т°РФИЁХИ
-	BaoXiang_jsmzfza	[	16	]	=	1437		BaoXiang_jsmzfza_Rad	[	16	]	=	2100		BaoXiang_jsmzfza_Count	[	16	]	=	1	--	С№ЦЖЦ®ХИ
-	BaoXiang_jsmzfza	[	17	]	=	1466		BaoXiang_jsmzfza_Rad	[	17	]	=	2100		BaoXiang_jsmzfza_Count	[	17	]	=	1	--	»оБ¦ИЁХИ
-	BaoXiang_jsmzfza	[	18	]	=	1472		BaoXiang_jsmzfza_Rad	[	18	]	=	2100		BaoXiang_jsmzfza_Count	[	18	]	=	1	--	Е¬Б¦Ц®ХИ
+	BaoXiang_jsmzfza	[	1	]	=	1906		BaoXiang_jsmzfza_Rad	[	1	]	=	10 		BaoXiang_jsmzfza_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jsmzfza	[	2	]	=	1914		BaoXiang_jsmzfza_Rad	[	2	]	=	30		BaoXiang_jsmzfza_Count	[	2	]	=	1	--	?????????
+	BaoXiang_jsmzfza	[	3	]	=	1915		BaoXiang_jsmzfza_Rad	[	3	]	=	20		BaoXiang_jsmzfza_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jsmzfza	[	4	]	=	1916		BaoXiang_jsmzfza_Rad	[	4	]	=	1		BaoXiang_jsmzfza_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jsmzfza	[	5	]	=	0112		BaoXiang_jsmzfza_Rad	[	5	]	=	50		BaoXiang_jsmzfza_Count	[	5	]	=	1	--	????
+	BaoXiang_jsmzfza	[	6	]	=	1439		BaoXiang_jsmzfza_Rad	[	6	]	=	100		BaoXiang_jsmzfza_Count	[	6	]	=	1	--	????
+	BaoXiang_jsmzfza	[	7	]	=	1474		BaoXiang_jsmzfza_Rad	[	7	]	=	100		BaoXiang_jsmzfza_Count	[	7	]	=	1	--	????
+	BaoXiang_jsmzfza	[	8	]	=	3812		BaoXiang_jsmzfza_Rad	[	8	]	=	100		BaoXiang_jsmzfza_Count	[	8	]	=	1	--	????
+	BaoXiang_jsmzfza	[	9	]	=	4300		BaoXiang_jsmzfza_Rad	[	9	]	=	100		BaoXiang_jsmzfza_Count	[	9	]	=	1	--	????
+	BaoXiang_jsmzfza	[	10	]	=	1432		BaoXiang_jsmzfza_Rad	[	10	]	=	200		BaoXiang_jsmzfza_Count	[	10	]	=	1	--	????
+	BaoXiang_jsmzfza	[	11	]	=	1438		BaoXiang_jsmzfza_Rad	[	11	]	=	200		BaoXiang_jsmzfza_Count	[	11	]	=	1	--	????
+	BaoXiang_jsmzfza	[	12	]	=	1467		BaoXiang_jsmzfza_Rad	[	12	]	=	200		BaoXiang_jsmzfza_Count	[	12	]	=	1	--	????
+	BaoXiang_jsmzfza	[	13	]	=	1473		BaoXiang_jsmzfza_Rad	[	13	]	=	200		BaoXiang_jsmzfza_Count	[	13	]	=	1	--	????
+	BaoXiang_jsmzfza	[	14	]	=	3811		BaoXiang_jsmzfza_Rad	[	14	]	=	200		BaoXiang_jsmzfza_Count	[	14	]	=	1	--	?????
+	BaoXiang_jsmzfza	[	15	]	=	1431		BaoXiang_jsmzfza_Rad	[	15	]	=	2100		BaoXiang_jsmzfza_Count	[	15	]	=	1	--	????
+	BaoXiang_jsmzfza	[	16	]	=	1437		BaoXiang_jsmzfza_Rad	[	16	]	=	2100		BaoXiang_jsmzfza_Count	[	16	]	=	1	--	????
+	BaoXiang_jsmzfza	[	17	]	=	1466		BaoXiang_jsmzfza_Rad	[	17	]	=	2100		BaoXiang_jsmzfza_Count	[	17	]	=	1	--	????
+	BaoXiang_jsmzfza	[	18	]	=	1472		BaoXiang_jsmzfza_Rad	[	18	]	=	2100		BaoXiang_jsmzfza_Count	[	18	]	=	1	--	????
 
 																						
---	ГФЦд·ЁХИ±¦Пд23РН												w0062									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????23?												w0062									
+--	????							??????														
 	BaoXiang_jsmzfzb_Qua	=	23	 				BaoXiang_jsmzfza_Mxcount	=	18												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsmzfzb	=	{}					BaoXiang_jsmzfzb_Rad	=	{}					BaoXiang_jsmzfzb_Count	=	{}					
-	BaoXiang_jsmzfzb	[	1	]	=	1906		BaoXiang_jsmzfzb_Rad	[	1	]	=	100 		BaoXiang_jsmzfzb_Count	[	1	]	=	1	--	І»ЛА·вУЎµДЖЖД§·ЁХИ
-	BaoXiang_jsmzfzb	[	2	]	=	1914		BaoXiang_jsmzfzb_Rad	[	2	]	=	30		BaoXiang_jsmzfzb_Count	[	2	]	=	1	--	ОЫДа·вУЎµДЦдОД·ЁХИ
-	BaoXiang_jsmzfzb	[	3	]	=	1915		BaoXiang_jsmzfzb_Rad	[	3	]	=	10		BaoXiang_jsmzfzb_Count	[	3	]	=	1	--	БТСж·вУЎµД»Г»ЇЦ®ХИ
-	BaoXiang_jsmzfzb	[	4	]	=	1916		BaoXiang_jsmzfzb_Rad	[	4	]	=	5		BaoXiang_jsmzfzb_Count	[	4	]	=	1	--	є®±щ·вУЎµДГФЦд·ЁХИ
-	BaoXiang_jsmzfzb	[	5	]	=	0112		BaoXiang_jsmzfzb_Rad	[	5	]	=	40		BaoXiang_jsmzfzb_Count	[	5	]	=	1	--	КФБ¶Ц®иЖ
-	BaoXiang_jsmzfzb	[	6	]	=	1439		BaoXiang_jsmzfzb_Rad	[	6	]	=	80		BaoXiang_jsmzfzb_Count	[	6	]	=	1	--	ЙсЗґЦ®ХИ
-	BaoXiang_jsmzfzb	[	7	]	=	1474		BaoXiang_jsmzfzb_Rad	[	7	]	=	80		BaoXiang_jsmzfzb_Count	[	7	]	=	1	--	ЗзМмЦ®ХИ
-	BaoXiang_jsmzfzb	[	8	]	=	3812		BaoXiang_jsmzfzb_Rad	[	8	]	=	80		BaoXiang_jsmzfzb_Count	[	8	]	=	1	--	ЦмИё·ЁХИ
-	BaoXiang_jsmzfzb	[	9	]	=	4300		BaoXiang_jsmzfzb_Rad	[	9	]	=	80		BaoXiang_jsmzfzb_Count	[	9	]	=	1	--	іН·ЈЦ®ХИ
-	BaoXiang_jsmzfzb	[	10	]	=	1432		BaoXiang_jsmzfzb_Rad	[	10	]	=	200		BaoXiang_jsmzfzb_Count	[	10	]	=	1	--	ЕщцЁ·ЁХИ
-	BaoXiang_jsmzfzb	[	11	]	=	1438		BaoXiang_jsmzfzb_Rad	[	11	]	=	200		BaoXiang_jsmzfzb_Count	[	11	]	=	1	--	Е­СЧ·ЁХИ
-	BaoXiang_jsmzfzb	[	12	]	=	1467		BaoXiang_jsmzfzb_Rad	[	12	]	=	200		BaoXiang_jsmzfzb_Count	[	12	]	=	1	--	КҐХЯ·ЁХИ
-	BaoXiang_jsmzfzb	[	13	]	=	1473		BaoXiang_jsmzfzb_Rad	[	13	]	=	200		BaoXiang_jsmzfzb_Count	[	13	]	=	1	--	БТ»р·ЁХИ
-	BaoXiang_jsmzfzb	[	14	]	=	3811		BaoXiang_jsmzfzb_Rad	[	14	]	=	200		BaoXiang_jsmzfzb_Count	[	14	]	=	1	--	УИµП°ІЦ®ХИ
-	BaoXiang_jsmzfzb	[	15	]	=	1431		BaoXiang_jsmzfzb_Rad	[	15	]	=	21500		BaoXiang_jsmzfzb_Count	[	15	]	=	1	--	Т°РФИЁХИ
-	BaoXiang_jsmzfzb	[	16	]	=	1437		BaoXiang_jsmzfzb_Rad	[	16	]	=	21500		BaoXiang_jsmzfzb_Count	[	16	]	=	1	--	С№ЦЖЦ®ХИ
-	BaoXiang_jsmzfzb	[	17	]	=	1466		BaoXiang_jsmzfzb_Rad	[	17	]	=	21500		BaoXiang_jsmzfzb_Count	[	17	]	=	1	--	»оБ¦ИЁХИ
-	BaoXiang_jsmzfzb	[	18	]	=	1472		BaoXiang_jsmzfzb_Rad	[	18	]	=	21500		BaoXiang_jsmzfzb_Count	[	18	]	=	1	--	Е¬Б¦Ц®ХИ
+	BaoXiang_jsmzfzb	[	1	]	=	1906		BaoXiang_jsmzfzb_Rad	[	1	]	=	100 		BaoXiang_jsmzfzb_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jsmzfzb	[	2	]	=	1914		BaoXiang_jsmzfzb_Rad	[	2	]	=	30		BaoXiang_jsmzfzb_Count	[	2	]	=	1	--	?????????
+	BaoXiang_jsmzfzb	[	3	]	=	1915		BaoXiang_jsmzfzb_Rad	[	3	]	=	10		BaoXiang_jsmzfzb_Count	[	3	]	=	1	--	?????????
+	BaoXiang_jsmzfzb	[	4	]	=	1916		BaoXiang_jsmzfzb_Rad	[	4	]	=	5		BaoXiang_jsmzfzb_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jsmzfzb	[	5	]	=	0112		BaoXiang_jsmzfzb_Rad	[	5	]	=	40		BaoXiang_jsmzfzb_Count	[	5	]	=	1	--	????
+	BaoXiang_jsmzfzb	[	6	]	=	1439		BaoXiang_jsmzfzb_Rad	[	6	]	=	80		BaoXiang_jsmzfzb_Count	[	6	]	=	1	--	????
+	BaoXiang_jsmzfzb	[	7	]	=	1474		BaoXiang_jsmzfzb_Rad	[	7	]	=	80		BaoXiang_jsmzfzb_Count	[	7	]	=	1	--	????
+	BaoXiang_jsmzfzb	[	8	]	=	3812		BaoXiang_jsmzfzb_Rad	[	8	]	=	80		BaoXiang_jsmzfzb_Count	[	8	]	=	1	--	????
+	BaoXiang_jsmzfzb	[	9	]	=	4300		BaoXiang_jsmzfzb_Rad	[	9	]	=	80		BaoXiang_jsmzfzb_Count	[	9	]	=	1	--	????
+	BaoXiang_jsmzfzb	[	10	]	=	1432		BaoXiang_jsmzfzb_Rad	[	10	]	=	200		BaoXiang_jsmzfzb_Count	[	10	]	=	1	--	????
+	BaoXiang_jsmzfzb	[	11	]	=	1438		BaoXiang_jsmzfzb_Rad	[	11	]	=	200		BaoXiang_jsmzfzb_Count	[	11	]	=	1	--	????
+	BaoXiang_jsmzfzb	[	12	]	=	1467		BaoXiang_jsmzfzb_Rad	[	12	]	=	200		BaoXiang_jsmzfzb_Count	[	12	]	=	1	--	????
+	BaoXiang_jsmzfzb	[	13	]	=	1473		BaoXiang_jsmzfzb_Rad	[	13	]	=	200		BaoXiang_jsmzfzb_Count	[	13	]	=	1	--	????
+	BaoXiang_jsmzfzb	[	14	]	=	3811		BaoXiang_jsmzfzb_Rad	[	14	]	=	200		BaoXiang_jsmzfzb_Count	[	14	]	=	1	--	?????
+	BaoXiang_jsmzfzb	[	15	]	=	1431		BaoXiang_jsmzfzb_Rad	[	15	]	=	21500		BaoXiang_jsmzfzb_Count	[	15	]	=	1	--	????
+	BaoXiang_jsmzfzb	[	16	]	=	1437		BaoXiang_jsmzfzb_Rad	[	16	]	=	21500		BaoXiang_jsmzfzb_Count	[	16	]	=	1	--	????
+	BaoXiang_jsmzfzb	[	17	]	=	1466		BaoXiang_jsmzfzb_Rad	[	17	]	=	21500		BaoXiang_jsmzfzb_Count	[	17	]	=	1	--	????
+	BaoXiang_jsmzfzb	[	18	]	=	1472		BaoXiang_jsmzfzb_Rad	[	18	]	=	21500		BaoXiang_jsmzfzb_Count	[	18	]	=	1	--	????
 																						
 																						
---	ГФ·ЁЦ®ХИ±¦Пд24РН												w0063									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????24?												w0063									
+--	????							??????														
 	BaoXiang_jsmfzza_Qua	=	24	 				BaoXiang_jsmfzza_Mxcount	=	25												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsmfzza	=	{}					BaoXiang_jsmfzza_Rad	=	{}					BaoXiang_jsmfzza_Count	=	{}					
-	BaoXiang_jsmfzza	[	1	]	=	1906		BaoXiang_jsmfzza_Rad	[	1	]	=	100 		BaoXiang_jsmfzza_Count	[	1	]	=	1	--	І»ЛА·вУЎµДЖЖД§·ЁХИ
-	BaoXiang_jsmfzza	[	2	]	=	1907		BaoXiang_jsmfzza_Rad	[	2	]	=	30		BaoXiang_jsmfzza_Count	[	2	]	=	1	--	ОЫДа·вУЎµДЦдКхЦ®ХИ
-	BaoXiang_jsmfzza	[	3	]	=	1908		BaoXiang_jsmfzza_Rad	[	3	]	=	20		BaoXiang_jsmfzza_Count	[	3	]	=	1	--	БТСж·вУЎµД»ГБйѕ«Йс·ЁХИ
-	BaoXiang_jsmfzza	[	4	]	=	1909		BaoXiang_jsmfzza_Rad	[	4	]	=	1		BaoXiang_jsmfzza_Count	[	4	]	=	1	--	є®±щ·вУЎµДГФ·ЁЦ®ХИ
-	BaoXiang_jsmfzza	[	5	]	=	0110		BaoXiang_jsmfzza_Rad	[	5	]	=	50		BaoXiang_jsmfzza_Count	[	5	]	=	1	--	І№МмЦ®ХИ
-	BaoXiang_jsmfzza	[	6	]	=	4198		BaoXiang_jsmfzza_Rad	[	6	]	=	50		BaoXiang_jsmfzza_Count	[	6	]	=	1	--	Бй»кФґИЄ
-	BaoXiang_jsmfzza	[	7	]	=	1442		BaoXiang_jsmfzza_Rad	[	7	]	=	60		BaoXiang_jsmfzza_Count	[	7	]	=	1	--	МмК№Ц®Аб
-	BaoXiang_jsmfzza	[	8	]	=	1477		BaoXiang_jsmfzza_Rad	[	8	]	=	60		BaoXiang_jsmfzza_Count	[	8	]	=	1	--	±Ї°§Ц®СЫ
-	BaoXiang_jsmfzza	[	9	]	=	3815		BaoXiang_jsmfzza_Rad	[	9	]	=	60		BaoXiang_jsmfzza_Count	[	9	]	=	1	--	рЅ·п·ЁХИ
-	BaoXiang_jsmfzza	[	10	]	=	4197		BaoXiang_jsmfzza_Rad	[	10	]	=	60		BaoXiang_jsmfzza_Count	[	10	]	=	1	--	ј«є®Ц®»р
-	BaoXiang_jsmfzza	[	11	]	=	4303		BaoXiang_jsmfzza_Rad	[	11	]	=	60		BaoXiang_jsmfzza_Count	[	11	]	=	1	--	ЙсЦ®ЦёТэ
-	BaoXiang_jsmfzza	[	12	]	=	4303		BaoXiang_jsmfzza_Rad	[	12	]	=	60		BaoXiang_jsmfzza_Count	[	12	]	=	1	--	ЙсЦ®ЦёТэ
-	BaoXiang_jsmfzza	[	13	]	=	0103		BaoXiang_jsmfzza_Rad	[	13	]	=	130		BaoXiang_jsmfzza_Count	[	13	]	=	1	--	ЙъГьЦ®№в
-	BaoXiang_jsmfzza	[	14	]	=	1433		BaoXiang_jsmfzza_Rad	[	14	]	=	130		BaoXiang_jsmfzza_Count	[	14	]	=	1	--	ЗгМэЙсХИ
-	BaoXiang_jsmfzza	[	15	]	=	1441		BaoXiang_jsmfzza_Rad	[	15	]	=	130		BaoXiang_jsmfzza_Count	[	15	]	=	1	--	ёЗСЕЙсХИ
-	BaoXiang_jsmfzza	[	16	]	=	1468		BaoXiang_jsmfzza_Rad	[	16	]	=	130		BaoXiang_jsmfzza_Count	[	16	]	=	1	--	Йс№ЩЦ®ХИ
-	BaoXiang_jsmfzza	[	17	]	=	1476		BaoXiang_jsmfzza_Rad	[	17	]	=	130		BaoXiang_jsmfzza_Count	[	17	]	=	1	--	КшёїЦ®ХИ
-	BaoXiang_jsmfzza	[	18	]	=	0103		BaoXiang_jsmfzza_Rad	[	18	]	=	130		BaoXiang_jsmfzza_Count	[	18	]	=	1	--	ЙъГьЦ®№в
-	BaoXiang_jsmfzza	[	19	]	=	3814		BaoXiang_jsmfzza_Rad	[	19	]	=	130		BaoXiang_jsmfzza_Count	[	19	]	=	1	--	ПЈНыЦ®ХИ
-	BaoXiang_jsmfzza	[	20	]	=	1430		BaoXiang_jsmfzza_Rad	[	20	]	=	14500		BaoXiang_jsmfzza_Count	[	20	]	=	1	--	ЙсКҐИЁХИ
-	BaoXiang_jsmfzza	[	21	]	=	1437		BaoXiang_jsmfzza_Rad	[	21	]	=	14500		BaoXiang_jsmfzza_Count	[	21	]	=	1	--	С№ЦЖЦ®ХИ
-	BaoXiang_jsmfzza	[	22	]	=	1465		BaoXiang_jsmfzza_Rad	[	22	]	=	14500		BaoXiang_jsmfzza_Count	[	22	]	=	1	--	№в»ЄИЁХИ
-	BaoXiang_jsmfzza	[	23	]	=	1475		BaoXiang_jsmfzza_Rad	[	23	]	=	14500		BaoXiang_jsmfzza_Count	[	23	]	=	1	--	НЁБйЦ®ХИ
-	BaoXiang_jsmfzza	[	24	]	=	3813		BaoXiang_jsmfzza_Rad	[	24	]	=	14500		BaoXiang_jsmfzza_Count	[	24	]	=	1	--	Т«ИХУЎјЗ
-	BaoXiang_jsmfzza	[	25	]	=	4301		BaoXiang_jsmfzza_Rad	[	25	]	=	14500		BaoXiang_jsmfzza_Count	[	25	]	=	1	--	ЦЗ»ЫЦ®ХИ
+	BaoXiang_jsmfzza	[	1	]	=	1906		BaoXiang_jsmfzza_Rad	[	1	]	=	100 		BaoXiang_jsmfzza_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jsmfzza	[	2	]	=	1907		BaoXiang_jsmfzza_Rad	[	2	]	=	30		BaoXiang_jsmfzza_Count	[	2	]	=	1	--	?????????
+	BaoXiang_jsmfzza	[	3	]	=	1908		BaoXiang_jsmfzza_Rad	[	3	]	=	20		BaoXiang_jsmfzza_Count	[	3	]	=	1	--	???????????
+	BaoXiang_jsmfzza	[	4	]	=	1909		BaoXiang_jsmfzza_Rad	[	4	]	=	1		BaoXiang_jsmfzza_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jsmfzza	[	5	]	=	0110		BaoXiang_jsmfzza_Rad	[	5	]	=	50		BaoXiang_jsmfzza_Count	[	5	]	=	1	--	????
+	BaoXiang_jsmfzza	[	6	]	=	4198		BaoXiang_jsmfzza_Rad	[	6	]	=	50		BaoXiang_jsmfzza_Count	[	6	]	=	1	--	????
+	BaoXiang_jsmfzza	[	7	]	=	1442		BaoXiang_jsmfzza_Rad	[	7	]	=	60		BaoXiang_jsmfzza_Count	[	7	]	=	1	--	????
+	BaoXiang_jsmfzza	[	8	]	=	1477		BaoXiang_jsmfzza_Rad	[	8	]	=	60		BaoXiang_jsmfzza_Count	[	8	]	=	1	--	????
+	BaoXiang_jsmfzza	[	9	]	=	3815		BaoXiang_jsmfzza_Rad	[	9	]	=	60		BaoXiang_jsmfzza_Count	[	9	]	=	1	--	????
+	BaoXiang_jsmfzza	[	10	]	=	4197		BaoXiang_jsmfzza_Rad	[	10	]	=	60		BaoXiang_jsmfzza_Count	[	10	]	=	1	--	????
+	BaoXiang_jsmfzza	[	11	]	=	4303		BaoXiang_jsmfzza_Rad	[	11	]	=	60		BaoXiang_jsmfzza_Count	[	11	]	=	1	--	????
+	BaoXiang_jsmfzza	[	12	]	=	4303		BaoXiang_jsmfzza_Rad	[	12	]	=	60		BaoXiang_jsmfzza_Count	[	12	]	=	1	--	????
+	BaoXiang_jsmfzza	[	13	]	=	0103		BaoXiang_jsmfzza_Rad	[	13	]	=	130		BaoXiang_jsmfzza_Count	[	13	]	=	1	--	????
+	BaoXiang_jsmfzza	[	14	]	=	1433		BaoXiang_jsmfzza_Rad	[	14	]	=	130		BaoXiang_jsmfzza_Count	[	14	]	=	1	--	????
+	BaoXiang_jsmfzza	[	15	]	=	1441		BaoXiang_jsmfzza_Rad	[	15	]	=	130		BaoXiang_jsmfzza_Count	[	15	]	=	1	--	????
+	BaoXiang_jsmfzza	[	16	]	=	1468		BaoXiang_jsmfzza_Rad	[	16	]	=	130		BaoXiang_jsmfzza_Count	[	16	]	=	1	--	????
+	BaoXiang_jsmfzza	[	17	]	=	1476		BaoXiang_jsmfzza_Rad	[	17	]	=	130		BaoXiang_jsmfzza_Count	[	17	]	=	1	--	????
+	BaoXiang_jsmfzza	[	18	]	=	0103		BaoXiang_jsmfzza_Rad	[	18	]	=	130		BaoXiang_jsmfzza_Count	[	18	]	=	1	--	????
+	BaoXiang_jsmfzza	[	19	]	=	3814		BaoXiang_jsmfzza_Rad	[	19	]	=	130		BaoXiang_jsmfzza_Count	[	19	]	=	1	--	????
+	BaoXiang_jsmfzza	[	20	]	=	1430		BaoXiang_jsmfzza_Rad	[	20	]	=	14500		BaoXiang_jsmfzza_Count	[	20	]	=	1	--	????
+	BaoXiang_jsmfzza	[	21	]	=	1437		BaoXiang_jsmfzza_Rad	[	21	]	=	14500		BaoXiang_jsmfzza_Count	[	21	]	=	1	--	????
+	BaoXiang_jsmfzza	[	22	]	=	1465		BaoXiang_jsmfzza_Rad	[	22	]	=	14500		BaoXiang_jsmfzza_Count	[	22	]	=	1	--	????
+	BaoXiang_jsmfzza	[	23	]	=	1475		BaoXiang_jsmfzza_Rad	[	23	]	=	14500		BaoXiang_jsmfzza_Count	[	23	]	=	1	--	????
+	BaoXiang_jsmfzza	[	24	]	=	3813		BaoXiang_jsmfzza_Rad	[	24	]	=	14500		BaoXiang_jsmfzza_Count	[	24	]	=	1	--	????
+	BaoXiang_jsmfzza	[	25	]	=	4301		BaoXiang_jsmfzza_Rad	[	25	]	=	14500		BaoXiang_jsmfzza_Count	[	25	]	=	1	--	????
 
 																						
---	ГФ·ЁЦ®ХИ±¦Пд23РН												w0063									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????23?												w0063									
+--	????							??????														
 	BaoXiang_jsmfzzb_Qua	=	23	 				BaoXiang_jsmfzzb_Mxcount	=	25												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsmfzzb	=	{}					BaoXiang_jsmfzzb_Rad	=	{}					BaoXiang_jsmfzzb_Count	=	{}					
-	BaoXiang_jsmfzzb	[	1	]	=	1906		BaoXiang_jsmfzzb_Rad	[	1	]	=	100 		BaoXiang_jsmfzzb_Count	[	1	]	=	1	--	І»ЛА·вУЎµДЖЖД§·ЁХИ
-	BaoXiang_jsmfzzb	[	2	]	=	1907		BaoXiang_jsmfzzb_Rad	[	2	]	=	30		BaoXiang_jsmfzzb_Count	[	2	]	=	1	--	ОЫДа·вУЎµДЦдКхЦ®ХИ
-	BaoXiang_jsmfzzb	[	3	]	=	1908		BaoXiang_jsmfzzb_Rad	[	3	]	=	10		BaoXiang_jsmfzzb_Count	[	3	]	=	1	--	БТСж·вУЎµД»ГБйѕ«Йс·ЁХИ
-	BaoXiang_jsmfzzb	[	4	]	=	1909		BaoXiang_jsmfzzb_Rad	[	4	]	=	5		BaoXiang_jsmfzzb_Count	[	4	]	=	1	--	є®±щ·вУЎµДГФ·ЁЦ®ХИ
-	BaoXiang_jsmfzzb	[	5	]	=	0110		BaoXiang_jsmfzzb_Rad	[	5	]	=	40		BaoXiang_jsmfzzb_Count	[	5	]	=	1	--	І№МмЦ®ХИ
-	BaoXiang_jsmfzzb	[	6	]	=	4198		BaoXiang_jsmfzzb_Rad	[	6	]	=	40		BaoXiang_jsmfzzb_Count	[	6	]	=	1	--	Бй»кФґИЄ
-	BaoXiang_jsmfzzb	[	7	]	=	1442		BaoXiang_jsmfzzb_Rad	[	7	]	=	50		BaoXiang_jsmfzzb_Count	[	7	]	=	1	--	МмК№Ц®Аб
-	BaoXiang_jsmfzzb	[	8	]	=	1477		BaoXiang_jsmfzzb_Rad	[	8	]	=	50		BaoXiang_jsmfzzb_Count	[	8	]	=	1	--	±Ї°§Ц®СЫ
-	BaoXiang_jsmfzzb	[	9	]	=	3815		BaoXiang_jsmfzzb_Rad	[	9	]	=	50		BaoXiang_jsmfzzb_Count	[	9	]	=	1	--	рЅ·п·ЁХИ
-	BaoXiang_jsmfzzb	[	10	]	=	4197		BaoXiang_jsmfzzb_Rad	[	10	]	=	50		BaoXiang_jsmfzzb_Count	[	10	]	=	1	--	ј«є®Ц®»р
-	BaoXiang_jsmfzzb	[	11	]	=	4303		BaoXiang_jsmfzzb_Rad	[	11	]	=	50		BaoXiang_jsmfzzb_Count	[	11	]	=	1	--	ЙсЦ®ЦёТэ
-	BaoXiang_jsmfzzb	[	12	]	=	4303		BaoXiang_jsmfzzb_Rad	[	12	]	=	50		BaoXiang_jsmfzzb_Count	[	12	]	=	1	--	ЙсЦ®ЦёТэ
-	BaoXiang_jsmfzzb	[	13	]	=	0103		BaoXiang_jsmfzzb_Rad	[	13	]	=	130		BaoXiang_jsmfzzb_Count	[	13	]	=	1	--	ЙъГьЦ®№в
-	BaoXiang_jsmfzzb	[	14	]	=	1433		BaoXiang_jsmfzzb_Rad	[	14	]	=	130		BaoXiang_jsmfzzb_Count	[	14	]	=	1	--	ЗгМэЙсХИ
-	BaoXiang_jsmfzzb	[	15	]	=	1441		BaoXiang_jsmfzzb_Rad	[	15	]	=	130		BaoXiang_jsmfzzb_Count	[	15	]	=	1	--	ёЗСЕЙсХИ
-	BaoXiang_jsmfzzb	[	16	]	=	1468		BaoXiang_jsmfzzb_Rad	[	16	]	=	130		BaoXiang_jsmfzzb_Count	[	16	]	=	1	--	Йс№ЩЦ®ХИ
-	BaoXiang_jsmfzzb	[	17	]	=	1476		BaoXiang_jsmfzzb_Rad	[	17	]	=	130		BaoXiang_jsmfzzb_Count	[	17	]	=	1	--	КшёїЦ®ХИ
-	BaoXiang_jsmfzzb	[	18	]	=	0103		BaoXiang_jsmfzzb_Rad	[	18	]	=	130		BaoXiang_jsmfzzb_Count	[	18	]	=	1	--	ЙъГьЦ®№в
-	BaoXiang_jsmfzzb	[	19	]	=	3814		BaoXiang_jsmfzzb_Rad	[	19	]	=	130		BaoXiang_jsmfzzb_Count	[	19	]	=	1	--	ПЈНыЦ®ХИ
-	BaoXiang_jsmfzzb	[	20	]	=	1430		BaoXiang_jsmfzzb_Rad	[	20	]	=	14500		BaoXiang_jsmfzzb_Count	[	20	]	=	1	--	ЙсКҐИЁХИ
-	BaoXiang_jsmfzzb	[	21	]	=	1437		BaoXiang_jsmfzzb_Rad	[	21	]	=	14500		BaoXiang_jsmfzzb_Count	[	21	]	=	1	--	С№ЦЖЦ®ХИ
-	BaoXiang_jsmfzzb	[	22	]	=	1465		BaoXiang_jsmfzzb_Rad	[	22	]	=	14500		BaoXiang_jsmfzzb_Count	[	22	]	=	1	--	№в»ЄИЁХИ
-	BaoXiang_jsmfzzb	[	23	]	=	1475		BaoXiang_jsmfzzb_Rad	[	23	]	=	14500		BaoXiang_jsmfzzb_Count	[	23	]	=	1	--	НЁБйЦ®ХИ
-	BaoXiang_jsmfzzb	[	24	]	=	3813		BaoXiang_jsmfzzb_Rad	[	24	]	=	14500		BaoXiang_jsmfzzb_Count	[	24	]	=	1	--	Т«ИХУЎјЗ
-	BaoXiang_jsmfzzb	[	25	]	=	4301		BaoXiang_jsmfzzb_Rad	[	25	]	=	14500		BaoXiang_jsmfzzb_Count	[	25	]	=	1	--	ЦЗ»ЫЦ®ХИ
+	BaoXiang_jsmfzzb	[	1	]	=	1906		BaoXiang_jsmfzzb_Rad	[	1	]	=	100 		BaoXiang_jsmfzzb_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jsmfzzb	[	2	]	=	1907		BaoXiang_jsmfzzb_Rad	[	2	]	=	30		BaoXiang_jsmfzzb_Count	[	2	]	=	1	--	?????????
+	BaoXiang_jsmfzzb	[	3	]	=	1908		BaoXiang_jsmfzzb_Rad	[	3	]	=	10		BaoXiang_jsmfzzb_Count	[	3	]	=	1	--	???????????
+	BaoXiang_jsmfzzb	[	4	]	=	1909		BaoXiang_jsmfzzb_Rad	[	4	]	=	5		BaoXiang_jsmfzzb_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jsmfzzb	[	5	]	=	0110		BaoXiang_jsmfzzb_Rad	[	5	]	=	40		BaoXiang_jsmfzzb_Count	[	5	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	6	]	=	4198		BaoXiang_jsmfzzb_Rad	[	6	]	=	40		BaoXiang_jsmfzzb_Count	[	6	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	7	]	=	1442		BaoXiang_jsmfzzb_Rad	[	7	]	=	50		BaoXiang_jsmfzzb_Count	[	7	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	8	]	=	1477		BaoXiang_jsmfzzb_Rad	[	8	]	=	50		BaoXiang_jsmfzzb_Count	[	8	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	9	]	=	3815		BaoXiang_jsmfzzb_Rad	[	9	]	=	50		BaoXiang_jsmfzzb_Count	[	9	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	10	]	=	4197		BaoXiang_jsmfzzb_Rad	[	10	]	=	50		BaoXiang_jsmfzzb_Count	[	10	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	11	]	=	4303		BaoXiang_jsmfzzb_Rad	[	11	]	=	50		BaoXiang_jsmfzzb_Count	[	11	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	12	]	=	4303		BaoXiang_jsmfzzb_Rad	[	12	]	=	50		BaoXiang_jsmfzzb_Count	[	12	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	13	]	=	0103		BaoXiang_jsmfzzb_Rad	[	13	]	=	130		BaoXiang_jsmfzzb_Count	[	13	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	14	]	=	1433		BaoXiang_jsmfzzb_Rad	[	14	]	=	130		BaoXiang_jsmfzzb_Count	[	14	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	15	]	=	1441		BaoXiang_jsmfzzb_Rad	[	15	]	=	130		BaoXiang_jsmfzzb_Count	[	15	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	16	]	=	1468		BaoXiang_jsmfzzb_Rad	[	16	]	=	130		BaoXiang_jsmfzzb_Count	[	16	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	17	]	=	1476		BaoXiang_jsmfzzb_Rad	[	17	]	=	130		BaoXiang_jsmfzzb_Count	[	17	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	18	]	=	0103		BaoXiang_jsmfzzb_Rad	[	18	]	=	130		BaoXiang_jsmfzzb_Count	[	18	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	19	]	=	3814		BaoXiang_jsmfzzb_Rad	[	19	]	=	130		BaoXiang_jsmfzzb_Count	[	19	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	20	]	=	1430		BaoXiang_jsmfzzb_Rad	[	20	]	=	14500		BaoXiang_jsmfzzb_Count	[	20	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	21	]	=	1437		BaoXiang_jsmfzzb_Rad	[	21	]	=	14500		BaoXiang_jsmfzzb_Count	[	21	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	22	]	=	1465		BaoXiang_jsmfzzb_Rad	[	22	]	=	14500		BaoXiang_jsmfzzb_Count	[	22	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	23	]	=	1475		BaoXiang_jsmfzzb_Rad	[	23	]	=	14500		BaoXiang_jsmfzzb_Count	[	23	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	24	]	=	3813		BaoXiang_jsmfzzb_Rad	[	24	]	=	14500		BaoXiang_jsmfzzb_Count	[	24	]	=	1	--	????
+	BaoXiang_jsmfzzb	[	25	]	=	4301		BaoXiang_jsmfzzb_Rad	[	25	]	=	14500		BaoXiang_jsmfzzb_Count	[	25	]	=	1	--	????
 
 																						
---	ГФЦ®і¤З№±¦Пд24РН												w0027									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????24?												w0027									
+--	????							??????														
 	BaoXiang_jsmzcqa_Qua	=	24	 				BaoXiang_jsmzcqa_Mxcount	=	20												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsmzcqa	=	{}					BaoXiang_jsmzcqa_Rad	=	{}					BaoXiang_jsmzcqa_Count	=	{}					
-	BaoXiang_jsmzcqa	[	1	]	=	1902		BaoXiang_jsmzcqa_Rad	[	1	]	=	100 		BaoXiang_jsmzcqa_Count	[	1	]	=	1	--	І»ЛА·вУЎµДНцБйЦ®ґҐ
-	BaoXiang_jsmzcqa	[	2	]	=	1903		BaoXiang_jsmzcqa_Rad	[	2	]	=	30 		BaoXiang_jsmzcqa_Count	[	2	]	=	1	--	ОЫДа·вУЎµДЧзЦдЦ®ОЗ
-	BaoXiang_jsmzcqa	[	3	]	=	1904		BaoXiang_jsmzcqa_Rad	[	3	]	=	20 		BaoXiang_jsmzcqa_Count	[	3	]	=	1	--	БТСж·вУЎµД»ГБйЦ®Е­єр
-	BaoXiang_jsmzcqa	[	4	]	=	1905		BaoXiang_jsmzcqa_Rad	[	4	]	=	1 		BaoXiang_jsmzcqa_Count	[	4	]	=	1	--	є®±щ·вУЎµДГФЦ®і¤З№
-	BaoXiang_jsmzcqa	[	5	]	=	0120		BaoXiang_jsmzcqa_Rad	[	5	]	=	50		BaoXiang_jsmzcqa_Count	[	5	]	=	1	--	ЕщцЁЙсАЧ
-	BaoXiang_jsmzcqa	[	6	]	=	0042		BaoXiang_jsmzcqa_Rad	[	6	]	=	50		BaoXiang_jsmzcqa_Count	[	6	]	=	1	--	¶ѕРЗЗ№
-	BaoXiang_jsmzcqa	[	7	]	=	0041		BaoXiang_jsmzcqa_Rad	[	7	]	=	60		BaoXiang_jsmzcqa_Count	[	7	]	=	1	--	КҐ№вЗ№
-	BaoXiang_jsmzcqa	[	8	]	=	1410		BaoXiang_jsmzcqa_Rad	[	8	]	=	60		BaoXiang_jsmzcqa_Count	[	8	]	=	1	--	МмЙсЦ®·Ј
-	BaoXiang_jsmzcqa	[	9	]	=	3808		BaoXiang_jsmzcqa_Rad	[	9	]	=	60		BaoXiang_jsmzcqa_Count	[	9	]	=	1	--	°Ч»ўБФЗ№
-	BaoXiang_jsmzcqa	[	10	]	=	4214		BaoXiang_jsmzcqa_Rad	[	10	]	=	60		BaoXiang_jsmzcqa_Count	[	10	]	=	1	--	ПмОІЙЯ
-	BaoXiang_jsmzcqa	[	11	]	=	4215		BaoXiang_jsmzcqa_Rad	[	11	]	=	60		BaoXiang_jsmzcqa_Count	[	11	]	=	1	--	ЙЯГщЗ№
-	BaoXiang_jsmzcqa	[	12	]	=	0040		BaoXiang_jsmzcqa_Rad	[	12	]	=	2500		BaoXiang_jsmzcqa_Count	[	12	]	=	1	--	ѕ«ЦВБФЗ№
-	BaoXiang_jsmzcqa	[	13	]	=	0045		BaoXiang_jsmzcqa_Rad	[	13	]	=	2500		BaoXiang_jsmzcqa_Count	[	13	]	=	1	--	ЛЩЙд»рЗ№
-	BaoXiang_jsmzcqa	[	14	]	=	1409		BaoXiang_jsmzcqa_Rad	[	14	]	=	2500		BaoXiang_jsmzcqa_Count	[	14	]	=	1	--	ХЅ¶·і¤З№
-	BaoXiang_jsmzcqa	[	15	]	=	1414		BaoXiang_jsmzcqa_Rad	[	15	]	=	2500		BaoXiang_jsmzcqa_Count	[	15	]	=	1	--	УДБй»рЗ№
-	BaoXiang_jsmzcqa	[	16	]	=	0039		BaoXiang_jsmzcqa_Rad	[	16	]	=	17000		BaoXiang_jsmzcqa_Count	[	16	]	=	1	--	ѕ«ЦВКЦЗ№
-	BaoXiang_jsmzcqa	[	17	]	=	0044		BaoXiang_jsmzcqa_Rad	[	17	]	=	17000		BaoXiang_jsmzcqa_Count	[	17	]	=	1	--	АсЖ·КЦЗ№
-	BaoXiang_jsmzcqa	[	18	]	=	1408		BaoXiang_jsmzcqa_Rad	[	18	]	=	17000		BaoXiang_jsmzcqa_Count	[	18	]	=	1	--	РдХдКЦЗ№
-	BaoXiang_jsmzcqa	[	19	]	=	1413		BaoXiang_jsmzcqa_Rad	[	19	]	=	17000		BaoXiang_jsmzcqa_Count	[	19	]	=	1	--	ТшЦЖКЦЗ№
-	BaoXiang_jsmzcqa	[	20	]	=	3806		BaoXiang_jsmzcqa_Rad	[	20	]	=	17000		BaoXiang_jsmzcqa_Count	[	20	]	=	1	--	БТ»рКЦЗ№
+	BaoXiang_jsmzcqa	[	1	]	=	1902		BaoXiang_jsmzcqa_Rad	[	1	]	=	100 		BaoXiang_jsmzcqa_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jsmzcqa	[	2	]	=	1903		BaoXiang_jsmzcqa_Rad	[	2	]	=	30 		BaoXiang_jsmzcqa_Count	[	2	]	=	1	--	?????????
+	BaoXiang_jsmzcqa	[	3	]	=	1904		BaoXiang_jsmzcqa_Rad	[	3	]	=	20 		BaoXiang_jsmzcqa_Count	[	3	]	=	1	--	??????????
+	BaoXiang_jsmzcqa	[	4	]	=	1905		BaoXiang_jsmzcqa_Rad	[	4	]	=	1 		BaoXiang_jsmzcqa_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jsmzcqa	[	5	]	=	0120		BaoXiang_jsmzcqa_Rad	[	5	]	=	50		BaoXiang_jsmzcqa_Count	[	5	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	6	]	=	0042		BaoXiang_jsmzcqa_Rad	[	6	]	=	50		BaoXiang_jsmzcqa_Count	[	6	]	=	1	--	???
+	BaoXiang_jsmzcqa	[	7	]	=	0041		BaoXiang_jsmzcqa_Rad	[	7	]	=	60		BaoXiang_jsmzcqa_Count	[	7	]	=	1	--	???
+	BaoXiang_jsmzcqa	[	8	]	=	1410		BaoXiang_jsmzcqa_Rad	[	8	]	=	60		BaoXiang_jsmzcqa_Count	[	8	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	9	]	=	3808		BaoXiang_jsmzcqa_Rad	[	9	]	=	60		BaoXiang_jsmzcqa_Count	[	9	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	10	]	=	4214		BaoXiang_jsmzcqa_Rad	[	10	]	=	60		BaoXiang_jsmzcqa_Count	[	10	]	=	1	--	???
+	BaoXiang_jsmzcqa	[	11	]	=	4215		BaoXiang_jsmzcqa_Rad	[	11	]	=	60		BaoXiang_jsmzcqa_Count	[	11	]	=	1	--	???
+	BaoXiang_jsmzcqa	[	12	]	=	0040		BaoXiang_jsmzcqa_Rad	[	12	]	=	2500		BaoXiang_jsmzcqa_Count	[	12	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	13	]	=	0045		BaoXiang_jsmzcqa_Rad	[	13	]	=	2500		BaoXiang_jsmzcqa_Count	[	13	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	14	]	=	1409		BaoXiang_jsmzcqa_Rad	[	14	]	=	2500		BaoXiang_jsmzcqa_Count	[	14	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	15	]	=	1414		BaoXiang_jsmzcqa_Rad	[	15	]	=	2500		BaoXiang_jsmzcqa_Count	[	15	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	16	]	=	0039		BaoXiang_jsmzcqa_Rad	[	16	]	=	17000		BaoXiang_jsmzcqa_Count	[	16	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	17	]	=	0044		BaoXiang_jsmzcqa_Rad	[	17	]	=	17000		BaoXiang_jsmzcqa_Count	[	17	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	18	]	=	1408		BaoXiang_jsmzcqa_Rad	[	18	]	=	17000		BaoXiang_jsmzcqa_Count	[	18	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	19	]	=	1413		BaoXiang_jsmzcqa_Rad	[	19	]	=	17000		BaoXiang_jsmzcqa_Count	[	19	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	20	]	=	3806		BaoXiang_jsmzcqa_Rad	[	20	]	=	17000		BaoXiang_jsmzcqa_Count	[	20	]	=	1	--	????
 
 																						
---	ГФЦ®і¤З№±¦Пд23РН												w0027									
---	ОпЖ·ЦКБї							±¦ПдОпЖ·ЙППЮ														
+--	??????23?												w0027									
+--	????							??????														
 	BaoXiang_jsmzcqa_Qua	=	23	 				BaoXiang_jsmzcqa_Mxcount	=	20												
 																						
---	ОпЖ·ЦЦАа							ОпЖ·ёЕВК														
+--	????							????														
 	BaoXiang_jsmzcqa	=	{}					BaoXiang_jsmzcqa_Rad	=	{}					BaoXiang_jsmzcqa_Count	=	{}					
-	BaoXiang_jsmzcqa	[	1	]	=	1902		BaoXiang_jsmzcqa_Rad	[	1	]	=	100 		BaoXiang_jsmzcqa_Count	[	1	]	=	1	--	І»ЛА·вУЎµДНцБйЦ®ґҐ
-	BaoXiang_jsmzcqa	[	2	]	=	1903		BaoXiang_jsmzcqa_Rad	[	2	]	=	30 		BaoXiang_jsmzcqa_Count	[	2	]	=	1	--	ОЫДа·вУЎµДЧзЦдЦ®ОЗ
-	BaoXiang_jsmzcqa	[	3	]	=	1904		BaoXiang_jsmzcqa_Rad	[	3	]	=	10 		BaoXiang_jsmzcqa_Count	[	3	]	=	1	--	БТСж·вУЎµД»ГБйЦ®Е­єр
-	BaoXiang_jsmzcqa	[	4	]	=	1905		BaoXiang_jsmzcqa_Rad	[	4	]	=	5 		BaoXiang_jsmzcqa_Count	[	4	]	=	1	--	є®±щ·вУЎµДГФЦ®і¤З№
-	BaoXiang_jsmzcqa	[	5	]	=	0120		BaoXiang_jsmzcqa_Rad	[	5	]	=	40		BaoXiang_jsmzcqa_Count	[	5	]	=	1	--	ЕщцЁЙсАЧ
-	BaoXiang_jsmzcqa	[	6	]	=	0042		BaoXiang_jsmzcqa_Rad	[	6	]	=	40		BaoXiang_jsmzcqa_Count	[	6	]	=	1	--	¶ѕРЗЗ№
-	BaoXiang_jsmzcqa	[	7	]	=	0041		BaoXiang_jsmzcqa_Rad	[	7	]	=	50		BaoXiang_jsmzcqa_Count	[	7	]	=	1	--	КҐ№вЗ№
-	BaoXiang_jsmzcqa	[	8	]	=	1410		BaoXiang_jsmzcqa_Rad	[	8	]	=	50		BaoXiang_jsmzcqa_Count	[	8	]	=	1	--	МмЙсЦ®·Ј
-	BaoXiang_jsmzcqa	[	9	]	=	3808		BaoXiang_jsmzcqa_Rad	[	9	]	=	50		BaoXiang_jsmzcqa_Count	[	9	]	=	1	--	°Ч»ўБФЗ№
-	BaoXiang_jsmzcqa	[	10	]	=	4214		BaoXiang_jsmzcqa_Rad	[	10	]	=	50		BaoXiang_jsmzcqa_Count	[	10	]	=	1	--	ПмОІЙЯ
-	BaoXiang_jsmzcqa	[	11	]	=	4215		BaoXiang_jsmzcqa_Rad	[	11	]	=	50		BaoXiang_jsmzcqa_Count	[	11	]	=	1	--	ЙЯГщЗ№
-	BaoXiang_jsmzcqa	[	12	]	=	0040		BaoXiang_jsmzcqa_Rad	[	12	]	=	2500		BaoXiang_jsmzcqa_Count	[	12	]	=	1	--	ѕ«ЦВБФЗ№
-	BaoXiang_jsmzcqa	[	13	]	=	0045		BaoXiang_jsmzcqa_Rad	[	13	]	=	2500		BaoXiang_jsmzcqa_Count	[	13	]	=	1	--	ЛЩЙд»рЗ№
-	BaoXiang_jsmzcqa	[	14	]	=	1409		BaoXiang_jsmzcqa_Rad	[	14	]	=	2500		BaoXiang_jsmzcqa_Count	[	14	]	=	1	--	ХЅ¶·і¤З№
-	BaoXiang_jsmzcqa	[	15	]	=	1414		BaoXiang_jsmzcqa_Rad	[	15	]	=	2500		BaoXiang_jsmzcqa_Count	[	15	]	=	1	--	УДБй»рЗ№
-	BaoXiang_jsmzcqa	[	16	]	=	0039		BaoXiang_jsmzcqa_Rad	[	16	]	=	17500		BaoXiang_jsmzcqa_Count	[	16	]	=	1	--	ѕ«ЦВКЦЗ№
-	BaoXiang_jsmzcqa	[	17	]	=	0044		BaoXiang_jsmzcqa_Rad	[	17	]	=	17500		BaoXiang_jsmzcqa_Count	[	17	]	=	1	--	АсЖ·КЦЗ№
-	BaoXiang_jsmzcqa	[	18	]	=	1408		BaoXiang_jsmzcqa_Rad	[	18	]	=	17500		BaoXiang_jsmzcqa_Count	[	18	]	=	1	--	РдХдКЦЗ№
-	BaoXiang_jsmzcqa	[	19	]	=	1413		BaoXiang_jsmzcqa_Rad	[	19	]	=	17500		BaoXiang_jsmzcqa_Count	[	19	]	=	1	--	ТшЦЖКЦЗ№
-	BaoXiang_jsmzcqa	[	20	]	=	3806		BaoXiang_jsmzcqa_Rad	[	20	]	=	17500		BaoXiang_jsmzcqa_Count	[	20	]	=	1	--	БТ»рКЦЗ№
-		
-		
-	---Защита ГМ
-PlayerCanUseCmd = {}
- PlayerCanUseCmd["\195\240\224\244"] = 1 --Граф
- PlayerCanUseCmd["Graf"] = 1 --Граф
--- PlayerCanUseCmd["pkodev"] = 1
--- PlayerCanUseCmd["Administrator"] = 1
+	BaoXiang_jsmzcqa	[	1	]	=	1902		BaoXiang_jsmzcqa_Rad	[	1	]	=	100 		BaoXiang_jsmzcqa_Count	[	1	]	=	1	--	?????????
+	BaoXiang_jsmzcqa	[	2	]	=	1903		BaoXiang_jsmzcqa_Rad	[	2	]	=	30 		BaoXiang_jsmzcqa_Count	[	2	]	=	1	--	?????????
+	BaoXiang_jsmzcqa	[	3	]	=	1904		BaoXiang_jsmzcqa_Rad	[	3	]	=	10 		BaoXiang_jsmzcqa_Count	[	3	]	=	1	--	??????????
+	BaoXiang_jsmzcqa	[	4	]	=	1905		BaoXiang_jsmzcqa_Rad	[	4	]	=	5 		BaoXiang_jsmzcqa_Count	[	4	]	=	1	--	?????????
+	BaoXiang_jsmzcqa	[	5	]	=	0120		BaoXiang_jsmzcqa_Rad	[	5	]	=	40		BaoXiang_jsmzcqa_Count	[	5	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	6	]	=	0042		BaoXiang_jsmzcqa_Rad	[	6	]	=	40		BaoXiang_jsmzcqa_Count	[	6	]	=	1	--	???
+	BaoXiang_jsmzcqa	[	7	]	=	0041		BaoXiang_jsmzcqa_Rad	[	7	]	=	50		BaoXiang_jsmzcqa_Count	[	7	]	=	1	--	???
+	BaoXiang_jsmzcqa	[	8	]	=	1410		BaoXiang_jsmzcqa_Rad	[	8	]	=	50		BaoXiang_jsmzcqa_Count	[	8	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	9	]	=	3808		BaoXiang_jsmzcqa_Rad	[	9	]	=	50		BaoXiang_jsmzcqa_Count	[	9	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	10	]	=	4214		BaoXiang_jsmzcqa_Rad	[	10	]	=	50		BaoXiang_jsmzcqa_Count	[	10	]	=	1	--	???
+	BaoXiang_jsmzcqa	[	11	]	=	4215		BaoXiang_jsmzcqa_Rad	[	11	]	=	50		BaoXiang_jsmzcqa_Count	[	11	]	=	1	--	???
+	BaoXiang_jsmzcqa	[	12	]	=	0040		BaoXiang_jsmzcqa_Rad	[	12	]	=	2500		BaoXiang_jsmzcqa_Count	[	12	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	13	]	=	0045		BaoXiang_jsmzcqa_Rad	[	13	]	=	2500		BaoXiang_jsmzcqa_Count	[	13	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	14	]	=	1409		BaoXiang_jsmzcqa_Rad	[	14	]	=	2500		BaoXiang_jsmzcqa_Count	[	14	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	15	]	=	1414		BaoXiang_jsmzcqa_Rad	[	15	]	=	2500		BaoXiang_jsmzcqa_Count	[	15	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	16	]	=	0039		BaoXiang_jsmzcqa_Rad	[	16	]	=	17500		BaoXiang_jsmzcqa_Count	[	16	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	17	]	=	0044		BaoXiang_jsmzcqa_Rad	[	17	]	=	17500		BaoXiang_jsmzcqa_Count	[	17	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	18	]	=	1408		BaoXiang_jsmzcqa_Rad	[	18	]	=	17500		BaoXiang_jsmzcqa_Count	[	18	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	19	]	=	1413		BaoXiang_jsmzcqa_Rad	[	19	]	=	17500		BaoXiang_jsmzcqa_Count	[	19	]	=	1	--	????
+	BaoXiang_jsmzcqa	[	20	]	=	3806		BaoXiang_jsmzcqa_Rad	[	20	]	=	17500		BaoXiang_jsmzcqa_Count	[	20	]	=	1	--	????
+		-- 1?20--2?18
+-- 2?19--3?20
+-- 3?21--4?20
+-- 4?21--5?20
+-- 5?21--6?21
+-- 6?22--7?22
+-- 7?23--8?22
+-- 8?23--9?22
+-- 9?23--10?22
+-- 10?23--11?21
+-- 11?22--12?21
+-- 12?22--1?19
+xingZuoTime={}
+xingZuoTime[1]=120	--??							
+xingZuoTime[2]=219	--??
+xingZuoTime[3]=321	--??
+xingZuoTime[4]=421	--??
+xingZuoTime[5]=521	--??
+xingZuoTime[6]=622	--??
+xingZuoTime[7]=723	--??
+xingZuoTime[8]=823	--??	
+xingZuoTime[9]=923	--??	
+xingZuoTime[10]=1023 --??
+xingZuoTime[11]=1122	--??
+xingZuoTime[12]=1222	--??
+
+						
+GMSendANotice_Num= 53					--???
+GMSendANotice={}
+CALCULATE_VARIABLE_LUA_000046 = GetResString("CALCULATE_VARIABLE_LUA_000046")
+GMSendANotice[1]=	CALCULATE_VARIABLE_LUA_000046
+CALCULATE_VARIABLE_LUA_000047 = GetResString("CALCULATE_VARIABLE_LUA_000047")
+GMSendANotice[2]=	CALCULATE_VARIABLE_LUA_000047
+CALCULATE_VARIABLE_LUA_000048 = GetResString("CALCULATE_VARIABLE_LUA_000048")
+GMSendANotice[3]=	CALCULATE_VARIABLE_LUA_000048
+CALCULATE_VARIABLE_LUA_000049 = GetResString("CALCULATE_VARIABLE_LUA_000049")
+GMSendANotice[4]=	CALCULATE_VARIABLE_LUA_000049
+CALCULATE_VARIABLE_LUA_000050 = GetResString("CALCULATE_VARIABLE_LUA_000050")
+GMSendANotice[5]=	CALCULATE_VARIABLE_LUA_000050
+CALCULATE_VARIABLE_LUA_000051 = GetResString("CALCULATE_VARIABLE_LUA_000051")
+GMSendANotice[6]=	CALCULATE_VARIABLE_LUA_000051
+CALCULATE_VARIABLE_LUA_000052 = GetResString("CALCULATE_VARIABLE_LUA_000052")
+GMSendANotice[7]=	CALCULATE_VARIABLE_LUA_000052
+CALCULATE_VARIABLE_LUA_000053 = GetResString("CALCULATE_VARIABLE_LUA_000053")
+GMSendANotice[8]=	CALCULATE_VARIABLE_LUA_000053
+CALCULATE_VARIABLE_LUA_000054 = GetResString("CALCULATE_VARIABLE_LUA_000054")
+GMSendANotice[9]=	CALCULATE_VARIABLE_LUA_000054
+CALCULATE_VARIABLE_LUA_000055 = GetResString("CALCULATE_VARIABLE_LUA_000055")
+GMSendANotice[10]=	CALCULATE_VARIABLE_LUA_000055
+CALCULATE_VARIABLE_LUA_000056 = GetResString("CALCULATE_VARIABLE_LUA_000056")
+GMSendANotice[11]=	CALCULATE_VARIABLE_LUA_000056
+CALCULATE_VARIABLE_LUA_000057 = GetResString("CALCULATE_VARIABLE_LUA_000057")
+GMSendANotice[12]=	CALCULATE_VARIABLE_LUA_000057
+CALCULATE_VARIABLE_LUA_000058 = GetResString("CALCULATE_VARIABLE_LUA_000058")
+GMSendANotice[13]=	CALCULATE_VARIABLE_LUA_000058
+CALCULATE_VARIABLE_LUA_000059 = GetResString("CALCULATE_VARIABLE_LUA_000059")
+GMSendANotice[14]=	CALCULATE_VARIABLE_LUA_000059
+CALCULATE_VARIABLE_LUA_000060 = GetResString("CALCULATE_VARIABLE_LUA_000060")
+GMSendANotice[15]=	CALCULATE_VARIABLE_LUA_000060
+CALCULATE_VARIABLE_LUA_000061 = GetResString("CALCULATE_VARIABLE_LUA_000061")
+GMSendANotice[16]=	CALCULATE_VARIABLE_LUA_000061
+CALCULATE_VARIABLE_LUA_000062 = GetResString("CALCULATE_VARIABLE_LUA_000062")
+GMSendANotice[17]=	CALCULATE_VARIABLE_LUA_000062
+CALCULATE_VARIABLE_LUA_000063 = GetResString("CALCULATE_VARIABLE_LUA_000063")
+GMSendANotice[18]=	CALCULATE_VARIABLE_LUA_000063
+CALCULATE_VARIABLE_LUA_000064 = GetResString("CALCULATE_VARIABLE_LUA_000064")
+GMSendANotice[19]=	CALCULATE_VARIABLE_LUA_000064
+CALCULATE_VARIABLE_LUA_000065 = GetResString("CALCULATE_VARIABLE_LUA_000065")
+GMSendANotice[20]=	CALCULATE_VARIABLE_LUA_000065
+CALCULATE_VARIABLE_LUA_000066 = GetResString("CALCULATE_VARIABLE_LUA_000066")
+GMSendANotice[21]=	CALCULATE_VARIABLE_LUA_000066
+CALCULATE_VARIABLE_LUA_000067 = GetResString("CALCULATE_VARIABLE_LUA_000067")
+GMSendANotice[22]=	CALCULATE_VARIABLE_LUA_000067
+CALCULATE_VARIABLE_LUA_000068 = GetResString("CALCULATE_VARIABLE_LUA_000068")
+GMSendANotice[23]=	CALCULATE_VARIABLE_LUA_000068
+CALCULATE_VARIABLE_LUA_000069 = GetResString("CALCULATE_VARIABLE_LUA_000069")
+GMSendANotice[24]=	CALCULATE_VARIABLE_LUA_000069
+CALCULATE_VARIABLE_LUA_000070 = GetResString("CALCULATE_VARIABLE_LUA_000070")
+GMSendANotice[25]=	CALCULATE_VARIABLE_LUA_000070
+CALCULATE_VARIABLE_LUA_000071 = GetResString("CALCULATE_VARIABLE_LUA_000071")
+GMSendANotice[26]=	CALCULATE_VARIABLE_LUA_000071
+CALCULATE_VARIABLE_LUA_000072 = GetResString("CALCULATE_VARIABLE_LUA_000072")
+GMSendANotice[27]=	CALCULATE_VARIABLE_LUA_000072
+CALCULATE_VARIABLE_LUA_000073 = GetResString("CALCULATE_VARIABLE_LUA_000073")
+GMSendANotice[28]=	CALCULATE_VARIABLE_LUA_000073
+CALCULATE_VARIABLE_LUA_000074 = GetResString("CALCULATE_VARIABLE_LUA_000074")
+GMSendANotice[29]=	CALCULATE_VARIABLE_LUA_000074                        
+CALCULATE_VARIABLE_LUA_000075 = GetResString("CALCULATE_VARIABLE_LUA_000075")
+GMSendANotice[30]=	CALCULATE_VARIABLE_LUA_000075
+CALCULATE_VARIABLE_LUA_000076 = GetResString("CALCULATE_VARIABLE_LUA_000076")
+GMSendANotice[31]=	CALCULATE_VARIABLE_LUA_000076 
+CALCULATE_VARIABLE_LUA_000077 = GetResString("CALCULATE_VARIABLE_LUA_000077")
+GMSendANotice[32]=	CALCULATE_VARIABLE_LUA_000077 
+CALCULATE_VARIABLE_LUA_000078 = GetResString("CALCULATE_VARIABLE_LUA_000078")
+GMSendANotice[33]=	CALCULATE_VARIABLE_LUA_000078 
+CALCULATE_VARIABLE_LUA_000079 = GetResString("CALCULATE_VARIABLE_LUA_000079")
+GMSendANotice[34]=	CALCULATE_VARIABLE_LUA_000079
+CALCULATE_VARIABLE_LUA_000080 = GetResString("CALCULATE_VARIABLE_LUA_000080")
+GMSendANotice[35]=	CALCULATE_VARIABLE_LUA_000080
+CALCULATE_VARIABLE_LUA_000081 = GetResString("CALCULATE_VARIABLE_LUA_000081")
+GMSendANotice[36]=	CALCULATE_VARIABLE_LUA_000081
+CALCULATE_VARIABLE_LUA_000082 = GetResString("CALCULATE_VARIABLE_LUA_000082")
+GMSendANotice[37]=	CALCULATE_VARIABLE_LUA_000082
+CALCULATE_VARIABLE_LUA_000083 = GetResString("CALCULATE_VARIABLE_LUA_000083")
+GMSendANotice[38]=	CALCULATE_VARIABLE_LUA_000083
+CALCULATE_VARIABLE_LUA_000084 = GetResString("CALCULATE_VARIABLE_LUA_000084")
+GMSendANotice[39]=	CALCULATE_VARIABLE_LUA_000084
+CALCULATE_VARIABLE_LUA_000085 = GetResString("CALCULATE_VARIABLE_LUA_000085")
+GMSendANotice[40]=	CALCULATE_VARIABLE_LUA_000085
+CALCULATE_VARIABLE_LUA_000086 = GetResString("CALCULATE_VARIABLE_LUA_000086")
+GMSendANotice[41]=	CALCULATE_VARIABLE_LUA_000086
+CALCULATE_VARIABLE_LUA_000087 = GetResString("CALCULATE_VARIABLE_LUA_000087")
+GMSendANotice[42]=	CALCULATE_VARIABLE_LUA_000087
+CALCULATE_VARIABLE_LUA_000088 = GetResString("CALCULATE_VARIABLE_LUA_000088")
+GMSendANotice[43]=	CALCULATE_VARIABLE_LUA_000088
+CALCULATE_VARIABLE_LUA_000089 = GetResString("CALCULATE_VARIABLE_LUA_000089")
+GMSendANotice[44]=	CALCULATE_VARIABLE_LUA_000089
+CALCULATE_VARIABLE_LUA_000090 = GetResString("CALCULATE_VARIABLE_LUA_000090")
+GMSendANotice[45]=	CALCULATE_VARIABLE_LUA_000090
+CALCULATE_VARIABLE_LUA_000091 = GetResString("CALCULATE_VARIABLE_LUA_000091")
+GMSendANotice[46]=	CALCULATE_VARIABLE_LUA_000091
+CALCULATE_VARIABLE_LUA_000092 = GetResString("CALCULATE_VARIABLE_LUA_000092")
+GMSendANotice[47]=	CALCULATE_VARIABLE_LUA_000092
+CALCULATE_VARIABLE_LUA_000093 = GetResString("CALCULATE_VARIABLE_LUA_000093")
+GMSendANotice[48]=	CALCULATE_VARIABLE_LUA_000093
+CALCULATE_VARIABLE_LUA_000094 = GetResString("CALCULATE_VARIABLE_LUA_000094")
+GMSendANotice[49]=	CALCULATE_VARIABLE_LUA_000094
+CALCULATE_VARIABLE_LUA_000095 = GetResString("CALCULATE_VARIABLE_LUA_000095")
+GMSendANotice[50]=	CALCULATE_VARIABLE_LUA_000095
+CALCULATE_VARIABLE_LUA_000096 = GetResString("CALCULATE_VARIABLE_LUA_000096")
+GMSendANotice[51]=	CALCULATE_VARIABLE_LUA_000096
+CALCULATE_VARIABLE_LUA_000097 = GetResString("CALCULATE_VARIABLE_LUA_000097")
+GMSendANotice[52]=	CALCULATE_VARIABLE_LUA_000097
+CALCULATE_VARIABLE_LUA_000098 = GetResString("CALCULATE_VARIABLE_LUA_000098")
+GMSendANotice[53]=	CALCULATE_VARIABLE_LUA_000098
+Player_Can_Do={}
+CALCULATE_FUNCTIONS_LUA_000233 = GetResString("CALCULATE_FUNCTIONS_LUA_000233")
+Player_Can_Do[1] = {Event_Name = CALCULATE_FUNCTIONS_LUA_000233 , Value = { Player_Name = "GMEric" , Do_Day = 152 , Has_Record = true } }
+SBStateNUM=14 --??????
+SBStateBS={}	SBStateYXJ={}	SBStateYXJxinyun={} --??????statelv
+--????????		?????????????		???????? 0??? 1??2??????
+SBStateBS[0]=1 		SBStateYXJ[0]=0			SBStateYXJxinyun[0]=0
+SBStateBS[1]=2 		SBStateYXJ[1]=1			SBStateYXJxinyun[1]=0 		--????????
+SBStateBS[2]=2 		SBStateYXJ[2]=2		SBStateYXJxinyun[2]=1 	--????????????--???????
+SBStateBS[3]=2.5 	SBStateYXJ[3]=4		SBStateYXJxinyun[3]=2 	--??2.5????
+SBStateBS[4]=2 		SBStateYXJ[4]=3		SBStateYXJxinyun[4]=1 	--?????--???????
+SBStateBS[5]=3 		SBStateYXJ[5]=5			SBStateYXJxinyun[5]=1 	--??3????
+SBStateBS[6]=4 		SBStateYXJ[6]=99		SBStateYXJxinyun[6]=0 	--???????4???,???????????????????????
+SBStateBS[7]=5 		SBStateYXJ[7]=7			SBStateYXJxinyun[7]=1 	--------------------------?????------Amon--------------------???5???
+SBStateBS[8]=7 		SBStateYXJ[8]=100		SBStateYXJxinyun[8]=0 	--???????7???,???????????????????????
+SBStateBS[9]=10 	SBStateYXJ[9]=10		SBStateYXJxinyun[9]=1 	-------------------?????------Amon---------------15??10???
+SBStateBS[10]=20 	SBStateYXJ[10]=20		SBStateYXJxinyun[10]=1	--------------???--------kokora--------------2??20???
+SBStateBS[11]=2  	SBStateYXJ[11]=97	SBStateYXJxinyun[11]=0 	--???????2???,???????????????????????
+SBStateBS[12]=2  	SBStateYXJ[12]=98	SBStateYXJxinyun[12]=0 	--?????
+SBStateBS[13]=2  	SBStateYXJ[13]=96	SBStateYXJxinyun[13]=0 	--???
+SBStateBS[14]=4  	SBStateYXJ[14]=6	SBStateYXJxinyun[14]=0 	--??4???
+BLStateNUM=6 --DIAOLIAO????
+BLStateBS={}	BLStateYXJ={}	--??????statelv
+--????????		?????????????		
+BLStateBS[0]=1 		BLStateYXJ[0]=0			
+BLStateBS[1]=2 		BLStateYXJ[1]=1				--????DIAOLIAO??
+BLStateBS[2]=2 		BLStateYXJ[2]=80		 	--??????
+BLStateBS[3]=2 		BLStateYXJ[3]=81		 	--?????
+BLStateBS[4]=2.5 		BLStateYXJ[4]=2		 	--2.5bei
+BLStateBS[5]=3 		BLStateYXJ[5]=3		 	--3bei
+BLStateBS[6]=2 		BLStateYXJ[6]=79		 	--???
+BaoXiang_65JZDH_Mxcount = 20 
+
+BaoXiang_65JZDH ={}						BaoXiang_65JZDH_Rad = {}					BaoXiang_65JZDH_Count = {}
+
+BaoXiang_65JZDH	[	1	]	=	6618	BaoXiang_65JZDH_Rad	[	1	]	=	5	BaoXiang_65JZDH_Count	[	1	]	=	1
+BaoXiang_65JZDH	[	2	]	=	6619	BaoXiang_65JZDH_Rad	[	2	]	=	5	BaoXiang_65JZDH_Count	[	2	]	=	1
+BaoXiang_65JZDH	[	3	]	=	6620	BaoXiang_65JZDH_Rad	[	3	]	=	5	BaoXiang_65JZDH_Count	[	3	]	=	1
+BaoXiang_65JZDH	[	4	]	=	6621	BaoXiang_65JZDH_Rad	[	4	]	=	5	BaoXiang_65JZDH_Count	[	4	]	=	1
+BaoXiang_65JZDH	[	5	]	=	6622	BaoXiang_65JZDH_Rad	[	5	]	=	5	BaoXiang_65JZDH_Count	[	5	]	=	1
+BaoXiang_65JZDH	[	6	]	=	6623	BaoXiang_65JZDH_Rad	[	6	]	=	5	BaoXiang_65JZDH_Count	[	6	]	=	1
+BaoXiang_65JZDH	[	7	]	=	6624	BaoXiang_65JZDH_Rad	[	7	]	=	5	BaoXiang_65JZDH_Count	[	7	]	=	1
+BaoXiang_65JZDH	[	8	]	=	6625	BaoXiang_65JZDH_Rad	[	8	]	=	5	BaoXiang_65JZDH_Count	[	8	]	=	1
+BaoXiang_65JZDH	[	9	]	=	6626	BaoXiang_65JZDH_Rad	[	9	]	=	5	BaoXiang_65JZDH_Count	[	9	]	=	1
+BaoXiang_65JZDH	[	10	]	=	6627	BaoXiang_65JZDH_Rad	[	10	]	=	5	BaoXiang_65JZDH_Count	[	10	]	=	1
+BaoXiang_65JZDH	[	11	]	=	6628	BaoXiang_65JZDH_Rad	[	11	]	=	5	BaoXiang_65JZDH_Count	[	11	]	=	1
+BaoXiang_65JZDH	[	12	]	=	6629	BaoXiang_65JZDH_Rad	[	12	]	=	5	BaoXiang_65JZDH_Count	[	12	]	=	1
+BaoXiang_65JZDH	[	13	]	=	6630	BaoXiang_65JZDH_Rad	[	13	]	=	5	BaoXiang_65JZDH_Count	[	13	]	=	1
+BaoXiang_65JZDH	[	14	]	=	6631	BaoXiang_65JZDH_Rad	[	14	]	=	5	BaoXiang_65JZDH_Count	[	14	]	=	1
+BaoXiang_65JZDH	[	15	]	=	6632	BaoXiang_65JZDH_Rad	[	15	]	=	5	BaoXiang_65JZDH_Count	[	15	]	=	1
+BaoXiang_65JZDH	[	16	]	=	6633	BaoXiang_65JZDH_Rad	[	16	]	=	5	BaoXiang_65JZDH_Count	[	16	]	=	1
+BaoXiang_65JZDH	[	17	]	=	6634	BaoXiang_65JZDH_Rad	[	17	]	=	5	BaoXiang_65JZDH_Count	[	17	]	=	1
+BaoXiang_65JZDH	[	18	]	=	6635	BaoXiang_65JZDH_Rad	[	18	]	=	5	BaoXiang_65JZDH_Count	[	18	]	=	1
+BaoXiang_65JZDH	[	19	]	=	6636	BaoXiang_65JZDH_Rad	[	19	]	=	5	BaoXiang_65JZDH_Count	[	19	]	=	1
+BaoXiang_65JZDH	[	20	]	=	6637	BaoXiang_65JZDH_Rad	[	20	]	=	5	BaoXiang_65JZDH_Count	[	20	]	=	1
+
+
+BaoXiang_75JZDH_Mxcount = 25
+BaoXiang_75JZDH = {}					BaoXiang_75JZDH_Rad = {}				BaoXiang_75JZDH_Count = {}
+BaoXiang_75JZDH	[	1	]	=	6638	BaoXiang_75JZDH_Rad	[	1	]	=	3	BaoXiang_75JZDH_Count	[	1	]	=	1
+BaoXiang_75JZDH	[	2	]	=	6639	BaoXiang_75JZDH_Rad	[	2	]	=	5	BaoXiang_75JZDH_Count	[	2	]	=	1
+BaoXiang_75JZDH	[	3	]	=	6640	BaoXiang_75JZDH_Rad	[	3	]	=	5	BaoXiang_75JZDH_Count	[	3	]	=	1
+BaoXiang_75JZDH	[	4	]	=	6641	BaoXiang_75JZDH_Rad	[	4	]	=	3	BaoXiang_75JZDH_Count	[	4	]	=	1
+BaoXiang_75JZDH	[	5	]	=	6642	BaoXiang_75JZDH_Rad	[	5	]	=	2	BaoXiang_75JZDH_Count	[	5	]	=	1
+BaoXiang_75JZDH	[	6	]	=	6643	BaoXiang_75JZDH_Rad	[	6	]	=	3	BaoXiang_75JZDH_Count	[	6	]	=	1
+BaoXiang_75JZDH	[	7	]	=	6644	BaoXiang_75JZDH_Rad	[	7	]	=	5	BaoXiang_75JZDH_Count	[	7	]	=	1
+BaoXiang_75JZDH	[	8	]	=	6645	BaoXiang_75JZDH_Rad	[	8	]	=	5	BaoXiang_75JZDH_Count	[	8	]	=	1
+BaoXiang_75JZDH	[	9	]	=	6646	BaoXiang_75JZDH_Rad	[	9	]	=	3	BaoXiang_75JZDH_Count	[	9	]	=	1
+BaoXiang_75JZDH	[	10	]	=	6647	BaoXiang_75JZDH_Rad	[	10	]	=	2	BaoXiang_75JZDH_Count	[	10	]	=	1
+BaoXiang_75JZDH	[	11	]	=	6648	BaoXiang_75JZDH_Rad	[	11	]	=	3	BaoXiang_75JZDH_Count	[	11	]	=	1
+BaoXiang_75JZDH	[	12	]	=	6649	BaoXiang_75JZDH_Rad	[	12	]	=	5	BaoXiang_75JZDH_Count	[	12	]	=	1
+BaoXiang_75JZDH	[	13	]	=	6650	BaoXiang_75JZDH_Rad	[	13	]	=	5	BaoXiang_75JZDH_Count	[	13	]	=	1
+BaoXiang_75JZDH	[	14	]	=	6651	BaoXiang_75JZDH_Rad	[	14	]	=	3	BaoXiang_75JZDH_Count	[	14	]	=	1
+BaoXiang_75JZDH	[	15	]	=	6652	BaoXiang_75JZDH_Rad	[	15	]	=	2	BaoXiang_75JZDH_Count	[	15	]	=	1
+BaoXiang_75JZDH	[	16	]	=	6653	BaoXiang_75JZDH_Rad	[	16	]	=	5	BaoXiang_75JZDH_Count	[	16	]	=	1
+BaoXiang_75JZDH	[	17	]	=	6654	BaoXiang_75JZDH_Rad	[	17	]	=	5	BaoXiang_75JZDH_Count	[	17	]	=	1
+BaoXiang_75JZDH	[	18	]	=	6655	BaoXiang_75JZDH_Rad	[	18	]	=	5	BaoXiang_75JZDH_Count	[	18	]	=	1
+BaoXiang_75JZDH	[	19	]	=	6656	BaoXiang_75JZDH_Rad	[	19	]	=	5	BaoXiang_75JZDH_Count	[	19	]	=	1
+BaoXiang_75JZDH	[	20	]	=	6657	BaoXiang_75JZDH_Rad	[	20	]	=	2	BaoXiang_75JZDH_Count	[	20	]	=	1
+BaoXiang_75JZDH	[	21	]	=	6658	BaoXiang_75JZDH_Rad	[	21	]	=	5	BaoXiang_75JZDH_Count	[	21	]	=	1
+BaoXiang_75JZDH	[	22	]	=	6659	BaoXiang_75JZDH_Rad	[	22	]	=	5	BaoXiang_75JZDH_Count	[	22	]	=	1
+BaoXiang_75JZDH	[	23	]	=	6660	BaoXiang_75JZDH_Rad	[	23	]	=	5	BaoXiang_75JZDH_Count	[	23	]	=	1
+BaoXiang_75JZDH	[	24	]	=	6661	BaoXiang_75JZDH_Rad	[	24	]	=	5	BaoXiang_75JZDH_Count	[	24	]	=	1
+BaoXiang_75JZDH	[	25	]	=	6662	BaoXiang_75JZDH_Rad	[	25	]	=	2	BaoXiang_75JZDH_Count	[	25	]	=	1

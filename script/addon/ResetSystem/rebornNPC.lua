@@ -233,26 +233,7 @@ Reborn.Push							= function(Player, i)
 		PopupNotice(Player, string.format(Reborn.Talk[13], Reborn.List[i].Need.Quantity, GetItemName(Reborn.List[i].Need.ItemID)))
 		return
 	end
-	--------- Берем значение Reset из БД ----------
-	local Lv_Reset = 0
-	local NameCha = GetChaDefaultName(Player)
-	local Connect, ConnectID = LuaSQL(SQL_CONNECTION[1].SQL_CONNECT, SQL_CONNECTION[1].SQL_HOST, SQL_CONNECTION[1].SQL_UID, SQL_CONNECTION[1].SQL_PWD)
-	local QuerPK = "SELECT Reset FROM GameDB.dbo.character WHERE cha_name = '"..NameCha.."'"
-	if Connect == 1 then	
-		local Success, Query = LuaSQL("query", ConnectID, QuerPK)
-		if Success == 1 then
-			local Data = LuaSQL("fetch", ConnectID, Query)
-			--Ваша статистика. PVP, PK, Убито монстров.
-			--HelpInfo(Player, 0, "Lvl Reset = "..Data['Reset'].."")
-			Lv_Reset = tonumber(Data["Reset"])
-		else
-			--SystemNotice(Player, "Ошибка №2. Сообщите администрации.")
-			SystemNotice(Player, "Error give RESET. \209\238\238\225\249\232\242\229 \224\228\236\232\237\232\241\242\240\224\246\232\232.")
-		end
-	else
-		SystemNotice(Player, "No connect")
-	end
-	if Lv_Reset >= i then
+	if (GetChaAttr(Player, ATTR_CSAILEXP) >= i) then
 		--PopupNotice(Player, "Вы уже делали "..i.." ресет! ")
 		PopupNotice(Player, "\194\251 \243\230\229 \228\229\235\224\235\232 "..i.." \240\229\241\229\242! ")
 		return
@@ -280,20 +261,8 @@ Reborn.Begin						= function(Player, i)
 	SyncChar(Player, 4)	
 	SetChaAttr(Player, ATTR_CEXP, 0)
 	SyncChar(Player, 4)
-	-------------
-	-- PK очки --
-	-------------
-	local NameCha = GetChaDefaultName(Player)
-	local Connect, ConnectID = LuaSQL(SQL_CONNECTION[1].SQL_CONNECT, SQL_CONNECTION[1].SQL_HOST, SQL_CONNECTION[1].SQL_UID, SQL_CONNECTION[1].SQL_PWD)
-	local String = "UPDATE GameDB.dbo.character SET Reset = Reset + 1 WHERE cha_name = '"..NameCha.."'"
-	local Success, Query = LuaSQL("query", ConnectID, String)
-	if Success == SQL_SUCCESS_WITH_INFO then
-		-- SystemNotice(Player, "Вы получили +1 очко Reset")
-		SystemNotice(Player, "\194\251 \239\238\235\243\247\232\235\232 +1 \238\247\234\238 Reset")
-	else
-		-- SystemNotice(Player, "Ошибка №1. Сообщите администрации.")
-		SystemNotice(Player, "Error add reset point. \209\238\238\225\249\232\242\229 \224\228\236\232\237\232\241\242\240\224\246\232\232.")
-	end
+	AddSailExp(Player, npc , 1 , 1 )
+	SyncChar(Player, 4)
 	SetChaAttr(Player, ATTR_LV, 1)	
 	SyncChar(Player, 4)		
 	TakeMoney(Player, 0, Reborn.List[i].Need.Gold)

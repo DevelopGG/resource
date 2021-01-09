@@ -1,4 +1,5 @@
+//ID 中文名称   声音编号  Remark
 1	Mouse Click	92
-2	Cannot be clicked	91
-3	Error Operation	91
-4	Ship started	73
+2	不可点击	91
+3	错误操作	91
+4	船开动	73
