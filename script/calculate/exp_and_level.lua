@@ -1378,9 +1378,55 @@ function ShareTeamExp ( dead , team_atker , dead_exp , The_Killer)
 
 			exp = exp + exp_up  
 			
-		local vip_gold = 1
-		local gold_medal = 1
+		--§£§í§Õ§Ñ§é§Ñ §Ù§à§Ý§à§ä§Ñ §Ù§Ñ §å§Ò§Ú§Û§ã§ä§Ó§à
+		--§¢§à§ß§å§ã §Ü §Õ§â§à§á§å
 		local GOLD_RAID_STATE = 1
+		local StateLvGold = GetChaStateLv ( t[i] , STATE_GOLD )
+		if StateLvGold > 0 and StateLvGold <= 10 then
+			if StateLvGold == 1 then
+				--§¢§à§ß§å§ã §Ü §Õ§â§à§á§å
+				GOLD_RAID_STATE = StateLv + 1
+			elseif StateLvGold == 2 then
+				GOLD_RAID_STATE = 2
+			elseif StateLvGold == 3	then
+				GOLD_RAID_STATE = 2.5
+			elseif StateLvGold == 4	then
+				GOLD_RAID_STATE = 3
+			elseif StateLvGold == 5	then
+				GOLD_RAID_STATE = 3.5
+			elseif StateLvGold == 6	then
+				GOLD_RAID_STATE = 4
+			end
+		end
+		--§¹§Ö§Ü§Ñ§Ö§Þ §Ó§Ú§á§Ü§å
+			--§¹§Ö§Ü§Ñ§Ö§Þ §Ó§Ú§á§Ü§å
+			local State_VIP = GetChaStateLv( t[i], 238 )
+			local vip_gold = 1
+			if State_VIP > 0 then
+				vip_gold = 2
+			end
+		local exp_medal  = 1
+			local gold_medal = 1
+			local slot_medal = GetChaItem(t[i], 2, 5)
+			local medal_id = GetItemID( slot_medal )
+			if medal_id == 8109 then
+				gold_medal = 2
+			elseif medal_id == 8110 then
+				exp_medal = 2
+				gold_medal = 2
+			elseif medal_id == 8111 then
+				exp_medal = 3
+				gold_medal = 3
+			elseif medal_id == 8112 then
+				exp_medal = 4
+				gold_medal = 4
+			elseif medal_id == 8113 then
+				exp_medal = 5
+				gold_medal = 5
+			elseif medal_id == 8114 then
+				exp_medal = 6
+				gold_medal = 6
+			end
 		local x = math.random( 0, 100 )
 		local LvMonster = Lv (dead) * GOLD_RAID_STATE * gold_medal * vip_gold * GOLD_RAID
 			if x == 100 then
